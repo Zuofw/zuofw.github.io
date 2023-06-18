@@ -5,9 +5,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="“前端学习”, 博客，学习，成长">
-    <meta name="description" content="新坑HTML5基本语法&amp;lt;!DOCTYPE html&amp;gt; &amp;lt;!--文档声明，目的是让浏览器知道这是什么类型的文件--&amp;gt;
+    <meta name="description" content="新坑  到P83页了HTML5基本语法&amp;lt;!DOCTYPE html&amp;gt; &amp;lt;!--文档声明，目的是让浏览器知道这是什么类型的文件--&amp;gt;
 &amp;lt;html &amp;gt; &amp;lt;!--文档的开始，没有什么实际含义--&amp;gt;
-    &amp;lt;">
+">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -532,7 +532,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.3k
+                    1.6k
                 </div>
                 
 
@@ -552,7 +552,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="新坑"><a href="#新坑" class="headerlink" title="新坑"></a>新坑</h1><h2 id="HTML5基本语法"><a href="#HTML5基本语法" class="headerlink" title="HTML5基本语法"></a>HTML5基本语法</h2><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">&gt;</span></span> <span class="token comment">&lt;!--文档声明，目的是让浏览器知道这是什么类型的文件--&gt;</span>
+                <h1 id="新坑-到P83页了"><a href="#新坑-到P83页了" class="headerlink" title="新坑  到P83页了"></a>新坑  到P83页了</h1><h2 id="HTML5基本语法"><a href="#HTML5基本语法" class="headerlink" title="HTML5基本语法"></a>HTML5基本语法</h2><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">&gt;</span></span> <span class="token comment">&lt;!--文档声明，目的是让浏览器知道这是什么类型的文件--&gt;</span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token punctuation">&gt;</span></span> <span class="token comment">&lt;!--文档的开始，没有什么实际含义--&gt;</span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span> <span class="token comment">&lt;!--头标记，放在html 内来防止这个文件中的信息，比如提供索引信息或者定义CSS样式等--&gt;</span>
          <span class="token comment">&lt;!--标题标记，网页的标题，也就是上方的标题，不是内容的标题--&gt;</span>            
@@ -748,6 +748,48 @@ h1</span> <span class="token punctuation">{</span>     标签选择
 </li>
 <li><p>相邻兄弟组选择器：A~B 后面的所有兄弟</p>
 </li>
+<li><p>属性选择器： 使用中括号进行选择，属性是自定义的</p>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css">&lt;p ely = <span class="token string">"123"</span>&gt;最喜欢爱莉希雅了&lt;/p&gt;  <span class="token comment">/*这里ely是自定义的属性，它的值是123*/</span>
+
+
+
+
+<span class="token selector">p[ely]</span><span class="token punctuation">{</span> <span class="token comment">/*使用这个进行选择，即可*/</span>
+    <span class="token property">color</span> <span class="token punctuation">:</span> red<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token comment">/*也可以使用属性+属性的值来进行选择*/</span>
+<span class="token comment">/*需要属性的值必须是给定的这个值*/</span>
+<span class="token selector">p[ely = "123"]</span><span class="token punctuation">{</span>
+    <span class="token property">color</span> <span class="token punctuation">:</span> red<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token comment">/*属性包含选择器，只需要属性的值包含给定的值的即可*/</span>
+<span class="token selector">p[ely *= "1"]</span><span class="token punctuation">{</span>
+    <span class="token property">color</span> <span class="token punctuation">:</span> red<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+
+&lt;p ely = <span class="token string">"123 4 5 6"</span>&gt;最喜欢爱莉希雅了&lt;/p&gt;
+<span class="token comment">/*单词包含选择器 ， 只要包含给定单词即可*/</span>
+<span class="token selector">p[ely ~= "123"]</span><span class="token punctuation">{</span>
+    <span class="token property">color</span> <span class="token punctuation">:</span> red<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token comment">/*以某个单词或者字母开开头的选择器*/</span>
+<span class="token selector">p[ely ^= "1"]</span><span class="token punctuation">{</span>
+    <span class="token property">color</span> <span class="token punctuation">:</span> red<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token comment">/*以什么结尾的选择器，只要以某个单词结尾或则和某个字母结尾即可，数字也行*/</span>
+<span class="token selector">p[ely $= "6"]</span><span class="token punctuation">{</span>
+    <span class="token property">color</span> <span class="token punctuation">:</span> red<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong><u>结构伪类选择器</u></strong></p>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token comment">/*
+基本语法： E是父元素
+E : nth - child 第几个元素
+E : root 		根元素，HTML中根元素始终为html
+还有很多。。。自己去看吧 
+给个链接：https://juejin.cn/post/7001869576069873695
+*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ol>
 <h3 id="CSS继承和层叠特性"><a href="#CSS继承和层叠特性" class="headerlink" title="CSS继承和层叠特性"></a>CSS继承和层叠特性</h3><p>子标记会继承夫标记的所有样式风格，但是子标记的改变不会影响父标记</p>
 <p>层叠是出现冲突时的处理方式，越特殊的样式，优先级越高，</p>
@@ -1178,7 +1220,7 @@ h1</span> <span class="token punctuation">{</span>     标签选择
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">18.9k</span>
+                        class="white-color">19.2k</span>
             
             
             
