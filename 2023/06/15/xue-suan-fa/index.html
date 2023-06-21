@@ -1280,7 +1280,7 @@ q<span class="token punctuation">[</span>hh<span class="token punctuation">]</sp
 
 
 
-<h2 id="KMP"><a href="#KMP" class="headerlink" title="KMP"></a>KMP</h2><p><img src="D:\typora用图\Screenshots\image-20230511171657614.png" alt="image-20230511171657614"></p>
+<h2 id="KMP"><a href="#KMP" class="headerlink" title="KMP"></a>KMP</h2><p><img src="/2023/06/15/xue-suan-fa/typora用图\Screenshots\image-20230511171657614.png" alt="image-20230511171657614"></p>
 <p>s从1开始，p从0开始</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// s[]是长文本，p[]是模式串，n是s的长度，m是p的长度</span>
 求模式串的Next数组：ne<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">0</span>
@@ -2775,7 +2775,7 @@ fact<span class="token punctuation">[</span><span class="token number">0</span><
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="Lucas定理求组合数-20次询问以下"><a href="#Lucas定理求组合数-20次询问以下" class="headerlink" title="Lucas定理求组合数 20次询问以下"></a>Lucas定理求组合数 20次询问以下</h3><p><img src="D:\typora用图\Screenshots\image-20230519193526425.png" alt="image-20230519193526425"></p>
+<h3 id="Lucas定理求组合数-20次询问以下"><a href="#Lucas定理求组合数-20次询问以下" class="headerlink" title="Lucas定理求组合数 20次询问以下"></a>Lucas定理求组合数 20次询问以下</h3><p><img src="/2023/06/15/xue-suan-fa/typora用图\Screenshots\image-20230519193526425.png" alt="image-20230519193526425"></p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">  <span class="token comment">//若p是质数，则对于任意整数 1 &lt;= m &lt;= n，有：</span>
   <span class="token comment">//  C(n, m) = C(n % p, m % p) * C(n / p, m / p) (mod p)</span>
 
@@ -2811,7 +2811,7 @@ fact<span class="token punctuation">[</span><span class="token number">0</span><
     <span class="token keyword">return</span> <span class="token punctuation">(</span>LL<span class="token punctuation">)</span><span class="token function">C</span><span class="token punctuation">(</span>a <span class="token operator">%</span> p<span class="token punctuation">,</span> b <span class="token operator">%</span> p<span class="token punctuation">,</span> p<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token function">lucas</span><span class="token punctuation">(</span>a <span class="token operator">/</span> p<span class="token punctuation">,</span> b <span class="token operator">/</span> p<span class="token punctuation">,</span> p<span class="token punctuation">)</span> <span class="token operator">%</span> p<span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><img src="D:\typora用图\Screenshots\image-20230519193254443.png" alt="image-20230519193254443"></p>
+<p><img src="/2023/06/15/xue-suan-fa/typora用图\Screenshots\image-20230519193254443.png" alt="image-20230519193254443"></p>
 </li>
 </ol>
 <h3 id="逆元："><a href="#逆元：" class="headerlink" title="逆元："></a>逆元：</h3><p>可以在快速幂中求出</p>
@@ -2933,7 +2933,7 @@ for(int i=1;i&lt;=n;i++){//遍览物品
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">f<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">=</span><span class="token function">max</span><span class="token punctuation">(</span>f<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">,</span>f<span class="token punctuation">[</span>i<span class="token operator">-</span>j<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token operator">-</span>v<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">*</span>k<span class="token punctuation">]</span><span class="token operator">+</span>w<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">*</span>k<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>优化思路：</p>
-<p><img src="D:\typora用图\Screenshots\image-20230521084412853.png" alt="image-20230521084412853"></p>
+<p><img src="/2023/06/15/xue-suan-fa/typora用图\Screenshots\image-20230521084412853.png" alt="image-20230521084412853"></p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">f<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">=</span>f<span class="token punctuation">[</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
 <span class="token keyword">if</span><span class="token punctuation">(</span>j<span class="token operator">&gt;=</span>v<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
 	f<span class="token punctuation">[</span>i<span class="token punctuation">,</span>j<span class="token punctuation">]</span><span class="token operator">=</span><span class="token function">max</span><span class="token punctuation">(</span>f<span class="token punctuation">[</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span>j<span class="token punctuation">]</span><span class="token punctuation">,</span>f<span class="token punctuation">[</span>i<span class="token punctuation">,</span>j<span class="token operator">-</span>v<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token operator">+</span>w<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span>
@@ -3013,7 +3013,7 @@ for(int i=1;i&lt;=n;i++){//遍览物品
 <h1 id="数位统计DP"><a href="#数位统计DP" class="headerlink" title="数位统计DP"></a>数位统计DP</h1><p>给出两个数字 a, b </p>
 <p>统计a到b 中每一位 的0~9的出现次数</p>
 <p>思路：分情况讨论 + 前缀和思想</p>
-<p><img src="D:\typora用图\Screenshots\image-20230524164849922.png" alt="image-20230524164849922"></p>
+<p><img src="/2023/06/15/xue-suan-fa/typora用图\Screenshots\image-20230524164849922.png" alt="image-20230524164849922"></p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span> <span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span> <span class="token directive keyword">include</span> <span class="token string">&lt;cmath&gt;</span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
