@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Github学生包/学生认证申请那些事, 博客，学习，成长">
-    <meta name="description" content="鄙人在进行学生包申请的过程中踩了不少坑，最后找到了一种比较方便的方式，本着让后人少浪费时间的想法，记录下来让后人少踩些坑。(2023/6/18可用，且秒通过)">
+    <meta name="keywords" content="Go, 博客，学习，成长">
+    <meta name="description" content="学习Go的笔记">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Github学生包/学生认证申请那些事 | QingQiu&#39;Blog</title>
+    <title>Go | QingQiu&#39;Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -476,12 +476,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Github学生包/学生认证申请那些事</h1>
+                    <h1 class="description center-align post-title">Go</h1>
                 </div>
             </div>
         </div>
@@ -505,8 +505,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Github/">
-                                <span class="chip bg-color">Github</span>
+                            <a href="/tags/Go/">
+                                <span class="chip bg-color">Go</span>
                             </a>
                         
                     </div>
@@ -521,7 +521,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-06-18
+                    2023-06-28
                 </div>
                 
 
@@ -530,7 +530,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    806
+                    1.6k
                 </div>
                 
 
@@ -550,61 +550,238 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><blockquote>
-<p>Github对学生有很多优惠，<del>至于哪些可太多了，所以有必要申请一个</del>，</p>
-<p>这个大佬写的很详细了，我在这里加一些我踩得坑，如果跟大佬的步骤走没通过的话，可以回来看看有没有我踩过的坑</p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/617001126">2023.3申请github copilot x 学生认证以及Jetbrain专业版学生教育免费教程 - 知乎 (zhihu.com)</a></p>
-</blockquote>
-<h2 id="前提条件："><a href="#前提条件：" class="headerlink" title="前提条件："></a>前提条件：</h2><blockquote>
+                <h1 id="Go学习"><a href="#Go学习" class="headerlink" title="Go学习"></a>Go学习</h1><p>Go比起Java和C++ ，他与C的关系更密切</p>
+<h2 id="变量："><a href="#变量：" class="headerlink" title="变量："></a>变量：</h2><pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">//声明多个变量</span>
+<span class="token keyword">var</span> <span class="token punctuation">(</span>
+	v1
+    v2
+<span class="token punctuation">)</span>
+<span class="token comment">//变量初始化，无需声明便令类型</span>
+v1 <span class="token operator">:=</span> <span class="token number">1</span>
+<span class="token comment">//多重赋值</span>
+v1 <span class="token punctuation">,</span> v2 <span class="token operator">=</span> v2 <span class="token punctuation">,</span> v1 <span class="token comment">//实现交换两个变量，但是只能交换两个同一类型的变量</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="类型"><a href="#类型" class="headerlink" title="类型:"></a>类型:</h2><pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token builtin">float32</span> <span class="token comment">//等于c中的float</span>
+<span class="token builtin">float64</span> <span class="token comment">// double</span>
+<span class="token comment">//复数类型，和数学上的表达一样</span>
+<span class="token keyword">var</span> <span class="token punctuation">(</span>
+		v1 <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">+</span> <span class="token number">5i</span>
+		v2 <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">6i</span>
+	<span class="token punctuation">)</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>v1 <span class="token operator">+</span> v2<span class="token punctuation">)</span>
+<span class="token comment">//输出为</span>
+<span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">-</span><span class="token number">1i</span><span class="token punctuation">)</span>
+<span class="token comment">//中文字符在UTF-8中占三个字节</span>
+s <span class="token operator">:=</span> <span class="token string">"你好"</span>
+fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token function">len</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">)</span> 
+<span class="token comment">//数组通过range来遍历，range有两个返回值所以，第一个返回的是数组的下标，第二个是返回的数组的数值，所以要用两个变量来存储</span>
+s <span class="token operator">:=</span> <span class="token string">"0123456"</span>
+	<span class="token keyword">for</span> i<span class="token punctuation">,</span> value <span class="token operator">:=</span> <span class="token keyword">range</span> s <span class="token punctuation">{</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> value<span class="token operator">-</span><span class="token char">'0'</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+
+<span class="token comment">//同时注意数组的初始化的方式是这这样的</span>
+s <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token number">7</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">}</span> 
+<span class="token comment">//当不需要某个返回类型时使用_来跳过这个返回类型即可</span>
+<span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> value <span class="token operator">:=</span> <span class="token keyword">range</span> s <span class="token punctuation">{</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><p>数组切片，类似于vector</p>
+<p>切片创建方式有：</p>
 <ol>
-<li>一个好的浏览器(支持定位的浏览器)</li>
-<li>一份学信网学籍认证 和 一个教育邮箱(更容易通过 ，可以去企业微信里看看有没有开通)</li>
-<li>修改pdf文件中的信息</li>
-<li>github profile 中修改个人信息</li>
-<li>认证并且全程不要挂梯子</li>
+<li><p>基于原有的数组来创建</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go">a <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token number">7</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">}</span>
+<span class="token keyword">var</span> s <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span> <span class="token operator">=</span> a<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
+<span class="token comment">//需要使用Var 来声明切片数组的类型，等号的右侧可以时 array[first , end] ,想要截取的首位位置</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>直接创建</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">//使用make进行直接创建</span>
+s <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span> <span class="token punctuation">,</span> <span class="token number">5</span> <span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token comment">//建立一个初始原为5个但是预留十个元素的空间的切片</span>
+<span class="token comment">//直接在建立的过程中赋予初值</span>
+s <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ol>
-</blockquote>
-<h2 id="1-好的浏览器"><a href="#1-好的浏览器" class="headerlink" title="1.好的浏览器"></a>1.好的浏览器</h2><p><strong>这是重中之重，我在申请的时候不知道Chrome怎么了，一直定位不成功，换成 edge之后就成功了</strong></p>
-<h2 id="2-学信网认证"><a href="#2-学信网认证" class="headerlink" title="2.学信网认证"></a>2.学信网认证</h2><p>进入学信网，下载电子报告即可，网上都有教程，这里不做赘述了</p>
-<p><a target="_blank" rel="noopener" href="https://www.chsi.com.cn/">中国高等教育学生信息网（学信网） (chsi.com.cn)</a></p>
-<h2 id="3-修改pdf文件信息"><a href="#3-修改pdf文件信息" class="headerlink" title="3.修改pdf文件信息"></a>3.修改pdf文件信息</h2><p>因为github不是国内的，所以中文档案是不能通过的，而且pdf编辑好像很难搞，这里给一个下载链接，使用这个进行编辑会方便些</p>
-<p>密码：tko9</p>
-<p><a target="_blank" rel="noopener" href="https://cloud.189.cn/web/share?code=ZNbamiEziq6z">Adobe CC 2022 免费高速下载 | 天翼云盘 珍藏美好生活 家庭云|网盘|文件备份|资源分享 (189.cn)</a></p>
-<p><img src="/2023/06/18/github-xue-sheng-bao-xue-sheng-ren-zheng-shen-qing-na-xie-shi/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20230618200641.png" alt="下载安装即可"></p>
-<p>修改内容：</p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/617001126">2023.3申请github copilot x 学生认证以及Jetbrain专业版学生教育免费教程 - 知乎 (zhihu.com)</a></p>
-<p>可以看这篇文章</p>
-<h2 id="4-修改github-profile-中的信息"><a href="#4-修改github-profile-中的信息" class="headerlink" title="4.修改github profile 中的信息"></a>4.修改github profile 中的信息</h2><ul>
-<li>名字改为英文名</li>
-<li>Bio 修改为   student of 学校英文名 + @ 学校英文名</li>
-<li>company 修改为学校英文名</li>
+<p>切片的部分常用函数</p>
+<ul>
+<li>len() 返回已经存储的元素的个数</li>
+<li>cap() 返回切片分配的空间大小</li>
+<li>append() 追加元素</li>
+<li>copy() 复制</li>
 </ul>
-<h2 id="5-申请："><a href="#5-申请：" class="headerlink" title="5.申请："></a>5.申请：</h2><p>网站：<a target="_blank" rel="noopener" href="https://education.github.com/discount_requests/application">Request a discount - GitHub Education</a></p>
-<p><strong><u>全程不要挂梯子</u></strong></p>
-<ol>
-<li><p>添加教育邮箱 </p>
-<p><img src="/2023/06/18/github-xue-sheng-bao-xue-sheng-ren-zheng-shen-qing-na-xie-shi/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20230618201441.png" alt="添加邮箱"></p>
+<h3 id="map类型"><a href="#map类型" class="headerlink" title="map类型"></a>map类型</h3><p>Go中将其变为基本类型，可以直接使用，不需要引入库</p>
+<p>声明:</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">var</span> myMap <span class="token keyword">map</span><span class="token punctuation">[</span>键的类型<span class="token punctuation">]</span>值的类型<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>创建:初始化创建时要注意在初始化的最后一个数据的后面加上逗号才代表初始化完成，否则会报错</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">//指定容量</span>
+myMap <span class="token operator">=</span> <span class="token builtin">make</span> <span class="token punctuation">(</span><span class="token keyword">map</span><span class="token punctuation">[</span>键<span class="token punctuation">]</span>值 <span class="token punctuation">,</span> capacity<span class="token punctuation">)</span>
+<span class="token comment">//直接初始化</span>
+myMap <span class="token operator">=</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">{</span>
+		<span class="token string">"1234"</span><span class="token punctuation">:</span> <span class="token number">1234</span><span class="token punctuation">,</span> <span class="token comment">//一定要加上逗号</span>
+<span class="token punctuation">}</span>
+<span class="token comment">//直接声明＋初始化一起</span>
+myMap <span class="token operator">:=</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">{</span>
+		<span class="token string">"1234"</span><span class="token punctuation">:</span> <span class="token number">1234</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>删除</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token builtin">delete</span> <span class="token punctuation">(</span>myMap <span class="token punctuation">,</span> key<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>查找</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go">value<span class="token punctuation">,</span> ok <span class="token operator">:=</span> myMap<span class="token punctuation">[</span><span class="token string">"4"</span><span class="token punctuation">]</span>
+	<span class="token keyword">if</span> ok <span class="token punctuation">{</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>value<span class="token punctuation">,</span> ok<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	<span class="token punctuation">{</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"No"</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>		<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><ol>
+<li><p>if else 结构</p>
+<ul>
+<li><p>if else 的括号必须在一行，否则编译失败，当出现else时，else 必须和 ‘’} ‘’在一行</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">//正确</span>
+<span class="token keyword">if</span> ok <span class="token punctuation">{</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>value<span class="token punctuation">,</span> ok<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"No"</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+<span class="token comment">//错误</span>
+<span class="token keyword">if</span> ok <span class="token punctuation">{</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>value<span class="token punctuation">,</span> ok<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">else</span> <span class="token punctuation">{</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"No"</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+<span class="token comment">//所以也推荐使用省略else的语句</span>
+<span class="token keyword">if</span> ok <span class="token punctuation">{</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>value<span class="token punctuation">,</span> ok<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	<span class="token punctuation">{</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"No"</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>		<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
-<li><p>填写申请理由，理由随便写，可以参考我的</p>
-<pre class="line-numbers language-none"><code class="language-none">I would like to use the Github Student Pack to further explore more features of Github, such as Github Copilot and Educative's learning courses.<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<li><p>条件不需要使用括号</p>
 </li>
-<li><p>点击continue </p>
-<blockquote>
-<p>点击之后会询问你是否允许访问位置，同意即可</p>
-<p><strong><u>如果点击之后，一直卡在这个页面，那么是浏览器的问题，可以换个浏览器试试或者过几天再试试</u></strong> </p>
-<p><del>我就是换了好几个不成功，最后莫名其妙就能访问了</del></p>
-<p>之后进入上传图片的页面，右下角有上传图片 <strong>(如果你没有的话，说明你上梯子了或者离学校太远了，直接重新认证一遍吧)</strong></p>
-<p>上传修改之后的学信网认证截图</p>
-<p><strong>注意：上传图片格式是jpg 不支持png！！！</strong></p>
-</blockquote>
+<li><p>花括号必须存在</p>
 </li>
-<li><p>点击提交，如果按以上流程走的话应该是秒通过的，看看邮箱是否收到邮件，或者返回认证申请的第一页，看看右侧是否通过</p>
-<p><a target="_blank" rel="noopener" href="https://education.github.com/discount_requests/application">Request a discount - GitHub Education</a></p>
+</ul>
+</li>
+<li><p>switch : 不需要显性的使用break来退出判断，默认的已经带有break了</p>
+</li>
+<li><p>循环 </p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">for</span> i<span class="token operator">:=</span> <span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">{</span>
+                      
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>更强大的break break后面可以加上标签，使用方法与goto一致</p>
+</li>
+<li><p>函数 </p>
+<p>Go的函数拥有多重返回值，可以更方便的把函数的执行结果返回</p>
+<p>注意：小写字母开头的函数只有本包可见，而大写字母开头的函数才可以被其他包使用</p>
+<p>一般语法</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> 函数名 <span class="token punctuation">(</span>参数<span class="token punctuation">)</span><span class="token punctuation">(</span>返回列表<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>不定参数 在写形参列表的时候使用…来省略参数即可达到不定参数的作用</p>
+<p>例:</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">name</span><span class="token punctuation">(</span>a <span class="token operator">...</span><span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">int</span> <span class="token punctuation">{</span>
+	<span class="token keyword">return</span> <span class="token number">1</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token function">name</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token function">name</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>概念: 这种使用方式是语法糖，语法糖对语言的功能没有用影响但是可以方便使用，也能够增加程序的可读性，减少出错的机会</p>
+<p>这里的 … 相当于一个数组切片，等价于下面的语句</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">name</span><span class="token punctuation">(</span>args <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">int</span> <span class="token punctuation">{</span>
+	<span class="token keyword">return</span> <span class="token number">1</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">//调用的时候必须使用这种方式进行调用了</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token function">name</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token function">name</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>匿名函数：Go支持随时随地定义匿名函数</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">//在定义的时候进行调用</span>
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token keyword">func</span><span class="token punctuation">(</span>a <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">int</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> a
+	<span class="token punctuation">}</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span class="token comment">//匿名函数赋给变量</span>
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+	f <span class="token operator">:=</span> <span class="token keyword">func</span><span class="token punctuation">(</span>a <span class="token operator">...</span><span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">int</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token comment">// 注意此处的a相当于 args [] 所以a不是int型不可以直接返回</span>
+	<span class="token punctuation">}</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token function">f</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>闭包</strong></p>
+<p>闭包是由函数及其相关的引用环境组合而成的实体(即：闭包=函数+引用环境)。</p>
+<p>匿名函数是一类闭包</p>
+<ul>
+<li>包含自由变量的代码块，这些变量不在这个代码块内或者任何全局上下文中定义，而是在定义代码块中的环境中进行定义的。要执行的代码块为自由变量提供绑定的计算环境(作用域)</li>
+<li>闭包每次调用都是新的实例</li>
+<li>闭包中的变量会保存，即使调用结束也会保存，，可以保证闭包中的变量的安全性，不会被外部函数修改</li>
+</ul>
+</li>
+<li><p>错误处理</p>
+<p>error接口是内置的，里面只有一个方法：</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">type</span> <span class="token builtin">error</span> <span class="token keyword">interface</span> <span class="token punctuation">{</span>  
+    <span class="token function">Error</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">string</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>defer</p>
+<p>类似于析构函数，遵循先进后出，用于函数执行之后进行一些资源释放的收尾工作</p>
+<p>使用语法：</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">defer</span> <span class="token operator">+</span> 执行语句
+要执行语句很多时可以写一个匿名函数来进行处理
+<span class="token keyword">defer</span> <span class="token keyword">func</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    回收工作
+<span class="token punctuation">}</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">//调用</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>panic() 和 recover()</p>
+<p>panic ( ) 用于立刻终止程序，但是defer不影响，会正常执行，panic可以接受任意类型的数据</p>
+<p>recover ( ) 用于终止错误处理流程，一般放在defer中来截取错误信息</p>
 </li>
 </ol>
-<h2 id="写在最后："><a href="#写在最后：" class="headerlink" title="写在最后："></a>写在最后：</h2><p>一定要有耐心，不挂梯子的话，github的访问基本上是时有时无的，所以要有耐心，多试试，过几天再试试，推荐在学校里申请，或者使用学校的vpn访问网站</p>
-<p>祝通过！！！</p>
-<p><img src="/2023/06/18/github-xue-sheng-bao-xue-sheng-ren-zheng-shen-qing-na-xie-shi/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20230618202519.png" alt="Elysia会祝福你的"></p>
+<h2 id="面型对象编程-OOP-Object-Oriented-Programming"><a href="#面型对象编程-OOP-Object-Oriented-Programming" class="headerlink" title="面型对象编程(OOP , Object Oriented Programming)"></a>面型对象编程(OOP , Object Oriented Programming)</h2><ol>
+<li><p>类型系统</p>
+<p>Go可以给任意类型(包括内置类型，但不包括指针类型)添加相应的方法</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">type</span> Integer <span class="token builtin">int</span>
+<span class="token comment">//Integer 与int 并无区别，只是我们认为给他加上了一个自带的方法</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>a Integer<span class="token punctuation">)</span> <span class="token function">less</span><span class="token punctuation">(</span>b Integer<span class="token punctuation">)</span> <span class="token builtin">bool</span> <span class="token punctuation">{</span>
+	<span class="token keyword">return</span> a <span class="token operator">&lt;</span> b
+<span class="token punctuation">}</span>
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">var</span> a Integer <span class="token operator">=</span> <span class="token number">5</span>
+	<span class="token keyword">defer</span> fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"回收了"</span><span class="token punctuation">)</span>
+	<span class="token keyword">if</span> a<span class="token punctuation">.</span><span class="token function">less</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Print</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> <span class="token string">"&lt;"</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+		<span class="token keyword">defer</span> fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"错误回收"</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+</li>
+<li><p>面型对象只是换了一种方式来表达语法，所以实质上也是语法糖</p>
+<p>Go没有隐藏的指针</p>
+<ul>
+<li>方法的对象显式传递</li>
+<li>方法的对象不需要是指针，也不需要是this</li>
+</ul>
+</li>
+</ol>
 
                 
             </div>
@@ -631,7 +808,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://qiuely.github.io/2023/06/18/github-xue-sheng-bao-xue-sheng-ren-zheng-shen-qing-na-xie-shi/">https://qiuely.github.io/2023/06/18/github-xue-sheng-bao-xue-sheng-ren-zheng-shen-qing-na-xie-shi/</a>
+                    <a href="https://qiuely.github.io/2023/06/28/go/">https://qiuely.github.io/2023/06/28/go/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -669,8 +846,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Github/">
-                                    <span class="chip bg-color">Github</span>
+                                <a href="/tags/Go/">
+                                    <span class="chip bg-color">Go</span>
                                 </a>
                             
                         </div>
@@ -749,9 +926,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2023/06/28/go/">
                     <div class="card-image">
@@ -769,9 +947,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-06-28
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-06-28
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -780,6 +958,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -798,24 +977,24 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/06/17/qian-duan-xue-xi/">
+                <a href="/2023/06/18/github-xue-sheng-bao-xue-sheng-ren-zheng-shen-qing-na-xie-shi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="“前端学习”">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Github学生包/学生认证申请那些事">
                         
-                        <span class="card-title">“前端学习”</span>
+                        <span class="card-title">Github学生包/学生认证申请那些事</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            鄙人在进行学生包申请的过程中踩了不少坑，最后找到了一种比较方便的方式，本着让后人少浪费时间的想法，记录下来让后人少踩些坑。(2023/6/18可用，且秒通过)
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-06-17
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-06-18
                             </span>
                         <span class="publish-author">
                             
@@ -828,8 +1007,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%89%8D%E7%AB%AF/">
-                        <span class="chip bg-color">前端</span>
+                    <a href="/tags/Github/">
+                        <span class="chip bg-color">Github</span>
                     </a>
                     
                 </div>
