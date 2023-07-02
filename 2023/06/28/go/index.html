@@ -556,7 +556,7 @@
 	v1
     v2
 <span class="token punctuation">)</span>
-<span class="token comment">//变量初始化，无需声明便令类型</span>
+<span class="token comment">//变量初始化，无需声明变量类型</span>
 v1 <span class="token operator">:=</span> <span class="token number">1</span>
 <span class="token comment">//多重赋值</span>
 v1 <span class="token punctuation">,</span> v2 <span class="token operator">=</span> v2 <span class="token punctuation">,</span> v1 <span class="token comment">//实现交换两个变量，但是只能交换两个同一类型的变量</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
@@ -1033,7 +1033,7 @@ ch6 <span class="token operator">:=</span>  <span class="token keyword">chan</sp
 <p>使用Once类型，当别的goroutine </p>
 <h2 id="网络编程"><a href="#网络编程" class="headerlink" title="网络编程"></a>网络编程</h2><h3 id="Socket编程-IP-层"><a href="#Socket编程-IP-层" class="headerlink" title="Socket编程  IP 层"></a>Socket编程  IP 层</h3><p>socket是什么？</p>
 <blockquote>
-<p>套接字是对TCP/IP协议的封装，自身并非协议而是一套调用的接口规范（API）。通过套接字Socket，才能使用TCP/IP协议。</p>
+<p>Socket是对TCP/IP协议的封装，自身并非协议而是一套调用的接口规范（API）。通过套接字Socket，才能使用TCP/IP协议。</p>
 </blockquote>
 <p>传统的Socket编程主要步骤：</p>
 <ol>
@@ -1050,7 +1050,7 @@ ch6 <span class="token operator">:=</span>  <span class="token keyword">chan</sp
 <span class="token comment">/*
 net : 网路协议名称
 addr IP地址或域名，端口以":" 的形式跟在后面，端口号可选
-Conn s
+Conn 是否成功连接
 */</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
