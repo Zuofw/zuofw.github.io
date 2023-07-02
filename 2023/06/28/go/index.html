@@ -530,7 +530,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.1k
+                    3.3k
                 </div>
                 
 
@@ -1031,7 +1031,29 @@ ch6 <span class="token operator">:=</span>  <span class="token keyword">chan</sp
 <p>单写多读 ， 在读锁占用时，会阻止写，但是不会阻止读</p>
 <p>全局唯一性操作</p>
 <p>使用Once类型，当别的goroutine </p>
-<h2 id="网络编程"><a href="#网络编程" class="headerlink" title="网络编程"></a>网络编程</h2>
+<h2 id="网络编程"><a href="#网络编程" class="headerlink" title="网络编程"></a>网络编程</h2><h3 id="Socket编程-IP-层"><a href="#Socket编程-IP-层" class="headerlink" title="Socket编程  IP 层"></a>Socket编程  IP 层</h3><p>socket是什么？</p>
+<blockquote>
+<p>套接字是对TCP/IP协议的封装，自身并非协议而是一套调用的接口规范（API）。通过套接字Socket，才能使用TCP/IP协议。</p>
+</blockquote>
+<p>传统的Socket编程主要步骤：</p>
+<ol>
+<li>建立Socket： 使用socket() 函数</li>
+<li>绑定Socket :使用bind() 函数</li>
+<li>监听： 使用listen() 函数，或者connec() 函数</li>
+<li>接受连接： accept() 函数</li>
+<li>接收： receive() 函数 ，发送send() 函数</li>
+</ol>
+<p>Go的：</p>
+<p>Go语言标准库对此过程进行了抽象和封装，无论我们期望使用什么形式的连接，只需要调用net.Dial()即可</p>
+<p>Dial原型</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> Dial <span class="token punctuation">(</span> net <span class="token punctuation">,</span> addr <span class="token builtin">string</span> <span class="token punctuation">)</span> <span class="token punctuation">(</span> Conn <span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> 
+<span class="token comment">/*
+net : 网路协议名称
+addr IP地址或域名，端口以":" 的形式跟在后面，端口号可选
+Conn s
+*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
                 
             </div>
             <hr/>
@@ -1175,30 +1197,29 @@ ch6 <span class="token operator">:=</span>  <span class="token keyword">chan</sp
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/06/28/go/">
+                <a href="/2023/07/02/wang-luo-bian-cheng/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="Go">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="网络编程">
                         
-                        <span class="card-title">Go</span>
+                        <span class="card-title">网络编程</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            学习Go的笔记
+                            
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-06-28
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-07-02
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -1207,12 +1228,11 @@ ch6 <span class="token operator">:=</span>  <span class="token keyword">chan</sp
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Go/">
-                        <span class="chip bg-color">Go</span>
+                    <a href="/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">
+                        <span class="chip bg-color">网络编程</span>
                     </a>
                     
                 </div>
@@ -1457,7 +1477,7 @@ ch6 <span class="token operator">:=</span>  <span class="token keyword">chan</sp
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">8.5k</span>
+                        class="white-color">8.7k</span>
             
             
             
