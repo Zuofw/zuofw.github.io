@@ -530,7 +530,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.3k
+                    3.8k
                 </div>
                 
 
@@ -587,7 +587,9 @@ s <span class="token operator">:=</span> <span class="token punctuation">[</span
 		fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><p>数组切片，类似于vector</p>
+<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><p>数组定于的一种方式，会根据给定的初始化的元素决定数组的长度</p>
+<p><code>a := [...]int{1}</code></p>
+<p>数组切片，类似于vector</p>
 <p>切片创建方式有：</p>
 <ol>
 <li><p>基于原有的数组来创建</p>
@@ -608,6 +610,15 @@ s <span class="token operator">:=</span> <span class="token punctuation">[</span
 <li>append() 追加元素</li>
 <li>copy() 复制</li>
 </ul>
+<p>数组也可以定为接口数组，结构体数组，管道数组等等</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">//接口数组</span>
+<span class="token keyword">var</span> unknown <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token keyword">interface</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token keyword">var</span> unknown <span class="token punctuation">[</span><span class="token operator">...</span><span class="token punctuation">]</span> <span class="token keyword">interface</span><span class="token punctuation">{</span><span class="token number">123</span><span class="token punctuation">,</span><span class="token string">"你好"</span><span class="token punctuation">}</span>
+<span class="token comment">//管道数组</span>
+<span class="token keyword">var</span> chanList <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token keyword">chan</span> <span class="token builtin">int</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>定义空数组:</p>
+<p><code>var a [0] int</code></p>
 <h3 id="map类型"><a href="#map类型" class="headerlink" title="map类型"></a>map类型</h3><p>Go中将其变为基本类型，可以直接使用，不需要引入库</p>
 <p>声明:</p>
 <pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">var</span> myMap <span class="token keyword">map</span><span class="token punctuation">[</span>键的类型<span class="token punctuation">]</span>值的类型<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -731,6 +742,44 @@ myMap <span class="token operator">:=</span> <span class="token keyword">map</sp
 <li>闭包每次调用都是新的实例</li>
 <li>闭包中的变量会保存，即使调用结束也会保存，，可以保证闭包中的变量的安全性，不会被外部函数修改</li>
 </ul>
+<p>闭包可以获得所在函数内的作用域，但是外部不可修改闭包的数据</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> main
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	b <span class="token operator">:=</span> <span class="token number">0</span>
+    <span class="token comment">//闭包</span>
+	f <span class="token operator">:=</span> <span class="token keyword">func</span><span class="token punctuation">(</span>b <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		b<span class="token operator">++</span>
+		<span class="token function">println</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	<span class="token function">f</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span>
+	<span class="token function">f</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span> <span class="token comment">//每一次调用都是新的实例</span>
+	<span class="token function">println</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p>返回函数的函数</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token string">"fmt"</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	f <span class="token operator">:=</span> <span class="token function">Add1</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token function">f</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+	<span class="token comment">//fmt.Println(Add1()(1, 2)) 另一种方式</span>
+<span class="token punctuation">}</span>
+<span class="token comment">//返回了一个 匿名函数</span>
+<span class="token keyword">func</span> <span class="token function">Add1</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">func</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">int</span> <span class="token punctuation">{</span>
+	<span class="token keyword">return</span> <span class="token keyword">func</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">int</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> a <span class="token operator">+</span> b
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
 </li>
 <li><p>错误处理</p>
 <p>error接口是内置的，里面只有一个方法：</p>
@@ -862,6 +911,15 @@ myMap <span class="token operator">:=</span> <span class="token keyword">map</sp
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<p>但是 Go 语言里有非常灵活的 <strong>接口</strong> 概念，通过它可以实现很多面向对象的特性。接口提供了一种方式来 <strong>说明</strong> 对象的行为：如果谁能搞定这件事，它就可以用在这儿。</p>
+<p>接口定义了一组方法（方法集），但是这些方法不包含（实现）代码：它们没有被实现（它们是抽象的）。接口里也不能包含变量。</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">type</span> Namer <span class="token keyword">interface</span> <span class="token punctuation">{</span>
+    <span class="token function">Method1</span><span class="token punctuation">(</span>param_list<span class="token punctuation">)</span> return_type
+    <span class="token function">Method2</span><span class="token punctuation">(</span>param_list<span class="token punctuation">)</span> return_type
+    <span class="token operator">...</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>使用接口时，如果某个类实现了接口的方法，那么接口类型的变量可以赋值为这个类的变量</p>
 <p>如果接口接口A和接口B的方法是一致的，那么在Go中属于完全等价</p>
 <p>如果A接口的方法是B接口方法的子集，那么B接口可以赋值给A接口，而A接口不能赋值给B接口</p>
 <p>接口查询：用于查询某个接口是否属于某个类型</p>
@@ -1053,6 +1111,48 @@ addr IP地址或域名，端口以":" 的形式跟在后面，端口号可选
 Conn 是否成功连接
 */</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<h2 id="工程管理"><a href="#工程管理" class="headerlink" title="工程管理"></a>工程管理</h2><p>代码格式化</p>
+<p>格式化之前的：</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token string">"fmt"</span>
+
+<span class="token keyword">func</span> Foo <span class="token punctuation">(</span> a <span class="token punctuation">,</span> b <span class="token builtin">int</span><span class="token punctuation">)</span><span class="token punctuation">(</span>ret <span class="token builtin">int</span> <span class="token punctuation">,</span>err <span class="token builtin">error</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+<span class="token keyword">if</span> a<span class="token operator">&gt;</span>b <span class="token punctuation">{</span>
+<span class="token keyword">return</span> a <span class="token punctuation">,</span> <span class="token boolean">nil</span>	
+<span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token punctuation">{</span>
+	<span class="token keyword">return</span> b <span class="token punctuation">,</span> <span class="token boolean">nil</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">,</span><span class="token boolean">nil</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">func</span> 
+<span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token punctuation">{</span>
+	i <span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">:=</span> <span class="token function">Foo</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span>
+fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"Hello,word"</span> <span class="token punctuation">,</span>i<span class="token punctuation">)</span>	
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>使用命令行: go fmt xxx.go得到的代码,也可以直接go fmt 会格式化所有*.go的文件</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token string">"fmt"</span>
+
+<span class="token keyword">func</span> <span class="token function">Foo</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>ret <span class="token builtin">int</span><span class="token punctuation">,</span> err <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">if</span> a <span class="token operator">&gt;</span> b <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> a<span class="token punctuation">,</span> <span class="token boolean">nil</span>
+	<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> b<span class="token punctuation">,</span> <span class="token boolean">nil</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token boolean">nil</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	i<span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">:=</span> <span class="token function">Foo</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"Hello,word"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>gotool</p>
+<p>生成exe</p>
+<p>gobuild 后面可以加上-o + name 指定执行文件的名字</p>
 
                 
             </div>
@@ -1477,7 +1577,7 @@ Conn 是否成功连接
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">8.7k</span>
+                        class="white-color">9.2k</span>
             
             
             
