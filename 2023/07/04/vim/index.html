@@ -4,14 +4,14 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Vim, 博客，学习，成长">
-    <meta name="description" content="Emacs后续学习
+    <meta name="keywords" content="工具, 博客，学习，成长">
+    <meta name="description" content="VimEmacs后续学习
 快捷键之类的，大部分都是可以组合使用的
 键位练习：命令行输入 vimtutor
 COMMAND模式
 :set ic / noic  查找时不/区分大小写
 使用v选中之后使用:
-会看见&#39;&amp;lt;&#39;&amp;gt;之后可以通过 w ">
+会看见&#39;&amp;lt;&#39;&amp;gt;之后可以通过">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -23,7 +23,7 @@ COMMAND模式
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Vim | QingQiu&#39;Blog</title>
+    <title>工具 | QingQiu&#39;Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -487,7 +487,7 @@ COMMAND模式
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Vim</h1>
+                    <h1 class="description center-align post-title">工具</h1>
                 </div>
             </div>
         </div>
@@ -511,8 +511,8 @@ COMMAND模式
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/vim/">
-                                <span class="chip bg-color">vim</span>
+                            <a href="/tags/vim-git/">
+                                <span class="chip bg-color">vim git</span>
                             </a>
                         
                     </div>
@@ -536,7 +536,7 @@ COMMAND模式
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    596
+                    597
                 </div>
                 
 
@@ -556,14 +556,14 @@ COMMAND模式
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><del>Emacs后续学习</del></p>
+                <h1 id="Vim"><a href="#Vim" class="headerlink" title="Vim"></a>Vim</h1><p><del>Emacs后续学习</del></p>
 <p>快捷键之类的，大部分都是可以组合使用的</p>
 <p>键位练习：命令行输入 vimtutor</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">COMMAND模式
+<pre class="line-numbers language-none"><code class="language-none">COMMAND模式
 :set ic / noic  查找时不/区分大小写
 使用v选中之后使用:
-会看见<span class="token string">'&lt;'</span><span class="token operator">&gt;</span>之后可以通过 w + filename 将选中的字保存为新的文件
-:<span class="token operator">!</span> + shell 命令，在不退出vim的情况下使用shell指令
+会看见'&lt;'&gt;之后可以通过 w + filename 将选中的字保存为新的文件
+:! + shell 命令，在不退出vim的情况下使用shell指令
 :r + filename 将filename文件中的文字写入当前光标所在位置
 :set number 显示行号
 :s/old/new/g  替换一行中的old为new,加上g会对整行都起作用，不加g只会修改第一个old
@@ -575,18 +575,18 @@ a                光标之后插入内容
 ctrl + r redo
 u   撤销
 hjkl 左下上右
-<span class="token function">v</span>     			进入选中块模式
+v     			进入选中块模式
 V    			选中模式，每次选中一行
 ctrl + w         切换window 
-ctrl + <span class="token function">v</span>         选中一个矩形
+ctrl + v         选中一个矩形
 ~				选中之后，使得大小写互换
-f + 要查找的字符   <span class="token function">find</span> 这一行中光标之后第一个关键字
-F + xxx           <span class="token function">find</span> 反向查找
+f + 要查找的字符   find 这一行中光标之后第一个关键字
+F + xxx           find 反向查找
 t + xxx           移动到这个字符的前面一个字符
 T + xxx           反向查找，移动到字符之后一个字符
-d + 移动的键位     删除  d + $ 删除到<span class="token punctuation">(</span>一行<span class="token punctuation">)</span>结尾， d + <span class="token number">0</span> 删除到<span class="token punctuation">(</span>一行<span class="token punctuation">)</span>开头
+d + 移动的键位     删除  d + $ 删除到(一行)结尾， d + 0 删除到(一行)开头
 c + 移动的键位     change 删除并进入insert进行修改
-<span class="token function">dd</span>       		 删除一行
+dd       		 删除一行
 cc				删除一行并进入insert
 x            	 删除当前字符
 r + 字符          替换当前一个字符
@@ -596,8 +596,8 @@ b  向前移动一个单词
 e  end 移动到下一个单词的最后一个字母
 o  下方开一个新行
 O  上方开一个新行
-<span class="token number">0</span>  移动到行首
-%  从<span class="token punctuation">{</span>/<span class="token punctuation">[</span>/<span class="token punctuation">(</span> 移动到<span class="token punctuation">)</span>/<span class="token punctuation">]</span>/<span class="token punctuation">}</span>
+0  移动到行首
+%  从{/[/( 移动到)/]/}
 $  移动到行末
 数字 + G         跳转到指定行
 ctrl + g         显示当前的行数
@@ -614,18 +614,18 @@ ctrl + u / d 向上滚动/向下滚动
 修饰词
 a 删除所在的整体
 例如：
-<span class="token punctuation">{</span>djsafljaflsjlf<span class="token punctuation">}</span><span class="token number">123</span>
-使用di<span class="token punctuation">{</span>
+{djsafljaflsjlf}123
+使用di{
 只剩下了
-<span class="token number">123</span>
+123
 i 内部，例如
-<span class="token punctuation">{</span>skdajsldjas<span class="token punctuation">}</span>想要删除<span class="token punctuation">{</span><span class="token punctuation">}</span>内的东西只需要
-ci<span class="token punctuation">{</span>
+{skdajsldjas}想要删除{}内的东西只需要
+ci{
 
 / + 内容      全文查找
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-
+<h1 id="git"><a href="#git" class="headerlink" title="git"></a>git</h1>
                 
             </div>
             <hr/>
@@ -689,8 +689,8 @@ ci<span class="token punctuation">{</span>
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/vim/">
-                                    <span class="chip bg-color">vim</span>
+                                <a href="/tags/vim-git/">
+                                    <span class="chip bg-color">vim git</span>
                                 </a>
                             
                         </div>
@@ -778,9 +778,9 @@ ci<span class="token punctuation">{</span>
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Vim">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="工具">
                         
-                        <span class="card-title">Vim</span>
+                        <span class="card-title">工具</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -805,8 +805,8 @@ ci<span class="token punctuation">{</span>
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/vim/">
-                        <span class="chip bg-color">vim</span>
+                    <a href="/tags/vim-git/">
+                        <span class="chip bg-color">vim git</span>
                     </a>
                     
                 </div>
