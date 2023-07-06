@@ -536,7 +536,7 @@ COMMAND模式
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.1k
+                    1.4k
                 </div>
                 
 
@@ -662,7 +662,43 @@ ci{
 <span class="token function">git</span> pull +别名/库地址 + 分支名    把远程的分支名拉取
 <span class="token function">git</span> clone + 库地址               克隆到本地  会进行：1.拉取代码2.初始化本地库3.创建别名<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h1 id="Scoop"><a href="#Scoop" class="headerlink" title="Scoop"></a>Scoop</h1>
+<h1 id="Scoop"><a href="#Scoop" class="headerlink" title="Scoop"></a>Scoop</h1><blockquote>
+<p>Scoop是一个Windows系统管理包的开源软件，相比从百度上搜索，从几十条垃圾信息中筛选出一个能用的安装链接，Scoop可以只使用一行代码进行安装</p>
+</blockquote>
+<h2 id="安装环境："><a href="#安装环境：" class="headerlink" title="安装环境："></a>安装环境：</h2><p>本人使用的是Windows11系统，已经内置PowerShell了，如果是Windows7系统，需要手动安装新版本的PowerShell</p>
+<p>Scoop 源文件在GitHub上，推荐使用<strong>魔法</strong></p>
+<h2 id="步骤："><a href="#步骤：" class="headerlink" title="步骤："></a>步骤：</h2><p>使用快捷键ctrl + x 打开 Windows终端，<strong>不要打开管理员的终端</strong></p>
+<p><img src="/2023/07/04/tools/Scoop.png" alt="Scoop"></p>
+<p>之后输入</p>
+<pre class="line-numbers language-shel" data-language="shel"><code class="language-shel"># 设置 PowerShell 执行策略
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+# 下载安装脚本
+irm get.scoop.sh -outfile 'install.ps1'
+# 执行安装, --ScoopDir 参数指定 Scoop 安装路径 ' ' 内的是自定义的安装目录
+.\install.ps1 -ScoopDir 'D:\Scoop'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="使用技巧"><a href="#使用技巧" class="headerlink" title="使用技巧"></a>使用技巧</h2><p><a target="_blank" rel="noopener" href="https://github.com/ScoopInstaller/Scoop">官方文档</a> 或 <a target="_blank" rel="noopener" href="https://github.com/ScoopInstaller/Scoop/wiki/Quick-Start">快速入门</a> </p>
+<p><a target="_blank" rel="noopener" href="https://p3terx.com/archives/scoop-the-best-windows-package-manager.html">大佬的博客</a></p>
+<p>scoop社区维护的安装路径大部分在国外，所以下载时建议使用魔法</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">scoop <span class="token builtin class-name">help</span>  命令参考说明
+scoop + 动作 + 对象， 对象可以省略
+scoop +
+search 搜索软件名
+<span class="token function">install</span> 安装软件
+update  更新软件
+status  查看软件装填
+uninstall 卸载软件
+info     查看软件详情
+home     打开软件主页<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>举例：</p>
+<ul>
+<li>查看本机有无安装typora</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">scoop search typora<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong>Scoop下载软件的安装路径是自定义下载路径中的apps文件夹</strong></p>
+
                 
             </div>
             <hr/>
@@ -1088,7 +1124,7 @@ ci{
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">10.3k</span>
+                        class="white-color">10.6k</span>
             
             
             
