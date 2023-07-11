@@ -536,7 +536,7 @@ COMMAND模式
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.5k
+                    1.6k
                 </div>
                 
 
@@ -639,15 +639,20 @@ ci{
 <span class="token comment">##绿色的文件名是存在于暂存区</span>
 <span class="token function">git</span> <span class="token function">add</span> + filename 添加到暂存区
 <span class="token function">git</span> <span class="token function">add</span> <span class="token parameter variable">-A</span>    全部提交
+<span class="token function">git</span> <span class="token function">add</span> <span class="token parameter variable">-i</span>    添加到暂存区，但是会有提问
 <span class="token function">git</span> <span class="token function">rm</span> <span class="token parameter variable">--cached</span> filename 删除暂存区的文件
 <span class="token function">git</span> commit <span class="token parameter variable">-m</span> <span class="token string">"日志信息"</span> filenaem 提交到本地库
 <span class="token comment">##提交之后git status 会显示为没有提交</span>
 <span class="token function">git</span> reflog 查看提交记录
 <span class="token function">git</span> log    查看日志，包括提交记录和提交用户
+<span class="token function">git</span> log <span class="token parameter variable">--author</span><span class="token operator">=</span>xxx  只查看某人的提交记录
+<span class="token function">git</span> log <span class="token parameter variable">--pretty</span><span class="token operator">=</span>oneline 每一个提交记录只占一行
+<span class="token function">git</span> log <span class="token parameter variable">--graph</span> <span class="token parameter variable">--oneline</span> <span class="token parameter variable">--decorate</span> <span class="token parameter variable">--all</span> 通过 ASCII 艺术的树形结构来展示所有的分支
+<span class="token function">git</span> log --name-status 看哪个文件改变了
 <span class="token comment">##版本穿越，修改HEAD指针 本地原文件一并会被修改</span>
 <span class="token function">git</span> reset <span class="token parameter variable">--hard</span> + 版本号
-
-<span class="token function">git</span> cherry-pick +xx xxx xx 把某几个分支复制到当前分支上<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token function">git</span> tag xxx 提交ID前10个字符，创建一个标签   
+<span class="token function">git</span> cherry-pick +xx xxx xx 把某几个分支复制到当前分支上<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>分支操作</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> branch 创建分支
@@ -665,7 +670,16 @@ ci{
 <span class="token function">git</span> remote <span class="token function">add</span> 别名 + 远程地址    给远程地址起一个别名，方便切换
 <span class="token function">git</span> push +别名/库地址 + 分支名    把这个分支推送到远程库
 <span class="token function">git</span> pull +别名/库地址 + 分支名    把远程的分支名拉取
-<span class="token function">git</span> clone + 库地址               克隆到本地  会进行：1.拉取代码2.初始化本地库3.创建别名<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token function">git</span> clone + 库地址               克隆到本地  会进行：1.拉取代码2.初始化本地库3.创建别名
+<span class="token function">git</span> fetch + xxx 
+<span class="token function">git</span> reset <span class="token parameter variable">--hard</span> origin/master  获取服务器上最后一次改动，并将本地主分支指向它，实现放弃本地所有改动<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>其他知识</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gitk 内建的图形化
+<span class="token comment">##显示历史记录时，每个提交的信息只显示一行：</span>
+<span class="token function">git</span> config format.pretty oneline<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+
 
 <h1 id="Scoop"><a href="#Scoop" class="headerlink" title="Scoop"></a>Scoop</h1><blockquote>
 <p>Scoop是一个Windows系统管理包的开源软件，相比从百度上搜索，从几十条垃圾信息中筛选出一个能用的安装链接，Scoop可以只使用一行代码进行安装</p>
@@ -1129,7 +1143,7 @@ home     打开软件主页<span aria-hidden="true" class="line-numbers-rows"><s
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">10.9k</span>
+                        class="white-color">11.1k</span>
             
             
             
