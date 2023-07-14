@@ -536,7 +536,7 @@ COMMAND模式
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.6k
+                    1.7k
                 </div>
                 
 
@@ -657,10 +657,12 @@ ci{
 <p>分支操作</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> branch 创建分支
 <span class="token function">git</span> branch <span class="token parameter variable">-v</span> 查看有哪些分支
+<span class="token parameter variable">-m</span> 改名
+<span class="token parameter variable">-d</span> 删除
 <span class="token function">git</span> checkout  + name 切换分支
 <span class="token function">git</span> merge  + name    将当name合并在当前分支
 <span class="token function">git</span> reset    撤销提交记录,但是撤销之前的还是存在的，只是处于未加入缓冲区的状态，仅限本地
-<span class="token function">git</span> revert   撤销更改分享给别人<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token function">git</span> revert   撤销更改分享给别人<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>分支冲突：两个人同时对同一个内容 进行了两个不同的修改，git无法决定新的文件手</p>
 <p>手动修改后，commit 不要再加上文件名了</p>
@@ -671,8 +673,11 @@ ci{
 <span class="token function">git</span> push +别名/库地址 + 分支名    把这个分支推送到远程库
 <span class="token function">git</span> pull +别名/库地址 + 分支名    把远程的分支名拉取
 <span class="token function">git</span> clone + 库地址               克隆到本地  会进行：1.拉取代码2.初始化本地库3.创建别名
+<span class="token comment">###############</span>
+<span class="token function">git</span> clone <span class="token parameter variable">-b</span> <span class="token operator">&lt;</span>branchname<span class="token operator">&gt;</span> <span class="token operator">&lt;</span>remote-repo-url<span class="token operator">&gt;</span> 克隆指定分支
+<span class="token comment">###############</span>
 <span class="token function">git</span> fetch + xxx 
-<span class="token function">git</span> reset <span class="token parameter variable">--hard</span> origin/master  获取服务器上最后一次改动，并将本地主分支指向它，实现放弃本地所有改动<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token function">git</span> reset <span class="token parameter variable">--hard</span> origin/master  获取服务器上最后一次改动，并将本地主分支指向它，实现放弃本地所有改动<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>其他知识</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gitk 内建的图形化
@@ -1143,7 +1148,7 @@ home     打开软件主页<span aria-hidden="true" class="line-numbers-rows"><s
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">11.1k</span>
+                        class="white-color">11.4k</span>
             
             
             

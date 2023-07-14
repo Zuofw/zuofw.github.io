@@ -535,7 +535,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4.7k
+                    5k
                 </div>
                 
 
@@ -1176,6 +1176,38 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <li>并集，交集，差集 自己看</li>
 </ul>
 <h3 id="DOM"><a href="#DOM" class="headerlink" title="DOM"></a>DOM</h3><p>通过JavaScript访问DOM 自己看去吧。。。</p>
+<h2 id="React"><a href="#React" class="headerlink" title="React"></a>React</h2><p>JavaScript的一个第三方库</p>
+<p>react app 由组件组成，react组件是返回html标签的JavaScript函数</p>
+<p>react 的组件可以用作类似于html的标签，区别是React 组件必须以大写字母开头，HTML标签必须以小写字母开头</p>
+<p>JavaScript的component实际上就是JavaBean</p>
+<p>例如:</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">MyButton</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token operator">&lt;</span>button<span class="token operator">&gt;</span><span class="token constant">I</span>'m a button<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">&gt;</span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>之后MyButton可作为标签使用</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">MyApp</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token operator">&lt;</span>div<span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span>h1<span class="token operator">&gt;</span>Welcome to my app<span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span>MyButton <span class="token operator">/</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>hotloader</strong>是好东西</p>
+<p><strong>React命名:</strong></p>
+<blockquote>
+<p>HTML中的类为 class ，而React中的class命名为className</p>
+<p><code>&lt;h4 className="Profile-subTitle"&gt;About Me&lt;/h4&gt;</code></p>
+<p>类名为：组件名(文件名) 扩折号 文件中的作用名，遵循驼峰</p>
+</blockquote>
+<p>使用 import xxx from “xxx” 来在js文件中导入其他的component</p>
+<p>使用 import “xxx.css” 来从导入css文件</p>
+<p>使用 export default xxx 来导出这个组件，从而让其他文件能够调用这个组件</p>
+<p>具体可看示例 catbook-react</p>
 </li>
 </ol>
 
@@ -1594,7 +1626,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">11.1k</span>
+                        class="white-color">11.4k</span>
             
             
             
