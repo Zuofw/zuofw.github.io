@@ -536,7 +536,7 @@ COMMAND模式
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.7k
+                    2k
                 </div>
                 
 
@@ -722,6 +722,39 @@ home     打开软件主页<span aria-hidden="true" class="line-numbers-rows"><s
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">scoop search typora<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p><strong>Scoop下载软件的安装路径是自定义下载路径中的apps文件夹</strong></p>
+<h2 id="正则表达式："><a href="#正则表达式：" class="headerlink" title="正则表达式："></a>正则表达式：</h2><pre class="line-numbers language-none"><code class="language-none">$ 匹配末尾位置  
+^ 匹配开头位置
+* 匹配前一个字符的0次或n次  例如： zo* 会匹配z zo zoo zooo z......  等
++ 匹配前一个字符一次或多次u        zo+ 匹配 zo zoo zooo zo...... 等
+? 匹配前一个字符0次或1次           zo?      z  zo
+{n,m}  匹配 n 到 m 次
+{n}      n 次
+? + 其他限定符，表示匹配非贪心，默认的匹配会尽力匹配较长的满足条件的字符串，使用这个后尽力匹配较短的字符串
+.  匹配任意单个字符
+//
+(pattern) 匹配pattern 并捕获他的子表达式
+(?:pattern) 不捕获子表达式
+(?=pattern) 前面的字符匹配到之后，判断后面的是否能够匹配pattern 如果能那么就捕获，否则不匹配
+(?!pattern) 反向捕获，不捕获包含patter的字符串
+//规则集
+x|y 匹配x或y
+[xyz] 字符集，匹配三者的任一字符
+[^xyz] 反向捕获
+[a-z]  匹配a-z 中的任一字符
+[^a-z] 反向匹配不包含的
+//
+\b     border 以这个符号之前的字符(串)为边界的匹配
+\B     非边界匹配
+\cx    x 为[a-z] 或 [A-Z] 匹配ctrl + x
+\d     数字匹配，十进制[0-9]
+\D     [^0-9]
+\f     匹配换页符
+\n     换行符
+\r     匹配回车
+\w     匹配字类字符 [A-Za-z0-9]
+\W     非字类字符
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 
                 
             </div>
@@ -1148,7 +1181,7 @@ home     打开软件主页<span aria-hidden="true" class="line-numbers-rows"><s
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">11.4k</span>
+                        class="white-color">11.7k</span>
             
             
             
