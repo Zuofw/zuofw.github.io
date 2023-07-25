@@ -530,7 +530,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.8k
+                    3.9k
                 </div>
                 
 
@@ -587,6 +587,10 @@ s <span class="token operator">:=</span> <span class="token punctuation">[</span
 		fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<h3 id="字符转换"><a href="#字符转换" class="headerlink" title="字符转换"></a>字符转换</h3><pre class="line-numbers language-none"><code class="language-none">strconv.xxxx即可<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+
 <h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><p>数组定于的一种方式，会根据给定的初始化的元素决定数组的长度</p>
 <p><code>a := [...]int{1}</code></p>
 <p>数组切片，类似于vector</p>
@@ -597,7 +601,7 @@ s <span class="token operator">:=</span> <span class="token punctuation">[</span
 <span class="token keyword">var</span> s <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span> <span class="token operator">=</span> a<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
 <span class="token comment">//需要使用Var 来声明切片数组的类型，等号的右侧可以时 array[first , end] ,想要截取的首位位置</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 </li>
-<li><p>直接创建</p>
+<li><p><u><strong>直接创建</strong></u></p>
 <pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">//使用make进行直接创建</span>
 s <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span> <span class="token punctuation">,</span> <span class="token number">5</span> <span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token comment">//建立一个初始原为5个但是预留十个元素的空间的切片</span>
 <span class="token comment">//直接在建立的过程中赋予初值</span>
@@ -619,7 +623,7 @@ s <span class="token operator">:=</span> <span class="token punctuation">[</span
 
 <p>定义空数组:</p>
 <p><code>var a [0] int</code></p>
-<h3 id="map类型"><a href="#map类型" class="headerlink" title="map类型"></a>map类型</h3><p>Go中将其变为基本类型，可以直接使用，不需要引入库</p>
+<h3 id="map类型"><a href="#map类型" class="headerlink" title="map类型"></a><u>map类型</u></h3><p>Go中将其变为基本类型，可以直接使用，不需要引入库</p>
 <p>声明:</p>
 <pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">var</span> myMap <span class="token keyword">map</span><span class="token punctuation">[</span>键的类型<span class="token punctuation">]</span>值的类型<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
@@ -679,6 +683,15 @@ myMap <span class="token operator">:=</span> <span class="token keyword">map</sp
 </ul>
 </li>
 <li><p>switch : 不需要显性的使用break来退出判断，默认的已经带有break了</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go">t <span class="token operator">:=</span> time<span class="token punctuation">.</span><span class="token function">Now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">switch</span> <span class="token punctuation">{</span><span class="token comment">//用来替代if 语句，比起嵌套if更好判断代码</span>
+<span class="token keyword">case</span> t<span class="token punctuation">.</span><span class="token function">Hour</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">12</span> <span class="token punctuation">:</span>
+    xxxx<span class="token punctuation">;</span>
+<span class="token keyword">default</span> <span class="token punctuation">:</span>
+    xxxx<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
 </li>
 <li><p>循环 </p>
 <pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">for</span> i<span class="token operator">:=</span> <span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">{</span>
@@ -1153,6 +1166,18 @@ fmt<span class="token punctuation">.</span><span class="token function">Println<
 <p>gotool</p>
 <p>生成exe</p>
 <p>gobuild 后面可以加上-o + name 指定执行文件的名字</p>
+<p><strong>格式化输出</strong>: Printf</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token operator">%</span>v	按值的本来值输出
+<span class="token operator">%</span><span class="token operator">+</span>v	在 <span class="token operator">%</span>v 基础上，对结构体字段名和值进行展开<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>生成随机数需要设置随机数种子</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	v <span class="token operator">:=</span> <span class="token number">100</span>
+	rand<span class="token punctuation">.</span><span class="token function">Seed</span><span class="token punctuation">(</span>time<span class="token punctuation">.</span><span class="token function">Now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">UnixNano</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+	a <span class="token operator">:=</span> rand<span class="token punctuation">.</span><span class="token function">Intn</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 
                 
             </div>
@@ -1577,7 +1602,7 @@ fmt<span class="token punctuation">.</span><span class="token function">Println<
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">11.7k</span>
+                        class="white-color">11.8k</span>
             
             
             
