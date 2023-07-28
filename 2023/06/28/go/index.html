@@ -530,7 +530,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.9k
+                    4k
                 </div>
                 
 
@@ -975,25 +975,26 @@ myMap <span class="token operator">:=</span> <span class="token keyword">map</sp
 <p>本质是用户态线程，不需要抢占式调度，寄存于线程，缺点是需要语言支持</p>
 </li>
 </ol>
-<p> gorountine</p>
+<p> <strong><u>gorountine</u></strong></p>
 <p>通过在代码中加上go关键字启用协程，主程序结束时，写成会被结束</p>
 <p>通信方式：消息机制和共享内存</p>
 <p>消息机制：每个并发单位都是自包含、独立的个体，都有自己的变量，并且单元间的变量不共享，每个单元的输入输出只有一种那就是消息。不同进程依靠消息来进行通信，他们不会共享内存</p>
-<p>channel</p>
+<p><strong><u>channel</u></strong></p>
 <p>Go提供的goroutine间的通信方式，是进程内的通信方式，不适合进程之间进行通信</p>
 <p>一个channel 只能传递一种类型的值</p>
 <p>基本语法</p>
 <pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">//声明</span>
-<span class="token keyword">var</span> chanName <span class="token keyword">chan</span> ElemenTyoe 
+<span class="token keyword">var</span> chanName <span class="token keyword">chan</span> ElemenType 
 <span class="token comment">//例如 声明一个传递类型为int的channel</span>
 <span class="token keyword">var</span> ch <span class="token keyword">chan</span> <span class="token builtin">int</span> 
 <span class="token comment">//定义</span>
 ch <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">chan</span> <span class="token builtin">int</span><span class="token punctuation">)</span>
+ch <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">chan</span> <span class="token builtin">int</span> <span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token comment">//缓冲大小为2</span>
 <span class="token comment">//写入channel</span>
 ch <span class="token operator">&lt;-</span> value <span class="token comment">//写入数据会导致陈孤虚阻塞，直到有其他goroutine 从channel中读取数据</span>
 <span class="token comment">//读取</span>
 value <span class="token operator">:=</span> <span class="token operator">&lt;-</span> ch <span class="token comment">// 如果channel中没有数据也会进行堵塞</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>示例：</p>
 <pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> main
@@ -1097,7 +1098,7 @@ ch6 <span class="token operator">:=</span>  <span class="token keyword">chan</sp
 <h4 id="同步问题"><a href="#同步问题" class="headerlink" title="同步问题"></a>同步问题</h4><p>同步锁</p>
 <p>sync包中提供</p>
 <p>Mutex锁</p>
-<p>当一个goroutine 活得了Mutex 后，其他的goroutine 只能等待这个释放锁</p>
+<p>当一个goroutine 获得了Mutex 后，其他的goroutine 只能等待这个释放锁</p>
 <p>RWMutex 锁 </p>
 <p>单写多读 ， 在读锁占用时，会阻止写，但是不会阻止读</p>
 <p>全局唯一性操作</p>
@@ -1178,7 +1179,7 @@ fmt<span class="token punctuation">.</span><span class="token function">Println<
 	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-
+<h2 id="依赖管理"><a href="#依赖管理" class="headerlink" title="依赖管理"></a>依赖管理</h2>
                 
             </div>
             <hr/>
@@ -1326,13 +1327,13 @@ fmt<span class="token punctuation">.</span><span class="token function">Println<
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/07/02/web/">
+                <a href="/2023/07/04/tools/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="Web">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="Tools">
                         
-                        <span class="card-title">Web</span>
+                        <span class="card-title">Tools</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1343,7 +1344,7 @@ fmt<span class="token punctuation">.</span><span class="token function">Println<
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-07-02
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-07-04
                         </span>
                         <span class="publish-author">
                             
@@ -1356,8 +1357,8 @@ fmt<span class="token punctuation">.</span><span class="token function">Println<
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Web/">
-                        <span class="chip bg-color">Web</span>
+                    <a href="/tags/vim-git/">
+                        <span class="chip bg-color">vim git</span>
                     </a>
                     
                 </div>
@@ -1602,7 +1603,7 @@ fmt<span class="token punctuation">.</span><span class="token function">Println<
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">11.8k</span>
+                        class="white-color">12.5k</span>
             
             
             
