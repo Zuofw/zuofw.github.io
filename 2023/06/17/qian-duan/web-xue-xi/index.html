@@ -535,7 +535,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    5.4k
+                    5.7k
                 </div>
                 
 
@@ -1234,6 +1234,66 @@ console<span class="token punctuation">.</span><span class="token function">log<
 </blockquote>
 <p>目的：</p>
 <p><img src="/2023/06/17/qian-duan/web-xue-xi/1690524156434.png"></p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@RestController</span> <span class="token comment">//加上这个之后变为请求处理类  </span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">HelloController</span> <span class="token punctuation">{</span>  
+<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/hello"</span><span class="token punctuation">)</span>  
+<span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>  
+<span class="token keyword">return</span> <span class="token string">"hello world!"</span><span class="token punctuation">;</span>  
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>一些参数的实现<br><img src="/2023/06/17/qian-duan/web-xue-xi/%E5%8F%82%E6%95%B0.png"><br><img src="/2023/06/17/qian-duan/web-xue-xi/%E5%90%8C%E4%B8%80%E7%9A%84%E5%93%8D%E5%BA%94%E7%BB%93%E6%9E%9C.png"></p>
+<h2 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h2><h2 id="形式良好的-XML-文档"><a href="#形式良好的-XML-文档" class="headerlink" title="形式良好的 XML 文档"></a>形式良好的 XML 文档</h2><p>“形式良好”的 XML 文档拥有正确的语法。</p>
+<p>在前面的章节描述的语法规则：</p>
+<ul>
+<li>XML 文档必须有一个根元素</li>
+<li>XML元素都必须有一个关闭标签</li>
+<li>XML 标签对大小写敏感</li>
+<li>XML 元素必须被正确的嵌套</li>
+<li>XML 属性值必须加引号<br>在 XML 中，有 5 个预定义的实体引用：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&lt;</td>
+<td>&lt;</td>
+<td>less than</td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td>&gt;</td>
+<td>greater than</td>
+</tr>
+<tr>
+<td>&amp;</td>
+<td>&amp;</td>
+<td>ampersand</td>
+</tr>
+<tr>
+<td>&amp;apos;</td>
+<td>‘</td>
+<td>apostrophe</td>
+</tr>
+<tr>
+<td>"</td>
+<td>“</td>
+<td>quotation mark</td>
+</tr>
+</tbody></table>
+<h2 id="分层解耦"><a href="#分层解耦" class="headerlink" title="分层解耦"></a>分层解耦</h2><h3 id="三层架构"><a href="#三层架构" class="headerlink" title="三层架构"></a>三层架构</h3><ol>
+<li>controller : 控制层 ，接受前端发送的请求，对请求进行处理，并响应数据</li>
+<li>service: 业务逻辑层，处理具体的业务逻辑</li>
+<li>dao 数据访问层(Data Access Object ) (持久层),负责数据的访问操作，包括增删改查</li>
+</ol>
+<h3 id="IOC-amp-DI"><a href="#IOC-amp-DI" class="headerlink" title="IOC &amp; DI"></a>IOC &amp; DI</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Component</span> 将当前类交给<span class="token constant">IOC</span> 容器 <span class="token comment">//加在需要被new的对象所在的层</span>
+<span class="token annotation punctuation">@Autowired</span> 运行时<span class="token constant">IOC</span> 容器会提供该类型的bean并赋值给变量 依赖注入 <span class="token comment">//加在controller层</span>
+
+加上之后就不需要自己进行<span class="token keyword">new</span>对象了，直接建立对象变量即可<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
                 
             </div>
@@ -1659,7 +1719,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">20.2k</span>
+                        class="white-color">22.3k</span>
             
             
             
