@@ -5,14 +5,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="mysql, 博客，学习，成长">
-    <meta name="description" content="MYSQL打开
+    <meta name="description" content="MYSQL自联结，变量不会，补一补去打开
 mysql -u root -p
 
 数据类型
 关系型数据库：建立在关系模型基础上，由多张相互链接的二维表组成的数据库
 
 数值类型
-TINYINT 1byte -128 - 127  0 - 255 /*后面加上unsigne">
+TINYINT 1byte -128 - 127  0 - 255 ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -542,7 +542,7 @@ TINYINT 1byte -128 - 127  0 - 255 /*后面加上unsigne">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    7.8k
+                    8.2k
                 </div>
                 
 
@@ -562,7 +562,7 @@ TINYINT 1byte -128 - 127  0 - 255 /*后面加上unsigne">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="MYSQL"><a href="#MYSQL" class="headerlink" title="MYSQL"></a>MYSQL</h1><p>打开</p>
+                <h1 id="MYSQL"><a href="#MYSQL" class="headerlink" title="MYSQL"></a>MYSQL</h1><h1 id="自联结，变量不会，补一补去"><a href="#自联结，变量不会，补一补去" class="headerlink" title="自联结，变量不会，补一补去"></a>自联结，变量不会，补一补去</h1><p>打开</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">mysql <span class="token parameter variable">-u</span> root <span class="token parameter variable">-p</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p><strong>数据类型</strong></p>
@@ -589,6 +589,8 @@ TIME HH:MM:SS
 YEAR YYYY
 DATETIME YYYY-MM-DD HH:MM:SS
 TIMESTAMP YYYY-MM-DD HH:MM:SS 时间戳<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>常用函数</p>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">DATE_FORMAT()<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <blockquote>
 <p><strong>时间戳记</strong>或称为<strong>时间标记</strong>（英语：timestamp）是指字符串或编码信息用于辨识记录下来的时间日期。国际标准为<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/ISO_8601" title="ISO 8601">ISO 8601</a>。</p>
 <p>时间戳记的范例如下：</p>
@@ -798,8 +800,8 @@ sum
 <p>排序查询</p>
 <pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">SELECT xx FROM 表名 ORDER BY 字段1 排序方式(ASC升序，DESC 降序)
 ，字段2 XXX <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>分页查询</p>
-<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">SELECT xx FROM XXX LIMIT 起始索引，查询记录数<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><u>分页查询</u></p>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">SELECT xx FROM XXX LIMIT (起始索引，查询记录数)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h3 id="DCL-（Data-Control-Language-数据控制语句）-用于操作数据库对象的权限"><a href="#DCL-（Data-Control-Language-数据控制语句）-用于操作数据库对象的权限" class="headerlink" title="DCL （Data Control Language 数据控制语句） 用于操作数据库对象的权限"></a>DCL （Data Control Language 数据控制语句） 用于操作数据库对象的权限</h3><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">SELECT * FORM user
 CREATE USER '用户名'@'主机名' IDENTIFIED BY '密码'/*使用%来指定任意主机都可以访问*/
 ALTER USER '用户名' @ '主机名' IDENTIFIED WITH  mysql_native_password BY '新密码'  修改密码
@@ -828,7 +830,9 @@ YEAR(date) 获取指定日期的年份
 MONTH(date)
 DAY(date)
 DATE_ADD(date,interval expr type) 返回一个日期/时间加上时间间隔expr后的时间
-DATEDIFF(date1,date2) 返回两个日期相差的天数<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+DATEDIFF(date1,date2) 返回两个日期相差的天数
+timestampdiff(间隔类型，前一个时间，后一个时间) 计算日期查
+例如: timestampdiff(YEAR,hiredate,now()))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="流程函数"><a href="#流程函数" class="headerlink" title="流程函数"></a><em>流程函数</em></h3><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">if (value,t,f) 如果value true 返回t 否则返回f
 IFNULL(v1,v2) 如果v1不为空返回v1,否则返回v2
 CASE WHEN (v1) THEN (res1)
@@ -1003,7 +1007,7 @@ FROM Customers LEFT OUTER JOIN Orders
 <h2 id="起别名"><a href="#起别名" class="headerlink" title="起别名"></a>起别名</h2><p>在使用时直接用AS +别名就可以用了 ^1cd456</p>
 <p><strong>只能每次用的时候起一次别名并且当时使用</strong></p>
 <p>下一个语句别名就不能用了，要重新起名字</p>
-<h2 id="UNION"><a href="#UNION" class="headerlink" title="UNION"></a>UNION</h2><p>语法：</p>
+<h2 id="UNION"><a href="#UNION" class="headerlink" title=" UNION "></a><u> UNION </u></h2><p>语法：</p>
 <p>适用于从多个不同的表中挑选不同的列</p>
 <blockquote>
 <p>UNION 中的每个查询必须包含相同的列、表达式或聚集函数（不过，</p>
@@ -1387,6 +1391,25 @@ show engines;<span aria-hidden="true" class="line-numbers-rows"><span></span><sp
 <h2 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h2><blockquote>
 <p>　1）、length()：mysql里面的length()函数是一个用来获取字符串长度的内置函数。<br>　　2）、char_length()：在mysql内置函数里面查看字符串长度的还有一个函数是char_length()。<br>　　3）、这两个函数的区别是：<br>　　　　a）、length()： 单位是字节，utf8编码下,一个汉字三个字节，一个数字或字母一个字节。gbk编码下,一个汉字两个字节，一个数字或字母一个字节。<br>　　　　b）、char_length()：单位为字符，不管汉字还是数字或者是字母都算是一个字符。</p>
 </blockquote>
+<h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">^：表示一个字符串或行的开头
+
+[a-z]：表示一个字符范围，匹配从 a 到 z 的任何字符。
+
+[0-9]：表示一个字符范围，匹配从 0 到 9 的任何字符。
+
+[a-zA-Z]：这个变量匹配从 a 到 z 或 A 到 Z 的任何字符。请注意，你可以在方括号内指定的字符范围的数量没有限制，您可以添加想要匹配的其他字符或范围。
+
+[^a-z]：这个变量匹配不在 a 到 z 范围内的任何字符。请注意，字符 ^ 用来否定字符范围，它在方括号内的含义与它的方括号外表示开始的含义不同。
+
+[a-z]*：表示一个字符范围，匹配从 a 到 z 的任何字符 0 次或多次。
+
+[a-z]+：表示一个字符范围，匹配从 a 到 z 的任何字符 1 次或多次。
+
+.：匹配任意一个字符。
+
+\.：表示句点字符。请注意，反斜杠用于转义句点字符，因为句点字符在正则表达式中具有特殊含义。还要注意，在许多语言中，你需要转义反斜杠本身，因此需要使用\\.。
+
+$：表示一个字符串或行的结尾。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="JDBC"><a href="#JDBC" class="headerlink" title="JDBC"></a>JDBC</h1><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">//导包
 import com.mysql.jdbc.Driver;  
   
@@ -1448,6 +1471,8 @@ conn.close();
     pstmt<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     conn<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="变量的使用"><a href="#变量的使用" class="headerlink" title="变量的使用"></a>变量的使用</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java">占位符？只能用来取代sql语句中的常变量，而不能取代列名或者表名
+select <span class="token operator">?</span> from <span class="token operator">?</span> where  <span class="token operator">?</span>   前两个<span class="token operator">?</span>不成立，只能用 <span class="token string">"+variable+"</span> 的方式<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -1867,7 +1892,7 @@ conn.close();
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">22.3k</span>
+                        class="white-color">29.2k</span>
             
             
             

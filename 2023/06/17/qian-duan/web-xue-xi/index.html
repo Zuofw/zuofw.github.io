@@ -6,11 +6,7 @@
     <meta charset="utf-8">
     <meta name="keywords" content="Web学习, 博客，学习，成长">
     <meta name="description" content="新坑  到P83页了。。。HTML5基本语法&amp;lt;hr&amp;gt; 一个横线
-
-
-
-&amp;lt;!DOCTYPE html&amp;gt; &amp;lt;!--文档声明，目的是让浏览器知道这是什么类型的文件--&amp;gt;
-&amp;lt;html &amp;gt; &amp;lt;!-">
+&amp;lt;label&amp;gt; &amp;lt;/label&amp;gt; 用于为input 元素进行标注 其 for 属性应与要绑定的元素的id相同，form属性用于规定其属于哪个">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -535,7 +531,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    5.7k
+                    9.1k
                 </div>
                 
 
@@ -555,7 +551,9 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="新坑-到P83页了。。。"><a href="#新坑-到P83页了。。。" class="headerlink" title="新坑  到P83页了。。。"></a>新坑  到P83页了。。。</h1><h2 id="HTML5基本语法"><a href="#HTML5基本语法" class="headerlink" title="HTML5基本语法"></a>HTML5基本语法</h2><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>hr</span><span class="token punctuation">&gt;</span></span> 一个横线<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+                <h1 id="新坑-到P83页了。。。"><a href="#新坑-到P83页了。。。" class="headerlink" title="新坑  到P83页了。。。"></a>新坑  到P83页了。。。</h1><h2 id="HTML5基本语法"><a href="#HTML5基本语法" class="headerlink" title="HTML5基本语法"></a>HTML5基本语法</h2><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>hr</span><span class="token punctuation">&gt;</span></span> 一个横线
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span><span class="token punctuation">&gt;</span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span> 用于为input 元素进行标注 其 for 属性应与要绑定的元素的id相同，form属性用于规定其属于哪个或者多个表单
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 
 
@@ -627,20 +625,74 @@
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>source/image/Elysia.jpg<span class="token punctuation">"</span></span> <span class="token attr-name">alt</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>图片丢失时显示<span class="token punctuation">"</span></span> <span class="token attr-name">title</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>鼠标放在上面可以看到<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>导航菜单</strong></p>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css">使用
+&lt;ul&gt; + &lt;li&gt; + &lt;a&gt; 即可，之后在css中进行设置样式<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<h2 id="class-的用法："><a href="#class-的用法：" class="headerlink" title="class 的用法："></a>class 的用法：</h2><ul>
-<li><p>一个对象可以包含多个class(方便了在CSS中定义)</p>
-<pre class="line-numbers language-css" data-language="css"><code class="language-css"> <span class="token selector">&lt;style type="text/css"&gt;
-        .Ely</span><span class="token punctuation">{</span>
-            <span class="token property">font-size</span><span class="token punctuation">:</span>larger<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token selector">.red</span><span class="token punctuation">{</span>
-            <span class="token property">color</span> <span class="token punctuation">:</span> purple<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    &lt;/style&gt;
+<p><strong>设置表格:</strong></p>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>table</span><span class="token punctuation">&gt;</span></span>表格 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">&gt;</span></span> 定义一行 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>col</span><span class="token punctuation">&gt;</span></span> 定义一列 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span> 定义一个单元格  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>caption</span><span class="token punctuation">&gt;</span></span> 表格的大标题 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span> 表头，主要用于行或列的名称，<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span> 与<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span> 相似
+实例:
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>table</span> <span class="token attr-name">border</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>2<span class="token punctuation">"</span></span> <span class="token attr-name">cellspacing</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>2<span class="token punctuation">"</span></span> <span class="token attr-name">bgcolor</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span> <span class="token punctuation">"</span>#eeeeee<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>caption</span><span class="token punctuation">&gt;</span></span>成绩表<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>caption</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">&gt;</span></span> <span class="token comment">&lt;!--开始定义表头--&gt;</span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>姓名<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>性别<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>成绩<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>张三<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>男<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>114<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>李四<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>男<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>514<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>table</span><span class="token punctuation">&gt;</span></span>
+    使用<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span> 中的rowspan 和 colspan 来合并单元格<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-&lt;p class =<span class="token string">"Ely red"</span> align = <span class="token string">"center"</span> &gt;Elysia  &lt;small&gt;&lt;/small&gt;  &lt;/p&gt; <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
+<p><strong>设置表单</strong></p>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span><span class="token punctuation">&gt;</span></span> 和 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span><span class="token punctuation">&gt;</span></span> 两个标签
+实例：
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">action</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+        姓名：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">&gt;</span></span>
+    type = "text"
+    name 设定文本框的名称，在交互程序中可以用到
+    size 数值，设定此一栏位要显示的宽度
+    value 预设内容
+    maxlength 设置文本可输入的最大最大文字长度 
+    type 属性内容:
+    type = "radio“ 单选
+    可选属性：
+    checked 设置某个选项为默认选
+    name  name属性内容相同的两个选项只能选中一个
+    type = "checkbox" 多选
+    可选
+    checked
+    name 需要将一组选中中的所有复选按钮设置为相同的名称才能让服务器处理时知道这几个选项是一个组的
+    type = "password" 密码框
+    属性与文本类型相同
+    type = "submit" 提交按钮
+    type = "reset"  重置按钮
+    type = "image"  提交图片
+    type = "textarea" 多行文本框
+	可选：
+    cols 定义文本框的宽度，字符的列数
+    rows 字符行数
+    wrap 定义换行方式 主要有 off 文字不自动换行， virtual 输入文字时会自动换行，但是如果没有自己按下回车键换行，提交到服务器时结果就时没有换行
+    physical 自动换行，提交到服务器结果也是换行
+    列表框：
+    在form中使用 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span><span class="token punctuation">&gt;</span></span> 标签
+    在<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span><span class="token punctuation">&gt;</span></span> 中使用<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span><span class="token punctuation">&gt;</span></span>来设置选项<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">&gt;</span></span>
+
+## class 的用法：
+
+- 一个对象可以包含多个class(方便了在CSS中定义)
+
+  ```css
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text/css<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token style"><span class="token language-css">
+          <span class="token selector">.Ely</span><span class="token punctuation">{</span>
+              <span class="token property">font-size</span><span class="token punctuation">:</span>larger<span class="token punctuation">;</span>
+          <span class="token punctuation">}</span>
+          <span class="token selector">.red</span><span class="token punctuation">{</span>
+              <span class="token property">color</span> <span class="token punctuation">:</span> purple<span class="token punctuation">;</span>
+          <span class="token punctuation">}</span>
+      </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">&gt;</span></span>
+  
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Ely red<span class="token punctuation">"</span></span> <span class="token attr-name">align</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span> <span class="token punctuation">"</span>center<span class="token punctuation">"</span></span> <span class="token punctuation">&gt;</span></span>Elysia  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>small</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>small</span><span class="token punctuation">&gt;</span></span>  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h2 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h2><ol>
 <li><p>基本规则:</p>
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">张飞{
@@ -809,7 +861,7 @@ E : root 		根元素，HTML中根元素始终为html
 <li><p>相对类型：</p>
 <p>px : 像素，根据设备类分辨率来进行调整，最常用的</p>
 <p>em: 设置以目前字符的高度为单位</p>
-<p>rem: root em 设置以网页跟元素HTML 字符的高度为单位， 一般浏览器莫默认单位为1rem = 16px</p>
+<p>rem: root em 设置以网页跟元素HTML 字符的高度为单位， 一般浏览器莫默认单位为 <u><strong>1rem = 16px</strong></u></p>
 <p>vw 和 vh 基于视图窗口的相对单， 1vw 等于视口宽度的1% 1vh 等于窗口高度的的1%</p>
 </li>
 <li><p>绝对类型</p>
@@ -849,9 +901,9 @@ E : root 		根元素，HTML中根元素始终为html
 <p>实现文字环绕：</p>
 <p>float : 将图片移动到页面左侧或者右侧从而使得文字能够从另一端来环绕</p>
 </blockquote>
-<h2 id="盒模型"><a href="#盒模型" class="headerlink" title="盒模型"></a>盒模型</h2><p>DOM ：document object model 文档对象模型</p>
-<p>padding -border-margin 模型</p>
-<p>一个盒模型包括：content 、border、padding 、 margin </p>
+<h2 id="盒模型"><a href="#盒模型" class="headerlink" title="盒模型"></a>盒模型</h2><p>DOM ：document object model 文档对象模型 ^eb3dd6</p>
+<p>padding -border-margin 模型  (顺序是上右下左)</p>
+<p>一个盒模型包括：content(内容) 、padding(内边距) 、border(内容的边框), margin (外边距)</p>
 <p>标准文档流：normal  document stream  </p>
 <blockquote>
 <p>div  区块容器标记，里面可以容纳各种HTML元素，可以将div看作一个对象</p>
@@ -875,6 +927,8 @@ E : root 		根元素，HTML中根元素始终为html
 <p>background-radius： 来设置盒模型的四个角是否圆滑 ， 后面的四个参数是从左上角开始，顺时针旋转的</p>
 <p>box-shadow 给盒模型设置阴影， 后面四个参数分别是水平偏移量，垂直偏移量，模糊，阴影扩展尺寸，阴影颜色，外部阴影或者是内部阴影</p>
 </blockquote>
+<h2 id="background-函数"><a href="#background-函数" class="headerlink" title="background 函数"></a>background 函数</h2><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token function">linear-gradient</span><span class="token punctuation">(</span>direction<span class="token punctuation">,</span>指定渐变方向<span class="token punctuation">,</span>color-stop1<span class="token punctuation">,</span>...<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>链接：</p>
 <p>想要打开一个新的窗口，需要在a标签中使用target 属性，并将其设置为_bank</p>
 <p>使用CSS对超链接进行修饰</p>
@@ -903,7 +957,7 @@ active
     <span class="token property">color</span><span class="token punctuation">:</span> blue<span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>修饰鼠标指针</p>
+<h3 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h3><p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/filter">https://developer.mozilla.org/zh-CN/docs/Web/CSS/filter</a><br>修饰鼠标指针</p>
 <blockquote>
 <p>cursor :属性即可</p>
 </blockquote>
@@ -921,67 +975,31 @@ active
 <p>lower-roman 小写罗马数字</p>
 <p>none 不显示任何符号</p>
 </blockquote>
-<p><strong>导航菜单</strong></p>
-<pre class="line-numbers language-css" data-language="css"><code class="language-css">使用
-&lt;ul&gt; + &lt;li&gt; + &lt;a&gt; 即可，之后在css中进行设置样式<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">
+## JavaScript
 
-<p>设置表格：</p>
-<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>table</span><span class="token punctuation">&gt;</span></span>表格 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">&gt;</span></span> 定义一行 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>col</span><span class="token punctuation">&gt;</span></span> 定义一列 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span> 定义一个单元格  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>caption</span><span class="token punctuation">&gt;</span></span> 表格的大标题 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span> 表头，主要用于行或列的名称，<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span> 与<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span> 相似
-实例:
-     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>table</span> <span class="token attr-name">border</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>2<span class="token punctuation">"</span></span> <span class="token attr-name">cellspacing</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>2<span class="token punctuation">"</span></span> <span class="token attr-name">bgcolor</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span> <span class="token punctuation">"</span>#eeeeee<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>caption</span><span class="token punctuation">&gt;</span></span>成绩表<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>caption</span><span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">&gt;</span></span> <span class="token comment">&lt;!--开始定义表头--&gt;</span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>姓名<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>性别<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>成绩<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>张三<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>男<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>114<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>李四<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>男<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>514<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>table</span><span class="token punctuation">&gt;</span></span>
-    使用<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span> 中的rowspan 和 colspan 来合并单元格<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+~~比起c语法更像是Java~~
 
-<p><strong>设置表单</strong></p>
-<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span><span class="token punctuation">&gt;</span></span> 和 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span><span class="token punctuation">&gt;</span></span> 两个标签
-实例：
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">action</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-        姓名：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">&gt;</span></span>
-    type = "text"
-    name 设定文本框的名称，在交互程序中可以用到
-    size 数值，设定此一栏位要显示的宽度
-    value 预设内容
-    maxlength 设置文本可输入的最大最大文字长度 
-    type 属性内容:
-    type = "radio“ 单选
-    可选属性：
-    checked 设置某个选项为默认选
-    name  name属性内容相同的两个选项只能选中一个
-    type = "checkbox" 多选
-    可选
-    checked
-    name 需要将一组选中中的所有复选按钮设置为相同的名称才能让服务器处理时知道这几个选项是一个组的
-    type = "password" 密码框
-    属性与文本类型相同
-    type = "submit" 提交按钮
-    type = "reset"  重置按钮
-    type = "image"  提交图片
-    type = "textarea" 多行文本框
-	可选：
-    cols 定义文本框的宽度，字符的列数
-    rows 字符行数
-    wrap 定义换行方式 主要有 off 文字不自动换行， virtual 输入文字时会自动换行，但是如果没有自己按下回车键换行，提交到服务器时结果就时没有换行
-    physical 自动换行，提交到服务器结果也是换行
-    列表框：
-    在form中使用 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span><span class="token punctuation">&gt;</span></span> 标签
-    在<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span><span class="token punctuation">&gt;</span></span> 中使用<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span><span class="token punctuation">&gt;</span></span>来设置选项<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+组成：
 
-<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><p><del>比起c语法更像是Java</del></p>
-<p>组成：</p>
-<p>ECMAScript,DOM , BOM</p>
-<ol>
-<li>ECMScript 语言</li>
-<li>DOM 文档对象模型，使用节点来web</li>
-<li>BOM 浏览器对象模型</li>
-</ol>
-<h3 id="语法："><a href="#语法：" class="headerlink" title="语法："></a>语法：</h3><p>区分大小写，变量无类型，只需要使用let进行声明即可，可初始化为任意类型的值</p>
+ECMAScript,DOM , BOM
+
+1. ECMScript 语言
+2. DOM 文档对象模型，使用节点来web
+3. BOM 浏览器对象模型
+
+### 语法：
+
+区分大小写，变量无类型，只需要使用let进行声明即可，可初始化为任意类型的值
+### 数据类型
+```js
+number 数字包括，整数小数,NaN Not a Number
+string
+boolean
+null 对象未空
+undefined 当声明的变量未初始化时该变量的默认值
+使用typeof 来获取数据的类型<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>注释与C相同</p>
 <p><strong>HTML中的调取方式：</strong></p>
 <p>1.使用 script 标签直接调用</p>
@@ -1019,7 +1037,7 @@ active
 <p>函数：两种写法</p>
 <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">name</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
     
-<span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">.</span>
 
 <span class="token comment">//或者</span>
 <span class="token function-variable function">name</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
@@ -1042,84 +1060,28 @@ active
   <span class="token literal-property property">xxx</span> <span class="token operator">:</span> xxx  
 <span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<p>赋值</p>
+<p><strong>赋值</strong></p>
 <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> myCar <span class="token operator">=</span> <span class="token punctuation">{</span>
    <span class="token literal-property property">size</span> <span class="token operator">:</span> <span class="token string">"large"</span><span class="token punctuation">,</span>
    <span class="token literal-property property">color</span> <span class="token operator">:</span> <span class="token string">"blue"</span><span class="token punctuation">,</span>
+   <span class="token function-variable function">eat</span> <span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"吃吃吃"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 <span class="token keyword">let</span> <span class="token punctuation">{</span>size <span class="token punctuation">,</span> color<span class="token punctuation">}</span> <span class="token operator">=</span> myCar<span class="token punctuation">;</span> <span class="token comment">// 同名可用这种方式一键赋值</span>
 console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">;</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>color<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>color<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-
-
-<h3 id="BOM对象"><a href="#BOM对象" class="headerlink" title="BOM对象"></a>BOM对象</h3><ol>
-<li><p>window对象，用于操作浏览器的窗口</p>
-<p>常用的有  第三个参数与新窗口有关，自己去看</p>
-<ul>
-<li>moveBy(x , y) 将窗口向又或者向下移动</li>
-<li>moveTo(x ,y) 移动到指定位置</li>
-<li>resizeBy (dw , dh) 缩放</li>
-<li>resizeTo (w ,h )  缩放到指定窗口大小</li>
-<li>alert() 输出</li>
-<li>prompt() 读入用户输入</li>
-</ul>
-</li>
-<li><p>location 对象，用于分析和设置页面的URL，主要是window 和 document 对象的属性</p>
-<p>有以下属性</p>
-<ul>
-<li>hash 如果URL包含书签#，则返回#后边的内容</li>
-<li>host 服务器的名称</li>
-<li>herf 当前载入的完整的URL </li>
-<li>pathname URL 中主机后面的部分</li>
-<li>port 请求端口</li>
-<li>protocol 协议</li>
-<li>search 执行GET清秋的URL 中?之后的部分</li>
-</ul>
-<p>补充：URL</p>
-<blockquote>
-<p><strong>URL</strong> 代表着是统一资源定位符（Uniform Resource Locator）。URL 无非就是一个给定的独特资源在 Web 上的地址。理论上说，每个有效的 URL 都指向一个唯一的资源。这个资源可以是一个 HTML 页面，一个 CSS 文档，一幅图像，等等。而在实际中，也有一些例外，最常见的情况就是一个 URL 指向了不存在的或是被移动过的资源。由于通过 URL 呈现的资源和 URL 本身由 Web 服务器处理，因此 web 服务器的拥有者需要认真地维护资源以及与它关联的 URL。</p>
-</blockquote>
-</li>
-<li><p>navigator 对象， 进行客户端检测</p>
-<ul>
-<li>appCodeName 浏览器代码名的字符串表示</li>
-<li>appName 官方浏览器名的字符串表示</li>
-<li>appVersion 浏览器版本信息表示</li>
-<li>javaEnabled() 是否启用了Java</li>
-<li>platform 运行浏览器的计算机平台字符串表示</li>
-<li>plugins 安装在浏览器中的插件组数</li>
-<li>userAgent 用户代理头字符串的字符串表示 最常用</li>
-</ul>
-</li>
-<li><p>screen 对象 也是 window对象的属性</p>
-<ul>
-<li>availHeight 窗口可以使用的屏幕高度</li>
-<li>availWidth</li>
-<li>colorDepth 用户表示颜色位数</li>
-<li>height 屏幕高度</li>
-<li>width</li>
-</ul>
-</li>
-<li><p>history 导航历史记录</p>
-<ul>
-<li>go( ) 前进后退几页，也可以使用字符串，导航到包哦含这个字符串的第一个也米娜</li>
-<li>back()</li>
-<li>forward()</li>
-<li>length 历史记录中有多个条目，可以来判断当前是不是你的第一个页面</li>
-</ul>
-<h3 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h3><h4 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h4><p>数组进行复制:</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> a <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span> <span class="token punctuation">,</span> <span class="token number">2</span> <span class="token punctuation">,</span> <span class="token number">3</span> <span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span>
+<h3 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h3><h4 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h4><p>   数组进行复制:</p>
+   <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> a <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span> <span class="token punctuation">,</span> <span class="token number">2</span> <span class="token punctuation">,</span> <span class="token number">3</span> <span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span>
 <span class="token keyword">let</span> b <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token operator">...</span>a<span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
 <span class="token comment">//补充，对象复制</span>
 <span class="token keyword">let</span> obj <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token literal-property property">name</span> <span class="token operator">:</span> <span class="token string">"Bob"</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
 <span class="token keyword">let</span> c <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token operator">...</span>obj<span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-
-
-<p>JavaScript中数组内容的类型可以不一致</p>
-<p>解构数组：</p>
-<p>array的函数</p>
+<p>   JavaScript中数组内容的类型可以不一致</p>
+<p>   解构数组：</p>
+<p>   array的函数</p>
 <ul>
 <li><p>push , pop</p>
 </li>
@@ -1161,8 +1123,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <li><p>展开运算符  数组[…] 即可展开</p>
 </li>
 </ul>
-<p>JavaScript的对象也是集合</p>
-<p>Map</p>
+<p>   Map</p>
 <ul>
 <li>set(“key” ,”value”)</li>
 <li>for (let [key , value] of map)</li>
@@ -1170,25 +1131,116 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <li>forEach(函数)</li>
 <li>合并 自己看文档喽</li>
 </ul>
-<p>Set</p>
+<p>   Set</p>
 <ul>
 <li>add</li>
 <li>并集，交集，差集 自己看</li>
 </ul>
-<h3 id="DOM"><a href="#DOM" class="headerlink" title="DOM"></a>DOM</h3><p>通过JavaScript访问DOM 自己看去吧。。。</p>
-<h2 id="React"><a href="#React" class="headerlink" title="React"></a>React</h2><p>JavaScript的一个第三方库</p>
-<p>react app 由组件组成，react组件是返回html标签的JavaScript函数</p>
-<p>react 的组件可以用作类似于html的标签，区别是React 组件必须以大写字母开头，HTML标签必须以小写字母开头</p>
-<p>JavaScript的component实际上就是JavaBean</p>
-<p>例如:</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">MyButton</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<h3 id="BOM对象"><a href="#BOM对象" class="headerlink" title="BOM对象"></a>BOM对象</h3><ol>
+<li><p>window对象，用于操作浏览器的窗口</p>
+<p>常用的有  第三个参数与新窗口有关，自己去看</p>
+<pre><code>- moveBy(x , y) 将窗口向又或者向下移动
+- moveTo(x ,y) 移动到指定位置
+- resizeBy (dw , dh) 缩放
+- resizeTo (w ,h )  缩放到指定窗口大小
+- alert() 输出
+- prompt() 读入用户输入
+- confirm() 显示确认和取消 确定 返回值是true
+- setinterval() 按照指定周期来调用函数和表达式 参数未函数 + 毫秒数
+- setTimeout() 在指定毫秒数后调用函数计算表达式
+</code></pre>
+</li>
+<li><p>location 对象，用于分析和设置页面的URL，主要是window 和 document 对象的属性<br> 直接使用location . xxx 即可</p>
+<p>有以下属性</p>
+<pre><code>- hash 如果URL包含书签#，则返回#后边的内容
+- host 服务器的名称
+- &lt;u&gt;**herf**&lt;/u&gt; 当前载入的完整的URL 
+- pathname URL 中主机后面的部分
+- port 请求端口
+- protocol 协议
+- search 执行GET请求的URL中 ? 之后的部分
+</code></pre>
+<p>补充：URL</p>
+<blockquote>
+<p><strong>URL</strong> 代表着是统一资源定位符（Uniform Resource Locator）。URL 无非就是一个给定的独特资源在 Web 上的地址。理论上说，每个有效的 URL 都指向一个唯一的资源。这个资源可以是一个 HTML 页面，一个 CSS 文档，一幅图像，等等。而在实际中，也有一些例外，最常见的情况就是一个 URL 指向了不存在的或是被移动过的资源。由于通过 URL 呈现的资源和 URL 本身由 Web 服务器处理，因此 web 服务器的拥有者需要认真地维护资源以及与它关联的 URL。</p>
+</blockquote>
+</li>
+<li><p>navigator 对象， 进行客户端检测</p>
+<pre><code>- appCodeName 浏览器代码名的字符串表示
+- appName 官方浏览器名的字符串表示
+- appVersion 浏览器版本信息表示
+- javaEnabled() 是否启用了Java
+- platform 运行浏览器的计算机平台字符串表示
+- plugins 安装在浏览器中的插件组数
+- userAgent 用户代理头字符串的字符串表示 最常用
+</code></pre>
+</li>
+<li><p>screen 对象 也是 window对象的属性</p>
+<pre><code>- availHeight 窗口可以使用的屏幕高度
+- availWidth
+- colorDepth 用户表示颜色位数
+- height 屏幕高度
+- width 
+</code></pre>
+</li>
+<li><p>history 导航历史记录</p>
+<pre><code>- go( ) 前进后退几页，也可以使用字符串，导航到包哦含这个字符串的第一个也米娜
+- back()
+- forward()
+- length 历史记录中有多个条目，可以来判断当前是不是你的第一个页面
+</code></pre>
+<h3 id="DOM"><a href="#DOM" class="headerlink" title="DOM"></a>DOM</h3><p>将标记语言的各个组成部分封装为对应的对象</p>
+<blockquote>
+<p>Document 整个文档对象<br>Element 元素对象<br>Text   文本对象<br>Comment 注释对象 </p>
+</blockquote>
+<p>js可以通过DOM对HTML进行操作和做出反应 ^6aefb6</p>
+</li>
+</ol>
+<h3 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h3><ol>
+<li>[[Web学习#^6aefb6|Core DOM 所有文档类型的标准模型]] </li>
+<li>XML DOM XML 文档的标准模型</li>
+<li>HTML DOM HTML 文档的标准模型</li>
+</ol>
+<p>	</p>
+<h4 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h4><p>具体的标签对象的属性和函数去MDN里看看 </p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//通过id值查找对象</span>
+<span class="token keyword">var</span> h1 <span class="token operator">=</span> doucument<span class="token punctuation">.</span><span class="token function">getElementById1</span><span class="token punctuation">(</span><span class="token string">'h1'</span><span class="token punctuation">)</span>
+<span class="token comment">//以下函数无法查找特定的某一个对象，所以返回的一个对象数组</span>
+<span class="token comment">//根据标签名查找对象</span>
+<span class="token keyword">var</span> divs <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementsByTagName</span><span class="token punctuation">(</span><span class="token string">'div'</span><span class="token punctuation">)</span>
+<span class="token comment">//根据name来获取</span>
+<span class="token function">getElementsByName</span><span class="token punctuation">(</span><span class="token string">'hobby'</span><span class="token punctuation">)</span>
+<span class="token comment">//根据class 来获取</span>
+<span class="token function">getElementsByClassName</span><span class="token punctuation">(</span><span class="token string">'cls'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>事件绑定</p>
+<ol>
+<li>通过HTML标签中的属性来绑定<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span> <span class="token punctuation">"</span>button<span class="token punctuation">"</span></span> <span class="token special-attr"><span class="token attr-name">onclick</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span> <span class="token punctuation">"</span><span class="token value javascript language-javascript"><span class="token function">on</span><span class="token punctuation">(</span><span class="token punctuation">)</span></span><span class="token punctuation">"</span></span></span> <span class="token attr-name">value1</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span> <span class="token punctuation">"</span>按钮1<span class="token punctuation">"</span></span> <span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
+	<span class="token keyword">function</span> <span class="token function">on</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token function">alert</span> <span class="token punctuation">(</span><span class="token string">'我被点击了'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>	
+	<span class="token punctuation">}</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li>通过DOM元素来绑定<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span> <span class="token punctuation">"</span>button<span class="token punctuation">"</span></span> <span class="token attr-name">id</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span> <span class="token punctuation">"</span>btn<span class="token punctuation">"</span></span> <span class="token attr-name">value</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span> <span class="token punctuation">"</span>按钮2<span class="token punctuation">"</span></span> <span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span>
+	document.getElementById('btn').onclick = function(){
+		alert('我被点击了');	
+	}
+	<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+<h2 id="React"><a href="#React" class="headerlink" title="React"></a>React</h2><p>   JavaScript的一个第三方库</p>
+<p>   react app 由组件组成，react组件是返回html标签的JavaScript函数</p>
+<p>   react 的组件可以用作类似于html的标签，区别是React 组件必须以大写字母开头，HTML标签必须以小写字母开头</p>
+<p>   JavaScript的component实际上就是JavaBean</p>
+<p>   例如:</p>
+   <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">MyButton</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">return</span> <span class="token punctuation">(</span>
     <span class="token operator">&lt;</span>button<span class="token operator">&gt;</span><span class="token constant">I</span>'m a button<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">&gt;</span>
   <span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>之后MyButton可作为标签使用</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">MyApp</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<p>   之后MyButton可作为标签使用</p>
+   <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">MyApp</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">return</span> <span class="token punctuation">(</span>
     <span class="token operator">&lt;</span>div<span class="token operator">&gt;</span>
       <span class="token operator">&lt;</span>h1<span class="token operator">&gt;</span>Welcome to my app<span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">&gt;</span>
@@ -1197,19 +1249,27 @@ console<span class="token punctuation">.</span><span class="token function">log<
   <span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><strong>hotloader</strong>是好东西</p>
-<p><strong>React命名:</strong></p>
+<p>   <strong>hotloader</strong>是好东西</p>
+<p>   <strong>React命名:</strong></p>
 <blockquote>
 <p>HTML中的类为 class ，而React中的class命名为className</p>
 <p><code>&lt;h4 className="Profile-subTitle"&gt;About Me&lt;/h4&gt;</code></p>
 <p>类名为：组件名(文件名) 扩折号 文件中的作用名，遵循驼峰</p>
 </blockquote>
-<p>使用 import xxx from “xxx” 来在js文件中导入其他的component</p>
-<p>使用 import “xxx.css” 来从导入css文件</p>
-<p>使用 export default xxx 来导出这个组件，从而让其他文件能够调用这个组件</p>
-<p>具体可看示例 catbook-react</p>
-</li>
-</ol>
+<p>   使用 import xxx from “xxx” 来在js文件中导入其他的component</p>
+<p>   使用 import “xxx.css” 来从导入css文件</p>
+<p>   使用 export default xxx 来导出这个组件，从而让其他文件能够调用这个组件</p>
+<p>   具体可看示例 catbook-react </p>
+<h2 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h2><blockquote>
+<p>使用js对象标记法书写的文本</p>
+</blockquote>
+<p>格式：</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//这个变量是一个字符串类型的，不是对象</span>
+<span class="token keyword">var</span> 变量 <span class="token operator">=</span> <span class="token string">'{"key1" : value1 , "key2" : value2}'</span><span class="token punctuation">;</span><span class="token comment">//单引号来表名时变量类型</span>
+<span class="token comment">//JSON 字符串和js对象转化</span>
+<span class="token keyword">var</span> jsObject <span class="token operator">=</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>userStr<span class="token punctuation">)</span>
+<span class="token keyword">var</span> jsonStr <span class="token operator">=</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span>jsObject<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h2 id="后端"><a href="#后端" class="headerlink" title="后端"></a>后端</h2><h3 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h3><p>组成：</p>
 <p>URL + Methods + Request Headers + Request Body</p>
 <h3 id="Methods"><a href="#Methods" class="headerlink" title="Methods"></a>Methods</h3><ul>
@@ -1242,7 +1302,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>一些参数的实现<br><img src="/2023/06/17/qian-duan/web-xue-xi/%E5%8F%82%E6%95%B0.png"><br><img src="/2023/06/17/qian-duan/web-xue-xi/%E5%90%8C%E4%B8%80%E7%9A%84%E5%93%8D%E5%BA%94%E7%BB%93%E6%9E%9C.png"></p>
-<h2 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h2><h2 id="形式良好的-XML-文档"><a href="#形式良好的-XML-文档" class="headerlink" title="形式良好的 XML 文档"></a>形式良好的 XML 文档</h2><p>“形式良好”的 XML 文档拥有正确的语法。</p>
+<h2 id="形式良好的-XML-文档"><a href="#形式良好的-XML-文档" class="headerlink" title="形式良好的 XML 文档"></a>形式良好的 XML 文档</h2><p>“形式良好”的 XML 文档拥有正确的语法。</p>
 <p>在前面的章节描述的语法规则：</p>
 <ul>
 <li>XML 文档必须有一个根元素</li>
@@ -1285,15 +1345,389 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <td>quotation mark</td>
 </tr>
 </tbody></table>
-<h2 id="分层解耦"><a href="#分层解耦" class="headerlink" title="分层解耦"></a>分层解耦</h2><h3 id="三层架构"><a href="#三层架构" class="headerlink" title="三层架构"></a>三层架构</h3><ol>
-<li>controller : 控制层 ，接受前端发送的请求，对请求进行处理，并响应数据</li>
-<li>service: 业务逻辑层，处理具体的业务逻辑</li>
-<li>dao 数据访问层(Data Access Object ) (持久层),负责数据的访问操作，包括增删改查</li>
-</ol>
-<h3 id="IOC-amp-DI"><a href="#IOC-amp-DI" class="headerlink" title="IOC &amp; DI"></a>IOC &amp; DI</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Component</span> 将当前类交给<span class="token constant">IOC</span> 容器 <span class="token comment">//加在需要被new的对象所在的层</span>
-<span class="token annotation punctuation">@Autowired</span> 运行时<span class="token constant">IOC</span> 容器会提供该类型的bean并赋值给变量 依赖注入 <span class="token comment">//加在controller层</span>
+<h2 id="Servlet"><a href="#Servlet" class="headerlink" title="Servlet"></a>Servlet</h2><p>是接口，使用时要自己实现</p>
+<h4 id="web-xml中配置（可用注解实现了，暴怒需要这么写了）"><a href="#web-xml中配置（可用注解实现了，暴怒需要这么写了）" class="headerlink" title="web.xml中配置（可用注解实现了，暴怒需要这么写了）"></a>web.xml中配置（可用注解实现了，暴怒需要这么写了）</h4><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">	<span class="token comment">&lt;!-- Servlets --&gt;</span>
+	<span class="token comment">&lt;!-- 配置类名和路径--&gt;</span>  
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet</span><span class="token punctuation">&gt;</span></span>  
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet-name</span><span class="token punctuation">&gt;</span></span>demo1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet-name</span><span class="token punctuation">&gt;</span></span>  
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet-class</span><span class="token punctuation">&gt;</span></span>com.example.servelet_study.servlet.ServletDemo1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet-class</span><span class="token punctuation">&gt;</span></span>  
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet</span><span class="token punctuation">&gt;</span></span>  
+<span class="token comment">&lt;!-- 配置请求路径 --&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet-mapping</span><span class="token punctuation">&gt;</span></span>  
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet-name</span><span class="token punctuation">&gt;</span></span>demo1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet-name</span><span class="token punctuation">&gt;</span></span>  
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url-pattern</span><span class="token punctuation">&gt;</span></span>/demo1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url-pattern</span><span class="token punctuation">&gt;</span></span>  
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet-mapping</span><span class="token punctuation">&gt;</span></span>
+<span class="token comment">&lt;!-- 配置servlet的init时间 --&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>load-on-startup</span><span class="token punctuation">&gt;</span></span> 数字 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>load-on-startup</span><span class="token punctuation">&gt;</span></span> 数字为正数时可以在服务器启动时被创建，为 负数时可以在第一次访问的时候进行加载<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@WebServlet</span><span class="token punctuation">(</span> <span class="token string">"/..."</span><span class="token punctuation">,</span><span class="token string">"/..."</span><span class="token punctuation">,</span><span class="token string">"/..."</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="接口方法"><a href="#接口方法" class="headerlink" title="接口方法"></a>接口方法</h4><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span> 在第一次创建<span class="token class-name">Servlet</span>时被调用
+<span class="token function">service</span><span class="token punctuation">(</span><span class="token punctuation">)</span> 在被访问时会被调用，会适当的调用doGet等方法
+<span class="token function">destroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token function">getSercletConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span> 获取配置文件
+getServletInfo <span class="token punctuation">(</span><span class="token punctuation">)</span> 获取servlet版本信息<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-加上之后就不需要自己进行<span class="token keyword">new</span>对象了，直接建立对象变量即可<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">## 分层解耦
+### 三层架构
+1. controller : 控制层 ，接受前端发送的请求，对请求进行处理，并响应数据
+2. service: 业务逻辑层，处理具体的业务逻辑
+3. dao 数据访问层(Data Access Object ) (持久层),负责数据的访问操作，包括增删改查
+### IOC &amp; DI
+```java
+@Component 将当前类交给IOC 容器 //加在需要被new的对象所在的层
+@Autowired 运行时IOC 容器会提供该类型的bean并赋值给变量 依赖注入 //加在controller层
+
+加上之后就不需要自己进行new对象了，直接建立对象变量即可
+//其他注解
+@Component 声明bean的基础注解
+//以下在web中常用
+@Controller 标注在控制器上
+@Service 标注在业务类上
+//DI注解
+@Autowired 默认是按照类型进行的，如果存在多个相同的类型的bean就会出现报错
+@Primary 想要哪个bean被注入就直接加在那个类前面
+@Qualifier("value") 在使用的时候加上这个，value为bean的名字
+@Resource (name = "") 
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="HttpServletRequest中常用的方法"><a href="#HttpServletRequest中常用的方法" class="headerlink" title="HttpServletRequest中常用的方法"></a>HttpServletRequest中常用的方法</h3><ul>
+<li>Map&nbsp;getParameterMap()<br>  获取包含所有请求参数及值的 Map 对象。需要注意，该 Map 的 value 为 String[]，即一个参数所对应的值为一个数组。说明一个参数可以对应多个值。</li>
+<li>Enumeration&nbsp;getParameterNames()<br>  获取请求参数 Map 的所有 key,即获取所有请求参数名。</li>
+<li>String[] getParameterValues(String name)<br>  根据指定的请求参数名称，获取其对应的所有值。这个方法一般用于获取复选框(checkbox)数据。</li>
+<li>String getParameter(String name)<br>  根据指定的请求参数名称，获取其对应的值。若该参数名称对应的是多个值，则该方法获取到的是第一个值。这个方法是最常用的方法。</li>
+</ul>
+<p>获取客户端信息的方法：</p>
+<ul>
+<li>getRequestURL方法返回客户端发出请求时的完整URL。</li>
+<li>getRequestURI方法返回请求行中的资源名部分。</li>
+<li>getQueryString 方法返回请求行中的参数部分。</li>
+<li>getRemoteAddr方法返回发出请求的客户机的IP地址</li>
+<li>getRemoteHost方法返回发出请求的客户机的完整主机名</li>
+<li>getRemotePort方法返回客户机所使用的网络端口号</li>
+<li>getLocalAddr方法返回WEB服务器的IP地址。</li>
+<li>getLocalName方法返回WEB服务器的主机名</li>
+<li>getMethod得到客户机请求方式<pre class="line-numbers language-java" data-language="java"><code class="language-java">request<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token string">"test"</span><span class="token punctuation">,</span><span class="token string">"hello"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 暂存req请求中的信息
+
+equest<span class="token punctuation">.</span><span class="token function">getRequestDispacther</span><span class="token punctuation">(</span><span class="token string">"/test.jsp"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forword</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span>response<span class="token punctuation">)</span><span class="token punctuation">;</span> 转发
+
+
+response<span class="token punctuation">.</span><span class="token function">sendRedirect</span><span class="token punctuation">(</span><span class="token string">"test.jsp"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 重定向<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<h3 id="filter-1"><a href="#filter-1" class="headerlink" title="filter"></a>filter</h3><blockquote>
+<p>由于表单的post 提交方式，所以要编写好编码的过滤器来支持中文存取</p>
+</blockquote>
+<h2 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h2><p>免除js中的 DOM操作简化书写</p>
+<ol>
+<li>新建html页面引入Vue.js文件</li>
+<li>创建Vue核心对象，定义数据模型<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
+<span class="token keyword">new</span> <span class="token class-name">Vue</span> <span class="token punctuation">(</span><span class="token punctuation">{</span>
+	<span class="token literal-property property">el</span> <span class="token operator">:</span> <span class="token string">"#app"</span><span class="token punctuation">,</span> <span class="token comment">//Vue要控制哪个区， #+id 类似css的选择器</span>
+	<span class="token literal-property property">data</span> <span class="token operator">:</span> <span class="token punctuation">{</span><span class="token comment">//数据模型</span>
+		<span class="token literal-property property">message</span> <span class="token operator">:</span> <span class="token string">"hello Vue"</span>	
+	<span class="token punctuation">}</span>
+	<span class="token literal-property property">method</span> <span class="token operator">:</span><span class="token punctuation">{</span>
+		<span class="token comment">//定义函数</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li>编写视图<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span> <span class="token punctuation">"</span>app<span class="token punctuation">"</span></span> <span class="token punctuation">&gt;</span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span> <span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">v-model</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span> <span class="token punctuation">"</span>message<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span> //绑定数据模型
+	{{ message }} //直接获取数据模型中的数据进行展示
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+//
+{{}} 插值表达式，中间可以填入 变量，三元运算符，函数调用，算数运算
+v-model = "" 模型绑定<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+<h3 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h3><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">v<span class="token operator">-</span>bind 为<span class="token constant">HTML</span> 标签绑定属性值，例如设置href <span class="token punctuation">,</span> css 样式
+<span class="token literal-property property">或者直接</span> <span class="token operator">:</span> <span class="token operator">+</span> href <span class="token operator">...</span>
+v<span class="token operator">-</span>model 在表单元素上实现双向数据绑定
+v<span class="token operator">-</span>on 为<span class="token constant">HTML</span>绑定事务 v<span class="token operator">-</span>on<span class="token operator">:</span>click 可简写为@click
+<span class="token comment">//</span>
+
+<span class="token comment">//</span>
+v<span class="token operator">-</span><span class="token keyword">if</span> 
+v<span class="token operator">-</span><span class="token keyword">else</span><span class="token operator">-</span><span class="token keyword">if</span> 条件性的渲染某元素
+v<span class="token operator">-</span><span class="token keyword">else</span>
+v<span class="token operator">-</span>show 根据条件显示某元素，区别是切换的是display属性的值
+v<span class="token operator">-</span><span class="token keyword">for</span> 列表渲染，遍历容器的元素或对象的属性<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="生命周期及其对应的方法"><a href="#生命周期及其对应的方法" class="headerlink" title="生命周期及其对应的方法"></a>生命周期及其对应的方法</h3><h2 id="Ajax"><a href="#Ajax" class="headerlink" title="Ajax"></a>Ajax</h2><h3 id="Axios"><a href="#Axios" class="headerlink" title="Axios"></a>Axios</h3><p>简化了Axios</p>
+<h2 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h2><h2 id="Vue-1"><a href="#Vue-1" class="headerlink" title="Vue"></a>Vue</h2><h2 id="Element"><a href="#Element" class="headerlink" title="Element"></a>Element</h2><h2 id="maven"><a href="#maven" class="headerlink" title="maven"></a>maven</h2><ol>
+<li>[[<a target="_blank" rel="noopener" href="https://m.imooc.com/wiki/mavenlesson-maveninstall|%E9%85%8D%E7%BD%AE]]">https://m.imooc.com/wiki/mavenlesson-maveninstall|配置]]</a></li>
+<li>构建项目<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">mvn archetype:generate <span class="token parameter variable">-DgroupId</span><span class="token operator">=</span>com.mic.tech <span class="token parameter variable">-DartifactId</span><span class="token operator">=</span>firstProject <span class="token parameter variable">-DarchetypeArtifactId</span><span class="token operator">=</span>maven-archetype-quickstart <span class="token parameter variable">-DinteractiveMode</span><span class="token operator">=</span>false
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+</ol>
+<ul>
+<li><strong>-DgourpId</strong>: 组织名，一般为公司网址的反写；</li>
+<li><strong>-DartifactId</strong>: 项目名-模块名；</li>
+<li><strong>-DarchetypeArtifactId</strong>: 用来指定 ArchetypeId，这里用到的是maven-archetype-quickstart，即创建一个简单 Java 应用；</li>
+<li><strong>-DinteractiveMode</strong>: 是否使用交互模式。</li>
+</ul>
+<ol start="3">
+<li>idea已经内置maven</li>
+</ol>
+<p>添加外部依赖</p>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">将外部文件导入到项目中，配置pom.xml
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependencies</span><span class="token punctuation">&gt;</span></span>
+    <span class="token comment">&lt;!-- 在这里添加你的依赖 --&gt;</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>ldapjdk<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>  <span class="token comment">&lt;!-- 库名称，也可以自定义 --&gt;</span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>ldapjdk<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>    <span class="token comment">&lt;!--库名称，也可以自定义--&gt;</span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">&gt;</span></span>1.0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">&gt;</span></span> <span class="token comment">&lt;!--版本号--&gt;</span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">&gt;</span></span>system<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scope</span><span class="token punctuation">&gt;</span></span> <span class="token comment">&lt;!--作用域--&gt;</span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>systemPath</span><span class="token punctuation">&gt;</span></span>${basedir}\src\lib\ldapjdk.jar<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>systemPath</span><span class="token punctuation">&gt;</span></span> <span class="token comment">&lt;!--项目根目录下
+        的lib文件夹下--&gt;</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependencies</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="JSP"><a href="#JSP" class="headerlink" title="JSP"></a>JSP</h2><h3 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h3><pre class="line-numbers language-JSP" data-language="JSP"><code class="language-JSP">&lt;% 代码 %&gt;
+&lt;%! int i = 0 ; %&gt; 变量声明
+&lt;%= 表达式 %&gt;  表达式声明
+&lt;%-- 注释 --%&gt; 注释，注释内容 不会被发送到浏览器
+&lt;!-- html注释 --&gt; 可以通过查看源代码来进行查看
+if --else 语法
+&lt;% if (day == 1 || day == 7) { %&gt;
+      &lt;p&gt;今天是周末&lt;/p&gt;
+&lt;% } else { %&gt;
+      &lt;p&gt;今天不是周末&lt;/p&gt;
+&lt;% } %&gt;
+switch 
+&lt;% 
+switch(day) {
+case 0:
+   out.println("星期天");
+   break;
+case 1:
+   out.println("星期一");
+   break;
+case 2:
+   out.println("星期二");
+   break;
+case 3:
+   out.println("星期三");
+   break;
+case 4:
+   out.println("星期四");
+   break;
+case 5:
+   out.println("星期五");
+   break;
+default:
+   out.println("星期六");
+}
+%&gt;
+for循环
+&lt;%for ( fontSize = 1; fontSize &lt;= 3; fontSize++){ %&gt;
+   &lt;font color="green" size="&lt;%= fontSize %&gt;"&gt;
+    菜鸟教程
+   &lt;/font&gt;&lt;br /&gt;
+&lt;%}%&gt;
+while循环
+&lt;%while ( fontSize &lt;= 3){ %&gt;
+   &lt;font color="green" size="&lt;%= fontSize %&gt;"&gt;
+    菜鸟教程
+   &lt;/font&gt;&lt;br /&gt;
+&lt;%fontSize++;%&gt;
+&lt;%}%&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="JSP行为"><a href="#JSP行为" class="headerlink" title="JSP行为"></a>JSP行为</h3><p>使用xml语法来控制servlet引擎，能够动态插入一个文件重用Javabean组件，切换页面</p>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>jsp</span> <span class="token attr-name">:action_name</span> <span class="token attr-name">attribute</span> <span class="token attr-name">attribute</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span> <span class="token punctuation">"</span>value<span class="token punctuation">"</span></span><span class="token punctuation">/&gt;</span></span>
+action_name :
+include 在当前页面包含静态
+useBean 寻找和初始化一个java组件
+setProperty 设置JavaBean组件的值
+getProperty 将JavaBean 组件的值插入到output中
+forward 从一个jsp文件向另一个文件传递一个包含用户请求的request 对象
+plugin 再生成的html页面中包含Applet和JavaBean对象
+element 动态创建一个xml元素
+attribute 定义动态创建的xml元素的属性
+body 动态创建xml元素主体
+text 用于封装数据
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="JSP-指令"><a href="#JSP-指令" class="headerlink" title="JSP 指令"></a>JSP 指令</h3><pre class="line-numbers language-jsp" data-language="jsp"><code class="language-jsp">&lt;%@ 指令 %&gt;  
+主要指令有: 
+page  定义网页依赖属性 脚本语言,error页面，缓存需求等
+	page相关的属性
+	buffer 指定out对象使用缓冲区大小
+	autoFlush 控制out 对象的缓存区
+	conteneType 指定当前JSP 页面发生异常时需要转向的错误处理页面
+	error Page 指定当JSP页面发生异常时需要转向的错误处理页面
+	isErrorPage 指定当前页面是否可以作为另一个JSP页面的错误处理页面
+	extends servlet 从哪个类继承
+	import 导入要使用的java 类
+	info 定义jsp页面的表述信息
+	isThreadSafe 指定对JSP页面的访问是否为线程安全
+	language 定义JSP页面所用的脚本语言，默认是Java
+	session 指定JSP页面是否使用session
+	isELIgnored 指定是否执行EL表达式
+	isScriptingEnabled 确定脚本元素能否被使用
+	
+include 包含其他文件
+	&lt;%@ include file = "文件的相对url" %&gt;
+taglib  引入标签库的定义，可以自定义标签
+	&lt;% tagelib uri = "uri" prefix = "refix0Tag" %&gt;
+	uri 标签库的位置   prefix 指定标签库的前缀<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="JSP动作元素"><a href="#JSP动作元素" class="headerlink" title="JSP动作元素"></a>JSP动作元素</h3><p>JSP动作元素在请求阶段处理阶段起作用，且使用的时xml语法</p>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">语法：
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">jsp:</span></span> <span class="token attr-name">action_name</span> <span class="token attr-name">attribute</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span> <span class="token punctuation">"</span><span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+include 在页面被请求的时候引入一个文件
+	page = "url" flush = "true or false" 定义在包含资源前是否刷新缓存区
+useBean 寻找或者实例化一个JavaBean
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">jsp:</span>useBean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>name<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>package.class<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+	class指定Bean的完整包名。
+	type 指定将引用该对象变量的类型。
+	beanName 通过 java.beans.Beans 的 instantiate() 方法指定Bean的名字。
+setProperty 设置JavaBean的属性
+	将其放在useBean中只会在找到一个Bean示例才会进行执行
+	放在外部则不论是否找到bean都会执行
+	属性: name 表示要设置属性的是哪个bean
+	property 无论要设置哪个属性都有一个特殊用法
+	value 指定bean属性的值
+	param 指定用哪个参数作为Bean属性的值
+getProperty 输出某个JavaBean的属性
+	提取对应的Bean属性的值，转化为字符串然后输出
+	name 药检所的bean属性名称
+	property 表示要提取属性的值
+forward 把请求转到一个新的界面
+plugin 根据浏览器类型为Java插件生成obeject 活embed 标记
+element 定义动态xml元素
+attribute 设置动态定义的xml属性
+body 动态定义的xml内容
+text 在jsp页面和文档中使用写入文本的模板<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="JSP隐式对象，可以直接使用而不显示声明"><a href="#JSP隐式对象，可以直接使用而不显示声明" class="headerlink" title="JSP隐式对象，可以直接使用而不显示声明"></a>JSP隐式对象，可以直接使用而不显示声明</h3><ol>
+<li>request 对象 ^8a3722</li>
+<li>response对象</li>
+<li>out</li>
+<li>session 用来追踪在各个客户端请求间的会话</li>
+<li>application 代表这这个JSP页面</li>
+<li>config </li>
+<li>pageContext 代表整个jsp页面，存储了request和response的引用，application 对象，config , session .  out可以访问这个对象来导出</li>
+<li>page == this</li>
+<li>exception</li>
+</ol>
+<h4 id="request-同servlet中的request"><a href="#request-同servlet中的request" class="headerlink" title="request(同servlet中的request)"></a>request(同servlet中的request)</h4><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>Cookie[] getCookies()</strong><br><br>返回客户端所有的Cookie的数组</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Enumeration getAttributeNames()</strong><br><br>返回request对象的所有属性名称的集合</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Enumeration getHeaderNames()</strong><br><br>返回所有HTTP头的名称集合</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Enumeration getParameterNames()</strong><br><br>返回请求中所有参数的集合</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>HttpSession getSession()</strong><br><br>返回request对应的session对象，如果没有，则创建一个</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>HttpSession getSession(boolean create)</strong><br><br>返回request对应的session对象，如果没有并且参数create为true，则返回一个新的session对象</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>Locale getLocale()</strong><br><br>返回当前页的Locale对象，可以在response中设置</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>Object getAttribute(String name)</strong><br><br>返回名称为name的属性值，如果不存在则返回null。</td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>ServletInputStream getInputStream()</strong><br><br>返回请求的输入流</td>
+</tr>
+<tr>
+<td>10</td>
+<td><strong>String getAuthType()</strong><br><br>返回认证方案的名称，用来保护servlet，比如 “BASIC” 或者 “SSL” 或 null 如果 JSP没设置保护措施</td>
+</tr>
+<tr>
+<td>11</td>
+<td><strong>String getCharacterEncoding()</strong><br><br>返回request的字符编码集名称</td>
+</tr>
+<tr>
+<td>12</td>
+<td><strong>String getContentType()</strong><br><br>返回request主体的MIME类型，若未知则返回null</td>
+</tr>
+<tr>
+<td>13</td>
+<td><strong>String getContextPath()</strong><br><br>返回request URI中指明的上下文路径</td>
+</tr>
+<tr>
+<td>14</td>
+<td><strong>String getHeader(String name)</strong><br><br>返回name指定的信息头</td>
+</tr>
+<tr>
+<td>15</td>
+<td><strong>String getMethod()</strong><br><br>返回此request中的HTTP方法，比如 GET,，POST，或PUT</td>
+</tr>
+<tr>
+<td>16</td>
+<td><strong>String getParameter(String name)</strong><br><br>返回此request中name指定的参数，若不存在则返回null</td>
+</tr>
+<tr>
+<td>17</td>
+<td><strong>String getPathInfo()</strong><br><br>返回任何额外的与此request URL相关的路径</td>
+</tr>
+<tr>
+<td>18</td>
+<td><strong>String getProtocol()</strong><br><br>返回此request所使用的协议名和版本</td>
+</tr>
+<tr>
+<td>19</td>
+<td><strong>String getQueryString()</strong><br><br>返回此 request URL包含的查询字符串</td>
+</tr>
+<tr>
+<td>20</td>
+<td><strong>String getRemoteAddr()</strong><br><br>返回客户端的IP地址</td>
+</tr>
+<tr>
+<td>21</td>
+<td><strong>String getRemoteHost()</strong><br><br>返回客户端的完整名称</td>
+</tr>
+<tr>
+<td>22</td>
+<td><strong>String getRemoteUser()</strong><br><br>返回客户端通过登录认证的用户，若用户未认证则返回null</td>
+</tr>
+<tr>
+<td>23</td>
+<td><strong>String getRequestURI()</strong><br><br>返回request的URI</td>
+</tr>
+<tr>
+<td>24</td>
+<td><strong>String getRequestedSessionId()</strong><br><br>返回request指定的session ID</td>
+</tr>
+<tr>
+<td>25</td>
+<td><strong>String getServletPath()</strong><br><br>返回所请求的servlet路径</td>
+</tr>
+<tr>
+<td>26</td>
+<td><strong>String[] getParameterValues(String name)</strong><br><br>返回指定名称的参数的所有值，若不存在则返回null</td>
+</tr>
+<tr>
+<td>27</td>
+<td><strong>boolean isSecure()</strong><br><br>返回request是否使用了加密通道，比如HTTPS</td>
+</tr>
+<tr>
+<td>28</td>
+<td><strong>int getContentLength()</strong><br><br>返回request主体所包含的字节数，若未知的返回-1</td>
+</tr>
+<tr>
+<td>29</td>
+<td><strong>int getIntHeader(String name)</strong><br><br>返回指定名称的request信息头的值</td>
+</tr>
+<tr>
+<td>30</td>
+<td><strong>int getServerPort()</strong><br><br>返回服务器端口号</td>
+</tr>
+</tbody></table>
 
                 
             </div>
@@ -1719,7 +2153,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">22.3k</span>
+                        class="white-color">29.2k</span>
             
             
             
