@@ -802,6 +802,7 @@ sum
 ，字段2 XXX <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p><u>分页查询</u></p>
 <pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">SELECT xx FROM XXX LIMIT (起始索引，查询记录数)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>等于OFFSET n ROWS<br>FETCH NEXY M ROWS ONLY 跳过n行，并返回接下来的m行</p>
 <h3 id="DCL-（Data-Control-Language-数据控制语句）-用于操作数据库对象的权限"><a href="#DCL-（Data-Control-Language-数据控制语句）-用于操作数据库对象的权限" class="headerlink" title="DCL （Data Control Language 数据控制语句） 用于操作数据库对象的权限"></a>DCL （Data Control Language 数据控制语句） 用于操作数据库对象的权限</h3><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">SELECT * FORM user
 CREATE USER '用户名'@'主机名' IDENTIFIED BY '密码'/*使用%来指定任意主机都可以访问*/
 ALTER USER '用户名' @ '主机名' IDENTIFIED WITH  mysql_native_password BY '新密码'  修改密码
@@ -963,13 +964,13 @@ FROM Customers INNER JOIN Orders
 
 <p>外联结：<br>使用场景</p>
 <ul>
-<li><p><input disabled="" type="checkbox"> 
+<li><p><input disabled type="checkbox"> 
 对每个顾客下的订单进行计数，包括那些至今尚未下订单的顾客；</p>
 </li>
-<li><p><input disabled="" type="checkbox"> 
+<li><p><input disabled type="checkbox"> 
 列出所有产品以及订购数量，包括没有人订购的产品；</p>
 </li>
-<li><p><input disabled="" type="checkbox"> 
+<li><p><input disabled type="checkbox"> 
 计算平均销售规模，包括那些至今尚未下订单的顾客。</p>
 </li>
 </ul>
@@ -1892,7 +1893,7 @@ select <span class="token operator">?</span> from <span class="token operator">?
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">29.2k</span>
+                        class="white-color">31.5k</span>
             
             
             

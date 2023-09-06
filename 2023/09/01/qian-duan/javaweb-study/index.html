@@ -5,20 +5,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="JavaWeb_study, 博客，学习，成长">
-    <meta name="description" content="JavaWeb练习(前端还很简陋)所需技术开发流程
+    <meta name="description" content="JavaWeb练习(前端已实现简易版)参考文章
+我的源代码:https://github.com/qiuEly/-
+所需技术开发流程
 需求分析
-登录，增删改减，按照成绩正序和降序查询
-
-
-表结构设计
-id(序号) 自增
-姓名，年龄，成绩，性别等
-
-
-原型设计(设计界面)
-实体类设计
-Student类
-DBUtil工具类
+登录，增删改减，按照成绩正序和降序查询,使用ajax实现实时的用户名重复检测和学生信息重复检测
 ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -540,7 +531,7 @@ DBUtil工具类
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.1k
+                    3.2k
                 </div>
                 
 
@@ -560,14 +551,24 @@ DBUtil工具类
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="JavaWeb练习-前端还很简陋"><a href="#JavaWeb练习-前端还很简陋" class="headerlink" title="JavaWeb练习(前端还很简陋)"></a>JavaWeb练习(前端还很简陋)</h1><h2 id="所需技术"><a href="#所需技术" class="headerlink" title="所需技术"></a>所需技术</h2><h2 id="开发流程"><a href="#开发流程" class="headerlink" title="开发流程"></a>开发流程</h2><ul>
+                <h1 id="JavaWeb练习-前端已实现简易版"><a href="#JavaWeb练习-前端已实现简易版" class="headerlink" title="JavaWeb练习(前端已实现简易版)"></a>JavaWeb练习(前端已实现简易版)</h1><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wmyskxz/p/8817697.html">参考文章</a></p>
+<p>我的源代码:<a target="_blank" rel="noopener" href="https://github.com/qiuEly/-">https://github.com/qiuEly/-</a></p>
+<h2 id="所需技术"><a href="#所需技术" class="headerlink" title="所需技术"></a>所需技术</h2><h2 id="开发流程"><a href="#开发流程" class="headerlink" title="开发流程"></a>开发流程</h2><ul>
 <li>需求分析<ul>
-<li>登录，增删改减，按照成绩正序和降序查询</li>
+<li>登录，增删改减，按照成绩正序和降序查询,使用ajax实现实时的用户名重复检测和学生信息重复检测</li>
 </ul>
 </li>
 <li>表结构设计<ul>
+<li>Student<ul>
 <li>id(序号) 自增</li>
 <li>姓名，年龄，成绩，性别等</li>
+</ul>
+</li>
+<li>Users<ul>
+<li>username</li>
+<li>password</li>
+</ul>
+</li>
 </ul>
 </li>
 <li>原型设计(设计界面)</li>
@@ -578,7 +579,7 @@ DBUtil工具类
 <li>Service类(增删改建)</li>
 </ul>
 </li>
-<li>使用技术: jsp + java + html + cookie + jdbc + servlet + mysql + Tomcat  + Filter</li>
+<li>使用技术: jsp + java + html + cookie + jdbc + servlet + mysql + Tomcat  + Filter + ajax</li>
 </ul>
 <h3 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h3><p><img src="/2023/09/01/qian-duan/javaweb-study/%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84.png"></p>
 <h3 id="表结构设计"><a href="#表结构设计" class="headerlink" title="表结构设计"></a>表结构设计</h3><p>记得设置编码格式为UTF-8即可(本文代码使用的数据库名称为 t)</p>
@@ -1602,7 +1603,7 @@ for (Student student : students) {
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">29.2k</span>
+                        class="white-color">31.5k</span>
             
             
             
