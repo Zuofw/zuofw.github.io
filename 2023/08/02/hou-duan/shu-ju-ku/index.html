@@ -4,15 +4,15 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="mysql, 博客，学习，成长">
-    <meta name="description" content="MYSQL自联结，变量不会，补一补去打开
+    <meta name="keywords" content="数据库, 博客，学习，成长">
+    <meta name="description" content="数据库自联结，变量不会，补一补去打开
 mysql -u root -p
 
 数据类型
 关系型数据库：建立在关系模型基础上，由多张相互链接的二维表组成的数据库
-
+SQL语句
 数值类型
-TINYINT 1byte -128 - 127  0 - 255 ">
+TINYINT 1byte -128 - 127  0 - 2">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -24,7 +24,7 @@ TINYINT 1byte -128 - 127  0 - 255 ">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>mysql | QingQiu&#39;Blog</title>
+    <title>数据库 | QingQiu&#39;Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -483,12 +483,12 @@ TINYINT 1byte -128 - 127  0 - 255 ">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">mysql</h1>
+                    <h1 class="description center-align post-title">数据库</h1>
                 </div>
             </div>
         </div>
@@ -562,12 +562,12 @@ TINYINT 1byte -128 - 127  0 - 255 ">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="MYSQL"><a href="#MYSQL" class="headerlink" title="MYSQL"></a>MYSQL</h1><h1 id="自联结，变量不会，补一补去"><a href="#自联结，变量不会，补一补去" class="headerlink" title="自联结，变量不会，补一补去"></a>自联结，变量不会，补一补去</h1><p>打开</p>
+                <h1 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h1><h1 id="自联结，变量不会，补一补去"><a href="#自联结，变量不会，补一补去" class="headerlink" title="自联结，变量不会，补一补去"></a>自联结，变量不会，补一补去</h1><p>打开</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">mysql <span class="token parameter variable">-u</span> root <span class="token parameter variable">-p</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p><strong>数据类型</strong></p>
 <p>关系型数据库：建立在关系模型基础上，由多张相互链接的二维表组成的数据库</p>
-<ol>
+<h2 id="SQL语句"><a href="#SQL语句" class="headerlink" title="SQL语句"></a>SQL语句</h2><ol>
 <li><p><strong>数值类型</strong></p>
 <pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">TINYINT 1byte -128 - 127  0 - 255 /*后面加上unsigned 即可指定为无符号*/
 SMALLINT 2
@@ -603,7 +603,7 @@ TIMESTAMP YYYY-MM-DD HH:MM:SS 时间戳<span aria-hidden="true" class="line-numb
 </blockquote>
 </li>
 </ol>
-<h2 id="SQL语句"><a href="#SQL语句" class="headerlink" title="SQL语句"></a>SQL语句</h2><p>注释 # 或者 /**/</p>
+<p>注释 # 或者 /**/</p>
 <ol>
 <li>DDL (Data Definition Language 数据定义语言）用于操作对象及对象本身，这种对象包括数据库,表对象，及视图对象，表头 ^c501f6</li>
 <li>DML （Data Manipulation Language 数据操控语言) 用于操作数据库对象对象中包含的数据</li>
@@ -766,7 +766,7 @@ WHERE cust_id = '1000000006';<span aria-hidden="true" class="line-numbers-rows">
 </li>
 </ol>
 <h3 id="DQL-Data-Query-Language-数据查询语言-用于查询数据"><a href="#DQL-Data-Query-Language-数据查询语言-用于查询数据" class="headerlink" title="DQL (Data Query Language 数据查询语言 )用于查询数据"></a>DQL (Data Query Language 数据查询语言 )用于查询数据</h3><blockquote>
-<p>SELECT + 字段列表<br>FROM  表名列表<br>WHERE 条件列表<br>[[mysql#^aa4a30|GROUP BY 分组字段列表]]<br>HAVING 分组后条件列表<br>ORDER BY 排序<br>LIMIT  分页参数<br>[[mysql#^1cd456|AS 设置别名]]<br>WHRER 和 HAVING 的区别，WHERE 在分组之前起作用，HAVING在分组之后起作用</p>
+<p>SELECT + 字段列表<br>FROM  表名列表<br>WHERE 条件列表<br>[[数据库#^aa4a30|GROUP BY 分组字段列表]]<br>HAVING 分组后条件列表<br>ORDER BY 排序<br>LIMIT  分页参数<br>[[数据库#^1cd456|AS 设置别名]]<br>WHRER 和 HAVING 的区别，WHERE 在分组之前起作用，HAVING在分组之后起作用</p>
 </blockquote>
 <h4 id="SELECT"><a href="#SELECT" class="headerlink" title="SELECT"></a>SELECT</h4><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">SELECT 字段1，... FROM 表 或者 SELECT * FROM
 SELECT DISTINCT 去重
@@ -964,13 +964,13 @@ FROM Customers INNER JOIN Orders
 
 <p>外联结：<br>使用场景</p>
 <ul>
-<li><p><input disabled type="checkbox"> 
+<li><p><input disabled="" type="checkbox"> 
 对每个顾客下的订单进行计数，包括那些至今尚未下订单的顾客；</p>
 </li>
-<li><p><input disabled type="checkbox"> 
+<li><p><input disabled="" type="checkbox"> 
 列出所有产品以及订购数量，包括没有人订购的产品；</p>
 </li>
-<li><p><input disabled type="checkbox"> 
+<li><p><input disabled="" type="checkbox"> 
 计算平均销售规模，包括那些至今尚未下订单的顾客。</p>
 </li>
 </ul>
@@ -1004,7 +1004,7 @@ FROM Customers LEFT OUTER JOIN Orders
 <p><strong><u><strong>前分别测试每个联结。这会使故障排除更为简单。</strong></u></strong> </p>
 </blockquote>
 <h3 id="join区别"><a href="#join区别" class="headerlink" title="join区别"></a>join区别</h3><p><strong>普通的join是笛卡尔积，即为两张表的排列组合</strong></p>
-<p><img src="/2023/08/02/hou-duan/mysql/join.jpg"></p>
+<p><img src="/2023/08/02/hou-duan/shu-ju-ku/join.jpg"></p>
 <h2 id="起别名"><a href="#起别名" class="headerlink" title="起别名"></a>起别名</h2><p>在使用时直接用AS +别名就可以用了 ^1cd456</p>
 <p><strong>只能每次用的时候起一次别名并且当时使用</strong></p>
 <p>下一个语句别名就不能用了，要重新起名字</p>
@@ -1373,7 +1373,7 @@ rollback 回滚 <span aria-hidden="true" class="line-numbers-rows"><span></span>
 <h3 id="并发事务问题"><a href="#并发事务问题" class="headerlink" title="并发事务问题"></a>并发事务问题</h3><ul>
 <li>脏读 一个事务读到另一个事务还没有提交的数据</li>
 <li>不可重复读，一个事务先后读取一条重复记录，但两次读取的数据不同，成为不可重复读</li>
-<li>幻读 一个事务按照条件查询时，没有对应的数据行但是在插入数据时，这行数据已经存在了，出现了幻影<br>事务隔离级别<br><img src="/2023/08/02/hou-duan/mysql/1.png"><br>可以手动设置系统的隔离级别</li>
+<li>幻读 一个事务按照条件查询时，没有对应的数据行但是在插入数据时，这行数据已经存在了，出现了幻影<br>事务隔离级别<br><img src="/2023/08/02/hou-duan/shu-ju-ku/1.png"><br>可以手动设置系统的隔离级别</li>
 </ul>
 <h2 id="引擎"><a href="#引擎" class="headerlink" title="引擎"></a>引擎</h2><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">CREATE TABLE 表名(
 
@@ -1499,7 +1499,7 @@ select <span class="token operator">?</span> from <span class="token operator">?
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://qiuely.github.io/2023/08/02/hou-duan/mysql/">https://qiuely.github.io/2023/08/02/hou-duan/mysql/</a>
+                    <a href="https://qiuely.github.io/2023/08/02/hou-duan/shu-ju-ku/">https://qiuely.github.io/2023/08/02/hou-duan/shu-ju-ku/</a>
                 </span>
             </div>
             <div class="reprint__notice">

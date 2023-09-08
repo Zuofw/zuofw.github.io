@@ -594,32 +594,32 @@ import package1[.">
     <span class="token keyword">static</span> <span class="token generics"><span class="token punctuation">&lt;</span>XXX<span class="token punctuation">&gt;</span></span> <span class="token keyword">void</span> xxx <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
         
     <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">}</span>
 
-<h3 id="通配符"><a href="#通配符" class="headerlink" title="通配符"></a>通配符</h3><!--?--> 来代替具体的参数 例如： `<string>` 
+### 通配符
 
-## Java数据结构
+<span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> 来代替具体的参数 例如： `<span class="token generics"><span class="token punctuation">&lt;</span>string<span class="token punctuation">&gt;</span></span>` 
 
-### Bitset类
+## <span class="token class-name">Java</span>数据结构
 
-一种用来保存位值的数组
+### <span class="token class-name">Bitset</span>类
 
+一种用来保存位值的数组<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">
 方法：
 
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">clear<span class="token punctuation">(</span><span class="token punctuation">)</span> 将所有位设为false,也可以指定位置设置位false
-set<span class="token punctuation">(</span>int index<span class="token punctuation">)</span>  指定位置设置为true 也可指定设置为false，指定位置可以为区间
-toString<span class="token punctuation">(</span><span class="token punctuation">)</span>  
-get<span class="token punctuation">(</span>int index<span class="token punctuation">)</span>  返回指定位置的位值
-nextSetBit<span class="token punctuation">(</span>int start<span class="token punctuation">)</span> 取start及之后的第一个为true的位置 
+```shell
+clear() 将所有位设为false,也可以指定位置设置位false
+set(int index)  指定位置设置为true 也可指定设置为false，指定位置可以为区间
+toString()  
+get(int index)  返回指定位置的位值
+nextSetBit(int start) 取start及之后的第一个为true的位置 
 //基本运算
-void and<span class="token punctuation">(</span>Bitset <span class="token builtin class-name">set</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> 
-or<span class="token punctuation">(</span><span class="token punctuation">)</span>    集合取较小的并集
-xor<span class="token punctuation">(</span><span class="token punctuation">)</span>  ^<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+void and(Bitset set) &amp; 
+or()    集合取较小的并集
+xor()  ^<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-### Vector
-
-方法：
-
+<h3 id="Vector"><a href="#Vector" class="headerlink" title="Vector"></a>Vector</h3><p>方法：</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token function">add</span><span class="token punctuation">(</span> <span class="token punctuation">(</span><span class="token keyword">int</span> index <span class="token punctuation">,</span><span class="token punctuation">)</span> <span class="token class-name">Object</span> e <span class="token punctuation">)</span> 默认为从末尾加元素，也可指定位置
 <span class="token function">addAll</span><span class="token punctuation">(</span><span class="token class-name">Collection</span> c<span class="token punctuation">)</span> 将集合c中的元素加到末尾或指定位置开始
 <span class="token function">addElement</span><span class="token punctuation">(</span><span class="token punctuation">)</span>  加到末尾，大小增加<span class="token number">1</span>
@@ -627,44 +627,32 @@ xor<span class="token punctuation">(</span><span class="token punctuation">)</sp
 <span class="token function">containsAll</span><span class="token punctuation">(</span><span class="token class-name">Collection</span> c<span class="token punctuation">)</span> 是否包含c中所有元素
 toArray 返回一个数组<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-### ArrayList 方法
-
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token function">indexOf</span><span class="token punctuation">(</span><span class="token punctuation">)</span> 返回arraylist中指定元素的索引
+<h3 id="ArrayList-方法"><a href="#ArrayList-方法" class="headerlink" title="ArrayList 方法"></a>ArrayList 方法</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token function">indexOf</span><span class="token punctuation">(</span><span class="token punctuation">)</span> 返回arraylist中指定元素的索引
 <span class="token function">toArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span> 转为数组
 <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">)</span>   遍历<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
-### LinkedList 链表
-
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token function">addFirst</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<h3 id="LinkedList-链表"><a href="#LinkedList-链表" class="headerlink" title="LinkedList 链表"></a>LinkedList 链表</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token function">addFirst</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token function">addLast</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token function">removeFirst</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token function">removeLast</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token function">getFirst</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token function">getLast</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-### HashSet
-
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">add
+<h3 id="HashSet"><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java">add
 contains
 remove
 <span class="token function">put</span><span class="token punctuation">(</span>element <span class="token punctuation">,</span> key<span class="token punctuation">)</span>
 <span class="token function">get</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-### Iterator
-
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">iterator <span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span> it <span class="token operator">=</span> <span class="token keyword">new</span> xxx<span class="token punctuation">.</span><span class="token function">iterator</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<h3 id="Iterator"><a href="#Iterator" class="headerlink" title="Iterator"></a>Iterator</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java">iterator <span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span> it <span class="token operator">=</span> <span class="token keyword">new</span> xxx<span class="token punctuation">.</span><span class="token function">iterator</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 it<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 it<span class="token punctuation">.</span><span class="token function">hastNext</span><span class="token punctuation">(</span><span class="token punctuation">)</span> 下一个是否可以访问
 it<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span><span class="token punctuation">)</span> 删除<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
-## 正则表达式
-
-## 
-
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">$ 匹配末尾位置  
+<h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><h2 id=""><a href="#" class="headerlink" title=""></a></h2><pre class="line-numbers language-java" data-language="java"><code class="language-java">$ 匹配末尾位置  
 <span class="token operator">^</span> 匹配开头位置
 <span class="token operator">*</span> 匹配前一个字符的<span class="token number">0</span>次或n次  例如： zo<span class="token operator">*</span> 会匹配z zo zoo zooo z<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>  等
 <span class="token operator">+</span> 匹配前一个字符一次或多次u        zo<span class="token operator">+</span> 匹配 zo zoo zooo zo<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> 等
@@ -697,26 +685,10 @@ x<span class="token operator">|</span>y 匹配x或y
 \<span class="token class-name">W</span>     非字类字符
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-## 网络编程
-
-**<u>Socket编程</u>**
-
-## Java8
-
-### Lambda
-
-免去了使用匿名方法的麻烦，并且给予 Java 简单但是强大的函数化的编程能力
-
-### 日期API
-
-LocalData/LocalTime
-
-
-
-## stream流
-
-流表示包含着一系列元素的集合，我们可以对其做不同类型的操作，类似于流水线一样，对集合进行不同的操作。
-
+<h2 id="网络编程"><a href="#网络编程" class="headerlink" title="网络编程"></a>网络编程</h2><p><strong><u>Socket编程</u></strong></p>
+<h2 id="Java8"><a href="#Java8" class="headerlink" title="Java8"></a>Java8</h2><h3 id="Lambda"><a href="#Lambda" class="headerlink" title="Lambda"></a>Lambda</h3><p>免去了使用匿名方法的麻烦，并且给予 Java 简单但是强大的函数化的编程能力</p>
+<h3 id="日期API"><a href="#日期API" class="headerlink" title="日期API"></a>日期API</h3><p>LocalData/LocalTime</p>
+<h2 id="stream流"><a href="#stream流" class="headerlink" title="stream流"></a>stream流</h2><p>流表示包含着一系列元素的集合，我们可以对其做不同类型的操作，类似于流水线一样，对集合进行不同的操作。</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"> <span class="token class-name">Arrays</span><span class="token punctuation">.</span><span class="token function">asList</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span> <span class="token comment">//建立一个arrays</span>
                 <span class="token punctuation">.</span><span class="token function">stream</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">//转化为stream对象</span>
                 <span class="token punctuation">.</span><span class="token function">distinct</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token comment">//去重</span>
@@ -734,8 +706,7 @@ Arrays.asList(-1,1,1,2,3) //建立一个arrays
                 .forEach(integer -&gt; System.out.println(integer));//遍历
 */</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-创建操作
-
+<p>创建操作</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java">单列数组<span class="token operator">:</span>
 <span class="token function">stream</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 数组<span class="token operator">:</span>
@@ -749,8 +720,7 @@ map<span class="token punctuation">.</span><span class="token function">put</spa
 <span class="token class-name">Stream</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Map<span class="token punctuation">.</span>Entry</span><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span><span class="token class-name">Integer</span><span class="token punctuation">&gt;</span><span class="token punctuation">&gt;</span></span> stream <span class="token operator">=</span> map<span class="token punctuation">.</span><span class="token function">entrySet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">stream</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-中间操作
-
+<p>中间操作</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token function">filter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//参数为匿名函数</span>
 <span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//转化元素类型或着计算，参数为function，function 中的第二个参数是转化类型</span>
 <span class="token comment">/*示例:
@@ -780,8 +750,7 @@ map<span class="token punctuation">.</span><span class="token function">put</spa
 <span class="token function">skip</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">// 跳过前几个元素，返回之后的元素</span>
 <span class="token function">flatmap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//把一个对象转化为多个对象</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-终结操作
-
+<p>终结操作</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token function">count</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//获取当前流中的元素个数，</span>
 <span class="token function">max</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token function">min</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">;</span> 
@@ -821,10 +790,8 @@ Integer reduce = Arrays.asList(2, -1, 2, 3, 1).stream()//转化为stream对象
         System.out.println(reduce);
        */</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-Optional 
-
-将具体数据封装到里卖弄可以避免空指针
-
+<p>Optional </p>
+<p>将具体数据封装到里卖弄可以避免空指针</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Name</span> <span class="token punctuation">{</span>
     <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token class-name">Optional</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Author</span><span class="token punctuation">&gt;</span></span> author <span class="token operator">=</span> <span class="token function">method</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -847,8 +814,7 @@ Optional
 <span class="token function">filter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//过滤</span>
 <span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//转换计算</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-只有一个抽象方法的是函数接口
-
+<p>只有一个抽象方法的是函数接口</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token function">and</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//&amp;&amp;</span>
 <span class="token comment">/*
   Arrays.asList(1,2,3,4)
@@ -857,26 +823,25 @@ Optional
                 .forEach(o -&gt; System.out.println(o));
  */</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-方法引用
-
-lambda中只写了一行代码
-
+<p>方法引用</p>
+<p>lambda中只写了一行代码</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//格式：</span>
 <span class="token comment">//类或对象名::方法名</span>
 构造器引用<span class="token operator">:</span> 类名<span class="token operator">::</span><span class="token keyword">new</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-优化：
-
-Interger类型与int类型比较时会自动拆箱和打包，所以会花费时间，使用mapToInt等来将steam中的数据数据提前转化即可减少消耗时间
-
-并行流
-
+<p>优化：</p>
+<p>Interger类型与int类型比较时会自动拆箱和打包，所以会花费时间，使用mapToInt等来将steam中的数据数据提前转化即可减少消耗时间</p>
+<p>并行流</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token punctuation">.</span><span class="token function">parallel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token comment">//转化为并行流</span>
     或者直接  <span class="token punctuation">.</span><span class="token function">parallelStream</span><span class="token punctuation">(</span><span class="token punctuation">)</span>即可
 <span class="token punctuation">.</span><span class="token function">peek</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token comment">//调试用</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-</string>
+<h2 id="SSM框架"><a href="#SSM框架" class="headerlink" title="SSM框架"></a>SSM框架</h2><p>POJO普通的java对象</p>
+<ul>
+<li>MyBaits</li>
+</ul>
+
                 
             </div>
             <hr/>
@@ -1061,13 +1026,13 @@ Interger类型与int类型比较时会自动拆箱和打包，所以会花费时
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/08/02/hou-duan/mysql/">
+                <a href="/2023/08/02/hou-duan/shu-ju-ku/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="mysql">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="数据库">
                         
-                        <span class="card-title">mysql</span>
+                        <span class="card-title">数据库</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
