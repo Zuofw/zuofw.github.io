@@ -536,7 +536,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.8k
+                    3.3k
                 </div>
                 
 
@@ -833,6 +833,89 @@ standalone 文档是否独立 yes or no
 <blockquote>
 <p>在不重新加载页面的情况下更新网页<br>在页面已加载后从服务器请求数据<br>在页面已加载后从服务器接收数据<br>在后台向服务器发送数据</p>
 </blockquote>
+<h1 id="yaml"><a href="#yaml" class="headerlink" title="yaml"></a>yaml</h1><p>特点:</p>
+<ol>
+<li>使用缩进表示层级关系</li>
+<li>缩进不能使用tab键</li>
+<li>只要相同层级的元素左对齐即可，不需要控制多少空格数</li>
+<li><h1 id="表示注释"><a href="#表示注释" class="headerlink" title="表示注释"></a>表示注释</h1></li>
+</ol>
+<p>示例:</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">key</span><span class="token punctuation">:</span>
+	<span class="token key atrule">child-key</span><span class="token punctuation">:</span> value <span class="token comment"># 给予值的时候要空一个额格</span>
+
+<span class="token comment">#较为复杂的对象格式，可以使用问号加一个空格代表一个复杂的 key，配合一个冒号加一个空格代表一个 value：</span>
+
+<span class="token punctuation">?</span>  
+    <span class="token punctuation">-</span> complexkey1
+    <span class="token punctuation">-</span> <span class="token key atrule">complexkey2</span>
+<span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> complexvalue1
+    <span class="token punctuation">-</span> complexvalue2
+
+意思即对象的属性是一个数组 <span class="token punctuation">[</span>complexkey1<span class="token punctuation">,</span>complexkey2<span class="token punctuation">]</span>，对应的值也是一个数组 <span class="token punctuation">[</span>complexvalue1<span class="token punctuation">,</span>complexvalue2<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>数组<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"> <span class="token comment"># 多维数组</span>
+<span class="token punctuation">-</span> a
+<span class="token punctuation">-</span> b
+<span class="token punctuation">-</span> c
+  <span class="token punctuation">-</span> d
+  <span class="token punctuation">-</span> e
+    <span class="token punctuation">-</span> f
+
+
+<span class="token key atrule">companies</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span>
+        <span class="token key atrule">id</span><span class="token punctuation">:</span> <span class="token number">1</span>
+        <span class="token key atrule">name</span><span class="token punctuation">:</span> company1
+        <span class="token key atrule">price</span><span class="token punctuation">:</span> 200W
+    <span class="token punctuation">-</span>
+        <span class="token key atrule">id</span><span class="token punctuation">:</span> <span class="token number">2</span>
+        <span class="token key atrule">name</span><span class="token punctuation">:</span> company2
+        <span class="token key atrule">price</span><span class="token punctuation">:</span> 500W
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<h3 id="复合结构"><a href="#复合结构" class="headerlink" title="复合结构"></a>复合结构</h3><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">数组和对象可以构成复合结构，例：
+
+<span class="token key atrule">languages</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> Ruby
+  <span class="token punctuation">-</span> Perl
+  <span class="token punctuation">-</span> Python 
+<span class="token key atrule">websites</span><span class="token punctuation">:</span>
+  <span class="token key atrule">YAML</span><span class="token punctuation">:</span> yaml.org 
+  <span class="token key atrule">Ruby</span><span class="token punctuation">:</span> ruby<span class="token punctuation">-</span>lang.org 
+  <span class="token key atrule">Python</span><span class="token punctuation">:</span> python.org 
+  <span class="token key atrule">Perl</span><span class="token punctuation">:</span> use.perl.org
+
+转换为 json 为：
+
+<span class="token punctuation">{</span> 
+  <span class="token key atrule">languages</span><span class="token punctuation">:</span> <span class="token punctuation">[</span> <span class="token string">'Ruby'</span><span class="token punctuation">,</span> <span class="token string">'Perl'</span><span class="token punctuation">,</span> <span class="token string">'Python'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token key atrule">websites</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token key atrule">YAML</span><span class="token punctuation">:</span> <span class="token string">'yaml.org'</span><span class="token punctuation">,</span>
+    <span class="token key atrule">Ruby</span><span class="token punctuation">:</span> <span class="token string">'ruby-lang.org'</span><span class="token punctuation">,</span>
+    <span class="token key atrule">Python</span><span class="token punctuation">:</span> <span class="token string">'python.org'</span><span class="token punctuation">,</span>
+    <span class="token key atrule">Perl</span><span class="token punctuation">:</span> <span class="token string">'use.perl.org'</span> 
+  <span class="token punctuation">}</span> 
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><ol>
+<li>安装，并修改安装路径(windows)<br>此方法官方文档里有<br>先下载安装包<br>在想安装的地方建立文件夹Docker即可<br>然后打开cmd，输入<pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">"Docker Desktop Installer.exe" install --installation-dir="E:\Program Files\Docker"
+后面的是你自己的路径，根据实际修改即可，等待安装完毕即可<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+基础概念<br>容器是镜像的实例化，容器是一个小型的os，包含应用和其本身所需要的环境</li>
+</ol>
+<p>基础命令(与git类似)</p>
+<ul>
+<li>ls , tag , inspect<pre class="line-numbers language-d" data-language="d"><code class="language-d">docker tag 旧 新
+docker inspect 获得该镜像的详细信息<span class="token punctuation">.</span>
+<span class="token operator">-</span>f 后面加上想获得的某一项的key就可以单独获得这一项的内容了
+格式为<span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token string">".key名"</span><span class="token punctuation">}</span><span class="token punctuation">}</span>
+docker history 查看某一镜像的历史
+docker search <span class="token operator">-</span>f<span class="token operator">=</span><span class="token operator">is</span><span class="token operator">-</span>official<span class="token operator">=</span><span class="token keyword">true</span> <span class="token operator">--</span>limit <span class="token number">5</span> <span class="token operator">--</span>no<span class="token operator">-</span>trunc  nginx  
+<span class="token operator">-</span>f 过滤条件
+limit 限制输出的数量
+<span class="token operator">--</span>no<span class="token operator">-</span>trunc 不截断输出结果
+docker rmi  <span class="token operator">-</span>f  myubuntu 当存在多个标签时，删除的只是标签，当仅仅剩下一个标签时会把这个镜像直接删除<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
 
                 
             </div>
@@ -1253,7 +1336,7 @@ standalone 文档是否独立 yes or no
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">44.9k</span>
+                        class="white-color">53k</span>
             
             
             
