@@ -536,7 +536,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.3k
+                    8.5k
                 </div>
                 
 
@@ -630,7 +630,12 @@ ci{
 
 / + 内容      全文查找
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+<ul>
+<li>好用的操作</li>
+</ul>
+<ol>
+<li>一键取消注释,ctrl + v进入块选择模式，然后使用方向键选择所有的注释，按d删除即可</li>
+</ol>
 <h1 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h1><p>切换分支和版本号实际上就是指针的切换</p>
 <p>工作区：磁盘目录</p>
 <p>使用git add把工作区代码加入暂存区 临时储存</p>
@@ -899,22 +904,704 @@ standalone 文档是否独立 yes or no
   <span class="token punctuation">}</span> 
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><ol>
-<li>安装，并修改安装路径(windows)<br>此方法官方文档里有<br>先下载安装包<br>在想安装的地方建立文件夹Docker即可<br>然后打开cmd，输入<pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">"Docker Desktop Installer.exe" install --installation-dir="E:\Program Files\Docker"
-后面的是你自己的路径，根据实际修改即可，等待安装完毕即可<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-基础概念<br>容器是镜像的实例化，容器是一个小型的os，包含应用和其本身所需要的环境</li>
+<li>安装，并修改安装路径(windows)<br>此方法官方文档里有<br>先下载安装包<br>在想安装的地方建立文件夹Docker即可<br>然后打开cmd，输入<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token string">"Docker Desktop Installer.exe"</span> <span class="token function">install</span> --installation-dir<span class="token operator">=</span><span class="token string">"E:\Program Files\Docker"</span>
+后面的是你自己的路径，根据实际修改即可，等待安装完毕即可<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
 </ol>
-<p>基础命令(与git类似)</p>
+<h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><p>容器是镜像的实例化，容器是一个小型的os，包含应用和其本身所需要的环境，镜像是只读的，而容器是可以运行的可写的，其中的容器处于运行状态</p>
+<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><p><img src="/2023/07/04/yu-yan-ji-gong-ju/tools/docker%E5%91%BD%E4%BB%A4.webp"></p>
 <ul>
-<li>ls , tag , inspect<pre class="line-numbers language-d" data-language="d"><code class="language-d">docker tag 旧 新
-docker inspect 获得该镜像的详细信息<span class="token punctuation">.</span>
-<span class="token operator">-</span>f 后面加上想获得的某一项的key就可以单独获得这一项的内容了
-格式为<span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token string">".key名"</span><span class="token punctuation">}</span><span class="token punctuation">}</span>
+<li>基础镜像命令(与git类似)</li>
+<li>ls , tag , inspect<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">docker tag 旧 新
+docker inspect 获得该镜像的详细信息.
+-f 后面加上想获得的某一项的key就可以单独获得这一项的内容了
+格式为</span><span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token string">".key名"</span><span class="token punctuation">}</span><span class="token punctuation">}</span>
 docker history 查看某一镜像的历史
-docker search <span class="token operator">-</span>f<span class="token operator">=</span><span class="token operator">is</span><span class="token operator">-</span>official<span class="token operator">=</span><span class="token keyword">true</span> <span class="token operator">--</span>limit <span class="token number">5</span> <span class="token operator">--</span>no<span class="token operator">-</span>trunc  nginx  
-<span class="token operator">-</span>f 过滤条件
+docker search -f=is-official=true --limit 5 --no-trunc  nginx  
+-f 过滤条件
 limit 限制输出的数量
-<span class="token operator">--</span>no<span class="token operator">-</span>trunc 不截断输出结果
-docker rmi  <span class="token operator">-</span>f  myubuntu 当存在多个标签时，删除的只是标签，当仅仅剩下一个标签时会把这个镜像直接删除<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+--no-trunc 不截断输出结果
+docker rmi  -f  myubuntu 当存在多个标签时，删除的只是标签，当仅仅剩下一个标签时会把这个镜像直接删除 -f
+强制删除
+docker image prune 清理临时镜像文件<span class="token punctuation">,</span>虚悬文件，指的是docker images 中没有名字的文件
+-a 删除所有无用image 不光是临时镜像
+-filter 只删除符合过滤条件的镜像
+	- `until`<span class="token punctuation">:</span> 根据镜像的创建时间来筛选。例如，`until=24h`将删除24小时之前创建的镜像。
+    
+	- `label`<span class="token punctuation">:</span> 根据标签来筛选。例如，`label=myapp`将删除带有标签为<span class="token string">"myapp"</span>的镜像。
+    
+	- `dangling`<span class="token punctuation">:</span> 筛选出悬挂（无用）镜像。使用`dangling=true`来删除悬挂镜像。
+-f 强制删除
+
+创建镜像
+docker commit [OPTIONS] CONTAINER [REPOSITORY[<span class="token punctuation">:</span>TAG]]
+docker commit [选项] &lt;容器ID或容器名&gt; [&lt;仓库名&gt;[<span class="token punctuation">:</span>&lt;标签&gt;]]
+ docker commit \
+    --author <span class="token string">"Tao Wang &lt;twang2218@gmail.com&gt;"</span> \
+    --message <span class="token string">"修改了默认网页"</span> \
+    webserver \
+    <span class="token property">nginx</span><span class="token punctuation">:</span>v2
+//
+- `CONTAINER`是要保存状态的容器的名称或容器ID。
+- `REPOSITORY[<span class="token punctuation">:</span>TAG]`是新镜像的名称和标签。如果不提供标签，将默认使用<span class="token string">"latest"</span>标签。
+docker commit -m <span class="token string">"xxx"</span> 被提交的容器
+
+//导入导出镜像
+docker save -o my_images.tar <span class="token property">image1</span><span class="token punctuation">:</span>tag <span class="token property">image2</span><span class="token punctuation">:</span>tag <span class="token property">image3</span><span class="token punctuation">:</span>tag  保存多个到镜像到指定的文件夹
+
+docker load -i my_image.tar <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<p>容器操作</p>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css">docker create  xxx
+可选。。。
+-i 默认打开标准输入
+-t分配一个伪终端
+docker start xx  启动一个容器
+docker run --name 新名字 options 镜像 创建并启动一个容器
+可选
+-d 以守护态后台运行，容器是否会长久运行，是和 `docker run` 指定的命令有关，和 `-d` 参数无关。
+-t 分配一个伪终端
+-i 让容器的标准输入保持打开
+docker restart 关闭容器并重新启动
+docker logs 
+-details
+-f follow 持续保持输出
+since string 从某一个时间开始日志
+-tail string 输出最近的若干日志
+-t timestamps 显示时间戳信息
+-until string 输出某个时间段之前的信息
+
+docker exec -it xxx 进入一个后台的容器 使用这个之后再容器内部执行exit 时不会导致容器停止，但是使用 docker attach 进入容器并退出的话会导致容器停止并退出
+docker rm 
+-f 强制终止并删除一个容器
+-l 删除容器的链接，但保留容器
+-v 删除容器挂在的数据卷
+docker top 容器名称 查看容器的进程
+docker inspect 容器名称 查看容器信息
+docker cp &lt;本地文件/目录路径&gt; &lt;容器ID或名称&gt;<span class="token punctuation">:</span>&lt;容器内部路径&gt;
+docker cp &lt;容器ID或名称&gt;<span class="token punctuation">:</span>&lt;容器内部路径&gt; &lt;本地文件/目录路径&gt;
+-a 打包
+-L 跟随软连接
+docker pause id 暂停<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><ol>
+<li><strong>创建卷</strong>： 您可以使用以下命令创建一个卷：</li>
+</ol>
+<p>  bashCopy code</p>
+<p>  <code>docker volume create my_volume</code></p>
+<p>  这将创建一个名为 <code>my_volume</code> 的卷。</p>
+</li>
+</ul>
+<ol start="2">
+<li><p><strong>查看卷列表</strong>： 要查看系统中的所有卷，可以运行：</p>
+<p> bashCopy code</p>
+<p> <code>docker volume ls</code></p>
+</li>
+<li><p><strong>删除卷</strong>： 要删除一个不再需要的卷，可以运行：</p>
+<p> bashCopy code</p>
+<p> <code>docker volume rm my_volume</code></p>
+</li>
+<li><p><strong>挂载卷到容器</strong>： 在运行容器时，使用 <code>-v</code> 或 <code>--volume</code> 标志来将卷挂载到容器内部。例如：</p>
+<p> bashCopy code</p>
+<p> <code>docker run -d -v my_volume:/path/in/container my_image</code></p>
+<p> 这将把 <code>my_volume</code> 卷挂载到容器内部的 <code>/path/in/container</code> 目录。</p>
+</li>
+<li><p><strong>挂载主机目录到容器</strong>： 您还可以将主机上的目录挂载到容器内。例如：</p>
+<p> bashCopy code</p>
+<p> <code>docker run -d -v /host/path:/path/in/container my_image</code></p>
+<p> 这将把主机上的 <code>/host/path</code> 目录挂载到容器内的 <code>/path/in/container</code>。</p>
+</li>
+<li><p><strong>查看容器的挂载卷</strong>： 要查看正在运行的容器挂载了哪些卷，可以使用以下命令：</p>
+<p> bashCopy code</p>
+<p> <code>docker inspect -f '{{ .Mounts }}' container_name_or_id</code></p>
+</li>
+<li><p><strong>复制文件到卷</strong>： 如果需要将文件复制到卷中，可以运行一个临时容器，然后将文件复制到挂载卷的路径。例如：</p>
+<p> bashCopy code</p>
+<p> <code>docker run --rm -v my_volume:/path/in/container -v /local/path/to/file:/data busybox cp /local/path/to/file /path/in/container</code></p>
+<p> 这将复制 <code>/local/path/to/file</code> 到 <code>my_volume</code> 卷的 <code>/path/in/container</code>。</p>
+</li>
+<li><p><strong>卷数据备份和恢复</strong>： 您可以使用工具如 <code>docker cp</code> 或 <code>docker export</code> 来备份卷数据，然后使用 <code>docker create</code> 和 <code>docker start</code> 来恢复它们。备份和恢复数据的确切方法取决于您的需求和容器的情况。</p>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css">挂载数据卷
+1.建立数据卷
+docker run -it -v /db --name db0 ubuntu
+docker run -it --volume-from db --name db1 ubuntu
+docker run -it --volume-from db --name db2 ubuntu<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+<ul>
+<li>VOLUME 的使用<br>将数据读写存储在数据卷中，使得容器尽量不发生读写操作，dockerfile 中的VOLUME是可以呗docker run覆盖的</li>
+</ul>
+<h3 id="dockerfile"><a href="#dockerfile" class="headerlink" title="dockerfile"></a>dockerfile</h3><h2 id="指令详解"><a href="#指令详解" class="headerlink" title="指令详解"></a>指令详解</h2><table>
+<thead>
+<tr>
+<th>Dockerfile 指令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FROM</td>
+<td>指定基础镜像，用于后续的指令构建。</td>
+</tr>
+<tr>
+<td>LABEL</td>
+<td>添加镜像的元数据，使用键值对的形式，方便后续进行filter来筛选。</td>
+</tr>
+<tr>
+<td>RUN</td>
+<td>在构建过程中在镜像中执行命令。</td>
+</tr>
+<tr>
+<td>CMD</td>
+<td>指定容器创建时的默认命令。（可以被覆盖）</td>
+</tr>
+<tr>
+<td>ENTRYPOINT</td>
+<td>设置容器创建时的主要命令。（不可被覆盖），</td>
+</tr>
+<tr>
+<td>EXPOSE</td>
+<td>声明容器运行时监听的特定网络端口，不会自动映射，只是声明，需要自己配置</td>
+</tr>
+<tr>
+<td>ENV</td>
+<td>在容器内部设置环境变量。</td>
+</tr>
+<tr>
+<td>ADD</td>
+<td>将文件、目录或远程URL复制到镜像，自动解压</td>
+</tr>
+<tr>
+<td>COPY</td>
+<td>将文件或目录复制到镜像中。</td>
+</tr>
+<tr>
+<td>VOLUME</td>
+<td>为容器创建挂载点或声明卷。</td>
+</tr>
+<tr>
+<td>WORKDIR</td>
+<td>设置后续指令的工作目录。</td>
+</tr>
+<tr>
+<td>USER</td>
+<td>指定后续指令的用户上下文。</td>
+</tr>
+<tr>
+<td>ARG</td>
+<td>定义在构建过程中传递给构建器的变量，可使用 “docker build” 命令设置。</td>
+</tr>
+<tr>
+<td>ONBUILD</td>
+<td>当该镜像被用作另一个构建过程的基础时，添加触发器。</td>
+</tr>
+<tr>
+<td>STOPSIGNAL</td>
+<td>设置发送给容器以退出的系统调用信号。</td>
+</tr>
+<tr>
+<td>HEALTHCHECK</td>
+<td>定义周期性检查容器健康状态的命令</td>
+</tr>
+<tr>
+<td>SHELL</td>
+<td>覆盖Docker中默认的shell，用于RUN、CMD和ENTRYPOINT指令。</td>
+</tr>
+<tr>
+<td>RUN</td>
+<td>运行指定命令</td>
+</tr>
+<tr>
+<td>CMD</td>
+<td>启动容器时指定默认执行的命令</td>
+</tr>
+<tr>
+<td>ADD</td>
+<td>添加内容到镜像</td>
+</tr>
+<tr>
+<td>COPY</td>
+<td>复制内容到镜像</td>
+</tr>
+</tbody></table>
+<h3 id="实际操作"><a href="#实际操作" class="headerlink" title="实际操作"></a>实际操作</h3><p>推荐使用基础镜像：<br>BusyBox 集成Linux的命令<br>Alpine  在BusyBox基础上减小体积和消耗，并提供了apt管理工具</p>
+<ul>
+<li>使用dockerfile为镜像添加ssh服务<pre class="line-numbers language-css" data-language="css"><code class="language-css">#设置继承镜像
+FROM myub
+
+#提供作者信息
+MAINTAINER docker_user <span class="token punctuation">(</span>user@docker.com<span class="token punctuation">)</span>
+
+#执行命令
+RUN apt-get update
+RUN apt-get install -y openssh-server
+RUN mkdir -p /var/run/sshd
+RUN mkdir -p /root/.ssh
+RUN sed -ri <span class="token string">'s/session required pam_loginid.so/#session required pam_loginuid.so/g'</span> /etc/pam.d/sshd
+
+#复制配置文件到对应位置，并赋予其可执行权限
+ADD authorized_keys /root/.ssh/authorized_eys
+ADD run.sh /run.sh
+RUN chmod 755 /run.sh
+#开放端口
+EXPOSE 22
+#设置自启动命令
+CMD [<span class="token string">"/run.sh"</span>]
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<p>FROM scratch</p>
+<p>如果你以 <code>scratch</code> 为基础镜像的话，意味着你不以任何镜像为基础，接下来所写的指令将作为镜像第一层开始存在。</p>
+<p>不以任何系统为基础，直接将可执行文件复制进镜像的做法并不罕见，对于 Linux 下静态编译的程序来说，并不需要有操作系统提供运行时支持，所需的一切库都已经在可执行文件里了，因此直接 <code>FROM scratch</code> 会让镜像体积更加小巧。使用 <a target="_blank" rel="noopener" href="https://golang.google.cn/">Go 语言</a> 开发的应用很多会使用这种方式来制作镜像，这也是有人认为 Go 是特别适合容器微服务架构的语言的原因之一。</p>
+<p>每一个RUN会建立一层，所以要进行多重操作的时候不要每一行都建立一个RUN而是将他们合在一层</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">FROM debian:stretch
+
+RUN <span class="token builtin class-name">set</span> -x<span class="token punctuation">;</span> <span class="token assign-left variable">buildDeps</span><span class="token operator">=</span><span class="token string">'gcc libc6-dev make wget'</span> <span class="token punctuation">\</span>
+    <span class="token operator">&amp;&amp;</span> <span class="token function">apt-get</span> update <span class="token punctuation">\</span>
+    <span class="token operator">&amp;&amp;</span> <span class="token function">apt-get</span> <span class="token function">install</span> <span class="token parameter variable">-y</span> <span class="token variable">$buildDeps</span> <span class="token punctuation">\</span>
+    <span class="token operator">&amp;&amp;</span> <span class="token function">wget</span> <span class="token parameter variable">-O</span> redis.tar.gz <span class="token string">"http://download.redis.io/releases/redis-5.0.3.tar.gz"</span> <span class="token punctuation">\</span>
+    <span class="token operator">&amp;&amp;</span> <span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /usr/src/redis <span class="token punctuation">\</span>
+    <span class="token operator">&amp;&amp;</span> <span class="token function">tar</span> <span class="token parameter variable">-xzf</span> redis.tar.gz <span class="token parameter variable">-C</span> /usr/src/redis --strip-components<span class="token operator">=</span><span class="token number">1</span> <span class="token punctuation">\</span>
+    <span class="token operator">&amp;&amp;</span> <span class="token function">make</span> <span class="token parameter variable">-C</span> /usr/src/redis <span class="token punctuation">\</span>
+    <span class="token operator">&amp;&amp;</span> <span class="token function">make</span> <span class="token parameter variable">-C</span> /usr/src/redis <span class="token function">install</span> <span class="token punctuation">\</span>
+    <span class="token operator">&amp;&amp;</span> <span class="token function">rm</span> <span class="token parameter variable">-rf</span> /var/lib/apt/lists/* <span class="token punctuation">\</span>
+    <span class="token operator">&amp;&amp;</span> <span class="token function">rm</span> redis.tar.gz <span class="token punctuation">\</span>
+    <span class="token operator">&amp;&amp;</span> <span class="token function">rm</span> <span class="token parameter variable">-r</span> /usr/src/redis <span class="token punctuation">\</span>
+    <span class="token operator">&amp;&amp;</span> <span class="token function">apt-get</span> purge <span class="token parameter variable">-y</span> --auto-remove <span class="token variable">$buildDeps</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><p>docker 不是虚拟机不存在后台运行，其中的所有应用都是在前台运行的，所以dockerfile 中直接执行这个应用即可，然后退出容器，让容器在后台运行即可</p>
+<pre class="line-numbers language-docker" data-language="docker"><code class="language-docker"><span class="token instruction"><span class="token keyword">CMD</span> [<span class="token string">"nginx"</span>, <span class="token string">"-g"</span>, <span class="token string">"daemon off;"</span>]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这是因为当存在 <code>ENTRYPOINT</code> 后，<code>CMD</code> 的内容将会作为参数传给 <code>ENTRYPOINT</code>，而这里 <code>-i</code> 就是新的 <code>CMD</code>，因此会作为参数传给 <code>curl</code>，从而达到了我们预期的效果。</p>
+</li>
+<li><p>ENV 设置</p>
+<pre class="line-numbers language-docker" data-language="docker"><code class="language-docker"><span class="token instruction"><span class="token keyword">ENV</span> key1=value1 key2=value2 .....</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>ARG 设置变量 等于 <code>docker build</code> 中用 <code>--build-arg &lt;参数名&gt;=&lt;值&gt;</code></p>
+</li>
+<li><p>ARG 指令有生效范围，如果在 <code>FROM</code> 指令之前指定，那么只能用于 <code>FROM</code> 指令中。</p>
+<pre class="line-numbers language-docker" data-language="docker"><code class="language-docker"><span class="token comment"># 只在 FROM 中生效</span>
+<span class="token instruction"><span class="token keyword">ARG</span> DOCKER_USERNAME=library</span>
+
+<span class="token instruction"><span class="token keyword">FROM</span> <span class="token variable">${DOCKER_USERNAME}</span>/alpine</span>
+
+<span class="token comment"># 要想在 FROM 之后使用，必须再次指定</span>
+<span class="token instruction"><span class="token keyword">ARG</span> DOCKER_USERNAME=library</span>
+
+<span class="token instruction"><span class="token keyword">RUN</span> set -x ; echo <span class="token variable">${DOCKER_USERNAME}</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+</li>
+<li><p>HEALTHCHECK</p>
+</li>
+<li><p><code>--interval=&lt;间隔&gt;</code>：两次健康检查的间隔，默认为 30 秒；</p>
+</li>
+<li><p><code>--timeout=&lt;时长&gt;</code>：健康检查命令运行超时时间，如果超过这个时间，本次健康检查就被视为失败，默认 30 秒；</p>
+</li>
+<li><p><code>--retries=&lt;次数&gt;</code>：当连续失败指定次数后，则将容器状态视为 <code>unhealthy</code>，默认 3 次。</p>
+</li>
+</ul>
+<pre class="line-numbers language-docker" data-language="docker"><code class="language-docker"><span class="token instruction"><span class="token keyword">FROM</span> nginx</span>
+<span class="token instruction"><span class="token keyword">RUN</span> apt-get update &amp;&amp; apt-get install -y curl &amp;&amp; rm -rf /var/lib/apt/lists/*</span>
+<span class="token instruction"><span class="token keyword">HEALTHCHECK</span> <span class="token options"><span class="token property">--interval</span><span class="token punctuation">=</span><span class="token string">5s</span> <span class="token property">--timeout</span><span class="token punctuation">=</span><span class="token string">3s</span></span> <span class="token operator">\</span>
+  <span class="token keyword">CMD</span> curl -fs http://localhost/ || exit 1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>多阶段构造镜像<ol>
+<li>多个FROM 和 构造过程写在一个dockerfile 中</li>
+<li>使用as 来为某一阶段的构造命名 FROM golang:alpine as builder之后构造时直接指定名字即可, $ docker build –target builder -t username/imagename:tag .</li>
+</ol>
+</li>
+<li>docker 导入导出容器<br>示例：<pre class="line-numbers language-css" data-language="css"><code class="language-css">docker export 7691a814370e &gt; ubuntu.tar
+cat ubuntu.tar | docker import - test/<span class="token property">ubuntu</span><span class="token punctuation">:</span>v1.0 # 将文件读入到标准输入流，再将其导入到镜像中
+# 或者使用URL 来导入也行<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<h3 id="docker-查看容器ip"><a href="#docker-查看容器ip" class="headerlink" title="docker 查看容器ip"></a>docker 查看容器ip</h3><pre class="line-numbers language-none"><code class="language-none">docker inspect 容器ID | grep IPAddress<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="Nexus-容器"><a href="#Nexus-容器" class="headerlink" title="Nexus 容器"></a>Nexus 容器</h3><p>可以方便进行对Maven , Docker ,Yum,PyPI的管理</p>
+<h1 id="Lua-一种可以嵌入程序的简便语言"><a href="#Lua-一种可以嵌入程序的简便语言" class="headerlink" title="Lua 一种可以嵌入程序的简便语言"></a>Lua 一种可以嵌入程序的简便语言</h1><p>一般只适合在linux上使用<br>安装：<br><code>apt-get install luaxxx(版本号)</code><br>执行<br><code>lua xxx.lua</code></p>
+<h2 id="交互式编程"><a href="#交互式编程" class="headerlink" title="交互式编程"></a>交互式编程</h2><p>Lua 提供了交互式编程模式。我们可以在命令行中输入程序并立即查看效果。</p>
+<p>Lua 交互式编程模式可以通过命令&nbsp;<strong>lua -i</strong>&nbsp;或&nbsp;<strong>lua</strong>&nbsp;来启用</p>
+<ol>
+<li>基本语法<ul>
+<li>注释 – 单行  <code>--[[xxxx --]]</code> 多行注释</li>
+<li>默认为全局变量，全局变量不需要声明，不需要时置为nil即可,局部变量使用 local 来指定</li>
+<li>基本数据类型: nil ,boolean , number(为double类型) , string ,userdata (任意存储在变量中的数据结构)</li>
+<li>userdata 是一种用户自定义数据，用于表示一种由应用程序或 C/C++ 语言库所创建的类型。 可以将任意 C/C++ 的任意数据类型的数据（通常是 struct 和 指针）存储到 Lua 变量中调用</li>
+<li>function(由C 或Lua编写的函数) , thread(线程), table(关联数组)</li>
+<li>使用<code>[[]]</code> 来跨越多行赋值</li>
+<li>Lua可以对多个变量同时赋值，变量列表和值列表的各个元素用逗号分开，赋值语句右边的值会依次赋给左边的变量<pre class="line-numbers language-Lua" data-language="Lua"><code class="language-Lua">html = [[
+&lt;html&gt;
+&lt;head&gt;&lt;/head&gt;
+&lt;body&gt;
+    &lt;a href="https://www.twle.cn/"&gt;简单编程&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+]]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>lua会尝试将字符数字转化为数字来进行数字计算，字符串连接符是 <code>..</code></li>
+<li><h1 id="string-来计算字符串的长度"><a href="#string-来计算字符串的长度" class="headerlink" title="string 来计算字符串的长度"></a>string 来计算字符串的长度</h1></li>
+<li><strong>默认索引是从1开始</strong></li>
+<li>function 可以以匿名函数（anonymous function）的方式通过参数传递<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token comment">-- !/usr/bin/lua</span>
+<span class="token comment">-- -*- encoding:utf-8 -*-</span>
+<span class="token comment">-- filename: main.lua</span>
+<span class="token comment">-- author: 简单教程(www.twle.cn)</span>
+<span class="token comment">-- Copyright © 2015-2065 www.twle.cn. All rights reserved.</span>
+
+<span class="token keyword">function</span> <span class="token function">testFun</span><span class="token punctuation">(</span>tab<span class="token punctuation">,</span>fun<span class="token punctuation">)</span>
+    <span class="token keyword">for</span> k <span class="token punctuation">,</span>v <span class="token keyword">in</span> <span class="token function">pairs</span><span class="token punctuation">(</span>tab<span class="token punctuation">)</span> <span class="token keyword">do</span>
+        <span class="token function">print</span><span class="token punctuation">(</span><span class="token function">fun</span><span class="token punctuation">(</span>k<span class="token punctuation">,</span>v<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+
+tab<span class="token operator">=</span><span class="token punctuation">{</span>key1<span class="token operator">=</span><span class="token string">"val1"</span><span class="token punctuation">,</span>key2<span class="token operator">=</span><span class="token string">"val2"</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token function">testFun</span><span class="token punctuation">(</span>tab<span class="token punctuation">,</span>
+<span class="token keyword">function</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span>val<span class="token punctuation">)</span><span class="token comment">--匿名函数</span>
+    <span class="token keyword">return</span> key<span class="token operator">..</span><span class="token string">"="</span><span class="token operator">..</span>val<span class="token punctuation">;</span>
+<span class="token keyword">end</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li>table变量可以使用索引，key，或者 . 来获取值</li>
+<li>注意 : Lua 中 0 为 true</li>
+<li><strong>多返回值</strong>Lua 中的函数可以返回<strong>多个结果值</strong>，例如&nbsp;<strong>string.find</strong>&nbsp;返回匹配串 “开始和结束的下标”（如果不存在匹配串返回 nil ）<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token operator">&gt;</span> s, e <span class="token operator">=</span> string.find<span class="token punctuation">(</span><span class="token string">"www.twle.cn"</span>, <span class="token string">"twle"</span><span class="token punctuation">)</span> 
+<span class="token operator">&gt;</span> print<span class="token punctuation">(</span>s, e<span class="token punctuation">)</span>
+<span class="token number">5</span>   <span class="token number">10</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
+<li>可变参数 使用 … 来代表</li>
+<li>算术运算符 有 ^ 幂运算哦 </li>
+<li>不等于是 -= 不是 != </li>
+<li>逻辑运算 and , or ,not</li>
+<li><h1 id="返回字符串个数或者传入参数个数"><a href="#返回字符串个数或者传入参数个数" class="headerlink" title="返回字符串个数或者传入参数个数.."></a>返回字符串个数或者传入参数个数..</h1></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>\a</td>
+<td>响铃(BEL)</td>
+<td>007</td>
+</tr>
+<tr>
+<td>\b</td>
+<td>退格(BS) ，将当前位置移到前一列</td>
+<td>008</td>
+</tr>
+<tr>
+<td>\f</td>
+<td>换页(FF)，将当前位置移到下页开头</td>
+<td>012</td>
+</tr>
+<tr>
+<td>\n</td>
+<td>换行(LF) ，将当前位置移到下一行开头</td>
+<td>010</td>
+</tr>
+<tr>
+<td>\r</td>
+<td>回车(CR) ，将当前位置移到本行开头</td>
+<td>013</td>
+</tr>
+<tr>
+<td>\t</td>
+<td>水平制表(HT) （跳到下一个TAB位置）</td>
+<td>009</td>
+</tr>
+<tr>
+<td>\v</td>
+<td>垂直制表(VT)</td>
+<td>011</td>
+</tr>
+<tr>
+<td>\</td>
+<td>代表一个反斜线字符’’'</td>
+<td>092</td>
+</tr>
+<tr>
+<td>'</td>
+<td>代表一个单引号（撇号）字符</td>
+<td>039</td>
+</tr>
+<tr>
+<td>"</td>
+<td>代表一个双引号字符</td>
+<td>034</td>
+</tr>
+<tr>
+<td>\0</td>
+<td>空字符(NULL)</td>
+<td>000</td>
+</tr>
+<tr>
+<td>\ddd</td>
+<td>1到3位八进制数所代表的任意字符</td>
+<td>三位八进制</td>
+</tr>
+<tr>
+<td>\xhh</td>
+<td>1到2位十六进制所代表的任意字符</td>
+<td>二位十六进制</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>常用字符串方法 string + . +</p>
+<ul>
+<li>upper 大写 lower 小写</li>
+<li>gsub(string , findstring , replacestring ,num) 从string中查找findstring,并替换为replacestring ，num是替换的次数</li>
+<li>find ()  返回首次出现该字符串的前后位置，包括开始和结束的位置</li>
+<li>reverse 反转</li>
+<li>char(num1,num2…) 将数字变为字母，ascii码</li>
+<li>byte(字母串,指定某个字符) 将字母变为数字</li>
+<li>len 长度</li>
+<li>rep(string,num) 返回重复num次的string</li>
+<li>gmatch(string,pattern) 返回一个迭代器，返回一个符合pattern的字串，可以使用 </li>
+<li>format ()格式化 <a target="_blank" rel="noopener" href="https://www.twle.cn/l/yufei/lua53/lua-basic-strings-format.html">转义码</a></li>
+</ul>
+</li>
+<li><p>数组 lua的数组可以从负数开始遍历索引从1开始</p>
+<ul>
+<li><code>for i= -1 , 10 do ...</code></li>
+<li>迭代器: <pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token comment">-- pairs用于匹配键值对</span>
+<span class="token keyword">local</span> myTable <span class="token operator">=</span> <span class="token punctuation">{</span>a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> b <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> c <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">}</span>
+<span class="token keyword">for</span> key<span class="token punctuation">,</span> value <span class="token keyword">in</span> <span class="token function">pairs</span><span class="token punctuation">(</span>myTable<span class="token punctuation">)</span> <span class="token keyword">do</span>
+    <span class="token function">print</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+
+<span class="token comment">--ispairs 用于遍历数组，字符串等</span>
+<span class="token keyword">local</span> myArray <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">}</span>
+<span class="token keyword">for</span> index<span class="token punctuation">,</span> value <span class="token keyword">in</span> <span class="token function">ipairs</span><span class="token punctuation">(</span>myArray<span class="token punctuation">)</span> <span class="token keyword">do</span>
+    <span class="token function">print</span><span class="token punctuation">(</span>index<span class="token punctuation">,</span> value<span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+<span class="token comment">--自定义迭代器，实际就是自己写的遍历算法。。</span>
+<span class="token keyword">function</span> <span class="token function">myIterator</span><span class="token punctuation">(</span>collection<span class="token punctuation">)</span>
+    <span class="token keyword">local</span> index <span class="token operator">=</span> <span class="token number">1</span>
+    <span class="token keyword">local</span> size <span class="token operator">=</span> <span class="token operator">#</span>collection
+    <span class="token keyword">return</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> index <span class="token operator">&lt;=</span> size <span class="token keyword">then</span>
+            <span class="token keyword">local</span> value <span class="token operator">=</span> collection<span class="token punctuation">[</span>index<span class="token punctuation">]</span>
+            index <span class="token operator">=</span> index <span class="token operator">+</span> <span class="token number">1</span>
+            <span class="token keyword">return</span> value
+        <span class="token keyword">end</span>
+    <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+
+<span class="token keyword">local</span> myArray <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">200</span><span class="token punctuation">,</span> <span class="token number">300</span><span class="token punctuation">}</span>
+<span class="token keyword">local</span> iter <span class="token operator">=</span> <span class="token function">myIterator</span><span class="token punctuation">(</span>myArray<span class="token punctuation">)</span>
+<span class="token keyword">for</span> value <span class="token keyword">in</span> iter <span class="token keyword">do</span>
+    <span class="token function">print</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+</li>
+<li><p>table常用方法 table + . +</p>
+<ul>
+<li>concat 是 concatenate (连锁, 连接) 的缩写. table.concat() 函数列出参数中指定 table 的数组部分从 start 位置到 end 位置的所有元素, 元素间以指定的分隔符(sep)隔开</li>
+<li>insert(table,pos,value) 在指定位置添加一个value ,如果未指定位置，默认从尾部加入</li>
+<li>remove(table,post) 返回并移除table 位于pos位置的元素，后面的元素会自动向前</li>
+<li>sort 进行升序排序</li>
+</ul>
+</li>
+<li><p>lua的模式匹配<br><a target="_blank" rel="noopener" href="https://tool.oschina.net/uploads/apidocs/jquery/regexp.html">开源中国中正则表达式列表</a><br><a target="_blank" rel="noopener" href="https://www.twle.cn/l/yufei/lua53/lua-basic-strings-match.html">lua模式匹配</a></p>
+</li>
+<li><p>% 用于将后面的字符转义为字面量而不是特殊字符，例如</p>
+</li>
+<li><p>%。 匹配的是。而不是其他的</p>
+</li>
+<li><p>有时也会有特殊含义: %a 代表的是匹配一个字母，%d 代表匹配一个数字</p>
+</li>
+<li><p>字符类 %d 匹配任意数字，所以可以使用模式串 ‘%d%d/%d%d/%d%d%d%d’ 搜索 dd/mm/yyyy 格式</p>
+</li>
+<li><p>模块和导包</p>
+</li>
+<li><p>导包require(模块名)，甚至可以加个.var赋给一个变量来调用模块</p>
+</li>
+<li><p>元表？</p>
+</li>
+<li><p>协程</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.twle.cn/l/yufei/lua53/lua-basic-file-io.html">文件</a></p>
+</li>
+</ul>
+<h1 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h1><p>一种高性能的 HTTP 和&nbsp;反向代理的服务器，<strong>默认监听端口是80</strong>不是8080</p>
+<ul>
+<li>基本命令<pre class="line-numbers language-css" data-language="css"><code class="language-css">nginx 启动
+nginx -s quit 优雅的退出，完成所有任务后退出
+nginx -s stop 强制退出
+nginx -s reload 重启，来刷新配置文件
+nginx -t 测试配置文件是否可用，同时会显示配置文件的路径
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><strong>配置文件</strong><br>配置文件分为三类</li>
+</ul>
+<ol>
+<li>全局块,服务器配置，日志存放等</li>
+<li>events 主要影响服务器和用户的网络连接</li>
+<li>http 可以分很多块<ul>
+<li>server块  全局块 本机监听配置和ip配置</li>
+<li>location 局部块  控制地址定向，转发等 ， 在server块内来匹配新的转发路径<br>用法一：反向代理，作为另一个服务器的转发服务器来隐藏另一个服务器<br>使用docker 启动一个tomcat服务器，并进入并启动服务<pre class="line-numbers language-css" data-language="css"><code class="language-css">docker run -itd tomcat /bin/sh
+进入tomcat/bin目录
+./startup.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+错误情况：</li>
+</ul>
+</li>
+</ol>
+<p>docker tomcat无法启动</p>
+<ol>
+<li>可能没有映射端口或者没有关闭防火墙</li>
+<li>把webapps.dist目录换成webapps</li>
+<li>将文件扔到webapps即可</li>
+</ol>
+<p>测试第一个方法，解决问题！</p>
+<p>进入容器内部</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">docker exec <span class="token operator">-</span>it mytomcat <span class="token operator">/</span>bin<span class="token operator">/</span>bash<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>复制</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">rm <span class="token operator">-</span>rf webapps
+mv webapps<span class="token punctuation">.</span>dist webapps<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>复制</p>
+<p>重启tomcat</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">docker restart mytomcat<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>查看docker的tomcat ip<br><code>docker inspect ID | grep IPAddress</code><br>配置文件:</p>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">server</span> <span class="token punctuation">{</span>
+    listen       8888 <span class="token punctuation">;</span> ##设置我们nginx监听端口为8888
+    server_name  [服务器的ip地址]<span class="token punctuation">;</span> # 不带http
+
+    # Load configuration files for the default server block.
+    include /etc/nginx/default.d/*.conf<span class="token punctuation">;</span>
+
+    <span class="token selector">location /</span> <span class="token punctuation">{</span>
+        proxy_pass <span class="token property">http</span><span class="token punctuation">:</span>//<span class="token property">tomcat服务器ip</span><span class="token punctuation">:</span>8080<span class="token punctuation">;</span> ##需要代理的服务器地址
+        index index.html<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    error_page 404 /404.html<span class="token punctuation">;</span>
+        <span class="token selector">location = /40x.html</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+
+    error_page 500 502 503 504 /50x.html<span class="token punctuation">;</span>
+        <span class="token selector">location = /50x.html</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>打开浏览器输入服务器的ip和代理端口，就可以看到docker容器中tomcat的主界面</p>
+<ul>
+<li><p>实现服务器分发<br>配置</p>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">server</span> <span class="token punctuation">{</span>
+    listen       8888 <span class="token punctuation">;</span> ##设置我们nginx监听端口为8888
+    server_name  [服务器的ip地址]<span class="token punctuation">;</span>
+
+    # Load configuration files for the default server block.
+    include /etc/nginx/default.d/*.conf<span class="token punctuation">;</span>
+
+    <span class="token selector">location /hi/</span> <span class="token punctuation">{</span>
+        proxy_pass <span class="token property">http</span><span class="token punctuation">:</span>//服务器2<span class="token punctuation">;</span> ##需要代理的服务器地址
+        index index.html<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    
+    <span class="token selector">location /hello/</span> <span class="token punctuation">{</span>
+        proxy_pass <span class="token property">http</span><span class="token punctuation">:</span>//服务器2<span class="token punctuation">;</span> ##需要代理的服务器地址
+        index index.html<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    error_page 404 /404.html<span class="token punctuation">;</span>
+        <span class="token selector">location = /40x.html</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+
+    error_page 500 502 503 504 /50x.html<span class="token punctuation">;</span>
+        <span class="token selector">location = /50x.html</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000022315733">location 匹配</a></p>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">location [ = | ~ | ~* | ^~ ] /URI</span> <span class="token punctuation">{</span> … <span class="token punctuation">}</span>
+<span class="token selector">location @/name/</span> <span class="token punctuation">{</span> … <span class="token punctuation">}</span>
+########### 顺序
+1. location =    # 精准匹配
+2. location ^~   # 带参前缀匹配
+3. location ~    # 正则匹配（区分大小写）
+4. location ~*   # 正则匹配（不区分大小写）
+5. location /a   # 普通前缀匹配，优先级低于带参数前缀匹配。
+6. location /    # 任何没有匹配成功的，都会匹配这里处理<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong><code>空</code></strong></td>
+<td>location 后没有参数直接跟着&nbsp;<strong>标准 URI</strong>，表示前缀匹配，代表跟请求中的 URI 从头开始匹配。</td>
+</tr>
+<tr>
+<td><strong><code>=</code></strong></td>
+<td>用于<strong>标准 URI</strong>&nbsp;前，要求请求字符串与其精准匹配，成功则立即处理，nginx停止搜索其他匹配。</td>
+</tr>
+<tr>
+<td><strong><code>^~</code></strong></td>
+<td>用于<strong>标准 URI</strong>&nbsp;前，并要求一旦匹配到就会立即处理，不再去匹配其他的那些个正则 URI，一般用来匹配目录</td>
+</tr>
+<tr>
+<td><strong><code>~</code></strong></td>
+<td>用于<strong>正则 URI</strong>&nbsp;前，表示 URI 包含正则表达式，&nbsp;<strong>区分</strong>大小写</td>
+</tr>
+<tr>
+<td><strong><code>~*</code></strong></td>
+<td>用于<strong>正则 URI</strong>&nbsp;前， 表示 URI 包含正则表达式，&nbsp;<strong>不区分</strong>大小写</td>
+</tr>
+<tr>
+<td><strong><code>@</code></strong></td>
+<td>@ 定义一个命名的 location，@ 定义的locaiton名字一般用在内部定向，例如error_page, try_files命令中。它的功能类似于编程中的goto。</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>顺序</p>
+</li>
+</ul>
+<ol>
+<li>先精准匹配&nbsp;<strong><code>=</code></strong>&nbsp;，精准匹配成功则会立即停止其他类型匹配；</li>
+<li>没有精准匹配成功时，进行前缀匹配。先查找带有&nbsp;<strong><code>^~</code></strong>&nbsp;的前缀匹配，带有&nbsp;<strong><code>^~</code></strong>&nbsp;的前缀匹配成功则立即停止其他类型匹配，普通前缀匹配（不带参数&nbsp;<strong><code>^~</code></strong>&nbsp;）成功则会暂存，继续查找正则匹配；</li>
+<li><strong><code>=</code></strong>&nbsp;和&nbsp;<strong><code>^~</code></strong>&nbsp;均未匹配成功前提下，查找正则匹配&nbsp;<strong><code>~</code></strong>&nbsp;和&nbsp;<strong><code>~*</code></strong>&nbsp;。当同时有多个正则匹配时，按其在配置文件中出现的先后顺序优先匹配，命中则立即停止其他类型匹配；</li>
+<li>所有正则匹配均未成功时，返回步骤 2 中暂存的普通前缀匹配（不带参数&nbsp;<strong><code>^~</code></strong>&nbsp;）结果</li>
+</ol>
+<ul>
+<li>负载均衡<br>配置文件(server块)<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">http</span> <span class="token punctuation">{</span>
+
+<span class="token selector">###此处省略一大堆没有改的配置
+
+
+    ##自定义我们的服务列表
+    upstream myserver</span><span class="token punctuation">{</span>
+	    #### 可以使用 ip_hash 来进行hash 分配，可以与weight一起使用
+	   ip_hash<span class="token punctuation">;</span>
+       server 服务器1及端口<span class="token punctuation">;</span> # 可加权值来表示优先级，server 服务器1及端口 + weight = 数字<span class="token punctuation">;</span> 数字越大，权重越高
+       server 服务器2及接口<span class="token punctuation">;</span>
+	   ……
+     <span class="token punctuation">}</span>
+
+
+   <span class="token selector">server</span> <span class="token punctuation">{</span>
+       listen       8888 <span class="token punctuation">;</span> ##设置我们nginx监听端口为8888
+       server_name  [服务器的ip地址]<span class="token punctuation">;</span>
+
+       # Load configuration files for the default server block.
+       include /etc/nginx/default.d/*.conf<span class="token punctuation">;</span>
+
+       <span class="token selector">location /</span> <span class="token punctuation">{</span>
+           proxy_pass <span class="token property">http</span><span class="token punctuation">:</span>//myserver<span class="token punctuation">;</span> ##叮，核心配置在这里
+           proxy_connect_timeout 10<span class="token punctuation">;</span> #超时时间，单位秒
+       <span class="token punctuation">}</span>
+
+       error_page 404 /404.html<span class="token punctuation">;</span>
+           <span class="token selector">location = /40x.html</span> <span class="token punctuation">{</span>
+       <span class="token punctuation">}</span>
+
+       error_page 500 502 503 504 /50x.html<span class="token punctuation">;</span>
+           <span class="token selector">location = /50x.html</span> <span class="token punctuation">{</span>
+       <span class="token punctuation">}</span>
+   <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li>关闭一个tomcat之后，发现仍然可以访问，但关闭所有的tomcat时发现无法访问了，说明实现了负载均衡</li>
 </ul>
 
                 
@@ -1336,7 +2023,7 @@ docker rmi  <span class="token operator">-</span>f  myubuntu 当存在多个标�
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">53k</span>
+                        class="white-color">63.1k</span>
             
             
             

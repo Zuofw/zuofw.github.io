@@ -540,7 +540,7 @@ E-R模型E-R模型是Entity-R">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    8.8k
+                    12.9k
                 </div>
                 
 
@@ -1492,6 +1492,457 @@ conn.close();
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="变量的使用"><a href="#变量的使用" class="headerlink" title="变量的使用"></a>变量的使用</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java">占位符？只能用来取代sql语句中的常变量，而不能取代列名或者表名
 select <span class="token operator">?</span> from <span class="token operator">?</span> where  <span class="token operator">?</span>   前两个<span class="token operator">?</span>不成立，只能用 <span class="token string">"+variable+"</span> 的方式<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h1 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h1><p>REmote DIctionary Server(Redis) 是一个由 Salvatore Sanfilippo 写的 key-value 存储系统，是跨平台的非关系型数据库，非关系型数据库，<br>特点：<strong>直接将数据存在内存中，数据的存储非常快，适合用作二级缓存，比存储在cache还要快</strong></p>
+<ul>
+<li>数据类型</li>
+</ul>
+<ol>
+<li><p>String redis的String可以包含任意的数据，甚至是jpg和序列化对象,是用二进制的形式来保存的<br>常用命令:</p>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css">get /set
+GETRANGE key start end 返回key中字符串值的子字符串<span class="token punctuation">,</span>substr
+GETSET key value 将key的值设为value 并返回旧值
+APPEND key value 追加到末尾<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>tips:<br>一个key最多可以存储512mb</p>
+<blockquote>
+<p>序列化是将数据结构或对象转换为可存储或传输的格式的过程，这个过程通常涉及将数据转换为字节流或其他类似的格式，以便在需要时能够重新恢复原始数据结构或对象。序列化的对象是指经过序列化处理后的对象，这些对象的状态信息已经被编码成一种特定的格式，以便在稍后的时间或在不同的计算环境中进行保存、传输或恢复。<br>常见的对象序列化用途包括：</p>
+</blockquote>
+</li>
+<li><p>数据持久化：将对象的状态保存到磁盘上，以便稍后能够从磁盘中重新加载并还原对象。</p>
+</li>
+<li><p>数据传输：在网络上或进程间传输对象，例如，通过将对象序列化为字节流，然后在不同的计算机之间传递，最终重新反序列化以还原原始对象。</p>
+</li>
+<li><p>缓存：将对象序列化并存储在缓存中，以提高应用程序的性能，并在需要时快速访问对象，而不必重新计算或重新获取数据。</p>
+</li>
+<li><p>进程间通信（IPC）：在不同的进程之间共享对象数据，序列化和反序列化是实现进程间通信的一种常见方式。</p>
+</li>
+</ol>
+<p>序列化的方式可以有多种，例如将对象转换为JSON、XML、Protocol Buffers、MessagePack等格式，具体选择取决于应用程序的需求和编程语言的支持。不同的语言通常有自己的序列化和反序列化工具或库，用于处理对象的序列化和反序列化操作。</p>
+<ol start="2">
+<li>Hash<br>使用一个键来存多个value ，适合存储对象<br>语法:<pre class="line-numbers language-css" data-language="css"><code class="language-css">HMSET key field1 value1 field2 value2 .....
+HMSET name n1 <span class="token string">"hello"</span> n2 <span class="token string">"world"</span> 
+
+HGET name n1
+HGET name n2
+HDEL key field1 field2 ...删除一个或者多个hash字段
+HEXIESTS key field 查看key中field是否存在
+HGETALL key 获取对象的全部信息
+HKEYS key 获取字段名，不包括值
+HLEN key 获取字段的数量
+HSET key field value
+HSETNX key field value
+HVALS key 获取所有值，不包含字段名
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li>List<br>按照插入顺序排序 可以使用lpush (从从头部插入) rpush(从尾部插入)，想取出时只要lrange 起始(从0开始数) 末尾<pre class="line-numbers language-css" data-language="css"><code class="language-css">lpush key v1
+lpush key v2
+rpush key v3
+lrange key 0 10
+输出为
+v2
+v1
+v3
+
+BLPOP key1 key2 ... timeout  # popfront并返回
+BRPOP ....                    popback
+BRPOPLPUSH source destination timeout 将一个表中的元素弹到另一个表中
+LINDEX key index 通过索引
+LINSERT key BEFORE/AFTER pivot value 在pivot这个元素的前/后插入元素
+LLEN key 获取长度
+LTRIM key start stop     substr<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li>Set<br>set是String 类型的无序集合,使用hash实现的，复杂度为O(1),实际是hash的类似list类型的，同时同一个value是不会插入两次<pre class="line-numbers language-css" data-language="css"><code class="language-css">sadd key v1
+sadd key v2
+
+smembers key
+v2
+v1
+
+SCARD key 获取成员数
+SDIFF key1 key2 返回第一个集合与第二个集合的区别
+SDIFFSTORE destinatin key1 key2 将key1<span class="token punctuation">,</span>key2的差集存储在destination中
+SINTER key1 key2 返回交集
+SINTERSTORE destion key1 key2
+SISMEMEBER key memeber 判断member是不是key的成员
+SMOVE source destination memeber 
+SPOP key 
+SRANMEMBER key count 
+SREM key m1 m2 ... 移除成员
+SUNION key1 key2 
+SUNIONSTORE destination key1 key2
+SSCAN key cursor pattern cout 迭代所有元素 cursor是游标，也即是index<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+tips:</li>
+</ol>
+<ul>
+<li><p><code>cursor</code>: 这是一个整数参数，表示遍历的起始位置。它允许你逐批次地遍历数据库中的键。初始时，你可以将<code>cursor</code>设置为0，然后随着遍历的进行，Redis会返回一个新的<code>cursor</code>，你可以将其用作下一次遍历的起始位置。当<code>cursor</code>返回0时，表示遍历已经完成。</p>
+</li>
+<li><p><code>MATCH pattern</code>（可选）: 这个参数用于指定一个匹配模式，只返回键名与指定模式匹配的键。这有助于筛选出你感兴趣的键。</p>
+</li>
+<li><p><code>COUNT count</code>（可选）: 这个参数用于指定每次批处理返回的键的最大数量。它可以帮助你限制每次迭代中返回的键的数量，以控制操作的负载。</p>
+</li>
+</ul>
+<ol start="5">
+<li>zset 有序集合<br>使用一个score来维持顺序的<pre class="line-numbers language-css" data-language="css"><code class="language-css">sadd key score value
+查询
+zrangebyscore key score1 score2
+
+zcount key start end 统计指定区间内成员数量
+zinterstore ...
+zrange 
+zrangebylex 字典序
+zrangebyscore
+zrank key member 返回某个memeber 的索引
+zrem key m1 m2..
+zremrangebylex key min 根据字典序，移除指定字典区间的成员
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+<ul>
+<li>Redis 命令</li>
+</ul>
+<ol>
+<li>使用 redis-cli启动客户端</li>
+<li>key 命令<pre class="line-numbers language-css" data-language="css"><code class="language-css">COMMAND KEY_NAME
+# 具体的command
+DEL
+DUMP 序列化给定的key
+EXISTS key 检查key是否已经存在
+EXPIRE key seconds 设置过期时间，按照s来计算
+EXPIREAT key timestamp 按照时间戳
+PEXPIRE key milliseconds 以毫秒计算
+PEDPIREAT key milliseconds-timestamp 时间戳以毫秒来计算
+KEYS patter 查找所有符合模式的key
+MOVE key db 将当前key移动到指定的数据库db中
+PERSIST key 移除过期时间，成为永久
+PTTL ey 以毫秒返回剩余过期时间
+RANDOMKEY 随机返回一个key
+RENAME key newkey 修改名称
+RENAMENX key newkey 当newkey不存在时将key改名为newkey
+SCAN cursor 
+TYPE key 返回key的存储类型
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+<ul>
+<li>Redis HyperLogLog 是用来做基数统计的算法，HyperLogLog 的优点是，在输入元素的数量或者体积非常非常大时，计算基数所需的空间总是固定 的、并且是很小的<br>tips:基数是不重复元素的个数<pre class="line-numbers language-css" data-language="css"><code class="language-css">PFADD key e1 e1 ...
+PFCOUNT key1 key2 ... 返回基数估计值
+PFMERGE destination k1 k2 将多个合为一个<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+Redis 订阅<pre class="line-numbers language-css" data-language="css"><code class="language-css">psubscribe pattern 订阅一个或多个符合给定模式的频道
+pubsub subcommand ... 用于管理评到，后面可以跟多个命令，比如查看所有存在的频道，查看订阅人数等等
+punsubscribe pattern 退订指定模式的频道
+unsubscribe channelname ... 推定指定name的频道
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li>事务<br>-Redis 的命令都是原子性的，所以Redis的事务不支持回滚<pre class="line-numbers language-css" data-language="css"><code class="language-css">discard 取消事务
+exec 执行任务块中的所有命令
+multi 标记一个事务块的开始 ，我要开始写事务列表了
+unwatch 取消对所有key的监视
+watch 监视多个key<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<h2 id="Redis-脚本命令"><a href="#Redis-脚本命令" class="headerlink" title="Redis 脚本命令"></a>Redis 脚本命令</h2><p>下表列出了 redis 脚本常用命令：</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>命令及描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/scripting-eval.html">EVAL script numkeys key [key …] arg [arg …]</a>  <br>执行 Lua 脚本。</td>
+</tr>
+<tr>
+<td>2</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/scripting-evalsha.html">EVALSHA sha1 numkeys key [key …] arg [arg …]</a>  <br>执行 Lua 脚本。</td>
+</tr>
+<tr>
+<td>3</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/scripting-script-exists.html">SCRIPT EXISTS script [script …]</a>  <br>查看指定的脚本是否已经被保存在缓存当中。</td>
+</tr>
+<tr>
+<td>4</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/scripting-script-flush.html">SCRIPT FLUSH</a>  <br>从脚本缓存中移除所有脚本。</td>
+</tr>
+<tr>
+<td>5</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/scripting-script-kill.html">SCRIPT KILL</a>  <br>杀死当前正在运行的 Lua 脚本。</td>
+</tr>
+<tr>
+<td>6</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/scripting-script-load.html">SCRIPT LOAD script</a>  <br>将脚本 script 添加到脚本缓存中，但并不立即执行这个脚本。</td>
+</tr>
+</tbody></table>
+<ul>
+<li>选择数据库和登录<br>如果你想在Redis服务器启动时指定要使用的数据库和密码，可以通过命令行参数进行设置，例如：</li>
+</ul>
+<p><code>redis-server --port 6379 --requirepass your_password --db 3</code><br>redis默认有0-15个数据库，直接选择即可</p>
+<p>info 来获得服务器和数据库信息</p>
+<h2 id="Redis-服务器命令"><a href="#Redis-服务器命令" class="headerlink" title="Redis 服务器命令"></a>Redis 服务器命令</h2><p>远程连接服务器</p>
+<ol>
+<li>服务器上使用<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">vim</span>  /etc/redis/redis.conf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+之后注释掉这一行<br>bind 127.0.0.1<br>然后将“protected-mode yes”改成“protected-mode no”<br>之后<br>添加以下内容<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">daemonize no<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+之后重启服务器<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">/etc/init.d/redis-server restart<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+在服务器管理平台上开启端口号6379<br>本地机器上使用以下命令(已经配置完环境变量了)<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">redis-cli <span class="token parameter variable">-h</span> 服务器ip <span class="token parameter variable">-p</span> 端口号 <span class="token punctuation">(</span>-a 密码 如果设置了的话<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+下表列出了 redis 服务器的相关命令:</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>命令及描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/server-bgrewriteaof.html">BGREWRITEAOF</a>  <br>异步执行一个 AOF（AppendOnly File） 文件重写操作</td>
+</tr>
+<tr>
+<td>2</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/server-bgsave.html">BGSAVE</a>  <br>在后台异步保存当前数据库的数据到磁盘</td>
+</tr>
+<tr>
+<td>3</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/server-client-kill.html">CLIENT KILL [ip:port] [ID client-id]</a>  <br>关闭客户端连接</td>
+</tr>
+<tr>
+<td>4</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/server-client-list.html">CLIENT LIST</a>  <br>获取连接到服务器的客户端连接列表</td>
+</tr>
+<tr>
+<td>5</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/server-client-getname.html">CLIENT GETNAME</a>  <br>获取连接的名称</td>
+</tr>
+<tr>
+<td>6</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/server-client-pause.html">CLIENT PAUSE timeout</a>  <br>在指定时间内终止运行来自客户端的命令</td>
+</tr>
+<tr>
+<td>7</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/server-client-setname.html">CLIENT SETNAME connection-name</a>  <br>设置当前连接的名称</td>
+</tr>
+<tr>
+<td>8</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/server-cluster-slots.html">CLUSTER SLOTS</a>  <br>获取集群节点的映射数组</td>
+</tr>
+<tr>
+<td>9</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/server-command.html">COMMAND</a>  <br>获取 Redis 命令详情数组</td>
+</tr>
+<tr>
+<td>10</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/server-command-count.html">COMMAND COUNT</a>  <br>获取 Redis 命令总数</td>
+</tr>
+<tr>
+<td>11</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/server-command-getkeys.html">COMMAND GETKEYS</a>  <br>获取给定命令的所有键</td>
+</tr>
+<tr>
+<td>12</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/server-time.html">TIME</a>  <br>返回当前服务器时间</td>
+</tr>
+<tr>
+<td>13</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/server-command-info.html">COMMAND INFO command-name [command-name …]</a>  <br>获取指定 Redis 命令描述的数组</td>
+</tr>
+<tr>
+<td>14</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/server-config-get.html">CONFIG GET parameter</a>  <br>获取指定配置参数的值</td>
+</tr>
+<tr>
+<td>15</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/server-config-rewrite.html">CONFIG REWRITE</a>  <br>对启动 Redis 服务器时所指定的 redis.conf 配置文件进行改写</td>
+</tr>
+<tr>
+<td>16</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/server-config-set.html">CONFIG SET parameter value</a>  <br>修改 redis 配置参数，无需重启</td>
+</tr>
+<tr>
+<td>17</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/server-config-resetstat.html">CONFIG RESETSTAT</a>  <br>重置 INFO 命令中的某些统计数据</td>
+</tr>
+<tr>
+<td>18</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/server-dbsize.html">DBSIZE</a>  <br>返回当前数据库的 key 的数量</td>
+</tr>
+<tr>
+<td>19</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/server-debug-object.html">DEBUG OBJECT key</a>  <br>获取 key 的调试信息</td>
+</tr>
+<tr>
+<td>20</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/server-debug-segfault.html">DEBUG SEGFAULT</a>  <br>让 Redis 服务崩溃</td>
+</tr>
+<tr>
+<td>21</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/server-flushall.html">FLUSHALL</a>  <br>删除所有数据库的所有key</td>
+</tr>
+<tr>
+<td>22</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/server-flushdb.html">FLUSHDB</a>  <br>删除当前数据库的所有key</td>
+</tr>
+<tr>
+<td>23</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/server-info.html">INFO [section]</a>  <br>获取 Redis 服务器的各种信息和统计数值</td>
+</tr>
+<tr>
+<td>24</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/server-lastsave.html">LASTSAVE</a>  <br>返回最近一次 Redis 成功将数据保存到磁盘上的时间，以 UNIX 时间戳格式表示</td>
+</tr>
+<tr>
+<td>25</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/server-monitor.html">MONITOR</a>  <br>实时打印出 Redis 服务器接收到的命令，调试用</td>
+</tr>
+<tr>
+<td>26</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/server-role.html">ROLE</a>  <br>返回主从实例所属的角色</td>
+</tr>
+<tr>
+<td>27</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/server-save.html">SAVE</a>  <br>同步保存数据到硬盘</td>
+</tr>
+<tr>
+<td>28</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/server-shutdown.html">SHUTDOWN [NOSAVE] [SAVE]</a>  <br>异步保存数据到硬盘，并关闭服务器</td>
+</tr>
+<tr>
+<td>29</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/server-slaveof.html">SLAVEOF host port</a>  <br>将当前服务器转变为指定服务器的从属服务器(slave server)</td>
+</tr>
+<tr>
+<td>30</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/server-showlog.html">SLOWLOG subcommand [argument]</a>  <br>管理 redis 的慢日志</td>
+</tr>
+<tr>
+<td>31</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/server-sync.html">SYNC</a>  <br>用于复制功能(replication)的内部命令</td>
+</tr>
+</tbody></table>
+<ul>
+<li>存储地理地址 Redis GEO</li>
+<li>Redis Stream 用于消息队列<br>Redis Stream 提供了消息的持久化和主备复制功能，可以让任何客户端访问任何时刻的数据，并且能记住每一个客户端的访问位置，还能保证消息不丢失。</li>
+</ul>
+<p><strong>消息队列相关命令：</strong></p>
+<ul>
+<li><p><strong>XADD</strong>&nbsp;- 添加消息到末尾</p>
+<ul>
+<li><p>XADD</p>
+</li>
+<li><p>使用 XADD 向队列添加消息，如果指定的队列不存在，则创建一个队列，XADD 语法格式：</p>
+<ul>
+<li><code>key ID field value [field value ...] </code></li>
+</ul>
+</li>
+<li><p><strong>key</strong>&nbsp;：队列名称，如果不存在就创建</p>
+</li>
+<li><p><strong>ID</strong>&nbsp;：消息 id，我们使用 * 表示由 redis 生成，可以自定义，但是要自己保证递增性。</p>
+</li>
+<li><p><strong>field value</strong>&nbsp;： 记录。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>XTRIM</strong>&nbsp;- 对流进行修剪，限制长度</p>
+<ul>
+<li><p>XTRIM</p>
+</li>
+<li><p>使用 XTRIM 对流进行修剪，限制长度， 语法格式：</p>
+</li>
+<li><p><code>key MAXLEN [~] count</code></p>
+</li>
+<li><p><strong>key</strong>&nbsp;：队列名称</p>
+</li>
+<li><p><strong>MAXLEN</strong>&nbsp;：长度</p>
+</li>
+<li><p><strong>count</strong>&nbsp;：数量</p>
+</li>
+</ul>
+</li>
+<li><p><strong>XDEL</strong>&nbsp;- 删除消息 + key id</p>
+</li>
+<li><p><strong>XLEN</strong>&nbsp;- 获取流包含的元素数量，即消息长度 + key</p>
+</li>
+<li><p><strong>XRANGE</strong>&nbsp;- 获取消息列表，会自动过滤已经删除的消息 +key + start end (-是指的最小，+指的是最大) + count + 数字 限制返回的参数</p>
+</li>
+<li><p><strong>XREVRANGE</strong>&nbsp;- 反向获取消息列表，ID 从大到小 end , start</p>
+</li>
+<li><p><strong>XREAD</strong>&nbsp;- 以阻塞或非阻塞方式获取消息列表<br>使用 XREAD 以阻塞或非阻塞方式获取消息列表 ，语法格<br><code>XREAD [COUNT count] [BLOCK milliseconds] STREAMS key [key ...] id [id ...] </code></p>
+</li>
+<li><p><strong>count</strong>&nbsp;：数量</p>
+</li>
+<li><p><strong>milliseconds</strong>&nbsp;：可选，阻塞毫秒数，没有设置就是非阻塞模式</p>
+</li>
+<li><p><strong>key</strong>&nbsp;：队列名</p>
+</li>
+<li><p><strong>id</strong>&nbsp;：消息 ID</p>
+</li>
+</ul>
+<p><strong>消费者组相关命令：</strong></p>
+<ul>
+<li><strong>XGROUP CREATE</strong>&nbsp;- 创建消费者组</li>
+<li><strong>XREADGROUP GROUP</strong>&nbsp;- 读取消费者组中的消息</li>
+<li><strong>XACK</strong>&nbsp;- 将消息标记为”已处理”</li>
+<li><strong>XGROUP SETID</strong>&nbsp;- 为消费者组设置新的最后递送消息ID</li>
+<li><strong>XGROUP DELCONSUMER</strong>&nbsp;- 删除消费者</li>
+<li><strong>XGROUP DESTROY</strong>&nbsp;- 删除消费者组</li>
+<li><strong>XPENDING</strong>&nbsp;- 显示待处理消息的相关信息</li>
+<li><strong>XCLAIM</strong>&nbsp;- 转移消息的归属权</li>
+<li><strong>XINFO</strong>&nbsp;- 查看流和消费者组的相关信息；</li>
+<li><strong>XINFO GROUPS</strong>&nbsp;- 打印消费者组的信息；</li>
+<li><strong>XINFO STREAM</strong>&nbsp;- 打印流信息</li>
+</ul>
+<p>tips：channel和stream 的区别<br>Redis Streams 和 Redis Pub/Sub（发布/订阅）都可以用于消息传递，但它们有一些重要的区别：</p>
+<ol>
+<li><p><strong>消息顺序：</strong></p>
+<ul>
+<li><strong>Redis Streams：</strong> Redis Streams 严格维护消息的有序性，消息按照它们被添加到流的顺序排列。每个消息都有一个唯一的ID，消息的顺序由ID决定。</li>
+<li><strong>Redis Pub/Sub：</strong> Redis Pub/Sub 不关心消息的顺序。它是一种发布-订阅模型，发布者发布消息后，订阅者可以按任何顺序接收这些消息。</li>
+</ul>
+</li>
+<li><p><strong>消息持久性：</strong></p>
+<ul>
+<li><strong>Redis Streams：</strong> Redis Streams 将消息持久存储在内存中，并可以选择将消息保存到磁盘上的持久化文件中。这意味着消息在存储上是可靠的，可以在需要时重新读取。</li>
+<li><strong>Redis Pub/Sub：</strong> Redis Pub/Sub 不存储消息，消息一旦被发布，就不能再次访问。如果没有活动订阅者，消息会被丢弃。</li>
+</ul>
+</li>
+<li><p><strong>消息交付保证：</strong></p>
+<ul>
+<li><strong>Redis Streams：</strong> Redis Streams 提供了更强的消息交付保证，可以确保消息被传递给订阅者（至少一次）。订阅者可以使用消息ID来确认消息的接收。</li>
+<li><strong>Redis Pub/Sub：</strong> Redis Pub/Sub 提供的是最多一次的消息传递保证。这意味着如果订阅者不在线，它将错过已发布的消息，而不会在重新连接后重新接收消息。</li>
+</ul>
+</li>
+<li><p><strong>多订阅者支持：</strong></p>
+<ul>
+<li><strong>Redis Streams：</strong> Redis Streams 支持多个消费者，每个消费者可以独立地读取消息，并且每个消费者可以有自己的状态和位置。</li>
+<li><strong>Redis Pub/Sub：</strong> Redis Pub/Sub 只是一对多的发布-订阅模型，所有订阅者都会接收到相同的消息副本。</li>
+</ul>
+</li>
+</ol>
+<p>根据你的需求，你可以选择使用Redis Streams或Redis Pub/Sub。如果需要确保消息的有序性、持久性和更复杂的消息处理，Redis Streams可能更适合。如果只需要发布-订阅模型，并且不需要消息的有序性或持久性，Redis Pub/Sub 可能更简单且足够。</p>
+<p>在这个示例中，我们将创建一个消费者组，然后有一个生产者不断向流中发送消息，同时有多个消费者从流中读取消息。</p>
+<ol>
+<li><p><strong>创建一个消费者组：</strong></p>
+<p> <code>XGROUP CREATE mystream mygroup $ MKSTREAM</code></p>
+<p> 这个命令创建了一个名为 <code>mygroup</code> 的消费者组，关联到名为 <code>mystream</code> 的流，并使用 <code>$</code> 作为消费者组的起始ID。<code>MKSTREAM</code> 选项会在 <code>mystream</code> 不存在时创建该流。</p>
+</li>
+<li><p><strong>启动生产者并发送消息：</strong></p>
+<p> <code>XADD mystream * name John</code></p>
+<p> 这个命令会向 <code>mystream</code> 流中发送一条消息，内容为一个键值对 <code>name: John</code>。</p>
+</li>
+<li><p><strong>启动两个消费者并加入消费者组：</strong></p>
+<p> <code>XREADGROUP GROUP mygroup consumer1 BLOCK 0 STREAMS mystream &gt;</code></p>
+<p> 这个命令启动了一个消费者 <code>consumer1</code> 并将其加入到 <code>mygroup</code> 消费者组中。它会不断阻塞并等待来自 <code>mystream</code> 流的消息。注意，<code>BLOCK 0</code> 表示一直阻塞，直到有新消息可用。</p>
+<p> 同样，你可以启动另一个消费者 <code>consumer2</code> 并加入到同一消费者组：</p>
+<p> <code>XREADGROUP GROUP mygroup consumer2 BLOCK 0 STREAMS mystream &gt;</code></p>
+</li>
+<li><p><strong>观察消费者的处理：</strong></p>
+<ul>
+<li>当生产者发送消息时，两个消费者之间将会轮流处理消息，确保每个消息只被一个消费者处理。</li>
+<li>每个消费者可以使用 <code>XPENDING</code> 命令查看待处理的消息。</li>
+<li>消费者可以使用 <code>XACK</code> 命令来确认消息的处理。</li>
+<li>如果一个消费者无法处理消息，它可以使用 <code>XNACK</code> 命令来取消消息的确认，以使其他消费者可以重新处理该消息。</li>
+</ul>
+</li>
+</ol>
+<p>数据保存</p>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css">save  会将数据保存在安装目录下的dump.rdb<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>数据恢复：将备份文件移动到redis安装目录下即可<br>获得安装目录:<br><code>config get dir</code></p>
+<h1 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h1><p>是一种源代码可用的文档数据库，以序列化的 JSON 格式存储数据。MongoDB 将数据存储在外部存储器中，但在企业版中包含内存存储引擎。</p>
+
                 
             </div>
             <hr/>
@@ -1911,7 +2362,7 @@ select <span class="token operator">?</span> from <span class="token operator">?
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">53k</span>
+                        class="white-color">63.1k</span>
             
             
             
