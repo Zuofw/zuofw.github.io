@@ -540,7 +540,7 @@ E-R模型E-R模型是Entity-R">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    12.9k
+                    13.1k
                 </div>
                 
 
@@ -822,7 +822,7 @@ sum
 <pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">SELECT xx FROM XXX LIMIT (起始索引，查询记录数)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>等于OFFSET n ROWS<br>FETCH NEXY M ROWS ONLY 跳过n行，并返回接下来的m行</p>
 <h3 id="DCL-（Data-Control-Language-数据控制语句）-用于操作数据库对象的权限"><a href="#DCL-（Data-Control-Language-数据控制语句）-用于操作数据库对象的权限" class="headerlink" title="DCL （Data Control Language 数据控制语句） 用于操作数据库对象的权限"></a>DCL （Data Control Language 数据控制语句） 用于操作数据库对象的权限</h3><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">SELECT * FORM user
-CREATE USER '用户名'@'主机名' IDENTIFIED BY '密码'/*使用%来指定任意主机都可以访问*/
+CREATE USER '用户名'@'主机名' IDENTIFIED BY '/'/*使用%来指定任意主机都可以访问*/
 ALTER USER '用户名' @ '主机名' IDENTIFIED WITH  mysql_native_password BY '新密码'  修改密码
 DROP USER '用户名' @ '主机名' 删除用户
 /*权限控制*/
@@ -1603,10 +1603,10 @@ zremrangebylex key min 根据字典序，移除指定字典区间的成员
 # 具体的command
 DEL
 DUMP 序列化给定的key
-EXISTS key 检查key是否已经存在
+EXISTS key 检查key是否已经存在 
 EXPIRE key seconds 设置过期时间，按照s来计算
 EXPIREAT key timestamp 按照时间戳
-PEXPIRE key milliseconds 以毫秒计算
+PEXPIRE key milliseconds 以毫秒计算  在set建立新的键值时可以在后面加上 ex 来指定过期时间
 PEDPIREAT key milliseconds-timestamp 时间戳以毫秒来计算
 KEYS patter 查找所有符合模式的key
 MOVE key db 将当前key移动到指定的数据库db中
@@ -1633,7 +1633,7 @@ unsubscribe channelname ... 推定指定name的频道
 exec 执行任务块中的所有命令
 multi 标记一个事务块的开始 ，我要开始写事务列表了
 unwatch 取消对所有key的监视
-watch 监视多个key<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+watch 监视多个key <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 <h2 id="Redis-脚本命令"><a href="#Redis-脚本命令" class="headerlink" title="Redis 脚本命令"></a>Redis 脚本命令</h2><p>下表列出了 redis 脚本常用命令：</p>
 <table>
@@ -1673,6 +1673,9 @@ watch 监视多个key<span aria-hidden="true" class="line-numbers-rows"><span></
 </ul>
 <p><code>redis-server --port 6379 --requirepass your_password --db 3</code><br>redis默认有0-15个数据库，直接选择即可</p>
 <p>info 来获得服务器和数据库信息</p>
+<h1 id="Lua使用redis脚本"><a href="#Lua使用redis脚本" class="headerlink" title="Lua使用redis脚本"></a>Lua使用redis脚本</h1><pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">EVAL <span class="token string">"return redis.call(rediscommend,keys数组,argv数组)"</span> num key实际name<span class="token punctuation">,</span>key的实际值 即可<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
 <h2 id="Redis-服务器命令"><a href="#Redis-服务器命令" class="headerlink" title="Redis 服务器命令"></a>Redis 服务器命令</h2><p>远程连接服务器</p>
 <ol>
 <li>服务器上使用<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">vim</span>  /etc/redis/redis.conf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -1818,24 +1821,15 @@ watch 监视多个key<span aria-hidden="true" class="line-numbers-rows"><span></
 <li>Redis Stream 用于消息队列<br>Redis Stream 提供了消息的持久化和主备复制功能，可以让任何客户端访问任何时刻的数据，并且能记住每一个客户端的访问位置，还能保证消息不丢失。</li>
 </ul>
 <p><strong>消息队列相关命令：</strong></p>
+<pre><code>- XADD
+- 使用 XADD 向队列添加消息，如果指定的队列不存在，则创建一个队列，XADD 语法格式：
+    - `key ID field value [field value ...] `
+
+- **key**&nbsp;：队列名称，如果不存在就创建
+- **ID**&nbsp;：消息 id，我们使用 * 表示由 redis 生成，可以自定义，但是要自己保证递增性。
+- **field value**&nbsp;： 记录。
+</code></pre>
 <ul>
-<li><p><strong>XADD</strong>&nbsp;- 添加消息到末尾</p>
-<ul>
-<li><p>XADD</p>
-</li>
-<li><p>使用 XADD 向队列添加消息，如果指定的队列不存在，则创建一个队列，XADD 语法格式：</p>
-<ul>
-<li><code>key ID field value [field value ...] </code></li>
-</ul>
-</li>
-<li><p><strong>key</strong>&nbsp;：队列名称，如果不存在就创建</p>
-</li>
-<li><p><strong>ID</strong>&nbsp;：消息 id，我们使用 * 表示由 redis 生成，可以自定义，但是要自己保证递增性。</p>
-</li>
-<li><p><strong>field value</strong>&nbsp;： 记录。</p>
-</li>
-</ul>
-</li>
 <li><p><strong>XTRIM</strong>&nbsp;- 对流进行修剪，限制长度</p>
 <ul>
 <li><p>XTRIM</p>
@@ -1941,6 +1935,32 @@ watch 监视多个key<span aria-hidden="true" class="line-numbers-rows"><span></
 <p>数据保存</p>
 <pre class="line-numbers language-css" data-language="css"><code class="language-css">save  会将数据保存在安装目录下的dump.rdb<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>数据恢复：将备份文件移动到redis安装目录下即可<br>获得安装目录:<br><code>config get dir</code></p>
+<h2 id="springboot中使用"><a href="#springboot中使用" class="headerlink" title="springboot中使用"></a>springboot中使用</h2><ul>
+<li>redis一般是作为缓存使用，所以不存在能够与数据库打交道的mapper接口映射</li>
+<li>redis一般使用RedisTemplate来进行交互<br>示例:<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Service</span>  
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RedisService</span> <span class="token punctuation">{</span>  
+<span class="token annotation punctuation">@Autowired</span>  
+<span class="token keyword">private</span> <span class="token class-name">RedisTemplate</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">String</span><span class="token punctuation">&gt;</span></span> redisTemplate<span class="token punctuation">;</span>  
+  
+<span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">getValue</span><span class="token punctuation">(</span><span class="token class-name">String</span> key<span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+<span class="token keyword">return</span> redisTemplate<span class="token punctuation">.</span><span class="token function">opsForValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>  
+<span class="token punctuation">}</span>  
+  
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<h2 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h2><ul>
+<li>rdb 存数据</li>
+<li>aof存操作<br><code>config set appendonly yes</code><br><code>config get dir</code><br>之后找到这个路径<br>redis-check-aof xxx.aof查看文件</li>
+<li>appendfsync 冲洗频率<ul>
+<li>always 影响效率，但是数据安全</li>
+<li>everysec 折中</li>
+<li>no</li>
+</ul>
+</li>
+<li>aof重写 – 简化aof的占用大小<br><code>BGREWRITERAOF</code></li>
+<li>设置cofig中的 auto-aof-rewrite-percentage 和 auto-aof-rewriter-min-size来自动重写</li>
+</ul>
+<h2 id="多机操作和集群"><a href="#多机操作和集群" class="headerlink" title="多机操作和集群"></a>多机操作和集群</h2><p><code>replicaof 主服务器ip port</code> 使得当前服务器作为该服务器的从服务器</p>
 <h1 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h1><p>是一种源代码可用的文档数据库，以序列化的 JSON 格式存储数据。MongoDB 将数据存储在外部存储器中，但在企业版中包含内存存储引擎。</p>
 
                 
@@ -2362,7 +2382,7 @@ watch 监视多个key<span aria-hidden="true" class="line-numbers-rows"><span></
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">63.1k</span>
+                        class="white-color">64k</span>
             
             
             
