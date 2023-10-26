@@ -531,7 +531,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    10.8k
+                    11.1k
                 </div>
                 
 
@@ -1601,7 +1601,48 @@ v<span class="token operator">-</span><span class="token keyword">else</span><sp
 v<span class="token operator">-</span><span class="token keyword">else</span>
 v<span class="token operator">-</span>show 根据条件显示某元素，区别是切换的是display属性的值
 v<span class="token operator">-</span><span class="token keyword">for</span> 列表渲染，遍历容器的元素或对象的属性<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="生命周期及其对应的方法"><a href="#生命周期及其对应的方法" class="headerlink" title="生命周期及其对应的方法"></a>生命周期及其对应的方法</h3><h2 id="Ajax-异步的js和xml"><a href="#Ajax-异步的js和xml" class="headerlink" title="Ajax : 异步的js和xml"></a>Ajax : 异步的js和xml</h2><h3 id="Axios"><a href="#Axios" class="headerlink" title="Axios"></a>Axios</h3><p>简化了Axios</p>
+<h3 id="生命周期及其对应的方法"><a href="#生命周期及其对应的方法" class="headerlink" title="生命周期及其对应的方法"></a>生命周期及其对应的方法</h3><h2 id="Ajax-异步的js和xml"><a href="#Ajax-异步的js和xml" class="headerlink" title="Ajax : 异步的js和xml"></a>Ajax : 异步的js和xml</h2><h3 id="Axios"><a href="#Axios" class="headerlink" title="Axios"></a>Axios</h3><p>简化了Axios<br><code> npm install axios</code><br>在入口文件引入</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">import</span> axios <span class="token keyword">from</span> <span class="token string">"axios"</span><span class="token punctuation">;</span>  
+<span class="token comment">//把axios全局导出  </span>
+app<span class="token punctuation">.</span>config<span class="token punctuation">.</span>globalProperties<span class="token punctuation">.</span>$axios <span class="token operator">=</span> axios<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>发送多个请求<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//定义两个异步函数</span>
+<span class="token keyword">function</span> <span class="token function">getUserAccount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">return</span> axios<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'/user/12345'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token punctuation">}</span> 
+<span class="token keyword">function</span> <span class="token function">getUserPermissions</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> 
+<span class="token keyword">return</span> axios<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'/user/12345/permissions'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token punctuation">}</span>
+<span class="token comment">//等待两个都执行完毕再返回结果</span>
+Promise<span class="token punctuation">.</span><span class="token function">all</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token function">getUserAccount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">getUserPermissions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">[</span>acct<span class="token punctuation">,</span> perm<span class="token punctuation">]</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment">// ... });</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li>使用时只需要在axios中传入config即可</li>
+<li>创建一个自定义的实例<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> instance <span class="token operator">=</span> axios<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+	<span class="token literal-property property">baseURL</span><span class="token operator">:</span> <span class="token string">'https://some-domain.com/api/'</span><span class="token punctuation">,</span> 
+	<span class="token literal-property property">timeout</span><span class="token operator">:</span> <span class="token number">1000</span><span class="token punctuation">,</span> 
+	<span class="token literal-property property">headers</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token string-property property">'X-Custom-Header'</span><span class="token operator">:</span> <span class="token string">'foobar'</span><span class="token punctuation">}</span> 
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><a target="_blank" rel="noopener" href="https://axios-http.com/zh/docs/req_config">config配置详解</a></li>
+<li>拦截器<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 添加请求拦截器</span>
+axios<span class="token punctuation">.</span>interceptors<span class="token punctuation">.</span>request<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">config</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 在发送请求之前做些什么</span>
+    <span class="token keyword">return</span> config<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 对请求错误做些什么</span>
+    <span class="token keyword">return</span> Promise<span class="token punctuation">.</span><span class="token function">reject</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 添加响应拦截器</span>
+axios<span class="token punctuation">.</span>interceptors<span class="token punctuation">.</span>response<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">response</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 2xx 范围内的状态码都会触发该函数。</span>
+    <span class="token comment">// 对响应数据做点什么</span>
+    <span class="token keyword">return</span> response<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 超出 2xx 范围的状态码都会触发该函数。</span>
+    <span class="token comment">// 对响应错误做点什么</span>
+    <span class="token keyword">return</span> Promise<span class="token punctuation">.</span><span class="token function">reject</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><a target="_blank" rel="noopener" href="https://axios-http.com/zh/docs/handling_errors">错误处理</a></li>
+</ul>
 <h2 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h2><p><strong>Nginx (engine x)</strong>&nbsp;是一款轻量级的 Web 服务器 、反向代理服务器及电子邮件（IMAP/POP3）代理服务器。<br><strong>什么是反向代理？</strong></p>
 <p>反向代理（Reverse Proxy）方式是指以代理服务器来接受 internet 上的连接请求，然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给 internet 上请求连接的客户端，此时代理服务器对外就表现为一个反向代理服务器。</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">nginx <span class="token parameter variable">-s</span> stop       快速关闭Nginx，可能不保存相关信息，并迅速终止web服务。
@@ -2322,7 +2363,7 @@ text 在jsp页面和文档中使用写入文本的模板<span aria-hidden="true"
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">64k</span>
+                        class="white-color">71.4k</span>
             
             
             

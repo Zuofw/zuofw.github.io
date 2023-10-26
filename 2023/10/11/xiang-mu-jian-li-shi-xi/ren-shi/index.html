@@ -4,10 +4,17 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="前端学习, 博客，学习，成长">
-    <meta name="description" content="Vue打包部署在nginx上使用npm run build 进行打包，将dist包放在/usr/share/nginx/html即可，然后root路径要写全本地使用vue，基于脚手架安装
-npm create vue@latest
-cd x">
+    <meta name="keywords" content="人事, 博客，学习，成长">
+    <meta name="description" content="简单的增删改查练习数据库## 服务器
+给nginx设置负载均衡即可
+## 具体编码
+1. BeanUtils的使用
+2. DigestUtils md5加密
+
+
+
+- 一些借鉴
+jwt拦截器,md5加密，全局错误处理，ThreadLocal">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -19,7 +26,7 @@ cd x">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>前端学习 | QingQiu&#39;Blog</title>
+    <title>人事 | QingQiu&#39;Blog</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
     
 
@@ -478,12 +485,12 @@ cd x">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">前端学习</h1>
+                    <h1 class="description center-align post-title">人事</h1>
                 </div>
             </div>
         </div>
@@ -519,7 +526,7 @@ cd x">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-09-29
+                    2023-10-11
                 </div>
                 
 
@@ -528,7 +535,7 @@ cd x">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.4k
+                    1.5k
                 </div>
                 
 
@@ -548,269 +555,188 @@ cd x">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h1><h2 id="打包部署在nginx上"><a href="#打包部署在nginx上" class="headerlink" title="打包部署在nginx上"></a>打包部署在nginx上</h2><p>使用npm run build 进行打包，将dist包放在/usr/share/nginx/html<br>即可，然后root路径要写全<br>本地使用vue，基于脚手架安装</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">npm</span> create vue@latest
-<span class="token builtin class-name">cd</span> xxx
-<span class="token function">npm</span> <span class="token function">install</span>
-<span class="token function">npm</span> run dev<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+                <h1 id="简单的增删改查练习"><a href="#简单的增删改查练习" class="headerlink" title="简单的增删改查练习"></a>简单的增删改查练习</h1><h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><pre class="line-numbers language-none"><code class="language-none">## 服务器
+给nginx设置负载均衡即可
+## 具体编码
+1. BeanUtils的使用
+2. DigestUtils md5加密
+
+
+
+- 一些借鉴
+jwt拦截器,md5加密，全局错误处理，ThreadLocal 进行线程内部传递变量
+
+PageHelper分页
+```java
+//设置分页和分页大小
+    PageHelper.startPage(employeePageQueryDTO.getPage(), employeePageQueryDTO.getPageSize());
+//进行查询
+    Page&lt;Employee&gt; page = employeeMapper.pageQuery(employeePageQueryDTO);//后续定义
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>xml中的mapper示例:</p>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>pageQuery<span class="token punctuation">"</span></span> <span class="token attr-name">resultType</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>com.sky.entity.Employee<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+        select * from employee
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>where</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>if</span> <span class="token attr-name">test</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>name != null and name != ''<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                and name like concat('%',#{name},'%')
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>if</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>where</span><span class="token punctuation">&gt;</span></span>
+        order by create_time desc
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>对于时间格式的全局管理，在mvcconfig中</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">extendMessageConverters</span><span class="token punctuation">(</span><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">HttpMessageConverter</span><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span><span class="token punctuation">&gt;</span></span> converters<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"扩展消息转换器..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//创建一个消息转换器对象</span>
+    <span class="token class-name">MappingJackson2HttpMessageConverter</span> converter <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MappingJackson2HttpMessageConverter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//需要为消息转换器设置一个对象转换器，对象转换器可以将Java对象序列化为json数据</span>
+    converter<span class="token punctuation">.</span><span class="token function">setObjectMapper</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">JacksonObjectMapper</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//将自己的消息转化器加入容器中</span>
+    converters<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span>converter<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
-<li>基础语法:</li>
-<li>v-bind:xxx 绑定语法，可简写为:xxx 如果绑定的是多个值，比如是一个json数组，那么可以把xxx省略留下 v-bind: = aaa</li>
-<li>v-on 监听事件 简写为 @xxx 动态绑定事件 <code>@[事件列表] = "事件函数"</code></li>
-<li><code>&lt;template&gt;</code> 不会被渲染，一般作为v-if根</li>
-<li>第三个参数表示位置索引：<pre class="line-numbers language-vue" data-language="vue"><code class="language-vue">&lt;li v-for="(value, key, index) in myObject"&gt;
-  {{ index }}. {{ key }}: {{ value }}
-&lt;/li&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
-<li>setup是在建立渲染之前就会调用</li>
-<li>想要使用变量就必须要把变量return 出来即可</li>
-<li>使用语法糖可以简化代码，不需要一个个return了<pre class="line-numbers language-vue" data-language="vue"><code class="language-vue">&lt;script setup&gt;  
-   const msg = 'Hello Vite + Vue 3!'  
-&lt;/script&gt;  
-&lt;template&gt;  
-  &lt;div id="app"&gt;  
-    &lt;h1&gt;{{msg}}&lt;/h1&gt;  
-  &lt;/div&gt;&lt;/template&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li>使用reactive函数来返回一个响应式对象<pre class="line-numbers language-vue" data-language="vue"><code class="language-vue">&lt;script setup&gt;  
-   import {reactive} from "vue";  
-   const state = reactive({  
-     msg: "hell world"  
-   })  
-   const setState = ()=&gt;{  
-     state.msg = "hello vite"  
-   }  
-&lt;/script&gt;  
-&lt;template&gt;  
-  {{state.msg}}  
-  &lt;button @click="setState"&gt;click&lt;/button&gt;  
-&lt;/template&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li>使用ref来返回一个简单响应式对象<pre class="line-numbers language-vue" data-language="vue"><code class="language-vue">&lt;script setup&gt;  
-    import {ref} from "vue";  
-    const msg = ref(0);  
-&lt;/script&gt;  
-&lt;template&gt;  
-  &lt;div id="app"&gt;  
-    &lt;button @click="msg++"&gt;count is: {{ msg }}&lt;/button&gt;  
-  &lt;/div&gt;&lt;/template&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li>computed对象函数，里面传进去计算逻辑<pre class="line-numbers language-vue" data-language="vue"><code class="language-vue">&lt;script setup&gt;  
-import {computed, ref} from "vue";  
-  const list = ref([1,2,3,4,5]);  
-  const filterlist = computed(()=&gt;{  
-    return list.value.filter(item=&gt;item&gt;3)  
-  })  
-&lt;/script&gt;  
-&lt;template&gt;  
-  &lt;div&gt;    &lt;ul&gt;      &lt;li v-for="item in filterlist" :key="item"&gt;{{item}}&lt;/li&gt;  
-    &lt;/ul&gt;  &lt;/div&gt;&lt;/template&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li>watch 监听数据的变化，如果数据变化就执行回调函数，剩下两个参数，immediate 控制立刻执行，deep开启深度监听<ul>
-<li>监听一个  <pre class="line-numbers language-vue" data-language="vue"><code class="language-vue">	&lt;script setup&gt;  
-import {ref, watch} from "vue";  
-const count = ref(0);  
-watch(count,(newCount, oldCount) =&gt; {  
-  console.log(`new count is: ${newCount}, old count is: ${oldCount}`)  
-})  
-const increment = () =&gt; {  
-  count.value++;  
-}  
-&lt;/script&gt;  
-&lt;template&gt;  
-&lt;button @click="increment"&gt;count is: {{count}}&lt;/button&gt;  
-&lt;/template&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li>监听多个数据，只需要把参数化成数组即可<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">watch([count, name], ([newCount, newName],[oldCount,oldName])=&gt;</span><span class="token punctuation">{</span>
-  console.<span class="token function">log</span><span class="token punctuation">(</span>`count或者name变化了，[newCount<span class="token punctuation">,</span> newName]<span class="token punctuation">,</span>[oldCount<span class="token punctuation">,</span>oldName]<span class="token punctuation">)</span>
-<span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
-</ul>
+<li><p>aop</p>
 </li>
-<li>immediate 在创建时立刻出发<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">watch(count, (newValue, oldValue)=&gt;</span><span class="token punctuation">{</span>
-   <span class="token selector">console.log(`count发生了变化，老值为$</span><span class="token punctuation">{</span>oldValue<span class="token punctuation">}</span><span class="token selector">,新值为$</span><span class="token punctuation">{</span>newValue<span class="token punctuation">}</span>`<span class="token punctuation">)</span>
- <span class="token punctuation">}</span><span class="token selector">,</span><span class="token punctuation">{</span>
-   <span class="token property">immediate</span><span class="token punctuation">:</span> true
- <span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li>deep通过watch监听的ref对象是浅层监听的，直接修改嵌套的对象属性是不会回调的，但是开启之后就可以回调了<pre class="line-numbers language-vue" data-language="vue"><code class="language-vue">&lt;script setup&gt;
-  // 1. 导入watch
-  import { ref, watch } from 'vue'
-  const state = ref({ count: 0 })
-  // 2. 监听对象state
-  watch(state, ()=&gt;{
-    console.log('数据变化了')
-  })
-  const changeStateByCount = ()=&gt;{
-    // 直接修改不会引发回调执行
-    state.value.count++
-  }
-&lt;/script&gt;
-
-&lt;script setup&gt;
-  // 1. 导入watch
-  import { ref, watch } from 'vue'
-  const state = ref({ count: 0 })
-  // 2. 监听对象state 并开启deep
-  watch(state, ()=&gt;{
-    console.log('数据变化了')
-  },{deep:true})
-  const changeStateByCount = ()=&gt;{
-    // 此时修改可以触发回调
-    state.value.count++
-  }
-&lt;/script&gt;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li>父组件传值给子组件: 1.引入子组件，使用子组件并绑定子组件中props中的属性 2. 子组件使用defineProps来接受父组件的传值<pre class="line-numbers language-vue" data-language="vue"><code class="language-vue">父组件
-&lt;script setup&gt;  
-import son from './components/money.vue'  
-&lt;/script&gt;  
-  
-&lt;template&gt;  
-  &lt;son  message="hello world"/&gt;  
-&lt;/template&gt;
-&lt;!--子组件--&gt;
-&lt;script setup&gt;  
-const props =  defineProps({  
-  message : String  
-})  
-&lt;/script&gt;  
-&lt;template&gt;  
-  {{message}}  
-&lt;/template&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li>子组件传值给父组件: 1.子组件通过defineEmits来生成emit方法 2.子组件使用emit定义事件，并传递参数 3.父组件使用绑定子组件的事件，并绑定自己的函数，定义自己的函数使用传递的值<pre class="line-numbers language-vue" data-language="vue"><code class="language-vue">子组件
-&lt;script setup&gt;  
-const props =  defineProps({  
-  message : String  
-})  
-const emit = defineEmits(['say']) //事件列表  
-const hh = ()=&gt;{  
-  emit('say','hello world')  
-}  
-&lt;/script&gt;  
-&lt;template&gt;  
-  {{message}}  
-  &lt;button @click="hh"&gt;click&lt;/button&gt;  
-&lt;/template&gt;
-父组件
-&lt;script setup&gt;  
-import son from './components/money.vue'  
-const func = (msg,num)=&gt;{  
-  console.log(msg,num)  
-}  
-&lt;/script&gt;  
-&lt;template&gt;  
-  &lt;son  messoage="hello world" @say="func"/&gt;  
-&lt;/template&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li>模板使用 新建一个ref 然后在 html 中的ref来进行绑定这个ref即可获得dom元素，但是会在onmounted之后才能访问</li>
-<li>父组件默认不会获得子组件的dom因为有setup 所以可以使用<pre class="line-numbers language-vue" data-language="vue"><code class="language-vue">defineExpose({
-	需要暴漏的属性和方法名或者一个匿名函数
-})<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
-<li>通过provide和inject来跨层传递<pre class="line-numbers language-vue" data-language="vue"><code class="language-vue">顶层
-provide('key',value) value可以是函数等
-底层
-const value = inject('key')<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li>v-text 来更新文本内容，v-html来更新html元素</li>
-</ul>
-<h1 id="Express"><a href="#Express" class="headerlink" title="Express"></a>Express</h1><p>支持前后端分离的简单框架</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> express-generator <span class="token parameter variable">-g</span>
-express --no-view server 新建项目
-<span class="token builtin class-name">cd</span> server
-<span class="token function">npm</span> <span class="token function">install</span>
-ET DEBUG <span class="token operator">=</span> server:* <span class="token operator">&amp;</span> <span class="token function">npm</span> start 开启服务<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">user www-data<span class="token punctuation">;</span>
-worker_processes auto<span class="token punctuation">;</span>
-pid /run/nginx.pid<span class="token punctuation">;</span>
-include /etc/nginx/modules-enabled/*.conf<span class="token punctuation">;</span>
-
-events <span class="token punctuation">{</span>
-        worker_connections <span class="token number">768</span><span class="token punctuation">;</span>
-        <span class="token comment"># multi_accept on;</span>
-
-
-        <span class="token comment">##自定义服务列表</span>
-
-<span class="token punctuation">}</span>
-http <span class="token punctuation">{</span>
-        <span class="token comment">##</span>
-
-        sendfile on<span class="token punctuation">;</span>
-        tcp_nopush on<span class="token punctuation">;</span>
-        types_hash_max_size <span class="token number">2048</span><span class="token punctuation">;</span>
-        <span class="token comment"># server_tokens off;</span>
-
-        <span class="token comment"># server_names_hash_bucket_size 64;</span>
-        <span class="token comment"># server_name_in_redirect off;</span>
-
-        include /etc/nginx/mime.types<span class="token punctuation">;</span>
-        default_type application/octet-stream<span class="token punctuation">;</span><span class="token builtin class-name">.</span>
-         ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3<span class="token punctuation">;</span> <span class="token comment"># Dropping SSLv3, ref: POODLE</span>
-        ssl_prefer_server_ciphers on<span class="token punctuation">;</span>
-
-        <span class="token comment">##</span>
-        <span class="token comment"># Logging Settings</span>
-        <span class="token comment">##</span>
-
-        access_log /var/log/nginx/access.log<span class="token punctuation">;</span>
-        error_log /var/log/nginx/error.log<span class="token punctuation">;</span>
-
-        <span class="token comment">##</span>
-        <span class="token comment"># Gzip Settings</span>
-        <span class="token comment">##</span>
-
-        <span class="token function">gzip</span> on<span class="token punctuation">;</span>
-
-        <span class="token comment"># gzip_vary on;</span>
-        <span class="token comment"># gzip_proxied any;</span>
-        <span class="token comment"># gzip_comp_level 6;</span>
-        <span class="token comment"># gzip_buffers 16 8k;</span>
-        <span class="token comment"># gzip_http_version 1.1;</span>
-        <span class="token comment"># gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;</span>
-
-        <span class="token comment">##</span>
-        <span class="token comment"># Virtual Host Configs</span>
-        <span class="token comment">##</span>
-          include /etc/nginx/conf.d/*.conf<span class="token punctuation">;</span>
-        include /etc/nginx/sites-enabled/*<span class="token punctuation">;</span>
-
-
-
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h1><ul>
-<li><p>进度条</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> ProgressBar <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'progress'</span><span class="token punctuation">)</span>  
-<span class="token keyword">const</span> bar <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ProgressBar</span><span class="token punctuation">(</span><span class="token string">':bar'</span><span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token literal-property property">total</span><span class="token operator">:</span><span class="token number">100</span><span class="token punctuation">}</span><span class="token punctuation">)</span>  
-<span class="token keyword">const</span> timer <span class="token operator">=</span>  <span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=&gt;</span><span class="token punctuation">{</span>  
-    bar<span class="token punctuation">.</span><span class="token function">tick</span><span class="token punctuation">(</span><span class="token punctuation">)</span>  
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>bar<span class="token punctuation">.</span>complete<span class="token punctuation">)</span><span class="token punctuation">{</span>  
-        <span class="token function">clearInterval</span><span class="token punctuation">(</span>timer<span class="token punctuation">)</span>  
-    <span class="token punctuation">}</span>  
-<span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token number">100</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p>文件操作  require(‘fs’)</p>
+<li><p>Apache POI 来进行文件格式转换，导出为excel</p>
 </li>
-<li><p>网络开发</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> net <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'net'</span><span class="token punctuation">)</span>  
-<span class="token keyword">const</span> server <span class="token operator">=</span> net<span class="token punctuation">.</span><span class="token function">createServer</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">c</span><span class="token punctuation">)</span><span class="token operator">=&gt;</span><span class="token punctuation">{</span>  
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'客户端已连接'</span><span class="token punctuation">)</span>  
-    c<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'end'</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=&gt;</span><span class="token punctuation">{</span>  
-        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'断开连接'</span><span class="token punctuation">)</span>  
-    <span class="token punctuation">}</span><span class="token punctuation">)</span>  
-<span class="token punctuation">}</span><span class="token punctuation">)</span>  
-server<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'error'</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token parameter">err</span><span class="token punctuation">)</span><span class="token operator">=&gt;</span><span class="token punctuation">{</span>  
-    <span class="token keyword">throw</span> err  
-<span class="token punctuation">}</span><span class="token punctuation">)</span>  
-server<span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span><span class="token number">8124</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=&gt;</span><span class="token punctuation">{</span>  
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'服务器已启动'</span><span class="token punctuation">)</span>  
-<span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>on来绑定事件</p>
+<li><p>Apache ECharts 可视化图表</p>
 </li>
-<li><p>udp 使用dgram模块</p>
+<li><p><strong>Spring Task</strong> 定时任务</p>
 </li>
-<li><p>WebSocket 使用 ws模块，是对socket的具体实现</p>
+<li><p>HttpClient<br><strong>HttpClient的核心API：</strong></p>
 </li>
-<li><p>socket.io框架</p>
+<li><p>HttpClient：Http客户端对象类型，使用该类型对象可发起Http请求。</p>
 </li>
-<li><p>常用api<br><img src="/2023/09/29/qian-duan/qian-duan-xue-xi/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/2.jpg"><br><img src="/2023/09/29/qian-duan/qian-duan-xue-xi/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/1.jpg"></p>
+<li><p>HttpClients：可认为是构建器，可创建HttpClient对象。</p>
 </li>
-<li><p>express框架</p>
+<li><p>CloseableHttpClient：实现类，实现了HttpClient接口。</p>
 </li>
-<li><p>koa框架</p>
+<li><p>HttpGet：Get方式请求类型。</p>
 </li>
-<li><p>mongoose</p>
+<li><p>HttpPost：Post方式请求类型。</p>
 </li>
 </ul>
+<p><strong>HttpClient发送请求步骤：</strong></p>
+<ul>
+<li><p>创建HttpClient对象</p>
+</li>
+<li><p>创建Http请求对象</p>
+</li>
+<li><p>调用HttpClient的execute方法发送请求</p>
+</li>
+</ul>
+<h1 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h1><p>学生管理系统</p>
+<p>一．功能要求</p>
+<ul>
+<li><p>添加学生功能：姓名、学号、性别、出生年月日。（学号自动生成且唯一）</p>
+</li>
+<li><p>添加学生成绩功能：每个人都有数学、Java、英语、体育四门课，可分课程输入成绩。</p>
+</li>
+<li><p>根据学生学号查找学生成绩功能：在界面上显示姓名、学号和成绩，学号不存在的能给出提示信息。</p>
+</li>
+<li><p>根据学生姓名（支持模糊匹配）查找学生成绩功能：并在界面上显示姓名、学号和成绩，如果有多个相同姓名学生存在，一起显示出来，姓名不存在的给出提示信息。</p>
+</li>
+<li><p>支持对单个学生各科成绩画出柱状分布图。</p>
+</li>
+<li><p>学生信息的修改与删除功能：不能修改学号。</p>
+</li>
+<li><p>生成学生学习情况报表功能：报表包含学号、姓名、各科目成绩及对应的该科目班级平均值，总成绩以及班级总成绩平均值，并将该排序结果输出至excel文件。</p>
+</li>
+</ul>
+<h2 id="数据库设计"><a href="#数据库设计" class="headerlink" title="数据库设计"></a>数据库设计</h2><ol>
+<li>admin<pre class="line-numbers language-css" data-language="css"><code class="language-css">id
+username 
+password<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
+<li>student<pre class="line-numbers language-css" data-language="css"><code class="language-css">id <span class="token punctuation">(</span>学号自动生成且唯一<span class="token punctuation">)</span>
+name
+birthday<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
+<li>score<pre class="line-numbers language-css" data-language="css"><code class="language-css">id
+Math
+Java
+English
+PE<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+sql设计</li>
+</ol>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">DATABASE</span> management<span class="token punctuation">;</span>
+<span class="token keyword">USE</span> management<span class="token punctuation">;</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> admin<span class="token punctuation">(</span>
+    Id <span class="token keyword">INT</span> <span class="token keyword">AUTO_INCREMENT</span> <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span><span class="token punctuation">,</span>
+    Username <span class="token keyword">char</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    Password <span class="token keyword">char</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span>
+<span class="token punctuation">)</span> <span class="token keyword">ENGINE</span><span class="token operator">=</span><span class="token keyword">InnoDB</span> <span class="token keyword">DEFAULT</span> <span class="token keyword">CHARSET</span><span class="token operator">=</span>utf8<span class="token punctuation">;</span>
+
+<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> student<span class="token punctuation">(</span>
+    Id <span class="token keyword">INT</span> <span class="token keyword">AUTO_INCREMENT</span> <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span><span class="token punctuation">,</span>
+    StudentId <span class="token keyword">char</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span> <span class="token keyword">UNIQUE</span><span class="token punctuation">,</span>
+    StudentName <span class="token keyword">char</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    Birthday <span class="token keyword">date</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> score<span class="token punctuation">(</span>
+    Id <span class="token keyword">INT</span> <span class="token keyword">AUTO_INCREMENT</span> <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span><span class="token punctuation">,</span>
+    Math <span class="token keyword">DOUBLE</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    Java <span class="token keyword">DOUBLE</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    English <span class="token keyword">DOUBLE</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    PE <span class="token keyword">DOUBLE</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>ps: 使用方式 mysql -u username -p  &lt;  xxx.sql ，之后输入密码即可</p>
+<p>xml配置<br>druid<br>knife4j生成接口文档</p>
+<ul>
+<li>部署<br>服务器配置:<br>mysql<br>将服务器上的mysql配置文件修改<pre class="line-numbers language-css" data-language="css"><code class="language-css">vim /etc/mysql/mysql.conf.d/mysqld.cnf
+将bind-address 的127.0.0.1 改为  0.0.0.0 
+服务器开放端口 3306<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+redis<br>1.打开redis的配置文件“redis.conf”。</li>
+</ul>
+<p>2.将“bind 127.0.0.1”注释掉。</p>
+<p>3.将“protected-mode yes”改成“protected-mode no”。</p>
+<p>4.添加以下一行代码。</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">daemonize no<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>复制</p>
+<p>5.重启redis服务即可<br><code>sudo service redis restart</code></p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>knif4j注意设置好扫描的包</p>
+<h2 id="开发"><a href="#开发" class="headerlink" title="开发"></a>开发</h2><ol>
+<li>common module<ol>
+<li>返回类封装Result</li>
+<li>pageHelper所需的分页参数</li>
+</ol>
+</li>
+<li></li>
+</ol>
+<h1 id="苍穹外卖项目"><a href="#苍穹外卖项目" class="headerlink" title="苍穹外卖项目"></a>苍穹外卖项目</h1><h2 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h2><ol>
+<li>当前端传输的数据与实体类差距比较大时使用DTO来封装</li>
+<li><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93/2987565?fromModule=lemma_inlink">数据传输</a>对象（DTO）(Data Transfer Object)，是一种<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/1212549?fromModule=lemma_inlink">设计模式</a>之间传输数据的软件<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%BA%94%E7%94%A8%E7%B3%BB%E7%BB%9F/56497111?fromModule=lemma_inlink">应用系统</a>。数据传输目标往往是<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE%E5%AF%B9%E8%B1%A1/3351868?fromModule=lemma_inlink">数据访问对象</a>从数据库中检索数据。数据传输对象与数据交互对象或数据访问对象之间的差异是一个以不具有任何行为除了存储和检索的数据（访问和存取器）。</li>
+<li>ThreadLocal 不是一个线程，但是可以用于保存Thread的一个变量，相当于设置线程内部的变量，可以用来存token和cookie</li>
+<li>mybatis-plus 分页插件的使用，并且配合queryWrapper来封装自定义查询</li>
+<li>使用配置jackson和java格式互相转化器</li>
+<li>‘ALTER TABLE table_name AUTO_INCREMENT = value;’  记得删除没有用的数据之后并且让value大于当前的行数</li>
+<li>mp 实现递增需要在配置文件中加上 ‘mybatis-plus:<br>global-config:<br>db-config:<br>id-type: auto’</li>
+<li>自定义注解： <ol>
+<li><p><strong><code>@Target</code> 注解</strong>：</p>
+<p> @Target注解：</p>
+<ul>
+<li>作用：<code>@Target</code> 注解用于指定可以将注解应用到的元素类型。它决定了注解可以用于标记哪些程序元素，例如类、方法、字段等。</li>
+<li>参数：<code>@Target</code> 的参数是一个 <code>ElementType</code> 枚举数组，你可以在其中指定一个或多个目标元素类型。对于 <code>@ComponentScan</code> 来说，<code>@Target(ElementType.TYPE)</code> 表示该注解可以用于标记类。</li>
+</ul>
+</li>
+<li><p><strong><code>@Retention</code> 注解</strong>：</p>
+<ul>
+<li>作用：<code>@Retention</code> 注解用于指定注解在编译后是否保留到运行时，并且是否可以通过反射访问注解。有三个可能的 <code>RetentionPolicy</code> 值：<code>SOURCE</code>、<code>CLASS</code> 和 <code>RUNTIME</code>。</li>
+<li>参数：<code>@Retention</code> 的参数是一个 <code>RetentionPolicy</code> 枚举值。<code>@Retention(RetentionPolicy.RUNTIME)</code> 表示注解会在运行时保留，并可以通过反射访问。</li>
+</ul>
+</li>
+<li><p><strong><code>@Documented</code> 注解</strong>：</p>
+<ul>
+<li>作用：<code>@Documented</code> 注解用于指示该注解应该包含在生成的文档中。如果你想要将注解的信息包含在 Java 文档中，可以使用 <code>@Documented</code> 注解。</li>
+<li>参数：<code>@Documented</code> 注解没有参数，它只是一个标记注解，用于指示文档工具要包括注解信息。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>阿里云oss使用，主要使用的是spring 中的MultipartFile</li>
+</ol>
+<h2 id="修改建议Todo"><a href="#修改建议Todo" class="headerlink" title="修改建议Todo:"></a>修改建议Todo:</h2><ol>
+<li>密码加密 使用 security + jwt ，前端保存session</li>
+</ol>
 
                 
             </div>
@@ -837,7 +763,7 @@ server<span class="token punctuation">.</span><span class="token function">liste
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://qiuely.github.io/2023/09/29/qian-duan/qian-duan-xue-xi/">https://qiuely.github.io/2023/09/29/qian-duan/qian-duan-xue-xi/</a>
+                    <a href="https://qiuely.github.io/2023/10/11/xiang-mu-jian-li-shi-xi/ren-shi/">https://qiuely.github.io/2023/10/11/xiang-mu-jian-li-shi-xi/ren-shi/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -955,13 +881,13 @@ server<span class="token punctuation">.</span><span class="token function">liste
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/09/30/qian-duan/blog-da-jian/">
+                <a href="/2023/10/16/hou-duan/ji-zu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="blog搭建">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="计组">
                         
-                        <span class="card-title">blog搭建</span>
+                        <span class="card-title">计组</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -972,7 +898,7 @@ server<span class="token punctuation">.</span><span class="token function">liste
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-09-30
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-10-16
                         </span>
                         <span class="publish-author">
                             
@@ -992,13 +918,13 @@ server<span class="token punctuation">.</span><span class="token function">liste
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/09/19/xiang-mu-jian-li-shi-xi/ruan-kao/">
+                <a href="/2023/09/30/qian-duan/blog-da-jian/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="软考">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="blog搭建">
                         
-                        <span class="card-title">软考</span>
+                        <span class="card-title">blog搭建</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1009,7 +935,7 @@ server<span class="token punctuation">.</span><span class="token function">liste
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-09-19
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-09-30
                             </span>
                         <span class="publish-author">
                             

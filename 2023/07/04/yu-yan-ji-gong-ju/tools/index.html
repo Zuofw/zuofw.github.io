@@ -5,13 +5,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="Tools, 博客，学习，成长">
-    <meta name="description" content="VimEmacs后续学习常用键位
+    <meta name="description" content="Emacs后续学习常用键位
 替换  : %s/原/修改之后的/g   g代表修改整个文件
 查找  : 使用 n 查找下一个, N 下一个
 : 首行,尾行 s/原/新/g
 : .,+ns/旧/新/g 当前行和接下来的n行
 
-快捷键之类的">
+快捷键之类的，大部">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -536,7 +536,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    8.5k
+                    10.2k
                 </div>
                 
 
@@ -556,7 +556,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Vim"><a href="#Vim" class="headerlink" title="Vim"></a>Vim</h1><p><del>Emacs后续学习</del><br>常用键位</p>
+                <p><del>Emacs后续学习</del><br>常用键位</p>
 <pre class="line-numbers language-vim" data-language="vim"><code class="language-vim">替换  <span class="token punctuation">:</span> <span class="token operator">%</span>s<span class="token operator">/</span>原<span class="token operator">/</span>修改之后的<span class="token operator">/</span>g   g代表修改整个文件
 查找  <span class="token punctuation">:</span> 使用 <span class="token keyword">n</span> 查找下一个<span class="token punctuation">,</span> <span class="token keyword">N</span> 下一个
 <span class="token punctuation">:</span> 首行<span class="token punctuation">,</span>尾行 s<span class="token operator">/</span>原<span class="token operator">/</span>新<span class="token operator">/</span>g
@@ -1604,6 +1604,172 @@ mv webapps<span class="token punctuation">.</span>dist webapps<span aria-hidden=
 <li>关闭一个tomcat之后，发现仍然可以访问，但关闭所有的tomcat时发现无法访问了，说明实现了负载均衡</li>
 </ul>
 <pre class="line-numbers language-none"><code class="language-none"><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h1 id="Linux基本操作"><a href="#Linux基本操作" class="headerlink" title="Linux基本操作"></a>Linux基本操作</h1><h2 id="用户操作"><a href="#用户操作" class="headerlink" title="用户操作"></a>用户操作</h2><pre class="line-numbers language-css" data-language="css"><code class="language-css">useradd -m username 创建用户，-m是会创建对应的用户目录到/home下，不加的话不会创建这个目录，-d 参数用来指定用户目录的位置
+userdel -r 直接把用户目录删掉了不加r就不删除目录
+who am i 看当前账号是什么
+groupadd 创建一个用户组
+useradd -g 用户组 用户名   把这个用户加入到用户组
+usermod -g 用户组 用户名  修改
+usermod -d 目录名 用户名 改变该用户登录的初始目录
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>其他指令</p>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css">mkdir -p 创建多级目录
+cp -r 递归的复制整个文件夹
+cat -n 显示行
+head -n 数字 默认看前10行 ， 加上-n 之后可以指定查看多少行
+tial -n 数字 查看最后几行 
+tail -f 实时追踪该文件的所有更新
+&gt; 将内容覆盖在文件中
+&gt;&gt; 在后面追加
+ln -s 文件 链接的地方 
+history 
+! + history 中的指令编号，重新执行这条指令
+date
+cal 日历
+find 路径 
+-name 匹配文件名
+-user 属于某个用户的
+-size +n /-n /n 匹配文件大小 + 代表大于，-代表小于，不加代表等于 可加单位 K/M/G
+locate 通过自建的数据库来进行查找，速度迅速，但是需要自己更新数据库
+限制性updatedb
+
+
+grep 
+|grep + -n 显示行号/ -i 忽略字母大小写匹配 + 要匹配的关键字
+权限
+1-9位依次是 user group other的武安县
+chown  -R 用户 文件 改变所属 -R来把里面的文件也执行这种修改
+chgrp  组名 文件名 改变所有组<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="任务按时调度"><a href="#任务按时调度" class="headerlink" title="任务按时调度"></a>任务按时调度</h2><pre class="line-numbers language-css" data-language="css"><code class="language-css">crond -l 显示当前用户的定时任务
+crontab -e 来编辑内容
+语法：
+* * * * * /path/to/command 也可以直接写一行shell脚本
+
+1. 第一个星号：分钟（0-59）
+2. 第二个星号：小时（0-23）
+3. 第三个星号：日期（1-31）
+4. 第四个星号：月份（1-12或使用缩写，如1代表一月，2代表二月，以此类推）
+5. 第五个星号：星期几（0-7或使用缩写，0和7都代表星期日，1代表星期一，以此类推）
+
+使用这些星号，您可以定义定时任务的执行时间。例如，以下是一些示例：
+
+- `* * * * *`：每分钟都执行任务。
+- `0 * * * *`：每小时的开始时执行任务。
+- `0 0 * * *`：每天的午夜（凌晨12点）执行任务。
+- `0 0 1 * *`：每个月的第一天（日期1）的午夜执行任务。
+- `0 0 * * 5`：每个星期五的午夜执行任务。
+
+如果您想要更具体的时间表，可以将具体的数字替换星号，例如 `30 8 * * 1-5` 表示每个工作日的上午8点30分执行任务。
+
+at 执行一次性任务只会在指定的时间点执行但是不会重复执行措辞
+用法
+1. at + 时间  <span class="token property">hh</span><span class="token punctuation">:</span>mm
+2. 输入要执行的指令然后按 ctrl + d 保存
+atq 查看计划中的任务
+删除计划任务
+atrm  id 
+crontab -r 删除定时任务<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="磁盘操作"><a href="#磁盘操作" class="headerlink" title="磁盘操作"></a>磁盘操作</h2><pre class="line-numbers language-css" data-language="css"><code class="language-css">lsblk 显示所有的磁盘和分区和挂载情况
+fdisk 指定目录下的磁盘
+mkfs 格式化磁盘
+mount 磁盘目录 挂载目录 挂载分区
+umount 取消挂载
+df-h 查看磁盘状态 -T 查看磁盘类型<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h2><pre class="line-numbers language-css" data-language="css"><code class="language-css">ifconfig 查看ip
+netstat  查看系统网络情况
+-an 按照一定顺序排序输出
+-p  不加参数 显示哪个进程在调用
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>进程管理</p>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css">ps 
+-a 显示当前所有进程信息
+-u 以用户的格式显示进程信息
+-x 显示后台运行的参数
+-e 显示所有进程 包括父进程等等
+-f 全格式
+kill  + pid 删除进程
+-9 强制
+killall 进程名称<span class="token punctuation">(</span>支持通配符匹配<span class="token punctuation">)</span>
+pstree 查看进程树
+-p 显示pid
+-u 显示进程所属用户
+<span class="token comment">/*service*/</span>
+systemctl +
+start xxx 
+stop
+restart
+status 查看某个服务的状态
+enable 启动一个服务，使其自启动
+list-unit-files --type=service | grep enabled 查看所有已启动的服务
+get-default 查看系统的默认目标
+set-default 设置默认目标
+list-units 列出正在运行的单元
+
+top 和ps相似，但是可以实时更新正在运行的的进程
+-d + 秒数 每隔多少秒更新一次
+-i 使top不显示任何僵死进程
+-p + pid 监视某个指定进程的状态
+top中使用
+P 按照cpu使用率排序，默认
+M 以内存使用率
+N 以PID
+q 退出<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="shell-编程"><a href="#shell-编程" class="headerlink" title="shell 编程"></a>shell 编程</h1><ul>
+<li>重定向</li>
+<li>here document<pre class="line-numbers language-css" data-language="css"><code class="language-css">#!/bin/bash
+cat &lt;&lt; END
+<span class="token string">"这里是ls的使用方法"</span>
+END
+ls /root/shell_test
+
+输出&gt;&gt;&gt;
+<span class="token string">"这里是ls的使用方法"</span>
+hell.sh  ls.sh	say.sh
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li>管道<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token operator">|</span><span class="token operator">&amp;</span>    将标准输出和错误信息一起传递给后面的命令<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li>命令分组<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token punctuation">{</span>
+	commands
+	.......
+<span class="token punctuation">}</span> &gt; 文件
+使用 <span class="token punctuation">(</span><span class="token punctuation">)</span> 会将命令由子shell来进行执行<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><code>:</code> 等于true</li>
+<li>echo<pre class="line-numbers language-css" data-language="css"><code class="language-css">echo 
+-e 后面就可以加上换行符和制表符等特殊符号了<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
+<li>printf<pre class="line-numbers language-css" data-language="css"><code class="language-css">printf 格式<span class="token punctuation">(</span>%s等<span class="token punctuation">)</span> 参数<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li>set / unset 设置/取消 环境变量</li>
+<li>read 从标准输入读入放入后面给出的变量</li>
+<li>wait 控制多进程</li>
+<li>eval , exec , sed</li>
+<li>source 执行shell脚本</li>
+</ul>
+<h1 id="k8s-kubernetes"><a href="#k8s-kubernetes" class="headerlink" title="k8s kubernetes"></a>k8s kubernetes</h1><blockquote>
+<p>解决容器编排问题，实现分布式部署和替换，实现服务器集群</p>
+</blockquote>
+<p>kubernetes组件<br>一个kubernetes集群主要是由控制节点(master)、**工作节点(node)**构成，每个节点上都会安装不同的组件。  </p>
+<ul>
+<li>master：集群的控制平面，负责集群的决策 ( 管理 )</li>
+</ul>
+<p>ApiServer : 资源操作的唯一入口，接收用户输入的命令，提供认证、授权、API注册和发现等机制  </p>
+<p>Scheduler : 负责集群资源调度，按照预定的调度策略将Pod调度到相应的node节点上  </p>
+<p>ControllerManager : 负责维护集群的状态，比如程序部署安排、故障检测、自动扩展、滚动更新等  </p>
+<p>Etcd ：负责存储集群中各种资源对象的信息  </p>
+<ul>
+<li>node：集群的数据平面，负责为容器提供运行环境 ( 干活 )</li>
+</ul>
+<p>Kubelet : 负责维护容器的生命周期，即通过控制docker，来创建、更新、销毁容器  </p>
+<p>KubeProxy : 负责提供集群内部的服务发现和负载均衡  </p>
+<p>Docker : 负责节点上容器的各种操作</p>
+<ul>
+<li>基础概念<br>Master：集群控制节点，每个集群需要至少一个master节点负责集群的管控</li>
+</ul>
+<p>Node：工作负载节点，由master分配容器到这些node工作节点上，然后node节点上的docker负责容器的运行  </p>
+<p>Pod：kubernetes的最小控制单元，容器都是运行在pod中的，一个pod中可以有1个或者多个容器  </p>
+<p>Controller：控制器，通过它来实现对pod的管理，比如启动pod、停止pod、伸缩pod的数量等等  </p>
+<p>Service：pod对外服务的统一入口，下面可以维护者同一类的多个pod  </p>
+<p>Label：标签，用于对pod进行分类，同一类pod会拥有相同的标签  </p>
+<p>NameSpace：命名空间，用来隔离pod的运行环境</p>
+
                 
             </div>
             <hr/>
@@ -2023,7 +2189,7 @@ mv webapps<span class="token punctuation">.</span>dist webapps<span aria-hidden=
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">64k</span>
+                        class="white-color">71.4k</span>
             
             
             

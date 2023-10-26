@@ -10,7 +10,7 @@
 外模式:子模式，用户模式，用户可见
 内模式: 存储模式，是物理存储模式
 
-E-R模型E-R模型是Entity-R">
+schema 和 database 区">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -540,7 +540,7 @@ E-R模型E-R模型是Entity-R">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    13.1k
+                    13.7k
                 </div>
                 
 
@@ -565,7 +565,29 @@ E-R模型E-R模型是Entity-R">
 <li>外模式:子模式，用户模式，用户可见</li>
 <li>内模式: 存储模式，是物理存储模式</li>
 </ul>
-<h3 id="E-R模型"><a href="#E-R模型" class="headerlink" title="E-R模型"></a>E-R模型</h3><p>E-R模型是Entity-Relationship模型的缩写，是一种用于数据库设计的概念性数据模型。它用来描述现实世界中的数据之间的关系，以及这些数据的属性。E-R模型提供了一种图形化的方式来表示数据模型，使数据库设计师能够更容易地理解和规划数据库结构。</p>
+<h2 id="schema-和-database-区别"><a href="#schema-和-database-区别" class="headerlink" title="schema 和 database 区别"></a>schema 和 database 区别</h2><p>database 是一栋楼，schema(模式) 是一个个房间，但是在mysql中两种没有区别。</p>
+<ul>
+<li>视图和表的区别：视图是表的子集，常用于将查询结果保存在视图中，方便再次调用</li>
+<li>语法：’CREATE VIEW viewName AS 查询出来的表’</li>
+</ul>
+<h2 id="范式"><a href="#范式" class="headerlink" title="范式"></a>范式</h2><ul>
+<li>1NF 保证原子性即可，不可再分割了</li>
+<li>2NF 要有主键，且不存在部份依赖，也就是其他非主键的部分要治理来于主键即可</li>
+<li>3NF 非主键之间不存在传递依赖，例如 学号, 姓名, 年龄, 学院名称, 学院电话，满足第二范式，因为后面几个属性都要和主键相关联，不能独立存在，但是通过 学号 -&gt; 学生 -&gt; 所在院 -&gt; 院电话 ，所以存在传递依赖应修改为：学生：(学号, 姓名, 年龄, 所在学院)；学院：(学院，学院名称， 电话)。</li>
+<li>BCNF 消除几个主键之间的传递依赖</li>
+</ul>
+<h2 id="ACID"><a href="#ACID" class="headerlink" title="ACID"></a>ACID</h2><ul>
+<li><p>Atomicity（原子性）：一个事务（transaction）中的所有操作，要么全部完成，要么全部不完成，不会结束在中间某个环节。事务在执行过程中发生错误，会被恢复（Rollback）到事务开始前的状态，就像这个事务从来没有执行过一样。</p>
+</li>
+<li><p>Consistency（一致性）：在事务开始之前和事务结束以后，数据库的完整性没有被破坏。这表示写入的资料必须完全符合所有的预设规则，这包含资料的精确度、串联性以及后续数据库可以自发性地完成预定的工作。</p>
+</li>
+<li><p>Isolation（隔离性）：数据库允许多个并发事务同时对其数据进行读写和修改的能力，隔离性可以防止多个事务并发执行时由于交叉执行而导致数据的不一致。事务隔离分为不同级别，包括读未提交（Read uncommitted）、读提交（read committed）、可重复读（repeatable read）和串行化（Serializable）。</p>
+</li>
+<li><p>Durability（持久性）：事务处理结束后，对数据的修改就是永久的，即便系统故障也不会丢失。</p>
+</li>
+</ul>
+<h2 id="码"><a href="#码" class="headerlink" title="码"></a>码</h2><p>候选码：<br>主码：人为选择的候选码</p>
+<h2 id="E-R模型"><a href="#E-R模型" class="headerlink" title="E-R模型"></a>E-R模型</h2><p>E-R模型是Entity-Relationship模型的缩写，是一种用于数据库设计的概念性数据模型。它用来描述现实世界中的数据之间的关系，以及这些数据的属性。E-R模型提供了一种图形化的方式来表示数据模型，使数据库设计师能够更容易地理解和规划数据库结构。</p>
 <p>E-R模型包括以下几个核心概念：</p>
 <ol>
 <li><p>实体（Entity）：实体是现实世界中可以被识别的独立对象，例如人、物品、地点或概念。每个实体都有一些属性，用来描述这个实体的特征。</p>
@@ -2382,7 +2404,7 @@ watch 监视多个key <span aria-hidden="true" class="line-numbers-rows"><span><
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">64k</span>
+                        class="white-color">71.4k</span>
             
             
             
