@@ -535,7 +535,7 @@ jwt拦截器,md5加密，全局错误处理，ThreadLocal">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.5k
+                    2.2k
                 </div>
                 
 
@@ -702,7 +702,8 @@ redis<br>1.打开redis的配置文件“redis.conf”。</li>
 </li>
 <li></li>
 </ol>
-<h1 id="苍穹外卖项目"><a href="#苍穹外卖项目" class="headerlink" title="苍穹外卖项目"></a>苍穹外卖项目</h1><h2 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h2><ol>
+<h1 id="苍穹外卖项目"><a href="#苍穹外卖项目" class="headerlink" title="苍穹外卖项目"></a>苍穹外卖项目</h1><p>仓库： 已完成 <a target="_blank" rel="noopener" href="https://github.com/qiuEly/sky-take-out">https://github.com/qiuEly/sky-take-out</a></p>
+<h2 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h2><ol>
 <li>当前端传输的数据与实体类差距比较大时使用DTO来封装</li>
 <li><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93/2987565?fromModule=lemma_inlink">数据传输</a>对象（DTO）(Data Transfer Object)，是一种<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/1212549?fromModule=lemma_inlink">设计模式</a>之间传输数据的软件<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%BA%94%E7%94%A8%E7%B3%BB%E7%BB%9F/56497111?fromModule=lemma_inlink">应用系统</a>。数据传输目标往往是<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE%E5%AF%B9%E8%B1%A1/3351868?fromModule=lemma_inlink">数据访问对象</a>从数据库中检索数据。数据传输对象与数据交互对象或数据访问对象之间的差异是一个以不具有任何行为除了存储和检索的数据（访问和存取器）。</li>
 <li>ThreadLocal 不是一个线程，但是可以用于保存Thread的一个变量，相当于设置线程内部的变量，可以用来存token和cookie</li>
@@ -732,10 +733,135 @@ redis<br>1.打开redis的配置文件“redis.conf”。</li>
 </li>
 </ol>
 </li>
-<li>阿里云oss使用，主要使用的是spring 中的MultipartFile</li>
+<li>阿里云oss使用，主要使用的是spring 中的MultipartFile </li>
+<li>Redis的使用</li>
+<li>通过给RestController设置标识名来防止依赖注入无法识别相同名称的Bean</li>
+<li>vivo50<blockquote>
+<p><strong>HttpClient的核心API：</strong></p>
+</blockquote>
+</li>
+</ol>
+<ul>
+<li><p>HttpClient：Http客户端对象类型，使用该类型对象可发起Http请求。</p>
+</li>
+<li><p>HttpClients：可认为是构建器，可创建HttpClient对象。</p>
+</li>
+<li><p>CloseableHttpClient：实现类，实现了HttpClient接口。</p>
+</li>
+<li><p>HttpGet：Get方式请求类型。</p>
+</li>
+<li><p>HttpPost：Post方式请求类型。</p>
+</li>
+</ul>
+<p><strong>HttpClient发送请求步骤：</strong></p>
+<ul>
+<li><p>创建HttpClient对象</p>
+</li>
+<li><p>创建Http请求对象</p>
+</li>
+<li><p>调用HttpClient的execute方法发送请求<br>用例：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>sky<span class="token punctuation">.</span>test</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>http<span class="token punctuation">.</span></span><span class="token class-name">HttpEntity</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>http<span class="token punctuation">.</span>client<span class="token punctuation">.</span>methods<span class="token punctuation">.</span></span><span class="token class-name">CloseableHttpResponse</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>http<span class="token punctuation">.</span>client<span class="token punctuation">.</span>methods<span class="token punctuation">.</span></span><span class="token class-name">HttpGet</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>http<span class="token punctuation">.</span>impl<span class="token punctuation">.</span>client<span class="token punctuation">.</span></span><span class="token class-name">CloseableHttpClient</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>http<span class="token punctuation">.</span>impl<span class="token punctuation">.</span>client<span class="token punctuation">.</span></span><span class="token class-name">HttpClients</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>http<span class="token punctuation">.</span>util<span class="token punctuation">.</span></span><span class="token class-name">EntityUtils</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>junit<span class="token punctuation">.</span>jupiter<span class="token punctuation">.</span>api<span class="token punctuation">.</span></span><span class="token class-name">Test</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>boot<span class="token punctuation">.</span>test<span class="token punctuation">.</span>context<span class="token punctuation">.</span></span><span class="token class-name">SpringBootTest</span></span><span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@SpringBootTest</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">HttpClientTest</span> <span class="token punctuation">{</span>
+
+    <span class="token comment">/**
+     * 测试通过httpclient发送GET方式的请求
+     */</span>
+    <span class="token annotation punctuation">@Test</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testGET</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span><span class="token punctuation">{</span>
+        <span class="token comment">//创建httpclient对象</span>
+        <span class="token class-name">CloseableHttpClient</span> httpClient <span class="token operator">=</span> <span class="token class-name">HttpClients</span><span class="token punctuation">.</span><span class="token function">createDefault</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">//创建请求对象</span>
+        <span class="token class-name">HttpGet</span> httpGet <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HttpGet</span><span class="token punctuation">(</span><span class="token string">"http://localhost:8080/user/shop/status"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">//发送请求，接受响应结果</span>
+        <span class="token class-name">CloseableHttpResponse</span> response <span class="token operator">=</span> httpClient<span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span>httpGet<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">//获取服务端返回的状态码</span>
+        <span class="token keyword">int</span> statusCode <span class="token operator">=</span> response<span class="token punctuation">.</span><span class="token function">getStatusLine</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getStatusCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"服务端返回的状态码为："</span> <span class="token operator">+</span> statusCode<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token class-name">HttpEntity</span> entity <span class="token operator">=</span> response<span class="token punctuation">.</span><span class="token function">getEntity</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">String</span> body <span class="token operator">=</span> <span class="token class-name">EntityUtils</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>entity<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"服务端返回的数据为："</span> <span class="token operator">+</span> body<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">//关闭资源</span>
+        response<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        httpClient<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<ol start="13">
+<li>spring cache<br>在SpringCache中提供了很多缓存操作的注解，常见的是以下的几个：</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th><strong>注解</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>@EnableCaching</td>
+<td>开启缓存注解功能，通常加在启动类上</td>
+</tr>
+<tr>
+<td>@Cacheable</td>
+<td>在方法执行前先查询缓存中是否有数据，如果有数据，则直接返回缓存数据；如果没有缓存数据，调用方法并将方法返回值放到缓存中</td>
+</tr>
+<tr>
+<td>@CachePut</td>
+<td>将方法的返回值放到缓存中</td>
+</tr>
+<tr>
+<td>@CacheEvict</td>
+<td>将一条或多条数据从缓存中删除</td>
+</tr>
+</tbody></table>
+<p>在spring boot项目中，使用缓存技术只需在项目中导入相关缓存技术的依赖包，并在启动类上使用@EnableCaching开启缓存支持即可。</p>
+<ol start="14">
+<li>spring task 定时任务</li>
+<li>websocket<br>WebSocket 是基于 TCP 的一种新的<strong>网络协议</strong>。它实现了浏览器与服务器全双工通信——浏览器和服务器只需要完成一次握手，两者之间就可以创建<strong>持久性</strong>的连接， 并进行<strong>双向</strong>数据传输。</li>
+</ol>
+<p><strong>HTTP协议和WebSocket协议对比：</strong></p>
+<ul>
+<li><p>HTTP是<strong>短连接</strong></p>
+</li>
+<li><p>WebSocket是<strong>长连接</strong></p>
+</li>
+<li><p>HTTP通信是<strong>单向</strong>的，基于请求响应模式</p>
+</li>
+<li><p>WebSocket支持<strong>双向</strong>通信</p>
+</li>
+<li><p>HTTP和WebSocket底层都是TCP连接</p>
+</li>
+</ul>
+<ol start="16">
+<li>Apache ECharts</li>
+<li>Apache POI</li>
+<li>部署！！！</li>
+</ol>
+<ul>
+<li>build过程中出现检测问题 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/SparkMore/p/15919302.html">https://www.cnblogs.com/SparkMore/p/15919302.html</a></li>
+</ul>
+<ol start="19">
+<li>当springboot项目不识别application配置文件时，右键resource -&gt; Mark Directory as &gt; Resources Root</li>
 </ol>
 <h2 id="修改建议Todo"><a href="#修改建议Todo" class="headerlink" title="修改建议Todo:"></a>修改建议Todo:</h2><ol>
 <li>密码加密 使用 security + jwt ，前端保存session</li>
+<li>微信小程序开发 + 前端 vue </li>
+<li>docker环境下使用</li>
 </ol>
 
                 
@@ -1141,7 +1267,7 @@ redis<br>1.打开redis的配置文件“redis.conf”。</li>
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">71.4k</span>
+                        class="white-color">72.1k</span>
             
             
             
