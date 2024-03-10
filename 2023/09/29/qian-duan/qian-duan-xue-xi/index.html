@@ -5,9 +5,16 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="前端学习, 博客，学习，成长">
-    <meta name="description" content="Vue打包部署在nginx上使用npm run build 进行打包，将dist包放在/usr/share/nginx/html即可，然后root路径要写全本地使用vue，基于脚手架安装
-npm create vue@latest
-cd x">
+    <meta name="description" content="Vue文件结构:
+
+api 存放封装了Ajax的请求文件
+components 公共组件存放目录
+views 视图组件
+App.vue 主组件，入口文件
+main.ts 项目的路口文件
+router.ts路由文件
+
+打包部署在nginx上使">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -528,7 +535,7 @@ cd x">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.4k
+                    1.5k
                 </div>
                 
 
@@ -548,7 +555,16 @@ cd x">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h1><h2 id="打包部署在nginx上"><a href="#打包部署在nginx上" class="headerlink" title="打包部署在nginx上"></a>打包部署在nginx上</h2><p>使用npm run build 进行打包，将dist包放在/usr/share/nginx/html<br>即可，然后root路径要写全<br>本地使用vue，基于脚手架安装</p>
+                <h1 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h1><p>文件结构:</p>
+<ul>
+<li>api 存放封装了Ajax的请求文件</li>
+<li>components 公共组件存放目录</li>
+<li>views 视图组件</li>
+<li>App.vue 主组件，入口文件</li>
+<li>main.ts 项目的路口文件</li>
+<li>router.ts路由文件</li>
+</ul>
+<h2 id="打包部署在nginx上"><a href="#打包部署在nginx上" class="headerlink" title="打包部署在nginx上"></a>打包部署在nginx上</h2><p>使用npm run build 进行打包，将dist包放在/usr/share/nginx/html<br>即可，然后root路径要写全<br>本地使用vue，基于脚手架安装</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">npm</span> create vue@latest
 <span class="token builtin class-name">cd</span> xxx
 <span class="token function">npm</span> <span class="token function">install</span>
@@ -1204,7 +1220,7 @@ server<span class="token punctuation">.</span><span class="token function">liste
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2023</span>
+                <span id="year">2019-2024</span>
             
             <a href="/about" target="_blank">QingQiu</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1215,7 +1231,7 @@ server<span class="token punctuation">.</span><span class="token function">liste
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">72.1k</span>
+                        class="white-color">87.6k</span>
             
             
             

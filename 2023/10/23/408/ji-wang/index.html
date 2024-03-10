@@ -5,10 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="计网, 博客，学习，成长">
-    <meta name="description" content="计网网络核心概念：路由器的网状网络提问： 数据怎么通过网络进行传输？
-
-电路电路交换：  不可共享资源，会造成资源浪费，不适合计算机之间的通讯，计算机通信的特点： 突发性，耗时短
-分组交换： 存储 – 转发  ， 数据转发过程中使用所有的资">
+    <meta name="description" content="计网概念SDU，Service Data Unit，服务数据单元。ISP 是 Internet Service Provider 的缩写，翻译为互联网服务提供商。协议Telnet 客户端登录协议，属于应用层TLD 是 Top-Level D">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -529,7 +526,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    130
+                    4.2k
                 </div>
                 
 
@@ -549,10 +546,302 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="计网"><a href="#计网" class="headerlink" title="计网"></a>计网</h1><h2 id="网络核心"><a href="#网络核心" class="headerlink" title="网络核心"></a>网络核心</h2><p>概念：路由器的网状网络<br>提问： 数据怎么通过网络进行传输？</p>
+                <h1 id="计网"><a href="#计网" class="headerlink" title="计网"></a>计网</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>SDU，Service Data Unit，服务数据单元。<br>ISP 是 Internet Service Provider 的缩写，翻译为互联网服务提供商。<br>协议<br>Telnet 客户端登录协议，属于应用层<br>TLD 是 Top-Level Domain 的缩写，翻译为顶级域名<br>GBN (Go-Back-N)  退回<br>SR 选择性重传<br>mask 子网掩码<br>SDN 是指软件定义网络（Software-Defined Networking）<br>OSPF（Open Shortest Path First）是一种开放式的链路状态路由协议，用于计算机网络中的动态路由。<br>Secure sockets layer (SSL)</p>
+<h2 id="网络核心"><a href="#网络核心" class="headerlink" title="网络核心"></a>网络核心</h2><p>概念：路由器的网状网络<br>提问： 数据怎么通过网络进行传输？</p>
 <ul>
 <li>电路电路交换：  不可共享资源，会造成资源浪费，不适合计算机之间的通讯，计算机通信的特点： 突发性，耗时短</li>
 <li>分组交换： 存储 – 转发  ， 数据转发过程中使用所有的资源，而不是使用一部分pieces，会将所有的的分组都存储之后再进行转发，方便共享的实现</li>
+</ul>
+<h2 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h2><ol>
+<li>应用架构<ul>
+<li>CS体系 客户-服务器:<ul>
+<li>服务器： 一直运行，固定ip和周知的端口号，扩展性差</li>
+<li>客户端： 主动与服务器通信，可能是动态ip，不直接与其他客户端通信</li>
+</ul>
+</li>
+<li>P2P 每个端都可以作为服务器，点对点</li>
+<li>混合体 c/s + P2P</li>
+</ul>
+</li>
+<li>TCP socket ：对于面向连接服务（TCP) 的应用而言，socket是四元组的一个具有本地意义的标示,相当于一个记录特定会话的指针，只需要用socket就可以指定这个应用<ul>
+<li>socket 其实是应用层和传输层之间的，使得允许应用能发起通信，与其他主机上的应用进程进行通信</li>
+<li>4元组  源IP 源port 目标IP 目标port</li>
+<li>唯一指定了一个会话</li>
+<li>应用使用这个标示，与远程的应用进程进行通讯</li>
+<li>不必在每一个报文中都指定这四元组</li>
+<li>udp 只提供源主机的ip 和 port</li>
+</ul>
+</li>
+<li>UDP socket<br> UDP 两个进程之间的通信之前不需要建立连接，每个报文独立传输，前后报文可能给不同的分布式进程<br> udp socket 记录本IP 本port 但是传输报文时，需要提供对方ip， port ,接收报文时传输层需要上传对方IP port<br> 二元组： 源IP  源port</li>
+</ol>
+<p>TCP 服务：</p>
+<ul>
+<li><p>可靠的传输服务</p>
+</li>
+<li><p>流量控制：发送方不会淹</p>
+</li>
+</ul>
+<p>没接受方</p>
+<ul>
+<li>拥塞控制：当网络出现拥</li>
+</ul>
+<p>塞时，能抑制发送方</p>
+<ul>
+<li><p>不能提供的服务：时间保证、最小吞吐保证和安全</p>
+</li>
+<li><p>面向连接：要求在客户端进程和服务器进程之间建立连接</p>
+</li>
+</ul>
+<p>UDP 服务：</p>
+<ul>
+<li><p>不可靠数据传输</p>
+</li>
+<li><p>不提供的服务：可靠，流量控制、拥塞控制、时间、带宽保证、建立连接<br>UDP存在的必要性</p>
+</li>
+<li><p>能够区分不同的进程，而IP服务不能</p>
+</li>
+<li><p>在IP提供的主机到主机端到端功能的基础上，区分了主机的</p>
+</li>
+</ul>
+<p>应用进程</p>
+<ul>
+<li>无需建立连接，省去了建立连接时间，适合事务性的</li>
+</ul>
+<p>应用</p>
+<ul>
+<li>不做可靠性的工作，例如检错重发，适合那些对实时</li>
+</ul>
+<p>性要求比较高而对正确性要求不高的应用</p>
+<ul>
+<li>因为为了实现可靠性（准确性、保序等），必须付出时间代</li>
+</ul>
+<p>价（检错重发）</p>
+<ul>
+<li>没有拥塞控制和流量控制，应用能够按照设定的速度</li>
+</ul>
+<p>发送数据</p>
+<ul>
+<li>而在TCP上面的应用，应用发送数据的速度和主机向网络发送</li>
+</ul>
+<p>的实际速度是不一致的，因为有流量控制和拥塞控制</p>
+<ul>
+<li>安全TCP<br>  TCP和UDP都没有加密，明文传输<br>  使用SSL协议来实现加密，在TCP的基础上实现，提供加密的TCP，私密性，数据完整性，段堆到端的鉴别<br>  SSL socket API 应用通过API将铭文交给socket，SSL将其加密<br>URL : 访问协议 + 用户名 + 口令字 + 端口等</li>
+</ul>
+<h3 id="常见的应用层协议"><a href="#常见的应用层协议" class="headerlink" title="常见的应用层协议"></a>常见的应用层协议</h3><ul>
+<li><p>HTTP：超文本传输协议</p>
+<ul>
+<li>流程： 1. 客户发起一个与服务器的TCP连接，(建立socket) 2. 服务器接受TCP 连接 3. 浏览器和web服务器之间交换HTTP报文 4. TCP连接关闭 </li>
+<li>HTTP 是无状态的连接，不会维护任何和客户有关的信息，这时候就需要websocket了</li>
+<li>HTTP/1.1 之后默认使用持久连接，保证了多个u第项可以在一个TCP连接上传输 ，非持久连接下载多个文件需要及案例多个TCP连接<br> 响应时间<br> 往返时间 RTT round - trip - time： 一个小的分组从客户端到服务器，再回到客户端的时间，传输时间忽略不计<br> 响应时间为： 2RTT + 传输时间<br> 1. 一个RTT 用来发起TCP请求<br> 2. 一个用来HTTP请求和等待响应<br> 3. 文件传输时间<br> <strong>持久HTTP</strong> ： 一个TCP连接建立之后，不会断开然后进行多个HTTP请求<br> 服务器在发送响应之后仍然保持TCP连接<br> 在相同客户端和服务器之间的后续请求和响应报文通过相同的连接进行传送<br> 客户端，在遇到一个引用对象的时候就可以尽快的发送该对象的请求，<br> 1. 每个对象要两个RTT<br> 2. 操作系统必须为每一个TCP连接分配资源，但是浏览器通常并行打开TPC连接，以获得引用对象<br> 两种方式：<br>     1. 非流线方式的持久HTTP，客户端只能在前一个HTTP请求响应之后才能发送新的请求，每个引用对象花费一个RTT<br>     2. 流水线方式：客户端遇到一个引用对象（一个小的ui所指的资源）之后就立即产生一个请<br>     3. 所有(小)的引用对象只花费一个RTT是有可能的<br> HTTP 报文格式 ： 请求行 + 请求头 + (request body)<br> tips : PUT 请求是将实体对象中文件载到URL指定的路径(一般是更新资源)<br> POST 不需要在URL 中指定资源位置，一般用于创建资源<ul>
+<li>缓存：命中率(h)： 百分之多少的请求可以在缓存中满足</li>
+<li>接入链路的利用率:  (1-h) *  请求速率 / 带宽</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>FTP 文件传输协议(基于TCP)<br> ftp服务器端口号默认为 21，需要建立两个TCP连接，一个用于控制，一个用于传输</p>
+</li>
+<li><p>SMIT 电子邮件的邮件传输协议 (默认端口25)<br>  用于上传邮件，和HTTP的区别，HTTP的每个对象封装在各自的响应报文中，SMIT可以将多个 引用对象封装在一个报文中<br>  报文格式：<br>  HEAD<br>  To :<br>  From :<br>  Subject:<br>  BODY:<br>  报文</p>
+<ul>
+<li>MIME 多媒体邮件扩展</li>
+<li>POP 邮局访问协议 用户确认身份(代理 &lt;–&gt;服务器)并下载<ul>
+<li>POP3 不保留会话状态 本地管理文件夹</li>
+</ul>
+</li>
+<li>IMAP Internet 邮件访问协议，保留用户状态 远程管理文件夹</li>
+</ul>
+</li>
+<li><p><em>DNS</em> Domain Name System 建立IP 地址和 对应域名之间的映射<br>  主要思路：分层，基于域的命名机制，在若干分布式的数据库上完成转换<br>  也可以做到负载均衡<br>  域名结构：使用层次树状结构来进行命名<br>  域名结构：从本域开始往上直至树根，域严格遵循组织界限，而不是物理网络<br>  DNS 记录格式<br>  RP格式: (name,value,type , ttl)<br>  type=A  时， name 为主机 value 为IP<br>  =CNAME  Name 为规范名字的别名<br>  =NS           Name 为域名 (foo.com) value 为该域名的权威服务器的域名<br>  =MX          Value 为name对应邮件服务器名字</p>
+<ul>
+<li>应用调用 解析器(resolver)</li>
+<li>解析器作为客户 向Name Server发出查询报文（封装在UDP段中）</li>
+<li>Name Server返回响应报文(name/ip)</li>
+<li>本地名字服务器 Local Name Server 起到代理的作用，将查询转发到DNS服务器<ul>
+<li>不严格属于层次结构，每个ISP 都有一个本地DNS，优先去本地DNS服务器中查询</li>
+<li>递归查询：本地LNS 无，<strong>直接</strong> 去找权威服务器，然后从权威服务器往下开始查询，只需要向一个服务器去请求，然后由这个服务器去查询或者去向其他服务器来进行查找，最终由这个服务器来返回结果</li>
+<li>迭代查询：转发到服务器，如果这个服务器没有就告诉发起请求的服务器要去查询下个一个服务器，由请求服务器去接着请求其他服务器，最终由能查询到的服务器来返回结果，就可以降低根服务器的负荷了</li>
+</ul>
+</li>
+<li>缓存，一旦名字服务器得到了一个映射，就将该映射缓存起来，根服务器一般在本地服务器中缓存着，使用TTL (Time to Live)</li>
+<li>攻击DNS的方法： <ul>
+<li>DDoS攻击：对根服务器进行流量轰炸，发送大量的ping</li>
+<li>向TLD(权威，顶级域名)攻击</li>
+<li>重定向攻击：</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>CDN 内容分发网络：在CDN节点中存储内容的多个拷贝，用户请求重定向到最近的一个CDN节点</p>
+</li>
+</ul>
+<h2 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h2><p>提供服务：为运行在不同主机上应用程序提供逻辑通信<br>数据元为报文段<br>与网络层的区别：网络层提供不同主机之间的逻辑通信，传输层提供的应用程序之间的通讯<br>tips：TCP和UDP都不提供延时保证和带宽保证，都支持多路复用和解复用，TCP额外提供拥塞控制和流量控制，以及建立连接</p>
+<ul>
+<li>多路复用/解复用：多路复用指的是许多个信号或数据流共享同一物理通信通道，解复用指的是根据报文段的头背部信息中的IP地址和端口号将接受的报文段发给正确的socket</li>
+<li>为何要有UDP ： <ol>
+<li>不建立连接(会增加延时)</li>
+<li>简单：在发送端和接收端没有连接状态</li>
+<li>报文段的头部很小(开销小)</li>
+<li>无阻塞控制和流量控制可以保证UDP尽快的发送报文段，应用-&gt; 传输速率 = 主机 -&gt; 网络的速率</li>
+<li><u>UDP也会进行校验，但是只是通过校验和的方式来检测是否遭到篡改</u></li>
+</ol>
+</li>
+<li>RDT 是一种模型: RDT（Reliable Data Transfer）是一种可靠的数据传输协议，用于在不可靠的通信信道上实现可靠的数据传输。<ol>
+<li>RDT 1.0（停等协议）：相信信道可靠<ul>
+<li>发送方只发送一次数据，不进行重传。</li>
+<li>接收方只接受一次数据，不进行重传请求。</li>
+<li>适用于理想化的通信信道，不考虑错误和丢失。</li>
+</ul>
+</li>
+<li>RDT 2.0（回退N协议）： 相信会出现bits errors<ul>
+<li>使用checksum 来进行错误检验</li>
+<li>引入了有限状态自动机，来切换来指定发送者和接收者</li>
+<li>发送方发送数据帧，并等待接收方的确认帧。</li>
+<li>接收方接收数据帧，发送确认帧。</li>
+<li>如果发送方未收到确认帧，它将重传数据帧。</li>
+<li>接收方可能收到重复的数据帧，但通过带有序号的数据帧来排除重复。</li>
+<li>问题：如果ACK或者NCK传错了，就会重复</li>
+</ul>
+</li>
+<li>RDT 3.0 <ul>
+<li>机制：在超过合理时间之后进行重传</li>
+<li><ul>
+<li>如果package（或ACK）只是被延迟了：</li>
+<li>重传将会导致数据重复，但利用序列号已经可以处理这个问题</li>
+<li>接收方必须指明被正确接收的序列号</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>需要一个倒计数定时器<ol>
+<li>停等协议：发送方发送一个分组，然后等待接收方的应答</li>
+<li>ACK NAK   NAK 是negative ACK</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>TCP:<ul>
+<li>点对点：一个发送方，一个接收方 </li>
+<li>可靠的、按顺序的字节流：没有报文边界 </li>
+<li>管道化：TCP拥塞控制和流量控制设置窗口的大小</li>
+<li>面向连接：交换数据之前，通过握手来初始化双方的状态变量</li>
+<li>流量控制：发送方不会淹没接收方</li>
+<li><img src="/2023/10/23/408/ji-wang/tcp%E6%8A%A5%E6%96%87.png" alt="tcp报文"></li>
+<li>序号：报文段首字节在字节流的编号</li>
+<li>确认号：期望从另一方收到的下一个字节的序号</li>
+<li>TCP超时时间= EstimatedRTT + 安全边界时间</li>
+<li>。。。。待续</li>
+</ul>
+</li>
+</ul>
+<h2 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h2><p>DU 为 数据包</p>
+<ul>
+<li>服务：在发送和接收主机之间传送段</li>
+<li>功能：<ul>
+<li>转发：将分组从路由器的输入接口转发到合适的输出接口上</li>
+<li>路由：使用路由算法来决定分组从发送主机到目标接收主机的路径</li>
+</ul>
+</li>
+<li>数据平面：转发</li>
+<li>控制平面：路径</li>
+<li>路由器的结构：<ul>
+<li>路由：运行路由选择算法生成路由表</li>
+<li>转发：从输入到输出链路交换数据报，根据路由表进行分组的转发</li>
+</ul>
+</li>
+<li>查表方式： <ul>
+<li>最长前缀匹配</li>
+</ul>
+</li>
+<li>交换结构：<ul>
+<li>通过内存交换，在cpu的直接控制下进行交换</li>
+<li>使用总线进行交换： 数据报通过共享总线进行转发，交换速度受限于总线带宽</li>
+<li>使用互联网络进行交换</li>
+</ul>
+</li>
+<li>调度机制： 调度指的是选择下一个要通过链路交换的分组<ul>
+<li>FIFO</li>
+<li>优先权调度</li>
+<li>轮询</li>
+</ul>
+</li>
+<li>IP<ul>
+<li>IP地址是对主机或者路由器的接口进行编址</li>
+<li>接口指的是 主机/路由器 和 物理链路的连接处</li>
+<li>关系是1 : 1</li>
+<li><strong>子网</strong>：<ol>
+<li>一个子网内的节点，他们IP地址的高位部分都相同，这些节点叫做子网</li>
+<li>无需路由器介入，子网内的个主机在物理上是可以直接打到</li>
+<li>将子网掩码转为二进制，则为1的部分代表着IP地址中的这一部分是网络中的地址，为0的部分是标识子网中的主机</li>
+</ol>
+</li>
+<li>分类：根据第一个8位bit来进行分类<ul>
+<li>A 类 最高位固定为0：也就是 1 - 126  7 位网络  24 位主机</li>
+<li>B : 10  128 - 191 14位 网络 16主机</li>
+<li>C : 110 192 - 223  21位 网络  8位主机</li>
+<li>D : 224 - 239 用于多播</li>
+<li>E : 240 - 255 保留用于实验和研究目的</li>
+</ul>
+</li>
+<li>CIDR Classless InterDomain Routing 无类域间路由<ul>
+<li>也就是 a.b.c.d/x x是子网掩码(mask)</li>
+</ul>
+</li>
+<li>NAT 网络地址转换 <ul>
+<li>将私有网络中的内部IP映射到公共网络中的单个IP地址</li>
+</ul>
+<ol>
+<li><p>节省IP地址：NAT允许多个内部设备共享一个公共IP地址，因此可以延长IPv4地址池的使用寿命。</p>
+</li>
+<li><p>增强网络安全性：因为内部设备的私有IP地址不直接暴露在互联网上，NAT提供了一层基本的安全性，可以隐藏内部网络结构。</p>
+</li>
+<li><p>简化网络管理：NAT可以使网络管理员更轻松地管理多台设备，而无需为每个设备分配唯一的公共IP地址。</p>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>IPv6 <ul>
+<li>IPv4和IPv6通信方式：隧道 Tunneling， 在IPv4路由器之间传输的IPv4报文中携带PIv6的报文</li>
+</ul>
+</li>
+<li>SDN</li>
+<li>OpenFlow</li>
+<li>route 路由，按照某种指标找到一条从源节点到目标节点的较好路径<ul>
+<li>路由算法分为 全局和 分布式</li>
+<li>全局：<ul>
+<li>所有边都拥有完整(所有的拓扑)的拓扑和边的代价的信息</li>
+<li>link state  LS  链路状态路由选择算法</li>
+</ul>
+</li>
+<li>分布式: <ul>
+<li>路由器只知道与它物理连接关系的邻居路由器和到响应邻居路由器的代价</li>
+<li>迭代的与邻居路由器交换路由信息，计算路由信息</li>
+<li>distance vector DV算法  距离矢量路由选择算法</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>RIP（Routing Information Protocol）是一种用于计算机网络中的距离矢量路由协议</li>
+<li>OSPF</li>
+</ul>
+<h2 id="链路层"><a href="#链路层" class="headerlink" title="链路层"></a>链路层</h2><p>网络层解决一个两个网络之间的问题，链路层要解决点对点传输的问题<br>数据元为 frame 帧，帧的头部时使用MAC地址来标示源和目的地<br>实现是在适配器上实现的，例如以太网卡</p>
+<ul>
+<li>WAN 广域网 网络形式采用点到点链路</li>
+<li>LAN 局域网 一般采用多点连接的方式</li>
+<li>奇偶校验<ul>
+<li>单bit奇偶校验只能检测单个bit级别的错误，不能纠错</li>
+<li>二维奇偶校验可以检测和纠正单个bit错误</li>
+<li>checksum </li>
+<li>CRC 循环冗余校验</li>
+</ul>
+</li>
+</ul>
+<h2 id="网络安全"><a href="#网络安全" class="headerlink" title="网络安全"></a>网络安全</h2><ul>
+<li>对称加密：发送方和接收方的密钥相同</li>
+<li>公开密钥加密：发送方使用接收方的公钥进行加密，接收方使用自己的私钥进行解密</li>
+<li>数字签名：</li>
 </ul>
 
                 
@@ -694,18 +983,17 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/10/23/408/ji-wang/">
+                <a href="/2024/02/27/ai/python-and-web-or-ai/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="计网">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="python and web or ai">
                         
-                        <span class="card-title">计网</span>
+                        <span class="card-title">python and web or ai</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -715,9 +1003,9 @@
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-10-23
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-02-27
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -726,7 +1014,6 @@
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>
@@ -949,7 +1236,7 @@
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2023</span>
+                <span id="year">2019-2024</span>
             
             <a href="/about" target="_blank">QingQiu</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -960,7 +1247,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">72.1k</span>
+                        class="white-color">87.6k</span>
             
             
             
