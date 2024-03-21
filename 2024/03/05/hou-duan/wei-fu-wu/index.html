@@ -532,7 +532,7 @@ SpringCloud注册中心
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.5k
+                    3.5k
                 </div>
                 
 
@@ -765,6 +765,164 @@ yml<pre class="line-numbers language-yaml" data-language="yaml"><code class="lan
 </ol>
 </li>
 </ul>
+<h2 id="SpringCloud-1"><a href="#SpringCloud-1" class="headerlink" title="SpringCloud"></a>SpringCloud</h2><p><img src="/2024/03/05/hou-duan/wei-fu-wu/alibaba.png" alt="阿里巴巴"></p>
+<ul>
+<li>功能<br><img src="/2024/03/05/hou-duan/wei-fu-wu/%E5%8A%9F%E8%83%BD.png" alt="功能"></li>
+<li>组件<br><img src="/2024/03/05/hou-duan/wei-fu-wu/%E7%BB%84%E4%BB%B6.png" alt="组件"></li>
+</ul>
+<h3 id="服务注册-Nacos-x3D-x3D-consul"><a href="#服务注册-Nacos-x3D-x3D-consul" class="headerlink" title="服务注册 Nacos == consul"></a>服务注册 Nacos == consul</h3><p><img src="/2024/03/05/hou-duan/wei-fu-wu/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E5%AF%B9%E6%AF%94.png" alt="对比"></p>
+<ul>
+<li><p>命令行</p>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css">startup.cmd -m standalone<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>服务提供者<br>pom:</p>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>  
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>com.alibaba.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>  
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-cloud-starter-alibaba-nacos-discovery<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>  
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>yml</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">server</span><span class="token punctuation">:</span>
+  <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">9001</span>
+
+<span class="token key atrule">spring</span><span class="token punctuation">:</span>
+  <span class="token key atrule">application</span><span class="token punctuation">:</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> nacos<span class="token punctuation">-</span>payment<span class="token punctuation">-</span>provider
+  <span class="token key atrule">cloud</span><span class="token punctuation">:</span>
+    <span class="token key atrule">nacos</span><span class="token punctuation">:</span>
+      <span class="token key atrule">discovery</span><span class="token punctuation">:</span>
+        <span class="token key atrule">server-addr</span><span class="token punctuation">:</span> localhost<span class="token punctuation">:</span><span class="token number">8848</span> <span class="token comment">#配置Nacos地址</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>main函数上使用@EnableDiscoveryClient<br>业务类示范<br><img src="/2024/03/05/hou-duan/wei-fu-wu/controller%E7%A4%BA%E8%8C%83.png" alt="示范"></p>
+</li>
+<li><p>消费者<br>pom</p>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!--nacos-discovery--&gt;</span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
+           <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>com.alibaba.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
+           <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-cloud-starter-alibaba-nacos-discovery<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span>
+       <span class="token comment">&lt;!--loadbalancer--&gt;</span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
+           <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
+           <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-cloud-starter-loadbalancer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>xml</p>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">
+server:
+  port: 83
+
+spring:
+  application:
+    name: nacos-order-consumer
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+#消费者将要去访问的微服务名称(nacos微服务提供者叫什么你写什么)
+service-url:
+  nacos-user-service: http://nacos-payment-provider<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>main上也使用@EnableDiscoveryClient</p>
+</li>
+</ul>
+<p>restTemplate配置</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">ackage com<span class="token punctuation">.</span>atguigu<span class="token punctuation">.</span>cloud<span class="token punctuation">.</span>config<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>cloud<span class="token punctuation">.</span>client<span class="token punctuation">.</span>loadbalancer<span class="token punctuation">.</span></span><span class="token class-name">LoadBalanced</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">Bean</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">Configuration</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>client<span class="token punctuation">.</span></span><span class="token class-name">RestTemplate</span></span><span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * @auther zzyy
+ * @create 2023-11-23 17:20
+ */</span>
+<span class="token annotation punctuation">@Configuration</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RestTemplateConfig</span>
+<span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token annotation punctuation">@LoadBalanced</span> <span class="token comment">//赋予RestTemplate负载均衡的能力</span>
+    <span class="token keyword">public</span> <span class="token class-name">RestTemplate</span> <span class="token function">restTemplate</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">RestTemplate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>Nacos作为配置中心，进行动态配置<br>导入pom<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!--bootstrap--&gt;</span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-cloud-starter-bootstrap<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span>
+     <span class="token comment">&lt;!--nacos-config--&gt;</span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>com.alibaba.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-cloud-starter-alibaba-nacos-config<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+为什么进行两个配置？ bootstrap和application?<br>Nacos同Consul一样，在项目初始化时，要保证先从配置中心进行配置拉取，<br>拉取配置之后，才能保证项目的正常启动，为了满足动态刷新和全局广播通知<br>springboot中配置文件的加载是存在优先级顺序的，bootstrap优先级高于application<br>bootstrap<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector"># nacos配置
+spring:
+  application:
+    name: nacos-config-client
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848 #Nacos服务注册中心地址
+      config:
+        server-addr: localhost:8848 #Nacos作为配置中心地址
+        file-extension: yaml #指定yaml格式的配置
+
+# nacos端配置文件DataId的命名规则是：
+# $</span><span class="token punctuation">{</span>spring.application.name<span class="token punctuation">}</span><span class="token selector">-$</span><span class="token punctuation">{</span>spring.profile.active<span class="token punctuation">}</span><span class="token selector">.$</span><span class="token punctuation">{</span>spring.cloud.nacos.config.file-extension<span class="token punctuation">}</span>
+# <span class="token property">本案例的DataID是</span><span class="token punctuation">:</span>nacos-config-client-dev.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+application<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token property">server</span><span class="token punctuation">:</span>
+  <span class="token property">port</span><span class="token punctuation">:</span> 3377
+
+<span class="token property">spring</span><span class="token punctuation">:</span>
+  <span class="token property">profiles</span><span class="token punctuation">:</span>
+    <span class="token property">active</span><span class="token punctuation">:</span> dev # 表示开发环境
+      #<span class="token property">active</span><span class="token punctuation">:</span> prod # 表示生产环境
+    #<span class="token property">active</span><span class="token punctuation">:</span> test # 表示测试环境<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+controller层上使用@RefreshScope //在控制器类加入@RefreshScope注解使当前类下的配置支持Nacos的动态刷新功能。</li>
+</ul>
+<p><em><strong>问题1：</strong></em></p>
+<p>实际开发中，通常一个系统会准备</p>
+<p>dev开发环境</p>
+<p>test测试环境</p>
+<p>prod生产环境。</p>
+<p>如何保证指定环境启动时服务能正确读取到Nacos上相应环境的配置文件呢？</p>
+<p><em><strong>问题2:</strong></em></p>
+<p>一个大型分布式微服务系统会有很多微服务子项目，</p>
+<p>每个微服务项目又都会有相应的开发环境、测试环境、预发环境、正式环境……</p>
+<p>那怎么对这些微服务配置进行分组和命名空间管理呢？</p>
+<p><img src="/2024/03/05/hou-duan/wei-fu-wu/model.png" alt="model"></p>
+<h2 id="Sentinel-等价于-Circuit-Breaker-自己去官网看"><a href="#Sentinel-等价于-Circuit-Breaker-自己去官网看" class="headerlink" title="Sentinel 等价于 Circuit Breaker 自己去官网看"></a>Sentinel 等价于 Circuit Breaker 自己去官网看</h2><p><img src="/2024/03/05/hou-duan/wei-fu-wu/%E9%9B%AA%E5%B4%A9.png"><br><img src="/2024/03/05/hou-duan/wei-fu-wu/%E9%99%8D%E7%BA%A7.png"><br><img src="/2024/03/05/hou-duan/wei-fu-wu/%E7%86%94%E6%96%AD.png"><br><img src="/2024/03/05/hou-duan/wei-fu-wu/%E9%99%90%E6%B5%81.png"><br><img src="/2024/03/05/hou-duan/wei-fu-wu/%E9%9A%94%E7%A6%BB.png"><br><img src="/2024/03/05/hou-duan/wei-fu-wu/%E9%9A%94%E7%A6%BB.png"><br><img src="/2024/03/05/hou-duan/wei-fu-wu/%E8%B6%85%E6%97%B6.png"></p>
+<p>pom</p>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!--SpringCloud alibaba sentinel --&gt;</span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
+           <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>com.alibaba.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
+           <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-cloud-starter-alibaba-sentinel<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>yml</p>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token property">server</span><span class="token punctuation">:</span>
+  <span class="token property">port</span><span class="token punctuation">:</span> 8401
+
+<span class="token property">spring</span><span class="token punctuation">:</span>
+  <span class="token property">application</span><span class="token punctuation">:</span>
+    <span class="token property">name</span><span class="token punctuation">:</span> cloudalibaba-sentinel-service
+  <span class="token property">cloud</span><span class="token punctuation">:</span>
+    <span class="token property">nacos</span><span class="token punctuation">:</span>
+      <span class="token property">discovery</span><span class="token punctuation">:</span>
+        <span class="token property">server-addr</span><span class="token punctuation">:</span> <span class="token property">localhost</span><span class="token punctuation">:</span>8848         #Nacos服务注册中心地址
+    <span class="token property">sentinel</span><span class="token punctuation">:</span>
+      <span class="token property">transport</span><span class="token punctuation">:</span>
+        <span class="token property">dashboard</span><span class="token punctuation">:</span> <span class="token property">localhost</span><span class="token punctuation">:</span>8080 #配置Sentinel dashboard控制台服务地址
+        <span class="token property">port</span><span class="token punctuation">:</span> 8719 #默认8719端口，假如被占用会自动从8719开始依次+1扫描<span class="token punctuation">,</span>直至找到未被占用的端口<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="/2024/03/05/hou-duan/wei-fu-wu/%E6%87%92%E5%8A%A0%E8%BD%BD.png" alt="懒加载"></p>
+<ul>
+<li>流控规则<br><img src="/2024/03/05/hou-duan/wei-fu-wu/%E6%B5%81%E6%8E%A7%E8%A7%84%E5%88%99.png"></li>
+<li>熔断降级<br>Sentinel 熔断降级会在调用链路中某个资源出现不稳定状态时（例如调用超时或异常比例升高），对这个资源的调用进行限制，</li>
+</ul>
+<p>让请求快速失败，避免影响到其它的资源而导致级联错误。当资源被降级后，在接下来的降级时间窗口之内，对该资源的调用都自动熔断（默认行为是抛出 DegradeException）。、</p>
+<h3 id="如何处理分布式-事务"><a href="#如何处理分布式-事务" class="headerlink" title="如何处理分布式 事务"></a>如何处理分布式 事务</h3><h2 id="Seata"><a href="#Seata" class="headerlink" title="Seata"></a>Seata</h2><p><img src="/2024/03/05/hou-duan/wei-fu-wu/senta.png" alt="senta"></p>
+<p>去官网看</p>
+<p>面试题：<br><img src="/2024/03/05/hou-duan/wei-fu-wu/AT%E9%9D%A2%E8%AF%95%E9%A2%98.png"><br><img src="/2024/03/05/hou-duan/wei-fu-wu/AT%E9%9D%A2%E8%AF%95%E9%A2%981.png"></p>
+<p><img src="/2024/03/05/hou-duan/wei-fu-wu/%E6%8F%90%E4%BA%A4.png"><br><img src="/2024/03/05/hou-duan/wei-fu-wu/%E5%9B%9E%E6%BB%9A.png"></p>
 
                 
             </div>
@@ -909,7 +1067,7 @@ yml<pre class="line-numbers language-yaml" data-language="yaml"><code class="lan
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2024/03/06/os/">
+                <a href="/2024/03/06/408/os/">
                     <div class="card-image">
                         
                         
@@ -946,13 +1104,13 @@ yml<pre class="line-numbers language-yaml" data-language="yaml"><code class="lan
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2024/03/02/hou-duan/xin-jian-markdown/">
+                <a href="/2024/02/27/ai/python-and-web-or-ai/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="python and web or ai">
                         
-                        <span class="card-title"></span>
+                        <span class="card-title">python and web or ai</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -963,7 +1121,7 @@ yml<pre class="line-numbers language-yaml" data-language="yaml"><code class="lan
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-03-02
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-02-27
                             </span>
                         <span class="publish-author">
                             
@@ -1169,7 +1327,7 @@ yml<pre class="line-numbers language-yaml" data-language="yaml"><code class="lan
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">87.6k</span>
+                        class="white-color">97.7k</span>
             
             
             

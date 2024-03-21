@@ -5,9 +5,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="学算法, 博客，学习，成长">
-    <meta name="description" content="学算法JAVA 快写BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(System.out));
-writer.flush() 才会写
-JAVA更快更强的读入">
+    <meta name="description" content="JAVA 快写卡特兰数问题 ：h[n]=C[2n,n]−C [2n,n−1] (n=0,1,2,…)&amp;nbsp;组合数C不解释了； C是组合数
+出栈顺序问题 假设有N个数字依次入栈：1,2,3,…,n，试问有多少种出栈顺序？这里为表述简便，">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -532,7 +531,7 @@ JAVA更快更强的读入">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    19k
+                    19.1k
                 </div>
                 
 
@@ -552,7 +551,17 @@ JAVA更快更强的读入">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="学算法"><a href="#学算法" class="headerlink" title="学算法"></a>学算法</h1><h2 id="JAVA-快写"><a href="#JAVA-快写" class="headerlink" title="JAVA 快写"></a>JAVA 快写</h2><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">BufferedWriter</span> writer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BufferedWriter</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">OutputStreamWriter</span><span class="token punctuation">(</span><span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <h2 id="JAVA-快写"><a href="#JAVA-快写" class="headerlink" title="JAVA 快写"></a>JAVA 快写</h2><h3 id="卡特兰数问题-：h-n-x3D-C-2n-n-−C-2n-n−1-n-x3D-0-1-2-…-组合数C不解释了；-C是组合数"><a href="#卡特兰数问题-：h-n-x3D-C-2n-n-−C-2n-n−1-n-x3D-0-1-2-…-组合数C不解释了；-C是组合数" class="headerlink" title="卡特兰数问题 ：h[n]=C[2n,n]−C [2n,n−1] (n=0,1,2,…)&nbsp;组合数C不解释了； C是组合数"></a>卡特兰数问题 ：h[n]=C[2n,n]−C [2n,n−1] (n=0,1,2,…)&nbsp;组合数C不解释了； C是组合数</h3><ol>
+<li>出栈顺序问题 假设有N个数字依次入栈：1,2,3,…,n，试问有多少种出栈顺序？这里为表述简便，下文用+1表示一个元素入栈，用-1表示一个元素出栈</li>
+<li>问题描述：有n对()括号，试问可以组成多少种合法正确的括号序列？</li>
+</ol>
+<h2 id="树是无向边"><a href="#树是无向边" class="headerlink" title="树是无向边"></a>树是无向边</h2><h2 id="Java日期"><a href="#Java日期" class="headerlink" title="Java日期"></a>Java日期</h2><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">LocalDate</span> d1 <span class="token operator">=</span> <span class="token class-name">LocalDate</span><span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>s<span class="token punctuation">,</span><span class="token class-name"><span class="token namespace">java<span class="token punctuation">.</span>time<span class="token punctuation">.</span>format<span class="token punctuation">.</span></span>DateTimeFormatter</span><span class="token punctuation">.</span><span class="token constant">BASIC_ISO_DATE</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		s <span class="token operator">=</span> reader<span class="token punctuation">.</span><span class="token function">readLine</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token class-name">LocalDate</span> d2 <span class="token operator">=</span> <span class="token class-name">LocalDate</span><span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>s<span class="token punctuation">,</span><span class="token class-name"><span class="token namespace">java<span class="token punctuation">.</span>time<span class="token punctuation">.</span>format<span class="token punctuation">.</span></span>DateTimeFormatter</span><span class="token punctuation">.</span><span class="token constant">BASIC_ISO_DATE</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">long</span> diff <span class="token operator">=</span> <span class="token class-name">ChronoUnit</span><span class="token punctuation">.</span><span class="token constant">DAYS</span><span class="token punctuation">.</span><span class="token function">between</span><span class="token punctuation">(</span>d1<span class="token punctuation">,</span> d2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token function">abs</span><span class="token punctuation">(</span>diff<span class="token punctuation">)</span><span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">BufferedWriter</span> writer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BufferedWriter</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">OutputStreamWriter</span><span class="token punctuation">(</span><span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 writer<span class="token punctuation">.</span><span class="token function">flush</span><span class="token punctuation">(</span><span class="token punctuation">)</span> 才会写<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h2 id="JAVA更快更强的读入和写-https-www-luogu-com-cn-problem-P2367"><a href="#JAVA更快更强的读入和写-https-www-luogu-com-cn-problem-P2367" class="headerlink" title="JAVA更快更强的读入和写 https://www.luogu.com.cn/problem/P2367"></a>JAVA更快更强的读入和写 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2367">https://www.luogu.com.cn/problem/P2367</a></h2><pre class="line-numbers language-java" data-language="java"><code class="language-java"> <span class="token class-name">StreamTokenizer</span> reader <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StreamTokenizer</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">BufferedReader</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">InputStreamReader</span><span class="token punctuation">(</span><span class="token class-name">System</span><span class="token punctuation">.</span>in<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
@@ -3740,7 +3749,7 @@ j<span class="token operator">=</span><span class="token number">0</span>的结�
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">87.6k</span>
+                        class="white-color">97.7k</span>
             
             
             

@@ -526,7 +526,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4.2k
+                    4.6k
                 </div>
                 
 
@@ -824,10 +824,10 @@
 </ul>
 </li>
 <li>RIP（Routing Information Protocol）是一种用于计算机网络中的距离矢量路由协议</li>
-<li>OSPF</li>
-</ul>
-<h2 id="链路层"><a href="#链路层" class="headerlink" title="链路层"></a>链路层</h2><p>网络层解决一个两个网络之间的问题，链路层要解决点对点传输的问题<br>数据元为 frame 帧，帧的头部时使用MAC地址来标示源和目的地<br>实现是在适配器上实现的，例如以太网卡</p>
-<ul>
+<li>OSP</li>
+<li>DNS 主机向要访问-&gt;向DNS查询IP地址-&gt;所查询的DNS服务器未知要查询的IP地址-&gt;向根域名服务器查询-&gt;根域名服务器收录了这个地址 -&gt;返回地址给客户端-&gt;客户端建立通信<br>网络层解决一个两个网络之间的问题，链路层要解决点对点传输的问题</li>
+<li><strong>ARP</strong>:以目标IP地址为线索，来定位下一个应该接受数据分包的网络设备的MAC地址，沟通IP和MAC地址 <strong>IP-&gt;MAC</strong><br>数据元为 frame 帧，帧的头部时使用MAC地址来标示源和目的地</li>
+<li><strong>RARP</strong> MAC-&gt;IP<br>实现是在适配器上实现的，例如以太网卡</li>
 <li>WAN 广域网 网络形式采用点到点链路</li>
 <li>LAN 局域网 一般采用多点连接的方式</li>
 <li>奇偶校验<ul>
@@ -838,6 +838,52 @@
 </ul>
 </li>
 </ul>
+<h3 id="网络接口层：等价数据链路层，使用mac地址"><a href="#网络接口层：等价数据链路层，使用mac地址" class="headerlink" title="网络接口层：等价数据链路层，使用mac地址"></a>网络接口层：等价数据链路层，使用mac地址</h3><ul>
+<li><p>NIC的驱动程序</p>
+</li>
+<li><p>NIC 是网络适配器，也就是网卡</p>
+</li>
+<li><p>PPP也属于数据链路层</p>
+</li>
+</ul>
+<h3 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h3><h4 id="OSI参考模型-有七个分层"><a href="#OSI参考模型-有七个分层" class="headerlink" title="OSI参考模型 有七个分层"></a>OSI参考模型 有七个分层</h4><p>自上而下 每一层的功能和作用由协议规定，协议的内容是规范</p>
+<ol>
+<li><p><strong>应用层</strong></p>
+<ul>
+<li>针对特定应用的协议</li>
+</ul>
+</li>
+<li><p><strong>表示层</strong></p>
+<ul>
+<li>设备固有数据格式和网络标准数据格式 比如：接受不同表现形式的信息</li>
+</ul>
+</li>
+<li><p><em>会话层</em></p>
+<ul>
+<li>负责通信管理，负责建立连接和断开，管理传输层以下的分层</li>
+</ul>
+</li>
+<li><p><strong>传输层</strong></p>
+<ul>
+<li>管理两个节点之间的数据传输，负责可靠传输</li>
+</ul>
+</li>
+<li><p><strong>网络层</strong></p>
+<ul>
+<li>路由选择与地址管理</li>
+</ul>
+</li>
+<li><p><strong>数据链路层</strong></p>
+<ul>
+<li>互连设备之间传送，和 识别数据帧</li>
+</ul>
+</li>
+<li><p><strong>物理层</strong></p>
+<ul>
+<li>界定连接器和网线的规格，比特流和电子信号转换</li>
+</ul>
+</li>
+</ol>
 <h2 id="网络安全"><a href="#网络安全" class="headerlink" title="网络安全"></a>网络安全</h2><ul>
 <li>对称加密：发送方和接收方的密钥相同</li>
 <li>公开密钥加密：发送方使用接收方的公钥进行加密，接收方使用自己的私钥进行解密</li>
@@ -1247,7 +1293,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">87.6k</span>
+                        class="white-color">97.7k</span>
             
             
             

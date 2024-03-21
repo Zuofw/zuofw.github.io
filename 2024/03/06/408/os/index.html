@@ -4,8 +4,11 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="博客，学习，成长">
-    <meta name="description" content="">
+    <meta name="keywords" content="os, 博客，学习，成长">
+    <meta name="description" content="核心概念带宽：又叫频宽，是指在固定的的时间可传输的资料数量，亦即在传输管道中可以传递数据的能力。
+
+
+位宽 ：位宽就是内存或显存一次能传输的数据量。简单地讲就是一次能传递的数据宽度，就像公路的车道宽度，双向四车道、双向六车道，当然车道越多一">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +20,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>QingQiu&#39;Blog</title>
+    <title>os | QingQiu&#39;Blog</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
     
 
@@ -476,12 +479,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title"></h1>
+                    <h1 class="description center-align post-title">os</h1>
                 </div>
             </div>
         </div>
@@ -517,7 +520,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2024-03-02
+                    2024-03-06
                 </div>
                 
 
@@ -526,7 +529,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    2.5k
                 </div>
                 
 
@@ -546,7 +549,139 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h2 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h2><p>带宽：又叫频宽，是指在固定的的时间可传输的资料数量，亦即在传输管道中可以传递数据的能力。</p>
+<blockquote>
+</blockquote>
+<p>位宽 ：位宽就是内存或显存一次能传输的数据量。简单地讲就是一次能传递的数据宽度，就像公路的车道宽度，双向四车道、双向六车道，当然车道越多一次能通过的汽车就越大，所以位宽越大，一次性能舆的数据就越多,对显卡来说对性能的提高很明显。<br>PSW：**<em>包含中断是否开放，处理机执行态等状态的寄存器，叫做处理机状态字 PSW</em>**<br>PCB: 进程控制块<br>TCB: 线程控制模块<br>寄存器分类：CS 代码段寄存器， IP 指令指针寄存器,<br>PC 程序计数器寄存器， PS描述CPU执行状态，主要包含理机当前运行态，处理及优先级，屏蔽外中断等状态<br>shell不是操作系统的一部分，而是终端与操作系统的接口<br>硬件驱动：是一个软件，用于驱动硬件<br>磁道:每个磁头可以读取一段唤醒区域，就是磁道</p>
+<blockquote>
+<p>柱面： 所有的磁道合并就是一个柱面<br>上下文切换：由一个程序切换到另一个程序<br>I/O设备：包括设备控制器和设备本身，<br>文件：抽象磁盘空间<br>文件描述符：如果访问文件权限许可，则返回一个小整数，若禁止访问，系统将返回一个错误码<br>管道：一种需文件，可以链接两个进程，进程A要给进程B 发送数据时，要先把它写在管道上，相当于一个输出文件，之后进程B从上面读入并处理<br>PID 进程识别符<br>线程切换要切换栈，否则会弹栈错误<br><strong>切换栈实质就是切换寄存器</strong><br>基本输入输出系统 <strong>BIOS</strong>(Basic Input Output System)</p>
+<ol>
+<li><p>每台计算机上有一块双亲板，上面有一个叫做 基本输入输出系统 <strong>BIOS</strong>(Basic Input Output System),在BIOS里面有底层I/O软件</p>
+</li>
+<li><p>设备启动，BIOS启动，检测RAM 的数量和基本硬件的是否已经安装并且响应，</p>
+</li>
+<li><p>之后通过储存在CMOS存储器中的设备清单决定启动设备</p>
+</li>
+<li><p>之后操作系统来询问BIOS ，以获得配置信息<br><strong>多路复用：实现时间和空间的复用</strong></p>
+</li>
+</ol>
+</blockquote>
+<h2 id="什么是操作系统"><a href="#什么是操作系统" class="headerlink" title="什么是操作系统"></a>什么是操作系统</h2><ul>
+<li><p>操作系统是一种系统软件，是软、硬件资源的控制中心，它以有效的到单个或多个用户以任务方式共享计算机的各种资源</p>
+</li>
+<li><p>多数计算机都有用户态和内核态，内核态是指的操作系统</p>
+</li>
+<li><p>操作系统提供一个资源集的抽象，并管理这些硬件资源</p>
+</li>
+<li><p><strong>主要任务是隐藏硬件，呈现给程序的抽象</strong></p>
+</li>
+<li><p>记录哪个程序在使用什么资源，对资源请求进行评估代价，并且为不同的程序和用户调解互相冲突的资源冲突</p>
+</li>
+</ul>
+<h2 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h2><h3 id="寄存器："><a href="#寄存器：" class="headerlink" title="寄存器："></a>寄存器：</h3><ul>
+<li>通用寄存器：存放要运算的数据</li>
+<li>程序寄存器： 来存储下一条要执行的指令所在的内存第</li>
+<li>指令寄存器：存放指令本身</li>
+</ul>
+<h3 id="总线："><a href="#总线：" class="headerlink" title="总线："></a>总线：</h3><ul>
+<li>地址总线： 指定CPU要操作的内存地址</li>
+<li>数据总线：读写内存的数据</li>
+<li>控制总线 ： 发送和接受信号，中断，设备复位等，CPU响应也需要控制总线</li>
+</ul>
+<h2 id="存储"><a href="#存储" class="headerlink" title="存储"></a>存储</h2><ul>
+<li>寄存器；</li>
+<li>CPU Cache：使用SRAM 静态存储器，断电丢失数据</li>
+<li><img src="/2024/03/06/408/os/Cache%E5%88%86%E7%B1%BB.png"><ol>
+<li>L1-Cache；</li>
+<li>L2-Cache；</li>
+<li>L3-Cahce；</li>
+</ol>
+</li>
+<li>内存；</li>
+<li>SSD/HDD 硬盘</li>
+</ul>
+<h3 id="伙伴系统："><a href="#伙伴系统：" class="headerlink" title="伙伴系统："></a>伙伴系统：</h3><p>当可分配内存比所需要内存的二倍还大，那么就将其划分为两个大小为一半一半的空闲分区，重复划分，<strong>直到比二倍小就分配给他</strong></p>
+<h3 id="分页，分段"><a href="#分页，分段" class="headerlink" title="分页，分段"></a>分页，分段</h3><ol>
+<li><p><strong>分段（Segmentation）</strong>： 不连续，不等长，相当于是一小段逻辑的程序</p>
+<ul>
+<li>分段将内存划分为若干段（segments），每个段具有不同的大小和含义。</li>
+<li>每个段都有自己的基地址和长度。段可以包含代码、数据、堆栈等不同类型的信息。</li>
+<li>分段允许程序员以逻辑上独立的方式编写程序，并且使得程序的结构更清晰。</li>
+<li>分段的缺点是会导致内存碎片化，难以管理。</li>
+</ul>
+</li>
+<li><p><strong>分页（Paging）</strong>： 连续等长</p>
+<ul>
+<li>分页将内存划分为固定大小的页面（pages），通常为4KB或者更大。</li>
+<li>操作系统将进程的虚拟地址空间划分为与页面大小相同的块，称为虚拟页面（virtual pages）。</li>
+<li>虚拟页面和物理页面（physical pages）之间建立映射关系，操作系统负责管理这些映射。</li>
+<li>分页的优点是可以更有效地利用内存空间，减少内存碎片化，并且实现了更好的内存保护和共享。</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><p>页帧：把**物理地址间_**划分为大小相同的基本分配单元</p>
+</li>
+<li><p>页面：把<strong>逻辑地址空间</strong>也划分为相同大小，基本分配单元</p>
+</li>
+<li><p>页面置换算法：</p>
+</li>
+<li><p><strong>最佳页面置换算法（OPT，Optimal）</strong>：优先选择淘汰的页面是以后永不使用的，或者是在最长时间内不再被访问的页面，这样可以保证获得最低的缺页率。但由于人们目前无法预知进程在内存下的若干页面中哪个是未来最长时间内不再被访问的，因而该算法无法实现，只是理论最优的页面置换算法，可以作为衡量其他置换算法优劣的标准。</p>
+</li>
+<li><p><strong>先进先出页面置换算法（FIFO，First In First Out）</strong> : 最简单的一种页面置换算法，总是淘汰最先进入内存的页面，即选择在内存中驻留时间最久的页面进行淘汰。该算法易于实现和理解，一般只需要通过一个 FIFO 队列即可需求。不过，它的性能并不是很好。</p>
+</li>
+<li><p><strong>最近最久未使用页面置换算法（LRU ，Least Recently Used）</strong>：LRU 算法赋予每个页面一个访问字段，用来记录一个页面自上次被访问以来所经历的时间 T，当须淘汰一个页面时，选择现有页面中其 T 值最大的，即最近最久未使用的页面予以淘汰。LRU 算法是根据各页之前的访问情况来实现，因此是易于实现的。OPT 算法是根据各页未来的访问情况来实现，因此是不可实现的。</p>
+</li>
+<li><p><strong>最少使用页面置换算法（LFU，Least Frequently Used）</strong> : 和 LRU 算法比较像，不过该置换算法选择的是之前一段时间内使用最少的页面作为淘汰页。</p>
+</li>
+<li><p><strong>时钟页面置换算法（Clock）</strong>：可以认为是一种最近未使用算法，即逐出的页面都是最近没有使用的那个。</p>
+<p><strong>局部性原理</strong>是指在程序执行过程中，数据和指令的访问存在一定的空间和时间上的局部性特点。其中，时间局部性是指一个数据项或指令在一段时间内被反复使用的特点，空间局部性是指一个数据项或指令在一段时间内与其相邻的数据项或指令被反复使用的特点。</p>
+</li>
+</ul>
+<h2 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h2><p>进程控制块 PCB Process Control Block</p>
+<p>描述了进程的标识，空间运行状态，资源使用等信息</p>
+<p>PCB是进程存在的唯一标志</p>
+<p>每个进程都在操作系统中有一个对应的PCB</p>
+<p>操作系统建立一个表格用于描述该进程的存在和状态，这个表格就叫做进程控制块</p>
+<ul>
+<li>PCB 使用链表和索引表</li>
+<li>同一个状态的进程进入一个链表</li>
+<li>索引表指向PCB</li>
+</ul>
+<h4 id="PCB的使用"><a href="#PCB的使用" class="headerlink" title="PCB的使用"></a>PCB的使用</h4><p>进程创建：生成该进程的PCB</p>
+<p>进程终止：回收它的PCB</p>
+<h3 id="进程的状态："><a href="#进程的状态：" class="headerlink" title="进程的状态："></a>进程的状态：</h3><p>运行态、就绪态、阻塞态</p>
+<h4 id="进程创建"><a href="#进程创建" class="headerlink" title="进程创建"></a>进程创建</h4><h3 id="主要的事件：系统初始化，正在运行的程序执行了创建进程的系统调用，用户请求创建一个进程，一个批处理作业的初始化"><a href="#主要的事件：系统初始化，正在运行的程序执行了创建进程的系统调用，用户请求创建一个进程，一个批处理作业的初始化" class="headerlink" title="主要的事件：系统初始化，正在运行的程序执行了创建进程的系统调用，用户请求创建一个进程，一个批处理作业的初始化"></a>主要的事件：系统初始化，正在运行的程序执行了创建进程的系统调用，用户请求创建一个进程，一个批处理作业的初始化</h3><p>进程执行</p>
+<p>进程等待</p>
+<p>进程抢占</p>
+<p>进程唤醒</p>
+<p>进程结束</p>
+<p>核心状态：运行状态，就绪状态，等待状态，创建状态，结束状态<br>进程挂起：</p>
+<ol>
+<li><p>处于挂起状态的进程映射在磁盘上，目的是减少进程占用内存</p>
+</li>
+<li><p>等待挂起状态等待挂起状态</p>
+</li>
+<li><p>就绪挂起状态 进程在外存，但只要进入内存即可运行</p>
+</li>
+</ol>
+<h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><p>概念：线程是进程的一部分，描述指令流执行状态。是进程中指令执行流的最小单元，是CPU 调度的基本单位<br>线程 = 进程 - 共享资源<br>进程 = 资源+多组线程</p>
+<ul>
+<li>优点： 1. 一个进程可以有多个线程2.各个线程之间 2.线程之间可以并发。3. 线程之间可以共享地址和文件资源</li>
+<li>缺点：一个线程崩溃 会导致所属的进程的所有线程崩溃</li>
+</ul>
+<h4 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h4><p>优点：</p>
+<ol>
+<li>提高CPU效率</li>
+<li>实时处理</li>
+<li>故障处理</li>
+<li>实现分时擦欧总<br>中断的来源是外设，异常是应用程序请求的，属于系统调用</li>
+</ol>
+<h3 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h3><p>每一个系统调用都需要切换堆栈，系统调用是操作系统提供给用户态程序的接口，用于调用内核。<br>自陷指令： 能够产生异常的指令</p>
+<h4 id="并发与并行"><a href="#并发与并行" class="headerlink" title="并发与并行:"></a>并发与并行:</h4><p>并行：两个进程一起进行，单核处理器中不能够并行，多核才可以</p>
+<p>并发：单核处理器合理的处理任务的操作，也就是多线程，并不能同时进行多个任务</p>
+<p>进程之间的关系：相互独立和相互制约<br>制约： 同步和互斥</p>
+
                 
             </div>
             <hr/>
@@ -572,7 +707,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://qiuely.github.io/2024/03/02/hou-duan/xin-jian-markdown/">https://qiuely.github.io/2024/03/02/hou-duan/xin-jian-markdown/</a>
+                    <a href="https://qiuely.github.io/2024/03/06/408/os/">https://qiuely.github.io/2024/03/06/408/os/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -690,13 +825,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2024/03/05/hou-duan/wei-fu-wu/">
+                <a href="/2024/03/06/xiang-mu-jian-li-shi-xi/6-s081/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="微服务">
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="6.S081">
                         
-                        <span class="card-title">微服务</span>
+                        <span class="card-title">6.S081</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -707,7 +842,7 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2024-03-05
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-03-06
                         </span>
                         <span class="publish-author">
                             
@@ -727,13 +862,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2024/02/27/ai/python-and-web-or-ai/">
+                <a href="/2024/03/05/hou-duan/wei-fu-wu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="python and web or ai">
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="微服务">
                         
-                        <span class="card-title">python and web or ai</span>
+                        <span class="card-title">微服务</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -744,7 +879,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-02-27
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-03-05
                             </span>
                         <span class="publish-author">
                             
@@ -950,7 +1085,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">87.6k</span>
+                        class="white-color">97.7k</span>
             
             
             
