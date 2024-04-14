@@ -526,7 +526,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4.6k
+                    5.8k
                 </div>
                 
 
@@ -547,6 +547,38 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="计网"><a href="#计网" class="headerlink" title="计网"></a>计网</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>SDU，Service Data Unit，服务数据单元。<br>ISP 是 Internet Service Provider 的缩写，翻译为互联网服务提供商。<br>协议<br>Telnet 客户端登录协议，属于应用层<br>TLD 是 Top-Level Domain 的缩写，翻译为顶级域名<br>GBN (Go-Back-N)  退回<br>SR 选择性重传<br>mask 子网掩码<br>SDN 是指软件定义网络（Software-Defined Networking）<br>OSPF（Open Shortest Path First）是一种开放式的链路状态路由协议，用于计算机网络中的动态路由。<br>Secure sockets layer (SSL)</p>
+<h1 id="面试常问"><a href="#面试常问" class="headerlink" title="面试常问"></a>面试常问</h1><ul>
+<li>三次握手的过程<ol>
+<li>客户端发送带有SYN(同步序列)SEQ(序列号) = x  标志的数据包，客户端进入SYN_SEND状态</li>
+<li>服务端发送带有SYN(SEQ = y) + ACK (ACK = x + 1) 标志的数据包，进入SYN_RECV状态</li>
+<li>客户端发送 带有ACK(ACK = y + 1) 标志的数据包，二者进入ESTABLISHED状态</li>
+</ol>
+<ul>
+<li>为什么要第二次传回SYN 用于表明所收到的是对应的客户端发送的信号</li>
+</ul>
+</li>
+<li>四次挥手:<ol>
+<li>客户端发送FIN(SEQ = x) ，进入FIN-WAIT-1状态</li>
+<li>服务端发送ACK(ACK=x+1) 进入CLOSE-WAIT状态，客户端进入FIN-WAIT-2</li>
+<li>服务端发送FIN(SEQ=y) 请求关闭,进入LAST-ACK</li>
+<li>客户端发送，ACK(ACK=y+1) ，客户端进入TIME-WAIT，服务端接收后进入CLOSE，客户端等待一段时间之后如果没有收到回复，就关闭客户端。</li>
+</ol>
+<ul>
+<li>可不可以把ACK和FIN合并起来变成三次挥手： 不行，因为服务器收到断开请求时，可能还有一些数据没有传输完成，所以先发送ACK表明收到请求，等待所有数据发送完成之后发送FIN断开连接</li>
+</ul>
+</li>
+<li>ARP工作原理：广播问询，单播响应<ul>
+<li>一个局域网中<ol>
+<li>维护一个ARP表 &lt;IP,MAC,TTL&gt;</li>
+<li>查询ARP表，如果不存在，则构造一个ARP查询分组，将其广播到局域网中，MAC地址为广播地址，然后希望收到的是IP地址</li>
+<li>设备接收后查询是否为自己的IP，如果不是则丢弃，如果是，则构造ARP响应分组，发送给查询主机，并在自己的表中构造一条查询主机的IP-MAC映射表，使用的是单播，不再广播</li>
+<li>查询的主机接受后，将其加入ARP表中</li>
+</ol>
+</li>
+<li>不在一个局域网中：通过路由器转发查询</li>
+</ul>
+</li>
+</ul>
 <h2 id="网络核心"><a href="#网络核心" class="headerlink" title="网络核心"></a>网络核心</h2><p>概念：路由器的网状网络<br>提问： 数据怎么通过网络进行传输？</p>
 <ul>
 <li>电路电路交换：  不可共享资源，会造成资源浪费，不适合计算机之间的通讯，计算机通信的特点： 突发性，耗时短</li>
@@ -571,6 +603,14 @@
 <li>不必在每一个报文中都指定这四元组</li>
 <li>udp 只提供源主机的ip 和 port</li>
 </ul>
+</li>
+<li>WebSocket 工作过程：<ol>
+<li>客户端发送一个HTTP请求，包含升级字段</li>
+<li>服务器接收之后,进行协议升级，如果支持，会返回一个101状态码，包含一些对应响应头</li>
+<li>进行双向通信，数据以帧的方式传送。</li>
+<li>其中一方发送一个关闭帧，二者关闭TCP连接</li>
+<li>通过心跳机制保证WebSocket的稳定性和活跃性</li>
+</ol>
 </li>
 <li>UDP socket<br> UDP 两个进程之间的通信之前不需要建立连接，每个报文独立传输，前后报文可能给不同的分布式进程<br> udp socket 记录本IP 本port 但是传输报文时，需要提供对方ip， port ,接收报文时传输层需要上传对方IP port<br> 二元组： 源IP  源port</li>
 </ol>
@@ -627,8 +667,8 @@
 <ul>
 <li>安全TCP<br>  TCP和UDP都没有加密，明文传输<br>  使用SSL协议来实现加密，在TCP的基础上实现，提供加密的TCP，私密性，数据完整性，段堆到端的鉴别<br>  SSL socket API 应用通过API将铭文交给socket，SSL将其加密<br>URL : 访问协议 + 用户名 + 口令字 + 端口等</li>
 </ul>
-<h3 id="常见的应用层协议"><a href="#常见的应用层协议" class="headerlink" title="常见的应用层协议"></a>常见的应用层协议</h3><ul>
-<li><p>HTTP：超文本传输协议</p>
+<h3 id="常见的应用层协议"><a href="#常见的应用层协议" class="headerlink" title="常见的应用层协议"></a>常见的应用层协议</h3><h2 id="HTTP面试常问-状态码：-1-200-2-204-No-Content-响应头没有body数据-3-206-Partial-Content-表示返回的body数据不是资源的全部，只是一部分-4-301-Moved-Permanently-永久重定向，请求的资源已经不存在的-5-302-Found-表示临时重定向，301，302都会在响应头中使用字段Location指明后续要跳转URL-浏览器会自动重定向到新的URL-6-304：Not-Modified-告诉客户端可以接着使用缓存资源-7-400Bad-Request-报文有错-8-403-Forbidden-禁止访问-9-404-Not-Found-资源不存在或者没找到-10-500-Internal-Server-Error-服务器内部错误-11-501-Not-Implemented-客户端请求还不支持-12-502-Bad-Gateway-通常是服务器作为网关或代理时返回的错误码，表示服务器自身工作正常，访问后端服务器发生了错误。-13-03-Service-Unavailable-服务器忙，暂时无法响应-缓存技术：把请求-响应的数据存到本地，下一次直接都本地数据，不需要等待服务器的想用了-1-强制缓存-Cache-Control，-是一个相对时间；-Expires，是一个绝对时间；-2-协商缓存-在强制缓存未命中时，服务器第一次请求资源时，会在Response头部加上ETag唯一表示-当浏览器再次请求访问服务器中的资源时，先检查缓存是否过期，如果没有过期直接使用本地缓存，如果过期了会在Request头部上加上If-None-Match紫萼段-服务器再次收到请求之后，会根据请求中的If-None-Match值是否与当前请求的资源生成的唯一标识比较-如果值相等，返回304-Not-Modified-不会返回资源-如果不相等，则返回-200-状态码和返回资源，并在-Response-头部加上新的-ETag-唯一标识；-浏览器收到304响应码，会从本地加载资源否则更新资源。-HTTP-x2F-1-1-的优点：简单灵活、应用广泛-缺点是：无状态一方面可以不需要服务器使用额外的资源来记录状态信息-坏处是：进行关联性操作时，需要每次都验证一次身份-解决方法：使用Cookie"><a href="#HTTP面试常问-状态码：-1-200-2-204-No-Content-响应头没有body数据-3-206-Partial-Content-表示返回的body数据不是资源的全部，只是一部分-4-301-Moved-Permanently-永久重定向，请求的资源已经不存在的-5-302-Found-表示临时重定向，301，302都会在响应头中使用字段Location指明后续要跳转URL-浏览器会自动重定向到新的URL-6-304：Not-Modified-告诉客户端可以接着使用缓存资源-7-400Bad-Request-报文有错-8-403-Forbidden-禁止访问-9-404-Not-Found-资源不存在或者没找到-10-500-Internal-Server-Error-服务器内部错误-11-501-Not-Implemented-客户端请求还不支持-12-502-Bad-Gateway-通常是服务器作为网关或代理时返回的错误码，表示服务器自身工作正常，访问后端服务器发生了错误。-13-03-Service-Unavailable-服务器忙，暂时无法响应-缓存技术：把请求-响应的数据存到本地，下一次直接都本地数据，不需要等待服务器的想用了-1-强制缓存-Cache-Control，-是一个相对时间；-Expires，是一个绝对时间；-2-协商缓存-在强制缓存未命中时，服务器第一次请求资源时，会在Response头部加上ETag唯一表示-当浏览器再次请求访问服务器中的资源时，先检查缓存是否过期，如果没有过期直接使用本地缓存，如果过期了会在Request头部上加上If-None-Match紫萼段-服务器再次收到请求之后，会根据请求中的If-None-Match值是否与当前请求的资源生成的唯一标识比较-如果值相等，返回304-Not-Modified-不会返回资源-如果不相等，则返回-200-状态码和返回资源，并在-Response-头部加上新的-ETag-唯一标识；-浏览器收到304响应码，会从本地加载资源否则更新资源。-HTTP-x2F-1-1-的优点：简单灵活、应用广泛-缺点是：无状态一方面可以不需要服务器使用额外的资源来记录状态信息-坏处是：进行关联性操作时，需要每次都验证一次身份-解决方法：使用Cookie" class="headerlink" title="#HTTP面试常问- 状态码：    1. 200    2. 204 No Content 响应头没有body数据    3. 206 &nbsp;Partial Content 表示返回的body数据不是资源的全部，只是一部分    4. 301 Moved Permanently 永久重定向，请求的资源已经不存在的    5. 302: Found: 表示临时重定向，301，302都会在响应头中使用字段Location指明后续要跳转URL,浏览器会自动重定向到新的URL    6. 304：Not Modified 告诉客户端可以接着使用缓存资源    7. 400Bad Request 报文有错    8. 403 Forbidden 禁止访问    9. 404 Not Found 资源不存在或者没找到    10. 500 Internal Server Error 服务器内部错误    11. 501 Not Implemented 客户端请求还不支持    12. 502 Bad Gateway 通常是服务器作为网关或代理时返回的错误码，表示服务器自身工作正常，访问后端服务器发生了错误。    13. 03 Service Unavailable 服务器忙，暂时无法响应- 缓存技术：把请求-响应的数据存到本地，下一次直接都本地数据，不需要等待服务器的想用了    1. 强制缓存        - Cache-Control， 是一个相对时间；        - Expires，是一个绝对时间；    2. 协商缓存        - 在强制缓存未命中时，服务器第一次请求资源时，会在Response头部加上ETag唯一表示        - 当浏览器再次请求访问服务器中的资源时，先检查缓存是否过期，如果没有过期直接使用本地缓存，如果过期了会在Request头部上加上If-None-Match紫萼段        - 服务器再次收到请求之后，会根据请求中的If-None-Match值是否与当前请求的资源生成的唯一标识比较            - 如果值相等，返回304 Not Modified 不会返回资源            - 如果不相等，则返回 200 状态码和返回资源，并在 Response 头部加上新的 ETag 唯一标识；        - 浏览器收到304响应码，会从本地加载资源否则更新资源。- HTTP/1.1 的优点：简单灵活、应用广泛    - 缺点是：无状态一方面可以不需要服务器使用额外的资源来记录状态信息    - 坏处是：进行关联性操作时，需要每次都验证一次身份    - 解决方法：使用Cookie"></a>#HTTP面试常问<br>- 状态码：<br>    1. 200<br>    2. 204 No Content 响应头没有body数据<br>    3. 206 &nbsp;<strong>Partial Content</strong> 表示返回的body数据不是资源的全部，只是一部分<br>    4. 301 <strong>Moved Permanently</strong> 永久重定向，请求的资源已经不存在的<br>    5. 302: Found: 表示临时重定向，301，302都会在响应头中使用字段Location指明后续要跳转URL,浏览器会自动重定向到新的URL<br>    6. 304：<strong>Not Modified</strong> 告诉客户端可以接着使用缓存资源<br>    7. 400<strong>Bad Request</strong> 报文有错<br>    8. 403 <strong>Forbidden</strong> 禁止访问<br>    9. 404 <strong>Not Found</strong> 资源不存在或者没找到<br>    10. 500 <strong>Internal Server Error</strong> 服务器内部错误<br>    11. <strong>501 Not Implemented</strong> 客户端请求还不支持<br>    12. <strong>502 Bad Gateway</strong> 通常是服务器作为网关或代理时返回的错误码，表示服务器自身工作正常，访问后端服务器发生了错误。<br>    13. <strong>03 Service Unavailable</strong> 服务器忙，暂时无法响应<br>- 缓存技术：把请求-响应的数据存到本地，下一次直接都本地数据，不需要等待服务器的想用了<br>    1. 强制缓存<br>        - <code>Cache-Control</code>， 是一个相对时间；<br>        - <code>Expires</code>，是一个绝对时间；<br>    2. 协商缓存<br>        - 在强制缓存未命中时，服务器第一次请求资源时，会在Response头部加上ETag唯一表示<br>        - 当浏览器再次请求访问服务器中的资源时，先检查缓存是否过期，如果没有过期直接使用本地缓存，如果过期了会在Request头部上加上If-None-Match紫萼段<br>        - 服务器再次收到请求之后，会根据请求中的If-None-Match值是否与当前请求的资源生成的唯一标识比较<br>            - 如果值相等，返回304 Not Modified 不会返回资源<br>            - 如果不相等，则返回 200 状态码和返回资源，并在 Response 头部加上新的 ETag 唯一标识；<br>        - 浏览器收到304响应码，会从本地加载资源否则更新资源。<br>- HTTP/1.1 的优点：简单灵活、应用广泛<br>    - 缺点是：无状态一方面可以不需要服务器使用额外的资源来记录状态信息<br>    - 坏处是：进行关联性操作时，需要每次都验证一次身份<br>    - 解决方法：使用Cookie</h2><ul>
+<li><p>HTTP：超文本传输协议 HTTP默认80 HTTPS默认 443</p>
 <ul>
 <li>流程： 1. 客户发起一个与服务器的TCP连接，(建立socket) 2. 服务器接受TCP 连接 3. 浏览器和web服务器之间交换HTTP报文 4. TCP连接关闭 </li>
 <li>HTTP 是无状态的连接，不会维护任何和客户有关的信息，这时候就需要websocket了</li>
@@ -651,7 +691,7 @@
 <li>IMAP Internet 邮件访问协议，保留用户状态 远程管理文件夹</li>
 </ul>
 </li>
-<li><p><em>DNS</em> Domain Name System 建立IP 地址和 对应域名之间的映射<br>  主要思路：分层，基于域的命名机制，在若干分布式的数据库上完成转换<br>  也可以做到负载均衡<br>  域名结构：使用层次树状结构来进行命名<br>  域名结构：从本域开始往上直至树根，域严格遵循组织界限，而不是物理网络<br>  DNS 记录格式<br>  RP格式: (name,value,type , ttl)<br>  type=A  时， name 为主机 value 为IP<br>  =CNAME  Name 为规范名字的别名<br>  =NS           Name 为域名 (foo.com) value 为该域名的权威服务器的域名<br>  =MX          Value 为name对应邮件服务器名字</p>
+<li><p><em>DNS</em> Domain Name System 建立IP 地址和 对应域名之间的映射<br>  <strong><em>DNS默认默认端口是53</em></strong><br>  主要思路：分层，基于域的命名机制，在若干分布式的数据库上完成转换<br>  也可以做到负载均衡<br>  域名结构：使用层次树状结构来进行命名<br>  域名结构：从本域开始往上直至树根，域严格遵循组织界限，而不是物理网络<br>  DNS 记录格式<br>  RP格式: (name,value,type , ttl)<br>  type=A  时， name 为主机 value 为IP<br>  =CNAME  Name 为规范名字的别名<br>  =NS           Name 为域名 (foo.com) value 为该域名的权威服务器的域名<br>  =MX          Value 为name对应邮件服务器名字</p>
 <ul>
 <li>应用调用 解析器(resolver)</li>
 <li>解析器作为客户 向Name Server发出查询报文（封装在UDP段中）</li>
@@ -826,7 +866,10 @@
 <li>RIP（Routing Information Protocol）是一种用于计算机网络中的距离矢量路由协议</li>
 <li>OSP</li>
 <li>DNS 主机向要访问-&gt;向DNS查询IP地址-&gt;所查询的DNS服务器未知要查询的IP地址-&gt;向根域名服务器查询-&gt;根域名服务器收录了这个地址 -&gt;返回地址给客户端-&gt;客户端建立通信<br>网络层解决一个两个网络之间的问题，链路层要解决点对点传输的问题</li>
-<li><strong>ARP</strong>:以目标IP地址为线索，来定位下一个应该接受数据分包的网络设备的MAC地址，沟通IP和MAC地址 <strong>IP-&gt;MAC</strong><br>数据元为 frame 帧，帧的头部时使用MAC地址来标示源和目的地</li>
+<li><strong>ARP</strong>:以目标IP地址为线索，来定位下一个应该接受数据分包的网络设备的MAC地址，沟通IP和MAC地址 **IP-&gt;MAC **数据元为 frame 帧，帧的头部时使用MAC地址来标示源和目的地<ul>
+<li>ARP记录一个&lt;IP,MAC,TTL&gt; 的表，TTL是生存周期</li>
+</ul>
+</li>
 <li><strong>RARP</strong> MAC-&gt;IP<br>实现是在适配器上实现的，例如以太网卡</li>
 <li>WAN 广域网 网络形式采用点到点链路</li>
 <li>LAN 局域网 一般采用多点连接的方式</li>
@@ -846,7 +889,7 @@
 <li><p>PPP也属于数据链路层</p>
 </li>
 </ul>
-<h3 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h3><h4 id="OSI参考模型-有七个分层"><a href="#OSI参考模型-有七个分层" class="headerlink" title="OSI参考模型 有七个分层"></a>OSI参考模型 有七个分层</h4><p>自上而下 每一层的功能和作用由协议规定，协议的内容是规范</p>
+<h2 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h2><h4 id="OSI参考模型-有七个分层"><a href="#OSI参考模型-有七个分层" class="headerlink" title="OSI参考模型 有七个分层"></a>OSI参考模型 有七个分层</h4><p>自上而下 每一层的功能和作用由协议规定，协议的内容是规范</p>
 <ol>
 <li><p><strong>应用层</strong></p>
 <ul>
@@ -1293,7 +1336,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">99.1k</span>
+                        class="white-color">107.8k</span>
             
             
             

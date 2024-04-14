@@ -5,12 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="数据库, 博客，学习，成长">
-    <meta name="description" content="数据库Mysql面试指南指令执行过程select 
-
-使用连接器连接mysql server,期间通过三次握手 show processlist来查看多少个客户端连接了
-查询缓存(8.0) 已抛弃
-解析SQL ：
-词法分析，根据字符串识别关">
+    <meta name="description" content="数据库Mysql面试指南看看几个隔离级别和解决办法GBKh和UTF-8不是一种编码方式mysql中使用的utf-8是utf8mb3 使用13个字节来表示一个字符而utf-8使用14MVCC （Multi-Version Concurrenc">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -540,7 +535,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    17.5k
+                    20k
                 </div>
                 
 
@@ -560,8 +555,85 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h1><h2 id="Mysql面试指南"><a href="#Mysql面试指南" class="headerlink" title="Mysql面试指南"></a>Mysql面试指南</h2><h3 id="指令执行过程"><a href="#指令执行过程" class="headerlink" title="指令执行过程"></a>指令执行过程</h3><p>select </p>
-<ol>
+                <h1 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h1><h2 id="Mysql面试指南"><a href="#Mysql面试指南" class="headerlink" title="Mysql面试指南"></a>Mysql面试指南</h2><p>看看几个隔离级别和解决办法<br>GBKh和UTF-8不是一种编码方式<br>mysql中使用的utf-8是utf8mb3 使用1<del>3个字节来表示一个字符<br>而utf-8使用1</del>4<br>MVCC （Multi-Version Concurrency Control ，多版本并发控制）MVCC （Multi-Version Concurrency Control ，多版本并发控制）指的就</p>
+<p>是在使用 READ COMMITTD 、 REPEATABLE READ 这两种隔离级别的事务在执行普通的 SEELCT 操作时访问记录的版</p>
+<p>本链的过程，这样子可以使不同事务的 读-写 、 写-读 操作并发执行，从而提升系统性能。</p>
+<h3 id="InooDB详解"><a href="#InooDB详解" class="headerlink" title="InooDB详解"></a>InooDB详解</h3><ol>
+<li>InooDB大小一般为16kb</li>
+<li>InooDB页表:<img src="/2023/08/02/hou-duan/shu-ju-ku/InnoDB%E6%95%B0%E6%8D%AE%E9%A1%B5.png"></li>
+<li>File Header：<img src="/2023/08/02/hou-duan/shu-ju-ku/FileHeader.png"></li>
+<li>Page Header：<img src="/2023/08/02/hou-duan/shu-ju-ku/PageHeader.png"></li>
+<li>infimumu+supremum 最小记录和最大记录。不存放真是数据<img src="/2023/08/02/hou-duan/shu-ju-ku/%E6%95%B0%E6%8D%AE%E9%A1%B5%E8%AF%A6%E8%A7%A3.png"><ul>
+<li>heap_no分别为0和1， record_type分为4种，0普通记录，1表示B+树非叶节点记录，2最小记录，3最大记录。</li>
+<li>next_record 由当前真实数据指向吓一跳记录的真实数据。吓一跳记录不是按照插入顺序的下一条，而是根据主键排序之后的下一条。infimum的下一条记录是用户记录中主键最小的，用户记录中主键最大的下一条指向supremum</li>
+<li>为什么指向的是真是数据的开头？<ul>
+<li>因为向左读取为记录头信息，向右读取真实数据。 记录头信息刚好是<strong>逆序的！</strong></li>
+</ul>
+</li>
+<li><img src="/2023/08/02/hou-duan/shu-ju-ku/next_record%E7%A4%BA%E4%BE%8B.png"></li>
+</ul>
+</li>
+<li>User Record ： <ul>
+<li>由额外记录信息和实际信息组成</li>
+<li>额外记录：<ul>
+<li>变长字段的真实数据的字节长度都放在记录的开头，逆序存放。不存放NULL的字节长度</li>
+<li>NULLL值列表，NULL值存储在这里，并且是逆序存储，如果存在NULL值就不会存在这个列表</li>
+<li>记录头信息：<img src="/2023/08/02/hou-duan/shu-ju-ku/%E8%AE%B0%E5%BD%95%E5%A4%B4%E4%BF%A1%E6%81%AF.png"><ul>
+<li>delete_mask标记的记录不会理科删除，而是会放在垃圾列表中，等待覆盖。</li>
+<li>heap_no是根据主键的大小来确定的</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>真实信息：<ul>
+<li><img src="/2023/08/02/hou-duan/shu-ju-ku/%E9%9A%90%E8%97%8F%E5%88%97.png"></li>
+<li>如果未指定主键，会生成row_id隐藏列</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Page  Directory ：<ul>
+<li>将正常的所有记录划分为几个组，包括最大和最小记录，不包括已删除的记录,最小记录所在的分组只包括自己。</li>
+<li>每组最后一个记录的头信息中的n_ownd来表示该组中记录数。</li>
+<li>将每组的最后一条记录的地址偏移量拿出来放入PageDirectory中，偏移量被称为槽(slot)</li>
+<li><img src="/2023/08/02/hou-duan/shu-ju-ku/PageDirectory%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F.png"></li>
+</ul>
+</li>
+<li>File Trailer: 用于检验一个页是否完整：</li>
+</ol>
+<h3 id="索引："><a href="#索引：" class="headerlink" title="索引："></a>索引：</h3><ul>
+<li>前提<ol>
+<li>数据页链表中的前后保证前一个数据页中的主键的最大值大于后一个页表中主键的最小值，也就主键递增，每一个页表内，主键也递增</li>
+<li>建立一个目录项：包括 key:页中主键最小值 page_no:页号。</li>
+<li><img src="/2023/08/02/hou-duan/shu-ju-ku/%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86.png"></li>
+</ol>
+</li>
+<li>mysql中的实现：<ol>
+<li>使用用户记录的数据页来存储目录项，并且使用record_type = 1来标明，只包含key和page_no即可</li>
+<li>使用双向列表来维护多个目录项</li>
+<li>使用树的结构来重复建立索引，加快访问<img src="/2023/08/02/hou-duan/shu-ju-ku/%E7%B4%A2%E5%BC%95.png"><img src="/2023/08/02/hou-duan/shu-ju-ku/B+%E6%A0%91.png"></li>
+<li>真正的数据页都放在最底层的叶子节点</li>
+</ol>
+<ul>
+<li>聚簇索引：1. 使用主键值大小进行记录和排序 2. 叶子节点是完整的用户记录。索引即数据，数据即索引</li>
+<li>二级索引：1.使用非主键值来进行记录和排序 2. 叶子节点存储的是索引键和主键的值 3. 查询到叶子节点之后需要再查找一变主键的索引来找到真正的用户记录。 优点是节省空间。<img src="/2023/08/02/hou-duan/shu-ju-ku/%E4%BA%8C%E7%BA%A7%E7%B4%A2%E5%BC%95.png"></li>
+<li>联合索引：1.使用多个列的大小来进行排序。先按照一个列排序，列大小相同时，使用下一个列大小来排序。2. 对于这多个列只需要建立一个B+树即可，节省了空间3.实质上也是二级索引</li>
+<li>对比：MyISAM<ul>
+<li>存储在一个文件中，按照插入顺序，有行号</li>
+<li>索引放在另一个文件中，使用主键值+行号作为索引，所以全是二级索引，而且不能二分查找。</li>
+</ul>
+</li>
+<li>SQL建立索引：每一个表会自动为主键或者unique建立一个聚簇索引，可使用语句指定建立其他列的索引<img src="/2023/08/02/hou-duan/shu-ju-ku/sql%E5%BB%BA%E7%AB%8B%E7%B4%A2%E5%BC%95.png"></li>
+<li>删除索引：ALTER TABLE index_demo DROP INDEX idx_c2_c3;</li>
+</ul>
+</li>
+<li>独立表空间：<ol>
+<li>区：表空间分为多个区，区包含多个页</li>
+</ol>
+</li>
+</ul>
+<h3 id="指令执行过程"><a href="#指令执行过程" class="headerlink" title="指令执行过程"></a>指令执行过程</h3><ul>
+<li>select <ol>
 <li>使用连接器连接mysql server,期间通过三次握手 show processlist来查看多少个客户端连接了</li>
 <li>查询缓存(8.0) 已抛弃</li>
 <li>解析SQL ：<ol>
@@ -576,8 +648,8 @@
 </ul>
 </li>
 </ol>
-<ul>
-<li>MySQL一行记录如何村粗胡<ul>
+</li>
+<li>MySQL一行记录如何<ul>
 <li>每建立一个数据库都会咋/var.lib/mysql/下建立一个同名的文件夹</li>
 <li>文件夹中有三个文件</li>
 <li>db.opt 用来存储数据库的默认字符集和字符检验规则</li>
@@ -625,6 +697,46 @@
 <li>按「物理存储」分类：<strong>聚簇索引（主键索引）、二级索引（辅助索引）</strong>。</li>
 <li>按「字段特性」分类：<strong>主键索引、唯一索引、普通索引、前缀索引</strong>。</li>
 <li>按「字段个数」分类：<strong>单列索引、联合索引</strong>。</li>
+</ul>
+<h3 id="Join"><a href="#Join" class="headerlink" title="Join"></a>Join</h3><p>以下三种内连接是等价的:</p>
+<ul>
+<li>SELECT * FROM t1 JOIN t2;</li>
+<li>SELECT * FROM t1 INNER JOIN t2;</li>
+<li>SELECT * FROM t1 CROSS JOIN t2;<br>外联结，指定一个为驱动表，另一个为被驱动表，驱动表只访问一次，被被驱动表会被多次循环扫描。</li>
+</ul>
+<h3 id="MySql查询优化"><a href="#MySql查询优化" class="headerlink" title="MySql查询优化"></a>MySql查询优化</h3><ul>
+<li>单表 <ol>
+<li>根据搜索条件，找出所有可能使用的索引</li>
+<li>计算全表扫描的代价</li>
+<li>计算使用不同索引执行查询的代价</li>
+<li>对比各种执行方案的代价，找出成本最低的那一个</li>
+</ol>
+</li>
+<li>多表连接：<ol>
+<li>单次查询驱动表的成本</li>
+<li>多次查询被驱动表的成本（具体查询多少次取决于对驱动表查询的结果集中有多少条记录）</li>
+</ol>
+</li>
+<li>连接查询成本占大头的其实是 驱动表扇出数 x 单次访问被驱动表的成本 ，所以我们的优化<ol>
+<li>重点其实是下边这两个部分：</li>
+<li>尽量减少驱动表的扇出</li>
+<li>对被驱动表的访问成本尽量低</li>
+</ol>
+</li>
+</ul>
+<h3 id="Buffer-Pool-缓冲池"><a href="#Buffer-Pool-缓冲池" class="headerlink" title="Buffer Pool 缓冲池"></a>Buffer Pool 缓冲池</h3><p>脏页：缓冲池中的数据已经修改但是没有同步到磁盘中</p>
+<h3 id="事务隔离等级："><a href="#事务隔离等级：" class="headerlink" title="事务隔离等级："></a>事务隔离等级：</h3><ul>
+<li>并发遇到的问题<ol>
+<li>脏写：一个事务修改了另一个未提交未提交事务修改的数据</li>
+<li>脏读：一个事务读到了另一个未提交事务修改的数据</li>
+<li>不可重复读：一个事务多次读取数据时，每次读到的都不一样，意味着发生了不可重复读。</li>
+<li>幻读：一个事务的两次相同的查询查到的数据不一致。</li>
+</ol>
+</li>
+<li>隔离级别：<ol>
+<li></li>
+</ol>
+</li>
 </ul>
 <h3 id="记录的真实数据"><a href="#记录的真实数据" class="headerlink" title="#记录的真实数据"></a><a target="_blank" rel="noopener" href="https://www.xiaolincoding.com/mysql/base/row_format.html#%E8%AE%B0%E5%BD%95%E7%9A%84%E7%9C%9F%E5%AE%9E%E6%95%B0%E6%8D%AE">#</a>记录的真实数据</h3><pre><code>- 
 </code></pre>
@@ -1584,6 +1696,86 @@ conn.close();
 select <span class="token operator">?</span> from <span class="token operator">?</span> where  <span class="token operator">?</span>   前两个<span class="token operator">?</span>不成立，只能用 <span class="token string">"+variable+"</span> 的方式<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <h1 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h1><h3 id="面试常问"><a href="#面试常问" class="headerlink" title="面试常问"></a>面试常问</h3><ul>
+<li><p>基本数据类型及其有用的一些东西</p>
+<ol>
+<li>string <ul>
+<li>redis中的string可以包含任何数据，包括jpg和序列化的对象，因为string是byte [] 数组</li>
+<li>setrange key number string 从number开始的下标处替换string,从0开始</li>
+<li>mset 设置多个</li>
+<li>xxnx not exit 不存在的话在设置</li>
+<li>getrange key begin end</li>
+<li>incryby key 增量 修改数据</li>
+<li>append key 加</li>
+<li>strlen 获取长度</li>
+</ul>
+</li>
+<li>hash: string类型的 field 和 value的映射表,占用内存更少，方便取整个对象<ul>
+<li>hset/hsetnx key field1 value1</li>
+<li>hmget 获取多个fields</li>
+<li>hexists key field 测试field是否存在</li>
+<li>hlen key 有多少field</li>
+<li>hkeys key 获取所有的field</li>
+<li>hvals 获取所有的value</li>
+<li>hgetall == hvals + hkeys</li>
+</ul>
+</li>
+<li>list 底层是链表，可当作queue使用，有序，可重复，key为链表的名字<ul>
+<li>lpush 头部添加 rpush尾部添加,linsert key</li>
+<li>lset 重新设定指定位置的数据 </li>
+<li>lrem key count value 从头开始删除count个和value一样值的数据， count &gt; 0 从头开始,count &lt; 0从尾部开始，count == 0 删除所有的</li>
+<li>ltrim 只保留给定范围的数据</li>
+<li>lpop/rpop</li>
+<li>rpoplpush key1 key2 将key1的尾部移除并加入key2的头部，原子操作</li>
+<li>lindex下标访问</li>
+<li>llen获取长度</li>
+</ul>
+</li>
+<li>set<ul>
+<li>便于求集合的交并差,无序集合，不可重复</li>
+<li>sadd key value</li>
+<li>srem key value</li>
+<li>spop key 随机删除并返回一个元素</li>
+<li>sdiff 求交集 一个key1 多个key2 , key3，也就是在其他key中与其他key不同元素</li>
+<li>sdiffstore 将diff的结果保存到另一个key中</li>
+<li>sinter(store) 交集(存储)</li>
+<li>sunion(store) 并集</li>
+<li>smove 将key1 中的删除添加给第二个</li>
+<li>scard 统计元素个数</li>
+<li>sismember测试是否为key的元素</li>
+<li>srandmember随机返回不删除</li>
+</ul>
+</li>
+<li>sorted sets<ul>
+<li>有序，不可重复，会关联一个double类型score来进行排序,是skip list 和 hash table的混合，score越小的越在前面</li>
+<li>zadd key score value</li>
+<li>zrem</li>
+<li>zincrby key score value 给这个元素的score添加</li>
+<li>zrank 按照从小到大排序返回某个member的排名</li>
+<li>zrerank反向排序</li>
+<li>zcount 返回给定区间score内的数量</li>
+<li>zcarf 返回元素数量</li>
+<li>zscore 返回score</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>常用指令：keys ， del , expire,move转移把当前数据库中的数据转移到其他数据中,persist移除给定key的过期时间，randomkey随机返回一个key,rename,type</li>
+<li>ping,echo,select(0~15),dbsize返回当前数据库中所有的key数量,info获取服务器统计信息</li>
+<li>monitor实时转存收到的请求</li>
+<li>flushdb删除所选择的数据库的所有key</li>
+<li>fushall 删除所有数据库的所有key</li>
+</ul>
+</li>
+<li><p>主从复制：master可以拥有多个slave,master不会被阻塞，同步时，master建立一个后台进程来进行保存。 配置需要去conf文件中 slaveof ip port</p>
+</li>
+<li><p>multi开始事务，discard取消事务redis的事务在出错时，只会回滚出错的命令</p>
+</li>
+<li><p>使用watch key 来对某一个key加上乐观锁</p>
+</li>
+<li><p>RDB方式：redis建立新的子进程，父进程继续处理请求，子进程负责将内存内容写到临时文件，os的实时复写会使得父进程和子进程共享一个物理页面，所以会为父进程要修改的页面创建副本，所以子进程内的数据就是fork时的快照。 子进程写完文件之后，使用临时文件代替原来的快照文件，之后子进程quit, <strong>进行的是全量快照，会把整个数据全部保存</strong></p>
+</li>
+<li><p>aof</p>
+</li>
 <li><p>Redis 与 Memcached&nbsp;<strong>区别</strong>：</p>
 <ol>
 <li>Redis支持的数据类型更丰富：Sting Hash List Set Zset， M只支持key-value数据类型</li>
@@ -1622,13 +1814,15 @@ select <span class="token operator">?</span> from <span class="token operator">?
 </li>
 <li>这些任务的操作都是很耗时的，如果把这些任务都放在主线程来处理，那么 Redis 主线程就很容易发生阻塞，这样就无法处理后续的请求了。</li>
 </ul>
+<p>  #标签</p>
 </li>
-<li><p>Redis单线程来处理网络I/O和执行命令，为何这么快？</p>
+<li><pre><code> Redis单线程来处理网络I/O和执行命令，为何这么快？ 
+</code></pre>
 <ol>
-<li>Redis的大部分操作都在内存中完成，并且使用了高效的数据机构</li>
-<li>单线程模式可以比米娜多线程之间的竞争，省去了多线程的切换时间和性能上的开销，同时不会导致死锁问题</li>
-<li>使用了I/O多路复用来处理Socket请求：<ul>
-<li>一个线程处理多个 IO 流，Redis在单线程模式下，允许内核同时存在多个监听的Socket和已连接的Socket</li>
+<li>==Redis的大部分操作都在内存中完成，并且使用了高效的数据机构==</li>
+<li>==单线程模式可以省去多线程之间的竞争，省去了多线程的切换时间和性能上的开销，同时不会导致死锁问题==</li>
+<li>==使用了I/O多路复用来处理Socket请求：==<ul>
+<li>==一个线程处理多个 IO 流，Redis在单线程模式下，允许内核同时存在多个监听的Socket和已连接的Socket==</li>
 </ul>
 </li>
 </ol>
@@ -2177,7 +2371,17 @@ watch 监视多个key <span aria-hidden="true" class="line-numbers-rows"><span><
 <li>设置cofig中的 auto-aof-rewrite-percentage 和 auto-aof-rewriter-min-size来自动重写</li>
 </ul>
 <h2 id="多机操作和集群"><a href="#多机操作和集群" class="headerlink" title="多机操作和集群"></a>多机操作和集群</h2><p><code>replicaof 主服务器ip port</code> 使得当前服务器作为该服务器的从服务器</p>
-<h1 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h1><p>是一种源代码可用的文档数据库，以序列化的 JSON 格式存储数据。MongoDB 将数据存储在外部存储器中，但在企业版中包含内存存储引擎。</p>
+<h1 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h1><p>Mongdb面试</p>
+<p>是一种源代码可用的文档数据库，以序列化的 JSON 格式存储数据。MongoDB 将数据存储在外部存储器中，但在企业版中包含内存存储引擎。</p>
+<h4 id="基本概念："><a href="#基本概念：" class="headerlink" title="基本概念："></a>基本概念：</h4><ol>
+<li>文档：数据存储的基本单位</li>
+<li>集合：集合是动态的，可以把不同类型的文档归为一个集合</li>
+<li>文档-&gt;集合-&gt;数据库-&gt;MongoDB</li>
+<li>mongosh是一个js解释器，可以使用js标准库或者运行函数</li>
+</ol>
+<ul>
+<li><h2 id="CRUD-建立数据库直接use一个新的数据库即可-变量-x3D-…-之后db-集合-insertOne-变量-或者insertMany-db-集合-find-或者findOne-updateOne-db-集合-deleteOne-x2F-Many-db-dropDatabase-删除当前数据库-db-collection-drop-删除指定集合-db-col-update-‘title’-’MongoDB-教程’-set-‘title’-’MongoDB’-对应的变量名-“nMatched”-1-“nUpserted”-0-“nModified”-1-multi-true-设置multi-true可以修改选定的所有文档"><a href="#CRUD-建立数据库直接use一个新的数据库即可-变量-x3D-…-之后db-集合-insertOne-变量-或者insertMany-db-集合-find-或者findOne-updateOne-db-集合-deleteOne-x2F-Many-db-dropDatabase-删除当前数据库-db-collection-drop-删除指定集合-db-col-update-‘title’-’MongoDB-教程’-set-‘title’-’MongoDB’-对应的变量名-“nMatched”-1-“nUpserted”-0-“nModified”-1-multi-true-设置multi-true可以修改选定的所有文档" class="headerlink" title="CRUD:  - 建立数据库直接use一个新的数据库即可  - 变量 = {…},之后db.集合.insertOne(变量)或者insertMany()  - db.集合.find()或者findOne()  - updateOne()  - db.集合.deleteOne/Many()  - db.dropDatabase()删除当前数据库  - db.collection.drop() 删除指定集合  - db.col.update({‘title’:’MongoDB 教程’},{$set:{‘title’:’MongoDB’}}) 对应的变量名({ “nMatched” : 1, “nUpserted” : 0, “nModified” : 1 },{multi:true}) 设置multi : true可以修改选定的所有文档"></a>CRUD:<br>  - 建立数据库直接use一个新的数据库即可<br>  - 变量 = {…},之后db.集合.insertOne(变量)或者insertMany()<br>  - db.集合.find()或者findOne()<br>  - updateOne()<br>  - db.集合.deleteOne/Many()<br>  - db.dropDatabase()删除当前数据库<br>  - db.collection.drop() 删除指定集合<br>  - db.col.update({‘title’:’MongoDB 教程’},{$set:{‘title’:’MongoDB’}}) 对应的变量名({ “nMatched” : 1, “nUpserted” : 0, “nModified” : 1 },{multi:true}) 设置multi : true可以修改选定的所有文档</h2></li>
+</ul>
 
                 
             </div>
@@ -2598,7 +2802,7 @@ watch 监视多个key <span aria-hidden="true" class="line-numbers-rows"><span><
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">99.1k</span>
+                        class="white-color">107.8k</span>
             
             
             
