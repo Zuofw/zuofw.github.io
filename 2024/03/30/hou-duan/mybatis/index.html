@@ -5,9 +5,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="mybatis, 博客，学习，成长">
-    <meta name="description" content="
-执行过程
-java程序加载config文件，创建SqlSessionFactory对象，之后通过SqlSessionFactory创建SqlSession对象，之后通过SqlSession对象执行映射配置文件中定义的SQL语句，最后通过S">
+    <meta name="description" content="面试常问:
+Mybatis的缓存
+
+一级缓存：也即是本地缓存，是SqlSession级别的,读个sql语句之间不会共享缓存，使用@Transactional来生效，也就是说在一次事务中多次查询会使用到一级缓存
+默认开启，可以在配置中关闭
+
+">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -528,7 +532,7 @@ java程序加载config文件，创建SqlSessionFactory对象，之后通过SqlSe
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    177
+                    577
                 </div>
                 
 
@@ -548,8 +552,31 @@ java程序加载config文件，创建SqlSessionFactory对象，之后通过SqlSe
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <ul>
-<li>执行过程<ul>
+                <h2 id="面试常问"><a href="#面试常问" class="headerlink" title="面试常问:"></a>面试常问:</h2><ul>
+<li><p>Mybatis的缓存</p>
+<ul>
+<li>一级缓存：也即是本地缓存，是SqlSession级别的,读个sql语句之间不会共享缓存，使用@Transactional来生效，也就是说在一次事务中多次查询会使用到一级缓存<ul>
+<li>默认开启，可以在配置中关闭</li>
+</ul>
+<ol>
+<li>当我们执行查询操作时，MyBatis会先去一级缓存中查找是否有之前查询过的数据。如果有，直接返回缓存中的数据；如果没有，去数据库查询数据，并将查询结果放入一级缓存中。  </li>
+<li>当我们执行更新操作（包括insert、update、delete）时，MyBatis会清空一级缓存。这是为了保证缓存中的数据和数据库中的数据是一致的。  </li>
+<li>当SqlSession结束或关闭时，一级缓存也就清空了。</li>
+</ol>
+</li>
+<li>二级缓存:<ul>
+<li>在mapper.xml上方加上<code>&lt;Cache&gt;&lt;/Cache&gt;</code> 即可</li>
+<li>根据mapper.xml中命名空间来区分，是mapper级别的，只用当执行同一个mapper中的增改删语句时才会失效，增删改频繁时二级缓存基本失效，并且，微服务中多台服务中只有被调用的那一台的二级缓存才会删除，其余的不删除，造成不一致。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Springboot Cache，会缓存方法的返回值，但是同样也只能在一个节点生效，并且，@Cacheable不会主动刷新缓存，但是@CachePut会强制刷新缓存，并把新的缓存放入</p>
+</li>
+<li><p>共享的缓存！Redis 可以在配置文件中将springboot的缓存类型设置为Redis</p>
+</li>
+<li><p>执行过程</p>
+<ul>
 <li>java程序加载config文件，创建SqlSessionFactory对象，之后通过SqlSessionFactory创建SqlSession对象，之后通过SqlSession对象执行映射配置文件中定义的SQL语句，最后通过SqlSession对象提交事务，关闭SqlSession对象</li>
 <li><img src="/2024/03/30/hou-duan/mybatis/%E5%88%86%E5%B1%82.png"></li>
 </ul>
@@ -962,7 +989,7 @@ java程序加载config文件，创建SqlSessionFactory对象，之后通过SqlSe
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">107.8k</span>
+                        class="white-color">112.8k</span>
             
             
             

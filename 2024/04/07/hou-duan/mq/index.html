@@ -5,13 +5,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="MQ, 博客，学习，成长">
-    <meta name="description" content="RocketMQ
-
-生产者组-&amp;gt;发送消息的一方
-消息的类型：
-普通消息：并发消息，并发消息没有顺序
-分区有序消息:把一个Topic消息分为多个分区，保护和消费，分区内的消息就是队列，FIFO
-全局有序：把一个Topic分区数设为1，所">
+    <meta name="description" content="AMQP协议
+主要特点：生产者首先把消息发送到服务端(exchange)，由服务端决定把消息发送到对应的队列中
+AMQ Model组件：
+exchange 交换器，从publisher中收集消息并根据路由规则发送到对应的消息队列中
+mess">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -532,7 +530,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    655
+                    1.7k
                 </div>
                 
 
@@ -552,7 +550,16 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="RocketMQ"><a href="#RocketMQ" class="headerlink" title="RocketMQ"></a>RocketMQ</h2><p><img src="/2024/04/07/hou-duan/mq/%E8%A7%92%E8%89%B2.png"></p>
+                <h2 id="AMQP协议"><a href="#AMQP协议" class="headerlink" title="AMQP协议"></a>AMQP协议</h2><ul>
+<li>主要特点：生产者首先把消息发送到服务端(exchange)，由服务端决定把消息发送到对应的队列中</li>
+<li>AMQ Model组件：<ol>
+<li>exchange 交换器，从publisher中收集消息并根据路由规则发送到对应的消息队列中</li>
+<li>message queue 消息队列，存储消息，直到消息被安全的投递到了消费者</li>
+<li>binding 定义了 mq 和 exchange之间的关系，是路由表</li>
+</ol>
+</li>
+</ul>
+<h2 id="RocketMQ"><a href="#RocketMQ" class="headerlink" title="RocketMQ"></a>RocketMQ</h2><p><img src="/2024/04/07/hou-duan/mq/%E8%A7%92%E8%89%B2.png"></p>
 <ol>
 <li>生产者组-&gt;发送消息的一方<ul>
 <li>消息的类型：<ol>
@@ -601,6 +608,92 @@
 </ol>
 <ul>
 <li>Namesrv集群：一个无状态的元数据管理，Namesrv之于RocketMQ等价于Zookeeper之于Kafka。Topic路由注册和管理、Broker注册和发现的管理者</li>
+</ul>
+<h2 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h2><ul>
+<li>一个独立的Kafka服务器被称作broker,broker是集群的组成部分，每个集群都有一个broker同时充当了集群控制器的角色</li>
+<li>kafka的主题被分为多个分区，分区存储在磁盘中</li>
+<li>kafka的消息特点：消息会保留一段时间，即使应用程序下线，消息仍然会保存在kafka里，是基于磁盘的数据存储。</li>
+<li>API使用：<ul>
+<li>producer<ul>
+<li>record的参数，topic , key ,value key可以省略，当省略时就是一个没有key的value，key一般用于把相同key的数据写入同一个分区里</li>
+<li>send默认是发送并忘记，send会返回一个Future对象使用.get方法得到RecordMetadata对象，可以获取消息的偏移量</li>
+<li>异步发送.send(record,回调函数类)，回调函数需要实现Callback类，并且重写其中的方法</li>
+<li>配置设置：<ol>
+<li>acks = 0 生产者无需等待服务器的响应，但消息丢失时不会知晓， = 1，只要集群的首领节点收到即可，= all需要所有参与复制的节点都受到消息才会受到服务器的响应，不建议</li>
+<li>buffer.memory设置producer内存缓冲区大小，</li>
+<li>compression.type设置消息的压缩格式，默认不会压缩</li>
+<li>retries重试次数</li>
+<li>batch.size 当多个消息被发送到同一个分区时，producer会把他们放在一起，当作一个批次，这个参数指定一个批次可以使用的最大内存</li>
+<li>max.in.flight.requests.per.connection 生产者在接收到服务器响应之前可以发送多少个消息，设置为 1 时可以保证消息是按照顺序写入的，适合在银行等严格要求顺序的时候使用</li>
+</ol>
+</li>
+<li>自定义分区：  <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DemoPartitionser</span> <span class="token keyword">implements</span> <span class="token class-name">Partitioner</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">private</span> <span class="token class-name">String</span> myKey<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">partition</span><span class="token punctuation">(</span><span class="token class-name">String</span> topic<span class="token punctuation">,</span> <span class="token class-name">Object</span> key<span class="token punctuation">,</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> keyBytes<span class="token punctuation">,</span> <span class="token class-name">Object</span> value<span class="token punctuation">,</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> valueBytes<span class="token punctuation">,</span> <span class="token class-name">Cluster</span> cluster<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 获取分区列表</span>
+        <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">PartitionInfo</span><span class="token punctuation">&gt;</span></span> partitionInfos <span class="token operator">=</span> cluster<span class="token punctuation">.</span><span class="token function">partitionsForTopic</span><span class="token punctuation">(</span>topic<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 获取分区数</span>
+        <span class="token keyword">int</span> partitionNum <span class="token operator">=</span> partitionInfos<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token punctuation">(</span>keyBytes <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token punctuation">(</span>key <span class="token keyword">instanceof</span> <span class="token class-name">String</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span><span class="token string">"key is null or not a string"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">// 如果key为key，则分配到最后一个分区</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token string">"key"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">return</span> partitionNum<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">//其余的消息都分配到最后一个分区</span>
+        <span class="token keyword">return</span> <span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token function">abs</span><span class="token punctuation">(</span>key<span class="token punctuation">.</span><span class="token function">hashCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">%</span> <span class="token punctuation">(</span>partitionNum <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/*
+     * @description:
+     * @author bronya
+     * @date: 2024/4/20 14:50
+     * @param map
+     */</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">configure</span><span class="token punctuation">(</span><span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token operator">?</span><span class="token punctuation">&gt;</span></span> map<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        myKey <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">)</span> map<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"key"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+</li>
+<li>consumer:<ul>
+<li>API:<ol>
+<li>consumer类的创建方式和producer一致，但是推荐指定 group.id来指定属于哪个群组，</li>
+<li>consumer.subscirbe()订阅相关的topic，同时支持正则表达式 <code>consumer.subscribe(Arrays.asList("topic1", "topic2"));</code></li>
+<li>consumer.poll(xxx) 参数是轮询的阻塞时间，会等待broker返回数据</li>
+<li>记得.close()</li>
+<li>建议一个线程中只有一个消费者</li>
+</ol>
+</li>
+<li>配置：<ul>
+<li>大部分和producer类似</li>
+<li>fetch.min.bytes消费者从服务器获取记录的最小字节数，当数据量大于等于这个值才会被返回给消费者</li>
+</ul>
+</li>
+<li>提交和偏移量：消费者往_consumer_offset特殊主题发送消息，消息包含每个分区的偏移量，当触发再均衡时，消费者会读取每个分区组后一次提交的偏移量，然后从偏移量指定的地方开始处理<ul>
+<li>提交方式：<ol>
+<li>自动提交:每隔一段时间自动提交一次</li>
+<li>提交当前偏移量:设置auto.commit.offset为false.然后使用commitSync()提交偏移量，会提交最新的一次由poll获得的偏移量</li>
+<li>异步提交：commitAsync()，也可使用回调函数来处理</li>
+<li>可以提交特定偏移量，而不是最后一次poll得到的偏移量</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>通过实现 ConsumerRebalanceListener接口来定义在consumer失去对分区的所有权时需要处理的事件，可在这里使用.seek()方法加上自定义的函数来实现从数据库中获得偏移量</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
                 
@@ -1006,7 +1099,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">107.8k</span>
+                        class="white-color">112.8k</span>
             
             
             

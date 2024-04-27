@@ -4,8 +4,15 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="标签: 算法，数据结构, 博客，学习，成长">
-    <meta name="description" content="个人网站，学习记录，互联网的一篇属于自己的小窝">
+    <meta name="keywords" content="train, 博客，学习，成长">
+    <meta name="description" content="Tigs:
+
+相同的application文件优先使用公共的配置
+
+一些没什么用的小概念Gateway 网关负责分发前端请求使用分布式锁来解决缓存击穿
+
+以下是要自己完成的：
+使用Spring Security和GateWay完成路由转发和">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +24,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>标签: 算法，数据结构 | QingQiu&#39;Blog</title>
+    <title>train | QingQiu&#39;Blog</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
     
 
@@ -472,176 +479,505 @@
 
 </header>
 
-    <div class="bg-cover pd-header about-cover">
-    <div class="container">
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">train</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
     <div class="row">
-    <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
-        <div class="brand">
-            <div class="title center-align">
-                
-                清秋的小窝
-                
-            </div>
-
-            <div class="description center-align">
-                
-                <span id="subtitle"></span>
-                <script src="/libs/typed/typed.js"></script>
-                <script>
-                    var typed = new Typed("#subtitle", {
-                        strings: [ 
-                            
-                                "从来没有真正的绝境, 只有心灵的迷途",
-                            
-                                "Never really desperate, only the lost of the soul",
-                            
-                        ],
-                        startDelay: 300,
-                        typeSpeed: 100,
-                        loop: true,
-                        backSpeed: 50,
-                        showCursor: true
-                    });
-                </script>
-                
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<script>
-    // 每天切换 banner 图.  Switch banner image every day.
-    var bannerUrl = "/medias/banner/" + new Date().getDay() + '.jpg';
-    $('.bg-cover').css('background-image', 'url(' + bannerUrl + ')');
-</script>
-<script>
-    
-      var bannerUrl = "/medias/featureimages/" + Math.floor(Math.random() * 24) + '.jpg';
-    
-    $('.bg-cover.about-cover').css('background-image', 'url(' + bannerUrl + ')');
-
-</script>
-
-
-    </div>
-</div>
-
-<main class="content">
-
-    
-
-<div id="tags" class="container chip-container">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
     <div class="card">
-        <div class="card-content">
-            <div class="tag-title center-align">
-                <i class="fas fa-tags"></i>&nbsp;&nbsp;文章标签
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
             </div>
-            <div class="tag-chips">
+
+            <div class="post-info">
                 
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2024-04-23
+                </div>
                 
-                <a href="/tags/Web/" title="Web: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Web" style="background-color: #F9EBEA;">Web
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
+
                 
+
                 
-                <a href="/tags/Github/" title="Github: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Github" style="background-color: #F5EEF8;">Github
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    1.3k
+                </div>
                 
+
                 
-                <a href="/tags/Go/" title="Go: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Go" style="background-color: #D5F5E3;">Go
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/vim-git/" title="vim git: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="vim git" style="background-color: #E8F8F5;">vim git
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/java/" title="java: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="java" style="background-color: #FEF9E7;">java
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/%E7%AE%97%E6%B3%95%EF%BC%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" title="算法，数据结构: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-active "
-                            data-tagname="算法，数据结构" style="background-color: #F8F9F9;">算法，数据结构
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/excalidraw/" title="excalidraw: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="excalidraw" style="background-color: #82E0AA;">excalidraw
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
+
                 
             </div>
         </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>Tigs:</p>
+<ol>
+<li>相同的application文件优先使用公共的配置</li>
+</ol>
+<h2 id="一些没什么用的小概念"><a href="#一些没什么用的小概念" class="headerlink" title="一些没什么用的小概念"></a>一些没什么用的小概念</h2><h2 id="Gateway-网关负责分发前端请求"><a href="#Gateway-网关负责分发前端请求" class="headerlink" title="Gateway 网关负责分发前端请求"></a>Gateway 网关负责分发前端请求</h2><p>使用分布式锁来解决缓存击穿</p>
+<ul>
+<li><strong>以下是要自己完成的：</strong><ol>
+<li>使用Spring Security和GateWay完成路由转发和认证</li>
+<li>使用kafka或rocketmq<br>Redis作为缓存</li>
+</ol>
+</li>
+<li>缓存问题：<ol>
+<li>每天的用户很多但是用户每天使用的次数很少，同时会员的信息涉及的表很多<ul>
+<li>解决：使用本地缓存，因为每个会员使用次数很少，一分钟有效，</li>
+<li>问题:fullgc频繁，导致短时间内大量请求失败，因为缓存时间很短，所以大量的新生代出现，引起频繁的gc，然后大量放入老年代引起fullgc ， 解决：不用本地缓存，而是用线程本地变量，放在内存中。</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="Senta"><a href="#Senta" class="headerlink" title="Senta"></a>Senta</h2><ul>
+<li>原理：生成反向sql</li>
+<li>模式：<ol>
+<li>AT模式：默认，添加undo_log,反向生成sql，回滚之后原来没数据的依然没有数据<ul>
+<li>使用方法：<ol>
+<li>建立undo_log表</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>TCC模式： try confirm/cancel 三个阶段的代码自己实现，Seata负责调度</li>
+<li>SAGA模式：长事务解决方案，需要编写两个阶段的代码，需要一个JSON文件，可以异步执行</li>
+<li>XA模式：适用于银行和金融，需要数据库支持XA协议<br>  try 之前的代码出现异常会直接结束，不会走finally</li>
+</ol>
+</li>
+</ul>
+<h2 id="如何处理多并发的买票"><a href="#如何处理多并发的买票" class="headerlink" title="如何处理多并发的买票"></a>如何处理多并发的买票</h2><ol>
+<li>使用synchronized ，缺点：会导致卡住，只适合单机</li>
+<li>使用Redis分布式锁，使用日期+车次来作为锁key，然后放入Redis中，如果拿到锁则继续执行，使用的使setIfAbsent(key,value,timeout),如果这个锁不存在则设置并且返回true，买到票之后删除key 缺点：如果线程执行时间超过了超时时间，也会导致超卖    <strong>对应Redis的命令是setnx</strong></li>
+<li>使用Redisson看门狗，使用一个守护线程来关注超时间是，如果事务未完成但是锁即将过期则重置时间，如果事务结束则守护线程结束，lock.isHeldByCurrentThread来判断是否是当前线程的锁，缺点：Redis集群中Redis宕机，会导致获得得不到锁，然后新的线程向新的Redis主节点中获得锁，仍然可以获得锁 ， <strong>最常用</strong> ，Redisson中的锁在释放了之后Redis就查不到了！！！</li>
+<li>使用红锁：只有拿到半数以上的同等地位的Redis的锁才算拿到锁，Redisson中也有自带的红锁，不常用， 缺点：性能问题，并且如果都得不到锁就都会等待了，尽量去尝试获得更多的锁来解决单机宕机问题</li>
+</ol>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@RestController</span>
+<span class="token annotation punctuation">@Slf4j</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RedisController</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@Resource</span>
+    <span class="token keyword">private</span> <span class="token class-name">RedissonClient</span> redissonClient<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@PostMapping</span><span class="token punctuation">(</span><span class="token string">"/buy"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">set</span><span class="token punctuation">(</span><span class="token class-name">String</span> ticket<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">InterruptedException</span> <span class="token punctuation">{</span>
+        <span class="token comment">//当前日期</span>
+        <span class="token class-name">String</span> key <span class="token operator">=</span> ticket <span class="token punctuation">;</span>
+        log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"key:{}"</span><span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">RLock</span> lock <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+
+            <span class="token comment">//获取锁</span>
+            lock <span class="token operator">=</span> redissonClient<span class="token punctuation">.</span><span class="token function">getLock</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment">//尝试加锁，最多等待100秒，上锁以后10秒自动解锁</span>
+            <span class="token keyword">boolean</span> tryLock <span class="token operator">=</span> lock<span class="token punctuation">.</span><span class="token function">tryLock</span><span class="token punctuation">(</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token class-name">TimeUnit</span><span class="token punctuation">.</span><span class="token constant">SECONDS</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//等待100秒，上锁以后10秒自动解锁</span>
+            log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"tryLock:{}"</span><span class="token punctuation">,</span> tryLock<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment">//模拟业务处理</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>tryLock<span class="token punctuation">)</span><span class="token punctuation">{</span>
+                <span class="token class-name">Thread</span><span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">10000</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//单位是毫秒</span>
+                log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"购买成功"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token keyword">null</span> <span class="token operator">!=</span> lock <span class="token operator">&amp;&amp;</span> lock<span class="token punctuation">.</span><span class="token function">isHeldByCurrentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                    lock<span class="token punctuation">.</span><span class="token function">unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token keyword">return</span> <span class="token string">"购买成功"</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"没拿到锁"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">return</span> <span class="token string">"购买失败"</span><span class="token punctuation">;</span>
+<span class="token comment">//                throw new RuntimeException("没拿到锁");</span>
+            <span class="token punctuation">}</span>
+
+
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="使用Sentinal进行限流和降级"><a href="#使用Sentinal进行限流和降级" class="headerlink" title="使用Sentinal进行限流和降级"></a>使用Sentinal进行限流和降级</h3><ul>
+<li>常见的限流算法：<ol>
+<li>静态窗口限流：每秒限制多少个请求，例如：第2.5会统计第2秒到现在的流量</li>
+<li>动态窗口限流：滑动窗口，往前取1秒,例如：第2.5秒会统计第1.5秒到现在的请求数</li>
+<li>漏桶限流：队列，请求全在队列中，出队是匀速的</li>
+<li>令牌桶限流：放的是令牌，令牌就是计数，会有一个计数器匀速产生令牌,出队不是匀速的可以适应短时间内大量请求</li>
+<li>令牌大闸：当令牌到达一定数量就不再产生新的令牌</li>
+</ol>
+</li>
+</ul>
+<h2 id="如何应对刷票"><a href="#如何应对刷票" class="headerlink" title="如何应对刷票"></a>如何应对刷票</h2><p>使用令牌大闸：令牌按照匀速生成，即使有再多的机器人刷票也会被领票的数量限制，判断令牌肯定比更新库存更快</p>
+<ol>
+<li>使用令牌锁，持有令牌锁的人才能对令牌进行操作</li>
+<li>检测令牌数量，如果有就执行，没有就不能执行</li>
+<li>不要立刻释放令牌锁，使用固定的时间来释放令牌锁，这样即使有机器人也得等待令牌锁的释放</li>
+</ol>
+<ul>
+<li>同时也可以加入验证码来防止机器人刷票<br>优化：使用缓存加速令牌锁<br>将数据库查出来的令牌存在Redis中，每次对Redis中的令牌数量-1，只有当数量等于我们设定的阈值时再去更改数据库的令牌数量，所以需要在Redis中长期保持这个key</li>
+</ul>
+<h2 id="使用RocketMQ"><a href="#使用RocketMQ" class="headerlink" title="使用RocketMQ"></a>使用RocketMQ</h2><p>使用RocketMQ来完成<br>购票之后，将请求发送给RocketMQ，然后另一边去消费这个消息，并且进行数据库的增删改查，可以将请求直接转为String 发送，之后另一端pull然后转为需要的类，之后执行具体具体的逻辑</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">QingQiu</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://qiuely.github.io/2024/04/23/xiang-mu-jian-li-shi-xi/train/">https://qiuely.github.io/2024/04/23/xiang-mu-jian-li-shi-xi/train/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">QingQiu</a>
+                    !
+                </span>
+            </div>
+        
     </div>
-</div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
 
     
 
-    <article id="articles" class="container articles">
-        <div class="row tags-posts">
-            
-            
-            <div class="article tag-post col s12 m6 l4" data-tags="算法，数据结构" data-aos="fade-up">
-                <div class="card">
-                    <a href="/2023/09/09/hou-duan/xue-suan-fa/">
-                        <div class="card-image tag-image">
-                            
-                            
-                            <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="学算法">
-                            
-                            <span class="card-title">学算法</span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-09-09
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                QingQiu
-                                
-                            </span>
-                        </div>
-                    </div>
+</div>
+
                 </div>
             </div>
             
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
         </div>
-    </article>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2024/04/23/xiang-mu-jian-li-shi-xi/train/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="train">
+                        
+                        <span class="card-title">train</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-04-23
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            QingQiu
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2024/04/14/hou-duan/es/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="es">
+                        
+                        <span class="card-title">es</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-04-14
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            QingQiu
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
 </main>
 
 

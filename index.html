@@ -727,6 +727,91 @@
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
+                    <a href="/2024/04/23/xiang-mu-jian-li-shi-xi/train/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="train">
+                            
+                            <span class="card-title">train</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                Tigs:
+
+相同的application文件优先使用公共的配置
+
+一些没什么用的小概念Gateway 网关负责分发前端请求使用分布式锁来解决缓存击穿
+
+以下是要自己完成的：
+使用Spring Security和GateWay完成路由转发和
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-04-23
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-user fa-fw"></i>
+                                QingQiu
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </div>
+              <!-- 隐藏某个文章 -->
+            
+             <!-- 隐藏某个文章 -->
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2024/04/14/hou-duan/es/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="es">
+                            
+                            <span class="card-title">es</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                
+es设计结构：索引 + 类型 + 文档ID，id可以是数字或者字符串
+索引类似于数据库，类型类似于表格，文档就是表格中的行
+索引过程：根据文档散列值，将文档发送到对应的主分片，之后同步到对应的副本分片中
+一个Elasticsearch 索
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-04-14
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-user fa-fw"></i>
+                                QingQiu
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </div>
+              <!-- 隐藏某个文章 -->
+            
+             <!-- 隐藏某个文章 -->
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
                     <a href="/2024/04/14/xiang-mu-jian-li-shi-xi/blog-da-jian-da-bing/">
                         <div class="card-image">
                             
@@ -822,13 +907,11 @@ vue来做前端，尽量少使用element组件
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                RocketMQ
-
-生产者组-&gt;发送消息的一方
-消息的类型：
-普通消息：并发消息，并发消息没有顺序
-分区有序消息:把一个Topic消息分为多个分区，保护和消费，分区内的消息就是队列，FIFO
-全局有序：把一个Topic分区数设为1，所
+                                AMQP协议
+主要特点：生产者首先把消息发送到服务端(exchange)，由服务端决定把消息发送到对应的队列中
+AMQ Model组件：
+exchange 交换器，从publisher中收集消息并根据路由规则发送到对应的消息队列中
+mess
                             
                         </div>
                         <div class="publish-info">
@@ -905,9 +988,13 @@ I/O模型：
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                
-执行过程
-java程序加载config文件，创建SqlSessionFactory对象，之后通过SqlSessionFactory创建SqlSession对象，之后通过SqlSession对象执行映射配置文件中定义的SQL语句，最后通过S
+                                面试常问:
+Mybatis的缓存
+
+一级缓存：也即是本地缓存，是SqlSession级别的,读个sql语句之间不会共享缓存，使用@Transactional来生效，也就是说在一次事务中多次查询会使用到一级缓存
+默认开启，可以在配置中关闭
+
+
                             
                         </div>
                         <div class="publish-info">
@@ -1129,92 +1216,6 @@ Drawing{"type":"excalidraw","version":2
             </div>
               <!-- 隐藏某个文章 -->
             
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2024/03/05/hou-duan/wei-fu-wu/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="微服务">
-                            
-                            <span class="card-title">微服务</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                Quarkus
-GreetingResourceTest是在jvm中测试
-NativeGreetingResourceIT是使用应用的原生可执行程序
-
-SpringCloud注册中心
-方便更改微服务的ip和 端口号
-如果存在多个服务，可以配
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-03-05
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                QingQiu
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2024/02/27/ai/python-and-web-or-ai/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="python and web or ai">
-                            
-                            <span class="card-title">python and web or ai</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                基础语法webpip install beautifulsoup4 
-
-Scrapy框架项目结构:
-scrapy.cfg 配置文件
-setting.py 定义爬虫的相关配置信息
-items.py 定义待爬页面数据的结构
-pipelines.
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-02-27
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                QingQiu
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
         </div>
     </article>
 
@@ -1320,7 +1321,7 @@ pipelines.
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">107.8k</span>
+                        class="white-color">112.8k</span>
             
             
             
