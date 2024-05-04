@@ -9,10 +9,11 @@
 
 相同的application文件优先使用公共的配置
 
-一些没什么用的小概念Gateway 网关负责分发前端请求使用分布式锁来解决缓存击穿
-
-以下是要自己完成的：
-使用Spring Security和GateWay完成路由转发和">
+一些没什么用的小概念
+并发量：同一时间内，系统中同时处理的用户请求数
+响应时间：系统处理一个请求所需的时间
+吞吐量：系统在给定时间内处理处理的业务请求数量
+QPS(Quer">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -533,7 +534,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.3k
+                    1.4k
                 </div>
                 
 
@@ -557,7 +558,14 @@
 <ol>
 <li>相同的application文件优先使用公共的配置</li>
 </ol>
-<h2 id="一些没什么用的小概念"><a href="#一些没什么用的小概念" class="headerlink" title="一些没什么用的小概念"></a>一些没什么用的小概念</h2><h2 id="Gateway-网关负责分发前端请求"><a href="#Gateway-网关负责分发前端请求" class="headerlink" title="Gateway 网关负责分发前端请求"></a>Gateway 网关负责分发前端请求</h2><p>使用分布式锁来解决缓存击穿</p>
+<h2 id="一些没什么用的小概念"><a href="#一些没什么用的小概念" class="headerlink" title="一些没什么用的小概念"></a>一些没什么用的小概念</h2><ul>
+<li>并发量：同一时间内，系统中同时处理的用户请求数</li>
+<li>响应时间：系统处理一个请求所需的时间</li>
+<li>吞吐量：系统在给定时间内处理处理的业务请求数量</li>
+<li>QPS(Queries Per Second) 表示系统每秒钟处理的请求数量</li>
+<li>TPS(Transactions Per Second ) 表示系统每秒钟完成的事务数量</li>
+</ul>
+<h2 id="Gateway-网关负责分发前端请求"><a href="#Gateway-网关负责分发前端请求" class="headerlink" title="Gateway 网关负责分发前端请求"></a>Gateway 网关负责分发前端请求</h2><p>使用分布式锁来解决缓存击穿</p>
 <ul>
 <li><strong>以下是要自己完成的：</strong><ol>
 <li>使用Spring Security和GateWay完成路由转发和认证</li>
@@ -650,6 +658,13 @@
 <li>同时也可以加入验证码来防止机器人刷票<br>优化：使用缓存加速令牌锁<br>将数据库查出来的令牌存在Redis中，每次对Redis中的令牌数量-1，只有当数量等于我们设定的阈值时再去更改数据库的令牌数量，所以需要在Redis中长期保持这个key</li>
 </ul>
 <h2 id="使用RocketMQ"><a href="#使用RocketMQ" class="headerlink" title="使用RocketMQ"></a>使用RocketMQ</h2><p>使用RocketMQ来完成<br>购票之后，将请求发送给RocketMQ，然后另一边去消费这个消息，并且进行数据库的增删改查，可以将请求直接转为String 发送，之后另一端pull然后转为需要的类，之后执行具体具体的逻辑</p>
+<h2 id="纯手写"><a href="#纯手写" class="headerlink" title="纯手写"></a>纯手写</h2><ol>
+<li>登录：<ul>
+<li>使用gateway + SpringSecurity + JWT + Redis实现微服务登录</li>
+<li>Mybatis+Mybatis-plus</li>
+</ul>
+</li>
+</ol>
 
                 
             </div>
@@ -790,18 +805,17 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2024/04/23/xiang-mu-jian-li-shi-xi/train/">
+                <a href="/2024/05/03/wei-ming-ming/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="train">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
                         
-                        <span class="card-title">train</span>
+                        <span class="card-title"></span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -811,9 +825,9 @@
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-04-23
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-05-03
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -822,7 +836,6 @@
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>
@@ -1056,7 +1069,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">112.8k</span>
+                        class="white-color">101.1k</span>
             
             
             

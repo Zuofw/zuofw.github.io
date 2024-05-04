@@ -5,11 +5,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="es, 博客，学习，成长">
-    <meta name="description" content="
-es设计结构：索引 + 类型 + 文档ID，id可以是数字或者字符串
-索引类似于数据库，类型类似于表格，文档就是表格中的行
-索引过程：根据文档散列值，将文档发送到对应的主分片，之后同步到对应的副本分片中
-一个Elasticsearch 索">
+    <meta name="description" content="Elasticsearch学习笔记
+面试问题：
+索引文档的过程：
+协调节点默认使用文档ID参与计算，为路由提供合适的分片，转发请求
+分片所在节点接收到请求之后，将请求写入内存缓冲区，定时refresh到文件系统缓存，经过这一步既可以被搜索到">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -530,7 +530,7 @@ es设计结构：索引 + 类型 + 文档ID，id可以是数字或者字符串
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    93
+                    1.7k
                 </div>
                 
 
@@ -550,12 +550,111 @@ es设计结构：索引 + 类型 + 文档ID，id可以是数字或者字符串
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <ul>
-<li>es设计结构：索引 + 类型 + 文档ID，id可以是数字或者字符串</li>
-<li>索引类似于数据库，类型类似于表格，文档就是表格中的行</li>
-<li>索引过程：根据文档散列值，将文档发送到对应的主分片，之后同步到对应的副本分片中<img src="/2024/04/14/hou-duan/es/%E7%B4%A2%E5%BC%95%E8%BF%87%E7%A8%8B.png"></li>
-<li>一个Elasticsearch 索引 == 多个Lucene索引<img src="/2024/04/14/hou-duan/es/%E7%B4%A2%E5%BC%95%E6%A0%BC%E5%BC%8F.png" alt="Lucene索引格式"></li>
-<li></li>
+                <h1 id="Elasticsearch学习笔记"><a href="#Elasticsearch学习笔记" class="headerlink" title="Elasticsearch学习笔记"></a>Elasticsearch学习笔记</h1><ul>
+<li>面试问题：<ol>
+<li>索引文档的过程：<ol>
+<li>协调节点默认使用文档ID参与计算，为路由提供合适的分片，转发请求</li>
+<li>分片所在节点接收到请求之后，将请求写入内存缓冲区，定时refresh到文件系统缓存，经过这一步既可以被搜索到了，当Filesystem cache中的数据写入到磁盘中时，才会清除掉translog，这个过程叫做flush；</li>
+</ol>
+</li>
+<li>es的删除：es中的文件并没有删除，每个段都有一个.del文件，删除是在这里进行标志，该文档仍然能够匹配到，但是会在结果中被过滤掉，后续在执行merge(周期性的将较小的段合并为一个较大的段)操作时，会被彻底清除掉</li>
+<li>更新：每次更新都是先标记旧的文档为已删除，重新建立一个文档，并通过版本号来区分</li>
+<li>搜索过程：<ul>
+<li>Query Then Fetch</li>
+</ul>
+<ol>
+<li>查询广播到每一个分片，分片本地执行搜索，建立一个优先队列，搜索只能搜到文件缓存的内容，所以并不是完全实时的</li>
+<li>分片返回优先队列中文档的ID和排序值给协调节点，协调节点合并结果并排序</li>
+<li>协调节点确定要取回的文档，然后向对应分片发送请求，最后协调节点返回给客户端</li>
+</ol>
+</li>
+<li>写过程：客户端选择一个node(作为协调节点）发请求，协调节点对文档进行路由，将请求转发给有这个文档的主分片的节点，主分片处理请求，并将将数据同步到副本中，之后协调节点根据完成状态，相应给客户端</li>
+<li>读过程：协调节点根据doc id来查询，然后对doc id进行hash来确认到了哪个分片上，然后转发请求到对应的节点，使用负载均衡 来选取一个分片来处理，并转发给它，之后由这个节点来读取并返回给协调节点，协调节点返回给客户端</li>
+<li>es相对于mongodb，mysql的优势：1.全文检索，相关性排名 2.近实时性3.分布式处理4.数据分析 缺点：不支持事务</li>
+</ol>
+</li>
+<li>索引<ul>
+<li>使用索引模板来加快索引的创建与属性设置</li>
+<li>索引结构：倒排索引，使用分词，记录每一个分词出现的文档编号和在文档中出现的位置<ul>
+<li><img src="/2024/04/14/hou-duan/es/%E5%80%92%E6%8E%92%E7%B4%A2%E5%BC%95.jpg"></li>
+<li>搜索模块，路由值时，</li>
+</ul>
+</li>
+<li>索引搜索：<ul>
+<li>当搜索请求不带路由值时，接收到请求的节点成为协调节点，之后会选择使用的分片，之后会转发请求到拥有这些分片的节点上，每个分片产生一部分的局部结果汇总给协调节点，由协调节点汇总并排序之后返回。</li>
+<li>使用路由条件进行搜索时，会将请求转发，之后直接由选中的节点进行返回</li>
+</ul>
+</li>
+<li>索引映射：<ul>
+<li>相当于指定了索引字段的名字和能够存储的类型</li>
+<li>常用的数据类型：long , integer,short,byte,double,date(date可以在后面加一个format字段来执行时间的格式转换),keyword(用于保存原始文本，不会进行分词处理，用于精确匹配)，boolean,geo_poinst经纬度类型，json格式(需要使用properties来指定内部对象的属性，实际存储时会使用 . 来表示层次结构)，lists(数组)</li>
+<li>**<em>如何既能快速匹配，又能精确匹配?</em>**，给字段添加一个fields参数，然后在里面放一个keyword字段</li>
+<li>在每一个字段的后面使用：”copy_to”:”复制出来的新字段名字” 可以做到复制这些字段的内容</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">PUT mysougoulog/_mapping</span> 
+<span class="token punctuation">{</span>
+  <span class="token string">"properties"</span><span class="token punctuation">:</span><span class="token punctuation">{</span>
+      <span class="token string">"visitTime"</span><span class="token punctuation">:</span><span class="token punctuation">{</span>
+        <span class="token string">"type"</span><span class="token punctuation">:</span><span class="token string">"date"</span><span class="token punctuation">,</span>
+        <span class="token string">"format"</span><span class="token punctuation">:</span><span class="token string">"yyyy-MM-dd HH:mm:ss || epoch_millis"</span><span class="token punctuation">,</span>
+        <span class="token string">"ignore_malformed"</span><span class="token punctuation">:</span>true # 这个字段类型不对时，不写入，但是不影响其他字段的写入
+      <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector"># 二者兼得
+PUT mysougoulog/_mapping</span> 
+<span class="token punctuation">{</span>
+    <span class="token string">"properties"</span><span class="token punctuation">:</span><span class="token punctuation">{</span>
+        <span class="token string">"key"</span><span class="token punctuation">:</span><span class="token punctuation">{</span>
+          <span class="token string">"type"</span><span class="token punctuation">:</span><span class="token string">"text"</span><span class="token punctuation">,</span>
+          <span class="token string">"fields"</span><span class="token punctuation">:</span><span class="token punctuation">{</span>
+            <span class="token string">"keyword"</span><span class="token punctuation">:</span><span class="token punctuation">{</span>
+              <span class="token string">"type"</span><span class="token punctuation">:</span><span class="token string">"keyword"</span><span class="token punctuation">,</span>
+              <span class="token string">"ignore_above"</span><span class="token punctuation">:</span>256 # 表示256个字符后面的内容被忽略，用来节省字段
+            <span class="token punctuation">}</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>文档：<ul>
+<li>CRUD时如何控制并发：<ul>
+<li>修改时，加上?if_seq_no = xx&amp;if_primary_term=xx来使用乐观锁来控制，这两个字段是可以查到的，Elastisearch不支持事务管理</li>
+</ul>
+</li>
+<li>文本分析：<ul>
+<li>文本分析需要经过&gt;=0个字符过滤器一个分词器，&gt;=0 个分词过滤器<ul>
+<li>字符过滤器：对原始文档本进行转换，如去掉html标签</li>
+<li>分词器：按照规则切分为单词，</li>
+<li>分词过滤器：过滤掉一些没有用的词比如，的，删除停用词,也可进行分词的处理，如大小写转化，添加同义词</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h2 id="数据：-搜索数据：-1-精确搜索：搜索内容不经过文本分析直接进行文本匹配，适用于非text类，一般用于keyword字段-2-全文检索：对检索内容和字段都会进行文本分析-3-经纬度搜索，可以指定某个区域，例如⚪-4-复合搜索：-布尔搜索：通过指定布尔逻辑条件来组织多条查询语句，同时满足整个布尔条件的才会被搜索出来-等等-父子关联-因为es会把数据折叠起来，使用点，所以当一个对象有多个相同的key时，不能进行搜索了，例如goods商品，里面存放商品id和生产时间，就会被折叠-警告：-避免使用对象数组-解决方法：使用嵌套对象-使用join字段来明确父子关系-聚集统计：用于分析索引和文档，类似于mysql中的聚集操作"><a href="#数据：-搜索数据：-1-精确搜索：搜索内容不经过文本分析直接进行文本匹配，适用于非text类，一般用于keyword字段-2-全文检索：对检索内容和字段都会进行文本分析-3-经纬度搜索，可以指定某个区域，例如⚪-4-复合搜索：-布尔搜索：通过指定布尔逻辑条件来组织多条查询语句，同时满足整个布尔条件的才会被搜索出来-等等-父子关联-因为es会把数据折叠起来，使用点，所以当一个对象有多个相同的key时，不能进行搜索了，例如goods商品，里面存放商品id和生产时间，就会被折叠-警告：-避免使用对象数组-解决方法：使用嵌套对象-使用join字段来明确父子关系-聚集统计：用于分析索引和文档，类似于mysql中的聚集操作" class="headerlink" title="数据：  - 搜索数据：      1. 精确搜索：搜索内容不经过文本分析直接进行文本匹配，适用于非text类，一般用于keyword字段      2. 全文检索：对检索内容和字段都会进行文本分析      3. 经纬度搜索，可以指定某个区域，例如⚪      4. 复合搜索：          - 布尔搜索：通过指定布尔逻辑条件来组织多条查询语句，同时满足整个布尔条件的才会被搜索出来          - 等等  - 父子关联:      - 因为es会把数据折叠起来，使用点，所以当一个对象有多个相同的key时，不能进行搜索了，例如goods商品，里面存放商品id和生产时间，就会被折叠 警告： 避免使用对象数组      - 解决方法：使用嵌套对象      - 使用join字段来明确父子关系  - 聚集统计：用于分析索引和文档，类似于mysql中的聚集操作"></a>数据：<br>  - 搜索数据：<br>      1. 精确搜索：搜索内容不经过文本分析直接进行文本匹配，适用于非text类，一般用于keyword字段<br>      2. 全文检索：对检索内容和字段都会进行文本分析<br>      3. 经纬度搜索，可以指定某个区域，例如⚪<br>      4. 复合搜索：<br>          - 布尔搜索：通过指定布尔逻辑条件来组织多条查询语句，同时满足整个布尔条件的才会被搜索出来<br>          - 等等<br>  - 父子关联:<br>      - 因为es会把数据折叠起来，使用点，所以当一个对象有多个相同的key时，不能进行搜索了，例如goods商品，里面存放商品id和生产时间，就会被折叠 <strong>警告：</strong> 避免使用对象数组<br>      - 解决方法：使用嵌套对象<br>      - 使用join字段来明确父子关系<br>  - 聚集统计：用于分析索引和文档，类似于mysql中的聚集操作</h2></li>
+<li>集群：<ol>
+<li>新集群的产生：master节点的职责主要包括集群、节点和索引的管理，不负责文档级别的管理，主节点和数据节点不是一个<ul>
+<li>初始化投票配置：将配置文件中的候选节点写入投票配置，所有节点均可参与投票</li>
+<li>选举主节点：超过半数就可成为主节点</li>
+<li>发现集群中的其他节点，节点尝试连接主节点，连接上之后主节点把最新的状态发布到这些节点中</li>
+<li>集群完成，对外启动统一的服务</li>
+</ul>
+</li>
+<li>集群状态的发布过程:  <strong>删除或者新增节点时触发</strong><ul>
+<li>主节点把最新的集群状态发送到每个节点上，每个节点将数据保存并向主节点发送确认响应</li>
+<li>主节点接收到半数以上的确认消息，开始提交，发送给每个节点通知使用最新的集群状态，子节点接收后发送确认响应，所有的都确认即可完成发布</li>
+<li>响应超过时间限制，则删除这个子节点</li>
+</ul>
+</li>
+</ol>
+</li>
 </ul>
 
                 
@@ -961,7 +1060,7 @@ es设计结构：索引 + 类型 + 文档ID，id可以是数字或者字符串
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">112.8k</span>
+                        class="white-color">101.1k</span>
             
             
             
