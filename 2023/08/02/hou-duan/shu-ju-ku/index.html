@@ -535,7 +535,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    16.7k
+                    18k
                 </div>
                 
 
@@ -555,9 +555,64 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h1><h2 id="Mysql面试指南"><a href="#Mysql面试指南" class="headerlink" title="Mysql面试指南"></a>Mysql面试指南</h2><p>看看几个隔离级别和解决办法<br>GBKh和UTF-8不是一种编码方式<br>mysql中使用的utf-8是utf8mb3 使用1<del>3个字节来表示一个字符<br>而utf-8使用1</del>4<br>MVCC （Multi-Version Concurrency Control ，多版本并发控制）MVCC （Multi-Version Concurrency Control ，多版本并发控制）指的就</p>
-<p>是在使用 READ COMMITTD 、 REPEATABLE READ 这两种隔离级别的事务在执行普通的 SEELCT 操作时访问记录的版</p>
-<p>本链的过程，这样子可以使不同事务的 读-写 、 写-读 操作并发执行，从而提升系统性能。</p>
+                <h1 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h1><h2 id="Mysql面试指南"><a href="#Mysql面试指南" class="headerlink" title="Mysql面试指南"></a>Mysql面试指南</h2><p>看看几个隔离级别和解决办法<br>GBKh和UTF-8不是一种编码方式<br>mysql中使用的utf-8是utf8mb3 使用1<del>3个字节来表示一个字符<br>而utf-8使用1</del>4<br>MVCC （Multi-Version Concurrency Control ，多版本并发控制）MVCC （Multi-Version Concurrency Control ，多版本并发控制）指的就是在使用 READ COMMITTD 、 REPEATABLE READ 这两种隔离级别的事务在执行普通的 SEELCT 操作时访问记录的版本链的过程，这样子可以使不同事务的 读-写 、 写-读 操作并发执行，从而提升系统性能。</p>
+<ul>
+<li>sql语句的执行过程：mysql8.0 client发送sql语句-&gt;sql解析-&gt;执行优化和执行计划生成-&gt;执行-&gt;返回结果</li>
+<li>存储引擎的区别：MyISAM 和 InnoDB 的区别<ul>
+<li>InnodDB支持事务</li>
+<li>InnoDB支持行级锁定，MyISAM操作时直接锁定整个表</li>
+<li>InnoDB支持外键和级联删除/更新</li>
+<li>InnoBD存储数据更大</li>
+<li>崩溃恢复更好</li>
+<li>InnoDB以聚簇的方式存储数据，MyISAM是将数据和索引分开存储</li>
+</ul>
+</li>
+<li>事务：<ul>
+<li>并发事务带来了哪些问题：<ol>
+<li>脏读：一个事务读到了另一个事务修改后回滚的数据</li>
+<li>丢失修改:两个事务同时修改一个数据，先提交的会丢失修改</li>
+<li>不可重复读：执行相同的两个语句，结果不一样</li>
+<li>幻读：多了记录或者是少了记录<ul>
+<li>3和4的区别：3是记录被修改，4是记录条数变化</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>mysql中的隔离等级： 默认是可重复读，能够防止幻读 实现是通过 <strong>锁和MVCC(多版本控制并发控制)</strong> 实现的<ol>
+<li>读未提交：允许事务读取未提交的事务的修改，会出现脏读，幻读，不可重复读</li>
+<li>读已提交：只能读到提交的事务的修改，避免脏读，但是还有幻读 （读数据时加上共享锁，读取后立刻释放）</li>
+<li>可重复读：同一事务中，多次读取统一数据返回结果要一致 (事务结束才释放锁，同时使用MVCC来保证每个事务都看到一个一致的快照)</li>
+<li>可串行化：强制事务串行执行，影响效率</li>
+</ol>
+</li>
+<li>MVCC的原理：</li>
+<li>这两个隐藏的列就是undo log日志<img src="/2023/08/02/hou-duan/shu-ju-ku/undolog.png" alt="|700"><ul>
+<li>这俩就是隐藏列，trx_id当前修改之后的事务id，roll_pointer指向修改之前的信息</li>
+<li><img src="/2023/08/02/hou-duan/shu-ju-ku/undolog%E8%A1%A8.png" alt="|725"></li>
+<li>MVCC实现原理：ReadView<ul>
+<li>主要内容：<ul>
+<li>m_ids:生成ReadView时当前系统活跃的读写事务id列表</li>
+<li>min_trx_id:在生成ReadView时当前系统活跃的读写事务中最小的事务id，也就是min (m_ids)</li>
+<li>max_trx_id:表示生成ReadVeiw时系统应该分配给下下一个事务的id值</li>
+<li>creator_trx_id：表示生成该ReadView的事务id</li>
+</ul>
+</li>
+<li>原理：在访问某条记录时根据以下方式来判断：<ol>
+<li>trx_id == creator_trx_id，表示是自己修改过的记录，可见</li>
+<li>trx_id &lt; min_trx_id 可以被访问</li>
+<li>trx_id &gt; max_trx_id，不可被访问</li>
+<li>trx_id &gt; min  &amp;&amp; trx_id &lt; max 需要判断：如果trx_id在m_ids中，表示仍然活跃，不可访问，不在表示已经被提交，可以访问了</li>
+<li>如果某个版本对当前事务不可见，则顺着版本连找下一个版本的数据，直到最后，如果最后一个版本也不可见的话，意味着这条记录对这个事务完全不可见，查询结果不返回这个记录</li>
+</ol>
+</li>
+<li>读已提交每次读都会生成一个ReadView，而可重复读智慧在第一次执行查询语句时生成一个ReadView</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <h3 id="InooDB详解"><a href="#InooDB详解" class="headerlink" title="InooDB详解"></a>InooDB详解</h3><ol>
 <li>InooDB大小一般为16kb</li>
 <li>InooDB页表:<img src="/2023/08/02/hou-duan/shu-ju-ku/InnoDB%E6%95%B0%E6%8D%AE%E9%A1%B5.png"></li>
@@ -697,12 +752,6 @@
 <li>按「物理存储」分类：<strong>聚簇索引（主键索引）、二级索引（辅助索引）</strong>。</li>
 <li>按「字段特性」分类：<strong>主键索引、唯一索引、普通索引、前缀索引</strong>。</li>
 <li>按「字段个数」分类：<strong>单列索引、联合索引</strong>。</li>
-</ul>
-<h3 id="Join"><a href="#Join" class="headerlink" title="Join"></a>Join</h3><p>以下三种内连接是等价的:</p>
-<ul>
-<li>SELECT * FROM t1 JOIN t2;</li>
-<li>SELECT * FROM t1 INNER JOIN t2;</li>
-<li>SELECT * FROM t1 CROSS JOIN t2;<br>外联结，指定一个为驱动表，另一个为被驱动表，驱动表只访问一次，被被驱动表会被多次循环扫描。</li>
 </ul>
 <h3 id="MySql查询优化"><a href="#MySql查询优化" class="headerlink" title="MySql查询优化"></a>MySql查询优化</h3><ul>
 <li>单表 <ol>
@@ -1758,17 +1807,20 @@ select <span class="token operator">?</span> from <span class="token operator">?
 <li>脑裂问题： 由于网络问题，集群节点之间失去联系。主从数据不同步；重新平衡选举，产生两个主服务。等网络恢复，旧主节点会降级为从节点，再与新主节点进行同步复制的时候，由于会从节点会清空自己的缓冲区，所以导致之前客户端写入的数据丢失了。 解决： 当主节点发现从节点下线或者通信超时的总数量小于阈值时，那么禁止主节点进行写数据，直接把错误返回给客户端。</li>
 </ul>
 </li>
-<li>数据相关：<ol>
-<li>如何保证Redis中的数据是热点数据？ 答案是可以使用LRU删除策略，每次删除数据时删除最近最少使用的键，同时也可以主动去更新热点数据<ul>
-<li>其余的各种内存淘汰机制：1.内存到达限制时返回错误，不删除，2.删除最近最少使用键，3.lru但是只删除设置了过期时间的键，4.随机删除一些 5. 随机删除一些设置了过期时间的键</li>
+<li>数据相关：<ul>
+<li>数据淘汰策略：<ul>
+<li>如何保证Redis中的数据是热点数据？ 答案是可以使用LRU删除策略，每次删除数据时删除最近最少使用的键，同时也可以主动去更新热点数据</li>
+<li>其余的各种内存淘汰机制：1.内存到达限制时返回错误，不删除，2.删除最近最少使用键，3.lru但是只删除设置了过期时间的键，4.随机删除一些 5. 随机删除一些设置了过期时间的键6. 对访问频率来进行删除<img src="/2023/08/02/hou-duan/shu-ju-ku/redis%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5.png"></li>
 </ul>
 </li>
 <li>持久化：<ul>
 <li>RDB：创建数据的快照，存的是实际的数据<ul>
-<li>过程：fork一个子进程，之后由子进程来执行写入磁盘的操作，当所有的数据都被写完之后，替换到旧的RDB文件，通知主进程</li>
-<li>如何保证主进程和子进程写入的数据一致？  <strong>主进程和子进程共享同一块物理页面</strong>，有新的写入请求时，为主进程创建副本，所以子进程的快照始终是fork那个时刻的</li>
+<li>redis建立新的子进程，父进程继续处理请求，子进程负责将内存内容写到临时文件，os的实时复写copy-on-write会使得父进程和子进程共享一个物理页面，所以会为父进程要修改的页面创建副本，所以子进程内的数据就是fork时的快照。 子进程写完文件之后，使用临时文件代替原来的快照文件，之后子进程quit, <strong>进行的是全量快照，会把整个数据全部保存</strong></li>
 </ul>
 </li>
+</ul>
+</li>
+<li>注意：实现原理是操作系统会为进程<ul>
 <li>AOF：记录操作命令而不是副本。<ol>
 <li>fork,子进程向临时文件中写入重建数据库状态的命令</li>
 <li>父进程接收到请求后，把写命令写入到原来的aof文件中，然后缓存起来这些命令</li>
@@ -1778,31 +1830,43 @@ select <span class="token operator">?</span> from <span class="token operator">?
 </li>
 <li>混合持久化：两者结合，惰性删除：只有在访问这个键的时候才检查是否过期</li>
 </ul>
-</li>
-</ol>
-<ul>
+<ol>
 <li>读写分离问题：读占比较大时可以把一部分的流量摊到从节点，只对主节点进行写服务。</li>
+</ol>
+</li>
+<li>过期策略：惰性删除和定时删除，Redis使用了两种结合的方式：当某个key被访问时，会定期检查是否过期，如果过期就删除，同时会定期对一部分key进行检查，如果过期就删除</li>
 </ul>
 </li>
 <li><strong>缓存问题</strong><ul>
-<li>缓存雪崩：大量缓存在同一时间失效导致后面的请求都直接落到了db<ol>
+<li>缓存雪崩：大量缓存在同一时间失效或者Redis宕机导致后面的请求都直接落到了db<ul>
+<li>修改key的TTL<ol>
 <li>将缓存失效时间打散，在失效时间基础上加一个随机值</li>
 <li>设置缓存不过期</li>
 </ol>
 </li>
-<li><strong>缓存击穿</strong>：热点key过期，大量的请求直接给数据库压力<ul>
-<li>互斥锁方案，保证同一时间只能有一个业务线程请求业务缓存</li>
-<li>不给热点数据设置过期时间，由异步更新缓存，或者在热点数据要过期的时候，提前通知前台线程更新缓存或者重新设置过期时间</li>
+<li>搭建Redis的集群，哨兵模式，集群模式<ul>
+<li>给业务限流，nginx和spring cloud gateway</li>
 </ul>
 </li>
-<li>缓存穿透：访问的数据不在缓存中，每次都直接查询数据库，给数据库很大压力 <ul>
+<li>使用多级缓存，Guava和Caffeine + Redis， 前面这俩是缓存在服务中的JVM中的，分布式项目中不能跨服务，但是请求速度是最快的，因为是本地的缓存</li>
+</ul>
+</li>
+<li><strong>缓存击穿</strong>：热点key过期，大量的请求直接给数据库压力<ul>
+<li>互斥锁方案，保证同一时间只能有一个业务线程请求业务缓存，保证羟乙酯</li>
+<li>不给热点数据设置过期时间，由异步更新缓存，或者在热点数据要过期的时候，提前通知前台线程更新缓存或者重新设置过期时间，保证高可用，数据不会是绝对一致的</li>
+</ul>
+</li>
+<li>缓存穿透：访问的数据不在缓存中，每次都直接查询数据库，给数据库很大压力 ，解决方案是使用布隆过滤器<ul>
 <li>非法请求的限制，当有大量恶意请求访问不存在的数据时，在API入口要判断请求参数是否合理</li>
 <li>设置空值或者默认值</li>
 <li>使用<strong>布隆过滤器快速判断数据是否存在，避免通过查询数据库来判断数据是否存在</strong>：</li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/94433082">布隆过滤器</a>用多个哈希函数来映射，当查询时，如果多个哈希函数的映射后任何一个索引都为0，则一定不存在，如果所有的映射后的位置都是1时，则可能存在集合中。</li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/94433082">布隆过滤器</a>对一个数据用多个哈希函数来映射，当查询时，如果多个哈希函数的映射后任何一个索引都为0，则一定不存在，如果所有的映射后的位置都是1时，则可能存在集合中。使用的是位图<img src="/2023/08/02/hou-duan/shu-ju-ku/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8.png"></li>
 </ul>
 </li>
-<li>数据一致性<ol>
+<li>数据一致性<ul>
+<li>双写一致问题：<ul>
+<li>保证一致性<ul>
+<li>写使用的延迟双删，删两次缓存，等数据库修改完之后再删除一次缓存<ol>
 <li>Cache Aside 旁路缓存策略<ul>
 <li>写策略：先更新数据库再删除缓存中的数据</li>
 <li>读策略：如果命中了缓存，直接返回，否则从数据库中读入数据并写入缓存，返回给用户</li>
@@ -1812,6 +1876,18 @@ select <span class="token operator">?</span> from <span class="token operator">?
 <li>Write Back（写回）策略</li>
 </ol>
 </li>
+<li>使用读锁(共享锁)和写锁(排他锁)</li>
+</ul>
+</li>
+<li>允许短暂不一致：<ul>
+<li>使用消息队列，先修改数据库，数据库修改完之后向MQ发送消息，由cahe服务接受消息来对缓存进行更新</li>
+<li>取决于mq的可靠性</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li>延时队列： 把当前要做的事情推迟一段时间再做，如下单未付款取消<ul>
@@ -1820,17 +1896,48 @@ select <span class="token operator">?</span> from <span class="token operator">?
 <li>大key  value的值很大</li>
 </ul>
 </li>
-<li>multi开始事务，discard取消事务redis的事务在出错时，只会回滚出错的命令</li>
-<li>使用watch key 来对某一个key加上乐观锁</li>
-<li>RDB方式：redis建立新的子进程，父进程继续处理请求，子进程负责将内存内容写到临时文件，os的实时复写会使得父进程和子进程共享一个物理页面，所以会为父进程要修改的页面创建副本，所以子进程内的数据就是fork时的快照。 子进程写完文件之后，使用临时文件代替原来的快照文件，之后子进程quit, <strong>进行的是全量快照，会把整个数据全部保存</strong></li>
-<li>Redis 与 Memcached&nbsp;<strong>区别</strong>：<ol>
+<li>分布式问题：<ol>
+<li>分布式锁：setnx 实际使用应该使用 set key value nx ex time 因为这个可以直接在原子性指定时间</li>
+<li>Reddsion来续锁：使用lua脚本，来保证原子性<ol>
+<li>一个线程获得锁，然后在事务中调用了另一个事务，另一个事务也同样对相同的锁加锁，会发生什么？<ul>
+<li>如果是直接使用Redis，会阻塞，然后等锁过期后，被调用的函数可以执行，被调用的函数执行之后会释放锁，返回到第一个函数执行，第一个函数执行之后就会重复释放这个锁，无法保证原子性了。</li>
+<li>如果使用Redssion，Redssion的RLock数据结构实现了可重入锁：<ul>
+<li>key，status持有还是释放 ，UUID标识线程 ， 持有时间(最长的存活时间)</li>
+<li>Redis中存的value字段为锁的次数</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>使用红锁来保证主从同步还没同步就down了导致的多个锁问题（不推荐使用）,<strong>更推荐使用zookeeper</strong></li>
+</ol>
+</li>
+</ol>
+</li>
+</ul>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"myLock"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"status"</span><span class="token operator">:</span> <span class="token string">"LOCKED"</span><span class="token punctuation">,</span>
+    <span class="token property">"owner"</span><span class="token operator">:</span> <span class="token string">"some-unique-uuid"</span><span class="token punctuation">,</span>
+    <span class="token property">"hold_count"</span><span class="token operator">:</span> <span class="token number">2</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>			<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre><code>        - 这个问题中就会直接判断出是同一个线程的调用，所以只会给锁的持有技术+1，不会阻塞
+</code></pre>
+<ul>
+<li><p>multi开始事务，discard取消事务redis的事务在出错时，只会回滚出错的命令</p>
+</li>
+<li><p>使用watch key 来对某一个key加上乐观锁</p>
+</li>
+<li><p>Redis 与 Memcached&nbsp;<strong>区别</strong>：</p>
+<ol>
 <li>Redis支持的数据类型更丰富：Sting Hash List Set Zset， M只支持key-value数据类型</li>
 <li>Redis支持数据的持久化，可以将内存中的数据保存在磁盘中。</li>
 <li>Redis原生支持集群模式</li>
 <li>Redis支持发布订阅模型，LUa吉奥本，事务等</li>
 </ol>
 </li>
-<li>数据类型<ul>
+<li><p>数据类型</p>
+<ul>
 <li>String 类型的应用场景：SDS，可以存任何类型，直接存在二进制buf数组里</li>
 <li>List 实现是：</li>
 <li>Hash 类型：缓存对象、购物车等。</li>
@@ -1854,15 +1961,19 @@ select <span class="token operator">?</span> from <span class="token operator">?
 <li>这些任务的操作都是很耗时的，如果把这些任务都放在主线程来处理，那么 Redis 主线程就很容易发生阻塞，这样就无法处理后续的请求了。</li>
 </ul>
 </li>
-<li>过期删除和内存淘汰： Redis使用懒惰性删除和定期删除。 惰性删除时指不主动删除过期键，每次反问key时检查是否过期，如果过期，则删除。 优点是：减少对系统资源的使用，缺点是：不能及时释放内存<ul>
+<li><p>过期删除和内存淘汰： Redis使用懒惰性删除和定期删除。 惰性删除时指不主动删除过期键，每次反问key时检查是否过期，如果过期，则删除。 优点是：减少对系统资源的使用，缺点是：不能及时释放内存</p>
+<ul>
 <li>定期删除：每过一段时间，从数据库中取出一定数量的key来进行检查，删除其中的过期key，如果过期key超过一定比例，重复执行定期删除</li>
 <li>当 Redis 运行在主从模式下时，<strong>从库不会进行过期扫描，从库对过期的处理是被动的</strong>。也就是即使从库中的 key 过期了，如果有客户端访问从库时，依然可以得到 key 对应的值，像未过期的键值对一样返回。</li>
 <li>从库的过期键处理依靠主服务器控制，<strong>主库在 key 到期时，会在 AOF 文件里增加一条 del 指令，同步到所有的从库</strong>，从库通过执行这条 del 指令来删除过期的 key。REmote DIctionary Server(Redis) 是一个由 Salvatore Sanfilippo 写的 key-value 存储系统，是跨平台的非关系型数据库，非关系型数据库，</li>
 </ul>
 </li>
-<li>内存淘汰： 随机淘汰，LRU最近最少使用，根据最后一次访问的时间 , LFU最近最不常使用，根据访问次数来淘汰</li>
-<li>Lua :Redis 在执行 Lua 脚本时，可以以原子性的方式执行</li>
-<li>Lua脚本使用<ol>
+<li><p>内存淘汰： 随机淘汰，LRU最近最少使用，根据最后一次访问的时间 , LFU最近最不常使用，根据访问次数来淘汰</p>
+</li>
+<li><p>Lua :Redis 在执行 Lua 脚本时，可以以原子性的方式执行</p>
+</li>
+<li><p>Lua脚本使用</p>
+<ol>
 <li>EVAL执行脚本<code> EVAL script numkeys key [key …] arg [arg …]</code></li>
 <li>SCRIPT LOAD script.lua 把脚本加载到redis-serve中，返会一个&nbsp;SHA1校验和，之后无论是哪个客户端都可以使用这个校验和来运行脚本。</li>
 <li>EVALSHA sha1校验和  numkeys key [key …] arg [arg …]</li>
@@ -1871,7 +1982,8 @@ select <span class="token operator">?</span> from <span class="token operator">?
 <li>redis-cli -a 密码 –eval lua脚本内容</li>
 </ol>
 </li>
-<li>对于基本数据类型的操作<ol>
+<li><p>对于基本数据类型的操作</p>
+<ol>
 <li>string <ul>
 <li>redis中的string可以包含任何数据，包括jpg和序列化的对象，因为string是byte [] 数组</li>
 <li>setrange key number string 从number开始的下标处替换string,从0开始</li>
@@ -2443,7 +2555,7 @@ select <span class="token operator">?</span> from <span class="token operator">?
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">101.1k</span>
+                        class="white-color">103.3k</span>
             
             
             

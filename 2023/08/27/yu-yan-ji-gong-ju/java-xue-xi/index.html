@@ -6,9 +6,9 @@
     <meta charset="utf-8">
     <meta name="keywords" content="java学习, 博客，学习，成长">
     <meta name="description" content="面试常问：
-基本数据类型：byte 8bit ,short 16 ,int 32 ,long 64,float 32 ,double 64,boolean 1,char 16
-字节码：JVM可以理解的代码就是字节码，也就是.class文件
-">
+基础数据类型：
+== 和 equals : == 比较的是内存地址是否一致，equals比较的是对象的内容是否相等，Object类中没有区别，Striing，Integer等就有区别了
+基本数据类型：byte 8bit ,sho">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -533,7 +533,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    196
+                    1.2k
                 </div>
                 
 
@@ -554,14 +554,82 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h2 id="面试常问："><a href="#面试常问：" class="headerlink" title="面试常问："></a>面试常问：</h2><ul>
-<li>基本数据类型：byte 8bit ,short 16 ,int 32 ,long 64,float 32 ,double 64,boolean 1,char 16</li>
-<li>字节码：JVM可以理解的代码就是字节码，也就是.class文件</li>
+<li>基础数据类型：<ul>
+<li>== 和 equals : == 比较的是内存地址是否一致，equals比较的是对象的内容是否相等，Object类中没有区别，Striing，Integer等就有区别了</li>
+<li>基本数据类型：byte 8bit ,short 16 ,int 32 ,long 64,float 32 ,double 64,boolean 1,char , 注意char的默认值是 <code>\u0000</code> 也就是表示null的字符</li>
+<li>StringBuffer可以看作是线程安全的StringBuilder</li>
+<li>Map和Set:<ul>
+<li>为什么HashMap的长度(桶的数量是2的幂次方)，因为可以优化哈希值的分布，哈希值与长度-1进行位运算而不是取模，可以加快效率，也能分布更均匀</li>
+<li>方便扩容，</li>
+<li>HashSet的底层是是用来一个HashMap，key为set的元素,value为一个固定的Object对象</li>
+<li>HashMap的查询：底层实现数组+链表 1.8之后多了红黑树<ol>
+<li>没有哈希冲突，O(1)</li>
+<li>有冲突，就会把冲突的键放在同一个桶的链表中，需要查询链表O(n);</li>
+<li>Java8之后，当桶中的数据达到一定规模就会转为红黑树，O(logn)</li>
+</ol>
+</li>
+<li>HashSet如何比较是否重复：根据hashcode来比较，如果相等，那么再调用equals方法来比较</li>
+</ul>
+</li>
+<li>字节码：JVM可以理解的代码就是字节码，也就是.class文件<ul>
 <li>Java代码先经过编译生成字节码，之后由java解释器来解释执行</li>
 <li>面向对象三大特点：封装、继承、多态</li>
-<li>== 比较对象比较的是内存地址，而equals()没有重写时，也是比较的地址</li>
+<li>比较对象比较的是内存地址，而equals()没有重写时，也是比较的地址</li>
 <li>序列化：将数据结构或者对象转换成二进制字节流的过程</li>
+<li>包装类型的常量池：包装类型保存了一定范围内的所有的实例，可以减少内存的使用</li>
 </ul>
-<h2 id="JVM调优"><a href="#JVM调优" class="headerlink" title="JVM调优"></a>JVM调优</h2><h2 id="并发编程"><a href="#并发编程" class="headerlink" title="并发编程"></a>并发编程</h2><ul>
+</li>
+<li>引用类型：<ol>
+<li>强引用：使用new </li>
+<li>软引用：只有这个方式时，内存不足时会被回收</li>
+<li>弱引用：只有这个方式是，内存重组也会被回收</li>
+<li>虚引用：无法通过他获取对象</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>IO<ul>
+<li>BIO同步阻塞IO一直等待内核把数据拷贝到用户空间</li>
+<li>NIO非阻塞IO，可以看作多路复用IO</li>
+<li>AIO异步IO</li>
+<li>NIO非阻塞IO Netty使用</li>
+</ul>
+</li>
+<li>多线程：<ul>
+<li>线程不安全的集合：<ul>
+<li>ArrayList,HashMap,HashSet,LinkedList等</li>
+<li>Vector和ArrayList的区别：Vector是线程安全的，大部分方法是同步到，性能上ArrayList好一点，以为不需要同步，扩容的时候，A增加50%，V怎加100%</li>
+<li>ConcurrentHashMap如何保证线程安全：<ol>
+<li>使用CAS(Compare and Swap)，每次更新时，对比内存位置的值与预期的原值相同则更新，否则不更新，这是一种无锁的操作</li>
+<li>使用synchorinized，ConcurrentHashMap的每个桶(也即是哈希表种的链表或者红黑树)，都可以当作一个锁，线程访问时，锁住这个桶，而不是锁住整个哈希表</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>6种状态：</li>
+<li>synchronized:<ul>
+<li>作用：把证同一时刻只能有一个线程来执行该段代码，保证线程的同步</li>
+<li>原理：使用了JVM种的监视器锁monitor，每个对象都有一个内治所，当线程调用synchronized方法时，就获得了这个锁，</li>
+<li>JDK1.6 之后的优化：引入了偏向锁、和轻量级锁，逐步升级到重量级锁</li>
+<li><strong>synchronized和volatile的区别</strong>：volatile只能保证线程的可见性，当一个线程修改了这个变量的值，其他线程立刻可见这个修改</li>
+<li>并发编程的三个重要特性：原子性(全做or全部做)，可见性(共享变量可见)，有序性(按照先后顺序)</li>
+<li>ThreadLocal原理：维护一个ThreadLocalMap，key为ThreadLocal对，值为变量<ul>
+<li>内存泄漏：key是弱引用，value是强引用，所以外部没有使用强引用时，ThreadLocal会被回收，但是value会继续使用内存，可以使用ThreadLocal.remove()来解决这个问题</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>JVM<ul>
+<li>java对象的创建过程：1.类加载检查，检查这个类是否已经加载到内存中2.分配内存3.初始化零值4.设置对象头，这个对象是哪个类的实例，这个对象的哈希码，这个对象的锁状态5.执行构造方法初始化</li>
+<li>对象的访问方式：1.句柄访问：堆中划分出一块内存作为句柄池，句柄包含了示例数据与类型数据的具体地址信息。 优点：不修改引用，缺点：需要两次跳转，句柄 + 具体的地址，性能差 2.直接指针访问</li>
+<li>引用类型：强引⽤、软引⽤、弱引⽤、虚引⽤</li>
+<li>判断对象是否死亡：使用引用计数法或者可达性分析</li>
+</ul>
+</li>
+</ul>
+<h2 id="并发编程"><a href="#并发编程" class="headerlink" title="并发编程"></a>并发编程</h2><ul>
 <li>synchronized ： 对于普通同步方法，锁当前实例对象;对于静态同步方法：锁的是当前类的Class对象；对于同步方法块，锁的是括号里配置的对象</li>
 </ul>
 
@@ -976,7 +1044,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">101.1k</span>
+                        class="white-color">103.3k</span>
             
             
             
