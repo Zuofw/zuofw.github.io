@@ -643,7 +643,21 @@ CAP理论：任何一个分布式系统都无法做到一致性（Consistency）
 <li>发送消息时按照相同的业务设置相同的key，默认的分区是通过key的hashcode值来选择分区的，如果hash值一样，分区也是一样的。</li>
 </ol>
 </li>
-<li><h2 id="高可用：-集群：多个broker，即使一台宕机，其他可以继续服务-broker如何实现消息同步？-主从同步，Leader-Broker接受消息后，将消息写入本地日志，Follower拉取消息，写入本地日志，当所欲的ISR-同步复制保存的follower-都完成，Leader就会向生产者发送确认消息。-通过过程中Leader宕机了，该怎么办？-Kafka回从ISR列表中选择一个新的Leader，ISR列表中的都是已经同步最新数据的副本，当Follower同步完成后，会重新加入到ISR列表中。"><a href="#高可用：-集群：多个broker，即使一台宕机，其他可以继续服务-broker如何实现消息同步？-主从同步，Leader-Broker接受消息后，将消息写入本地日志，Follower拉取消息，写入本地日志，当所欲的ISR-同步复制保存的follower-都完成，Leader就会向生产者发送确认消息。-通过过程中Leader宕机了，该怎么办？-Kafka回从ISR列表中选择一个新的Leader，ISR列表中的都是已经同步最新数据的副本，当Follower同步完成后，会重新加入到ISR列表中。" class="headerlink" title="高可用：  - 集群：多个broker，即使一台宕机，其他可以继续服务      - broker如何实现消息同步？          - 主从同步，Leader Broker接受消息后，将消息写入本地日志，Follower拉取消息，写入本地日志，当所欲的ISR(同步复制保存的follower)都完成，Leader就会向生产者发送确认消息。      - 通过过程中Leader宕机了，该怎么办？          - Kafka回从ISR列表中选择一个新的Leader，ISR列表中的都是已经同步最新数据的副本，当Follower同步完成后，会重新加入到ISR列表中。"></a>高可用：<br>  - 集群：多个broker，即使一台宕机，其他可以继续服务<br>      - broker如何实现消息同步？<br>          - 主从同步，Leader Broker接受消息后，将消息写入本地日志，Follower拉取消息，写入本地日志，当所欲的ISR(同步复制保存的follower)都完成，Leader就会向生产者发送确认消息。<br>      - 通过过程中Leader宕机了，该怎么办？<br>          - Kafka回从ISR列表中选择一个新的Leader，ISR列表中的都是已经同步最新数据的副本，当Follower同步完成后，会重新加入到ISR列表中。</h2></li>
+<li>高可用：<ul>
+<li>集群：多个broker，即使一台宕机，其他可以继续服务<ul>
+<li>broker如何实现消息同步？<ul>
+<li>主从同步，Leader Broker接受消息后，将消息写入本地日志，Follower拉取消息，写入本地日志，当所欲的ISR(同步复制保存的follower)都完成，Leader就会向生产者发送确认消息。</li>
+</ul>
+</li>
+<li>通过过程中Leader宕机了，该怎么办？<ul>
+<li>Kafka回从ISR列表中选择一个新的Leader，ISR列表中的都是已经同步最新数据的副本，当Follower同步完成后，会重新加入到ISR列表中。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>sjlj</li>
+</ul>
+</li>
 </ul>
 <h2 id="SpringCloud"><a href="#SpringCloud" class="headerlink" title="SpringCloud"></a>SpringCloud</h2><h3 id="注册中心"><a href="#注册中心" class="headerlink" title="注册中心"></a>注册中心</h3><ol>
 <li>方便更改微服务的ip和 端口号</li>
