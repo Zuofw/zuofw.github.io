@@ -533,7 +533,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.2k
+                    2k
                 </div>
                 
 
@@ -559,14 +559,37 @@
 <li>基本数据类型：byte 8bit ,short 16 ,int 32 ,long 64,float 32 ,double 64,boolean 1,char , 注意char的默认值是 <code>\u0000</code> 也就是表示null的字符</li>
 <li>StringBuffer可以看作是线程安全的StringBuilder</li>
 <li>Map和Set:<ul>
-<li>为什么HashMap的长度(桶的数量是2的幂次方)，因为可以优化哈希值的分布，哈希值与长度-1进行位运算而不是取模，可以加快效率，也能分布更均匀</li>
-<li>方便扩容，</li>
+<li>为什么HashMap的长度(桶的数量是2的幂次方)，因为可以优化哈希值的分布，哈希值与长度-1进行位运算而不是取模，可以加快效率，也能分布更均匀，方便扩容</li>
 <li>HashSet的底层是是用来一个HashMap，key为set的元素,value为一个固定的Object对象</li>
 <li>HashMap的查询：底层实现数组+链表 1.8之后多了红黑树<ol>
 <li>没有哈希冲突，O(1)</li>
 <li>有冲突，就会把冲突的键放在同一个桶的链表中，需要查询链表O(n);</li>
 <li>Java8之后，当桶中的数据达到一定规模就会转为红黑树，O(logn)</li>
 </ol>
+<ul>
+<li>put方法：<ol>
+<li>判断key对数组table，是否为null，否则执行resize进行扩容（初始化）</li>
+<li>根据key计算hash，得到数组索引</li>
+<li>table[i] == null 直接添加</li>
+<li>不成立：<ul>
+<li>判断table[i] 的首个元素是否和key一样，如果相同直接覆盖value</li>
+<li>table[i] 是否为treeNode ，也就是是否是红黑树，如果是直接在树种插入键值对</li>
+<li>遍历table[i] 在尾部插入数据，如果长度大于8转为红黑树</li>
+</ul>
+</li>
+<li>判断实际数量是否超过了最大容量*0.75，如果超过进行扩容</li>
+</ol>
+</li>
+<li>如何扩容：<ul>
+<li>每次到达数组长度* 0.75时扩容，，每次扩容长度是原来最大容量的两倍</li>
+<li>扩容之后要把老数组移到新数组钟</li>
+</ul>
+</li>
+<li>寻址算法：<ul>
+<li>计算出key的hashCode，然后在这个值右移16位后的二进制及逆行按位异或运算，得到的hash</li>
+</ul>
+</li>
+</ul>
 </li>
 <li>HashSet如何比较是否重复：根据hashcode来比较，如果相等，那么再调用equals方法来比较</li>
 </ul>
@@ -597,7 +620,24 @@
 </li>
 <li>多线程：<ul>
 <li>线程不安全的集合：<ul>
-<li>ArrayList,HashMap,HashSet,LinkedList等</li>
+<li>ArrayList,HashMap,HashSet,LinkedList等<ul>
+<li>ArrayList的实现：<ul>
+<li>add方法：确保数组在已使用长度(size) + 1之后能够存下洗一个数据</li>
+<li>计算数组的容量，如果当前数组已使用的长度+1后的大于当前数组的长度，使用grow方法扩容，扩大约1.5倍</li>
+<li>确保新增的数据有地方存储之后奖新元素加到位于size的位置上</li>
+<li>返回bool值</li>
+</ul>
+</li>
+<li>ArrayList list=new ArrayList(10)中的list 不会扩容</li>
+<li>使用asList后，原数组修改会改变新生成的List，因为他们最终指向的都是一个内存地址</li>
+<li>如何处理linkedlist和arraylist的线程不安全：<ol>
+<li>优先在方法内使用，定义为局部变量</li>
+<li>使用synchornizedList来替换ConcurrentLinkedQueue</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>使用toArray后，修改List的内容，数组的内容不会改变</li>
 <li>Vector和ArrayList的区别：Vector是线程安全的，大部分方法是同步到，性能上ArrayList好一点，以为不需要同步，扩容的时候，A增加50%，V怎加100%</li>
 <li>ConcurrentHashMap如何保证线程安全：<ol>
 <li>使用CAS(Compare and Swap)，每次更新时，对比内存位置的值与预期的原值相同则更新，否则不更新，这是一种无锁的操作</li>
@@ -622,15 +662,45 @@
 </ul>
 </li>
 <li>JVM<ul>
+<li>主要部分：<ol>
+<li>类加载器</li>
+<li>运行时数据区</li>
+<li>执行引擎</li>
+<li>本地库接口</li>
+</ol>
+</li>
+<li>流程：类加载器把Java代码转化为字节码，运行时数据区，执行引擎将字节码翻译为底层系统执行区执行，需要调用其他语言的本地库接口来实现</li>
 <li>java对象的创建过程：1.类加载检查，检查这个类是否已经加载到内存中2.分配内存3.初始化零值4.设置对象头，这个对象是哪个类的实例，这个对象的哈希码，这个对象的锁状态5.执行构造方法初始化</li>
 <li>对象的访问方式：1.句柄访问：堆中划分出一块内存作为句柄池，句柄包含了示例数据与类型数据的具体地址信息。 优点：不修改引用，缺点：需要两次跳转，句柄 + 具体的地址，性能差 2.直接指针访问</li>
 <li>引用类型：强引⽤、软引⽤、弱引⽤、虚引⽤</li>
 <li>判断对象是否死亡：使用引用计数法或者可达性分析</li>
+<li>运行时数据区：<ul>
+<li>堆：对象实例的存储，垃圾回收器管理的主要区域</li>
+<li>方法区：可以认为是堆的一部分，存储已经被虚拟机加载的信息，编译器编译后的代码</li>
+<li>栈：解决程序运行的问题：栈中存的是栈帧，栈帧中是局部变量表，操作数栈，动态链接等</li>
+<li>本地方法栈：执行的是本地方法，Java调用非Java代码的接口</li>
+<li>程序计数器：存放当前线程执行的字节码的行数，jvm通过改变这个值来选取下一个需要执行的字节码</li>
+</ul>
+</li>
+<li>GC 垃圾回收<ul>
+<li>引用类型：<ul>
+<li>强引用：不会回收，直接报错</li>
+<li>软引用：只有内存不足时会回收</li>
+<li>弱引用：无论内存是否足够都会回收，但是GC线程优先级较低，所以弱引用给也不是会被立刻回收的</li>
+<li>虚引用，必须和Reference Queue结合使用，程序可以通过判断引用队列中是否加入了虚引用，来了解被引用的对象是否将要被垃圾回收</li>
+</ul>
+</li>
+<li>垃圾回收算法：<ul>
+<li>分代回收：<ul>
+<li>Java8中，堆被分为两份：新生代和老年代，</li>
 </ul>
 </li>
 </ul>
-<h2 id="并发编程"><a href="#并发编程" class="headerlink" title="并发编程"></a>并发编程</h2><ul>
-<li>synchronized ： 对于普通同步方法，锁当前实例对象;对于静态同步方法：锁的是当前类的Class对象；对于同步方法块，锁的是括号里配置的对象</li>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
                 
@@ -658,7 +728,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://qiuely.github.io/2023/08/27/yu-yan-ji-gong-ju/java-xue-xi/">https://qiuely.github.io/2023/08/27/yu-yan-ji-gong-ju/java-xue-xi/</a>
+                    <a href="https://zuofw.github.io/2023/08/27/yu-yan-ji-gong-ju/java-xue-xi/">https://zuofw.github.io/2023/08/27/yu-yan-ji-gong-ju/java-xue-xi/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1044,7 +1114,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">103.3k</span>
+                        class="white-color">106.8k</span>
             
             
             
@@ -1253,7 +1323,7 @@ $(function () {
         <script type="text/javascript">
           var defaultEncoding = 2; //网站编写字体是否繁体，1-繁体，2-简体
           var translateDelay = 0; //延迟时间,若不在前, 要设定延迟翻译时间, 如100表示100ms,默认为0
-          var cookieDomain = "https://qiuely.github.io"; //Cookie地址, 一定要设定, 通常为你的网址
+          var cookieDomain = "https://zuofw.github.io"; //Cookie地址, 一定要设定, 通常为你的网址
           var msgToTraditionalChinese = "繁"; //此处可以更改为你想要显示的文字
           var msgToSimplifiedChinese = "简"; //同上，但两处均不建议更改
           var translateButtonId = "translateLink"; //默认互换id

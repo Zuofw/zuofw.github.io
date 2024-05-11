@@ -530,7 +530,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.7k
+                    2.1k
                 </div>
                 
 
@@ -655,6 +655,21 @@ PUT mysougoulog/_mapping</span>
 </li>
 </ol>
 </li>
+<li>如何实现master选举？<ul>
+<li>对于所有可以成为master的节点，根据nodeId来排序，每个节点把自己直到的节点排一次序，然后选出第一个节点，认为他是master节点，入股某个节点到达可以成为超过master节点的一半，那就成为了master节点</li>
+</ul>
+</li>
+<li>脑裂问题：<ul>
+<li>设置最小主节点设置，设置的值应该是集群中节点总数的一半 + 1</li>
+</ul>
+</li>
+<li>读写一致：<ul>
+<li>版本控制：每个文档在ES中都有一个版本号，每次被修改后，版本号会增加，获取文档时，会同时或者它的版本号，更新时可以指定这个版本号，如果版本号不匹配，更新操作就会被拒绝</li>
+<li>刷新与同步：向ES中写入数据时，数据先被写入内存缓冲区，然后每隔一段时间刷新一次或者缓冲区满时被刷新到磁盘后就可以被搜索到了，但是没有被写入磁盘，之后定期同步到磁盘中，同步后就是持久化存储了</li>
+<li>副本和分片:只有主节点可以写入数据，然后被复制到副本分片中，读取数据时可以从任何一个包含该数据的分片中获取</li>
+<li>设置写入确认级别</li>
+</ul>
+</li>
 </ul>
 
                 
@@ -682,7 +697,7 @@ PUT mysougoulog/_mapping</span>
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://qiuely.github.io/2024/04/14/hou-duan/es/">https://qiuely.github.io/2024/04/14/hou-duan/es/</a>
+                    <a href="https://zuofw.github.io/2024/04/14/hou-duan/es/">https://zuofw.github.io/2024/04/14/hou-duan/es/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1060,7 +1075,7 @@ PUT mysougoulog/_mapping</span>
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">103.3k</span>
+                        class="white-color">106.8k</span>
             
             
             
@@ -1269,7 +1284,7 @@ $(function () {
         <script type="text/javascript">
           var defaultEncoding = 2; //网站编写字体是否繁体，1-繁体，2-简体
           var translateDelay = 0; //延迟时间,若不在前, 要设定延迟翻译时间, 如100表示100ms,默认为0
-          var cookieDomain = "https://qiuely.github.io"; //Cookie地址, 一定要设定, 通常为你的网址
+          var cookieDomain = "https://zuofw.github.io"; //Cookie地址, 一定要设定, 通常为你的网址
           var msgToTraditionalChinese = "繁"; //此处可以更改为你想要显示的文字
           var msgToSimplifiedChinese = "简"; //同上，但两处均不建议更改
           var translateButtonId = "translateLink"; //默认互换id

@@ -5,7 +5,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="数据库, 博客，学习，成长">
-    <meta name="description" content="数据库Mysql面试指南看看几个隔离级别和解决办法GBKh和UTF-8不是一种编码方式mysql中使用的utf-8是utf8mb3 使用13个字节来表示一个字符而utf-8使用14MVCC （Multi-Version Concurrenc">
+    <meta name="description" content="数据库数据库同步问题：
+Mysql面试指南看看几个隔离级别和解决办法GBKh和UTF-8不是一种编码方式mysql中使用的utf-8是utf8mb3 使用13个字节来表示一个字符而utf-8使用14MVCC （Multi-Version C">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -535,7 +536,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    18k
+                    18.7k
                 </div>
                 
 
@@ -555,9 +556,25 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h1><h2 id="Mysql面试指南"><a href="#Mysql面试指南" class="headerlink" title="Mysql面试指南"></a>Mysql面试指南</h2><p>看看几个隔离级别和解决办法<br>GBKh和UTF-8不是一种编码方式<br>mysql中使用的utf-8是utf8mb3 使用1<del>3个字节来表示一个字符<br>而utf-8使用1</del>4<br>MVCC （Multi-Version Concurrency Control ，多版本并发控制）MVCC （Multi-Version Concurrency Control ，多版本并发控制）指的就是在使用 READ COMMITTD 、 REPEATABLE READ 这两种隔离级别的事务在执行普通的 SEELCT 操作时访问记录的版本链的过程，这样子可以使不同事务的 读-写 、 写-读 操作并发执行，从而提升系统性能。</p>
+                <h1 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h1><p>数据库同步问题：</p>
+<h2 id="Mysql面试指南"><a href="#Mysql面试指南" class="headerlink" title="Mysql面试指南"></a>Mysql面试指南</h2><p>看看几个隔离级别和解决办法<br>GBKh和UTF-8不是一种编码方式<br>mysql中使用的utf-8是utf8mb3 使用1<del>3个字节来表示一个字符<br>而utf-8使用1</del>4<br>MVCC （Multi-Version Concurrency Control ，多版本并发控制）MVCC （Multi-Version Concurrency Control ，多版本并发控制）指的就是在使用 READ COMMITTD 、 REPEATABLE READ 这两种隔离级别的事务在执行普通的 SEELCT 操作时访问记录的版本链的过程，这样子可以使不同事务的 读-写 、 写-读 操作并发执行，从而提升系统性能。</p>
 <ul>
 <li>sql语句的执行过程：mysql8.0 client发送sql语句-&gt;sql解析-&gt;执行优化和执行计划生成-&gt;执行-&gt;返回结果</li>
+<li>集群：<ul>
+<li>redo log 和 undo log都是由InnoDB引擎实现的</li>
+<li>bin log 是由mysql级别的日志<ul>
+<li>redo和bin 的区别：Redo log是记录了数据的修改，大小到一定程度，新的日志会覆盖，先写redo再写bin，目的是为了保证事务的持久性</li>
+<li>Binlog是记录了执行了什么sql语句，不会覆盖旧日志，用于实现mysql的主从复制</li>
+</ul>
+</li>
+<li>redolog的优势：顺序写，预写入，磁盘同步过程中可以一次同步多个事务的Redo log：先把修改写入redolog，再修改内存中的数据，事务提交时再入bin log，之后再将数据写入磁盘中 </li>
+<li>主从复制：<ul>
+<li>master节点会不断将sql命令写入Binary Log，子节点使用I/O线程读入master节点中的Bin Log</li>
+<li>字节点使用SQL线程执行Bin Log的语句</li>
+</ul>
+</li>
+</ul>
+</li>
 <li>存储引擎的区别：MyISAM 和 InnoDB 的区别<ul>
 <li>InnodDB支持事务</li>
 <li>InnoDB支持行级锁定，MyISAM操作时直接锁定整个表</li>
@@ -609,6 +626,16 @@
 </ul>
 </li>
 </ul>
+</li>
+</ul>
+</li>
+<li>索引常问：<ul>
+<li>覆盖索引：查询使用了索引，并且查询过程中已经找到了所有需要的列，不需要继续回表了</li>
+<li>索引失效问题：<ol>
+<li>使用了!= &lt; &gt; LIKE ，函数操作或者表达式操作</li>
+<li>联合索引中没有遵循最左前缀，跳过了中间的索引字段</li>
+<li></li>
+</ol>
 </li>
 </ul>
 </li>
@@ -774,22 +801,7 @@
 </li>
 </ul>
 <h3 id="Buffer-Pool-缓冲池"><a href="#Buffer-Pool-缓冲池" class="headerlink" title="Buffer Pool 缓冲池"></a>Buffer Pool 缓冲池</h3><p>脏页：缓冲池中的数据已经修改但是没有同步到磁盘中</p>
-<h3 id="事务隔离等级："><a href="#事务隔离等级：" class="headerlink" title="事务隔离等级："></a>事务隔离等级：</h3><ul>
-<li>并发遇到的问题<ol>
-<li>脏写：一个事务修改了另一个未提交未提交事务修改的数据</li>
-<li>脏读：一个事务读到了另一个未提交事务修改的数据</li>
-<li>不可重复读：一个事务多次读取数据时，每次读到的都不一样，意味着发生了不可重复读。</li>
-<li>幻读：一个事务的两次相同的查询查到的数据不一致。</li>
-</ol>
-</li>
-<li>隔离级别：<ol>
-<li></li>
-</ol>
-</li>
-</ul>
-<h3 id="记录的真实数据"><a href="#记录的真实数据" class="headerlink" title="#记录的真实数据"></a><a target="_blank" rel="noopener" href="https://www.xiaolincoding.com/mysql/base/row_format.html#%E8%AE%B0%E5%BD%95%E7%9A%84%E7%9C%9F%E5%AE%9E%E6%95%B0%E6%8D%AE">#</a>记录的真实数据</h3><pre><code>- 
-</code></pre>
-<h3 id="预处理器"><a href="#预处理器" class="headerlink" title="#预处理器"></a><a target="_blank" rel="noopener" href="https://www.xiaolincoding.com/mysql/base/how_select.html#%E9%A2%84%E5%A4%84%E7%90%86%E5%99%A8">#</a>预处理器</h3><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="模式"><a href="#模式" class="headerlink" title="模式"></a>模式</h3><ul>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="模式"><a href="#模式" class="headerlink" title="模式"></a>模式</h3><ul>
 <li>模式: 逻辑模式，是开发者可见的模式，是数据库中全体数据的逻辑结构和特征的描述，是所有用户的公共数据视图。</li>
 <li>外模式:子模式，用户模式，用户可见</li>
 <li>内模式: 存储模式，是物理存储模式</li>
@@ -1746,7 +1758,9 @@ select <span class="token operator">?</span> from <span class="token operator">?
 <h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><h3 id="面试常问"><a href="#面试常问" class="headerlink" title="面试常问"></a>面试常问</h3><ul>
 <li>集群问题：<ol>
 <li>Sentinel是哨兵：监控节点状态并自动实现故障转移 <ul>
-<li>选举新的master:<ol>
+<li>主观下线是某一个sentinel节点发现某个节点没在规定时间内响应，客观下线是指的是有一半以上的sentinel都认为下线了才行</li>
+<li>选举新的master: </li>
+<li>选举规则：判断优先级，判断offset值，越高越优先，判断id，越小越优先<ol>
 <li>故障检测：sentinel检测主节点和从节点的在线情况，如果有半数以上的sentinel认为主节点故障，就会开始选举</li>
 <li>sentinel选举出一个leader节点，每个sentinel都有资格，sentinel确定朱姐带你主管下线之后就会请求其他sentinel同意自己成为leader，票数大于一半的sentinel即可成为leader,如果没有选出，就重复直到选出</li>
 <li>选举根据 数据复制的偏移量更大(数据最新)，运行id更小(运行时间更长 )，节点的优先级进行选举</li>
@@ -1754,16 +1768,24 @@ select <span class="token operator">?</span> from <span class="token operator">?
 <li>通知客户端重新连接主节点</li>
 </ol>
 </li>
-<li>主从复制：<ol>
-<li>从节点保存主节点信息，与主节点建立连接</li>
+<li>主从复制：<ul>
+<li>全量同步<ol>
+<li>从节点保存主节点信息，与主节点建立连接，主节点判断是否是第一次请求，是就与从节点同步版本信息</li>
 <li>主节点fork一个子进程保存当前所有的数据，2.发送数据快照3.之后主节点每次执行其他的操作都会同步给从节点</li>
 </ol>
 </li>
+<li>增量同步：<ul>
+<li>根据offset来进行同步</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>防止脑裂问题：设置最少的slave节点数量，比如最少需要1个从节点才能同步数据，然后也可以设置主从数据复制和同步的延迟时间，达不到要求就拒绝请求，避免数据大量丢失</li>
 <li>offset复制偏移量：主从各自维护自己的offset，子节点把自己的offset上报，master保存offset ，部分复制使用二者的偏移量来同步缺失的数据</li>
 </ul>
 </li>
 <li>常见的缓存有几种：<ul>
-<li>旁路缓存：同时维护数据库和缓存并且以数据库中的结果为准<ol>
+<li>旁路缓存：使用应用程序来保证缓存和数据库的一致性<ol>
 <li>先写DB然后直接删除cache<ul>
 <li>为何删除？ 1.如果db频繁更改，导致cache中的数据很少被访问，删除可以节省服务端的资源 2. 更新cache更容易造成缓存不一致的现象</li>
 <li>为何不能先删除cache? 因为 如果有两个请求同时访问，请求1先把cache中的数据删除了，请求二就会从db中读取数据，然后请求一再更改db，会导致请求2读到的是旧值</li>
@@ -1791,9 +1813,21 @@ select <span class="token operator">?</span> from <span class="token operator">?
 </li>
 <li>Redis单线程模型：Redis对于每一个客户端的连接都关联一个指令队列和响应队列<ul>
 <li>为何单线程性能还这么高？ <ol>
-<li>使用纯内存访问</li>
+<li>使用纯内存访问，</li>
+<li>单线程避免不必要的上下文切换和竞争</li>
+<li>IO多路复用，对于多个IO，Redis每次处理其中一个IO然后暂停对其他的IO事件。使用一个线程来监听多个socket某个socket可读时及逆行读写<ul>
+<li>实现：select(文件描述符有上限)，poll这俩只会通知用户有有Socket就绪，不确定具体的是哪个，需要轮询来找</li>
+<li>epoll会通知用户的时候把哪个socket也直接写入用户空间 </li>
+<li>详细介绍一下为什么I/O复用</li>
+</ul>
+<ol start="2">
+<li>Redis是纯内存的，所以性能取决于网络延迟，I/O多路复用实现了高效的网络请求<ol>
+<li>常见的IO有 阻塞，非阻塞，多路复用</li>
 <li>非阻塞式IO，读到多少就都多少，写多少，不会等待满足字节要求</li>
-<li>IO多路复用，对于多个IO，Redis每次处理其中一个IO然后暂停对其他的IO事件。</li>
+</ol>
+</li>
+</ol>
+</li>
 </ol>
 </li>
 <li>优点：避免了线程切换的消耗。</li>
@@ -1804,7 +1838,7 @@ select <span class="token operator">?</span> from <span class="token operator">?
 <li>主从复制： 主服务器执行写操作时，会将写操作同步给从服务器，从服务器只读，并执行主服务器同步过来的指令 缺点：主服务器宕机时必须手动恢复</li>
 <li>哨兵模式： 监控主从服务器，提供主从节点故障转移的功能</li>
 <li>切片集群：将数据分布在不同的服务器上，以此来降低系统对单主节点的依赖，从而提高 Redis 服务的读写性能。</li>
-<li>脑裂问题： 由于网络问题，集群节点之间失去联系。主从数据不同步；重新平衡选举，产生两个主服务。等网络恢复，旧主节点会降级为从节点，再与新主节点进行同步复制的时候，由于会从节点会清空自己的缓冲区，所以导致之前客户端写入的数据丢失了。 解决： 当主节点发现从节点下线或者通信超时的总数量小于阈值时，那么禁止主节点进行写数据，直接把错误返回给客户端。</li>
+<li>脑裂问题： 由于网络问题，集群节点之间失去联系。主从数据不同步；重新平衡选举，产生两个主服务。等网络恢复，旧主节点会降级为从节点，再与新主节点进行同步复制的时候，由于会从节点会清空自己的缓冲区，所以导致之前客户端写入的数据丢失了。 解决： 当主节点发现从节点下线或者通信超时的总数量大于阈值时，那么禁止主节点进行写数据，直接把错误返回给客户端。</li>
 </ul>
 </li>
 <li>数据相关：<ul>
@@ -1864,9 +1898,9 @@ select <span class="token operator">?</span> from <span class="token operator">?
 </ul>
 </li>
 <li>数据一致性<ul>
-<li>双写一致问题：<ul>
+<li><strong>双写一致问题：</strong><ul>
 <li>保证一致性<ul>
-<li>写使用的延迟双删，删两次缓存，等数据库修改完之后再删除一次缓存<ol>
+<li>写使用的<strong>延迟双删</strong>，删两次缓存，等数据库修改完之后再删除一次缓存<ol>
 <li>Cache Aside 旁路缓存策略<ul>
 <li>写策略：先更新数据库再删除缓存中的数据</li>
 <li>读策略：如果命中了缓存，直接返回，否则从数据库中读入数据并写入缓存，返回给用户</li>
@@ -1908,7 +1942,6 @@ select <span class="token operator">?</span> from <span class="token operator">?
 </li>
 </ul>
 </li>
-<li>使用红锁来保证主从同步还没同步就down了导致的多个锁问题（不推荐使用）,<strong>更推荐使用zookeeper</strong></li>
 </ol>
 </li>
 </ol>
@@ -2131,8 +2164,26 @@ select <span class="token operator">?</span> from <span class="token operator">?
 </li>
 <li>聚合管道： 类似stream流和channel管道，可以执行一系列的handler,最后返回结果 <img src="/2023/08/02/hou-duan/shu-ju-ku/%E8%81%9A%E5%90%88%E7%AE%A1%E9%81%93.png"><ol>
 <li><img src="/2023/08/02/hou-duan/shu-ju-ku/SQL%E5%AF%B9%E6%AF%94%E8%81%9A%E5%90%88.png"></li>
-<li></li>
 </ol>
+</li>
+</ul>
+<h2 id="Mybatis面试"><a href="#Mybatis面试" class="headerlink" title="Mybatis面试"></a>Mybatis面试</h2><ul>
+<li>mybatis执行流程：<ul>
+<li>读取配置文件</li>
+<li>构建会话工厂：会话工厂全局一个，生产sqlSession</li>
+<li>创建会话：项目与数据库的会话，包含了执行sql语句的所有方法，每次操作一个会话，有多个</li>
+<li>Executor执行器</li>
+<li>返回结果</li>
+</ul>
+</li>
+<li>延迟加载：懒加载，旨在需要使用数据的时候才进行实际的SQL查询<ul>
+<li>比如我们在关联查询中，我们会自动的把关联的用户数据也查询出来了，但是我们并不需要用户的信息，所以我们可以使用延迟加载，只有在我们使用用户信息的时候才会把结果查询出来</li>
+</ul>
+</li>
+<li>缓存：本地缓存<ul>
+<li>一级缓存：sqlsession ，实现方式是PerpertualCache,当Session进行flush或者close时会刷新缓存</li>
+<li>二级缓存：mapper级别的</li>
+</ul>
 </li>
 </ul>
 
@@ -2161,7 +2212,7 @@ select <span class="token operator">?</span> from <span class="token operator">?
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://qiuely.github.io/2023/08/02/hou-duan/shu-ju-ku/">https://qiuely.github.io/2023/08/02/hou-duan/shu-ju-ku/</a>
+                    <a href="https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/">https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -2555,7 +2606,7 @@ select <span class="token operator">?</span> from <span class="token operator">?
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">103.3k</span>
+                        class="white-color">106.8k</span>
             
             
             
@@ -2764,7 +2815,7 @@ $(function () {
         <script type="text/javascript">
           var defaultEncoding = 2; //网站编写字体是否繁体，1-繁体，2-简体
           var translateDelay = 0; //延迟时间,若不在前, 要设定延迟翻译时间, 如100表示100ms,默认为0
-          var cookieDomain = "https://qiuely.github.io"; //Cookie地址, 一定要设定, 通常为你的网址
+          var cookieDomain = "https://zuofw.github.io"; //Cookie地址, 一定要设定, 通常为你的网址
           var msgToTraditionalChinese = "繁"; //此处可以更改为你想要显示的文字
           var msgToSimplifiedChinese = "简"; //同上，但两处均不建议更改
           var translateButtonId = "translateLink"; //默认互换id

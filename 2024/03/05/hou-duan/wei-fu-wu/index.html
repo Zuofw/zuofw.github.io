@@ -10,7 +10,7 @@ GreetingResourceTest是在jvm中测试
 NativeGreetingResourceIT是使用应用的原生可执行程序
 
 面试常问
-Nacos挂了能不能正常访问：答案是能，Nacos会把注册的服务的地址推送给他">
+CAP理论：任何一个分布式系统都无法做到一致性（Consistency）、可用">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -531,7 +531,7 @@ Nacos挂了能不能正常访问：答案是能，Nacos会把注册的服务的�
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.6k
+                    5.3k
                 </div>
                 
 
@@ -556,7 +556,94 @@ Nacos挂了能不能正常访问：答案是能，Nacos会把注册的服务的�
 <li>NativeGreetingResourceIT是使用应用的原生可执行程序</li>
 </ul>
 <h2 id="面试常问"><a href="#面试常问" class="headerlink" title="面试常问"></a>面试常问</h2><ul>
+<li>CAP理论：任何一个分布式系统都无法做到一致性（Consistency）、可用性（Availability）和分区容错性（Partition tolerance）全部满足。</li>
+<li>SpringCloud </li>
+<li>分布式事务：<ul>
+<li>接口幂等性：接口的幂等性是指一次和多次请求某一个资源应该具有同样的副作用。</li>
+<li>分布式事务的接口幂等性如何保证：</li>
+</ul>
+</li>
+<li>Nacos:<ul>
 <li>Nacos挂了能不能正常访问：答案是能，Nacos会把注册的服务的地址推送给他们，他们各自维护一个列表，所以Nacos挂了也不影响调用</li>
+<li>nacos和eureka的区别：<ul>
+<li>Nacos支持服务端主动检测提供者状态：临时实例采用心跳模式，非临时实例采用主动检测模式</li>
+<li>临时实例心跳不正常会被删除，非临时实例不会呗删除</li>
+<li>Nacos支持服务列表变更的消息推送模式，服务列表更新更及时</li>
+<li>Nacos默认使用AP方式，</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>负载均衡：<ul>
+<li>使用Ribbon组件实现：发起远程调用时，ribbon先从注册中心拉取服务地址列表，然后按照一定的路由策略选择一个发起远程调用，</li>
+<li>Ribbon发负载均衡策略：<ul>
+<li>轮询，根据权重选择，随机选择一个可用的，</li>
+<li>区域敏感策略，以区域可用的服务器为基础进行服务器的选择。使用Zone对服务器进行分类，这个Zone可以理解为一个机房、一个机架等。而后再对Zone内的多个服务做轮询(默认)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>限流：<ul>
+<li>使用nginx基于漏桶实现限流</li>
+<li>使用gateway 的令牌桶算法，根据ip或者路径进行限流.</li>
+</ul>
+</li>
+<li>分布式事务：<ul>
+<li>使用seata解决分布式事务：<ul>
+<li>at模式：<ol>
+<li>阶段一RM：1.注册分支事务，2.记录undo-log，3.执行业务sql并提交</li>
+<li>阶段而提交时RM工作：删除undo-log</li>
+<li>回滚时，RM工作：根据undo-log恢复数据到更新前</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>接口幂等性：<ul>
+<li>使用token+redis实现接口幂等性，第二次请求之后每次请求都会携带之前的token，后台先对redis进行验证，如果存在token则执行业务，同时删除token，如果不存再则直接返回，保证了幂等性，保证了同一个token只处理一次业务</li>
+</ul>
+</li>
+</ul>
+<h3 id="Kafka面试题"><a href="#Kafka面试题" class="headerlink" title="Kafka面试题"></a>Kafka面试题</h3><ul>
+<li>如何保证消息不丢失：<ol>
+<li>producer时，可以使用异步回调发送，如果消息发送失败，我们可以通过回调获取失败后的消息信息，可以重试或者记录日志，也可以后续进行不成</li>
+<li>broker中消息丢失，通过kafka的复制机制来保证消息不丢失，在生产者发送消息的时候，可以设置一个acks的参数位all，这样就会在broker的leader和foller分区都保存确认，只有所有的副本都确认之后才算是成功过发送了消息</li>
+</ol>
+</li>
+<li>consumer时使用pull，还是push：<ul>
+<li>Kafka使用了pull模式，consumer可以自主决定是否批量从broker拉取数据。push为了避免consumer崩溃而采用较低的推送速率，到一次只推送较少的消息造成浪费，pull模式下，consumer可以根据自己的消费能力而去决定如何拉取消息</li>
+<li>缺点：如果broker没有提供可消费的消息，将导致consumer不断循环中轮询，直到最新消息到达。</li>
+<li>Kafka可以有个参数可以让consumer阻塞知道新消息的到达，或者阻塞直到消息的数量到达某个特定的量就可以批量发送。</li>
+</ul>
+</li>
+<li>Kafka将Topic分成了若干分区，每个分区同一时间只能被有一个consumer消费，意味着每个分区被消费的消息在日志中的位置仅仅是有一个简单的整数：offset ，consumer可以把offset调成一个较老的值，从而重新消费老消息</li>
+<li>主从复制：一个topic可以有多个副本<ul>
+<li>主节点将消息写入本地日志，从节点从主节点拉取信息，写入本地日志，之后向主节点发送确认消息，如果主节点收到所有从节点的确认消息，该消息就会被认为是已提交的，主节点会更新自己的高水位，消费者只能消费已提交的消息</li>
+<li>优点：保证了主节点崩溃消息也不会丢失</li>
+</ul>
+</li>
+<li>脑裂问题：<ul>
+<li>只有领导者负责处理生产者和消费者的读写请求，追随者只能从领导者那里复制数据</li>
+<li>Kafka的选举是由ZooKeeper协调的，ZooKeeper可以保证在任何时候只有一个领导者被选举出来</li>
+<li>Zookeeper是如何做到的？<ul>
+<li>当Zookeeper启动或者领导者崩溃时，所有的Zookeeper节点都会进入选举状态</li>
+<li>投票阶段：每个节点会将自己作为领导者后端，然后发送投票信息给其他节点，当一个节点收到其他节点的投票信息是，如果ZXID更大，也就是收到的消息更，会更新自己的投票信息，并将新的投票信息发送给其他节点</li>
+<li>确定阶段：当一个节点收到超过半数节点的相同投票信息中，他就认为选举结束，选举出的领导者就是投票信息中的候选节点，然后将结果发送给其他节点。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>消息重复消费如何解决<ul>
+<li>kafka都是按照offset进行标记消费的，消费者默认是自动按期提交已经消费的偏移量，如果出现重复消费的问题，我们需要禁用自动提交offset，改为手动提交，消费成功后报告给broker，为了维护消息的幂等性，我们可以设置唯一主键进行区分，或者是枷锁，数据库的锁或者是Redis的分布式锁都能解决幂等问题。</li>
+</ul>
+</li>
+<li>如何保证消息的顺序性：<ol>
+<li>将消息都存储在同一个分区下</li>
+<li>发送消息时按照相同的业务设置相同的key，默认的分区是通过key的hashcode值来选择分区的，如果hash值一样，分区也是一样的。</li>
+</ol>
+</li>
+<li><h2 id="高可用：-集群：多个broker，即使一台宕机，其他可以继续服务-broker如何实现消息同步？-主从同步，Leader-Broker接受消息后，将消息写入本地日志，Follower拉取消息，写入本地日志，当所欲的ISR-同步复制保存的follower-都完成，Leader就会向生产者发送确认消息。-通过过程中Leader宕机了，该怎么办？-Kafka回从ISR列表中选择一个新的Leader，ISR列表中的都是已经同步最新数据的副本，当Follower同步完成后，会重新加入到ISR列表中。"><a href="#高可用：-集群：多个broker，即使一台宕机，其他可以继续服务-broker如何实现消息同步？-主从同步，Leader-Broker接受消息后，将消息写入本地日志，Follower拉取消息，写入本地日志，当所欲的ISR-同步复制保存的follower-都完成，Leader就会向生产者发送确认消息。-通过过程中Leader宕机了，该怎么办？-Kafka回从ISR列表中选择一个新的Leader，ISR列表中的都是已经同步最新数据的副本，当Follower同步完成后，会重新加入到ISR列表中。" class="headerlink" title="高可用：  - 集群：多个broker，即使一台宕机，其他可以继续服务      - broker如何实现消息同步？          - 主从同步，Leader Broker接受消息后，将消息写入本地日志，Follower拉取消息，写入本地日志，当所欲的ISR(同步复制保存的follower)都完成，Leader就会向生产者发送确认消息。      - 通过过程中Leader宕机了，该怎么办？          - Kafka回从ISR列表中选择一个新的Leader，ISR列表中的都是已经同步最新数据的副本，当Follower同步完成后，会重新加入到ISR列表中。"></a>高可用：<br>  - 集群：多个broker，即使一台宕机，其他可以继续服务<br>      - broker如何实现消息同步？<br>          - 主从同步，Leader Broker接受消息后，将消息写入本地日志，Follower拉取消息，写入本地日志，当所欲的ISR(同步复制保存的follower)都完成，Leader就会向生产者发送确认消息。<br>      - 通过过程中Leader宕机了，该怎么办？<br>          - Kafka回从ISR列表中选择一个新的Leader，ISR列表中的都是已经同步最新数据的副本，当Follower同步完成后，会重新加入到ISR列表中。</h2></li>
 </ul>
 <h2 id="SpringCloud"><a href="#SpringCloud" class="headerlink" title="SpringCloud"></a>SpringCloud</h2><h3 id="注册中心"><a href="#注册中心" class="headerlink" title="注册中心"></a>注册中心</h3><ol>
 <li>方便更改微服务的ip和 端口号</li>
@@ -952,7 +1039,7 @@ controller层上使用@RefreshScope //在控制器类加入@RefreshScope注解�
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://qiuely.github.io/2024/03/05/hou-duan/wei-fu-wu/">https://qiuely.github.io/2024/03/05/hou-duan/wei-fu-wu/</a>
+                    <a href="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu/">https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1330,7 +1417,7 @@ controller层上使用@RefreshScope //在控制器类加入@RefreshScope注解�
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">103.3k</span>
+                        class="white-color">106.8k</span>
             
             
             
@@ -1539,7 +1626,7 @@ $(function () {
         <script type="text/javascript">
           var defaultEncoding = 2; //网站编写字体是否繁体，1-繁体，2-简体
           var translateDelay = 0; //延迟时间,若不在前, 要设定延迟翻译时间, 如100表示100ms,默认为0
-          var cookieDomain = "https://qiuely.github.io"; //Cookie地址, 一定要设定, 通常为你的网址
+          var cookieDomain = "https://zuofw.github.io"; //Cookie地址, 一定要设定, 通常为你的网址
           var msgToTraditionalChinese = "繁"; //此处可以更改为你想要显示的文字
           var msgToSimplifiedChinese = "简"; //同上，但两处均不建议更改
           var translateButtonId = "translateLink"; //默认互换id
