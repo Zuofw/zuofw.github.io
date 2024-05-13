@@ -533,7 +533,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2k
+                    2.5k
                 </div>
                 
 
@@ -692,9 +692,52 @@
 </li>
 <li>垃圾回收算法：<ul>
 <li>分代回收：<ul>
-<li>Java8中，堆被分为两份：新生代和老年代，</li>
+<li>Java8中，堆被分为两份：新生代和老年代</li>
 </ul>
 </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>AOP编程：aop中的环绕通知+切点表达式<ul>
+<li>aop的实现：<ul>
+<li>使用的是动态代理模式，当AOP代理收到一个方法调用时，它首先确定这个方法是否匹配切点规则。</li>
+<li>对于每个匹配点，aop代理会指定顺序去执行通知</li>
+<li>aop代理调用原始的目标方法，如果有环绕通知，那么这个调用会在环绕通知中执行</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Spring事务失效：<ol>
+<li>捕获异常后自己处理了，没有抛出异常</li>
+<li>发生了检查异常（也就是继承自<code>Exception</code>但不继承自<code>RuntimeException</code>的异常），Spring默认不会回滚事务。</li>
+<li>方法不是public修饰的</li>
+</ol>
+</li>
+<li>Spring<ul>
+<li>bean的生命周期：<ol>
+<li>通过BeanDefinition获取bean的定义信息</li>
+<li>创建bean，调用构造函数实例化bean</li>
+<li>bean的依赖注入，比如一些set方法</li>
+<li>处理Aware接口，如果某一个bean实现了Aware接口就会重写方法。(Aware接口是一种特殊的接口，它提供了一种回调机制，允许Spring容器在创建Bean的过程中，将自身或者其他特定的对象注入到Bean中)</li>
+<li>bean的前置处理器BeanPostProcessor</li>
+<li>初始化方法</li>
+<li>执行后置处理器BeanPostProcessor，主要是对bean进行增强，有可能在这里产生代理对象</li>
+<li>销毁bean</li>
+</ol>
+</li>
+<li>Spring的循环引用问题：<ul>
+<li>两个活两个以上的bean相互持有对方，最终形成闭环</li>
+<li>如何解决？<ul>
+<li>spring框架的三级缓存可以解决部分问题，建议使用@Autowired进行注入<ul>
+<li>一级缓存：单例池，已经经历完成生命周期，初始化完成bean</li>
+<li>二级缓存：缓存早期bean对象，生命周期还没走完</li>
+<li>三级缓存：存的是ObjectFactory表示对象工厂，用来创建某个对象</li>
+</ul>
+</li>
+<li>可以使用一个空类来解决循环</li>
 </ul>
 </li>
 </ul>
@@ -1114,7 +1157,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">106.8k</span>
+                        class="white-color">108k</span>
             
             
             

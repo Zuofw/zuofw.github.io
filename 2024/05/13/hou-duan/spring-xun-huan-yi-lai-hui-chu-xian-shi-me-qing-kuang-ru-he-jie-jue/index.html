@@ -4,15 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="blog搭建, 博客，学习，成长">
-    <meta name="description" content="目前的想法：
-
-静态解析 + 动态评论
-mongodb作为文章的存储，mysql来存储评论信息
-两种都做，由命令来指定使用哪种基本的技术栈：暂定
-ElasticSearch 作为文章搜索的索引
-vue来做前端，尽量少使用element组件
-">
+    <meta name="keywords" content="Spring 循环依赖会出现什么情况？ 如何解决?, 博客，学习，成长">
+    <meta name="description" content="一、什么是循环依赖?在Spring项目中我们经常使用 @Autowired或者@Resource去注入Bean，我们称之为依赖。当多个Bean之间存在互相依赖的关系，并且出现了循环调用时，Spring就会找不到依赖的七点，就会死循环直到抛出">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -24,7 +17,7 @@ vue来做前端，尽量少使用element组件
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>blog搭建 | QingQiu&#39;Blog</title>
+    <title>Spring 循环依赖会出现什么情况？ 如何解决? | QingQiu&#39;Blog</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
     
 
@@ -483,12 +476,12 @@ vue来做前端，尽量少使用element组件
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">blog搭建</h1>
+                    <h1 class="description center-align post-title">Spring 循环依赖会出现什么情况？ 如何解决?</h1>
                 </div>
             </div>
         </div>
@@ -524,7 +517,7 @@ vue来做前端，尽量少使用element组件
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2024-04-14
+                    2024-05-13
                 </div>
                 
 
@@ -533,7 +526,7 @@ vue来做前端，尽量少使用element组件
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    136
+                    555
                 </div>
                 
 
@@ -553,20 +546,43 @@ vue来做前端，尽量少使用element组件
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>目前的想法：</p>
+                <h2 id="一、什么是循环依赖"><a href="#一、什么是循环依赖" class="headerlink" title="一、什么是循环依赖?"></a>一、什么是循环依赖?</h2><p>在Spring项目中我们经常使用 @Autowired或者@Resource去注入Bean，我们称之为依赖。<br>当多个Bean之间存在互相依赖的关系，并且出现了循环调用时，Spring就会找不到依赖的七点，就会死循环直到抛出异常。<br>例如：A依赖B,B依赖C,C依赖A，三者必须在依赖的类初始化之后才会初始化自己，从而出现死循环。</p>
+<h2 id="二、实战场景"><a href="#二、实战场景" class="headerlink" title="二、实战场景"></a>二、实战场景</h2><p>笔者是在使用Spring Security 编写登录和权限验证代码时出现了循环依赖的场景。</p>
+<h2 id="三、解决方法"><a href="#三、解决方法" class="headerlink" title="三、解决方法"></a>三、解决方法</h2><p>省流： 笔者使用的方法</p>
 <ol>
-<li>静态解析 + 动态评论</li>
-<li>mongodb作为文章的存储，mysql来存储评论信息</li>
-<li>两种都做，由命令来指定使用哪种<br>基本的技术栈：暂定</li>
-<li>ElasticSearch 作为文章搜索的索引</li>
-<li>vue来做前端，尽量少使用element组件</li>
-<li>mongodb和mysql和redis</li>
-<li>认证使用springsecurity，然后尽量自己写这次</li>
-<li>可以加一个实时聊天系统，试试websocket</li>
-<li>账号管理和权限管理</li>
-<li>后端可以使用分布式，然后使用消息队列来进行通信</li>
-<li></li>
+<li>将@Resource替换为@Autowired</li>
+<li>新建一个空Bean，来解决依赖问题： 例如 A依赖B,B依赖A,我们可以新建一个C，然后让A依赖C，B实现C即可将直接依赖转化为间接依赖关系 中介方式打破循环链<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// 新的接口</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">C</span> <span class="token punctuation">{</span>
+    <span class="token keyword">void</span> <span class="token function">doSomething</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// B实现C</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">B</span> <span class="token keyword">implements</span> <span class="token class-name">C</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">doSomething</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// ...</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// A依赖C，而不是直接依赖B</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">A</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> <span class="token class-name">C</span> c<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">A</span><span class="token punctuation">(</span><span class="token class-name">C</span> c<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>c <span class="token operator">=</span> c<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">doSomething</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        c<span class="token punctuation">.</span><span class="token function">doSomething</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ol>
+<h2 id="四、扩展：-Autowired是如何解决循环依赖的的问题的"><a href="#四、扩展：-Autowired是如何解决循环依赖的的问题的" class="headerlink" title="四、扩展：@Autowired是如何解决循环依赖的的问题的"></a>四、扩展：@Autowired是如何解决循环依赖的的问题的</h2><p>解决的核心是使用了Spring的三级缓存：</p>
+<ul>
+<li>第一级缓存：singletonObjects，用于存放完全初始化好的bean，避免重复创建</li>
+<li>二级缓存：存放原始的bean对象，尚未填充属性，同时也没有进行完成依赖注入的类 (<strong>核心</strong>)</li>
+<li>三级缓存：singletonFactories 用于存放bean工厂对象，用于产生原始的bean来放入二级缓存<br>首先我们要知道，实例化 ≠ 完全初始化，当Spring容器创建bean时，会从一级缓存中寻找，如果没找到，会搜索二级缓存，如果存在就会把它注入，如果没有会找三级缓存。当bean初始化时，如果发现依赖的类没有完成完全初始化，就会先使用二级缓存中的bean实例，当所有的bean都初始化之后再从一级缓存中获取完全初始化的bean<br>而我们使用的@Resource并不存在这种机制，会直接抛出BeanCurrentlyInCreationException</li>
+</ul>
 
                 
             </div>
@@ -593,7 +609,7 @@ vue来做前端，尽量少使用element组件
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://zuofw.github.io/2024/04/14/xiang-mu-jian-li-shi-xi/blog-da-jian-da-bing/">https://zuofw.github.io/2024/04/14/xiang-mu-jian-li-shi-xi/blog-da-jian-da-bing/</a>
+                    <a href="https://zuofw.github.io/2024/05/13/hou-duan/spring-xun-huan-yi-lai-hui-chu-xian-shi-me-qing-kuang-ru-he-jie-jue/">https://zuofw.github.io/2024/05/13/hou-duan/spring-xun-huan-yi-lai-hui-chu-xian-shi-me-qing-kuang-ru-he-jie-jue/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -707,54 +723,18 @@ vue来做前端，尽量少使用element组件
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2024/04/14/hou-duan/es/">
+                <a href="/2024/05/13/hou-duan/spring-xun-huan-yi-lai-hui-chu-xian-shi-me-qing-kuang-ru-he-jie-jue/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="es">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="Spring 循环依赖会出现什么情况？ 如何解决?">
                         
-                        <span class="card-title">es</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2024-04-14
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            QingQiu
-                            
-                        </span>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2024/04/11/hou-duan/k8s/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="k8s">
-                        
-                        <span class="card-title">k8s</span>
+                        <span class="card-title">Spring 循环依赖会出现什么情况？ 如何解决?</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -765,7 +745,45 @@ vue来做前端，尽量少使用element组件
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-04-11
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-05-13
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            QingQiu
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2024/05/04/mysql/undolog-ri-zhi.png/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        
+                        <span class="card-title"></span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-05-04
                             </span>
                         <span class="publish-author">
                             

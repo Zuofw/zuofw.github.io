@@ -531,7 +531,7 @@ CAP理论：任何一个分布式系统都无法做到一致性（Consistency）
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    5.3k
+                    5.5k
                 </div>
                 
 
@@ -655,7 +655,23 @@ CAP理论：任何一个分布式系统都无法做到一致性（Consistency）
 </li>
 </ul>
 </li>
-<li>sjlj</li>
+<li>数据清洗：<ul>
+<li>日志清洗：<ul>
+<li>根据消息保留时间，超过指定时间触发清洗，默认是168小时</li>
+<li>根据topic存储的数据大小，大于一定法制，开始删除最久的消息，默认关闭。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>高性能设计：<ul>
+<li>消息分区：不受单台服务器限制，处理更多数据</li>
+<li>顺序读写：顺序读写，提高读写效率</li>
+<li>页缓存：磁盘中的数据缓存到内存，把磁盘的访问变为对内存的访问</li>
+<li>零拷贝：减少上下文切换及数据拷贝</li>
+<li>消息压缩：减少磁盘IO和网络IO</li>
+<li>分批发送：分批发送，将消息打包批量发送，减少网络开销</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -1431,7 +1447,7 @@ controller层上使用@RefreshScope //在控制器类加入@RefreshScope注解�
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">106.8k</span>
+                        class="white-color">108k</span>
             
             
             
