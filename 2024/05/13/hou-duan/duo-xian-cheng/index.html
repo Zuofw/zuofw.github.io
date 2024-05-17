@@ -4,14 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="mybatis, 博客，学习，成长">
-    <meta name="description" content="面试常问:
-Mybatis的缓存
-
-一级缓存：也即是本地缓存，是SqlSession级别的,读个sql语句之间不会共享缓存，使用@Transactional来生效，也就是说在一次事务中多次查询会使用到一级缓存
-默认开启，可以在配置中关闭
-
-">
+    <meta name="keywords" content="多线程, 博客，学习，成长">
+    <meta name="description" content="Java中的多线程CountDownLatch什么是CountDownLatch？CountDownLatch 是通过一个计数器来实现的，计数器的初始值就是线程的数量，每当一个线程执行完毕之后，计数器的值就-1，然后在闭锁上等待的线程就可以">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -23,7 +17,7 @@ Mybatis的缓存
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>mybatis | QingQiu&#39;Blog</title>
+    <title>多线程 | QingQiu&#39;Blog</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
     
 
@@ -482,12 +476,12 @@ Mybatis的缓存
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">mybatis</h1>
+                    <h1 class="description center-align post-title">多线程</h1>
                 </div>
             </div>
         </div>
@@ -523,7 +517,7 @@ Mybatis的缓存
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2024-03-30
+                    2024-05-13
                 </div>
                 
 
@@ -532,7 +526,7 @@ Mybatis的缓存
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    577
+                    225
                 </div>
                 
 
@@ -552,38 +546,42 @@ Mybatis的缓存
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="面试常问"><a href="#面试常问" class="headerlink" title="面试常问:"></a>面试常问:</h2><ul>
-<li><p>Mybatis的缓存</p>
+                <h2 id="Java中的多线程"><a href="#Java中的多线程" class="headerlink" title="Java中的多线程"></a>Java中的多线程</h2><h3 id="CountDownLatch"><a href="#CountDownLatch" class="headerlink" title="CountDownLatch"></a>CountDownLatch</h3><h4 id="什么是CountDownLatch？"><a href="#什么是CountDownLatch？" class="headerlink" title="什么是CountDownLatch？"></a>什么是CountDownLatch？</h4><p>CountDownLatch 是通过一个计数器来实现的，计数器的初始值就是线程的数量，每当一个线程执行完毕之后，计数器的值就-1，然后在闭锁上等待的线程就可以恢复工作了。<br>主要使用场景：</p>
 <ul>
-<li>一级缓存：也即是本地缓存，是SqlSession级别的,读个sql语句之间不会共享缓存，使用@Transactional来生效，也就是说在一次事务中多次查询会使用到一级缓存<ul>
-<li>默认开启，可以在配置中关闭</li>
-</ul>
-<ol>
-<li>当我们执行查询操作时，MyBatis会先去一级缓存中查找是否有之前查询过的数据。如果有，直接返回缓存中的数据；如果没有，去数据库查询数据，并将查询结果放入一级缓存中。  </li>
-<li>当我们执行更新操作（包括insert、update、delete）时，MyBatis会清空一级缓存。这是为了保证缓存中的数据和数据库中的数据是一致的。  </li>
-<li>当SqlSession结束或关闭时，一级缓存也就清空了。</li>
-</ol>
-</li>
-<li>二级缓存:<ul>
-<li>在mapper.xml上方加上<code>&lt;Cache&gt;&lt;/Cache&gt;</code> 即可</li>
-<li>根据mapper.xml中命名空间来区分，是mapper级别的，只用当执行同一个mapper中的增改删语句时才会失效，增删改频繁时二级缓存基本失效，并且，微服务中多台服务中只有被调用的那一台的二级缓存才会删除，其余的不删除，造成不一致。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Springboot Cache，会缓存方法的返回值，但是同样也只能在一个节点生效，并且，@Cacheable不会主动刷新缓存，但是@CachePut会强制刷新缓存，并把新的缓存放入</p>
-</li>
-<li><p>共享的缓存！Redis 可以在配置文件中将springboot的缓存类型设置为Redis</p>
-</li>
-<li><p>执行过程</p>
-<ul>
-<li>java程序加载config文件，创建SqlSessionFactory对象，之后通过SqlSessionFactory创建SqlSession对象，之后通过SqlSession对象执行映射配置文件中定义的SQL语句，最后通过SqlSession对象提交事务，关闭SqlSession对象</li>
-<li><img src="/2024/03/30/hou-duan/mybatis/%E5%88%86%E5%B1%82.png"></li>
-</ul>
-</li>
-</ul>
-<h2 id="基础支持层"><a href="#基础支持层" class="headerlink" title="基础支持层"></a>基础支持层</h2><ul>
-<li><h2 id="解析器模块-1-DOM解析将xml的标签组织成一颗DOM树，将整个xml文档加载进内存-2-SAX基于时间模型的xml解析方式。加载一部分到内存中，并且当程序处理过程中满足条件时，会结束解析，不必解析剩余的xml内容。但是不支持层次关系和父子关系的保存-XPathParser：MyBatis提供的XPathParser类封装了XPath、Document、EntityResolver"><a href="#解析器模块-1-DOM解析将xml的标签组织成一颗DOM树，将整个xml文档加载进内存-2-SAX基于时间模型的xml解析方式。加载一部分到内存中，并且当程序处理过程中满足条件时，会结束解析，不必解析剩余的xml内容。但是不支持层次关系和父子关系的保存-XPathParser：MyBatis提供的XPathParser类封装了XPath、Document、EntityResolver" class="headerlink" title="解析器模块 1. DOM解析将xml的标签组织成一颗DOM树，将整个xml文档加载进内存 2. SAX基于时间模型的xml解析方式。加载一部分到内存中，并且当程序处理过程中满足条件时，会结束解析，不必解析剩余的xml内容。但是不支持层次关系和父子关系的保存 - XPathParser：MyBatis提供的XPathParser类封装了XPath、Document、EntityResolver"></a>解析器模块<br> 1. DOM解析将xml的标签组织成一颗DOM树，将整个xml文档加载进内存<br> 2. SAX基于时间模型的xml解析方式。加载一部分到内存中，并且当程序处理过程中满足条件时，会结束解析，不必解析剩余的xml内容。但是不支持层次关系和父子关系的保存<br> - XPathParser：MyBatis提供的XPathParser类封装了XPath、Document、EntityResolver</h2></li>
+<li>用于等待多个线程完成一个整体的前提任务<br>实例：在进行业务之前将两个数据库中的数据进行同步(非集群的数据库)<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>concurrent<span class="token punctuation">.</span></span><span class="token class-name">CountDownLatch</span></span><span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DatabaseSync</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">syncDatabase1</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 这里是同步数据库1的代码</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">syncDatabase2</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 这里是同步数据库2的代码</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">sync</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">InterruptedException</span> <span class="token punctuation">{</span>
+        <span class="token class-name">CountDownLatch</span> latch <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">CountDownLatch</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-&gt;</span> <span class="token punctuation">{</span>
+            <span class="token function">syncDatabase1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            latch<span class="token punctuation">.</span><span class="token function">countDown</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-&gt;</span> <span class="token punctuation">{</span>
+            <span class="token function">syncDatabase2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            latch<span class="token punctuation">.</span><span class="token function">countDown</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">// 等待两个数据库同步操作完成</span>
+        latch<span class="token punctuation">.</span><span class="token function">await</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Both databases have been synchronized."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">InterruptedException</span> <span class="token punctuation">{</span>
+        <span class="token keyword">new</span> <span class="token class-name">DatabaseSync</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sync</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 
                 
@@ -611,7 +609,7 @@ Mybatis的缓存
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://zuofw.github.io/2024/03/30/hou-duan/mybatis/">https://zuofw.github.io/2024/03/30/hou-duan/mybatis/</a>
+                    <a href="https://zuofw.github.io/2024/05/13/hou-duan/duo-xian-cheng/">https://zuofw.github.io/2024/05/13/hou-duan/duo-xian-cheng/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -729,13 +727,13 @@ Mybatis的缓存
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2024/03/30/hou-duan/netty/">
+                <a href="/2024/05/16/yu-yan-ji-gong-ju/java-xin-te-xing/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="Netty">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Java新特性">
                         
-                        <span class="card-title">Netty</span>
+                        <span class="card-title">Java新特性</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -746,7 +744,7 @@ Mybatis的缓存
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2024-03-30
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-05-16
                         </span>
                         <span class="publish-author">
                             
@@ -766,13 +764,13 @@ Mybatis的缓存
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2024/03/30/hou-duan/spring-learning/">
+                <a href="/2024/05/13/hou-duan/spring-xun-huan-yi-lai-hui-chu-xian-shi-me-qing-kuang-ru-he-jie-jue/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="spring_learning">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="Spring 循环依赖会出现什么情况？ 如何解决?">
                         
-                        <span class="card-title">spring_learning</span>
+                        <span class="card-title">Spring 循环依赖会出现什么情况？ 如何解决?</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -783,7 +781,7 @@ Mybatis的缓存
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-03-30
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-05-13
                             </span>
                         <span class="publish-author">
                             

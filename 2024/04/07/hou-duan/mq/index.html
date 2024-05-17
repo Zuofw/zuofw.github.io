@@ -8,8 +8,8 @@
     <meta name="description" content="AMQP协议
 主要特点：生产者首先把消息发送到服务端(exchange)，由服务端决定把消息发送到对应的队列中
 AMQ Model组件：
-exchange 交换器，从publisher中收集消息并根据路由规则发送到对应的消息队列中
-mess">
+Producer 
+Exchange 交换器，从Producer中收集消息并根据路由规则发送到对应的消">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -553,9 +553,11 @@ mess">
                 <h2 id="AMQP协议"><a href="#AMQP协议" class="headerlink" title="AMQP协议"></a>AMQP协议</h2><ul>
 <li>主要特点：生产者首先把消息发送到服务端(exchange)，由服务端决定把消息发送到对应的队列中</li>
 <li>AMQ Model组件：<ol>
-<li>exchange 交换器，从publisher中收集消息并根据路由规则发送到对应的消息队列中</li>
-<li>message queue 消息队列，存储消息，直到消息被安全的投递到了消费者</li>
-<li>binding 定义了 mq 和 exchange之间的关系，是路由表</li>
+<li>Producer </li>
+<li>Exchange 交换器，从Producer中收集消息并根据路由规则发送到对应的消息队列中</li>
+<li>Queue 消息队列，存储消息，直到消息被安全的投递到了消费者</li>
+<li>Binding 定义了 mq 和 exchange之间的关系，是路由表</li>
+<li>Consumer</li>
 </ol>
 </li>
 </ul>
@@ -1099,7 +1101,7 @@ mess">
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">108k</span>
+                        class="white-color">109k</span>
             
             
             
