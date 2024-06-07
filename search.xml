@@ -4,6 +4,32 @@
   
     
     <entry>
+      <title>面试记录</title>
+      <link href="/2024/06/07/mian-shi-ji-lu/"/>
+      <url>/2024/06/07/mian-shi-ji-lu/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>深入浅出Spring</title>
+      <link href="/2024/06/07/hou-duan/shen-ru-qian-chu-spring/"/>
+      <url>/2024/06/07/hou-duan/shen-ru-qian-chu-spring/</url>
+      
+        <content type="html"><![CDATA[<h1 id="面试常问"><a href="#面试常问" class="headerlink" title="面试常问"></a>面试常问</h1><h3 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h3><ul><li>@Autowired和@Resource<br>@Autowired默认注入方式是byType，也就是优先根据接口类型去匹配并注入Bean<br> @Resource默认是byName注入的，如果不能通过name匹配会变为byType，可以使用只当以下两个属性其中之一来确定，不建议同时指定两个属性<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token annotation punctuation">@interface</span> <span class="token class-name">Resource</span> <span class="token punctuation">{</span>    <span class="token class-name">String</span> <span class="token function">name</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token string">""</span><span class="token punctuation">;</span>    <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> <span class="token function">type</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token class-name">Object</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">;</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li></ul><h3 id="Bean"><a href="#Bean" class="headerlink" title="Bean"></a>Bean</h3><ul><li>Bean的作用域<ol><li>singleton单例：Spring中的bean默认都是单例的</li><li>prototype：每次获取都会创建一个新的Bean，也就是连续两次获取Bean都会是不同的Bean实例</li><li>request：每一次HTTP请求都会产生一个新的bean，bean在当前HTTP request内生效</li><li>sesson：在HTTP的session中有效，session是多个HTTP之间使用的连续会话</li><li><strong>application/global-session</strong>&nbsp;（仅 Web 应用可用）：每个 Web 应用在启动时创建一个 Bean（应用 Bean），该 bean 仅在当前应用启动时间内有效。</li><li>websocket：每一次WebSocket都会产生一个新的bean<br>配置方式：<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Bean</span><span class="token annotation punctuation">@Scope</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token class-name">ConfigurableBeanFactory</span><span class="token punctuation">.</span><span class="token constant">SCOPE_PROTOTYPE</span><span class="token punctuation">)</span><span class="token keyword">public</span> <span class="token class-name">Person</span> <span class="token function">personPrototype</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Person</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li></ol></li><li>Bean的生命周期</li><li></li></ul>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>运维</title>
       <link href="/2024/05/23/yun-wei/"/>
       <url>/2024/05/23/yun-wei/</url>
