@@ -45,7 +45,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
 <meta property="article:published_time" content="2023-08-02T07:36:58.000Z">
-<meta property="article:modified_time" content="2024-06-01T06:56:36.591Z">
+<meta property="article:modified_time" content="2024-06-07T02:25:15.203Z">
 <meta property="article:author" content="QingQiu">
 <meta property="article:tag" content="博客，学习，成长">
 <meta name="twitter:card" content="summary">
@@ -1745,7 +1745,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1717226866097),
+    lastupdate: new Date(1717728342404),
     sidebar: {
       for_page: ["blogger","category","tagcloud","donate"],
       for_post: ["toc"],
@@ -2602,6 +2602,56 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <h2 id="Mysql面试指南"><a href="#Mysql面试指南" class="headerlink" title="Mysql面试指南"></a>Mysql面试指南</h2><p>看看几个隔离级别和解决办法<br>GBKh和UTF-8不是一种编码方式<br>mysql中使用的utf-8是utf8mb3 使用1<del>3个字节来表示一个字符<br>而utf-8使用1</del>4<br>MVCC （Multi-Version Concurrency Control ，多版本并发控制）MVCC （Multi-Version Concurrency Control ，多版本并发控制）指的就是在使用 READ COMMITTD 、 REPEATABLE READ 这两种隔离级别的事务在执行普通的 SEELCT 操作时访问记录的版本链的过程，这样子可以使不同事务的 读-写 、 写-读 操作并发执行，从而提升系统性能。</p>
 <ul>
 <li>sql语句的执行过程：mysql8.0 client发送sql语句-&gt;sql解析-&gt;执行优化和执行计划生成-&gt;执行-&gt;返回结果</li>
+<li>隔离等级：<img src="/2023/08/02/hou-duan/shu-ju-ku/%E9%9A%94%E7%A6%BB%E7%AD%89%E7%BA%A7.png" class="lazyload" data-srcset="/2023/08/02/hou-duan/shu-ju-ku/%E9%9A%94%E7%A6%BB%E7%AD%89%E7%BA%A7.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="|575"><ul>
+<li>MySQL默认是可重复读，可以解决幻读。然后串行化是基于锁实现的，可重复读和读已提交都是基于MVCC实现的，可重复读在当前读的情况下需要加锁才能保证不会出现幻读，所以仅仅使用MVCC不能解决幻读</li>
+</ul>
+</li>
+<li>日志：<ul>
+<li>种类：错误日志，查询日志，慢查询日志，Binary Log, 中继日志，事务日志</li>
+</ul>
+<ol>
+<li>undo log 有两种<ul>
+<li>insert undo log 执行insert 操作产生的undo log isnert只对事务本身可见，其他事务不可见，所以事务提交之后可以直接删除</li>
+<li>update undo log 提供MVCC机制，提交时放入undo log 链表，等待purge线程进行最后的删除<ul>
+<li>purge：会定期检查 undo log 和数据行，找出那些已经不再需要的，然后将它们从磁盘上删除，从而回收磁盘空间。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>慢查询日志：记录执行时间查过指定阈值的所有SQL查询，</li>
+<li>Binlog: 主要记录了数据库的修改操作，事务信息和一些特殊事件：服务器的启动和停止，主从复制状态变更事件等</li>
+<li>redo log 如何保证事务的持久性？ <ul>
+<li>事务执行时，首先记录在redo log而不是直接修改数据文件，redo log 保存在内存中的log buffer，然后被异步刷新到磁盘中的redo log file中</li>
+<li>事务提交时，相关的数据还没有没刷新到磁盘中，只要保证redo log 被刷新到磁盘中，即使系统在事务提交后崩溃了，也可以在系统重启之后通过redo log 里恢复数据，</li>
+<li>为什么要先写入redo log ，因为redo log 时顺序写入的，而写数据需要涉及随机I/O，能够提高数据库的性能</li>
+</ul>
+</li>
+<li>页表修改之后为什么不直接刷盘？因为刷新到磁盘中非常耗时，所以使用预写式日志的技术，先写入redolog，之后异步刷新内存中的redolog到磁盘中，之后写入数据到内存中的数据页中，之后写入binlog，内存中的数据页会在适当实际刷新到磁盘中。</li>
+<li>binlog和redolog的区别：<ul>
+<li>用途上：binlog用于主从复制和数据恢复，复制时会把主服务器上的binlog发给从服务器，然后从服务器根据binlog中的记录来更新;而redo log 用于保证事务的持久性</li>
+<li>格式：binlog:可以是语句格式或者行格式，语句记录SQL执行的语句，行格式记录每一行的数据变化。redo log以物理格式记录数据页的修改，记录的是某个数据页的某个位置，将某个数据修改为了什么</li>
+<li>写入时机：binlog 事务提交时，redo log 事务执行过程中就开始写入，事务提交时确保已经将redo log 写入磁盘中</li>
+<li>清理方式：binlog 需手动清理或者设置过期时间清理； redo log 当数据页的修改刷新到磁盘中之后，redo log 即可被覆盖重新使用</li>
+</ul>
+</li>
+<li>undo log 如何保证事务的原子性：事务开始执行时，udno log 中会记录修改前的数据，如果事务体骄傲成功，undo log 即可以被清理，如果失败就会使用undo log 回滚事务。</li>
+<li>MVCC(乐观锁)如何实现：每个数据行中都有两个隐藏列：一个用于记录改行创建时的事务ID，一个记录删除该行的事务ID，当事务开始时，他会根据当前所有活跃的事务产生Read View ，其中记录了：<ul>
+<li>创建这个Read View时下个即将被分配的事务ID m_low_limit_id</li>
+<li>活跃列表中最小的事务ID m_up_limit_id</li>
+<li>Read View创建时，其他未提交的活跃事务ID列表 m_ids</li>
+<li>创建该Read View 的事务ID m_creator_trx_id<br> 之后对数据行进行读取时，检查该行的创建事务ID和删除事务ID <img src="/2023/08/02/hou-duan/shu-ju-ku/ReadView%E5%8F%AF%E8%A7%81%E6%80%A7.png" class="lazyload" data-srcset="/2023/08/02/hou-duan/shu-ju-ku/ReadView%E5%8F%AF%E8%A7%81%E6%80%A7.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="ReadView可见性|525"></li>
+<li>如果创建ID大于m_low_limit_id，说明是在当前事务之后创建的，不可见</li>
+<li>如果删除ID小于m_up_limit_id，说明在当前事务开始前就已经被删除了，不可见</li>
+<li>如果创建事务ID小于m_low_limit_id但删除ID大于m_up_limit_id，需要与m_ids列表中比对，如果存在于m_ids列表中，则不可见</li>
+</ul>
+</li>
+<li></li>
+</ol>
+</li>
+<li>外键：<ul>
+<li>不建议使用外键，外键应该在应用层中保证，而不是在数据库上使用外键，因为外键对分库分表无法生效，同时需要维护外键，当我们做一些涉及外键的CUD操作时，需要触发相关的操作去检查，保证数据的一致性和正确性，从而消耗额外资源，</li>
+</ul>
+</li>
 <li>集群：<ul>
 <li>redo log 和 undo log都是由InnoDB引擎实现的</li>
 <li>bin log 是由mysql级别的日志<ul>
@@ -2618,12 +2668,14 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </ul>
 </li>
 <li>存储引擎的区别：MyISAM 和 InnoDB 的区别<ul>
+<li>MySQL的存储引擎采用的是插件式架构，支持多种存储引擎，我们甚至可以为不同的数据库表设计不同的存储引擎，存储引擎是基于表而不是数据库的。</li>
 <li>InnodDB支持事务</li>
 <li>InnoDB支持行级锁定，MyISAM操作时直接锁定整个表</li>
 <li>InnoDB支持外键和级联删除/更新</li>
 <li>InnoBD存储数据更大</li>
 <li>崩溃恢复更好</li>
 <li>InnoDB以聚簇的方式存储数据，MyISAM是将数据和索引分开存储</li>
+<li>InnoDB支持MVCC</li>
 </ul>
 </li>
 <li>事务：<ul>
@@ -3303,13 +3355,13 @@ FROM Customers INNER JOIN Orders
 
 <p>外联结：<br>使用场景</p>
 <ul>
-<li><p><input disabled="" type="checkbox"> 
+<li><p><input disabled type="checkbox"> 
 对每个顾客下的订单进行计数，包括那些至今尚未下订单的顾客；</p>
 </li>
-<li><p><input disabled="" type="checkbox"> 
+<li><p><input disabled type="checkbox"> 
 列出所有产品以及订购数量，包括没有人订购的产品；</p>
 </li>
-<li><p><input disabled="" type="checkbox"> 
+<li><p><input disabled type="checkbox"> 
 计算平均销售规模，包括那些至今尚未下订单的顾客。</p>
 </li>
 </ul>
@@ -3815,8 +3867,9 @@ conn.close();
 select <span class="token operator">?</span> from <span class="token operator">?</span> where  <span class="token operator">?</span>   前两个<span class="token operator">?</span>不成立，只能用 <span class="token string">"+variable+"</span> 的方式<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><h3 id="面试常问"><a href="#面试常问" class="headerlink" title="面试常问"></a>面试常问</h3><ul>
+<li>一致性哈希：整个哈希值的空间被视为一个环形，每个节点或数据都被映射到整个环上，当需要查找某个键时，会沿着环查找第一个匹配的节点。</li>
 <li>数据结构：<ul>
-<li>SkipList跳表<ul>
+<li>SkipList跳表，ZSet中如果保存到键值对数量&lt;128 &amp;&amp; 每个元素的长度小于64B就使用ziplist，否则则使用skiplist<ul>
 <li>数据按照升序排序存储</li>
 <li>节点可能包含多个指针，指针跨度不同</li>
 </ul>
@@ -3941,6 +3994,10 @@ select <span class="token operator">?</span> from <span class="token operator">?
 <li>持久化：<ul>
 <li>RDB：创建数据的快照，存的是实际的数据<ul>
 <li>redis建立新的子进程，父进程继续处理请求，子进程负责将内存内容写到临时文件，os的实时复写copy-on-write会使得父进程和子进程共享一个物理页面，所以会为父进程要修改的页面创建副本，所以子进程内的数据就是fork时的快照。 子进程写完文件之后，使用临时文件代替原来的快照文件，之后子进程quit, <strong>进行的是全量快照，会把整个数据全部保存</strong></li>
+</ul>
+</li>
+<li>AOF：<ul>
+<li>重写：AOF重写会调用一个子进程，由子进程去进行重写，会读取数据库中的键值对为每一个键值对生成一个或多个写命令，这些写命令足以恢复这个键值对的状态。然后把他们写入一个新的AOF文件中，同时Redis会维护一个AOF缓冲区，把重写期间进行的数据库写操作记录到缓冲区中，重写完毕之后会把新的AOF文件发给主进程，然后退出，主进程把缓冲区中的写命令写入其中并使用新的AOF文件替换旧的AOF文件</li>
 </ul>
 </li>
 </ul>
@@ -4263,6 +4320,28 @@ select <span class="token operator">?</span> from <span class="token operator">?
 <p>是一种源代码可用的文档数据库，以序列化的 JSON 格式存储数据。MongoDB 将数据存储在外部存储器中，但在企业版中包含内存存储引擎。</p>
 <h4 id="基本概念："><a href="#基本概念：" class="headerlink" title="基本概念："></a>基本概念：</h4><ol>
 <li>文档：数据存储的基本单位</li>
+<li>索引：<ul>
+<li>单字段索引：索引建立的顺序无所谓，MongoDB会可以从头/尾开始遍历</li>
+<li>复合索引：建立在多个字段之上的索引,顺序很重要</li>
+<li>多键索引：如果一个字段是数组，对数组建立的索引就是多键索引，相当于会对数组的每个值都建立单字段索引，举例：给Tags建立索引，搜索时只需要tags数组即可筛选出带有tags的所有文档</li>
+<li>哈希索引：按照数据的哈希值进行索引，用在哈希分片集群上</li>
+<li>文本索引：不建议使用，性能低下</li>
+<li>地理位置索引：</li>
+<li>唯一索引：确保索引字段不会存储重复值</li>
+<li>TTL索引：提供一个过期机制，允许为每一个文档设置一个过期时间，当文档达到过期时间就会被删除，示例代码：`    @Indexed(expireAfterSeconds = 60 * 60 * 24 * 30)private Date createdAt;<ul>
+<li>TTL索引只能用于单字段</li>
+<li><code>_id</code> 不支持TTL索引</li>
+<li>不能在上限集合(上限集合（Capped Collections）是一种特殊类型的集合，它有固定的大小。当集合达到其最大大小时，MongoDB会自动覆盖最旧的文档。)中删除文档</li>
+</ul>
+</li>
+<li>覆盖索引查询：<ol>
+<li>所有查询字段都要求是索引的一部分</li>
+<li>结果中返回的所有字段都在同一个索引中</li>
+<li>查询中没有字段为null</li>
+</ol>
+</li>
+</ul>
+</li>
 <li>集合：集合是动态的，可以把不同类型的文档归为一个集合<ul>
 <li>盖子集合: 有上限的集合，用于日志，不支持crud,当超过上限时，会从最老的文档开始删除<ul>
 <li><code>db.createCollection("users.actions",{capped:true,size:16384,max:100})</code></li>
@@ -4345,10 +4424,10 @@ select <span class="token operator">?</span> from <span class="token operator">?
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateModified" datetime="2024-06-01T14:56:36+08:00">
+          <div class="new-meta-item date" itemprop="dateModified" datetime="2024-06-07T10:25:15+08:00">
   <a class='notlink'>
     <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2024年6月1日</p>
+    <p>更新于：2024年6月7日</p>
   </a>
 </div>
 
@@ -5063,7 +5142,7 @@ JRE Java Runtime Environment Java运行环...</p>
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"QingQiu'Blog","url":"https://zuofw.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/","sameAs":["https://github.com/volantis-x"],"description":"个人网站，学习记录，互联网的一篇属于自己的小窝"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://zuofw.github.io/","name":"QingQiu'Blog"}},{"@type":"ListItem","position":2,"item":{"@id":"https://zuofw.github.io/categories/数据库/","name":"数据库"}},{"@type":"ListItem","position":3,"item":{"@id":"https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/","name":"数据库"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"QingQiu'Blog","url":"https://zuofw.github.io/","keywords":"博客，学习，成长","description":"个人网站，学习记录，互联网的一篇属于自己的小窝","author":{"@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/","description":"个人网站，学习记录，互联网的一篇属于自己的小窝"},"publisher":{"@type":"Organization","name":"QingQiu'Blog","url":"https://zuofw.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://zuofw.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"数据库","description":"个人网站，学习记录，互联网的一篇属于自己的小窝","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/"},"author":{"@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/"},"publisher":{"@type":"Organization","name":"QingQiu'Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/","wordCount":0,"datePublished":"2023-08-02T07:36:58.000Z","dateModified":"2024-06-01T06:56:36.591Z","articleSection":"数据库","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"QingQiu'Blog","url":"https://zuofw.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/","sameAs":["https://github.com/volantis-x"],"description":"个人网站，学习记录，互联网的一篇属于自己的小窝"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://zuofw.github.io/","name":"QingQiu'Blog"}},{"@type":"ListItem","position":2,"item":{"@id":"https://zuofw.github.io/categories/数据库/","name":"数据库"}},{"@type":"ListItem","position":3,"item":{"@id":"https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/","name":"数据库"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"QingQiu'Blog","url":"https://zuofw.github.io/","keywords":"博客，学习，成长","description":"个人网站，学习记录，互联网的一篇属于自己的小窝","author":{"@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/","description":"个人网站，学习记录，互联网的一篇属于自己的小窝"},"publisher":{"@type":"Organization","name":"QingQiu'Blog","url":"https://zuofw.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://zuofw.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"数据库","description":"个人网站，学习记录，互联网的一篇属于自己的小窝","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/"},"author":{"@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/"},"publisher":{"@type":"Organization","name":"QingQiu'Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/","wordCount":0,"datePublished":"2023-08-02T07:36:58.000Z","dateModified":"2024-06-07T02:25:15.203Z","articleSection":"数据库","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 
