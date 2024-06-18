@@ -1745,7 +1745,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1718286996062),
+    lastupdate: new Date(1718700318846),
     sidebar: {
       for_page: ["blogger","category","tagcloud","donate"],
       for_post: ["toc"],
@@ -2706,11 +2706,14 @@ ElasticSearch 作为文章搜索的索引
       
         <a class='next' href='/2024/04/07/hou-duan/mq/'>
           <p class='title'>MQ<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>AMQP协议
-主要特点：生产者首先把消息发送到服务端(exchange)，由服务端决定把消息发送到对应的队列中
-AMQ Model组件：
-Producer 
-Exchange 交换器，从Prod...</p>
+          <p class='content'>面试常问：生产者出现堆积如何解决
+增加消费者
+优化消费者的处理速度
+使用优先队列，优先处理优先级高的消息
+消息压缩：如果网络带宽是瓶颈
+升级设备
+消息过滤：生产者端发送真正需要处理的消息
+调整生...</p>
         </a>
       
     </div>

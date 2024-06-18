@@ -1743,7 +1743,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1718286996062),
+    lastupdate: new Date(1718700318846),
     sidebar: {
       for_page: ["blogger","category","tagcloud","donate"],
       for_post: ["toc"],
@@ -2815,14 +2815,19 @@ mongodb和mysql和redis
   <div class='md article-desc' itemprop="articleBody">
     
       
-        AMQP协议
-主要特点：生产者首先把消息发送到服务端(exchange)，由服务端决定把消息发送到对应的队列中
-AMQ Model组件：
-Producer 
-Exchange 交换器，从Producer中收集消息并根据路由规则发送到对应的消息队列中
-Queue 消息队列，存储消息，直到消息被安全的投递到了消费者
-Binding 定义了 mq 和 exchange之间的关系，是路由表
-Cons...
+        面试常问：生产者出现堆积如何解决
+增加消费者
+优化消费者的处理速度
+使用优先队列，优先处理优先级高的消息
+消息压缩：如果网络带宽是瓶颈
+升级设备
+消息过滤：生产者端发送真正需要处理的消息
+调整生产者的速度
+
+生产消费过程中如果服务出现异常，如何恢复
+重试机制：
+死信队列：将无法处理的消息放在一个特殊的队列中，由人工去处理或者特殊处理
+备份和恢复：对于重要数据应该定期进行备份，当服务出现异常时...
       
     
   </div>

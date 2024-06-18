@@ -41,11 +41,11 @@
 <meta property="og:title" content="MQ">
 <meta property="og:url" content="https://zuofw.github.io/2024/04/07/hou-duan/mq/index.html">
 <meta property="og:site_name" content="QingQiu&#39;Blog">
-<meta property="og:description" content="AMQP协议 主要特点：生产者首先把消息发送到服务端(exchange)，由服务端决定把消息发送到对应的队列中 AMQ Model组件： Producer  Exchange 交换器，从Producer中收集消息并根据路由规则发送到对应的消息队列中 Queue 消息队列，存储消息，直到消息被安全的投递到了消费者 Binding 定义了 mq 和 exchange之间的关系，是路由表 Consume">
+<meta property="og:description" content="面试常问：生产者出现堆积如何解决 增加消费者 优化消费者的处理速度 使用优先队列，优先处理优先级高的消息 消息压缩：如果网络带宽是瓶颈 升级设备 消息过滤：生产者端发送真正需要处理的消息 调整生产者的速度  生产消费过程中如果服务出现异常，如何恢复 重试机制： 死信队列：将无法处理的消息放在一个特殊的队列中，由人工去处理或者特殊处理 备份和恢复：对于重要数据应该定期进行备份，当服务出现异常时，从备">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
 <meta property="article:published_time" content="2024-04-07T02:07:18.000Z">
-<meta property="article:modified_time" content="2024-05-13T11:02:11.851Z">
+<meta property="article:modified_time" content="2024-06-18T06:51:51.082Z">
 <meta property="article:author" content="QingQiu">
 <meta property="article:tag" content="博客，学习，成长">
 <meta name="twitter:card" content="summary">
@@ -1745,7 +1745,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1718286996062),
+    lastupdate: new Date(1718700318846),
     sidebar: {
       for_page: ["blogger","category","tagcloud","donate"],
       for_post: ["toc"],
@@ -2588,8 +2588,23 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   <div id="layoutHelper-page-plugins"></div>
   <div id="post-body" itemprop="articleBody">
-    <h2 id="AMQP协议"><a href="#AMQP协议" class="headerlink" title="AMQP协议"></a>AMQP协议</h2><ul>
-<li>主要特点：生产者首先把消息发送到服务端(exchange)，由服务端决定把消息发送到对应的队列中</li>
+    <h1 id="面试常问："><a href="#面试常问：" class="headerlink" title="面试常问："></a>面试常问：</h1><h2 id="生产者出现堆积如何解决"><a href="#生产者出现堆积如何解决" class="headerlink" title="生产者出现堆积如何解决"></a>生产者出现堆积如何解决</h2><ol>
+<li>增加消费者</li>
+<li>优化消费者的处理速度</li>
+<li>使用优先队列，优先处理优先级高的消息</li>
+<li>消息压缩：如果网络带宽是瓶颈</li>
+<li>升级设备</li>
+<li>消息过滤：生产者端发送真正需要处理的消息</li>
+<li>调整生产者的速度</li>
+</ol>
+<h2 id="生产消费过程中如果服务出现异常，如何恢复"><a href="#生产消费过程中如果服务出现异常，如何恢复" class="headerlink" title="生产消费过程中如果服务出现异常，如何恢复"></a>生产消费过程中如果服务出现异常，如何恢复</h2><ol>
+<li>重试机制：</li>
+<li>死信队列：将无法处理的消息放在一个特殊的队列中，由人工去处理或者特殊处理</li>
+<li>备份和恢复：对于重要数据应该定期进行备份，当服务出现异常时，从备份中恢复数据。</li>
+<li>服务降级</li>
+<li>容错和冗余设计</li>
+</ol>
+<h2 id="AMQP协议"><a href="#AMQP协议" class="headerlink" title="AMQP协议"></a>AMQP协议</h2><ul>
 <li>AMQ Model组件：<ol>
 <li>Producer </li>
 <li>Exchange 交换器，从Producer中收集消息并根据路由规则发送到对应的消息队列中</li>
@@ -2599,7 +2614,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </ol>
 </li>
 </ul>
-<h2 id="RocketMQ"><a href="#RocketMQ" class="headerlink" title="RocketMQ"></a>RocketMQ</h2><p><img src="/2024/04/07/hou-duan/mq/%E8%A7%92%E8%89%B2.png" class="lazyload" data-srcset="/2024/04/07/hou-duan/mq/%E8%A7%92%E8%89%B2.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+<h2 id="RocketMQ"><a href="#RocketMQ" class="headerlink" title="RocketMQ"></a>RocketMQ</h2><p><a target="_blank" rel="noopener" href="https://javaguide.cn/high-performance/message-queue/rocketmq-questions.html">常见问题</a></p>
+<p><img src="/2024/04/07/hou-duan/mq/%E8%A7%92%E8%89%B2.png" class="lazyload" data-srcset="/2024/04/07/hou-duan/mq/%E8%A7%92%E8%89%B2.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
 <ol>
 <li>生产者组-&gt;发送消息的一方<ul>
 <li>消息的类型：<ol>
@@ -2649,7 +2665,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <ul>
 <li>Namesrv集群：一个无状态的元数据管理，Namesrv之于RocketMQ等价于Zookeeper之于Kafka。Topic路由注册和管理、Broker注册和发现的管理者</li>
 </ul>
-<h2 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h2><ul>
+<h2 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h2><p><a target="_blank" rel="noopener" href="https://javaguide.cn/high-performance/message-queue/kafka-questions-01.html">常见问题</a></p>
+<ul>
 <li>一个独立的Kafka服务器被称作broker,broker是集群的组成部分，每个集群都有一个broker同时充当了集群控制器的角色</li>
 <li>kafka的主题被分为多个分区，分区存储在磁盘中</li>
 <li>kafka的消息特点：消息会保留一段时间，即使应用程序下线，消息仍然会保存在kafka里，是基于磁盘的数据存储。</li>
@@ -2735,6 +2752,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </ul>
 </li>
 </ul>
+<h1 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h1><p><a target="_blank" rel="noopener" href="https://javaguide.cn/high-performance/message-queue/rabbitmq-questions.html">常见问题</a></p>
 
   </div>
   
@@ -2759,10 +2777,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateModified" datetime="2024-05-13T19:02:11+08:00">
+          <div class="new-meta-item date" itemprop="dateModified" datetime="2024-06-18T14:51:51+08:00">
   <a class='notlink'>
     <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2024年5月13日</p>
+    <p>更新于：2024年6月18日</p>
   </a>
 </div>
 
@@ -2908,7 +2926,7 @@ I/O模型：
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#AMQP%E5%8D%8F%E8%AE%AE"><span class="toc-text">AMQP协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RocketMQ"><span class="toc-text">RocketMQ</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kafka"><span class="toc-text">Kafka</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E5%87%BA%E7%8E%B0%E5%A0%86%E7%A7%AF%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3"><span class="toc-text">生产者出现堆积如何解决</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E6%B6%88%E8%B4%B9%E8%BF%87%E7%A8%8B%E4%B8%AD%E5%A6%82%E6%9E%9C%E6%9C%8D%E5%8A%A1%E5%87%BA%E7%8E%B0%E5%BC%82%E5%B8%B8%EF%BC%8C%E5%A6%82%E4%BD%95%E6%81%A2%E5%A4%8D"><span class="toc-text">生产消费过程中如果服务出现异常，如何恢复</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AMQP%E5%8D%8F%E8%AE%AE"><span class="toc-text">AMQP协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RocketMQ"><span class="toc-text">RocketMQ</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kafka"><span class="toc-text">Kafka</span></a></li></ol>
     </div>
   </section>
 
@@ -3478,7 +3496,7 @@ I/O模型：
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"QingQiu'Blog","url":"https://zuofw.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/","sameAs":["https://github.com/volantis-x"],"description":"个人网站，学习记录，互联网的一篇属于自己的小窝"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://zuofw.github.io/","name":"QingQiu'Blog"}},{"@type":"ListItem","position":3,"item":{"@id":"https://zuofw.github.io/2024/04/07/hou-duan/mq/","name":"MQ"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"QingQiu'Blog","url":"https://zuofw.github.io/","keywords":"博客，学习，成长","description":"个人网站，学习记录，互联网的一篇属于自己的小窝","author":{"@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/","description":"个人网站，学习记录，互联网的一篇属于自己的小窝"},"publisher":{"@type":"Organization","name":"QingQiu'Blog","url":"https://zuofw.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://zuofw.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"MQ","description":"个人网站，学习记录，互联网的一篇属于自己的小窝","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://zuofw.github.io/2024/04/07/hou-duan/mq/"},"author":{"@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/"},"publisher":{"@type":"Organization","name":"QingQiu'Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://zuofw.github.io/2024/04/07/hou-duan/mq/","wordCount":0,"datePublished":"2024-04-07T02:07:18.000Z","dateModified":"2024-05-13T11:02:11.851Z","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"QingQiu'Blog","url":"https://zuofw.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/","sameAs":["https://github.com/volantis-x"],"description":"个人网站，学习记录，互联网的一篇属于自己的小窝"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://zuofw.github.io/","name":"QingQiu'Blog"}},{"@type":"ListItem","position":3,"item":{"@id":"https://zuofw.github.io/2024/04/07/hou-duan/mq/","name":"MQ"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"QingQiu'Blog","url":"https://zuofw.github.io/","keywords":"博客，学习，成长","description":"个人网站，学习记录，互联网的一篇属于自己的小窝","author":{"@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/","description":"个人网站，学习记录，互联网的一篇属于自己的小窝"},"publisher":{"@type":"Organization","name":"QingQiu'Blog","url":"https://zuofw.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://zuofw.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"MQ","description":"个人网站，学习记录，互联网的一篇属于自己的小窝","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://zuofw.github.io/2024/04/07/hou-duan/mq/"},"author":{"@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/"},"publisher":{"@type":"Organization","name":"QingQiu'Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://zuofw.github.io/2024/04/07/hou-duan/mq/","wordCount":0,"datePublished":"2024-04-07T02:07:18.000Z","dateModified":"2024-06-18T06:51:51.082Z","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 

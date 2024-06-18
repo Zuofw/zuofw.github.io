@@ -1743,7 +1743,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1718286996062),
+    lastupdate: new Date(1718700318846),
     sidebar: {
       for_page: ["blogger","category","tagcloud","donate"],
       for_post: ["toc"],
@@ -2664,7 +2664,7 @@ Mybatis的缓存
         
           <div class='post-wrapper'>
             <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/03/30/hou-duan/spring-learning/">
+  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/03/30/hou-duan/springsecurity-he-qi-ta-de-ren-zheng-xiang-guan/">
   <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
     <meta itemprop="name" content="QingQiu'Blog">
   </span>
@@ -2682,19 +2682,18 @@ Mybatis的缓存
   
     
     <h2 class="article-title"  itemprop="name headline">
-      <a href="/2024/03/30/hou-duan/spring-learning/"  itemprop="url">
-        spring_learning
+      <a href="/2024/03/30/hou-duan/springsecurity-he-qi-ta-de-ren-zheng-xiang-guan/"  itemprop="url">
+        SpringSecurity和其他的认证相关
       </a>
     </h2>
   
   <div class='md article-desc' itemprop="articleBody">
     
       
-        Core默认标签的解析
-bean的解析：
-委托BeanDefinitionDelegate 类的 parseBeanDefinitionElement 方法进行元素解析，
-当返回的 bdHolder 不为空的情况下若存在默认标签的子节点下再有自定义属性，还需要再次对自定义标签进行解析。
-解析完成后，需要对解析后的 bdHolder 进行注册，同样，注册操作委托给了 BeanDefinitio...
+        Security
+RBAC模型： Role-Based Access Control 基于角色的权限控制访问控制，角色关联权限，角色又关联用户的授权方式一个用户可以有多个角色，每一个角色又可以分配多个权限
+
+AuthenticationProvider是AuthenticationManager的一个组成部分，它负责处理特定类型的Authentication对象。Authentication...
       
     
   </div>
@@ -2707,7 +2706,7 @@ bean的解析：
       </div>
       
         <div>
-          <a class='readmore' href='/2024/03/30/hou-duan/spring-learning/' itemprop="url">
+          <a class='readmore' href='/2024/03/30/hou-duan/springsecurity-he-qi-ta-de-ren-zheng-xiang-guan/' itemprop="url">
             阅读全文
           </a>
         </div>
@@ -2892,7 +2891,7 @@ bean的解析：
         
           <div class='post-wrapper'>
             <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu/">
+  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/">
   <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
     <meta itemprop="name" content="QingQiu'Blog">
   </span>
@@ -2910,7 +2909,7 @@ bean的解析：
   
     
     <h2 class="article-title"  itemprop="name headline">
-      <a href="/2024/03/05/hou-duan/wei-fu-wu/"  itemprop="url">
+      <a href="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/"  itemprop="url">
         微服务
       </a>
     </h2>
@@ -2920,7 +2919,6 @@ bean的解析：
       
         Quarkus
 GreetingResourceTest是在jvm中测试
-NativeGreetingResourceIT是使用应用的原生可执行程序
 
 面试常问微服务面试
 
@@ -2928,7 +2926,7 @@ CAP理论：任何一个分布式系统都无法做到一致性（Consistency）
 
 C数据一致
 A读写操作必须都能成功
-P分区容...
+P分区容错，当分布式系统节点之间出现网络故障导致节点之间无法通信，导致出现了分区 必...
       
     
   </div>
@@ -2941,7 +2939,7 @@ P分区容...
       </div>
       
         <div>
-          <a class='readmore' href='/2024/03/05/hou-duan/wei-fu-wu/' itemprop="url">
+          <a class='readmore' href='/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/' itemprop="url">
             阅读全文
           </a>
         </div>
