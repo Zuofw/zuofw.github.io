@@ -41,11 +41,11 @@
 <meta property="og:title" content="面试记录">
 <meta property="og:url" content="https://zuofw.github.io/2024/06/07/mian-shi-ji-lu/index.html">
 <meta property="og:site_name" content="QingQiu&#39;Blog">
-<meta property="og:description" content="个人网站，学习记录，互联网的一篇属于自己的小窝">
+<meta property="og:description" content="2024.05.11 同余信科一面项目中承担的开发工作写过哪些模块Redis集群Java的常用集合用过哪些 ArrayList LinkedList HashSet TreeSet HashMap  Stream流HashMap的扩容机制 当超过最大长度的0.75的时候开始扩容 创建新的哈希表，容量为原来的两倍 重新哈希：遍历旧的哈希表，将每个元素重新哈希到新的哈希表中。 替换旧的哈希表。  类加">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
 <meta property="article:published_time" content="2024-06-07T08:52:17.000Z">
-<meta property="article:modified_time" content="2024-06-07T08:52:17.957Z">
+<meta property="article:modified_time" content="2024-06-20T07:32:22.216Z">
 <meta property="article:author" content="QingQiu">
 <meta property="article:tag" content="博客，学习，成长">
 <meta name="twitter:card" content="summary">
@@ -1745,7 +1745,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1718700318846),
+    lastupdate: new Date(1719218634370),
     sidebar: {
       for_page: ["blogger","category","tagcloud","donate"],
       for_post: ["toc"],
@@ -2588,7 +2588,120 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   <div id="layoutHelper-page-plugins"></div>
   <div id="post-body" itemprop="articleBody">
-    
+    <h1 id="2024-05-11-同余信科一面"><a href="#2024-05-11-同余信科一面" class="headerlink" title="2024.05.11 同余信科一面"></a>2024.05.11 同余信科一面</h1><h2 id="项目中承担的开发工作"><a href="#项目中承担的开发工作" class="headerlink" title="项目中承担的开发工作"></a>项目中承担的开发工作</h2><h2 id="写过哪些模块"><a href="#写过哪些模块" class="headerlink" title="写过哪些模块"></a>写过哪些模块</h2><h2 id="Redis集群"><a href="#Redis集群" class="headerlink" title="Redis集群"></a>Redis集群</h2><h2 id="Java的常用集合用过哪些"><a href="#Java的常用集合用过哪些" class="headerlink" title="Java的常用集合用过哪些"></a>Java的常用集合用过哪些</h2><ol>
+<li><strong>ArrayList</strong></li>
+<li>LinkedList</li>
+<li>HashSet</li>
+<li>TreeSet</li>
+<li>HashMap</li>
+</ol>
+<h2 id="Stream流"><a href="#Stream流" class="headerlink" title="Stream流"></a>Stream流</h2><h2 id="HashMap的扩容机制"><a href="#HashMap的扩容机制" class="headerlink" title="HashMap的扩容机制"></a>HashMap的扩容机制</h2><ol>
+<li>当超过最大长度的0.75的时候开始扩容</li>
+<li>创建新的哈希表，容量为原来的两倍</li>
+<li>重新哈希：遍历旧的哈希表，将每个元素重新哈希到新的哈希表中。</li>
+<li>替换旧的哈希表。</li>
+</ol>
+<h2 id="类加载的过程"><a href="#类加载的过程" class="headerlink" title="类加载的过程"></a>类加载的过程</h2><ol>
+<li>类加载器找到字节码文件，从这个文件中读取数据，创建一个在内存中表示的java.lang.Class对象</li>
+<li>链接：<ul>
+<li>验证：确保被加载的类是否满足Java虚拟机的限制，例如：字节码是否有正确的格式，符号引用是否可以正确解析等</li>
+<li>准备：在住呢比阶段，Java虚拟机为类的静态变量分配内存，并且初始化默认值</li>
+<li>解析：Java虚拟机将类的符号引用转化为直接引用</li>
+</ul>
+</li>
+<li>初始化：执行类的初始化方法和静态初始化块和静态字段的初始化。</li>
+</ol>
+<h2 id="MySQL的存储引擎"><a href="#MySQL的存储引擎" class="headerlink" title="MySQL的存储引擎"></a>MySQL的存储引擎</h2><h3 id="InnoDB的底层数据结构，B-树和B树的区别"><a href="#InnoDB的底层数据结构，B-树和B树的区别" class="headerlink" title="InnoDB的底层数据结构，B+树和B树的区别"></a>InnoDB的底层数据结构，B+树和B树的区别</h3><p>B+树<br>区别：</p>
+<ol>
+<li>B+树中，所有的数据存储在叶子节点中，非叶子节点只存储关键字信息。而在B树中，关键字和数据可以存储在任何节点</li>
+<li>叶子节点链接：在B+树中，所有的叶子节点都通过指针连接在一次，形成一个链表结构。B树中叶子节点之间没有链接</li>
+<li>关键字重复：B+树种，非叶子节点的关键字会重复出现叶子节点，而在B树种，关键字只出现一次。<br>优点：</li>
+<li>B+树的叶子节点不存数据，仅存键值，相同的页表大小的情况下，B+树可以存更多的键值，从而使得树的高度更矮，查找数据进行磁盘IO次数就会减少。数据查询效率也会更快</li>
+<li>B+树索引的数据都在叶子节点，而且是按照顺序排列的，查找的时候更容易查找，效率更高</li>
+</ol>
+<h3 id="MVCC"><a href="#MVCC" class="headerlink" title="MVCC"></a>MVCC</h3><p>不可以解决幻读问题</p>
+<h2 id="数据库的并发一致性问题"><a href="#数据库的并发一致性问题" class="headerlink" title="数据库的并发一致性问题"></a>数据库的并发一致性问题</h2><ol>
+<li><p><strong>脏读（Dirty Read）</strong>：一个事务读取了另一个未提交事务的修改。如果那个事务回滚，那么这个读取操作就会读到错误的数据。</p>
+</li>
+<li><p><strong>不可重复读（Non-repeatable Read）</strong>：在同一个事务中，一个查询操作对同一行数据进行了多次读取，但由于其他事务的修改，导致多次读取的结果不一致。</p>
+</li>
+<li><p><strong>幻读（Phantom Read）</strong>：在同一个事务中，一个查询操作在前后两次查询中，由于其他事务的插入或删除操作，导致读取到了额外的行或者少了一些行。</p>
+</li>
+<li><p><strong>丢失更新（Lost Update）</strong>：两个事务同时修改同一行数据，后提交的事务会覆盖前一个事务的修改，导致前一个事务的修改丢失。</p>
+</li>
+</ol>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><h2 id="索引在项目中的实际应用"><a href="#索引在项目中的实际应用" class="headerlink" title="索引在项目中的实际应用"></a>索引在项目中的实际应用</h2><h2 id="AOP相关"><a href="#AOP相关" class="headerlink" title="AOP相关"></a>AOP相关</h2><p>业务逻辑成功，AOP数据库插入操作失败，如何解决<br>怎么把日志写到文件里</p>
+<h2 id="对于大量的数据同步，如何处理"><a href="#对于大量的数据同步，如何处理" class="headerlink" title="对于大量的数据同步，如何处理"></a>对于大量的数据同步，如何处理</h2><h3 id="怎么从Nginx的转发中获取实际的IP"><a href="#怎么从Nginx的转发中获取实际的IP" class="headerlink" title="怎么从Nginx的转发中获取实际的IP"></a>怎么从Nginx的转发中获取实际的IP</h3><p>使用proxy_set_header指令将客户端实际IP地址添加到HTTP请求中即可</p>
+<pre class="line-numbers language-nginx" data-language="nginx"><code class="language-nginx"><span class="token directive"><span class="token keyword">location</span> /</span> <span class="token punctuation">{</span>
+    <span class="token directive"><span class="token keyword">proxy_set_header</span> Host <span class="token variable">$host</span></span><span class="token punctuation">;</span>
+    <span class="token directive"><span class="token keyword">proxy_set_header</span> X-Real-IP <span class="token variable">$remote_addr</span></span><span class="token punctuation">;</span>
+    <span class="token directive"><span class="token keyword">proxy_set_header</span> X-Forwarded-For <span class="token variable">$proxy_add_x_forwarded_for</span></span><span class="token punctuation">;</span>
+    <span class="token directive"><span class="token keyword">proxy_pass</span> http://backend</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+//Java
+<span class="token directive"><span class="token keyword">import</span> javax.servlet.http.HttpServletRequest</span><span class="token punctuation">;</span>
+
+@RestController
+<span class="token directive"><span class="token keyword">public</span> class MyController</span> <span class="token punctuation">{</span>
+
+    @RequestMapping("/")
+    <span class="token directive"><span class="token keyword">public</span> String index(HttpServletRequest request)</span> <span class="token punctuation">{</span>
+        <span class="token directive"><span class="token keyword">String</span> ipAddress = request.getHeader(<span class="token string">"X-Forwarded-For"</span>)</span><span class="token punctuation">;</span>
+        <span class="token directive"><span class="token keyword">if</span> (ipAddress == null)</span> <span class="token punctuation">{</span>
+            <span class="token directive"><span class="token keyword">ipAddress</span> = request.getHeader(<span class="token string">"X-Real-IP"</span>)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token directive"><span class="token keyword">return</span> <span class="token string">"Client IP: "</span> + ipAddress</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Canal如何使用，有何好处，项目中如何使用"><a href="#Canal如何使用，有何好处，项目中如何使用" class="headerlink" title="Canal如何使用，有何好处，项目中如何使用"></a>Canal如何使用，有何好处，项目中如何使用</h2><h2 id="多线程对逻辑优化"><a href="#多线程对逻辑优化" class="headerlink" title="多线程对逻辑优化"></a>多线程对逻辑优化</h2><h3 id="使用并行Stream流来处理常用数据"><a href="#使用并行Stream流来处理常用数据" class="headerlink" title="使用并行Stream流来处理常用数据"></a>使用并行Stream流来处理常用数据</h3><h3 id="并行流的各种问题"><a href="#并行流的各种问题" class="headerlink" title="并行流的各种问题"></a>并行流的各种问题</h3><ol>
+<li><p><strong>线程安全问题</strong>：并行处理数据时，需要注意线程安全问题。如果并行流修改了共享资源，可能会导致数据不一致。</p>
+</li>
+<li><p><strong>顺序问题</strong>：并行流在处理数据时，不能保证数据的处理顺序。</p>
+</li>
+<li><p><strong>开销问题</strong>：并行流虽然可以提高处理速度，但是它也会增加额外的开销，如线程切换的开销。对于小数据集，这种开销可能会使并行流的性能低于串行流。</p>
+</li>
+<li><p><strong>阻塞问题</strong>：如果并行流的任务中有阻塞操作，如 I/O 操作，那么并行流的性能可能会大大降低。</p>
+</li>
+</ol>
+<h2 id="可以对自己的代码进行优化，考虑性能优化"><a href="#可以对自己的代码进行优化，考虑性能优化" class="headerlink" title="可以对自己的代码进行优化，考虑性能优化"></a>可以对自己的代码进行优化，考虑性能优化</h2><h2 id="SpringSecurity相关"><a href="#SpringSecurity相关" class="headerlink" title="SpringSecurity相关"></a>SpringSecurity相关</h2><p>SecurityContext是Spring Security中的一个重要组件，它用于存储与当前执行线程相关的安全性和身份验证信息。在任何地方，你都可以通过SecurityContextHolder来访问当前的SecurityContext。</p>
+<h1 id="2024-05-18-青鹤信息一面"><a href="#2024-05-18-青鹤信息一面" class="headerlink" title="2024-05-18 青鹤信息一面"></a>2024-05-18 青鹤信息一面</h1><h2 id="MyBatis的延迟加载优化查询效率"><a href="#MyBatis的延迟加载优化查询效率" class="headerlink" title="MyBatis的延迟加载优化查询效率"></a>MyBatis的延迟加载优化查询效率</h2><p>当使用一对多或者多对多的关联查询时，使用延迟加载可以在不需要获取关联数据时，可以避免执行关联查询，从而提高查询效率。</p>
+<h2 id="布隆过滤器"><a href="#布隆过滤器" class="headerlink" title="布隆过滤器"></a>布隆过滤器</h2><h2 id="MySQL的主从同步过程"><a href="#MySQL的主从同步过程" class="headerlink" title="MySQL的主从同步过程"></a>MySQL的主从同步过程</h2><p>使用binlog</p>
+<ul>
+<li>主从复制：<ul>
+<li>master节点会不断将sql命令写入Binary Log，子节点使用I/O线程读入master节点中的Bin Log</li>
+<li>字节点使用SQL线程执行Bin Log的语句</li>
+</ul>
+</li>
+</ul>
+<h2 id="主主同步如何实现，如何解决并发问题"><a href="#主主同步如何实现，如何解决并发问题" class="headerlink" title="主主同步如何实现，如何解决并发问题"></a>主主同步如何实现，如何解决并发问题</h2><h2 id="如何解决IO的负载均衡分布"><a href="#如何解决IO的负载均衡分布" class="headerlink" title="如何解决IO的负载均衡分布"></a>如何解决IO的负载均衡分布</h2><h2 id="AOP的优势"><a href="#AOP的优势" class="headerlink" title="AOP的优势"></a>AOP的优势</h2><h2 id="JDK17和JDK8的区别"><a href="#JDK17和JDK8的区别" class="headerlink" title="JDK17和JDK8的区别"></a>JDK17和JDK8的区别</h2><h1 id="2024-06-19-中和农信一面"><a href="#2024-06-19-中和农信一面" class="headerlink" title="2024.06.19 中和农信一面"></a>2024.06.19 中和农信一面</h1><h2 id="MySQL索引"><a href="#MySQL索引" class="headerlink" title="MySQL索引"></a>MySQL索引</h2><h3 id="索引失效的场景："><a href="#索引失效的场景：" class="headerlink" title="索引失效的场景："></a>索引失效的场景：</h3><ol>
+<li>LiIKE操作符以通配符开头例如 “%xx”或 “%xx%” ，但是 “xx%” 可以使用索引。</li>
+<li>对索引使用函数或者表达式操作 <code>select * from t_user where length(name)=6 </code></li>
+<li>对索引隐式转换，如果查询条件中的类型和列的类型不匹配，MySQL可能会进行类型转换，索引就会失效</li>
+<li>联合索引非最左匹配，多个普通字段组合在一起创建的索引叫做联合索引，不遵循最左优先的方式就会失效。</li>
+<li>where子句中使用了OR，如果OR后的条件不是索引列就会失效</li>
+<li>出现NULL值：如果列中包含NULL值，那么使用IS NULL或IS NOT NULL 查询时索引可能会失效。</li>
+</ol>
+<h3 id="Text对于字段类型索引会失效吗"><a href="#Text对于字段类型索引会失效吗" class="headerlink" title="Text对于字段类型索引会失效吗"></a>Text对于字段类型索引会失效吗</h3><p><code>TEXT</code>类型的字段是可以被索引的，但是由于<code>TEXT</code>类型的长度可能非常大，所以必须指定前缀长度。这是因为MySQL的B-Tree索引只能存储固定长度的值。如果不指定前缀长度，MySQL会报错。</p>
+<h3 id="MySQL如何使用索引的"><a href="#MySQL如何使用索引的" class="headerlink" title="MySQL如何使用索引的"></a>MySQL如何使用索引的</h3><h2 id="Java基础"><a href="#Java基础" class="headerlink" title="Java基础"></a>Java基础</h2><h3 id="Java中的类什么时候会加载到内存中"><a href="#Java中的类什么时候会加载到内存中" class="headerlink" title="Java中的类什么时候会加载到内存中"></a>Java中的类什么时候会加载到内存中</h3><ol>
+<li>实例化的时候：new </li>
+<li>访问静态对象时，</li>
+<li>子类加载时会把父类也加载进内存</li>
+<li>通过反射API时，使用反射时会把对应的类加载到内存中。</li>
+</ol>
+<h3 id="Hash冲突-amp-HashMap如何解决Hash冲突的，HashMap插入数据的过程"><a href="#Hash冲突-amp-HashMap如何解决Hash冲突的，HashMap插入数据的过程" class="headerlink" title="Hash冲突 &amp; HashMap如何解决Hash冲突的，HashMap插入数据的过程"></a>Hash冲突 &amp; HashMap如何解决Hash冲突的，HashMap插入数据的过程</h3><p>HashMap使用链地址法解决哈希冲突的。HashMap使用数组加链表的方式，数组中的位置可以看作一个桶，每个桶实际就是一个链表或者红黑树。<br>当桶中的数据超过一定的阈值时，默认为8，会转为红黑树。<br>插入过程：</p>
+<ol>
+<li>计算哈希值，使用键的hashCode()</li>
+<li>确定桶的位置，使用哈希值的一部分来确认键值对应该存储在哪个桶中。一般用哈希值的地位来选择桶</li>
+<li>检查冲突：<ul>
+<li>没有冲突就直接建一个新的节点</li>
+<li>有冲突就判断键值是否相同，使用的是equals方法，相等就覆盖，不相等就添加一个新的节点存储键值对</li>
+</ul>
+</li>
+<li>如果HashMap的大小超过了数组长度的0.75就会进行扩容，扩容之后是原来的两倍</li>
+</ol>
+<h3 id="ThreadLocal的实现原理"><a href="#ThreadLocal的实现原理" class="headerlink" title="ThreadLocal的实现原理"></a>ThreadLocal的实现原理</h3><p>每个Thread对象内部有一个ThreadLocalMap对象，然后它的键是ThreadLocal，值是我们像存储的值</p>
+<h2 id="并发问题"><a href="#并发问题" class="headerlink" title="并发问题"></a>并发问题</h2><h3 id="栅栏-Barrier"><a href="#栅栏-Barrier" class="headerlink" title="栅栏 Barrier"></a>栅栏 Barrier</h3><p>Barrier是一种同步机制，它可以让一组线程在所有线程到达某个点之后再一起继续执行。CountDownLatch就是栅栏的实现。</p>
+
   </div>
   
   
@@ -2612,10 +2725,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateModified" datetime="2024-06-07T16:52:17+08:00">
+          <div class="new-meta-item date" itemprop="dateModified" datetime="2024-06-20T15:32:22+08:00">
   <a class='notlink'>
     <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2024年6月7日</p>
+    <p>更新于：2024年6月20日</p>
   </a>
 </div>
 
@@ -2751,9 +2864,19 @@ Bean相关
   
 
 
-  <div class="">
-    <!-- pjax占位 -->
-  </div>
+  <section class="widget toc-wrapper desktop mobile " id="toc-div" >
+    
+  <header>
+    
+      <i class="fa-solid fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E4%B8%AD%E6%89%BF%E6%8B%85%E7%9A%84%E5%BC%80%E5%8F%91%E5%B7%A5%E4%BD%9C"><span class="toc-text">项目中承担的开发工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E8%BF%87%E5%93%AA%E4%BA%9B%E6%A8%A1%E5%9D%97"><span class="toc-text">写过哪些模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis%E9%9B%86%E7%BE%A4"><span class="toc-text">Redis集群</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java%E7%9A%84%E5%B8%B8%E7%94%A8%E9%9B%86%E5%90%88%E7%94%A8%E8%BF%87%E5%93%AA%E4%BA%9B"><span class="toc-text">Java的常用集合用过哪些</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stream%E6%B5%81"><span class="toc-text">Stream流</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HashMap%E7%9A%84%E6%89%A9%E5%AE%B9%E6%9C%BA%E5%88%B6"><span class="toc-text">HashMap的扩容机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E5%8A%A0%E8%BD%BD%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="toc-text">类加载的过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E"><span class="toc-text">MySQL的存储引擎</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#InnoDB%E7%9A%84%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%8CB-%E6%A0%91%E5%92%8CB%E6%A0%91%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">InnoDB的底层数据结构，B+树和B树的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MVCC"><span class="toc-text">MVCC</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%B9%B6%E5%8F%91%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98"><span class="toc-text">数据库的并发一致性问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8"><span class="toc-text">索引在项目中的实际应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AOP%E7%9B%B8%E5%85%B3"><span class="toc-text">AOP相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E4%BA%8E%E5%A4%A7%E9%87%8F%E7%9A%84%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%EF%BC%8C%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86"><span class="toc-text">对于大量的数据同步，如何处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%8E%E4%B9%88%E4%BB%8ENginx%E7%9A%84%E8%BD%AC%E5%8F%91%E4%B8%AD%E8%8E%B7%E5%8F%96%E5%AE%9E%E9%99%85%E7%9A%84IP"><span class="toc-text">怎么从Nginx的转发中获取实际的IP</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Canal%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%EF%BC%8C%E6%9C%89%E4%BD%95%E5%A5%BD%E5%A4%84%EF%BC%8C%E9%A1%B9%E7%9B%AE%E4%B8%AD%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8"><span class="toc-text">Canal如何使用，有何好处，项目中如何使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AF%B9%E9%80%BB%E8%BE%91%E4%BC%98%E5%8C%96"><span class="toc-text">多线程对逻辑优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%B9%B6%E8%A1%8CStream%E6%B5%81%E6%9D%A5%E5%A4%84%E7%90%86%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE"><span class="toc-text">使用并行Stream流来处理常用数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%B6%E8%A1%8C%E6%B5%81%E7%9A%84%E5%90%84%E7%A7%8D%E9%97%AE%E9%A2%98"><span class="toc-text">并行流的各种问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E4%BB%A5%E5%AF%B9%E8%87%AA%E5%B7%B1%E7%9A%84%E4%BB%A3%E7%A0%81%E8%BF%9B%E8%A1%8C%E4%BC%98%E5%8C%96%EF%BC%8C%E8%80%83%E8%99%91%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="toc-text">可以对自己的代码进行优化，考虑性能优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringSecurity%E7%9B%B8%E5%85%B3"><span class="toc-text">SpringSecurity相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MyBatis%E7%9A%84%E5%BB%B6%E8%BF%9F%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96%E6%9F%A5%E8%AF%A2%E6%95%88%E7%8E%87"><span class="toc-text">MyBatis的延迟加载优化查询效率</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="toc-text">布隆过滤器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL%E7%9A%84%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E8%BF%87%E7%A8%8B"><span class="toc-text">MySQL的主从同步过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E4%B8%BB%E5%90%8C%E6%AD%A5%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%EF%BC%8C%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E5%B9%B6%E5%8F%91%E9%97%AE%E9%A2%98"><span class="toc-text">主主同步如何实现，如何解决并发问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3IO%E7%9A%84%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%88%86%E5%B8%83"><span class="toc-text">如何解决IO的负载均衡分布</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AOP%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="toc-text">AOP的优势</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JDK17%E5%92%8CJDK8%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">JDK17和JDK8的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL%E7%B4%A2%E5%BC%95"><span class="toc-text">MySQL索引</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E7%9A%84%E5%9C%BA%E6%99%AF%EF%BC%9A"><span class="toc-text">索引失效的场景：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Text%E5%AF%B9%E4%BA%8E%E5%AD%97%E6%AE%B5%E7%B1%BB%E5%9E%8B%E7%B4%A2%E5%BC%95%E4%BC%9A%E5%A4%B1%E6%95%88%E5%90%97"><span class="toc-text">Text对于字段类型索引会失效吗</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E7%B4%A2%E5%BC%95%E7%9A%84"><span class="toc-text">MySQL如何使用索引的</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java%E5%9F%BA%E7%A1%80"><span class="toc-text">Java基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Java%E4%B8%AD%E7%9A%84%E7%B1%BB%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BC%9A%E5%8A%A0%E8%BD%BD%E5%88%B0%E5%86%85%E5%AD%98%E4%B8%AD"><span class="toc-text">Java中的类什么时候会加载到内存中</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hash%E5%86%B2%E7%AA%81-amp-HashMap%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3Hash%E5%86%B2%E7%AA%81%E7%9A%84%EF%BC%8CHashMap%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="toc-text">Hash冲突 &amp; HashMap如何解决Hash冲突的，HashMap插入数据的过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ThreadLocal%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-text">ThreadLocal的实现原理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B6%E5%8F%91%E9%97%AE%E9%A2%98"><span class="toc-text">并发问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%85%E6%A0%8F-Barrier"><span class="toc-text">栅栏 Barrier</span></a></li></ol></li></ol>
+    </div>
+  </section>
 
   
 
@@ -3321,7 +3444,7 @@ Bean相关
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"QingQiu'Blog","url":"https://zuofw.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/","sameAs":["https://github.com/volantis-x"],"description":"个人网站，学习记录，互联网的一篇属于自己的小窝"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://zuofw.github.io/","name":"QingQiu'Blog"}},{"@type":"ListItem","position":3,"item":{"@id":"https://zuofw.github.io/2024/06/07/mian-shi-ji-lu/","name":"面试记录"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"QingQiu'Blog","url":"https://zuofw.github.io/","keywords":"博客，学习，成长","description":"个人网站，学习记录，互联网的一篇属于自己的小窝","author":{"@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/","description":"个人网站，学习记录，互联网的一篇属于自己的小窝"},"publisher":{"@type":"Organization","name":"QingQiu'Blog","url":"https://zuofw.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://zuofw.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"面试记录","description":"个人网站，学习记录，互联网的一篇属于自己的小窝","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://zuofw.github.io/2024/06/07/mian-shi-ji-lu/"},"author":{"@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/"},"publisher":{"@type":"Organization","name":"QingQiu'Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://zuofw.github.io/2024/06/07/mian-shi-ji-lu/","wordCount":0,"datePublished":"2024-06-07T08:52:17.000Z","dateModified":"2024-06-07T08:52:17.957Z","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"QingQiu'Blog","url":"https://zuofw.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/","sameAs":["https://github.com/volantis-x"],"description":"个人网站，学习记录，互联网的一篇属于自己的小窝"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://zuofw.github.io/","name":"QingQiu'Blog"}},{"@type":"ListItem","position":3,"item":{"@id":"https://zuofw.github.io/2024/06/07/mian-shi-ji-lu/","name":"面试记录"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"QingQiu'Blog","url":"https://zuofw.github.io/","keywords":"博客，学习，成长","description":"个人网站，学习记录，互联网的一篇属于自己的小窝","author":{"@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/","description":"个人网站，学习记录，互联网的一篇属于自己的小窝"},"publisher":{"@type":"Organization","name":"QingQiu'Blog","url":"https://zuofw.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://zuofw.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"面试记录","description":"个人网站，学习记录，互联网的一篇属于自己的小窝","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://zuofw.github.io/2024/06/07/mian-shi-ji-lu/"},"author":{"@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/"},"publisher":{"@type":"Organization","name":"QingQiu'Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://zuofw.github.io/2024/06/07/mian-shi-ji-lu/","wordCount":0,"datePublished":"2024-06-07T08:52:17.000Z","dateModified":"2024-06-20T07:32:22.216Z","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 
