@@ -1743,7 +1743,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1719218634370),
+    lastupdate: new Date(1719392373173),
     sidebar: {
       for_page: ["blogger","category","tagcloud","donate"],
       for_post: ["toc"],
@@ -2525,6 +2525,63 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         
           <div class='post-wrapper'>
             <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
+  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/05/13/hou-duan/duo-xian-cheng/">
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="QingQiu'Blog">
+  </span>
+  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
+    <meta itemprop="name" content="QingQiu'Blog">
+    <meta itemprop="description" content="个人网站，学习记录，互联网的一篇属于自己的小窝">
+  </span>
+  
+  
+  
+    <span hidden>
+      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+    </span>
+  
+  
+    
+    <h2 class="article-title"  itemprop="name headline">
+      <a href="/2024/05/13/hou-duan/duo-xian-cheng/"  itemprop="url">
+        多线程
+      </a>
+    </h2>
+  
+  <div class='md article-desc' itemprop="articleBody">
+    
+      
+        Java中的多线程CountDownLatch什么是CountDownLatch？CountDownLatch 是通过一个计数器来实现的，计数器的初始值就是线程的数量，每当一个线程执行完毕之后，计数器的值就-1，然后在闭锁上等待的线程就可以恢复工作了。主要使用场景：
+
+用于等待多个线程完成一个整体的前提任务实例：在进行业务之前将两个数据库中的数据进行同步(非集群的数据库)import jav...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+        <time itemprop="dateCreated datePublished" datetime="2024-05-13T18:05:08+08:00">2024-05-13</time>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2024/05/13/hou-duan/duo-xian-cheng/' itemprop="url">
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
   <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/05/13/hou-duan/spring-xun-huan-yi-lai-hui-chu-xian-shi-me-qing-kuang-ru-he-jie-jue/">
   <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
     <meta itemprop="name" content="QingQiu'Blog">
@@ -3173,62 +3230,6 @@ AuthenticationProvider是AuthenticationManager的一个组成部分，它负责�
       
         <div>
           <a class='readmore' href='/2024/03/06/xiang-mu-jian-li-shi-xi/6-s081/' itemprop="url">
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/03/06/408/os/">
-  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="QingQiu'Blog">
-  </span>
-  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
-    <meta itemprop="name" content="QingQiu'Blog">
-    <meta itemprop="description" content="个人网站，学习记录，互联网的一篇属于自己的小窝">
-  </span>
-  
-  
-  
-    <span hidden>
-      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
-    </span>
-  
-  
-    
-    <h2 class="article-title"  itemprop="name headline">
-      <a href="/2024/03/06/408/os/"  itemprop="url">
-        os
-      </a>
-    </h2>
-  
-  <div class='md article-desc' itemprop="articleBody">
-    
-      
-        核心概念
-&nbsp;OOM OOM Killer 机制会根据算法选择一个占用物理内存较高的进程，然后将其杀死，以便释放内存资源，如果物理内存依然不足，OOM Killer 会继续杀死占用物理内存较高的进程，直到释放足够的内存位置。带宽：又叫频宽，是指在固定的的时间可传输的资料数量，亦即在传输管道中可以传递数据的能力。内存管理单元（MMU）位宽 ：位宽就是内存或显存一次能传输的数据量。简单地...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time itemprop="dateCreated datePublished" datetime="2024-03-06T14:14:38+08:00">2024-03-06</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2024/03/06/408/os/' itemprop="url">
             阅读全文
           </a>
         </div>

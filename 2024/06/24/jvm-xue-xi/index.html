@@ -5,8 +5,8 @@
   <meta name="Volantis" content="5.8.0">
   <meta charset="utf-8">
   <!-- SEO相关 -->
-  <meta name="robots" content="index,follow">
-  <link rel="canonical" href="https://zuofw.github.io/"/>
+  
+  <link rel="canonical" href="https://zuofw.github.io/2024/06/24/jvm-xue-xi/"/>
   <!-- 渲染优化 -->
     <meta http-equiv='x-dns-prefetch-control' content='on' />
       <link rel='dns-prefetch' href='https://unpkg.com'>
@@ -33,17 +33,19 @@
 
   <!-- feed -->
   <!-- 页面元数据 -->
-  <title>QingQiu'Blog</title>
+  <title>JVM学习 - QingQiu'Blog</title>
   <meta name="keywords" content="博客，学习，成长">
   <meta desc name="description" content="个人网站，学习记录，互联网的一篇属于自己的小窝 - QingQiu - QingQiu'Blog">
   
-<meta property="og:type" content="website">
-<meta property="og:title" content="QingQiu&#39;Blog">
-<meta property="og:url" content="https://zuofw.github.io/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM学习">
+<meta property="og:url" content="https://zuofw.github.io/2024/06/24/jvm-xue-xi/index.html">
 <meta property="og:site_name" content="QingQiu&#39;Blog">
-<meta property="og:description" content="个人网站，学习记录，互联网的一篇属于自己的小窝">
+<meta property="og:description" content="JVM组成类加载器、运行时数据区、执行引擎、本地库接口、垃圾收集器 类加载器字节码文件 常量池：避免保存重复的内容，节省空间 具体的字节码文件分析 &#x2F;&#x2F;源码 int i &#x3D; 0;   i &#x3D; i ++; &#x2F;&#x2F;字节码 0 iconst_0  将0放在操作数栈中 1 istore_1 弹出操作数栈最顶层数据到局部变量1号位 2 iload_1  复制到操作数栈顶 3 iinc 1 by 1 将局部变量">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+<meta property="article:published_time" content="2024-06-24T13:41:02.000Z">
+<meta property="article:modified_time" content="2024-06-25T12:55:13.592Z">
 <meta property="article:author" content="QingQiu">
 <meta property="article:tag" content="博客，学习，成长">
 <meta name="twitter:card" content="summary">
@@ -2173,7 +2175,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <!-- Custom Files bodyBegin end-->
     <!-- front-matter body_begin begin -->
     <!-- front-matter body_begin end -->
-    <header itemscope itemtype="http://schema.org/WPHeader" id="l_header" class="l_header auto shadow floatable blur " style='opacity: 0' >
+    <header itemscope itemtype="http://schema.org/WPHeader" id="l_header" class="l_header auto shadow floatable blur show" style='opacity: 0' >
   <div class='container'>
   <div id='wrapper'>
     <div class='nav-sub'>
@@ -2442,7 +2444,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
       <!-- see: /layout/_partial/scripts/_ctrl/coverCtrl.ejs -->
-      <div id="full" class='cover-wrapper  dock' style="display: ;">
+      <div id="none" class='cover-wrapper post dock' style="display: none;">
         
   <div class='cover-bg lazyload placeholder' data-bg="https://gcore.jsdelivr.net/gh/MHG-LAB/cron@gh-pages/bing/bing.jpg"></div>
 
@@ -2507,7 +2509,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   </div>
 </div>
 
-        <div id="scroll-down" style="display: ;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+        <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
       </div>
     
   
@@ -2517,117 +2519,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         <div class="body-wrapper">
           
 <div id="l_main" class=''>
-  
-  <section class="post-list">
-    
-      
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-      
-    
-    
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
+  <article itemscope itemtype="http://schema.org/Article" class="article post white-box reveal md shadow floatable blur article-type-post" id="post" itemscope itemprop="blogPost">
   <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/06/24/jvm-xue-xi/">
   <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
     <meta itemprop="name" content="QingQiu'Blog">
@@ -2637,723 +2529,215 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <meta itemprop="description" content="个人网站，学习记录，互联网的一篇属于自己的小窝">
   </span>
   
-  
+
+
   
     <span hidden>
       <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
     </span>
   
-  
+  <div class="article-meta" id="top">
     
-    <h2 class="article-title"  itemprop="name headline">
-      <a href="/2024/06/24/jvm-xue-xi/"  itemprop="url">
+    
+    
+      <h1 class="title" itemprop="name headline">
         JVM学习
-      </a>
-    </h2>
-  
-  <div class='md article-desc' itemprop="articleBody">
-    
-      
-        JVM组成类加载器、运行时数据区、执行引擎、本地库接口、垃圾收集器
-类加载器字节码文件
-常量池：避免保存重复的内容，节省空间
-具体的字节码文件分析 //源码
-int i = 0;  
-i = i ++;
-//字节码
-0 iconst_0  将0放在操作数栈中
-1 istore_1 弹出操作数栈最顶层数据到局部变量1号位
-2 iload_1  复制到操作数栈顶
-3 iinc 1 by 1 将局...
-      
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author' itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <a itemprop="url" class='author' href="/" rel="nofollow">
+    <img itemprop="image" src="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/apple-touch-icon.png" class="lazyload" data-srcset="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/apple-touch-icon.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+    <p itemprop="name">请设置文章作者</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+          
+            <div class="new-meta-item date" itemprop="dateCreated datePublished" datetime="2024-06-24T21:41:02+08:00">
+  <a class='notlink'>
+    <i class="fa-solid fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2024年6月24日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+
+
+          
+        
+        <!-- Custom Files topMeta begin-->
+        
+        <!-- Custom Files topMeta end-->
+      </div>
     
   </div>
+
+
+  <div id="layoutHelper-page-plugins"></div>
+  <div id="post-body" itemprop="articleBody">
+    <h1 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h1><h2 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h2><p>类加载器、运行时数据区、执行引擎、本地库接口、垃圾收集器</p>
+<h3 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h3><h4 id="字节码文件"><a href="#字节码文件" class="headerlink" title="字节码文件"></a>字节码文件</h4><ol>
+<li>常量池：避免保存重复的内容，节省空间</li>
+<li>具体的字节码文件分析 <img src="/2024/06/24/jvm-xue-xi/%E5%AD%97%E8%8A%82%E7%A0%81.png" class="lazyload" data-srcset="/2024/06/24/jvm-xue-xi/%E5%AD%97%E8%8A%82%E7%A0%81.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//源码</span>
+<span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>  
+i <span class="token operator">=</span> i <span class="token operator">++</span><span class="token punctuation">;</span>
+<span class="token comment">//字节码</span>
+<span class="token number">0</span> iconst_0  将<span class="token number">0</span>放在操作数栈中
+<span class="token number">1</span> istore_1 弹出操作数栈最顶层数据到局部变量<span class="token number">1</span>号位
+<span class="token number">2</span> iload_1  复制到操作数栈顶
+<span class="token number">3</span> iinc <span class="token number">1</span> by <span class="token number">1</span> 将局部变量<span class="token number">1</span>号位的数据 <span class="token operator">+</span> <span class="token number">1</span>
+<span class="token number">6</span> istore_1 弹出，保存在一号位，所以被覆盖了
+<span class="token number">7</span> <span class="token keyword">return</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+<h5 id="组成-1"><a href="#组成-1" class="headerlink" title="组成"></a>组成</h5><p>基础信息，常量池(保存字符串常量、类或者接口名，主要在字节码指令中使用)，字段，方法，属性</p>
+<h3 id="运行时数据区"><a href="#运行时数据区" class="headerlink" title="运行时数据区"></a>运行时数据区</h3><h3 id="执行引擎"><a href="#执行引擎" class="headerlink" title="执行引擎"></a>执行引擎</h3><h3 id="本地接口"><a href="#本地接口" class="headerlink" title="本地接口"></a>本地接口</h3><h3 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h3>
+  </div>
   
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time itemprop="dateCreated datePublished" datetime="2024-06-24T21:41:02+08:00">2024-06-24</time>
-        
-      </div>
+  
+    
+    <div class='footer'>
+       <!-- 参考资料、相关资料等 -->
       
-        <div>
-          <a class='readmore' href='/2024/06/24/jvm-xue-xi/' itemprop="url">
-            阅读全文
-          </a>
-        </div>
+       <!-- 相关文章 -->
+      
+      <!-- 版权声明组件 -->
+      
+      <!-- 打赏组件 -->
       
     </div>
   
+  
+    
 
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateModified" datetime="2024-06-25T20:55:13+08:00">
+  <a class='notlink'>
+    <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2024年6月25日</p>
+  </a>
 </div>
 
-          </div>
         
       
         
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/06/17/hou-duan/shen-ru-qian-chu-zookeeper/">
-  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="QingQiu'Blog">
-  </span>
-  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
-    <meta itemprop="name" content="QingQiu'Blog">
-    <meta itemprop="description" content="个人网站，学习记录，互联网的一篇属于自己的小窝">
-  </span>
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://zuofw.github.io/2024/06/24/jvm-xue-xi/&title=JVM学习 - QingQiu'Blog&summary="
+          
+          >
+          
+            <img src="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/logo/128/qq.png" class="lazyload" data-srcset="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/logo/128/qq.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://zuofw.github.io/2024/06/24/jvm-xue-xi/&title=JVM学习 - QingQiu'Blog&summary="
+          
+          >
+          
+            <img src="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/logo/128/qzone.png" class="lazyload" data-srcset="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/logo/128/qzone.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://zuofw.github.io/2024/06/24/jvm-xue-xi/&title=JVM学习 - QingQiu'Blog&summary="
+          
+          >
+          
+            <img src="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/logo/128/weibo.png" class="lazyload" data-srcset="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/logo/128/weibo.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+    <!-- Custom Files bottomMeta begin -->
+    
+    <!-- Custom Files bottomMeta end -->
+  </div>
+
+
   
   
+
   
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/2024/06/17/hou-duan/shen-ru-qian-chu-zookeeper/'>
+          <p class='title'>深入浅出Zookeeper<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>https://javaguide.cn/distributed-system/distributed-process-coordination/zookeeper/zookeeper-plus...</p>
+        </a>
+      
+    </div>
+  
+  <!-- Custom Files postEnd begin-->
+  
+  <!-- Custom Files postEnd end-->
+</article>
+
+
+  
+
+
+  <article class="post white-box shadow floatable blur" id="comments">
     <span hidden>
-      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+      <meta itemprop="discussionUrl" content="/2024/06/24/jvm-xue-xi/index.html#comments">
     </span>
-  
-  
+    <p ct><i class='fa-solid fa-comments'></i> 评论</p>
     
-    <h2 class="article-title"  itemprop="name headline">
-      <a href="/2024/06/17/hou-duan/shen-ru-qian-chu-zookeeper/"  itemprop="url">
-        深入浅出Zookeeper
-      </a>
-    </h2>
-  
-  <div class='md article-desc' itemprop="articleBody">
-    
-      
-        https://javaguide.cn/distributed-system/distributed-process-coordination/zookeeper/zookeeper-plus.html
-ZooKeeper是什么ZooKeeper是一个开源的分布式协调服务，设计目标是将哪些复杂且容易出错的分布式一致性服务封装起来，构成一个高效的原语(原语的执行必须连续且不可分割)集，并以一...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time itemprop="dateCreated datePublished" datetime="2024-06-17T15:12:08+08:00">2024-06-17</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2024/06/17/hou-duan/shen-ru-qian-chu-zookeeper/' itemprop="url">
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
 
-</div>
+    <div id="layoutHelper-comments"></div>
 
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/06/17/hou-duan/rpc/">
-  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="QingQiu'Blog">
-  </span>
-  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
-    <meta itemprop="name" content="QingQiu'Blog">
-    <meta itemprop="description" content="个人网站，学习记录，互联网的一篇属于自己的小窝">
-  </span>
-  
-  
-  
-    <span hidden>
-      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
-    </span>
-  
-  
-    
-    <h2 class="article-title"  itemprop="name headline">
-      <a href="/2024/06/17/hou-duan/rpc/"  itemprop="url">
-        RPC
-      </a>
-    </h2>
-  
-  <div class='md article-desc' itemprop="articleBody">
-    
-      
-        RPC（Remote Procedure Call） 远程调用RPC原理可以分为五个部分实现
-
-客户端(服务消费端)： 调用方法的一端
-客户端Stub(桩):代理类，将调用的方法、类、方法参数作为信息传递到服务端
-网络传输: 将信息传输到服务端，并且将返回结果发挥给调用端，推荐使用Netty
-服务端Stub: 接收信息，去执行对应的方法，将结果返回
-服务端(服务提供端): 提供服务的一端过程...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time itemprop="dateCreated datePublished" datetime="2024-06-17T10:48:36+08:00">2024-06-17</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2024/06/17/hou-duan/rpc/' itemprop="url">
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/06/16/wei-fu-wu/">
-  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="QingQiu'Blog">
-  </span>
-  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
-    <meta itemprop="name" content="QingQiu'Blog">
-    <meta itemprop="description" content="个人网站，学习记录，互联网的一篇属于自己的小窝">
-  </span>
-  
-  
-  
-    <span hidden>
-      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
-    </span>
-  
-  
-    
-    <h2 class="article-title"  itemprop="name headline">
-      <a href="/2024/06/16/wei-fu-wu/"  itemprop="url">
-        2024年6月16日
-      </a>
-    </h2>
-  
-  <div class='md article-desc' itemprop="articleBody">
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time itemprop="dateCreated datePublished" datetime="2024-06-16T16:42:06+08:00">2024-06-16</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2024/06/16/wei-fu-wu/' itemprop="url">
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/06/16/she-ji-mo-shi/">
-  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="QingQiu'Blog">
-  </span>
-  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
-    <meta itemprop="name" content="QingQiu'Blog">
-    <meta itemprop="description" content="个人网站，学习记录，互联网的一篇属于自己的小窝">
-  </span>
-  
-  
-  
-    <span hidden>
-      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
-    </span>
-  
-  
-    
-    <h2 class="article-title"  itemprop="name headline">
-      <a href="/2024/06/16/she-ji-mo-shi/"  itemprop="url">
-        设计模式
-      </a>
-    </h2>
-  
-  <div class='md article-desc' itemprop="articleBody">
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time itemprop="dateCreated datePublished" datetime="2024-06-16T10:10:16+08:00">2024-06-16</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2024/06/16/she-ji-mo-shi/' itemprop="url">
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/06/13/ruan-jian-gong-cheng/">
-  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="QingQiu'Blog">
-  </span>
-  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
-    <meta itemprop="name" content="QingQiu'Blog">
-    <meta itemprop="description" content="个人网站，学习记录，互联网的一篇属于自己的小窝">
-  </span>
-  
-  
-  
-    <span hidden>
-      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
-    </span>
-  
-  
-    
-    <h2 class="article-title"  itemprop="name headline">
-      <a href="/2024/06/13/ruan-jian-gong-cheng/"  itemprop="url">
-        软件工程
-      </a>
-    </h2>
-  
-  <div class='md article-desc' itemprop="articleBody">
-    
-      
-        软件工程相关软件开发模型瀑布模型（Waterfall Model）、快速原型模型（Rapid Prototype Model）、V 模型（V-model）、W 模型（W-model）、敏捷开发模型等
-敏捷开发敏捷开发 是一种以人为核心、迭代、循序渐进的开发方法。在敏捷开发中，软件项目的构建被切分成多个子项目，各个子项目的成果都经过测试，具备集成和可运行的特征。换言之，就是把一个大项目分为多个...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time itemprop="dateCreated datePublished" datetime="2024-06-13T21:56:21+08:00">2024-06-13</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2024/06/13/ruan-jian-gong-cheng/' itemprop="url">
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/06/13/excalidraw/drawing-2024-06-13-14.57.35.excalidraw/">
-  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="QingQiu'Blog">
-  </span>
-  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
-    <meta itemprop="name" content="QingQiu'Blog">
-    <meta itemprop="description" content="个人网站，学习记录，互联网的一篇属于自己的小窝">
-  </span>
-  
-  
-  
-    <span hidden>
-      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
-    </span>
-  
-  
-    
-    <h2 class="article-title"  itemprop="name headline">
-      <a href="/2024/06/13/excalidraw/drawing-2024-06-13-14.57.35.excalidraw/"  itemprop="url">
-        2024年6月13日
-      </a>
-    </h2>
-  
-  <div class='md article-desc' itemprop="articleBody">
-    
-      
-        ==⚠  Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠==
-Text Elements%%
-Drawing{
-	"type": "excalidraw",
-	"version": 2,
-	"source": "https://github.com/zsviczian/obsidian-excali...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time itemprop="dateCreated datePublished" datetime="2024-06-13T14:57:35+08:00">2024-06-13</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2024/06/13/excalidraw/drawing-2024-06-13-14.57.35.excalidraw/' itemprop="url">
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/06/07/mian-shi-ji-lu/">
-  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="QingQiu'Blog">
-  </span>
-  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
-    <meta itemprop="name" content="QingQiu'Blog">
-    <meta itemprop="description" content="个人网站，学习记录，互联网的一篇属于自己的小窝">
-  </span>
-  
-  
-  
-    <span hidden>
-      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
-    </span>
-  
-  
-    
-    <h2 class="article-title"  itemprop="name headline">
-      <a href="/2024/06/07/mian-shi-ji-lu/"  itemprop="url">
-        面试记录
-      </a>
-    </h2>
-  
-  <div class='md article-desc' itemprop="articleBody">
-    
-      
-        2024.05.11 同余信科一面项目中承担的开发工作写过哪些模块Redis集群Java的常用集合用过哪些
-ArrayList
-LinkedList
-HashSet
-TreeSet
-HashMap
-
-Stream流HashMap的扩容机制
-当超过最大长度的0.75的时候开始扩容
-创建新的哈希表，容量为原来的两倍
-重新哈希：遍历旧的哈希表，将每个元素重新哈希到新的哈希表中。
-替换旧的哈希表。
-...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time itemprop="dateCreated datePublished" datetime="2024-06-07T16:52:17+08:00">2024-06-07</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2024/06/07/mian-shi-ji-lu/' itemprop="url">
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/06/07/hou-duan/shen-ru-qian-chu-spring/">
-  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="QingQiu'Blog">
-  </span>
-  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
-    <meta itemprop="name" content="QingQiu'Blog">
-    <meta itemprop="description" content="个人网站，学习记录，互联网的一篇属于自己的小窝">
-  </span>
-  
-  
-  
-    <span hidden>
-      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
-    </span>
-  
-  
-    
-    <h2 class="article-title"  itemprop="name headline">
-      <a href="/2024/06/07/hou-duan/shen-ru-qian-chu-spring/"  itemprop="url">
-        深入浅出Spring
-      </a>
-    </h2>
-  
-  <div class='md article-desc' itemprop="articleBody">
-    
-      
-        面试常问注解
-Bean相关
-@Autowired和@Resource  @Autowired默认注入方式是byType，也就是优先根据接口类型去匹配并注入Bean  @Resource默认是byName注入的，如果不能通过name匹配会变为byType，可以使用只当以下两个属性其中之一来确定，不建议同时指定两个属性
+  </article>
 
 
 
-public @interface Resource {
-    St...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time itemprop="dateCreated datePublished" datetime="2024-06-07T16:30:04+08:00">2024-06-07</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2024/06/07/hou-duan/shen-ru-qian-chu-spring/' itemprop="url">
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
 
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/05/23/yun-wei/">
-  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="QingQiu'Blog">
-  </span>
-  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
-    <meta itemprop="name" content="QingQiu'Blog">
-    <meta itemprop="description" content="个人网站，学习记录，互联网的一篇属于自己的小窝">
-  </span>
-  
-  
-  
-    <span hidden>
-      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
-    </span>
-  
-  
-    
-    <h2 class="article-title"  itemprop="name headline">
-      <a href="/2024/05/23/yun-wei/"  itemprop="url">
-        运维
-      </a>
-    </h2>
-  
-  <div class='md article-desc' itemprop="articleBody">
-    
-      
-        Docker Compose编写docker-compose.yml脚本，配合dockerfile和sh脚本进行搭建
-
-示例一：搭建一主二从三哨兵的redis集群 ^220b94version: '3' #dockercompose版本
-services: #定义应用的的服务，每个服务运行一个镜像
-  redis-master: #服务名称
-    image: redis:latest #...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time itemprop="dateCreated datePublished" datetime="2024-05-23T08:52:22+08:00">2024-05-23</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2024/05/23/yun-wei/' itemprop="url">
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/05/18/xiang-mu-jian-li-shi-xi/jian-li-chang-wen/">
-  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="QingQiu'Blog">
-  </span>
-  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
-    <meta itemprop="name" content="QingQiu'Blog">
-    <meta itemprop="description" content="个人网站，学习记录，互联网的一篇属于自己的小窝">
-  </span>
-  
-  
-  
-    <span hidden>
-      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
-    </span>
-  
-  
-    
-    <h2 class="article-title"  itemprop="name headline">
-      <a href="/2024/05/18/xiang-mu-jian-li-shi-xi/jian-li-chang-wen/"  itemprop="url">
-        简历常问
-      </a>
-    </h2>
-  
-  <div class='md article-desc' itemprop="articleBody">
-    
-      
-        简历上可以问到的东西登录相关
-JWT：JSON Web Token 是一种开放的标准是Token的一种实现方式，由三部分组成
-Header 头部，包含了处理和验证JWT所需要的元数据，通常包括 类型 typ和alg 加密算法两部分
-Payload 载荷，存放实际需要传输的数据
-Signature 签名， 由头部、载荷和密钥三部分组合在一起，通过特定的算法进行加密，用于检验token的合法性
-...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time itemprop="dateCreated datePublished" datetime="2024-05-18T20:35:12+08:00">2024-05-18</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2024/05/18/xiang-mu-jian-li-shi-xi/jian-li-chang-wen/' itemprop="url">
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/05/16/yu-yan-ji-gong-ju/java-xin-te-xing/">
-  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="QingQiu'Blog">
-  </span>
-  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
-    <meta itemprop="name" content="QingQiu'Blog">
-    <meta itemprop="description" content="个人网站，学习记录，互联网的一篇属于自己的小窝">
-  </span>
-  
-  
-  
-    <span hidden>
-      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
-    </span>
-  
-  
-    
-    <h2 class="article-title"  itemprop="name headline">
-      <a href="/2024/05/16/yu-yan-ji-gong-ju/java-xin-te-xing/"  itemprop="url">
-        Java新特性
-      </a>
-    </h2>
-  
-  <div class='md article-desc' itemprop="articleBody">
-    
-      
-        Java新特性面试Java8
-接口：interface 中可以有默认方法，无需被子类实现，通过Interface实现调用
-“函数式接口”是指仅仅只包含一个抽象方法,但是可以有多个非抽象方法(也就是上面提到的默认方法)的接口。
-default实现,可以被子类继承重写，使用this调用
-static实现使用方法和静态方法一样，但是不能被子类继承
-interface和abstract class的...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time itemprop="dateCreated datePublished" datetime="2024-05-16T10:11:42+08:00">2024-05-16</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2024/05/16/yu-yan-ji-gong-ju/java-xin-te-xing/' itemprop="url">
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-    
-  </section>
-  
-    
-      <br>
-      <div class="prev-next">
-        
-        <p class="current">
-          1 / 4
-        </p>
-        
-          <a class="next" rel="next" href="/page/2/">
-            <section class="post next white-box shadow floatable blur">
-              &nbsp;下一页&nbsp;<i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
-            </section>
-          </a>
-        
-      </div>
-    
-  
 
 
 </div>
@@ -3364,134 +2748,48 @@ interface和abstract class的...
     
     
       
-<section class="widget blogger desktop mobile pjax">
-  <div class='content'>
     
-      
-        <a class='avatar flat-box rectangle' href='/about/'>
-          <img no-lazy src='https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/Logo-NavBar@3x.png'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-        
-          <p><span id="jinrishici-sentence">QingQiu'Blog</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="/atom.xml"
-              class="social fa-solid fa-rss flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="mailto:me@xxx.com"
-              class="social fa-solid fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://github.com/volantis-x/"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="/"
-              class="social fa-solid fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
-</section>
-
-    
-  
-
-  
-    
-    
-      
-  
-  <section class="widget category desktop pjax">
-    
-  <header>
-    
-      <a href='/blog/categories/'><i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      <ul class="entry navigation">
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"
-            active-action="action-categoriesE695B0E68DAEE5BA93"
-            ><div class='name'>数据库</div><div class='badge'>(1)</div></a></li>
-        
-      </ul>
-    </div>
-  </section>
-
-
-    
-  
-
-  
-    
-    
-      
-  
-  <section class="widget tagcloud desktop mobile pjax">
-    
-  <header>
-    
-      <a href='/blog/tags/'><i class="fa-solid fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      <a href="/tags/Github/" style="font-size: 14px; color: #999">Github</a> <a href="/tags/Go/" style="font-size: 14px; color: #999">Go</a> <a href="/tags/Web/" style="font-size: 14px; color: #999">Web</a> <a href="/tags/excalidraw/" style="font-size: 14px; color: #999">excalidraw</a> <a href="/tags/java/" style="font-size: 14px; color: #999">java</a> <a href="/tags/vim-git/" style="font-size: 14px; color: #999">vim git</a> <a href="/tags/%E7%AE%97%E6%B3%95%EF%BC%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 14px; color: #999">算法，数据结构</a>
-    </div>
-  </section>
-
-
-    
-  
-
   
 
 
 <div class="widget-sticky pjax">
 
+  
+  
+
+
+  <section class="widget toc-wrapper desktop mobile " id="toc-div" >
+    
+  <header>
+    
+      <i class="fa-solid fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E6%88%90"><span class="toc-text">组成</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8"><span class="toc-text">类加载器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%97%E8%8A%82%E7%A0%81%E6%96%87%E4%BB%B6"><span class="toc-text">字节码文件</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BB%84%E6%88%90-1"><span class="toc-text">组成</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA"><span class="toc-text">运行时数据区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E5%BC%95%E6%93%8E"><span class="toc-text">执行引擎</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E6%8E%A5%E5%8F%A3"><span class="toc-text">本地接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8"><span class="toc-text">垃圾收集器</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
+  
+
 </div>
 
 
 <!-- 没有 pjax 占位会报错 万恶的 pjax -->
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
 
   <div class="pjax">
     <!-- pjax占位 -->
@@ -3526,7 +2824,7 @@ interface和abstract class的...
 <pjax>
 <script>
   window.pdata={}
-  pdata.ispage=false;
+  pdata.ispage=true;
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   pdata.commentConfig={};
@@ -3535,15 +2833,15 @@ interface和abstract class的...
     // header
     var l_header=document.getElementById("l_header");
     
-    l_header.classList.remove("show");
+    l_header.classList.add("show");
     
     
       // cover
       var cover_wrapper=document.querySelector('#l_cover .cover-wrapper');
       var scroll_down=document.getElementById('scroll-down');
-      cover_wrapper.id="full";
-      cover_wrapper.style.display="";
-      scroll_down.style.display="";
+      cover_wrapper.id="none";
+      cover_wrapper.style.display="none";
+      scroll_down.style.display="none";
     
   
 </script>
@@ -4040,7 +3338,7 @@ interface和abstract class的...
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"QingQiu'Blog","url":"https://zuofw.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/","sameAs":["https://github.com/volantis-x"],"description":"个人网站，学习记录，互联网的一篇属于自己的小窝"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://zuofw.github.io/","name":"QingQiu'Blog"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"QingQiu'Blog","url":"https://zuofw.github.io/","keywords":"博客，学习，成长","description":"个人网站，学习记录，互联网的一篇属于自己的小窝","author":{"@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/","description":"个人网站，学习记录，互联网的一篇属于自己的小窝"},"publisher":{"@type":"Organization","name":"QingQiu'Blog","url":"https://zuofw.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://zuofw.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","description":"个人网站，学习记录，互联网的一篇属于自己的小窝","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage"},"author":{"@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/"},"publisher":{"@type":"Organization","name":"QingQiu'Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"wordCount":0,"image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"QingQiu'Blog","url":"https://zuofw.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/","sameAs":["https://github.com/volantis-x"],"description":"个人网站，学习记录，互联网的一篇属于自己的小窝"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://zuofw.github.io/","name":"QingQiu'Blog"}},{"@type":"ListItem","position":3,"item":{"@id":"https://zuofw.github.io/2024/06/24/jvm-xue-xi/","name":"JVM学习"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"QingQiu'Blog","url":"https://zuofw.github.io/","keywords":"博客，学习，成长","description":"个人网站，学习记录，互联网的一篇属于自己的小窝","author":{"@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/","description":"个人网站，学习记录，互联网的一篇属于自己的小窝"},"publisher":{"@type":"Organization","name":"QingQiu'Blog","url":"https://zuofw.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://zuofw.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"JVM学习","description":"个人网站，学习记录，互联网的一篇属于自己的小窝","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://zuofw.github.io/2024/06/24/jvm-xue-xi/"},"author":{"@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/"},"publisher":{"@type":"Organization","name":"QingQiu'Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://zuofw.github.io/2024/06/24/jvm-xue-xi/","wordCount":0,"datePublished":"2024-06-24T13:41:02.000Z","dateModified":"2024-06-25T12:55:13.592Z","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 
