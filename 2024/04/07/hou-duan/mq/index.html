@@ -45,7 +45,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
 <meta property="article:published_time" content="2024-04-07T02:07:18.000Z">
-<meta property="article:modified_time" content="2024-06-18T06:51:51.082Z">
+<meta property="article:modified_time" content="2024-06-27T07:58:15.921Z">
 <meta property="article:author" content="QingQiu">
 <meta property="article:tag" content="博客，学习，成长">
 <meta name="twitter:card" content="summary">
@@ -1745,7 +1745,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1719392373173),
+    lastupdate: new Date(1719975501629),
     sidebar: {
       for_page: ["blogger","category","tagcloud","donate"],
       for_post: ["toc"],
@@ -2753,6 +2753,58 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </li>
 </ul>
 <h1 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h1><p><a target="_blank" rel="noopener" href="https://javaguide.cn/high-performance/message-queue/rabbitmq-questions.html">常见问题</a></p>
+<h2 id="RabbitMQ主要架构"><a href="#RabbitMQ主要架构" class="headerlink" title="RabbitMQ主要架构"></a>RabbitMQ主要架构</h2><p><img src="/2024/04/07/hou-duan/mq/RabbitMQ%E6%9E%B6%E6%9E%84.png" class="lazyload" data-srcset="/2024/04/07/hou-duan/mq/RabbitMQ%E6%9E%B6%E6%9E%84.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="RabbitMQ架构"></p>
+<ul>
+<li><p>**<code>publisher</code>**：生产者，也就是发送消息的一方</p>
+</li>
+<li><p>**<code>consumer</code>**：消费者，也就是消费消息的一方</p>
+</li>
+<li><p>**<code>queue</code>**：队列，存储消息。生产者投递的消息会暂存在消息队列中，等待消费者处理</p>
+</li>
+<li><p>**<code>exchange</code>**：交换机，负责消息路由。生产者发送的消息由交换机决定投递到哪个队列。不会持久化数据</p>
+</li>
+<li><p>**<code>virtual host</code>**：虚拟主机，起到数据隔离的作用。每个虚拟主机相互独立，有各自的exchange、queue，也就是将exchange和queue进行分组</p>
+</li>
+</ul>
+<h2 id="Spring中使用"><a href="#Spring中使用" class="headerlink" title="Spring中使用"></a>Spring中使用</h2><p>使用Spring AMQP来实现</p>
+<h3 id="publisher"><a href="#publisher" class="headerlink" title="publisher"></a>publisher</h3><p>使用RabbitTemplate来发送消息</p>
+<h3 id="consumer"><a href="#consumer" class="headerlink" title="consumer"></a>consumer</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Component</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SpringRabbitListener</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 利用RabbitListener来声明要监听的队列信息</span>
+    <span class="token comment">// 将来一旦监听的队列中有了消息，就会推送给当前服务，调用当前方法，处理消息。</span>
+    <span class="token comment">// 可以看到方法体中接收的就是消息体的内容</span>
+    <span class="token annotation punctuation">@RabbitListener</span><span class="token punctuation">(</span>queues <span class="token operator">=</span> <span class="token string">"simple.queue"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">listenSimpleQueueMessage</span><span class="token punctuation">(</span><span class="token class-name">String</span> msg<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">InterruptedException</span> <span class="token punctuation">{</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"spring 消费者接收到消息：【"</span> <span class="token operator">+</span> msg <span class="token operator">+</span> <span class="token string">"】"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="交换机的类型："><a href="#交换机的类型：" class="headerlink" title="交换机的类型："></a>交换机的类型：</h2><h3 id="Fanout"><a href="#Fanout" class="headerlink" title="Fanout"></a><strong>Fanout</strong></h3><p>广播，将消息交给所有绑定到交换机的队列。我们最早在控制台使用的正是Fanout交换机<br>特点：</p>
+<ol>
+<li>可以有多个队列</li>
+<li>每个队列都要绑定到Exchange</li>
+<li>生产者发送的消息只能发送到交换机</li>
+<li>交换机把消息发送给绑定过的所有队列</li>
+<li>订阅队列的消费者都能拿到消息</li>
+</ol>
+<h3 id="Direct"><a href="#Direct" class="headerlink" title="Direct"></a><strong>Direct</strong></h3><p>订阅，基于RoutingKey（路由key）发送给订阅了消息的队列<br>特点：</p>
+<ol>
+<li>队列需要与交换机绑定，指定一个RountingKey</li>
+<li>消息发送方发送时也需要指定RountingKey</li>
+<li>Exchange把消息发送给RountingKey对应的队列</li>
+</ol>
+<h3 id="Topic"><a href="#Topic" class="headerlink" title="Topic"></a><strong>Topic</strong></h3><p>通配符订阅，与Direct类似，只不过RoutingKey可以使用通配符</p>
+<ul>
+<li><p><code>#</code>：匹配一个或多个词</p>
+</li>
+<li><p><code>*</code>：匹配不多不少恰好1个词<br>举例：</p>
+</li>
+<li><p><code>item.#</code>：能够匹配<code>item.spu.insert</code> 或者 <code>item.spu</code></p>
+</li>
+<li><p><code>item.*</code>：只能匹配<code>item.spu</code><br>与DIrect类似，但是可以使用通配符来进行队列绑定</p>
+</li>
+<li><p><strong>Headers</strong>：头匹配，基于MQ的消息头匹配，用的较少。</p>
+</li>
+</ul>
 
   </div>
   
@@ -2777,10 +2829,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateModified" datetime="2024-06-18T14:51:51+08:00">
+          <div class="new-meta-item date" itemprop="dateModified" datetime="2024-06-27T15:58:15+08:00">
   <a class='notlink'>
     <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2024年6月18日</p>
+    <p>更新于：2024年6月27日</p>
   </a>
 </div>
 
@@ -2926,7 +2978,7 @@ I/O模型：
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E5%87%BA%E7%8E%B0%E5%A0%86%E7%A7%AF%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3"><span class="toc-text">生产者出现堆积如何解决</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E6%B6%88%E8%B4%B9%E8%BF%87%E7%A8%8B%E4%B8%AD%E5%A6%82%E6%9E%9C%E6%9C%8D%E5%8A%A1%E5%87%BA%E7%8E%B0%E5%BC%82%E5%B8%B8%EF%BC%8C%E5%A6%82%E4%BD%95%E6%81%A2%E5%A4%8D"><span class="toc-text">生产消费过程中如果服务出现异常，如何恢复</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AMQP%E5%8D%8F%E8%AE%AE"><span class="toc-text">AMQP协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RocketMQ"><span class="toc-text">RocketMQ</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kafka"><span class="toc-text">Kafka</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E5%87%BA%E7%8E%B0%E5%A0%86%E7%A7%AF%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3"><span class="toc-text">生产者出现堆积如何解决</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E6%B6%88%E8%B4%B9%E8%BF%87%E7%A8%8B%E4%B8%AD%E5%A6%82%E6%9E%9C%E6%9C%8D%E5%8A%A1%E5%87%BA%E7%8E%B0%E5%BC%82%E5%B8%B8%EF%BC%8C%E5%A6%82%E4%BD%95%E6%81%A2%E5%A4%8D"><span class="toc-text">生产消费过程中如果服务出现异常，如何恢复</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AMQP%E5%8D%8F%E8%AE%AE"><span class="toc-text">AMQP协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RocketMQ"><span class="toc-text">RocketMQ</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kafka"><span class="toc-text">Kafka</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RabbitMQ%E4%B8%BB%E8%A6%81%E6%9E%B6%E6%9E%84"><span class="toc-text">RabbitMQ主要架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring%E4%B8%AD%E4%BD%BF%E7%94%A8"><span class="toc-text">Spring中使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#publisher"><span class="toc-text">publisher</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#consumer"><span class="toc-text">consumer</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%9A%84%E7%B1%BB%E5%9E%8B%EF%BC%9A"><span class="toc-text">交换机的类型：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Fanout"><span class="toc-text">Fanout</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Direct"><span class="toc-text">Direct</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Topic"><span class="toc-text">Topic</span></a></li></ol></li></ol>
     </div>
   </section>
 
@@ -3496,7 +3548,7 @@ I/O模型：
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"QingQiu'Blog","url":"https://zuofw.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/","sameAs":["https://github.com/volantis-x"],"description":"个人网站，学习记录，互联网的一篇属于自己的小窝"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://zuofw.github.io/","name":"QingQiu'Blog"}},{"@type":"ListItem","position":3,"item":{"@id":"https://zuofw.github.io/2024/04/07/hou-duan/mq/","name":"MQ"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"QingQiu'Blog","url":"https://zuofw.github.io/","keywords":"博客，学习，成长","description":"个人网站，学习记录，互联网的一篇属于自己的小窝","author":{"@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/","description":"个人网站，学习记录，互联网的一篇属于自己的小窝"},"publisher":{"@type":"Organization","name":"QingQiu'Blog","url":"https://zuofw.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://zuofw.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"MQ","description":"个人网站，学习记录，互联网的一篇属于自己的小窝","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://zuofw.github.io/2024/04/07/hou-duan/mq/"},"author":{"@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/"},"publisher":{"@type":"Organization","name":"QingQiu'Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://zuofw.github.io/2024/04/07/hou-duan/mq/","wordCount":0,"datePublished":"2024-04-07T02:07:18.000Z","dateModified":"2024-06-18T06:51:51.082Z","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"QingQiu'Blog","url":"https://zuofw.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/","sameAs":["https://github.com/volantis-x"],"description":"个人网站，学习记录，互联网的一篇属于自己的小窝"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://zuofw.github.io/","name":"QingQiu'Blog"}},{"@type":"ListItem","position":3,"item":{"@id":"https://zuofw.github.io/2024/04/07/hou-duan/mq/","name":"MQ"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"QingQiu'Blog","url":"https://zuofw.github.io/","keywords":"博客，学习，成长","description":"个人网站，学习记录，互联网的一篇属于自己的小窝","author":{"@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/","description":"个人网站，学习记录，互联网的一篇属于自己的小窝"},"publisher":{"@type":"Organization","name":"QingQiu'Blog","url":"https://zuofw.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://zuofw.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"MQ","description":"个人网站，学习记录，互联网的一篇属于自己的小窝","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://zuofw.github.io/2024/04/07/hou-duan/mq/"},"author":{"@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/"},"publisher":{"@type":"Organization","name":"QingQiu'Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://zuofw.github.io/2024/04/07/hou-duan/mq/","wordCount":0,"datePublished":"2024-04-07T02:07:18.000Z","dateModified":"2024-06-27T07:58:15.921Z","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 
