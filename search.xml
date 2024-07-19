@@ -814,6 +814,12 @@ lock<span class="token punctuation">.</span><span class="token function">lock</s
 <p>并发：单核处理器合理的处理任务的操作，也就是多线程，并不能同时进行多个任务</p>
 <p>进程之间的关系：相互独立和相互制约<br>制约： 同步和互斥</p>
 ]]></content>
+      <categories>
+        <category>计算机基础</category>
+      </categories>
+      <tags>
+        <tag>os</tag>
+      </tags>
   </entry>
   <entry>
     <title>JavaWeb_study</title>
@@ -1948,6 +1954,12 @@ for (Student student : students) {
 <li>数字签名：</li>
 </ul>
 ]]></content>
+      <categories>
+        <category>计算机基础</category>
+      </categories>
+      <tags>
+        <tag>计算机网络</tag>
+      </tags>
   </entry>
   <entry>
     <title>blog搭建</title>
@@ -2503,6 +2515,12 @@ print("{:.3f} / {:.3f} = {:.3f}" .format (x, y, x / &nbsp;y))<span aria-hidden="
 </li>
 </ul>
 ]]></content>
+      <categories>
+        <category>分布式</category>
+      </categories>
+      <tags>
+        <tag>mq</tag>
+      </tags>
   </entry>
   <entry>
     <title>Web学习</title>
@@ -4360,12 +4378,24 @@ PUT mysougoulog/_mapping</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 ]]></content>
+      <categories>
+        <category>分布式</category>
+      </categories>
+      <tags>
+        <tag>es</tag>
+      </tags>
   </entry>
   <entry>
     <title>k8s</title>
     <url>/2024/04/11/hou-duan/k8s/</url>
     <content><![CDATA[<p>执行kubeadm 时报错，</p>
 ]]></content>
+      <categories>
+        <category>运维</category>
+      </categories>
+      <tags>
+        <tag>k8s</tag>
+      </tags>
   </entry>
   <entry>
     <title>mybatis</title>
@@ -5512,6 +5542,9 @@ controller层上使用@RefreshScope //在控制器类加入@RefreshScope注解�
 <h3 id="分布式锁"><a href="#分布式锁" class="headerlink" title="分布式锁"></a>分布式锁</h3><h4 id="Redis实现"><a href="#Redis实现" class="headerlink" title="Redis实现"></a>Redis实现</h4><h5 id="setnx"><a href="#setnx" class="headerlink" title="setnx"></a>setnx</h5><h6 id="Redisson"><a href="#Redisson" class="headerlink" title="Redisson"></a>Redisson</h6><h4 id="可重入锁"><a href="#可重入锁" class="headerlink" title="可重入锁"></a>可重入锁</h4><p>一个线程中可以多次获取同一把锁，例如，方法又调用了另一个需要相同锁的方法。<br>可以使用红锁</p>
 <h4 id="ZooKeeper"><a href="#ZooKeeper" class="headerlink" title="ZooKeeper"></a><a href="https://javaguide.cn/distributed-system/distributed-lock-implementations.html#%E5%9F%BA%E4%BA%8E-zookeeper-%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81">ZooKeeper</a></h4><p><a href="https://javaguide.cn/distributed-system/distributed-process-coordination/zookeeper/zookeeper-intro.html">https://javaguide.cn/distributed-system/distributed-process-coordination/zookeeper/zookeeper-intro.html</a><br>Redis的性能更好，但是Zookeeper的可靠性更高。<br>推荐使用 Curator 来实现 ZooKeeper 分布式锁。</p>
 ]]></content>
+      <categories>
+        <category>分布式</category>
+      </categories>
   </entry>
   <entry>
     <title>多线程</title>
@@ -5559,6 +5592,9 @@ controller层上使用@RefreshScope //在控制器类加入@RefreshScope注解�
       <categories>
         <category>并发</category>
       </categories>
+      <tags>
+        <tag>多线程</tag>
+      </tags>
   </entry>
   <entry>
     <title>计组</title>
@@ -5679,6 +5715,12 @@ controller层上使用@RefreshScope //在控制器类加入@RefreshScope注解�
 </li>
 </ul>
 ]]></content>
+      <categories>
+        <category>计算机基础</category>
+      </categories>
+      <tags>
+        <tag>机组</tag>
+      </tags>
   </entry>
   <entry>
     <title>深入浅出Zookeeper</title>
@@ -5743,6 +5785,12 @@ controller层上使用@RefreshScope //在控制器类加入@RefreshScope注解�
 <li>消息广播：当集群中已经完成状态通过，整个服务架构进入消息广播模式。新加入的节点会自觉进入数据恢复状态。</li>
 </ul>
 ]]></content>
+      <categories>
+        <category>分布式</category>
+      </categories>
+      <tags>
+        <tag>zookeeper</tag>
+      </tags>
   </entry>
   <entry>
     <title>Github学生包/学生认证申请那些事</title>
@@ -6353,6 +6401,12 @@ controller层上使用@RefreshScope //在控制器类加入@RefreshScope注解�
 <li>降低对象之间的耦合和依赖</li>
 </ol>
 <h2 id="SpringBoot"><a href="#SpringBoot" class="headerlink" title="SpringBoot"></a>SpringBoot</h2><h3 id="自动装配"><a href="#自动装配" class="headerlink" title="自动装配"></a>自动装配</h3><h5 id="EnableAutoConfiguration：实现自动装配的核心"><a href="#EnableAutoConfiguration：实现自动装配的核心" class="headerlink" title="@EnableAutoConfiguration：实现自动装配的核心"></a>@EnableAutoConfiguration：实现自动装配的核心</h5>]]></content>
+      <categories>
+        <category>Spring</category>
+      </categories>
+      <tags>
+        <tag>spring</tag>
+      </tags>
   </entry>
   <entry>
     <title>学算法</title>
@@ -9249,6 +9303,9 @@ j<span class="token operator">=</span><span class="token number">0</span>的结�
 </ol>
 <h1 id="暴力枚举法"><a href="#暴力枚举法" class="headerlink" title="暴力枚举法"></a>暴力枚举法</h1><p>使用于组合的数量少，但是需要找到最合适的组合的题目<br>例题<br><a href="https://leetcode.cn/problems/minimum-moves-to-spread-stones-over-grid/submissions/">3*3</a></p>
 ]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
       <tags>
         <tag>算法，数据结构</tag>
       </tags>
@@ -11727,6 +11784,9 @@ select <span class="token operator">?</span> from <span class="token operator">?
       <categories>
         <category>数据库</category>
       </categories>
+      <tags>
+        <tag>database</tag>
+      </tags>
   </entry>
   <entry>
     <title>6.S081</title>
