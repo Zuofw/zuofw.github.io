@@ -1743,7 +1743,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1721378675930),
+    lastupdate: new Date(1721628519853),
     sidebar: {
       for_page: ["blogger","category","tagcloud","donate"],
       for_post: ["toc"],
@@ -2575,16 +2575,11 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
       
         JVM组成类加载器、运行时数据区、执行引擎、本地库接口、垃圾收集器
-类加载器字节码文件
-常量池：避免保存重复的内容，节省空间
-具体的字节码文件分析 //源码
-int i = 0;  
-i = i ++;
-//字节码
-0 iconst_0  将0放在操作数栈中
-1 istore_1 弹出操作数栈最顶层数据到局部变量1号位
-2 iload_1  复制到操作数栈顶
-3 iinc 1 by 1 将局...
+类加载器ClassLoader是Java虚拟机提供给应用程序去实现获取类和接口字节码数据的技术。去获得二进制字节码信息。然后通过JVM调用JNI也就是本地接口方法区创建对象
+类加载器的分类jdk8以及之前
+
+Java代码实现的(扩展类加载器，应用程序类加载器)
+Java虚拟机底层代码实现的(启动类加载器)使用启动加载类器加载...
       
     
   </div>
@@ -3194,6 +3189,11 @@ public @interface Resource {
             ><div class='name'>Spring</div><div class='badge'>(1)</div></a></li>
         
           <li><a class="flat-box"
+            title="/categories/tools/" href="/categories/tools/"
+            active-action="action-categoriestools"
+            ><div class='name'>tools</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box"
             title="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/"
             active-action="action-categoriesE58886E5B883E5BC8F"
             ><div class='name'>分布式</div><div class='badge'>(4)</div></a></li>
@@ -3246,7 +3246,7 @@ public @interface Resource {
 
 
     <div class='content'>
-      <a href="/tags/Github/" style="font-size: 14px; color: #999">Github</a> <a href="/tags/Go/" style="font-size: 14px; color: #999">Go</a> <a href="/tags/Web/" style="font-size: 14px; color: #999">Web</a> <a href="/tags/database/" style="font-size: 14px; color: #999">database</a> <a href="/tags/es/" style="font-size: 14px; color: #999">es</a> <a href="/tags/excalidraw/" style="font-size: 14px; color: #999">excalidraw</a> <a href="/tags/java/" style="font-size: 14px; color: #999">java</a> <a href="/tags/k8s/" style="font-size: 14px; color: #999">k8s</a> <a href="/tags/mq/" style="font-size: 14px; color: #999">mq</a> <a href="/tags/os/" style="font-size: 14px; color: #999">os</a> <a href="/tags/spring/" style="font-size: 14px; color: #999">spring</a> <a href="/tags/vim-git/" style="font-size: 14px; color: #999">vim git</a> <a href="/tags/zookeeper/" style="font-size: 14px; color: #999">zookeeper</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 14px; color: #999">多线程</a> <a href="/tags/%E6%9C%BA%E7%BB%84/" style="font-size: 14px; color: #999">机组</a> <a href="/tags/%E7%AE%97%E6%B3%95%EF%BC%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 14px; color: #999">算法，数据结构</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 14px; color: #999">计算机网络</a>
+      <a href="/tags/Github/" style="font-size: 24px; color: #555">Github</a> <a href="/tags/Go/" style="font-size: 14px; color: #999">Go</a> <a href="/tags/Web/" style="font-size: 14px; color: #999">Web</a> <a href="/tags/database/" style="font-size: 14px; color: #999">database</a> <a href="/tags/es/" style="font-size: 14px; color: #999">es</a> <a href="/tags/excalidraw/" style="font-size: 14px; color: #999">excalidraw</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/java/" style="font-size: 14px; color: #999">java</a> <a href="/tags/k8s/" style="font-size: 14px; color: #999">k8s</a> <a href="/tags/mq/" style="font-size: 14px; color: #999">mq</a> <a href="/tags/os/" style="font-size: 14px; color: #999">os</a> <a href="/tags/spring/" style="font-size: 14px; color: #999">spring</a> <a href="/tags/vim-git/" style="font-size: 14px; color: #999">vim git</a> <a href="/tags/zookeeper/" style="font-size: 14px; color: #999">zookeeper</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 14px; color: #999">多线程</a> <a href="/tags/%E6%9C%BA%E7%BB%84/" style="font-size: 14px; color: #999">机组</a> <a href="/tags/%E7%AE%97%E6%B3%95%EF%BC%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 14px; color: #999">算法，数据结构</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 14px; color: #999">计算机网络</a>
     </div>
   </section>
 

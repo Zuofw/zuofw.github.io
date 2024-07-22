@@ -41,11 +41,11 @@
 <meta property="og:title" content="JVM学习">
 <meta property="og:url" content="https://zuofw.github.io/2024/06/24/jvm-xue-xi/index.html">
 <meta property="og:site_name" content="QingQiu&#39;Blog">
-<meta property="og:description" content="JVM组成类加载器、运行时数据区、执行引擎、本地库接口、垃圾收集器 类加载器字节码文件 常量池：避免保存重复的内容，节省空间 具体的字节码文件分析 &#x2F;&#x2F;源码 int i &#x3D; 0;   i &#x3D; i ++; &#x2F;&#x2F;字节码 0 iconst_0  将0放在操作数栈中 1 istore_1 弹出操作数栈最顶层数据到局部变量1号位 2 iload_1  复制到操作数栈顶 3 iinc 1 by 1 将局部变量">
+<meta property="og:description" content="JVM组成类加载器、运行时数据区、执行引擎、本地库接口、垃圾收集器 类加载器ClassLoader是Java虚拟机提供给应用程序去实现获取类和接口字节码数据的技术。去获得二进制字节码信息。然后通过JVM调用JNI也就是本地接口方法区创建对象 类加载器的分类jdk8以及之前  Java代码实现的(扩展类加载器，应用程序类加载器) Java虚拟机底层代码实现的(启动类加载器)使用启动加载类器加载器去加">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
 <meta property="article:published_time" content="2024-06-24T13:41:02.000Z">
-<meta property="article:modified_time" content="2024-07-04T13:21:18.260Z">
+<meta property="article:modified_time" content="2024-07-21T08:05:35.791Z">
 <meta property="article:author" content="QingQiu">
 <meta property="article:tag" content="博客，学习，成长">
 <meta name="twitter:card" content="summary">
@@ -1745,7 +1745,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1721378675930),
+    lastupdate: new Date(1721628519853),
     sidebar: {
       for_page: ["blogger","category","tagcloud","donate"],
       for_post: ["toc"],
@@ -2589,7 +2589,36 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div id="layoutHelper-page-plugins"></div>
   <div id="post-body" itemprop="articleBody">
     <h1 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h1><h2 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h2><p>类加载器、运行时数据区、执行引擎、本地库接口、垃圾收集器</p>
-<h3 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h3><h4 id="字节码文件"><a href="#字节码文件" class="headerlink" title="字节码文件"></a>字节码文件</h4><ol>
+<h3 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h3><p>ClassLoader是Java虚拟机提供给应用程序去实现获取类和接口字节码数据的技术。去获得二进制字节码信息。然后通过JVM调用JNI也就是本地接口方法区创建对象</p>
+<h4 id="类加载器的分类"><a href="#类加载器的分类" class="headerlink" title="类加载器的分类"></a>类加载器的分类</h4><p>jdk8以及之前</p>
+<ol>
+<li>Java代码实现的(扩展类加载器，应用程序类加载器)</li>
+<li>Java虚拟机底层代码实现的(启动类加载器)<br>使用启动加载类器加载器去加载用户的jar包，可以在虚拟机参数那里添加：<br><code>-Xbootclasspath /a: jar包名</code><br>Java中的加载器： 是一个静态内部类，继承自URLClassLoader，通过目录或者指定jar包将字节码文件加载到内存中<br><img src="/2024/06/24/jvm-xue-xi/Java%E4%B8%AD%E7%9A%84%E9%BB%98%E8%AE%A4%E5%8A%A0%E8%BD%BD%E5%99%A8.png" class="lazyload" data-srcset="/2024/06/24/jvm-xue-xi/Java%E4%B8%AD%E7%9A%84%E9%BB%98%E8%AE%A4%E5%8A%A0%E8%BD%BD%E5%99%A8.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+</ol>
+<h4 id="类的生命周期"><a href="#类的生命周期" class="headerlink" title="类的生命周期"></a>类的生命周期</h4><h5 id="加载"><a href="#加载" class="headerlink" title="加载"></a>加载</h5><ol>
+<li>加载过程中是类加载器根据类的全限定名通过不同的渠道以二进制流的形式获取字节码信息</li>
+<li>加载器加载完类之后，Java虚拟机将字节码中的信息保存到方法区中，生成一个InstanceKlass对象，保存类的所有信息，里面还包含实现特定功能比如多态的信息</li>
+<li>Java虚拟机在堆中生成一份与方法去中数据类似的java.lang.Class对象，作用是在Java代码中获取类的信息和存储静态字段的数据，jkd8以后将静态字段放在堆区中。 优点是：对于开发者来说只需要访问堆中的Class对象而不需要访问方法区中的所有信息，能够很好的控制开发者访问数据的范围</li>
+</ol>
+<h5 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h5><ol>
+<li>验证，校验Java字节码文件是狗遵循了约束，一般不需要程序员参与</li>
+<li>为静态变量分配内存并设置初始值，如果使用了final来修饰，就会直接将代码中的值赋给静态变量</li>
+<li>解析，将符号引用替换为直接引用，符号引用是在字节码中使用序号来进行引用，而直接引用就是使用内存中的地址直接进行访问</li>
+</ol>
+<h5 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h5><ol>
+<li>执行静态代码块中的代码，为静态变量赋值</li>
+<li>初始化阶段会执行字节码中clinit部分的字节码指令</li>
+</ol>
+<h5 id="程序中可以直接导致初始化的操作："><a href="#程序中可以直接导致初始化的操作：" class="headerlink" title="程序中可以直接导致初始化的操作："></a>程序中可以直接导致初始化的操作：</h5><ol>
+<li>访问一个类的静态变量或者静态方法，final修饰的并且等号在右侧是常量的话不会触发初始化，因为在连接阶段就已经进行赋值了</li>
+<li>调用Class.forName(String className)时会进行初始化</li>
+<li>new </li>
+<li>执行Main方法的当前类<br><code>&lt;clinit&gt;</code>是Java中的一个特殊方法，代表初始化器（class initializer）。这个方法不是由程序员显式编写的，而是由Java虚拟机（JVM）自动生成的。当类被首次加载到JVM时，<code>&lt;clinit&gt;</code>方法负责执行类变量的静态初始化和静态初始化块的代码<br><code>clinit</code> 在以下情况不会出现：</li>
+<li>无静态代码块</li>
+<li>有静态变量声明但是没有赋值语句</li>
+<li>静态变量的定义使用final字段，会在准备阶段直接进行初始化。<br>访问父类静态变量，只会初始化父类<br>new 子类时会先执行父类的clinit方法<br>数组的创建不会导致数组中元素的类的初始化。<br>final修饰的变量如果不是常量需要执行指令才能得出结果会执行clinit方法进行初始化</li>
+</ol>
+<h5 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h5><h5 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h5><h4 id="字节码文件"><a href="#字节码文件" class="headerlink" title="字节码文件"></a>字节码文件</h4><ol>
 <li>常量池：避免保存重复的内容，节省空间</li>
 <li>具体的字节码文件分析 <img src="/2024/06/24/jvm-xue-xi/%E5%AD%97%E8%8A%82%E7%A0%81.png" class="lazyload" data-srcset="/2024/06/24/jvm-xue-xi/%E5%AD%97%E8%8A%82%E7%A0%81.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//源码</span>
 <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>  
@@ -2629,10 +2658,10 @@ i <span class="token operator">=</span> i <span class="token operator">++</span>
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateModified" datetime="2024-07-04T21:21:18+08:00">
+          <div class="new-meta-item date" itemprop="dateModified" datetime="2024-07-21T16:05:35+08:00">
   <a class='notlink'>
     <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2024年7月4日</p>
+    <p>更新于：2024年7月21日</p>
   </a>
 </div>
 
@@ -2708,6 +2737,14 @@ i <span class="token operator">=</span> i <span class="token operator">++</span>
   
     <div class="prev-next">
       
+        <a class='prev' href='/2024/07/22/yu-yan-ji-gong-ju/git-hou-hui-yao/'>
+          <p class='title'><i class="fa-solid fa-chevron-left" aria-hidden="true"></i>git后悔药</p>
+          <p class='content'>
+世上没有后悔药
+
+但是git有(￣︶￣*))还在担心上班时脑子一热写下臭骂老板的话导致绩效奖没有吗，还在担心提交记录写的丑吗，还在担心远程push的时候不会搞吗，这篇文章用来记录如何解决这些问...</p>
+        </a>
+      
       
         <a class='next' href='/2024/06/17/hou-duan/shen-ru-qian-chu-zookeeper/'>
           <p class='title'>深入浅出Zookeeper<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></p>
@@ -2769,7 +2806,7 @@ i <span class="token operator">=</span> i <span class="token operator">++</span>
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E6%88%90"><span class="toc-text">组成</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8"><span class="toc-text">类加载器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%97%E8%8A%82%E7%A0%81%E6%96%87%E4%BB%B6"><span class="toc-text">字节码文件</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BB%84%E6%88%90-1"><span class="toc-text">组成</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA"><span class="toc-text">运行时数据区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E5%BC%95%E6%93%8E"><span class="toc-text">执行引擎</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E6%8E%A5%E5%8F%A3"><span class="toc-text">本地接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8"><span class="toc-text">垃圾收集器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E5%A5%BD%E7%94%A8JVM%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7"><span class="toc-text">一些好用JVM分析工具</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Arthas-Arthas-Install-arthas-aliyun-com"><span class="toc-text">[Arthas](Arthas Install | arthas (aliyun.com))</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E6%88%90"><span class="toc-text">组成</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8"><span class="toc-text">类加载器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-text">类加载器的分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B1%BB%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-text">类的生命周期</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8A%A0%E8%BD%BD"><span class="toc-text">加载</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5"><span class="toc-text">连接</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E4%B8%AD%E5%8F%AF%E4%BB%A5%E7%9B%B4%E6%8E%A5%E5%AF%BC%E8%87%B4%E5%88%9D%E5%A7%8B%E5%8C%96%E7%9A%84%E6%93%8D%E4%BD%9C%EF%BC%9A"><span class="toc-text">程序中可以直接导致初始化的操作：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-text">使用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8D%B8%E8%BD%BD"><span class="toc-text">卸载</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%97%E8%8A%82%E7%A0%81%E6%96%87%E4%BB%B6"><span class="toc-text">字节码文件</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BB%84%E6%88%90-1"><span class="toc-text">组成</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA"><span class="toc-text">运行时数据区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E5%BC%95%E6%93%8E"><span class="toc-text">执行引擎</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E6%8E%A5%E5%8F%A3"><span class="toc-text">本地接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8"><span class="toc-text">垃圾收集器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E5%A5%BD%E7%94%A8JVM%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7"><span class="toc-text">一些好用JVM分析工具</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Arthas-Arthas-Install-arthas-aliyun-com"><span class="toc-text">[Arthas](Arthas Install | arthas (aliyun.com))</span></a></li></ol></li></ol>
     </div>
   </section>
 
@@ -3339,7 +3376,7 @@ i <span class="token operator">=</span> i <span class="token operator">++</span>
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"QingQiu'Blog","url":"https://zuofw.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/","sameAs":["https://github.com/volantis-x"],"description":"个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://zuofw.github.io/","name":"QingQiu'Blog"}},{"@type":"ListItem","position":3,"item":{"@id":"https://zuofw.github.io/2024/06/24/jvm-xue-xi/","name":"JVM学习"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"QingQiu'Blog","url":"https://zuofw.github.io/","keywords":"博客，学习，成长","description":"个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝","author":{"@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/","description":"个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝"},"publisher":{"@type":"Organization","name":"QingQiu'Blog","url":"https://zuofw.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://zuofw.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"JVM学习","description":"个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://zuofw.github.io/2024/06/24/jvm-xue-xi/"},"author":{"@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/"},"publisher":{"@type":"Organization","name":"QingQiu'Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://zuofw.github.io/2024/06/24/jvm-xue-xi/","wordCount":0,"datePublished":"2024-06-24T13:41:02.000Z","dateModified":"2024-07-04T13:21:18.260Z","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"QingQiu'Blog","url":"https://zuofw.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/","sameAs":["https://github.com/volantis-x"],"description":"个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://zuofw.github.io/","name":"QingQiu'Blog"}},{"@type":"ListItem","position":3,"item":{"@id":"https://zuofw.github.io/2024/06/24/jvm-xue-xi/","name":"JVM学习"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"QingQiu'Blog","url":"https://zuofw.github.io/","keywords":"博客，学习，成长","description":"个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝","author":{"@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/","description":"个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝"},"publisher":{"@type":"Organization","name":"QingQiu'Blog","url":"https://zuofw.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://zuofw.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"JVM学习","description":"个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://zuofw.github.io/2024/06/24/jvm-xue-xi/"},"author":{"@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/"},"publisher":{"@type":"Organization","name":"QingQiu'Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://zuofw.github.io/2024/06/24/jvm-xue-xi/","wordCount":0,"datePublished":"2024-06-24T13:41:02.000Z","dateModified":"2024-07-21T08:05:35.791Z","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 
