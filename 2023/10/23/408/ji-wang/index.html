@@ -45,7 +45,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
 <meta property="article:published_time" content="2023-10-23T12:01:46.000Z">
-<meta property="article:modified_time" content="2024-07-19T08:42:31.762Z">
+<meta property="article:modified_time" content="2024-08-09T13:59:58.526Z">
 <meta property="article:author" content="QingQiu">
 <meta property="article:tag" content="计算机网络">
 <meta name="twitter:card" content="summary">
@@ -1745,7 +1745,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1722493819355),
+    lastupdate: new Date(1723701047895),
     sidebar: {
       for_page: ["blogger","category","tagcloud","donate"],
       for_post: ["toc"],
@@ -2699,6 +2699,87 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </ul>
 </li>
 </ul>
+<h2 id="计网常问"><a href="#计网常问" class="headerlink" title="计网常问"></a>计网常问</h2><h3 id="一个请求整个网络的处理"><a href="#一个请求整个网络的处理" class="headerlink" title="一个请求整个网络的处理"></a>一个请求整个网络的处理</h3><ol>
+<li>浏览器解析URL生成HTTP消息</li>
+<li>通过DNS解析获得IP地址</li>
+<li>之后将HTTP的传输工作通过调用Socket库交给操作系统的协议栈</li>
+<li>TCP简历链接需要三次握手，保证双方都有发送和接收的能力</li>
+<li>建立连接之后，TCP报文中的数据部分就是存放HTTP头部+数据，组装好TCP报文之后，交给下面的网络层处理</li>
+<li>IP协议里需要源地址和目的地址IP，存在多个网卡时，需要根据路由表规则。</li>
+<li>生成IP头部之后，需要在前面加上MAC头部，接收方的MAC地址通过ARP协议获得，并且放入ARP缓存</li>
+<li>网卡驱动获得网络包，将其复制到网卡内的缓存区中，从开头加上包头和起始帧分节符，末尾加上用于校验错误的帧校验序列。之后网卡将包转为电信号，通过网线发送</li>
+<li>电信号到达网线接口，交换机里的模块进行接收。之后将电信号转化为数字信号。FCS校验没问题后放入缓冲区，之后查询MAC地址，如果找不到，就发除了源端口的所有端口。</li>
+<li>电信号到达⽹线接⼝部分，路由器中的模块会将电信号转成数字信号， FCS 进⾏错误校验没问题后确认接收⽅MAC地址，然后去掉MAC头部，查询路由表判断转发⽬标，如果⽹关为空则 IP 头部中的接收⽅ IP 地址就是要转发到的⽬标地址</li>
+<li>知道对⽅的 IP 地址之后，接下来需要通过 ARP 协议根据 IP 地址查询 MAC 地址，加上MAC头部，发送⽹络包，通过交换机到达下⼀个路由器</li>
+<li>最后数据包抵达了服务器</li>
+</ol>
+<h3 id="IPv6优点"><a href="#IPv6优点" class="headerlink" title="IPv6优点"></a>IPv6优点</h3><ol>
+<li>更⼤的地址空间：IPv6将地址⻓度从IPv4的32位扩展到了128位，理论上可以分配⼤约3.4x10^38个唯⼀的IP地址。</li>
+<li>简化的报⽂格式：IPv6头部格式更为简洁，减少了处理的复杂性，提⾼了路由效率。</li>
+<li>改进的服务质量（QoS）：IPv6⽀持更好的流量分类和优先级处理，有助于提供更加可靠的服务质量。</li>
+<li>内建的安全机制：IPv6原⽣⽀持IPsec（⽹络安全协议），为数据传输提供了端到端的加密和认证。</li>
+<li>⾃动配置能⼒：IPv6⽀持有状态和⽆状态的地址⾃动配置（SLAAC），简化了⽹络设备的配置和管理</li>
+</ol>
+<h3 id="BGP、OSPF协议原理"><a href="#BGP、OSPF协议原理" class="headerlink" title="BGP、OSPF协议原理"></a>BGP、OSPF协议原理</h3><blockquote>
+<p>边界⽹关协议(Border Gateway Protocol，简称BGP)和开放最短路径优先协议(Open Shortest Path<br>First，简称OSPF)是世界上最流⾏的两种基于标准的动态路由协议。</p>
+</blockquote>
+<h3 id="三握四挥"><a href="#三握四挥" class="headerlink" title="三握四挥"></a>三握四挥</h3><p><img src="/2023/10/23/408/ji-wang/%E4%B8%89%E6%8F%A1%E5%9B%9B%E6%8C%A5.png" class="lazyload" data-srcset="/2023/10/23/408/ji-wang/%E4%B8%89%E6%8F%A1%E5%9B%9B%E6%8C%A5.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+<h3 id="TCP和UDP"><a href="#TCP和UDP" class="headerlink" title="TCP和UDP"></a>TCP和UDP</h3><p><img src="/2023/10/23/408/ji-wang/%E5%A4%B4%E9%83%A8.png" class="lazyload" data-srcset="/2023/10/23/408/ji-wang/%E5%A4%B4%E9%83%A8.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="|525"></p>
+<ol>
+<li>序列号：建立连接时，由计算机生成的随机数作为初始值，通过SYN包传给接收端主机，每发送一次，就累加一次该数据字节数的大小，解决网络包乱序问题。</li>
+<li>确认应答号：下一次期望收到数据的序列号。发送端收到这个之后可以认为在这之前的数据都被正常接收，用于解决丢包问题。</li>
+<li>控制位为1时：<ul>
+<li>ACK：确认应答变为有效，TCP规定除了最初建立连接时的SYN包之外必须设为1</li>
+<li>RST：标识连接异常必须强制断开连接</li>
+<li>SYN：表示希望建立连接</li>
+<li>FIN：今后不会再有数据发送，希望断开连接时，表示今后不再有数据发送，希望断开连接。当通信结束希望断开连接时，通信双方可以交换FIN位为1的TCP段。</li>
+</ul>
+</li>
+</ol>
+<h4 id="SYN攻击"><a href="#SYN攻击" class="headerlink" title="SYN攻击"></a>SYN攻击</h4><blockquote>
+<p>攻击者短时间伪造不同的IP地址的SYN报文，沾满服务端的办理按揭队列，导致客户端无法和服务端建立连接。</p>
+</blockquote>
+<p>解决方案：</p>
+<ol>
+<li>增大netdev_max_backlog：网卡接收数据包的数据大于内核处理速度时保存数据包的队列长度</li>
+<li>增大TCP半连接队列：<ul>
+<li>增大net.ipv4.tcp_max_syn_backlog</li>
+<li>增大listen()函数中的backlog</li>
+<li>增大net.core.somaxconn</li>
+</ul>
+</li>
+<li>开启net.ipv4.tcp_syncookies，就可以在使用SYN半连接的情况下成功建立连接。<img src="/2023/10/23/408/ji-wang/%E4%BD%BF%E7%94%A8cookie%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5.png" class="lazyload" data-srcset="/2023/10/23/408/ji-wang/%E4%BD%BF%E7%94%A8cookie%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="|550"></li>
+</ol>
+<ul>
+<li>减少SYN+ACK重传次数，tcp_synack_retries内核参数</li>
+<li>Anti-DDoS系统拦截客⼾端发送的SYN报⽂，代替服务器向客⼾端发送SYN-ACK报⽂，如果客⼾端不应答，则认为该客⼾端为虚假源；如果客⼾端应答，则Anti-DDoS系统认为该客⼾端为真实源，并将其IP地址加⼊⽩名单，在⼀段时间允许该源发送的所有SYN报⽂通过，也不做代答。</li>
+</ul>
+<h4 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h4><p>滑动窗口机制允许发送方在等待接收方确认之前发送多个数据包，从而提高数据传输效率。<br>为了解决一发一答的效率问题。窗口的实现实际上是操作系统开辟一个缓存空间，发送方主机在等到确认应答返回之前，必须在缓冲区中保留已发送的数据，如果按期收到确认应答，这个数据就可以从缓冲区删除。<img src="/2023/10/23/408/ji-wang/TCP%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3.png" class="lazyload" data-srcset="/2023/10/23/408/ji-wang/TCP%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+<h4 id="慢启动"><a href="#慢启动" class="headerlink" title="慢启动"></a>慢启动</h4><p>当连接开始时，以指数速率增加发送速率，直到第一次报文丢失事件发生为止。<br>初始：拥塞窗口值cwnd = 1 MSS<br>每RTT倍增cwnd<br>每收到一个ACK，增加cwnd<br>初始速率很低，但是以指数增加</p>
+<h4 id="阻塞控制"><a href="#阻塞控制" class="headerlink" title="阻塞控制"></a>阻塞控制</h4><ol>
+<li>慢启动：发送方每收到一个ACK，拥塞窗口cwnd大小指数增加</li>
+<li>拥塞避免算法：当cwnd超过慢启动门限ssthresh就会进入拥塞避免算法：每个 RTT（往返时间）增加 1 个 MSS，而不是每个 ACK 增加 1 个 MSS。</li>
+<li>拥塞发生：发生了 超时重传时，sshtresh设置为cwnd/2，cwnd恢复为初始化值，发生快速重传是，cwnd =cwnd/2，ssthresh=cwnd并进入快速恢复算法。</li>
+<li>快速恢复<img src="/2023/10/23/408/ji-wang/%E5%BF%AB%E9%80%9F%E6%81%A2%E5%A4%8D.png" class="lazyload" data-srcset="/2023/10/23/408/ji-wang/%E5%BF%AB%E9%80%9F%E6%81%A2%E5%A4%8D.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+</ol>
+<h4 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h4><p>主机名到IP地址的转换<br>主机别名：一个主机可以有一个规范主机名和多个主机别名。<br>邮件服务器别名：负载分配：DNS实现冗余服务器，一个IP地址集合可以对应同一个规范主机名。</p>
+<p>DNS客⼾端设置使⽤的DNS服务器⼀般都是递归服务器，它负责全权处理客⼾端的DNS查询请求，直<br>到返回最终结果。⽽DNS服务器之间⼀般采⽤迭代查询⽅式。<br><img src="/2023/10/23/408/ji-wang/DNS%E8%AE%B0%E5%BD%95%E6%A0%BC%E5%BC%8F.png" class="lazyload" data-srcset="/2023/10/23/408/ji-wang/DNS%E8%AE%B0%E5%BD%95%E6%A0%BC%E5%BC%8F.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+<h4 id="DNS劫持"><a href="#DNS劫持" class="headerlink" title="DNS劫持"></a>DNS劫持</h4><blockquote>
+<p>通过某些手段获得对某域名的解析控制权，修改此域名的解析结果，导致对该域名的访问由原IP转为修改后的指定IP，记过就是对特定网站不能访问/访问的是假网站</p>
+</blockquote>
+<p>防止：限制对DNS的访问、设置较小的TTL值，定期修改域名管理系统的账号，使用支持DNSSEC的注册商，使用可靠的DNS服务商。</p>
+<blockquote>
+<p>DNSSEC（Domain Name System Security Extensions，域名系统安全扩展）是一组用于保护 DNS（域名系统）信息安全的协议和技术。它通过数字签名验证 DNS 数据的真实性和完整性，防止 DNS 缓存投毒和其他类型的攻击。</p>
+</blockquote>
+<h4 id="QUIC、Http2特点"><a href="#QUIC、Http2特点" class="headerlink" title="QUIC、Http2特点"></a>QUIC、Http2特点</h4><p>QUIC是google设计的一个基于UDP的网络传输协议，旨在替代TCP协议以提供更快的连接建立和数据传输速度。</p>
+<ol>
+<li>快速建立连接：使用基于TLS的安全连接，同时将连接的建立与TLS握手合并，从而减少了连接所需要的往返时间。</li>
+<li>多路复用：允许在单个连接上同时进行多个独立的数据流，从避免了TCP连接中的队头阻塞</li>
+<li>零RTT握手：QUIC支持零往返时间握手，允许客户端在第一次连接时发送数据，无需等待握手完成，进一步减少了连接建立时间。</li>
+<li>动态调整拥塞控制：使用更先进的拥塞控制算法，能够动态的根据网络条件调增数据传输速率。</li>
+<li>错误恢复：QUIC内置了一些错误恢复机制，包括快速重传和前向错误纠正，能够在发生丢包或网络拥塞时更快的恢复数据传输。</li>
+</ol>
+<p>HTTP/2 是⼀个应⽤层协议，是 HTTP/1.1 的后继版本，旨在提⾼ Web ⻚⾯加载速度和性能。 HTTP/2<br>在传输层使⽤了⼆进制分帧，头部压缩，多路复⽤等技术，以减少延迟和提⾼效率。 HTTP/2 不是⼀个<br>替代传输层协议，⽽是在传输层上实现的 HTTP 协议的增强版本。</p>
 <h2 id="网络核心"><a href="#网络核心" class="headerlink" title="网络核心"></a>网络核心</h2><p>概念：路由器的网状网络<br>提问： 数据怎么通过网络进行传输？</p>
 <ul>
 <li>电路电路交换：  不可共享资源，会造成资源浪费，不适合计算机之间的通讯，计算机通信的特点： 突发性，耗时短</li>
@@ -2787,7 +2868,52 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <ul>
 <li>安全TCP<br>  TCP和UDP都没有加密，明文传输<br>  使用SSL协议来实现加密，在TCP的基础上实现，提供加密的TCP，私密性，数据完整性，段堆到端的鉴别<br>  SSL socket API 应用通过API将铭文交给socket，SSL将其加密<br>URL : 访问协议 + 用户名 + 口令字 + 端口等</li>
 </ul>
-<h3 id="常见的应用层协议"><a href="#常见的应用层协议" class="headerlink" title="常见的应用层协议"></a>常见的应用层协议</h3><h2 id="HTTP面试常问-状态码：-1-200-2-204-No-Content-响应头没有body数据-3-206-Partial-Content-表示返回的body数据不是资源的全部，只是一部分-4-301-Moved-Permanently-永久重定向，请求的资源已经不存在的-5-302-Found-表示临时重定向，301，302都会在响应头中使用字段Location指明后续要跳转URL-浏览器会自动重定向到新的URL-6-304：Not-Modified-告诉客户端可以接着使用缓存资源-7-400Bad-Request-报文有错-8-403-Forbidden-禁止访问-9-404-Not-Found-资源不存在或者没找到-10-500-Internal-Server-Error-服务器内部错误-11-501-Not-Implemented-客户端请求还不支持-12-502-Bad-Gateway-通常是服务器作为网关或代理时返回的错误码，表示服务器自身工作正常，访问后端服务器发生了错误。-13-03-Service-Unavailable-服务器忙，暂时无法响应-缓存技术：把请求-响应的数据存到本地，下一次直接都本地数据，不需要等待服务器的想用了-1-强制缓存-Cache-Control，-是一个相对时间；-Expires，是一个绝对时间；-2-协商缓存-在强制缓存未命中时，服务器第一次请求资源时，会在Response头部加上ETag唯一表示-当浏览器再次请求访问服务器中的资源时，先检查缓存是否过期，如果没有过期直接使用本地缓存，如果过期了会在Request头部上加上If-None-Match紫萼段-服务器再次收到请求之后，会根据请求中的If-None-Match值是否与当前请求的资源生成的唯一标识比较-如果值相等，返回304-Not-Modified-不会返回资源-如果不相等，则返回-200-状态码和返回资源，并在-Response-头部加上新的-ETag-唯一标识；-浏览器收到304响应码，会从本地加载资源否则更新资源。-HTTP-x2F-1-1-的优点：简单灵活、应用广泛-缺点是：无状态一方面可以不需要服务器使用额外的资源来记录状态信息-坏处是：进行关联性操作时，需要每次都验证一次身份-解决方法：使用Cookie"><a href="#HTTP面试常问-状态码：-1-200-2-204-No-Content-响应头没有body数据-3-206-Partial-Content-表示返回的body数据不是资源的全部，只是一部分-4-301-Moved-Permanently-永久重定向，请求的资源已经不存在的-5-302-Found-表示临时重定向，301，302都会在响应头中使用字段Location指明后续要跳转URL-浏览器会自动重定向到新的URL-6-304：Not-Modified-告诉客户端可以接着使用缓存资源-7-400Bad-Request-报文有错-8-403-Forbidden-禁止访问-9-404-Not-Found-资源不存在或者没找到-10-500-Internal-Server-Error-服务器内部错误-11-501-Not-Implemented-客户端请求还不支持-12-502-Bad-Gateway-通常是服务器作为网关或代理时返回的错误码，表示服务器自身工作正常，访问后端服务器发生了错误。-13-03-Service-Unavailable-服务器忙，暂时无法响应-缓存技术：把请求-响应的数据存到本地，下一次直接都本地数据，不需要等待服务器的想用了-1-强制缓存-Cache-Control，-是一个相对时间；-Expires，是一个绝对时间；-2-协商缓存-在强制缓存未命中时，服务器第一次请求资源时，会在Response头部加上ETag唯一表示-当浏览器再次请求访问服务器中的资源时，先检查缓存是否过期，如果没有过期直接使用本地缓存，如果过期了会在Request头部上加上If-None-Match紫萼段-服务器再次收到请求之后，会根据请求中的If-None-Match值是否与当前请求的资源生成的唯一标识比较-如果值相等，返回304-Not-Modified-不会返回资源-如果不相等，则返回-200-状态码和返回资源，并在-Response-头部加上新的-ETag-唯一标识；-浏览器收到304响应码，会从本地加载资源否则更新资源。-HTTP-x2F-1-1-的优点：简单灵活、应用广泛-缺点是：无状态一方面可以不需要服务器使用额外的资源来记录状态信息-坏处是：进行关联性操作时，需要每次都验证一次身份-解决方法：使用Cookie" class="headerlink" title="#HTTP面试常问- 状态码：    1. 200    2. 204 No Content 响应头没有body数据    3. 206 &nbsp;Partial Content 表示返回的body数据不是资源的全部，只是一部分    4. 301 Moved Permanently 永久重定向，请求的资源已经不存在的    5. 302: Found: 表示临时重定向，301，302都会在响应头中使用字段Location指明后续要跳转URL,浏览器会自动重定向到新的URL    6. 304：Not Modified 告诉客户端可以接着使用缓存资源    7. 400Bad Request 报文有错    8. 403 Forbidden 禁止访问    9. 404 Not Found 资源不存在或者没找到    10. 500 Internal Server Error 服务器内部错误    11. 501 Not Implemented 客户端请求还不支持    12. 502 Bad Gateway 通常是服务器作为网关或代理时返回的错误码，表示服务器自身工作正常，访问后端服务器发生了错误。    13. 03 Service Unavailable 服务器忙，暂时无法响应- 缓存技术：把请求-响应的数据存到本地，下一次直接都本地数据，不需要等待服务器的想用了    1. 强制缓存        - Cache-Control， 是一个相对时间；        - Expires，是一个绝对时间；    2. 协商缓存        - 在强制缓存未命中时，服务器第一次请求资源时，会在Response头部加上ETag唯一表示        - 当浏览器再次请求访问服务器中的资源时，先检查缓存是否过期，如果没有过期直接使用本地缓存，如果过期了会在Request头部上加上If-None-Match紫萼段        - 服务器再次收到请求之后，会根据请求中的If-None-Match值是否与当前请求的资源生成的唯一标识比较            - 如果值相等，返回304 Not Modified 不会返回资源            - 如果不相等，则返回 200 状态码和返回资源，并在 Response 头部加上新的 ETag 唯一标识；        - 浏览器收到304响应码，会从本地加载资源否则更新资源。- HTTP/1.1 的优点：简单灵活、应用广泛    - 缺点是：无状态一方面可以不需要服务器使用额外的资源来记录状态信息    - 坏处是：进行关联性操作时，需要每次都验证一次身份    - 解决方法：使用Cookie"></a>#HTTP面试常问<br>- 状态码：<br>    1. 200<br>    2. 204 No Content 响应头没有body数据<br>    3. 206 &nbsp;<strong>Partial Content</strong> 表示返回的body数据不是资源的全部，只是一部分<br>    4. 301 <strong>Moved Permanently</strong> 永久重定向，请求的资源已经不存在的<br>    5. 302: Found: 表示临时重定向，301，302都会在响应头中使用字段Location指明后续要跳转URL,浏览器会自动重定向到新的URL<br>    6. 304：<strong>Not Modified</strong> 告诉客户端可以接着使用缓存资源<br>    7. 400<strong>Bad Request</strong> 报文有错<br>    8. 403 <strong>Forbidden</strong> 禁止访问<br>    9. 404 <strong>Not Found</strong> 资源不存在或者没找到<br>    10. 500 <strong>Internal Server Error</strong> 服务器内部错误<br>    11. <strong>501 Not Implemented</strong> 客户端请求还不支持<br>    12. <strong>502 Bad Gateway</strong> 通常是服务器作为网关或代理时返回的错误码，表示服务器自身工作正常，访问后端服务器发生了错误。<br>    13. <strong>03 Service Unavailable</strong> 服务器忙，暂时无法响应<br>- 缓存技术：把请求-响应的数据存到本地，下一次直接都本地数据，不需要等待服务器的想用了<br>    1. 强制缓存<br>        - <code>Cache-Control</code>， 是一个相对时间；<br>        - <code>Expires</code>，是一个绝对时间；<br>    2. 协商缓存<br>        - 在强制缓存未命中时，服务器第一次请求资源时，会在Response头部加上ETag唯一表示<br>        - 当浏览器再次请求访问服务器中的资源时，先检查缓存是否过期，如果没有过期直接使用本地缓存，如果过期了会在Request头部上加上If-None-Match紫萼段<br>        - 服务器再次收到请求之后，会根据请求中的If-None-Match值是否与当前请求的资源生成的唯一标识比较<br>            - 如果值相等，返回304 Not Modified 不会返回资源<br>            - 如果不相等，则返回 200 状态码和返回资源，并在 Response 头部加上新的 ETag 唯一标识；<br>        - 浏览器收到304响应码，会从本地加载资源否则更新资源。<br>- HTTP/1.1 的优点：简单灵活、应用广泛<br>    - 缺点是：无状态一方面可以不需要服务器使用额外的资源来记录状态信息<br>    - 坏处是：进行关联性操作时，需要每次都验证一次身份<br>    - 解决方法：使用Cookie</h2><ul>
+<h3 id="常见的应用层协议"><a href="#常见的应用层协议" class="headerlink" title="常见的应用层协议"></a>常见的应用层协议</h3><h4 id="HTTP面试题"><a href="#HTTP面试题" class="headerlink" title="HTTP面试题"></a>HTTP面试题</h4><ul>
+<li><p>状态码：</p>
+<ol>
+<li>200 </li>
+<li>204 No Content 响应头没有body数据</li>
+<li>206 &nbsp;<strong>Partial Content</strong> 表示返回的body数据不是资源的全部，只是一部分</li>
+<li>301 <strong>Moved Permanently</strong> 永久重定向，请求的资源已经不存在的</li>
+<li>302: Found: 表示临时重定向，301，302都会在响应头中使用字段Location指明后续要跳转URL,浏览器会自动重定向到新的URL</li>
+<li>304：<strong>Not Modified</strong> 告诉客户端可以接着使用缓存资源</li>
+<li>400<strong>Bad Request</strong> 报文有错</li>
+<li>403 <strong>Forbidden</strong> 禁止访问</li>
+<li>404 <strong>Not Found</strong> 资源不存在或者没找到</li>
+<li>500 <strong>Internal Server Error</strong> 服务器内部错误</li>
+<li><strong>501 Not Implemented</strong> 客户端请求还不支持</li>
+<li><strong>502 Bad Gateway</strong> 通常是服务器作为网关或代理时返回的错误码，表示服务器自身工作正常，访问后端服务器发生了错误。</li>
+<li><strong>03 Service Unavailable</strong> 服务器忙，暂时无法响应</li>
+</ol>
+</li>
+<li><p>缓存技术：把请求-响应的数据存到本地，下一次直接都本地数据，不需要等待服务器的想用了</p>
+<ol>
+<li>强制缓存<ul>
+<li><code>Cache-Control</code>， 是一个相对时间；</li>
+<li><code>Expires</code>，是一个绝对时间；</li>
+</ul>
+</li>
+<li>协商缓存<ul>
+<li>在强制缓存未命中时，服务器第一次请求资源时，会在Response头部加上ETag唯一表示</li>
+<li>当浏览器再次请求访问服务器中的资源时，先检查缓存是否过期，如果没有过期直接使用本地缓存，如果过期了会在Request头部上加上If-None-Match紫萼段</li>
+<li>服务器再次收到请求之后，会根据请求中的If-None-Match值是否与当前请求的资源生成的唯一标识比较<ul>
+<li>如果值相等，返回304 Not Modified 不会返回资源</li>
+<li>如果不相等，则返回 200 状态码和返回资源，并在 Response 头部加上新的 ETag 唯一标识；</li>
+</ul>
+</li>
+<li>浏览器收到304响应码，会从本地加载资源否则更新资源。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>HTTP/1.1 的优点：简单灵活、应用广泛</p>
+<ul>
+<li>缺点是：无状态一方面可以不需要服务器使用额外的资源来记录状态信息</li>
+<li>坏处是：进行关联性操作时，需要每次都验证一次身份</li>
+<li>解决方法：使用Cookie</li>
+</ul>
+</li>
+<li></li>
 <li><p>HTTP：超文本传输协议 HTTP默认80 HTTPS默认 443</p>
 <ul>
 <li>流程： 1. 客户发起一个与服务器的TCP连接，(建立socket) 2. 服务器接受TCP 连接 3. 浏览器和web服务器之间交换HTTP报文 4. TCP连接关闭 </li>
@@ -3076,10 +3202,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateModified" datetime="2024-07-19T16:42:31+08:00">
+          <div class="new-meta-item date" itemprop="dateModified" datetime="2024-08-09T21:59:58+08:00">
   <a class='notlink'>
     <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2024年7月19日</p>
+    <p>更新于：2024年8月9日</p>
   </a>
 </div>
 
@@ -3231,7 +3357,7 @@ items.py...</p>
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-text">概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E6%A0%B8%E5%BF%83"><span class="toc-text">网络核心</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%B1%82"><span class="toc-text">应用层</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E5%BA%94%E7%94%A8%E5%B1%82%E5%8D%8F%E8%AE%AE"><span class="toc-text">常见的应用层协议</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP%E9%9D%A2%E8%AF%95%E5%B8%B8%E9%97%AE-%E7%8A%B6%E6%80%81%E7%A0%81%EF%BC%9A-1-200-2-204-No-Content-%E5%93%8D%E5%BA%94%E5%A4%B4%E6%B2%A1%E6%9C%89body%E6%95%B0%E6%8D%AE-3-206-Partial-Content-%E8%A1%A8%E7%A4%BA%E8%BF%94%E5%9B%9E%E7%9A%84body%E6%95%B0%E6%8D%AE%E4%B8%8D%E6%98%AF%E8%B5%84%E6%BA%90%E7%9A%84%E5%85%A8%E9%83%A8%EF%BC%8C%E5%8F%AA%E6%98%AF%E4%B8%80%E9%83%A8%E5%88%86-4-301-Moved-Permanently-%E6%B0%B8%E4%B9%85%E9%87%8D%E5%AE%9A%E5%90%91%EF%BC%8C%E8%AF%B7%E6%B1%82%E7%9A%84%E8%B5%84%E6%BA%90%E5%B7%B2%E7%BB%8F%E4%B8%8D%E5%AD%98%E5%9C%A8%E7%9A%84-5-302-Found-%E8%A1%A8%E7%A4%BA%E4%B8%B4%E6%97%B6%E9%87%8D%E5%AE%9A%E5%90%91%EF%BC%8C301%EF%BC%8C302%E9%83%BD%E4%BC%9A%E5%9C%A8%E5%93%8D%E5%BA%94%E5%A4%B4%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%AD%97%E6%AE%B5Location%E6%8C%87%E6%98%8E%E5%90%8E%E7%BB%AD%E8%A6%81%E8%B7%B3%E8%BD%ACURL-%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BC%9A%E8%87%AA%E5%8A%A8%E9%87%8D%E5%AE%9A%E5%90%91%E5%88%B0%E6%96%B0%E7%9A%84URL-6-304%EF%BC%9ANot-Modified-%E5%91%8A%E8%AF%89%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%8F%AF%E4%BB%A5%E6%8E%A5%E7%9D%80%E4%BD%BF%E7%94%A8%E7%BC%93%E5%AD%98%E8%B5%84%E6%BA%90-7-400Bad-Request-%E6%8A%A5%E6%96%87%E6%9C%89%E9%94%99-8-403-Forbidden-%E7%A6%81%E6%AD%A2%E8%AE%BF%E9%97%AE-9-404-Not-Found-%E8%B5%84%E6%BA%90%E4%B8%8D%E5%AD%98%E5%9C%A8%E6%88%96%E8%80%85%E6%B2%A1%E6%89%BE%E5%88%B0-10-500-Internal-Server-Error-%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%86%85%E9%83%A8%E9%94%99%E8%AF%AF-11-501-Not-Implemented-%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AF%B7%E6%B1%82%E8%BF%98%E4%B8%8D%E6%94%AF%E6%8C%81-12-502-Bad-Gateway-%E9%80%9A%E5%B8%B8%E6%98%AF%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BD%9C%E4%B8%BA%E7%BD%91%E5%85%B3%E6%88%96%E4%BB%A3%E7%90%86%E6%97%B6%E8%BF%94%E5%9B%9E%E7%9A%84%E9%94%99%E8%AF%AF%E7%A0%81%EF%BC%8C%E8%A1%A8%E7%A4%BA%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%87%AA%E8%BA%AB%E5%B7%A5%E4%BD%9C%E6%AD%A3%E5%B8%B8%EF%BC%8C%E8%AE%BF%E9%97%AE%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%91%E7%94%9F%E4%BA%86%E9%94%99%E8%AF%AF%E3%80%82-13-03-Service-Unavailable-%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%BF%99%EF%BC%8C%E6%9A%82%E6%97%B6%E6%97%A0%E6%B3%95%E5%93%8D%E5%BA%94-%E7%BC%93%E5%AD%98%E6%8A%80%E6%9C%AF%EF%BC%9A%E6%8A%8A%E8%AF%B7%E6%B1%82-%E5%93%8D%E5%BA%94%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AD%98%E5%88%B0%E6%9C%AC%E5%9C%B0%EF%BC%8C%E4%B8%8B%E4%B8%80%E6%AC%A1%E7%9B%B4%E6%8E%A5%E9%83%BD%E6%9C%AC%E5%9C%B0%E6%95%B0%E6%8D%AE%EF%BC%8C%E4%B8%8D%E9%9C%80%E8%A6%81%E7%AD%89%E5%BE%85%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E6%83%B3%E7%94%A8%E4%BA%86-1-%E5%BC%BA%E5%88%B6%E7%BC%93%E5%AD%98-Cache-Control%EF%BC%8C-%E6%98%AF%E4%B8%80%E4%B8%AA%E7%9B%B8%E5%AF%B9%E6%97%B6%E9%97%B4%EF%BC%9B-Expires%EF%BC%8C%E6%98%AF%E4%B8%80%E4%B8%AA%E7%BB%9D%E5%AF%B9%E6%97%B6%E9%97%B4%EF%BC%9B-2-%E5%8D%8F%E5%95%86%E7%BC%93%E5%AD%98-%E5%9C%A8%E5%BC%BA%E5%88%B6%E7%BC%93%E5%AD%98%E6%9C%AA%E5%91%BD%E4%B8%AD%E6%97%B6%EF%BC%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AC%AC%E4%B8%80%E6%AC%A1%E8%AF%B7%E6%B1%82%E8%B5%84%E6%BA%90%E6%97%B6%EF%BC%8C%E4%BC%9A%E5%9C%A8Response%E5%A4%B4%E9%83%A8%E5%8A%A0%E4%B8%8AETag%E5%94%AF%E4%B8%80%E8%A1%A8%E7%A4%BA-%E5%BD%93%E6%B5%8F%E8%A7%88%E5%99%A8%E5%86%8D%E6%AC%A1%E8%AF%B7%E6%B1%82%E8%AE%BF%E9%97%AE%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%AD%E7%9A%84%E8%B5%84%E6%BA%90%E6%97%B6%EF%BC%8C%E5%85%88%E6%A3%80%E6%9F%A5%E7%BC%93%E5%AD%98%E6%98%AF%E5%90%A6%E8%BF%87%E6%9C%9F%EF%BC%8C%E5%A6%82%E6%9E%9C%E6%B2%A1%E6%9C%89%E8%BF%87%E6%9C%9F%E7%9B%B4%E6%8E%A5%E4%BD%BF%E7%94%A8%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98%EF%BC%8C%E5%A6%82%E6%9E%9C%E8%BF%87%E6%9C%9F%E4%BA%86%E4%BC%9A%E5%9C%A8Request%E5%A4%B4%E9%83%A8%E4%B8%8A%E5%8A%A0%E4%B8%8AIf-None-Match%E7%B4%AB%E8%90%BC%E6%AE%B5-%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%86%8D%E6%AC%A1%E6%94%B6%E5%88%B0%E8%AF%B7%E6%B1%82%E4%B9%8B%E5%90%8E%EF%BC%8C%E4%BC%9A%E6%A0%B9%E6%8D%AE%E8%AF%B7%E6%B1%82%E4%B8%AD%E7%9A%84If-None-Match%E5%80%BC%E6%98%AF%E5%90%A6%E4%B8%8E%E5%BD%93%E5%89%8D%E8%AF%B7%E6%B1%82%E7%9A%84%E8%B5%84%E6%BA%90%E7%94%9F%E6%88%90%E7%9A%84%E5%94%AF%E4%B8%80%E6%A0%87%E8%AF%86%E6%AF%94%E8%BE%83-%E5%A6%82%E6%9E%9C%E5%80%BC%E7%9B%B8%E7%AD%89%EF%BC%8C%E8%BF%94%E5%9B%9E304-Not-Modified-%E4%B8%8D%E4%BC%9A%E8%BF%94%E5%9B%9E%E8%B5%84%E6%BA%90-%E5%A6%82%E6%9E%9C%E4%B8%8D%E7%9B%B8%E7%AD%89%EF%BC%8C%E5%88%99%E8%BF%94%E5%9B%9E-200-%E7%8A%B6%E6%80%81%E7%A0%81%E5%92%8C%E8%BF%94%E5%9B%9E%E8%B5%84%E6%BA%90%EF%BC%8C%E5%B9%B6%E5%9C%A8-Response-%E5%A4%B4%E9%83%A8%E5%8A%A0%E4%B8%8A%E6%96%B0%E7%9A%84-ETag-%E5%94%AF%E4%B8%80%E6%A0%87%E8%AF%86%EF%BC%9B-%E6%B5%8F%E8%A7%88%E5%99%A8%E6%94%B6%E5%88%B0304%E5%93%8D%E5%BA%94%E7%A0%81%EF%BC%8C%E4%BC%9A%E4%BB%8E%E6%9C%AC%E5%9C%B0%E5%8A%A0%E8%BD%BD%E8%B5%84%E6%BA%90%E5%90%A6%E5%88%99%E6%9B%B4%E6%96%B0%E8%B5%84%E6%BA%90%E3%80%82-HTTP-x2F-1-1-%E7%9A%84%E4%BC%98%E7%82%B9%EF%BC%9A%E7%AE%80%E5%8D%95%E7%81%B5%E6%B4%BB%E3%80%81%E5%BA%94%E7%94%A8%E5%B9%BF%E6%B3%9B-%E7%BC%BA%E7%82%B9%E6%98%AF%EF%BC%9A%E6%97%A0%E7%8A%B6%E6%80%81%E4%B8%80%E6%96%B9%E9%9D%A2%E5%8F%AF%E4%BB%A5%E4%B8%8D%E9%9C%80%E8%A6%81%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BD%BF%E7%94%A8%E9%A2%9D%E5%A4%96%E7%9A%84%E8%B5%84%E6%BA%90%E6%9D%A5%E8%AE%B0%E5%BD%95%E7%8A%B6%E6%80%81%E4%BF%A1%E6%81%AF-%E5%9D%8F%E5%A4%84%E6%98%AF%EF%BC%9A%E8%BF%9B%E8%A1%8C%E5%85%B3%E8%81%94%E6%80%A7%E6%93%8D%E4%BD%9C%E6%97%B6%EF%BC%8C%E9%9C%80%E8%A6%81%E6%AF%8F%E6%AC%A1%E9%83%BD%E9%AA%8C%E8%AF%81%E4%B8%80%E6%AC%A1%E8%BA%AB%E4%BB%BD-%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%EF%BC%9A%E4%BD%BF%E7%94%A8Cookie"><span class="toc-text">#HTTP面试常问- 状态码：    1. 200    2. 204 No Content 响应头没有body数据    3. 206  Partial Content 表示返回的body数据不是资源的全部，只是一部分    4. 301 Moved Permanently 永久重定向，请求的资源已经不存在的    5. 302: Found: 表示临时重定向，301，302都会在响应头中使用字段Location指明后续要跳转URL,浏览器会自动重定向到新的URL    6. 304：Not Modified 告诉客户端可以接着使用缓存资源    7. 400Bad Request 报文有错    8. 403 Forbidden 禁止访问    9. 404 Not Found 资源不存在或者没找到    10. 500 Internal Server Error 服务器内部错误    11. 501 Not Implemented 客户端请求还不支持    12. 502 Bad Gateway 通常是服务器作为网关或代理时返回的错误码，表示服务器自身工作正常，访问后端服务器发生了错误。    13. 03 Service Unavailable 服务器忙，暂时无法响应- 缓存技术：把请求-响应的数据存到本地，下一次直接都本地数据，不需要等待服务器的想用了    1. 强制缓存        - Cache-Control， 是一个相对时间；        - Expires，是一个绝对时间；    2. 协商缓存        - 在强制缓存未命中时，服务器第一次请求资源时，会在Response头部加上ETag唯一表示        - 当浏览器再次请求访问服务器中的资源时，先检查缓存是否过期，如果没有过期直接使用本地缓存，如果过期了会在Request头部上加上If-None-Match紫萼段        - 服务器再次收到请求之后，会根据请求中的If-None-Match值是否与当前请求的资源生成的唯一标识比较            - 如果值相等，返回304 Not Modified 不会返回资源            - 如果不相等，则返回 200 状态码和返回资源，并在 Response 头部加上新的 ETag 唯一标识；        - 浏览器收到304响应码，会从本地加载资源否则更新资源。- HTTP&#x2F;1.1 的优点：简单灵活、应用广泛    - 缺点是：无状态一方面可以不需要服务器使用额外的资源来记录状态信息    - 坏处是：进行关联性操作时，需要每次都验证一次身份    - 解决方法：使用Cookie</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%A0%E8%BE%93%E5%B1%82"><span class="toc-text">传输层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E5%B1%82"><span class="toc-text">网络层</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E6%8E%A5%E5%8F%A3%E5%B1%82%EF%BC%9A%E7%AD%89%E4%BB%B7%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82%EF%BC%8C%E4%BD%BF%E7%94%A8mac%E5%9C%B0%E5%9D%80"><span class="toc-text">网络接口层：等价数据链路层，使用mac地址</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%A9%E7%90%86%E5%B1%82"><span class="toc-text">物理层</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#OSI%E5%8F%82%E8%80%83%E6%A8%A1%E5%9E%8B-%E6%9C%89%E4%B8%83%E4%B8%AA%E5%88%86%E5%B1%82"><span class="toc-text">OSI参考模型 有七个分层</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8"><span class="toc-text">网络安全</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-text">概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A1%E7%BD%91%E5%B8%B8%E9%97%AE"><span class="toc-text">计网常问</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E4%B8%AA%E8%AF%B7%E6%B1%82%E6%95%B4%E4%B8%AA%E7%BD%91%E7%BB%9C%E7%9A%84%E5%A4%84%E7%90%86"><span class="toc-text">一个请求整个网络的处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IPv6%E4%BC%98%E7%82%B9"><span class="toc-text">IPv6优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BGP%E3%80%81OSPF%E5%8D%8F%E8%AE%AE%E5%8E%9F%E7%90%86"><span class="toc-text">BGP、OSPF协议原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E6%8F%A1%E5%9B%9B%E6%8C%A5"><span class="toc-text">三握四挥</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP%E5%92%8CUDP"><span class="toc-text">TCP和UDP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#SYN%E6%94%BB%E5%87%BB"><span class="toc-text">SYN攻击</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3"><span class="toc-text">滑动窗口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%85%A2%E5%90%AF%E5%8A%A8"><span class="toc-text">慢启动</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%BB%E5%A1%9E%E6%8E%A7%E5%88%B6"><span class="toc-text">阻塞控制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DNS"><span class="toc-text">DNS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DNS%E5%8A%AB%E6%8C%81"><span class="toc-text">DNS劫持</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#QUIC%E3%80%81Http2%E7%89%B9%E7%82%B9"><span class="toc-text">QUIC、Http2特点</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E6%A0%B8%E5%BF%83"><span class="toc-text">网络核心</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%B1%82"><span class="toc-text">应用层</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E5%BA%94%E7%94%A8%E5%B1%82%E5%8D%8F%E8%AE%AE"><span class="toc-text">常见的应用层协议</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#HTTP%E9%9D%A2%E8%AF%95%E9%A2%98"><span class="toc-text">HTTP面试题</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%A0%E8%BE%93%E5%B1%82"><span class="toc-text">传输层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E5%B1%82"><span class="toc-text">网络层</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E6%8E%A5%E5%8F%A3%E5%B1%82%EF%BC%9A%E7%AD%89%E4%BB%B7%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82%EF%BC%8C%E4%BD%BF%E7%94%A8mac%E5%9C%B0%E5%9D%80"><span class="toc-text">网络接口层：等价数据链路层，使用mac地址</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%A9%E7%90%86%E5%B1%82"><span class="toc-text">物理层</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#OSI%E5%8F%82%E8%80%83%E6%A8%A1%E5%9E%8B-%E6%9C%89%E4%B8%83%E4%B8%AA%E5%88%86%E5%B1%82"><span class="toc-text">OSI参考模型 有七个分层</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8"><span class="toc-text">网络安全</span></a></li></ol>
     </div>
   </section>
 
@@ -3801,7 +3927,7 @@ items.py...</p>
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"QingQiu'Blog","url":"https://zuofw.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/","sameAs":["https://github.com/volantis-x"],"description":"个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://zuofw.github.io/","name":"QingQiu'Blog"}},{"@type":"ListItem","position":2,"item":{"@id":"https://zuofw.github.io/categories/计算机基础/","name":"计算机基础"}},{"@type":"ListItem","position":3,"item":{"@id":"https://zuofw.github.io/2023/10/23/408/ji-wang/","name":"计网"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"QingQiu'Blog","url":"https://zuofw.github.io/","keywords":"博客，学习，成长","description":"个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝","author":{"@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/","description":"个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝"},"publisher":{"@type":"Organization","name":"QingQiu'Blog","url":"https://zuofw.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://zuofw.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"计网","description":"个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://zuofw.github.io/2023/10/23/408/ji-wang/"},"author":{"@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/"},"publisher":{"@type":"Organization","name":"QingQiu'Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://zuofw.github.io/2023/10/23/408/ji-wang/","wordCount":0,"datePublished":"2023-10-23T12:01:46.000Z","dateModified":"2024-07-19T08:42:31.762Z","articleSection":"计算机基础","keywords":"计算机网络","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"QingQiu'Blog","url":"https://zuofw.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/","sameAs":["https://github.com/volantis-x"],"description":"个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://zuofw.github.io/","name":"QingQiu'Blog"}},{"@type":"ListItem","position":2,"item":{"@id":"https://zuofw.github.io/categories/计算机基础/","name":"计算机基础"}},{"@type":"ListItem","position":3,"item":{"@id":"https://zuofw.github.io/2023/10/23/408/ji-wang/","name":"计网"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"QingQiu'Blog","url":"https://zuofw.github.io/","keywords":"博客，学习，成长","description":"个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝","author":{"@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/","description":"个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝"},"publisher":{"@type":"Organization","name":"QingQiu'Blog","url":"https://zuofw.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://zuofw.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"计网","description":"个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://zuofw.github.io/2023/10/23/408/ji-wang/"},"author":{"@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/"},"publisher":{"@type":"Organization","name":"QingQiu'Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://zuofw.github.io/2023/10/23/408/ji-wang/","wordCount":0,"datePublished":"2023-10-23T12:01:46.000Z","dateModified":"2024-08-09T13:59:58.526Z","articleSection":"计算机基础","keywords":"计算机网络","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 
