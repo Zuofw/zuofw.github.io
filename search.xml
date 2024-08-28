@@ -495,11 +495,6 @@ public class TestLazy {
 ]]></content>
   </entry>
   <entry>
-    <title></title>
-    <url>/2024/06/16/wei-fu-wu/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
     <title>设计模式</title>
     <url>/2024/06/16/she-ji-mo-shi/</url>
     <content><![CDATA[<h1 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h1><p>设计模式是⼀套被反复使⽤的、多数⼈知晓的、经过分类编⽬的、代码设计经验的总结。</p>
@@ -646,6 +641,387 @@ public class TestLazy {
 <li><strong>异常类命名使用 Exception 结尾。</strong></li>
 <li><strong>测试类命名以它要测试的类的名称开始，以 Test 结尾。</strong></li>
 </ul>
+]]></content>
+  </entry>
+  <entry>
+    <title>面试记录</title>
+    <url>/2024/06/07/mian-shi-ji-lu/</url>
+    <content><![CDATA[<p>DevOps</p>
+<h1 id="2024-05-11-同余信科一面（二面已过，但是不要26届的）"><a href="#2024-05-11-同余信科一面（二面已过，但是不要26届的）" class="headerlink" title="2024-05-11 同余信科一面（二面已过，但是不要26届的）"></a>2024-05-11 同余信科一面（二面已过，但是不要26届的）</h1><h2 id="项目中承担的开发工作"><a href="#项目中承担的开发工作" class="headerlink" title="项目中承担的开发工作"></a>项目中承担的开发工作</h2><h2 id="写过哪些模块"><a href="#写过哪些模块" class="headerlink" title="写过哪些模块"></a>写过哪些模块</h2><h2 id="Redis集群"><a href="#Redis集群" class="headerlink" title="Redis集群"></a>Redis集群</h2><h2 id="Java的常用集合用过哪些"><a href="#Java的常用集合用过哪些" class="headerlink" title="Java的常用集合用过哪些"></a>Java的常用集合用过哪些</h2><ol>
+<li><strong>ArrayList</strong></li>
+<li>LinkedList</li>
+<li>HashSet</li>
+<li>TreeSet</li>
+<li>HashMap</li>
+</ol>
+<h2 id="Stream流"><a href="#Stream流" class="headerlink" title="Stream流"></a>Stream流</h2><h2 id="HashMap的扩容机制"><a href="#HashMap的扩容机制" class="headerlink" title="HashMap的扩容机制"></a>HashMap的扩容机制</h2><ol>
+<li>当超过最大长度的0.75的时候开始扩容</li>
+<li>创建新的哈希表，容量为原来的两倍</li>
+<li>重新哈希：遍历旧的哈希表，将每个元素重新哈希到新的哈希表中。</li>
+<li>替换旧的哈希表。</li>
+</ol>
+<h2 id="类加载的过程"><a href="#类加载的过程" class="headerlink" title="类加载的过程"></a>类加载的过程</h2><ol>
+<li>类加载器找到字节码文件，从这个文件中读取数据，创建一个在内存中表示的java.lang.Class对象</li>
+<li>链接：<ul>
+<li>验证：确保被加载的类是否满足Java虚拟机的限制，例如：字节码是否有正确的格式，符号引用是否可以正确解析等</li>
+<li>准备：在住呢比阶段，Java虚拟机为类的静态变量分配内存，并且初始化默认值</li>
+<li>解析：Java虚拟机将类的符号引用转化为直接引用</li>
+</ul>
+</li>
+<li>初始化：执行类的初始化方法和静态初始化块和静态字段的初始化。</li>
+</ol>
+<h2 id="MySQL的存储引擎"><a href="#MySQL的存储引擎" class="headerlink" title="MySQL的存储引擎"></a>MySQL的存储引擎</h2><h3 id="InnoDB的底层数据结构，B-树和B树的区别"><a href="#InnoDB的底层数据结构，B-树和B树的区别" class="headerlink" title="InnoDB的底层数据结构，B+树和B树的区别"></a>InnoDB的底层数据结构，B+树和B树的区别</h3><p>B+树<br>区别：</p>
+<ol>
+<li>B+树中，所有的数据存储在叶子节点中，非叶子节点只存储关键字信息。而在B树中，关键字和数据可以存储在任何节点</li>
+<li>叶子节点链接：在B+树中，所有的叶子节点都通过指针连接在一次，形成一个链表结构。B树中叶子节点之间没有链接</li>
+<li>关键字重复：B+树种，非叶子节点的关键字会重复出现叶子节点，而在B树种，关键字只出现一次。<br>优点：</li>
+<li>B+树的叶子节点不存数据，仅存键值，相同的页表大小的情况下，B+树可以存更多的键值，从而使得树的高度更矮，查找数据进行磁盘IO次数就会减少。数据查询效率也会更快</li>
+<li>B+树索引的数据都在叶子节点，而且是按照顺序排列的，查找的时候更容易查找，效率更高</li>
+</ol>
+<h3 id="MVCC"><a href="#MVCC" class="headerlink" title="MVCC"></a>MVCC</h3><p>不可以解决幻读问题</p>
+<h2 id="数据库的并发一致性问题"><a href="#数据库的并发一致性问题" class="headerlink" title="数据库的并发一致性问题"></a>数据库的并发一致性问题</h2><ol>
+<li><p><strong>脏读（Dirty Read）</strong>：一个事务读取了另一个未提交事务的修改。如果那个事务回滚，那么这个读取操作就会读到错误的数据。</p>
+</li>
+<li><p><strong>不可重复读（Non-repeatable Read）</strong>：在同一个事务中，一个查询操作对同一行数据进行了多次读取，但由于其他事务的修改，导致多次读取的结果不一致。</p>
+</li>
+<li><p><strong>幻读（Phantom Read）</strong>：在同一个事务中，一个查询操作在前后两次查询中，由于其他事务的插入或删除操作，导致读取到了额外的行或者少了一些行。</p>
+</li>
+<li><p><strong>丢失更新（Lost Update）</strong>：两个事务同时修改同一行数据，后提交的事务会覆盖前一个事务的修改，导致前一个事务的修改丢失。</p>
+</li>
+</ol>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h2 id="索引在项目中的实际应用"><a href="#索引在项目中的实际应用" class="headerlink" title="索引在项目中的实际应用"></a>索引在项目中的实际应用</h2><h2 id="AOP相关"><a href="#AOP相关" class="headerlink" title="AOP相关"></a>AOP相关</h2><p>业务逻辑成功，AOP数据库插入操作失败，如何解决<br>怎么把日志写到文件里</p>
+<h2 id="对于大量的数据同步，如何处理"><a href="#对于大量的数据同步，如何处理" class="headerlink" title="对于大量的数据同步，如何处理"></a>对于大量的数据同步，如何处理</h2><h3 id="怎么从Nginx的转发中获取实际的IP"><a href="#怎么从Nginx的转发中获取实际的IP" class="headerlink" title="怎么从Nginx的转发中获取实际的IP"></a>怎么从Nginx的转发中获取实际的IP</h3><p>使用proxy_set_header指令将客户端实际IP地址添加到HTTP请求中即可</p>
+<pre class="line-numbers language-nginx" data-language="nginx"><code class="language-nginx"><span class="token directive"><span class="token keyword">location</span> /</span> <span class="token punctuation">{</span>
+    <span class="token directive"><span class="token keyword">proxy_set_header</span> Host <span class="token variable">$host</span></span><span class="token punctuation">;</span>
+    <span class="token directive"><span class="token keyword">proxy_set_header</span> X-Real-IP <span class="token variable">$remote_addr</span></span><span class="token punctuation">;</span>
+    <span class="token directive"><span class="token keyword">proxy_set_header</span> X-Forwarded-For <span class="token variable">$proxy_add_x_forwarded_for</span></span><span class="token punctuation">;</span>
+    <span class="token directive"><span class="token keyword">proxy_pass</span> http://backend</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+//Java
+<span class="token directive"><span class="token keyword">import</span> javax.servlet.http.HttpServletRequest</span><span class="token punctuation">;</span>
+
+@RestController
+<span class="token directive"><span class="token keyword">public</span> class MyController</span> <span class="token punctuation">{</span>
+
+    @RequestMapping("/")
+    <span class="token directive"><span class="token keyword">public</span> String index(HttpServletRequest request)</span> <span class="token punctuation">{</span>
+        <span class="token directive"><span class="token keyword">String</span> ipAddress = request.getHeader(<span class="token string">"X-Forwarded-For"</span>)</span><span class="token punctuation">;</span>
+        <span class="token directive"><span class="token keyword">if</span> (ipAddress == null)</span> <span class="token punctuation">{</span>
+            <span class="token directive"><span class="token keyword">ipAddress</span> = request.getHeader(<span class="token string">"X-Real-IP"</span>)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token directive"><span class="token keyword">return</span> <span class="token string">"Client IP: "</span> + ipAddress</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Canal如何使用，有何好处，项目中如何使用"><a href="#Canal如何使用，有何好处，项目中如何使用" class="headerlink" title="Canal如何使用，有何好处，项目中如何使用"></a>Canal如何使用，有何好处，项目中如何使用</h2><h2 id="多线程对逻辑优化"><a href="#多线程对逻辑优化" class="headerlink" title="多线程对逻辑优化"></a>多线程对逻辑优化</h2><h3 id="使用并行Stream流来处理常用数据"><a href="#使用并行Stream流来处理常用数据" class="headerlink" title="使用并行Stream流来处理常用数据"></a>使用并行Stream流来处理常用数据</h3><h3 id="并行流的各种问题"><a href="#并行流的各种问题" class="headerlink" title="并行流的各种问题"></a>并行流的各种问题</h3><ol>
+<li><p><strong>线程安全问题</strong>：并行处理数据时，需要注意线程安全问题。如果并行流修改了共享资源，可能会导致数据不一致。</p>
+</li>
+<li><p><strong>顺序问题</strong>：并行流在处理数据时，不能保证数据的处理顺序。</p>
+</li>
+<li><p><strong>开销问题</strong>：并行流虽然可以提高处理速度，但是它也会增加额外的开销，如线程切换的开销。对于小数据集，这种开销可能会使并行流的性能低于串行流。</p>
+</li>
+<li><p><strong>阻塞问题</strong>：如果并行流的任务中有阻塞操作，如 I/O 操作，那么并行流的性能可能会大大降低。</p>
+</li>
+</ol>
+<h2 id="可以对自己的代码进行优化，考虑性能优化"><a href="#可以对自己的代码进行优化，考虑性能优化" class="headerlink" title="可以对自己的代码进行优化，考虑性能优化"></a>可以对自己的代码进行优化，考虑性能优化</h2><h2 id="SpringSecurity相关"><a href="#SpringSecurity相关" class="headerlink" title="SpringSecurity相关"></a>SpringSecurity相关</h2><p>SecurityContext是Spring Security中的一个重要组件，它用于存储与当前执行线程相关的安全性和身份验证信息。在任何地方，你都可以通过SecurityContextHolder来访问当前的SecurityContext。</p>
+<h1 id="2024-05-18-青鹤信息一面（笔试挂"><a href="#2024-05-18-青鹤信息一面（笔试挂" class="headerlink" title="2024-05-18 青鹤信息一面（笔试挂)"></a>2024-05-18 青鹤信息一面（笔试挂)</h1><h2 id="MyBatis的延迟加载优化查询效率"><a href="#MyBatis的延迟加载优化查询效率" class="headerlink" title="MyBatis的延迟加载优化查询效率"></a>MyBatis的延迟加载优化查询效率</h2><p>当使用一对多或者多对多的关联查询时，使用延迟加载可以在不需要获取关联数据时，可以避免执行关联查询，从而提高查询效率。</p>
+<h2 id="布隆过滤器"><a href="#布隆过滤器" class="headerlink" title="布隆过滤器"></a>布隆过滤器</h2><h2 id="MySQL的主从同步过程"><a href="#MySQL的主从同步过程" class="headerlink" title="MySQL的主从同步过程"></a>MySQL的主从同步过程</h2><p>使用binlog</p>
+<ul>
+<li>主从复制：<ul>
+<li>master节点会不断将sql命令写入Binary Log，子节点使用I/O线程读入master节点中的Bin Log</li>
+<li>字节点使用SQL线程执行Bin Log的语句</li>
+</ul>
+</li>
+</ul>
+<h2 id="主主同步如何实现，如何解决并发问题"><a href="#主主同步如何实现，如何解决并发问题" class="headerlink" title="主主同步如何实现，如何解决并发问题"></a>主主同步如何实现，如何解决并发问题</h2><h2 id="如何解决IO的负载均衡分布"><a href="#如何解决IO的负载均衡分布" class="headerlink" title="如何解决IO的负载均衡分布"></a>如何解决IO的负载均衡分布</h2><h2 id="AOP的优势"><a href="#AOP的优势" class="headerlink" title="AOP的优势"></a>AOP的优势</h2><h2 id="JDK17和JDK8的区别"><a href="#JDK17和JDK8的区别" class="headerlink" title="JDK17和JDK8的区别"></a>JDK17和JDK8的区别</h2><h1 id="2024-06-19-中和农信一面（一面挂）"><a href="#2024-06-19-中和农信一面（一面挂）" class="headerlink" title="2024-06-19 中和农信一面（一面挂）"></a>2024-06-19 中和农信一面（一面挂）</h1><h2 id="MySQL索引"><a href="#MySQL索引" class="headerlink" title="MySQL索引"></a>MySQL索引</h2><h3 id="索引失效的场景（重点）"><a href="#索引失效的场景（重点）" class="headerlink" title="索引失效的场景（重点）"></a>索引失效的场景（重点）</h3><ol>
+<li>LiIKE操作符以通配符开头例如 “%xx”或 “%xx%” ，但是 “xx%” 可以使用索引。</li>
+<li>对索引使用函数或者表达式操作 <code>select * from t_user where length(name)=6 </code></li>
+<li>对索引隐式转换，如果查询条件中的类型和列的类型不匹配，MySQL可能会进行类型转换，索引就会失效</li>
+<li>联合索引非最左匹配，多个普通字段组合在一起创建的索引叫做联合索引，不遵循最左优先的方式就会失效。</li>
+<li>where子句中使用了OR，如果OR后的条件不是索引列就会失效</li>
+<li>出现NULL值：如果列中包含NULL值，那么使用IS NULL或IS NOT NULL 查询时索引可能会失效。</li>
+</ol>
+<h3 id="Text对于字段类型索引会失效吗"><a href="#Text对于字段类型索引会失效吗" class="headerlink" title="Text对于字段类型索引会失效吗"></a>Text对于字段类型索引会失效吗</h3><p><code>TEXT</code>类型的字段是可以被索引的，但是由于<code>TEXT</code>类型的长度可能非常大，所以必须指定前缀长度。这是因为MySQL的B-Tree索引只能存储固定长度的值。如果不指定前缀长度，MySQL会报错。</p>
+<h3 id="MySQL如何使用索引的"><a href="#MySQL如何使用索引的" class="headerlink" title="MySQL如何使用索引的"></a>MySQL如何使用索引的</h3><h2 id="Java基础"><a href="#Java基础" class="headerlink" title="Java基础"></a>Java基础</h2><h3 id="Java中的类什么时候会加载到内存中"><a href="#Java中的类什么时候会加载到内存中" class="headerlink" title="Java中的类什么时候会加载到内存中"></a>Java中的类什么时候会加载到内存中</h3><ol>
+<li>实例化的时候：new </li>
+<li>访问静态对象时，</li>
+<li>子类加载时会把父类也加载进内存</li>
+<li>通过反射API时，使用反射时会把对应的类加载到内存中。</li>
+</ol>
+<h3 id="Hash冲突-amp-HashMap如何解决Hash冲突的，HashMap插入数据的过程"><a href="#Hash冲突-amp-HashMap如何解决Hash冲突的，HashMap插入数据的过程" class="headerlink" title="Hash冲突 &amp; HashMap如何解决Hash冲突的，HashMap插入数据的过程"></a>Hash冲突 &amp; HashMap如何解决Hash冲突的，HashMap插入数据的过程</h3><p>HashMap使用链地址法解决哈希冲突的。HashMap使用数组加链表的方式，数组中的位置可以看作一个桶，每个桶实际就是一个链表或者红黑树。<br>当桶中的数据超过一定的阈值时，默认为8，会转为红黑树。<br>插入过程：</p>
+<ol>
+<li>计算哈希值，使用键的hashCode()</li>
+<li>确定桶的位置，使用哈希值的一部分来确认键值对应该存储在哪个桶中。一般用哈希值的地位来选择桶</li>
+<li>检查冲突：<ul>
+<li>没有冲突就直接建一个新的节点</li>
+<li>有冲突就判断键值是否相同，使用的是equals方法，相等就覆盖，不相等就添加一个新的节点存储键值对</li>
+</ul>
+</li>
+<li>如果HashMap的大小超过了数组长度的0.75就会进行扩容，扩容之后是原来的两倍</li>
+</ol>
+<h3 id="ThreadLocal的实现原理"><a href="#ThreadLocal的实现原理" class="headerlink" title="ThreadLocal的实现原理"></a>ThreadLocal的实现原理</h3><p>每个Thread对象内部有一个ThreadLocalMap对象，然后它的键是ThreadLocal，值是我们像存储的值</p>
+<h2 id="并发问题"><a href="#并发问题" class="headerlink" title="并发问题"></a>并发问题</h2><h3 id="栅栏-Barrier"><a href="#栅栏-Barrier" class="headerlink" title="栅栏 Barrier"></a>栅栏 Barrier</h3><p>Barrier是一种同步机制，它可以让一组线程在所有线程到达某个点之后再一起继续执行。CountDownLatch就是栅栏的实现。</p>
+<h1 id="2024-06-25-江苏运联笔试（已过"><a href="#2024-06-25-江苏运联笔试（已过" class="headerlink" title="2024-06-25 江苏运联笔试（已过)"></a>2024-06-25 江苏运联笔试（已过)</h1><h2 id="如何捕捉一个IO异常，简单说明NULLPoniterException的理解"><a href="#如何捕捉一个IO异常，简单说明NULLPoniterException的理解" class="headerlink" title="如何捕捉一个IO异常，简单说明NULLPoniterException的理解"></a>如何捕捉一个IO异常，简单说明NULLPoniterException的理解</h2><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">try</span> <span class="token punctuation">{</span>
+	<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span> <span class="token keyword">catch</span><span class="token punctuation">(</span><span class="token class-name">IOException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+<span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
+	<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>NullPointerException是程序尝试使用一个需要对象引用的擦欧总，但是这个对象引用却是null，就会抛出这个异常。</p>
+<h2 id="代码运行题目"><a href="#代码运行题目" class="headerlink" title="代码运行题目"></a>代码运行题目</h2><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RunningMan</span><span class="token punctuation">{</span>
+	<span class="token keyword">public</span> <span class="token class-name">RunningMan</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+		<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>“<span class="token class-name">Hi</span><span class="token punctuation">,</span>man<span class="token operator">!</span> <span class="token class-name">Just</span> run<span class="token operator">!</span>”<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span> <span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span><span class="token punctuation">{</span>
+	<span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">9</span><span class="token punctuation">;</span>
+	<span class="token keyword">while</span><span class="token punctuation">(</span> <span class="token punctuation">(</span>i<span class="token operator">--</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token punctuation">)</span><span class="token operator">&gt;</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+		<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="SQL题目"><a href="#SQL题目" class="headerlink" title="SQL题目"></a>SQL题目</h2><p>建表，多表联合，更新数据，排序，分组</p>
+<h2 id="算法题"><a href="#算法题" class="headerlink" title="算法题"></a>算法题</h2><h2 id="MyBatis的主要组成部分，以及需要配置的东西"><a href="#MyBatis的主要组成部分，以及需要配置的东西" class="headerlink" title="MyBatis的主要组成部分，以及需要配置的东西"></a>MyBatis的主要组成部分，以及需要配置的东西</h2><h1 id="2024-06-28-江苏运联一面-已过"><a href="#2024-06-28-江苏运联一面-已过" class="headerlink" title="2024-06-28 江苏运联一面(已过)"></a>2024-06-28 江苏运联一面(已过)</h1><h2 id="项目提问："><a href="#项目提问：" class="headerlink" title="项目提问："></a>项目提问：</h2><p>哪个项目对你提升最大</p>
+<h2 id="jdk17新特性-（不会"><a href="#jdk17新特性-（不会" class="headerlink" title="jdk17新特性 （不会)"></a>jdk17新特性 （不会)</h2><p>模式匹配for instanceof、记录</p>
+<h3 id="模式匹配的增强"><a href="#模式匹配的增强" class="headerlink" title="模式匹配的增强"></a>模式匹配的增强</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token number">17</span>之前
+<span class="token keyword">if</span> <span class="token punctuation">(</span>obj <span class="token keyword">instanceof</span> <span class="token class-name">String</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token class-name">String</span> s <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">)</span> obj<span class="token punctuation">;</span>
+    <span class="token comment">// 使用s</span>
+<span class="token punctuation">}</span>
+<span class="token number">17</span>中
+<span class="token keyword">if</span> <span class="token punctuation">(</span>obj <span class="token keyword">instanceof</span> <span class="token class-name">String</span> s<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 直接使用s</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="密封类"><a href="#密封类" class="headerlink" title="密封类"></a>密封类</h3><p>可以指定哪些类或者接口可以继承或实现它</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">sealed</span> <span class="token keyword">class</span> <span class="token class-name">Shape</span> <span class="token keyword">permits</span> <span class="token class-name">Circle</span><span class="token punctuation">,</span> <span class="token class-name">Rectangle</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 类定义</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">final</span> <span class="token keyword">class</span> <span class="token class-name">Circle</span> <span class="token keyword">extends</span> <span class="token class-name">Shape</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 类定义</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">non-sealed</span> <span class="token keyword">class</span> <span class="token class-name">Rectangle</span> <span class="token keyword">extends</span> <span class="token class-name">Shape</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 类定义</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="强化的空指针异常信息"><a href="#强化的空指针异常信息" class="headerlink" title="强化的空指针异常信息"></a>强化的空指针异常信息</h3><p>从JDK 17开始，异常信息会明确指出是哪个变量或哪个表达式的结果为<code>null</code>，大大减少了调试时间。</p>
+<h2 id="jdk8-新特性"><a href="#jdk8-新特性" class="headerlink" title="jdk8 新特性"></a>jdk8 新特性</h2><p>Lambda，Stream，新的日期API、Optional类</p>
+<h3 id="Stream流相关"><a href="#Stream流相关" class="headerlink" title="Stream流相关"></a>Stream流相关</h3><p>Lambda表达式是Java 8引入的一个重要特性，它提供了一种简洁的方式来表示匿名方法。这种表达式基于数学中的λ演算（一种用于描述函数的系统），在Java中主要用于实现函数式编程的概念。<br>分组：collect里面使用Collectors.groupingBy方法进行分组</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Integer</span><span class="token punctuation">,</span> <span class="token class-name">List</span><span class="token punctuation">&lt;</span><span class="token class-name">Person</span><span class="token punctuation">&gt;</span><span class="token punctuation">&gt;</span></span> peopleByAge <span class="token operator">=</span> people<span class="token punctuation">.</span><span class="token function">stream</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span><span class="token class-name">Collectors</span><span class="token punctuation">.</span><span class="token function">groupingBy</span><span class="token punctuation">(</span><span class="token class-name">Person</span><span class="token operator">::</span><span class="token function">getAge</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>过滤：filter和 limit和distinct和skip</p>
+<h3 id="lambda表达式"><a href="#lambda表达式" class="headerlink" title="lambda表达式"></a>lambda表达式</h3><p>有什么好处，使用lambda表达式<br>::new 是方法引用的一种，用于引用构造函数<br>可以搭配函数式接口来更加简洁的创建一个类</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Supplier</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Person</span><span class="token punctuation">&gt;</span></span> personSupplier <span class="token operator">=</span> <span class="token class-name">Person</span><span class="token operator">::</span><span class="token keyword">new</span><span class="token punctuation">;</span>
+<span class="token class-name">Person</span> person <span class="token operator">=</span> personSupplier<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 调用Person的无参数构造函数</span>
+<span class="token class-name">Function</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">Person</span><span class="token punctuation">&gt;</span></span> personFunction <span class="token operator">=</span> <span class="token class-name">Person</span><span class="token operator">::</span><span class="token keyword">new</span><span class="token punctuation">;</span>
+<span class="token class-name">Person</span> person <span class="token operator">=</span> personFunction<span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span><span class="token string">"Alice"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 调用Person的带有一个String参数的构造函数</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="有什么用"><a href="#有什么用" class="headerlink" title="::有什么用"></a>::有什么用</h3><ol>
+<li>引用静态方法，例如Integer::parseInt</li>
+<li>引用实例方法：<code>String s = "hello";</code>，则<code>s::toUpperCase</code></li>
+<li>引用特定类型的任意对象的实例方法：String::toLowerCase</li>
+<li>引用构造函数：ArrayList::new</li>
+</ol>
+<h2 id="SpringCloud-Alibaba"><a href="#SpringCloud-Alibaba" class="headerlink" title="SpringCloud Alibaba"></a>SpringCloud Alibaba</h2><h3 id="哪些组件"><a href="#哪些组件" class="headerlink" title="哪些组件"></a>哪些组件</h3><p>Nacos、Sentinel、Dubbo、RocketMQ、Seata、Gateway</p>
+<h2 id="Nacos的作用"><a href="#Nacos的作用" class="headerlink" title="Nacos的作用"></a>Nacos的作用</h2><h3 id="Nacos如何区分不同的配置"><a href="#Nacos如何区分不同的配置" class="headerlink" title="Nacos如何区分不同的配置"></a>Nacos如何区分不同的配置</h3><ol>
+<li><strong>Data ID</strong>：配置ID，通常用于唯一标识一个配置内容。</li>
+<li><strong>Group</strong>：分组，Nacos允许用户通过分组来对配置进行分类，一个Group中可以有多个Data ID。</li>
+<li><strong>Namespace</strong>：命名空间，用于进一步隔离配置。一个命名空间下可以有多个Group，一个Group下可以有多个Data ID。命名空间通常用于区分不同的开发环境，如开发环境、测试环境和生产环境。</li>
+</ol>
+<h3 id="命名空间重复了会怎么用"><a href="#命名空间重复了会怎么用" class="headerlink" title="命名空间重复了会怎么用"></a>命名空间重复了会怎么用</h3><p>命名空间是通过唯一的Namespace ID来标识的，而不是仅仅通过名称。即使两个命名空间的名称相同，它们的Namespace ID也是不同的，因此Nacos仍然能够区分它们。<br>如果服务分发后服务断开了会怎么办</p>
+<h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><h3 id="Redisson"><a href="#Redisson" class="headerlink" title="Redisson"></a>Redisson</h3><p>Redisson会无限延长一个键的过期时间吗，可以设置超时时间</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">lock<span class="token punctuation">.</span><span class="token function">tryLock</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">60</span><span class="token punctuation">,</span> <span class="token class-name">TimeUnit</span><span class="token punctuation">.</span><span class="token constant">SECONDS</span><span class="token punctuation">)</span> 尝试<span class="token number">10</span>s内获得锁，锁的最大生存时间是<span class="token number">60</span>s
+lock<span class="token punctuation">.</span><span class="token function">lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>进行看门狗
+这两步操作实际上是获得了两个锁，不能做到对同一个锁进行看门狗和到达一定时间就放弃这个锁
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="Java基础-JUC"><a href="#Java基础-JUC" class="headerlink" title="Java基础 JUC***"></a>Java基础 JUC***</h2><p><strong>AtomicInteger</strong>：并发场景下使用，它提供了一种在多线程环境中安全地操作单个整数的方式，而无需使用<code>synchronized</code>关键字。这是通过使用底层的非阻塞算法实现的，通常是利用CPU的原子指令。<code>AtomicInteger</code>支持原子操作，这意味着每个操作都是不可分割的，保证了在并发环境中的线程安全。</p>
+<h3 id="八大数据类型和延展性"><a href="#八大数据类型和延展性" class="headerlink" title="八大数据类型和延展性"></a>八大数据类型和延展性</h3><h2 id="MyBatis如何在查询的时候就进行组装"><a href="#MyBatis如何在查询的时候就进行组装" class="headerlink" title="MyBatis如何在查询的时候就进行组装"></a>MyBatis如何在查询的时候就进行组装</h2><ol>
+<li>使用resultMap进行结果映射<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>resultMap</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>genderResultMap<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>YourModelClass<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>result</span> <span class="token attr-name">property</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>gender<span class="token punctuation">"</span></span> <span class="token attr-name">column</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>gender_column<span class="token punctuation">"</span></span> <span class="token attr-name">javaType</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>java.lang.String<span class="token punctuation">"</span></span> <span class="token attr-name">jdbcType</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>INTEGER<span class="token punctuation">"</span></span> <span class="token attr-name">typeHandler</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>GenderTypeHandler<span class="token punctuation">"</span></span><span class="token punctuation">/&gt;</span></span>
+    <span class="token comment">&lt;!-- 其他字段映射 --&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>resultMap</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>ibatis<span class="token punctuation">.</span>type<span class="token punctuation">.</span></span><span class="token class-name">JdbcType</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>ibatis<span class="token punctuation">.</span>type<span class="token punctuation">.</span></span><span class="token class-name">TypeHandler</span></span><span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">GenderTypeHandler</span> <span class="token keyword">implements</span> <span class="token class-name">TypeHandler</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setParameter</span><span class="token punctuation">(</span><span class="token class-name">PreparedStatement</span> ps<span class="token punctuation">,</span> <span class="token keyword">int</span> i<span class="token punctuation">,</span> <span class="token class-name">String</span> parameter<span class="token punctuation">,</span> <span class="token class-name">JdbcType</span> jdbcType<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">SQLException</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 设置参数时的逻辑（如果需要）</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">getResult</span><span class="token punctuation">(</span><span class="token class-name">ResultSet</span> rs<span class="token punctuation">,</span> <span class="token class-name">String</span> columnName<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">SQLException</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> gender <span class="token operator">=</span> rs<span class="token punctuation">.</span><span class="token function">getInt</span><span class="token punctuation">(</span>columnName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> gender <span class="token operator">==</span> <span class="token number">1</span> <span class="token operator">?</span> <span class="token string">"男"</span> <span class="token operator">:</span> <span class="token string">"女"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">getResult</span><span class="token punctuation">(</span><span class="token class-name">ResultSet</span> rs<span class="token punctuation">,</span> <span class="token keyword">int</span> columnIndex<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">SQLException</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> gender <span class="token operator">=</span> rs<span class="token punctuation">.</span><span class="token function">getInt</span><span class="token punctuation">(</span>columnIndex<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> gender <span class="token operator">==</span> <span class="token number">1</span> <span class="token operator">?</span> <span class="token string">"男"</span> <span class="token operator">:</span> <span class="token string">"女"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">getResult</span><span class="token punctuation">(</span><span class="token class-name">CallableStatement</span> cs<span class="token punctuation">,</span> <span class="token keyword">int</span> columnIndex<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">SQLException</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> gender <span class="token operator">=</span> cs<span class="token punctuation">.</span><span class="token function">getInt</span><span class="token punctuation">(</span>columnIndex<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> gender <span class="token operator">==</span> <span class="token number">1</span> <span class="token operator">?</span> <span class="token string">"男"</span> <span class="token operator">:</span> <span class="token string">"女"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+最后在配置文件中进行注册<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>typeHandlers</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>typeHandler</span> <span class="token attr-name">handler</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>com.yourpackage.GenderTypeHandler<span class="token punctuation">"</span></span><span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>typeHandlers</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+<h1 id="2024-06-28-深圳同行者科技一面（一面挂）"><a href="#2024-06-28-深圳同行者科技一面（一面挂）" class="headerlink" title="2024-06-28 深圳同行者科技一面（一面挂）"></a>2024-06-28 深圳同行者科技一面（一面挂）</h1><h2 id="拷打笔试题-x2F-算法题"><a href="#拷打笔试题-x2F-算法题" class="headerlink" title="拷打笔试题/算法题"></a>拷打笔试题/算法题</h2><h3 id="1000w个数据中只有两个相同的数据，如何找出来"><a href="#1000w个数据中只有两个相同的数据，如何找出来" class="headerlink" title="1000w个数据中只有两个相同的数据，如何找出来"></a>1000w个数据中只有两个相同的数据，如何找出来</h3><p>使用HashSet</p>
+<h2 id="解释一下签到模块中的接口幂等性"><a href="#解释一下签到模块中的接口幂等性" class="headerlink" title="解释一下签到模块中的接口幂等性"></a>解释一下签到模块中的接口幂等性</h2><h2 id="解释一下如何保证的Redis的高可用性"><a href="#解释一下如何保证的Redis的高可用性" class="headerlink" title="解释一下如何保证的Redis的高可用性"></a>解释一下如何保证的Redis的高可用性</h2><h2 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h2><h3 id="分布式架构要注意哪些问题"><a href="#分布式架构要注意哪些问题" class="headerlink" title="分布式架构要注意哪些问题"></a>分布式架构要注意哪些问题</h3><ol>
+<li>数据一致性：要保证集群中的数据是一致的</li>
+<li>网络分区容忍性：出现了网络分区，根据CAP定理，出现网络分区时需要在业务需求的一致性和可用性之间做出均衡</li>
+<li>服务发现：当服务出现增加减少或者移动，客户端需要找到这些服务，可以使用Nacos解决</li>
+<li>负载均衡：合理分配请求或任务到多个服务节点，来优化资源利用率和响应时间</li>
+<li>容错和故障转移：单点故障会导致整个系统不可用</li>
+<li>事务管理：分布式系统中管理跨多个服务的事务，保证操作的原子性和一致性</li>
+<li>安全性：分布式系统中勉励多种安全威胁，数据泄露，服务拒绝攻击</li>
+<li>性能监控和调优：<br>CAP原理<br><strong>一致性（Consistency）</strong><br><strong>可用性（Availability</strong>）<br><strong>分区容忍性（Partition tolerance</strong>）<br>当出现网络分区P时，CA只能保证一个</li>
+</ol>
+<h2 id="项目中遇见的比较棘手的问题，如何解决的"><a href="#项目中遇见的比较棘手的问题，如何解决的" class="headerlink" title="项目中遇见的比较棘手的问题，如何解决的"></a>项目中遇见的比较棘手的问题，如何解决的</h2><h2 id="数据库中的脏数据如何处理"><a href="#数据库中的脏数据如何处理" class="headerlink" title="数据库中的脏数据如何处理"></a>数据库中的脏数据如何处理</h2><h1 id="2024-07-02-江苏运联二面-等结果，自我感觉还可以"><a href="#2024-07-02-江苏运联二面-等结果，自我感觉还可以" class="headerlink" title="2024-07-02 江苏运联二面(等结果，自我感觉还可以)"></a>2024-07-02 江苏运联二面(等结果，自我感觉还可以)</h1><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>主动把自己的亮点项目介绍出来，在自我介绍环节就努力介绍。把自己的优点（英语、六级、博客、项目开发、github、想给开源项目做贡献）</p>
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><ol>
+<li>自我介绍</li>
+<li>承担的责任、前后端都参与开发，主要框架搭建，周期</li>
+<li>介绍项目（要主动介绍自己的特点和亮点）</li>
+<li>框架搭建使用了哪些技术栈</li>
+<li>签到相关</li>
+<li>需求怎么来的</li>
+<li>有课否？学分能修满否？大三下学期有可否？大四要干嘛？</li>
+<li>英语如何</li>
+<li>怎么提升阅读</li>
+<li>期望薪资</li>
+<li>最快到岗</li>
+<li></li>
+</ol>
+<h2 id="HashMap和HashTable什么区别"><a href="#HashMap和HashTable什么区别" class="headerlink" title="HashMap和HashTable什么区别"></a>HashMap和HashTable什么区别</h2><ol>
+<li>线程安全：<ul>
+<li><strong>HashTable</strong> 线程更安全,他的每个方法都是同步的，可以用在多线程中，不建议使用，建议使用ConcurrentHashMap</li>
+</ul>
+</li>
+<li>性能：HashMap性能更好，因为不需要进行同步</li>
+<li>空值：HashTable不允许key/value为null，而HashMap允许一条记录的key为null，允许多个记录的value为null</li>
+<li>继承的跟类不同：<ul>
+<li><code>HashTable</code>&nbsp;继承自&nbsp;<code>Dictionary</code>&nbsp;类。</li>
+<li><code>HashMap</code>&nbsp;继承自&nbsp;<code>AbstractMap</code>&nbsp;类并实现了&nbsp;<code>Map</code>&nbsp;接口。</li>
+</ul>
+</li>
+<li>迭代器<ul>
+<li><code>HashTable</code>&nbsp;使用&nbsp;<code>Enumerator</code>&nbsp;进行迭代。</li>
+<li><code>HashMap</code>&nbsp;使用&nbsp;<code>Iterator</code>&nbsp;进行迭代。<code>Iterator</code>&nbsp;是fail-fast迭代器，如果在迭代过程中有其他线程修改了&nbsp;<code>HashMap</code>，则会抛出&nbsp;<code>ConcurrentModificationException</code>。</li>
+</ul>
+</li>
+<li><strong>内部结构</strong>（Java 8 及以后）：<ul>
+<li><code>HashMap</code>&nbsp;在解决哈希冲突时，当链表长度大于阈值（默认为8）时，链表转换为红黑树，以提高搜索效率。</li>
+<li><code>HashTable</code>&nbsp;不具备这种链表到红黑树的转换机制。</li>
+</ul>
+</li>
+</ol>
+<h2 id="ConcurrentHashMap相关"><a href="#ConcurrentHashMap相关" class="headerlink" title="ConcurrentHashMap相关"></a>ConcurrentHashMap相关</h2><h2 id="MySQL索引-1"><a href="#MySQL索引-1" class="headerlink" title="MySQL索引"></a>MySQL索引</h2><h2 id="索引有什么用"><a href="#索引有什么用" class="headerlink" title="索引有什么用"></a>索引有什么用</h2><h3 id="索引失效场景"><a href="#索引失效场景" class="headerlink" title="索引失效场景"></a>索引失效场景</h3><p>建议搭配自己项目中的场景介绍</p>
+<h2 id="工作流"><a href="#工作流" class="headerlink" title="工作流"></a>工作流</h2><h2 id="摄像头识别分析数据类的场景了解过没"><a href="#摄像头识别分析数据类的场景了解过没" class="headerlink" title="摄像头识别分析数据类的场景了解过没"></a>摄像头识别分析数据类的场景了解过没</h2><h1 id="2024-07-03-神州灵云一面-已过，已发ofifer"><a href="#2024-07-03-神州灵云一面-已过，已发ofifer" class="headerlink" title="2024-07-03 神州灵云一面(已过，已发ofifer)"></a>2024-07-03 神州灵云一面(已过，已发ofifer)</h1><h2 id="流程-1"><a href="#流程-1" class="headerlink" title="流程"></a>流程</h2><ol>
+<li>自我介绍</li>
+<li>介绍工作室</li>
+<li>项目上线了or实验室项目</li>
+<li>已经学完的课程</li>
+<li>关于笔试题的提问：<ul>
+<li>解题的关键点是什么</li>
+<li>或运算和＋运算有什么区别，这个题目中两种运算有什么区别</li>
+<li>整型转字符串</li>
+</ul>
+</li>
+<li>一周几天/时间/最快到岗</li>
+<li>项目代码/几人开发 </li>
+<li>反问:<ul>
+<li>多久出面试结果 答：技术面，还有二面</li>
+<li>面的怎么样，有什么建议，答：面的还可以</li>
+<li>职位的职责， 答：文档，简单开发，对网络要求较高。</li>
+</ul>
+</li>
+</ol>
+<h2 id="TCP握手过程-忘了。。。"><a href="#TCP握手过程-忘了。。。" class="headerlink" title="TCP握手过程(忘了。。。)"></a>TCP握手过程(忘了。。。)</h2><ol>
+<li>客户端发送带有同步序列编号(SYN)报文到服务器，然后客户端进入SYN-SENT的状态</li>
+<li>服务器收到带有SYN的报文之后，如果统一建立连接，就会发送一个SYN-ACK报文作文响应，这个报文包含服务器自己的初始序列号，同时对客户端的SYN报文进行确认</li>
+<li>客户端收到服务器的STN-ACK报文之后会发送一个ACK报文作为响应，之后客户端进入ESTABLISHED状态，之后服务器接收到之后也进入连接状态。</li>
+</ol>
+<h2 id="JWT是什么，JWT就是Token的一种格式"><a href="#JWT是什么，JWT就是Token的一种格式" class="headerlink" title="JWT是什么，JWT就是Token的一种格式"></a>JWT是什么，JWT就是Token的一种格式</h2><h2 id="MongoDB基础提问（不会-还有ES的命令"><a href="#MongoDB基础提问（不会-还有ES的命令" class="headerlink" title="MongoDB基础提问（不会)还有ES的命令"></a>MongoDB基础提问（不会)还有ES的命令</h2><p>背背主要的查询语句去</p>
+<h2 id="权限管理的设计"><a href="#权限管理的设计" class="headerlink" title="权限管理的设计"></a>权限管理的设计</h2><h3 id="RBAC-（Role-Based-Access-Control）基于角色的访问控制"><a href="#RBAC-（Role-Based-Access-Control）基于角色的访问控制" class="headerlink" title="RBAC （Role-Based Access Control）基于角色的访问控制"></a>RBAC （<strong>Role-Based Access Control</strong>）基于角色的访问控制</h3><p><img src="/2024/06/07/mian-shi-ji-lu/RABC.png" class="lazyload" data-srcset="/2024/06/07/mian-shi-ji-lu/RABC.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br>将权限赋予角色，然后将角色赋予用户，这样的设计就可以很方柏霓的更改角色内所有用户的权限，也方便将用户的权限变更</p>
+<h3 id="ABAC-Attribute-Based-Access-Control-基于属性的访问控制"><a href="#ABAC-Attribute-Based-Access-Control-基于属性的访问控制" class="headerlink" title="ABAC (**Attribute-Based Access Control ) 基于属性的访问控制"></a>ABAC (**Attribute-Based Access Control ) 基于属性的访问控制</h3><p>通过各种属性来动态判断一个操作是否可以被允许。<br>比如赋予某个人可以查看某个文档的权限，但是不可以修改。<br>是基于对象、资源、操作、环境（上下文，时间和位置，协议等），具体的实现</p>
+<h3 id="新权限系统"><a href="#新权限系统" class="headerlink" title="新权限系统"></a>新权限系统</h3><p><img src="/2024/06/07/mian-shi-ji-lu/%E6%96%B0%E6%9D%83%E9%99%90.png" class="lazyload" data-srcset="/2024/06/07/mian-shi-ji-lu/%E6%96%B0%E6%9D%83%E9%99%90.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br>主要就是在RBAC的基础上，允许绕过角色来直接给用户添加一些权限</p>
+<h2 id="集群怎么设计的，有什么用，如何应对脑裂"><a href="#集群怎么设计的，有什么用，如何应对脑裂" class="headerlink" title="集群怎么设计的，有什么用，如何应对脑裂"></a>集群怎么设计的，有什么用，如何应对脑裂</h2><h2 id="如何中止SQL语句"><a href="#如何中止SQL语句" class="headerlink" title="如何中止SQL语句"></a>如何中止SQL语句</h2><p>场景：有一个访问需要查询一个很大的数据库，然后前端那边等不及了刷新，就会不断发送这个请求，我数据库该如何处理这些无效的查询？</p>
+<h1 id="其他人面试遇到的问题"><a href="#其他人面试遇到的问题" class="headerlink" title="其他人面试遇到的问题"></a>其他人面试遇到的问题</h1><h2 id="什么是动态代理-x2F-静态代理"><a href="#什么是动态代理-x2F-静态代理" class="headerlink" title="什么是动态代理/静态代理"></a>什么是动态代理/静态代理</h2><p>动态代理<br>动态代理是在运行时创建代理对象的机制。代理对象可以在不修改原始对象代码的情况下，拦截对目标对象的方法调用，并在调用前后添加额外的逻辑。Java 中的动态代理主要有两种实现方式：<br>静态代理<br>静态代理是在编译时创建代理类的机制。代理类在编译时就已经存在，并且实现了与目标对象相同的接口。静态代理通过在代理类中调用目标对象的方法来实现对目标对象的代理。</p>
+<h2 id="什么是事务传播"><a href="#什么是事务传播" class="headerlink" title="什么是事务传播"></a>什么是事务传播</h2><p>事务传播 Transaction Propagation 是指Spring框架中定义事务在方法调用的过程中如何传播的机制。决定了一个方法在调用另一个方法时，事务应该如何进行管理。</p>
+<ul>
+<li>REQUIRED：默认支持当前事务，如果当前没有事务，就创建一个事务。这是默认的<img src="/2024/06/07/mian-shi-ji-lu/REQUIRED.png" class="lazyload" data-srcset="/2024/06/07/mian-shi-ji-lu/REQUIRED.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li>REQUIRED_NEW：总是创建一个新事务，当前存在事务就把当前事务挂起<img src="/2024/06/07/mian-shi-ji-lu/REQUIRED_NEW.png" class="lazyload" data-srcset="/2024/06/07/mian-shi-ji-lu/REQUIRED_NEW.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li>SUPPORTS：如果存在事务，就加入该事务，如果没有，就以非事务的方式执行</li>
+<li>NOT_SUPPORTED：即使当前存在事务，也不进行事务操作。</li>
+<li>MANDATORY：存在就加入，没有就抛出异常</li>
+<li>NEVER：总是以非事务的方式运行，存在事务就抛出异常</li>
+<li>NESTED：存在事务就嵌套事务内执行，没有事务就创建一个事务。可以读到嵌套事务</li>
+</ul>
+<h2 id="g1-full-gc退化过程"><a href="#g1-full-gc退化过程" class="headerlink" title="g1 full gc退化过程"></a>g1 full gc退化过程</h2><h3 id="G1的工作原理"><a href="#G1的工作原理" class="headerlink" title="G1的工作原理"></a>G1的工作原理</h3><ol>
+<li>Yong GC 主要收集Eden区和Survivor区的垃圾对象</li>
+<li>混合收集Mixed GC：不仅手机年轻代，还收集部分老年代的垃圾对象</li>
+<li>并发标记周期：标记老年代中存活对象，以便在混合收集中回收。</li>
+</ol>
+<h3 id="退化的原因"><a href="#退化的原因" class="headerlink" title="退化的原因"></a>退化的原因</h3><ol>
+<li>内存不足：当内存不足以分配新的对象或无法通过Yong GC和Mixed GC会搜狐，足够的内存时，会触发Full GC</li>
+<li>并发失败：在并发标记周期中，如果无法即使完成标记或者回收，可能会退化为Full GC</li>
+<li>晋升失败：当对象从年轻代晋升到老年代时，如果老年代没有足够的空间</li>
+<li>元数据空间不足</li>
+</ol>
+<h3 id="退化过程"><a href="#退化过程" class="headerlink" title="退化过程"></a>退化过程</h3><ol>
+<li>内存分配失败，尝试触发Yong GC</li>
+<li>Yong GC失败，触发Mixed GC</li>
+<li>Mixed GC失败，JVM进入Full GC</li>
+<li>Full GC会暂停所有应用线程，进行全站扫描和压缩，以会搜尽可能多的内存。</li>
+</ol>
+<h2 id="gRPC为什么可以提高效率"><a href="#gRPC为什么可以提高效率" class="headerlink" title="gRPC为什么可以提高效率"></a>gRPC为什么可以提高效率</h2><ol>
+<li>高效的协议 Protocol Buffers</li>
+<li>基于HTTP/2的传输协议：<ul>
+<li>多路复用：HTTP/2允许在单个TCP连接上并行发送多个请求和响应，减少了连接建立的开销</li>
+<li>头部压缩：使用HPACK算法对头部进行压缩</li>
+<li>服务器推送，可以在客户端请求之前发送数据，减少延迟</li>
+<li>流控制：更细力度的流控制，优化了带宽利用率</li>
+</ul>
+</li>
+<li>双向流和流控制：允许客户端和服务器单个连接上同时接收和发送数据。</li>
+<li>负载均衡和服务发现，支持多种负载均衡策略</li>
+<li>高效的异步通信：</li>
+<li>安全性：内置对TLS的支持<br><img src="/2024/06/07/mian-shi-ji-lu/grpc%E5%8E%9F%E7%90%86.png" class="lazyload" data-srcset="/2024/06/07/mian-shi-ji-lu/grpc%E5%8E%9F%E7%90%86.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+</ol>
+<h2 id="synchronized介绍下？底层原理？和LOCK的区别是什么？具体优缺点是什么？"><a href="#synchronized介绍下？底层原理？和LOCK的区别是什么？具体优缺点是什么？" class="headerlink" title="synchronized介绍下？底层原理？和LOCK的区别是什么？具体优缺点是什么？"></a>synchronized介绍下？底层原理？和LOCK的区别是什么？具体优缺点是什么？</h2><p>用来实现线程之间的互斥访问，确保同一时刻只能由一个线程可以执行被修饰的代码。</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>通过对象头中的监视器锁Monitor实现，当一个线程进入同步代码块或者方法时，会尝试获取该对象的监视器锁。<br>监视器锁的组成:</p>
+<ol>
+<li>对象头：每个对象在内存中都一个对象头，包含对象的元数据和锁信息</li>
+<li>Mark Word：对象头中的Mark Word存储了锁装填、哈希码、GC信息等</li>
+<li>Monitor：每个对象都有一个关联的监视器，用于是实现同步。<br>和Lock的区别<br>synchronied是Java语言级别的关键字，使用方便，而且由JVM管理，是隐式锁，如果一个线程获取锁失败会被阻塞，不可中断，线程在等待锁时无法被中断。<br>Lock时显示锁，需要显示获取和释放，支持可重入锁，公平锁等，非阻塞，可中断</li>
+</ol>
+<h2 id="Kafka是如何保证消息的顺序性的？你了解底层的原理吗？"><a href="#Kafka是如何保证消息的顺序性的？你了解底层的原理吗？" class="headerlink" title="Kafka是如何保证消息的顺序性的？你了解底层的原理吗？"></a>Kafka是如何保证消息的顺序性的？你了解底层的原理吗？</h2><h2 id="保障服务稳定性最重要的一个环节是"><a href="#保障服务稳定性最重要的一个环节是" class="headerlink" title="保障服务稳定性最重要的一个环节是"></a>保障服务稳定性最重要的一个环节是</h2><p>监控和预警</p>
+<h3 id="如何提前预估接口的QPS"><a href="#如何提前预估接口的QPS" class="headerlink" title="如何提前预估接口的QPS"></a>如何提前预估接口的QPS</h3><ol>
+<li>历史数据分析：分析历史日志和监控数据，了解不同时间段的QPS</li>
+<li>业务需求分析：</li>
+<li>模拟测试：压测模拟</li>
+</ol>
+<h2 id="HTTP1-0-x2F-1-1-x2F-2-0的区别"><a href="#HTTP1-0-x2F-1-1-x2F-2-0的区别" class="headerlink" title="HTTP1.0/1.1/2.0的区别"></a>HTTP1.0/1.1/2.0的区别</h2><p>HTTP1.0 默认短链接，每次请求都需要建立一次连接<br>1.1 默认长连接，可以在一个TCP连接上传送多个HTTP请求和响应<br>2.0 增加多路复用，报文头压缩，允许服务端推送资源给客户端。</p>
+<h2 id="队头阻塞"><a href="#队头阻塞" class="headerlink" title="队头阻塞"></a>队头阻塞</h2><h2 id="Redis相关"><a href="#Redis相关" class="headerlink" title="Redis相关"></a>Redis相关</h2><h3 id="大key问题"><a href="#大key问题" class="headerlink" title="大key问题"></a>大key问题</h3><p>解决：使用压缩gzip等，定时清理</p>
+<h3 id="热key"><a href="#热key" class="headerlink" title="热key"></a>热key</h3><p>Redis中，频繁被访问的键，可能会导致Redis性能瓶颈。<br>解决方案：</p>
+<ol>
+<li>在Redis之前增加一个缓存层</li>
+<li>数据分片，将热key的数据分片存储到多个Redis实例中</li>
+<li>请求分摊</li>
+</ol>
+<h2 id="数据库相关"><a href="#数据库相关" class="headerlink" title="数据库相关"></a>数据库相关</h2><h3 id="在有多个索引时，数据库会如何选择使用哪个索引？"><a href="#在有多个索引时，数据库会如何选择使用哪个索引？" class="headerlink" title="在有多个索引时，数据库会如何选择使用哪个索引？"></a>在有多个索引时，数据库会如何选择使用哪个索引？</h3><p>会使用选择性高(索引列中的不通知的数量与总行数的比率)、索引覆盖(可以避免回表操作的)、索引类型()、查询条件(例如最左匹配，复合索引(A,B)不可单独作用于B)</p>
+<h2 id="分布式相关"><a href="#分布式相关" class="headerlink" title="分布式相关"></a>分布式相关</h2><h3 id="分布式事务"><a href="#分布式事务" class="headerlink" title="分布式事务"></a>分布式事务</h3><p><a href="https://xiaomi-info.github.io/2020/01/02/distributed-transaction/">https://xiaomi-info.github.io/2020/01/02/distributed-transaction/</a></p>
+<h2 id="业务相关"><a href="#业务相关" class="headerlink" title="业务相关"></a>业务相关</h2><h3 id="如何实现延迟队列"><a href="#如何实现延迟队列" class="headerlink" title="如何实现延迟队列"></a>如何实现延迟队列</h3><ol>
+<li>使用DelayQueue,<code>DelayQueue</code>的<code>put</code>方法是线程安全的，因为<code>put</code>方法内部使用了<code>ReentrantLock</code>锁进行线程同步。<code>DelayQueue</code>还提供了两种出队的方法 <code>poll()</code> 和 <code>take()</code> ， <code>poll()</code> 为非阻塞获取，没有到期的元素直接返回null；<code>take()</code> 阻塞方式获取，没有到期的元素线程将会等待。</li>
+<li>基于定时任务</li>
+<li>基于Redis过期键的回调函数</li>
+</ol>
+<h2 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h2><h3 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h3><p>反射的原理基于Java的元数据（metadata），这些元数据在编译时被嵌入到类文件中，并在运行时通过Java反射API进行访问。</p>
 ]]></content>
   </entry>
   <entry>
@@ -1092,7 +1468,9 @@ fi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><
   <entry>
     <title>计网</title>
     <url>/2023/10/23/408/ji-wang/</url>
-    <content><![CDATA[<h1 id="计网"><a href="#计网" class="headerlink" title="计网"></a>计网</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>MTU:网络中一次可以传输的最大数据包的大小<br>MSS:TCP中除去TCP和IP的头部，能够传输的最大的数据量<br>SDU，Service Data Unit，服务数据单元。<br>ISP 是 Internet Service Provider 的缩写，翻译为互联网服务提供商。<br>协议<br>Telnet 客户端登录协议，属于应用层<br>TLD 是 Top-Level Domain 的缩写，翻译为顶级域名<br>GBN (Go-Back-N)  退回<br>SR 选择性重传<br>mask 子网掩码<br>SDN 是指软件定义网络（Software-Defined Networking）<br>OSPF（Open Shortest Path First）是一种开放式的链路状态路由协议，用于计算机网络中的动态路由。<br>Secure sockets layer (SSL)<br>MSL:报文最大生存时间<br>TTL:经过的路由跳数<br>序列号：在建立连接时由内核生成的随机数作为其初始值，通过 SYN 报文传给接收端主机，每发送一次数据，就「累加」一次该「数据字节数」的大小。用来解决网络包乱序问题。<br>确认号：指下一次「期望」收到的数据的序列号，发送端收到接收方发来的 ACK 确认报文以后，就可以认为在这个序号以前的数据都已经被正常接收。用来解决丢包的问题。<br><strong>控制位：</strong> 用来标识 TCP 报文是什么类型的报文，比如是 SYN 报文、数据报文、ACK 报文，FIN 报文等。</p>
+    <content><![CDATA[<h1 id="计网"><a href="#计网" class="headerlink" title="计网"></a>计网</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>MTU:网络中一次可以传输的最大数据包的大小<br>MSS:TCP中除去TCP和IP的头部，能够传输的最大的数据量<br>SDU，Service Data Unit，服务数据单元。<br>ISP 是 Internet Service Provider 的缩写，翻译为互联网服务提供商。<br>协议<br>Telnet 客户端登录协议，属于应用层<br>TLD 是 Top-Level Domain 的缩写，翻译为顶级域名<br>GBN (Go-Back-N)  退回<br>SR 选择性重传<br>mask 子网掩码<br>SDN 是指软件定义网络（Software-Defined Networking）<br>OSPF（Open Shortest Path First）是一种开放式的链路状态路由协议，用于计算机网络中的动态路由。<br>Secure sockets layer (SSL)</p>
+<p><strong>MSL:报文最大生存时间<br>TTL:经过的路由跳数</strong></p>
+<p>序列号：在建立连接时由内核生成的随机数作为其初始值，通过 SYN 报文传给接收端主机，每发送一次数据，就「累加」一次该「数据字节数」的大小。用来解决网络包乱序问题。<br>确认号：指下一次「期望」收到的数据的序列号，发送端收到接收方发来的 ACK 确认报文以后，就可以认为在这个序号以前的数据都已经被正常接收。用来解决丢包的问题。<br><strong>控制位：</strong> 用来标识 TCP 报文是什么类型的报文，比如是 SYN 报文、数据报文、ACK 报文，FIN 报文等。</p>
 <h1 id="面试常问"><a href="#面试常问" class="headerlink" title="面试常问"></a>面试常问</h1><ul>
 <li>UDP是面向报文的：发送方不会对报文进行拆分，所以一个报文就是一个完整的消息，接收方使用队列来区分不同报文</li>
 <li>TCP是面向字节流的：粘包问题：TCP报文会拆分成多个，取决于<strong>发送窗口、拥塞窗口以及当前发送缓冲区的大小等条件</strong>，所以不容易知道一个用户消息的边界<ul>
@@ -1193,6 +1571,113 @@ fi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><
 </ul>
 </li>
 </ul>
+<h2 id="IP"><a href="#IP" class="headerlink" title="IP"></a>IP</h2><p>分类</p>
+<h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><h2 id="如何解决粘包问题"><a href="#如何解决粘包问题" class="headerlink" title="如何解决粘包问题"></a>如何解决粘包问题</h2><p>找到消息的边界就能解决这个问题</p>
+<ol>
+<li>固定长度</li>
+<li>特殊字符作为边界</li>
+<li>自定义消息结构</li>
+</ol>
+<h3 id="重传机制"><a href="#重传机制" class="headerlink" title="重传机制"></a>重传机制</h3><p>重传是由序列号和确认应答来控制的</p>
+<ol>
+<li>超时重传，TCP的超时重传策略是间隔时间每次都设置为先前值的两倍，如果出现两次超时，说明网络环境差，不会重传了</li>
+<li>快速重传：当收到三个相同ACK报文时，说明出现了丢包，会重传丢失的报文。</li>
+</ol>
+<h3 id="滑动窗口-4-2-TCP-重传、滑动窗口、流量控制、拥塞控制-小林coding-xiaolincoding-com"><a href="#滑动窗口-4-2-TCP-重传、滑动窗口、流量控制、拥塞控制-小林coding-xiaolincoding-com" class="headerlink" title="[滑动窗口](4.2 TCP 重传、滑动窗口、流量控制、拥塞控制 | 小林coding (xiaolincoding.com))"></a>[滑动窗口](<a href="https://xiaolincoding.com/network/3_tcp/tcp_feature.html#%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6">4.2 TCP 重传、滑动窗口、流量控制、拥塞控制 | 小林coding (xiaolincoding.com)</a>)</h3><p>TCP头中有一个Window字段，代表滑动窗口大小。表示接受方告诉对方自己还有多少缓冲区可以接受数据。</p>
+<h4 id="发送方窗口"><a href="#发送方窗口" class="headerlink" title="发送方窗口"></a>发送方窗口</h4><p><img src="/2023/10/23/408/ji-wang/%E5%8F%91%E9%80%81%E6%96%B9%E7%AA%97%E5%8F%A3.png" class="lazyload" data-srcset="/2023/10/23/408/ji-wang/%E5%8F%91%E9%80%81%E6%96%B9%E7%AA%97%E5%8F%A3.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+<h2 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>HTTP是一个在计算机世界中专门在亮点之间传输文字、图片等超文本的约定与规范</p>
+<h3 id="常见的状态码"><a href="#常见的状态码" class="headerlink" title="常见的状态码"></a>常见的状态码</h3><ol>
+<li>1xx 是一种中间状态，实际使用较少</li>
+<li>2xx 表示服务器成功处理了请求<ul>
+<li>200 OK</li>
+<li>204 No Content 与200基本相同，但是响应头没有body数据</li>
+<li>206 Partial Content表示响应返回的body数据并不是资源的全部。</li>
+</ul>
+</li>
+<li>3xx 重定向<ul>
+<li>301 永久重定向</li>
+<li>302 Found 临时重定向，注意301和302都会在响应头中使用Location字段知名后续需要跳转的URL，浏览器会自动重定向到新的URL</li>
+<li>304  资源未修改，可以使用缓存资源</li>
+</ul>
+</li>
+<li>4xx 客户端发送的报文有误<ul>
+<li>400 请求有误，笼统的错误</li>
+<li>403 服务器禁止访问资源</li>
+<li>404 服务器不存在或未找到</li>
+</ul>
+</li>
+<li>5xx 客户端请求报文正确，但是服务器处理时，内部出现了错误，属于服务端错误码<ul>
+<li>500 笼统错误</li>
+<li>501 客户端请求功能不支持，敬请期待</li>
+<li>502 网关错误</li>
+<li>503 服务器繁忙，无法咱是无法响应客户端。</li>
+</ul>
+</li>
+</ol>
+<h3 id="HTTP缓存"><a href="#HTTP缓存" class="headerlink" title="HTTP缓存"></a>HTTP缓存</h3><ol>
+<li>强制缓存：浏览器判断缓存没过期就强制使用本地缓存。使用的是Cache-Control和Expires，第一个是相对时间，第二个是绝对时间。第一个优先级更高。<ul>
+<li>浏览器第一次请求时，会加上这个过期时间</li>
+<li>再次请求时，根据请求时间和这个过期时间进行比较，来判断是否过期，并且更新这个时间</li>
+</ul>
+</li>
+<li>协商缓存： 与服务器协商之后，通过协商结果来判断是否使用本地缓存。<img src="/2023/10/23/408/ji-wang/%E5%8D%8F%E5%95%86%E7%BC%93%E5%AD%98.png" class="lazyload" data-srcset="/2023/10/23/408/ji-wang/%E5%8D%8F%E5%95%86%E7%BC%93%E5%AD%98.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+</ol>
+<h2 id="不同版本的HTTP特点"><a href="#不同版本的HTTP特点" class="headerlink" title="不同版本的HTTP特点"></a>不同版本的HTTP特点</h2><p>HTTP: 80<br>HTTPS: 443</p>
+<h3 id="HTTP的迭代和对比"><a href="#HTTP的迭代和对比" class="headerlink" title="HTTP的迭代和对比"></a>HTTP的迭代和对比</h3><h4 id="HTTP1-1的进步和缺点"><a href="#HTTP1-1的进步和缺点" class="headerlink" title="HTTP1.1的进步和缺点"></a>HTTP1.1的进步和缺点</h4><p>进步：</p>
+<ol>
+<li>长连接</li>
+<li>支持管道网络传输<br>缺点：</li>
+<li>Header部分未经压缩就发送，延迟大，只能压缩Body部分</li>
+<li>会出现队头阻塞：服务端相应慢，导致后续的请求不能及时发送</li>
+<li>请求只能从客户端开始</li>
+</ol>
+<h4 id="HTTP-x2F-2"><a href="#HTTP-x2F-2" class="headerlink" title="HTTP/2"></a>HTTP/2</h4><p>进步：</p>
+<ol>
+<li>HTTP/2是基于HTTPS，安全有保证</li>
+<li>队头压缩：如果同时发出多个请求，他们的请求头是一样的或者是相似的，就会消除重复的部分，原理是客户端和服务端同时维护一张头信息表，所有字段都会存在里面来进行索j引</li>
+<li>二进制格式：报文使用二进制格式，而不是使用纯文本的格式</li>
+<li>并发传输</li>
+<li>服务器可以主动推送资源</li>
+</ol>
+<h3 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h3><blockquote>
+<p>HTTPS是在TCP和HTTP之间加入了SSL/TLS安全协议</p>
+</blockquote>
+<h4 id="核心"><a href="#核心" class="headerlink" title="核心"></a>核心</h4><ol>
+<li>混合加密：对称加密和非对称加密的混合加密方式，通信建立之前使用的是非对称加密，建立之后通信使用的对称加密，对称加密只需要使用一个密钥，所以更加高效。</li>
+<li>摘要算法 + 数字签名：通过摘要算法获得哈希值，来判断报文是否被修改。而数字签名则能保证通信双方的身份</li>
+<li>数字证书：可信的第三方来保证双方身份，主要是CA通过私钥加密双方的公钥数字签名，然后CA的公钥是公开的，之后另一方通过CA的公钥解密获得对方的公钥，之后对方使用私钥加密，就可以使用公钥进行解密了或者是加密通信。<img src="/2023/10/23/408/ji-wang/CA%E7%AE%97%E6%B3%95.png" class="lazyload" data-srcset="/2023/10/23/408/ji-wang/CA%E7%AE%97%E6%B3%95.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+</ol>
+<h4 id="非对称加密"><a href="#非对称加密" class="headerlink" title="非对称加密"></a>非对称加密</h4><ol>
+<li>公钥加密，私钥解密：保证内容的安全，只有私钥可以解密内容</li>
+<li>私钥加密，公钥解密：保证消息不可冒充，因为私钥是不可以泄漏的，验证双方身份，也就是数字签名算法<img src="/2023/10/23/408/ji-wang/%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E7%AE%97%E6%B3%95.png" class="lazyload" data-srcset="/2023/10/23/408/ji-wang/%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E7%AE%97%E6%B3%95.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="|525"></li>
+</ol>
+<h4 id="流程-RSA算法为例"><a href="#流程-RSA算法为例" class="headerlink" title="流程(RSA算法为例)"></a>流程(RSA算法为例)</h4><ol>
+<li>三次握手建立TCP连接</li>
+<li>客户端发送ClientHello请求，携带客户端支持的TLS版本信息和客户端随机数Client Random，支持的密码套件列表(比如RSA算法)</li>
+<li>ServerHello响应：确定TLS版本，浏览器不支持就断开，服务器随机数Server Random， 使用的加密算法，服务器的数字证书</li>
+<li>客户端使用CA的公钥确定证书的真实性，之后取出公钥，加密报文发送：1. 随机数 pre-master key 2.加密通信算法改变通知，表示之后都将使用会话密钥(对称加密)进行通信，客户端握手结束通知，把之前所有的内容进行摘要，给服务器进行校验</li>
+<li>双方使用这三个随机数和加密算法生成会话密钥</li>
+<li>服务器最后1.加密算法改变 2.握手结束，生成摘要供客户端校验</li>
+</ol>
+<h3 id="HTTP-x2F-1-1"><a href="#HTTP-x2F-1-1" class="headerlink" title="HTTP/1.1"></a>HTTP/1.1</h3><h4 id="优点和缺点"><a href="#优点和缺点" class="headerlink" title="优点和缺点"></a>优点和缺点</h4><p>双刃剑：无状态、明文传输<br>缺点：不安全</p>
+<ul>
+<li>无状态可以使得浏览器不需要额外记忆HTTP的状态，缺点是处理有关联性的操作时会很麻烦<ul>
+<li>解决方式就是使用Cookie</li>
+</ul>
+</li>
+<li>明文传输：方便调试的同时不安全</li>
+<li>不安全：1. 明文传输2.不验证通信双方的身份3.不能证明报文的完整性 <ul>
+<li>解决方式使用HTTPS</li>
+</ul>
+</li>
+</ul>
+<h4 id="性能-长连接"><a href="#性能-长连接" class="headerlink" title="性能(长连接)"></a>性能(长连接)</h4><ol>
+<li>相比较于1.0，1.1使用了长连接，一次TCP连接发起多次请求</li>
+<li>可以使用管道通信，只要请求发送出去后，不需要等待响应结果即可发送下一个请求<br>解决了请求的队头阻塞，但是没有解决响应的队头阻塞，同时不是默认使用的<blockquote>
+<p>队头阻塞是指当一个请求因为某种原因被阻塞，会导致后面排队的所有请求都一同被阻塞</p>
+</blockquote>
+</li>
+</ol>
 <h2 id="计网常问"><a href="#计网常问" class="headerlink" title="计网常问"></a>计网常问</h2><h3 id="一个请求整个网络的处理"><a href="#一个请求整个网络的处理" class="headerlink" title="一个请求整个网络的处理"></a>一个请求整个网络的处理</h3><ol>
 <li>浏览器解析URL生成HTTP消息</li>
 <li>通过DNS解析获得IP地址</li>
@@ -3600,18 +4085,22 @@ text 在jsp页面和文档中使用写入文本的模板<span aria-hidden="true"
   <entry>
     <title>Netty</title>
     <url>/2024/03/30/hou-duan/netty/</url>
-    <content><![CDATA[<ul>
-<li>I/O模型：<ol>
-<li>阻塞I/O：进程条用recvfrom系统调用时，内核开始准备数据，整个进程就会被阻塞，直到数据准备好为止。</li>
-<li>非阻塞：如果内核没有准备好，会立刻返回一个error，进程接受之后可以再次发送操作，直到数据准备好，区别在于，系统调用之后会立刻返回不会等待内核的准备。</li>
-<li>多路复用I/O：多个进程的I/O可以注册到一个复用器上(Selector)，如果Selector监听的所有的I/O内核缓冲区都没有可读数据，select调用会被阻塞，直到任意I/O在内核缓冲区中有刻度数据时，会立刻返回。并通知其他进程再次发起I/O</li>
-<li>信号驱动I/O：进程预先告知内核，向内和注册一个信号处理函数，之后进程返回不阻塞，进程通过信号处理函数继续调用I/O读取数据。</li>
-<li>异步I/O：内核收到请求之后会立刻，返回，不会阻塞内核。当内核数据准备好之后会向进程发送进程。</li>
+    <content><![CDATA[<h2 id="I-x2F-O模型："><a href="#I-x2F-O模型：" class="headerlink" title="I/O模型："></a>I/O模型：</h2><ol>
+<li>阻塞I/O BIO：进程条用recvfrom系统调用时，内核开始准备数据，整个进程就会被阻塞，直到数据准备好为止。</li>
+<li>非阻塞IO NIO：如果内核没有准备好，会立刻返回一个error，进程接受之后可以再次发送操作，直到数据准备好，区别在于，系统调用之后会立刻返回不会等待内核的准备。程序需要不断轮询，仍然没有释放CPU资源</li>
+<li>多路复用I/O：多个进程的I/O可以注册到一个复用器上(Selector)，如果Selector监听的所有的I/O内核缓冲区都没有可读数据，select调用会被阻塞，直到任意I/O在内核缓冲区中有刻度数据时，会立刻返回。并通知其他进程再次发起I/O，也就是使用一个线程监控多个IO操作</li>
+<li>信号驱动I/O：进程预先告知内核，向内核注册一个信号处理函数，之后进程返回不阻塞，进程通过信号处理函数继续调用I/O读取数据。IO操作就绪后，操作系统会发送信号通知应用程序。</li>
+<li>异步I/O AIO：应用程序发起IO操作之后，立刻返回，操作系统在IO操作执行后，会通知应用程序，应用程序无需轮询IO状态。</li>
 </ol>
-</li>
+<ul>
 <li>BIO和NIO的区别: <img src="/2024/03/30/hou-duan/netty/BIOandNIO.png" class="lazyload" data-srcset="/2024/03/30/hou-duan/netty/BIOandNIO.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
 <li>AIO-&gt;异步I/O</li>
 </ul>
+<h3 id="Java中的IO模型"><a href="#Java中的IO模型" class="headerlink" title="Java中的IO模型"></a>Java中的IO模型</h3><ol>
+<li>BIO java.io是BIO</li>
+<li>NIO java.nio包是NIO的实现，实质上仍然是同步的，读写操作时非同步的，但是这些操作是由应用程序主动发起和处理的，所以仍然是同步的。</li>
+<li>AIO java.nio.channels是NIO的实现</li>
+</ol>
 <h3 id="按照定义来说，Netty是一个异步的、事件驱动的、用来做高性能高可靠性的网络应用的框架"><a href="#按照定义来说，Netty是一个异步的、事件驱动的、用来做高性能高可靠性的网络应用的框架" class="headerlink" title="按照定义来说，Netty是一个异步的、事件驱动的、用来做高性能高可靠性的网络应用的框架"></a>按照定义来说，Netty是一个异步的、事件驱动的、用来做高性能高可靠性的网络应用的框架</h3><ul>
 <li>主要构建块：<ul>
 <li>Channel：管道，数据通信的载体，可以被打开，关闭，连接或断开 -&gt;<strong>Socket</strong> 是一个Socket的抽象，提供关于Socket的信息</li>
@@ -4627,6 +5116,7 @@ vmstat -s 显示系统的累计统计信息
 <li>处理器会根据MESI(修改、独占、共享、无效)控制协议去维护内部缓存。处理器使用嗅探技术保证它的内部缓存、系统内存和其他处理器的缓存的数据在总线上保持一致。</li>
 </ol>
 <p>可见性：<br>修改volatile变量会强制将修改之后的值刷新到内存中<br>同时导致其他线程中的该变量值失效。<br>有序性：遵循happen-before<br>内存屏障：JVM通过内存屏障来实现的</p>
+<h4 id="内存屏障"><a href="#内存屏障" class="headerlink" title="内存屏障"></a>内存屏障</h4><p>CPU防止代码进行重排序而提供的指令。</p>
 <h4 id="重排序问题"><a href="#重排序问题" class="headerlink" title="重排序问题"></a>重排序问题</h4><blockquote>
 <p>执行程序时，为了提高性能编译器和处理器常常会对执行进行重排序。</p>
 <ol>
@@ -4728,7 +5218,9 @@ vmstat -s 显示系统的累计统计信息
         <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"3"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="CyclicBarrier"><a href="#CyclicBarrier" class="headerlink" title="CyclicBarrier"></a>CyclicBarrier</h4><p>同步屏障<br>功能是让一组线程到达一个屏障(同步点)时被阻塞，直到最后一个线程到达屏障时才开门，所有被阻塞的线程才会继续运行。<br>与CountDownLatch的区别：countdownlatch只能使用一次，计数器无法重置。cyclicbarrier可以多次重复使用，当所有的线程到达同步点之后屏障会重置。<br>二者使用方法相似<br>如何选择：<br>简单的一次性同步任务可以使用countdownlatch，例如初始化一些配置<br>多阶段反复同步线程或者并发任务需要分阶段执行，每个阶段都需要等待所有的线程完成，选择cyclicbarrier</p>
+<h4 id="CyclicBarrier"><a href="#CyclicBarrier" class="headerlink" title="CyclicBarrier"></a>CyclicBarrier</h4><p>同步屏障<br>功能是让一组线程到达一个屏障(同步点)时被阻塞，直到最后一个线程到达屏障时才开门，所有被阻塞的线程才会继续运行。<br>与CountDownLatch的区别：countdownlatch只能使用一次，计数器无法重置。cyclicbarrier可以多次重复使用，当所有的线程到达同步点之后屏障会重置。</p>
+<p><strong>CyclicBarrier：用于让一组线程互相等待，直到所有线程都到达某个屏障点，然后所有线程再继续执行。可以重用。<br>CountDownLatch：用于一个或多个线程等待其他线程完成某些操作。不能重用。</strong> </p>
+<p>二者使用方法相似<br>如何选择：<br>简单的一次性同步任务可以使用countdownlatch，例如初始化一些配置<br>多阶段反复同步线程或者并发任务需要分阶段执行，每个阶段都需要等待所有的线程完成，选择cyclicbarrier</p>
 <h4 id="Semaphore"><a href="#Semaphore" class="headerlink" title="Semaphore"></a>Semaphore</h4><p>信号量，控制同时访问特定资源的线程数量。</p>
 <h4 id="Exchanger"><a href="#Exchanger" class="headerlink" title="Exchanger"></a>Exchanger</h4><p>进行线程之间协作的工具类。提供一个同步点，两个线程可以在这个同步点交换彼此的数据。</p>
 <h3 id="原子类"><a href="#原子类" class="headerlink" title="原子类"></a>原子类</h3><p>Atomic包</p>
@@ -4736,6 +5228,27 @@ vmstat -s 显示系统的累计统计信息
 <li>判断核心线程池里的线程是否都在执行任务，如果不是则新建一个工作线程来执行任务；如果都在执行任务，则进入下一个流程</li>
 <li>判断工作 队列是否已经满，如果没满，将新提交的任务存储在这个工作队列里，如果满了，进入下一个流程</li>
 <li>判断线程池中 当线程是否都在工作中，如果没有就创建一个新的工作线程来执行任务，如果已经满了，则交给饱和策略来处理这个任务<br><img src="/2024/05/13/hou-duan/duo-xian-cheng/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%89%A7%E8%A1%8C%E7%A4%BA%E6%84%8F%E5%9B%BE.png" class="lazyload" data-srcset="/2024/05/13/hou-duan/duo-xian-cheng/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%89%A7%E8%A1%8C%E7%A4%BA%E6%84%8F%E5%9B%BE.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br><img src="/2024/05/13/hou-duan/duo-xian-cheng/jdk%E7%BA%BF%E7%A8%8B%E6%B1%A0.png" class="lazyload" data-srcset="/2024/05/13/hou-duan/duo-xian-cheng/jdk%E7%BA%BF%E7%A8%8B%E6%B1%A0.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+</ol>
+<h4 id="核心参数"><a href="#核心参数" class="headerlink" title="核心参数"></a>核心参数</h4><ol>
+<li>核心线程数：任务队列没满时可以同时执行的最大线程数</li>
+<li>最大线程数：任务队列满时，可以同时运行的线程数</li>
+<li>线程空闲时间：线程数量超过核心线程数时，多余的空闲线程再中止前等待新任务的最长时间</li>
+<li>时间单位</li>
+<li>任务队列：</li>
+<li>线程工厂</li>
+<li>拒绝策略：当任务无法提交到线程池时的处理策略。<ul>
+<li><code>AbortPolicy</code>：抛出&nbsp;<code>RejectedExecutionException</code>&nbsp;异常（默认策略）。</li>
+<li><code>CallerRunsPolicy</code>：由调用线程处理该任务。</li>
+<li><code>DiscardPolicy</code>：直接丢弃任务。</li>
+<li><code>DiscardOldestPolicy</code>：丢弃队列中最旧的任务，然后重新提交新任务。<br><img src="/2024/05/13/hou-duan/duo-xian-cheng/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E4%BB%BB%E5%8A%A1%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F.png" class="lazyload" data-srcset="/2024/05/13/hou-duan/duo-xian-cheng/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E4%BB%BB%E5%8A%A1%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+</ul>
+</li>
+</ol>
+<h4 id="任务执行顺序"><a href="#任务执行顺序" class="headerlink" title="任务执行顺序"></a>任务执行顺序</h4><ol>
+<li>当前运行中的线程数小于核心线程数，就新建一个线程来执行任务</li>
+<li>如果大于核心线程数，但是小于最大线程数，就把任务加入到任务队列中</li>
+<li>如果队列已满，但是线程数小于最大线程数，就新建一个线程来执行任务</li>
+<li>如果新创建线程会导致当前运行中的线程数大于最大线程数，就会调用拒绝策略</li>
 </ol>
 <h3 id="生产者-消费者模型："><a href="#生产者-消费者模型：" class="headerlink" title="生产者-消费者模型："></a>生产者-消费者模型：</h3><p>一个内存队列，多个生产线程往内存队列中放数据，多个消费者线程从内存对俄中取数据。</p>
 <ol>
@@ -13842,92 +14355,6 @@ redis<br>1.打开redis的配置文件“redis.conf”。</li>
 ]]></content>
   </entry>
   <entry>
-    <title>简历常问</title>
-    <url>/2024/05/18/xiang-mu-jian-li-shi-xi/jian-li-chang-wen/</url>
-    <content><![CDATA[<h1 id="简历上可以问到的东西"><a href="#简历上可以问到的东西" class="headerlink" title="简历上可以问到的东西"></a>简历上可以问到的东西</h1><h2 id="登录相关"><a href="#登录相关" class="headerlink" title="登录相关"></a>登录相关</h2><ul>
-<li>JWT：JSON Web Token 是一种开放的标准是Token的一种实现方式，由三部分组成<ul>
-<li>Header 头部，包含了处理和验证JWT所需要的元数据，通常包括 类型 typ和alg 加密算法两部分</li>
-<li>Payload 载荷，存放实际需要传输的数据</li>
-<li>Signature 签名， 由头部、载荷和密钥三部分组合在一起，通过特定的算法进行加密，用于检验token的合法性</li>
-</ul>
-</li>
-<li>和Cookie的区别：<ul>
-<li>JWT通常存储在客户端，Cookie存储在浏览器中，JWT通过HTTP的Authorization字段传递给服务端，而Cookie每次在浏览器向服务器发动请求时自动添加到HTTP的Cookie字段</li>
-<li>JWT没有跨域限制，Cookie有<ul>
-<li>原因是浏览器的同源策略，协议+域名+端口 三者相同，只有满足这个条件，数据才能被读取，</li>
-<li>可以防止Cookie被网站劫持</li>
-<li>也可以防止跨域请求伪造</li>
-</ul>
-</li>
-<li>JWT适合无状态，Cookie适合有状态的，比如网页的登录保持状态。<ul>
-<li>Cookie由后端发送给前端，前端保存后会在每个请求中都携带这个Cookie</li>
-<li>Authorization：HTTP的头部，后端返回给前端后，前端需要在后续每个请求中的Authorization中都携带Token</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>如何实现单点登录：<ol>
-<li>单点登录：允许用户使用一组用户名和密码就可以访问由多个系统或服务提供的所有资源。</li>
-<li>实现方式：<ul>
-<li>用户登录-&gt;生成JWT，包含用户的身份信息，并且使用服务的私钥加密-&gt;返回JWT给客户端-&gt;客户端需要访问其他服务时，会将请求的Header中添加这个JWT-&gt;服务端验证JWT，</li>
-</ul>
-</li>
-</ol>
-</li>
-</ul>
-<h2 id="多线程的东西"><a href="#多线程的东西" class="headerlink" title="多线程的东西"></a>多线程的东西</h2><ul>
-<li>使用定时任务与教务数据库同步数据，使用线程池+ CountDownLatch批量导入数据提高效率同时防止OOM<ul>
-<li>线程池是什么？为什么要用，如何使用？<ol>
-<li>线程池中包含一定量的线程，然后我们把任务交给线程池中，线程池会选择一个线程去执行我们的任务，执行之后线程不会销毁而是会回到线程池当中</li>
-<li>因为可以降低资源小号，重复使用已经创建的线程降低线程创建和销毁时的小号。 也可以提高响应速度，当任务到达时，不用新创建一个线程就能直接从中获得一个线程去执行。</li>
-</ol>
-</li>
-<li>CountDownLatch是什么，怎么用，有什么优点？<ol>
-<li>是java.util.concurrent包中的一个同步辅助类</li>
-<li>再主线程中调用await()等待所有线程完成之后再进行，countDown() 在线程执行之后将次数-1，即可做到线程同步。</li>
-<li>优点是：简单就能控制线程，可以用于一次事件</li>
-</ol>
-</li>
-<li>如何完成的具体的操作：自己使用代码进行测试 (待做)</li>
-<li>定时任务是什么，如何使用？</li>
-</ul>
-</li>
-</ul>
-<h2 id="数据库相关"><a href="#数据库相关" class="headerlink" title="数据库相关"></a>数据库相关</h2><ul>
-<li>Mybatis的延迟加载: 可以避免一次查询中联接多个表，可以提高查询效率。如果需要在多个表中获取大量数据还是使用多表连接比较快，如果一个操作中需要多次用到信息，那么每次都会触发一次查询，可能会导致总的查询次数增加。<ul>
-<li>当涉及到多表查询时，比如Book类中包含了Author，好多作者，我们只想通过一个路径+接口就实现能够在需要的时候查询出来Author的全部信息，而不需要的时候只需要查询出来Author的名字即可</li>
-<li>在Mapper.xml文件中进行如下定义即可<pre class="line-numbers language-java" data-language="java"><code class="language-java">这个对应的是将author查询绑定到author查询的详情，只有我们在代码中使用了book<span class="token punctuation">.</span>getAuthor，mybatis才会去查询author的相关信息。
-<span class="token operator">&lt;</span>resultMap id<span class="token operator">=</span><span class="token string">"BookResultMap"</span> type<span class="token operator">=</span><span class="token string">"Book"</span><span class="token operator">&gt;</span>
-    <span class="token operator">&lt;</span>id property<span class="token operator">=</span><span class="token string">"id"</span> column<span class="token operator">=</span><span class="token string">"id"</span> <span class="token operator">/</span><span class="token operator">&gt;</span>
-    <span class="token operator">&lt;</span>result property<span class="token operator">=</span><span class="token string">"title"</span> column<span class="token operator">=</span><span class="token string">"title"</span> <span class="token operator">/</span><span class="token operator">&gt;</span>
-    <span class="token operator">&lt;</span>association property<span class="token operator">=</span><span class="token string">"author"</span> column<span class="token operator">=</span><span class="token string">"author_id"</span> javaType<span class="token operator">=</span><span class="token string">"Author"</span> select<span class="token operator">=</span><span class="token string">"selectAuthor"</span> fetchType<span class="token operator">=</span><span class="token string">"lazy"</span><span class="token operator">/</span><span class="token operator">&gt;</span>
-<span class="token operator">&lt;</span><span class="token operator">/</span>resultMap<span class="token operator">&gt;</span>
-
-<span class="token operator">&lt;</span>select id<span class="token operator">=</span><span class="token string">"selectBook"</span> resultMap<span class="token operator">=</span><span class="token string">"BookResultMap"</span><span class="token operator">&gt;</span>
-    <span class="token constant">SELECT</span> <span class="token operator">*</span> <span class="token constant">FROM</span> book <span class="token class-name">WHERE</span> id <span class="token operator">=</span> #<span class="token punctuation">{</span>id<span class="token punctuation">}</span>
-<span class="token operator">&lt;</span><span class="token operator">/</span>select<span class="token operator">&gt;</span>
-
-<span class="token operator">&lt;</span>select id<span class="token operator">=</span><span class="token string">"selectAuthor"</span> resultType<span class="token operator">=</span><span class="token string">"Author"</span><span class="token operator">&gt;</span>
-    <span class="token constant">SELECT</span> <span class="token operator">*</span> <span class="token constant">FROM</span> author <span class="token class-name">WHERE</span> id <span class="token operator">=</span> #<span class="token punctuation">{</span>id<span class="token punctuation">}</span>
-<span class="token operator">&lt;</span><span class="token operator">/</span>select<span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<img src="/2024/05/18/xiang-mu-jian-li-shi-xi/jian-li-chang-wen/%E6%87%92%E5%8A%A0%E8%BD%BD.png" class="lazyload" data-srcset="/2024/05/18/xiang-mu-jian-li-shi-xi/jian-li-chang-wen/%E6%87%92%E5%8A%A0%E8%BD%BD.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
-</ul>
-</li>
-</ul>
-<h2 id="如何实现读写分离"><a href="#如何实现读写分离" class="headerlink" title="如何实现读写分离"></a>如何实现读写分离</h2><ol>
-<li>使用中间件代理：</li>
-<li>sharding用于分库分表</li>
-<li></li>
-</ol>
-<h2 id="Redis相关"><a href="#Redis相关" class="headerlink" title="Redis相关"></a>Redis相关</h2><h3 id="使用Token-Redis实现接口幂等性"><a href="#使用Token-Redis实现接口幂等性" class="headerlink" title="使用Token + Redis实现接口幂等性"></a>使用Token + Redis实现接口幂等性</h3><ol>
-<li>生成Token：当用户发起签到请求时，首先生成唯一的Token，这个Token可以使用UUID或者其他唯一的标识方法生成</li>
-<li>将Token保存到Redis中</li>
-<li>用户进行签到操作时，需要在请求中携带这个Token</li>
-<li>后端在执行签到操作时，先检测Token是否在Redis当中，如果不存在就就拒绝签到。如果存在就执行签到操作，并且将Token删除<br>这样就看可以保证用户多次发起签到只会执行一次签到操作。</li>
-</ol>
-<h3 id="使用”一主一丛一哨兵”的方式保障Redis集群的高可用性"><a href="#使用”一主一丛一哨兵”的方式保障Redis集群的高可用性" class="headerlink" title="使用”一主一丛一哨兵”的方式保障Redis集群的高可用性"></a>使用”一主一丛一哨兵”的方式保障Redis集群的高可用性</h3><h3 id="布隆过滤器相关"><a href="#布隆过滤器相关" class="headerlink" title="布隆过滤器相关"></a>布隆过滤器相关</h3>]]></content>
-  </entry>
-  <entry>
     <title>软考</title>
     <url>/2023/09/19/xiang-mu-jian-li-shi-xi/ruan-kao/</url>
     <content><![CDATA[<h1 id="软件工程"><a href="#软件工程" class="headerlink" title="软件工程"></a>软件工程</h1><p>描述软件需求的方法：</p>
@@ -14010,18 +14437,6 @@ redis<br>1.打开redis的配置文件“redis.conf”。</li>
       <tags>
         <tag>Github</tag>
         <tag>git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ShardingSphere</title>
-    <url>/2024/07/27/hou-duan/shardingsphere/</url>
-    <content><![CDATA[<p>ShardingSphere 是一个分布式数据库中间件，主要用于解决数据分片、读写分离、分布式事务等问题。它提供了以下主要功能：<br>数据分片：将数据分布到多个数据库实例中，提高系统的扩展性和性能。<br>读写分离：将读操作和写操作分离到不同的数据库实例中，提高读操作的性能。<br>分布式事务：支持分布式事务，保证数据的一致性。<br>数据加密：提供数据加密功能，增强数据安全性。<br>影子库压测：支持影子库压测，帮助进行性能测试。</p>
-]]></content>
-      <categories>
-        <category>数据库</category>
-      </categories>
-      <tags>
-        <tag>ShardingSphere</tag>
       </tags>
   </entry>
   <entry>
@@ -14109,8 +14524,218 @@ redis<br>1.打开redis的配置文件“redis.conf”。</li>
 </ul>
 </li>
 </ul>
-<h3 id="concurrenthashmap和hashmap和hashtable的区别"><a href="#concurrenthashmap和hashmap和hashtable的区别" class="headerlink" title="concurrenthashmap和hashmap和hashtable的区别"></a>concurrenthashmap和hashmap和hashtable的区别</h3><h4 id="HashTable"><a href="#HashTable" class="headerlink" title="HashTable"></a>HashTable</h4><p>数组+链表实现，key、value都不能为null，线程安全</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="并发相关"><a href="#并发相关" class="headerlink" title="并发相关"></a>并发相关</h2><h3 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h3><h4 id="线程池的原理"><a href="#线程池的原理" class="headerlink" title="线程池的原理"></a>线程池的原理</h4><p>初始化一个线程池，指定线程池的大小，也就是线程池中的线程数量<br>然后每次向线程池中提交任务，线程池中的线程循环从任务队列中去除任务并且执行<br>如果一个线程执行完一个任务之后，就会回到线程池，而不是销毁</p>
+<h3 id="静态方法为什么不能调用非静态成员"><a href="#静态方法为什么不能调用非静态成员" class="headerlink" title="静态方法为什么不能调用非静态成员"></a>静态方法为什么不能调用非静态成员</h3><blockquote>
+<p>静态方法在类加载时就会分配内存，而非静态成员属于实例对象，所以调用不到，属于非法操作</p>
+</blockquote>
+<h3 id="字符串常量池"><a href="#字符串常量池" class="headerlink" title="字符串常量池"></a>字符串常量池</h3><blockquote>
+<p>对于编译期可以确定值的字符串，也就是常量字符串 ，jvm 会将其存入字符串常量池。并且，字符串常量拼接得到的字符串常量在编译阶段就已经被存放字符串常量池，这个得益于编译器的优化。<br><strong>字符串使用&nbsp;<code>final</code>&nbsp;关键字声明之后，可以让编译器当做常量来处理。</strong></p>
+</blockquote>
+<h3 id="String为什么不可变"><a href="#String为什么不可变" class="headerlink" title="String为什么不可变"></a>String为什么不可变</h3><ol>
+<li>String中的byte数组被private和final修饰，并且没有具体的方法暴露</li>
+<li>String对象使用final修饰，不可被继承，保证不会被子类破坏不可变性<img src="/2023/08/27/yu-yan-ji-gong-ju/java/String%E4%B8%8D%E5%8F%AF%E5%8F%98.png" class="lazyload" data-srcset="/2023/08/27/yu-yan-ji-gong-ju/java/String%E4%B8%8D%E5%8F%AF%E5%8F%98.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+</ol>
+<h3 id="x3D-x3D-和-equals区别"><a href="#x3D-x3D-和-equals区别" class="headerlink" title="== 和 equals区别"></a>== 和 equals区别</h3><p>== ：<br>基本数据类型是比较的值，对象比较的是地址<br>equals：<br>没重写的话比较的是地址，String是专门重写过的，比较的是具体的值是否相同</p>
+<h3 id="三种拷贝方式的区别"><a href="#三种拷贝方式的区别" class="headerlink" title="三种拷贝方式的区别"></a>三种拷贝方式的区别</h3><ol>
+<li>引用拷贝：不同的引用指向相同的对象</li>
+<li>浅拷贝：外部对象是new 出来的新对象，内部对象仍然是指向一个</li>
+<li>深拷贝：外部对象和内部对象都是新new 出来的<br><img src="/2023/08/27/yu-yan-ji-gong-ju/java/%E4%B8%89%E7%A7%8D%E6%8B%B7%E8%B4%9D%E6%96%B9%E5%BC%8F.png" class="lazyload" data-srcset="/2023/08/27/yu-yan-ji-gong-ju/java/%E4%B8%89%E7%A7%8D%E6%8B%B7%E8%B4%9D%E6%96%B9%E5%BC%8F.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+</ol>
+<h3 id="concurrenthashmap和hashmap和hashtable的区别"><a href="#concurrenthashmap和hashmap和hashtable的区别" class="headerlink" title="concurrenthashmap和hashmap和hashtable的区别"></a>concurrenthashmap和hashmap和hashtable的区别</h3><p>HashMap线程不安全<br>HashTable和concurrentHashMap是线程安全的HashMap，HashTable上锁时，会锁住整个表，而ConcurrentHashMap只会锁对应的段，使用的是分段锁。</p>
+<h3 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h3><h4 id="SerialVersionUID"><a href="#SerialVersionUID" class="headerlink" title="SerialVersionUID"></a>SerialVersionUID</h4><p>即使被static修饰，也会被序列化进二进制流中，用来判断序列化对象的版本一致性。</p>
+<h3 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h3><p>代理模式是使用代理对象来替代真实对象，从而在不修改原目标的前提下提供额外的功能操作，拓展对象功能。</p>
+<h4 id="动态代理和静态代理的区别"><a href="#动态代理和静态代理的区别" class="headerlink" title="动态代理和静态代理的区别"></a>动态代理和静态代理的区别</h4><ol>
+<li>静态代理在编译阶段就将接口、实现类、代理类都变成一个个实际的class文件。对于每一个被代理的对象都需要单独写一个代理类，非常不方便</li>
+<li>动态代理：是在运行时动态生成字节码，并加载到JVM中。核心是**<code>InvocationHandler</code>&nbsp;接口和&nbsp;<code>Proxy</code>&nbsp;类**</li>
+</ol>
+<h3 id="BigDecimal工具类"><a href="#BigDecimal工具类" class="headerlink" title="BigDecimal工具类"></a>BigDecimal工具类</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>math<span class="token punctuation">.</span></span><span class="token class-name">BigDecimal</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>math<span class="token punctuation">.</span></span><span class="token class-name">RoundingMode</span></span><span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * 简化BigDecimal计算的小工具类
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">BigDecimalUtil</span> <span class="token punctuation">{</span>
+
+    <span class="token comment">/**
+     * 默认除法运算精度
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> <span class="token constant">DEF_DIV_SCALE</span> <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">private</span> <span class="token class-name">BigDecimalUtil</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 提供精确的加法运算。
+     *
+     * @param v1 被加数
+     * @param v2 加数
+     * @return 两个参数的和
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">double</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">double</span> v1<span class="token punctuation">,</span> <span class="token keyword">double</span> v2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">BigDecimal</span> b1 <span class="token operator">=</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>v1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">BigDecimal</span> b2 <span class="token operator">=</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>v2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> b1<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>b2<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">doubleValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 提供精确的减法运算。
+     *
+     * @param v1 被减数
+     * @param v2 减数
+     * @return 两个参数的差
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">double</span> <span class="token function">subtract</span><span class="token punctuation">(</span><span class="token keyword">double</span> v1<span class="token punctuation">,</span> <span class="token keyword">double</span> v2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">BigDecimal</span> b1 <span class="token operator">=</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>v1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">BigDecimal</span> b2 <span class="token operator">=</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>v2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> b1<span class="token punctuation">.</span><span class="token function">subtract</span><span class="token punctuation">(</span>b2<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">doubleValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 提供精确的乘法运算。
+     *
+     * @param v1 被乘数
+     * @param v2 乘数
+     * @return 两个参数的积
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">double</span> <span class="token function">multiply</span><span class="token punctuation">(</span><span class="token keyword">double</span> v1<span class="token punctuation">,</span> <span class="token keyword">double</span> v2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">BigDecimal</span> b1 <span class="token operator">=</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>v1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">BigDecimal</span> b2 <span class="token operator">=</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>v2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> b1<span class="token punctuation">.</span><span class="token function">multiply</span><span class="token punctuation">(</span>b2<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">doubleValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 提供（相对）精确的除法运算，当发生除不尽的情况时，精确到
+     * 小数点以后10位，以后的数字四舍五入。
+     *
+     * @param v1 被除数
+     * @param v2 除数
+     * @return 两个参数的商
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">double</span> <span class="token function">divide</span><span class="token punctuation">(</span><span class="token keyword">double</span> v1<span class="token punctuation">,</span> <span class="token keyword">double</span> v2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">divide</span><span class="token punctuation">(</span>v1<span class="token punctuation">,</span> v2<span class="token punctuation">,</span> <span class="token constant">DEF_DIV_SCALE</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 提供（相对）精确的除法运算。当发生除不尽的情况时，由scale参数指
+     * 定精度，以后的数字四舍五入。
+     *
+     * @param v1    被除数
+     * @param v2    除数
+     * @param scale 表示表示需要精确到小数点以后几位。
+     * @return 两个参数的商
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">double</span> <span class="token function">divide</span><span class="token punctuation">(</span><span class="token keyword">double</span> v1<span class="token punctuation">,</span> <span class="token keyword">double</span> v2<span class="token punctuation">,</span> <span class="token keyword">int</span> scale<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>scale <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span>
+                    <span class="token string">"The scale must be a positive integer or zero"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token class-name">BigDecimal</span> b1 <span class="token operator">=</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>v1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">BigDecimal</span> b2 <span class="token operator">=</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>v2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> b1<span class="token punctuation">.</span><span class="token function">divide</span><span class="token punctuation">(</span>b2<span class="token punctuation">,</span> scale<span class="token punctuation">,</span> <span class="token class-name">RoundingMode</span><span class="token punctuation">.</span><span class="token constant">HALF_EVEN</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">doubleValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 提供精确的小数位四舍五入处理。
+     *
+     * @param v     需要四舍五入的数字
+     * @param scale 小数点后保留几位
+     * @return 四舍五入后的结果
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">double</span> <span class="token function">round</span><span class="token punctuation">(</span><span class="token keyword">double</span> v<span class="token punctuation">,</span> <span class="token keyword">int</span> scale<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>scale <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span>
+                    <span class="token string">"The scale must be a positive integer or zero"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token class-name">BigDecimal</span> b <span class="token operator">=</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">BigDecimal</span> one <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span><span class="token string">"1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> b<span class="token punctuation">.</span><span class="token function">divide</span><span class="token punctuation">(</span>one<span class="token punctuation">,</span> scale<span class="token punctuation">,</span> <span class="token class-name">RoundingMode</span><span class="token punctuation">.</span><span class="token constant">HALF_UP</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">doubleValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 提供精确的类型转换(Float)
+     *
+     * @param v 需要被转换的数字
+     * @return 返回转换结果
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">float</span> <span class="token function">convertToFloat</span><span class="token punctuation">(</span><span class="token keyword">double</span> v<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">BigDecimal</span> b <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> b<span class="token punctuation">.</span><span class="token function">floatValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 提供精确的类型转换(Int)不进行四舍五入
+     *
+     * @param v 需要被转换的数字
+     * @return 返回转换结果
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token function">convertsToInt</span><span class="token punctuation">(</span><span class="token keyword">double</span> v<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">BigDecimal</span> b <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> b<span class="token punctuation">.</span><span class="token function">intValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 提供精确的类型转换(Long)
+     *
+     * @param v 需要被转换的数字
+     * @return 返回转换结果
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">long</span> <span class="token function">convertsToLong</span><span class="token punctuation">(</span><span class="token keyword">double</span> v<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">BigDecimal</span> b <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> b<span class="token punctuation">.</span><span class="token function">longValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 返回两个数中大的一个值
+     *
+     * @param v1 需要被对比的第一个数
+     * @param v2 需要被对比的第二个数
+     * @return 返回两个数中大的一个值
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">double</span> <span class="token function">returnMax</span><span class="token punctuation">(</span><span class="token keyword">double</span> v1<span class="token punctuation">,</span> <span class="token keyword">double</span> v2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">BigDecimal</span> b1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span>v1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">BigDecimal</span> b2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span>v2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> b1<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>b2<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">doubleValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 返回两个数中小的一个值
+     *
+     * @param v1 需要被对比的第一个数
+     * @param v2 需要被对比的第二个数
+     * @return 返回两个数中小的一个值
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">double</span> <span class="token function">returnMin</span><span class="token punctuation">(</span><span class="token keyword">double</span> v1<span class="token punctuation">,</span> <span class="token keyword">double</span> v2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">BigDecimal</span> b1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span>v1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">BigDecimal</span> b2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span>v2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> b1<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>b2<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">doubleValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 精确对比两个数字
+     *
+     * @param v1 需要被对比的第一个数
+     * @param v2 需要被对比的第二个数
+     * @return 如果两个数一样则返回0，如果第一个数比第二个数大则返回1，反之返回-1
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token function">compareTo</span><span class="token punctuation">(</span><span class="token keyword">double</span> v1<span class="token punctuation">,</span> <span class="token keyword">double</span> v2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">BigDecimal</span> b1 <span class="token operator">=</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>v1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">BigDecimal</span> b2 <span class="token operator">=</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>v2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> b1<span class="token punctuation">.</span><span class="token function">compareTo</span><span class="token punctuation">(</span>b2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="UnSafe类"><a href="#UnSafe类" class="headerlink" title="UnSafe类"></a>UnSafe类</h2><p>提供一些很底层的操作，JUC中经常使用。<br>核心功能：</p>
+<ol>
+<li>内存操作</li>
+<li>[[多线程#内存屏障|内存屏障]]</li>
+<li>对象操作</li>
+<li>数据操作</li>
+<li>CAS操作</li>
+<li>线程调度</li>
+<li>Class操作</li>
+<li>系统信息</li>
+</ol>
+<h2 id="并发相关"><a href="#并发相关" class="headerlink" title="并发相关"></a>并发相关</h2><h3 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h3><h4 id="线程池的原理"><a href="#线程池的原理" class="headerlink" title="线程池的原理"></a>线程池的原理</h4><p>初始化一个线程池，指定线程池的大小，也就是线程池中的线程数量<br>然后每次向线程池中提交任务，线程池中的线程循环从任务队列中去除任务并且执行<br>如果一个线程执行完一个任务之后，就会回到线程池，而不是销毁</p>
 <p>线程池通过循环利用线程，而不是销毁避免了频繁创建和销毁线程池的开销</p>
 <h4 id="线程池中关于时间的参数起什么作用"><a href="#线程池中关于时间的参数起什么作用" class="headerlink" title="线程池中关于时间的参数起什么作用"></a>线程池中关于时间的参数起什么作用</h4><ol>
 <li>空闲线程存活时间：当线程中的线程数量超过核心线程数量时，这些额外的线程在超过空闲线程存活时间就会被中止</li>
