@@ -951,7 +951,14 @@ lock<span class="token punctuation">.</span><span class="token function">lock</s
 <h3 id="ABAC-Attribute-Based-Access-Control-基于属性的访问控制"><a href="#ABAC-Attribute-Based-Access-Control-基于属性的访问控制" class="headerlink" title="ABAC (**Attribute-Based Access Control ) 基于属性的访问控制"></a>ABAC (**Attribute-Based Access Control ) 基于属性的访问控制</h3><p>通过各种属性来动态判断一个操作是否可以被允许。<br>比如赋予某个人可以查看某个文档的权限，但是不可以修改。<br>是基于对象、资源、操作、环境（上下文，时间和位置，协议等），具体的实现</p>
 <h3 id="新权限系统"><a href="#新权限系统" class="headerlink" title="新权限系统"></a>新权限系统</h3><p><img src="/2024/06/07/mian-shi-ji-lu/%E6%96%B0%E6%9D%83%E9%99%90.png" class="lazyload" data-srcset="/2024/06/07/mian-shi-ji-lu/%E6%96%B0%E6%9D%83%E9%99%90.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br>主要就是在RBAC的基础上，允许绕过角色来直接给用户添加一些权限</p>
 <h2 id="集群怎么设计的，有什么用，如何应对脑裂"><a href="#集群怎么设计的，有什么用，如何应对脑裂" class="headerlink" title="集群怎么设计的，有什么用，如何应对脑裂"></a>集群怎么设计的，有什么用，如何应对脑裂</h2><h2 id="如何中止SQL语句"><a href="#如何中止SQL语句" class="headerlink" title="如何中止SQL语句"></a>如何中止SQL语句</h2><p>场景：有一个访问需要查询一个很大的数据库，然后前端那边等不及了刷新，就会不断发送这个请求，我数据库该如何处理这些无效的查询？</p>
-<h1 id="其他人面试遇到的问题"><a href="#其他人面试遇到的问题" class="headerlink" title="其他人面试遇到的问题"></a>其他人面试遇到的问题</h1><h2 id="什么是动态代理-x2F-静态代理"><a href="#什么是动态代理-x2F-静态代理" class="headerlink" title="什么是动态代理/静态代理"></a>什么是动态代理/静态代理</h2><p>动态代理<br>动态代理是在运行时创建代理对象的机制。代理对象可以在不修改原始对象代码的情况下，拦截对目标对象的方法调用，并在调用前后添加额外的逻辑。Java 中的动态代理主要有两种实现方式：<br>静态代理<br>静态代理是在编译时创建代理类的机制。代理类在编译时就已经存在，并且实现了与目标对象相同的接口。静态代理通过在代理类中调用目标对象的方法来实现对目标对象的代理。</p>
+<h1 id="2024-08-28-北京用友一面"><a href="#2024-08-28-北京用友一面" class="headerlink" title="2024-08-28 北京用友一面"></a>2024-08-28 北京用友一面</h1><p>自我介绍</p>
+<h2 id="介绍旁路缓存，旁路缓存一定能保证一致性吗"><a href="#介绍旁路缓存，旁路缓存一定能保证一致性吗" class="headerlink" title="介绍旁路缓存，旁路缓存一定能保证一致性吗"></a>介绍旁路缓存，旁路缓存一定能保证一致性吗</h2><p>旁路缓存是由应用程序来保证缓存和数据库的一致性，特点是直接更新数据库，删除缓存。<br>可以保证一致性，因为缓存写入的速度是远远快于数据库的写入的。</p>
+<h2 id="为什么使用Redisson而不是使用synchronized"><a href="#为什么使用Redisson而不是使用synchronized" class="headerlink" title="为什么使用Redisson而不是使用synchronized"></a>为什么使用Redisson而不是使用synchronized</h2><ol>
+<li>分布式锁，Synchronized只能在单个JVM内部工作</li>
+<li>可重入性，Redisson提供了可重入性锁的实现，而Synchronized需要手动管理可重入性</li>
+<li>锁超时，Redisson支持超时释放防止死锁发生</li>
+</ol>
+<h2 id="HashMap、ConcurrentHashMap-jdk1-7的区别"><a href="#HashMap、ConcurrentHashMap-jdk1-7的区别" class="headerlink" title="HashMap、ConcurrentHashMap jdk1.7的区别"></a>HashMap、ConcurrentHashMap jdk1.7的区别</h2><h2 id="Sentinel-相关"><a href="#Sentinel-相关" class="headerlink" title="Sentinel 相关"></a>Sentinel 相关</h2><h2 id="简历索引有哪些考量"><a href="#简历索引有哪些考量" class="headerlink" title="简历索引有哪些考量"></a>简历索引有哪些考量</h2><h2 id="索引失效场景-1"><a href="#索引失效场景-1" class="headerlink" title="索引失效场景"></a>索引失效场景</h2><h2 id="ES和MySQL区别"><a href="#ES和MySQL区别" class="headerlink" title="ES和MySQL区别"></a>ES和MySQL区别</h2><h2 id="Redis常见数据结构，string底层"><a href="#Redis常见数据结构，string底层" class="headerlink" title="Redis常见数据结构，string底层"></a>Redis常见数据结构，string底层</h2><h2 id="JVM内存泄漏如何定位、排查"><a href="#JVM内存泄漏如何定位、排查" class="headerlink" title="JVM内存泄漏如何定位、排查"></a>JVM内存泄漏如何定位、排查</h2><h2 id="docker常见指令"><a href="#docker常见指令" class="headerlink" title="docker常见指令"></a>docker常见指令</h2><h2 id="并行Stream流的底层"><a href="#并行Stream流的底层" class="headerlink" title="并行Stream流的底层"></a>并行Stream流的底层</h2><h1 id="其他人面试遇到的问题"><a href="#其他人面试遇到的问题" class="headerlink" title="其他人面试遇到的问题"></a>其他人面试遇到的问题</h1><h2 id="什么是动态代理-x2F-静态代理"><a href="#什么是动态代理-x2F-静态代理" class="headerlink" title="什么是动态代理/静态代理"></a>什么是动态代理/静态代理</h2><p>动态代理<br>动态代理是在运行时创建代理对象的机制。代理对象可以在不修改原始对象代码的情况下，拦截对目标对象的方法调用，并在调用前后添加额外的逻辑。Java 中的动态代理主要有两种实现方式：<br>静态代理<br>静态代理是在编译时创建代理类的机制。代理类在编译时就已经存在，并且实现了与目标对象相同的接口。静态代理通过在代理类中调用目标对象的方法来实现对目标对象的代理。</p>
 <h2 id="什么是事务传播"><a href="#什么是事务传播" class="headerlink" title="什么是事务传播"></a>什么是事务传播</h2><p>事务传播 Transaction Propagation 是指Spring框架中定义事务在方法调用的过程中如何传播的机制。决定了一个方法在调用另一个方法时，事务应该如何进行管理。</p>
 <ul>
 <li>REQUIRED：默认支持当前事务，如果当前没有事务，就创建一个事务。这是默认的<img src="/2024/06/07/mian-shi-ji-lu/REQUIRED.png" class="lazyload" data-srcset="/2024/06/07/mian-shi-ji-lu/REQUIRED.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
@@ -5116,7 +5123,13 @@ vmstat -s 显示系统的累计统计信息
 <li>处理器会根据MESI(修改、独占、共享、无效)控制协议去维护内部缓存。处理器使用嗅探技术保证它的内部缓存、系统内存和其他处理器的缓存的数据在总线上保持一致。</li>
 </ol>
 <p>可见性：<br>修改volatile变量会强制将修改之后的值刷新到内存中<br>同时导致其他线程中的该变量值失效。<br>有序性：遵循happen-before<br>内存屏障：JVM通过内存屏障来实现的</p>
-<h4 id="内存屏障"><a href="#内存屏障" class="headerlink" title="内存屏障"></a>内存屏障</h4><p>CPU防止代码进行重排序而提供的指令。</p>
+<h4 id="内存屏障"><a href="#内存屏障" class="headerlink" title="内存屏障"></a>内存屏障</h4><p>CPU防止代码进行重排序而提供的指令。<br>Unsafe提供了以下的内存屏障方法</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//内存屏障，禁止load操作重排序。屏障前的load操作不能被重排序到屏障后，屏障后的load操作不能被重排序到屏障前</span>
+<span class="token keyword">public</span> <span class="token keyword">native</span> <span class="token keyword">void</span> <span class="token function">loadFence</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//内存屏障，禁止store操作重排序。屏障前的store操作不能被重排序到屏障后，屏障后的store操作不能被重排序到屏障前</span>
+<span class="token keyword">public</span> <span class="token keyword">native</span> <span class="token keyword">void</span> <span class="token function">storeFence</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//内存屏障，禁止load、store操作重排序</span>
+<span class="token keyword">public</span> <span class="token keyword">native</span> <span class="token keyword">void</span> <span class="token function">fullFence</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="重排序问题"><a href="#重排序问题" class="headerlink" title="重排序问题"></a>重排序问题</h4><blockquote>
 <p>执行程序时，为了提高性能编译器和处理器常常会对执行进行重排序。</p>
 <ol>
@@ -14545,8 +14558,12 @@ redis<br>1.打开redis的配置文件“redis.conf”。</li>
 <h3 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h3><p>代理模式是使用代理对象来替代真实对象，从而在不修改原目标的前提下提供额外的功能操作，拓展对象功能。</p>
 <h4 id="动态代理和静态代理的区别"><a href="#动态代理和静态代理的区别" class="headerlink" title="动态代理和静态代理的区别"></a>动态代理和静态代理的区别</h4><ol>
 <li>静态代理在编译阶段就将接口、实现类、代理类都变成一个个实际的class文件。对于每一个被代理的对象都需要单独写一个代理类，非常不方便</li>
-<li>动态代理：是在运行时动态生成字节码，并加载到JVM中。核心是**<code>InvocationHandler</code>&nbsp;接口和&nbsp;<code>Proxy</code>&nbsp;类**</li>
+<li>动态代理：是在运行时动态生成字节码，并加载到JVM中。核心是 <strong><code>InvocationHandler</code>&nbsp;接口和&nbsp;<code>Proxy</code>&nbsp;类</strong></li>
 </ol>
+<h3 id="JDK和CGLIB的区别"><a href="#JDK和CGLIB的区别" class="headerlink" title="JDK和CGLIB的区别"></a>JDK和CGLIB的区别</h3><p>JDK是面向接口的，而CGLib是通过直接吗底层继承要代理的类来实现的，底层是asm</p>
+<blockquote>
+<p>Spring AOP的底层实现主要基于动态代理模式。具体来说，有两种主要的实现方式：JDK 动态代理和 CGLIB 动态代理。Spring AOP 在运行时会根据目标对象的类型和配置来选择使用 JDK 动态代理还是 CGLIB 动态代理。如果目标对象实现了接口，并且没有强制要求使用 CGLIB 代理，Spring 会优先使用 JDK 动态代理。如果目标对象没有实现接口，或者通过配置强制使用 CGLIB 代理，那么 Spring 会使用 CGLIB 动态代理来实现 AOP。</p>
+</blockquote>
 <h3 id="BigDecimal工具类"><a href="#BigDecimal工具类" class="headerlink" title="BigDecimal工具类"></a>BigDecimal工具类</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>math<span class="token punctuation">.</span></span><span class="token class-name">BigDecimal</span></span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>math<span class="token punctuation">.</span></span><span class="token class-name">RoundingMode</span></span><span class="token punctuation">;</span>
 
