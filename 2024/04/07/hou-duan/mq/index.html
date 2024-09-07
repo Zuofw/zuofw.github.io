@@ -45,7 +45,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
 <meta property="article:published_time" content="2024-04-07T02:07:18.000Z">
-<meta property="article:modified_time" content="2024-07-19T08:44:13.751Z">
+<meta property="article:modified_time" content="2024-09-03T06:58:41.966Z">
 <meta property="article:author" content="QingQiu">
 <meta property="article:tag" content="mq">
 <meta name="twitter:card" content="summary">
@@ -1745,7 +1745,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1724929493729),
+    lastupdate: new Date(1725676480407),
     sidebar: {
       for_page: ["blogger","category","tagcloud","donate"],
       for_post: ["toc"],
@@ -2675,93 +2675,6 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <ul>
 <li>Namesrv集群：一个无状态的元数据管理，Namesrv之于RocketMQ等价于Zookeeper之于Kafka。Topic路由注册和管理、Broker注册和发现的管理者</li>
 </ul>
-<h2 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h2><p><a target="_blank" rel="noopener" href="https://javaguide.cn/high-performance/message-queue/kafka-questions-01.html">常见问题</a></p>
-<ul>
-<li>一个独立的Kafka服务器被称作broker,broker是集群的组成部分，每个集群都有一个broker同时充当了集群控制器的角色</li>
-<li>kafka的主题被分为多个分区，分区存储在磁盘中</li>
-<li>kafka的消息特点：消息会保留一段时间，即使应用程序下线，消息仍然会保存在kafka里，是基于磁盘的数据存储。</li>
-<li>API使用：<ul>
-<li>producer<ul>
-<li>record的参数，topic , key ,value key可以省略，当省略时就是一个没有key的value，key一般用于把相同key的数据写入同一个分区里</li>
-<li>send默认是发送并忘记，send会返回一个Future对象使用.get方法得到RecordMetadata对象，可以获取消息的偏移量</li>
-<li>异步发送.send(record,回调函数类)，回调函数需要实现Callback类，并且重写其中的方法</li>
-<li>配置设置：<ol>
-<li>acks = 0 生产者无需等待服务器的响应，但消息丢失时不会知晓， = 1，只要集群的首领节点收到即可，= all需要所有参与复制的节点都受到消息才会受到服务器的响应，不建议</li>
-<li>buffer.memory设置producer内存缓冲区大小，</li>
-<li>compression.type设置消息的压缩格式，默认不会压缩</li>
-<li>retries重试次数</li>
-<li>batch.size 当多个消息被发送到同一个分区时，producer会把他们放在一起，当作一个批次，这个参数指定一个批次可以使用的最大内存</li>
-<li>max.in.flight.requests.per.connection 生产者在接收到服务器响应之前可以发送多少个消息，设置为 1 时可以保证消息是按照顺序写入的，适合在银行等严格要求顺序的时候使用</li>
-</ol>
-</li>
-<li>自定义分区：  <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DemoPartitionser</span> <span class="token keyword">implements</span> <span class="token class-name">Partitioner</span> <span class="token punctuation">{</span>
-
-    <span class="token keyword">private</span> <span class="token class-name">String</span> myKey<span class="token punctuation">;</span>
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">partition</span><span class="token punctuation">(</span><span class="token class-name">String</span> topic<span class="token punctuation">,</span> <span class="token class-name">Object</span> key<span class="token punctuation">,</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> keyBytes<span class="token punctuation">,</span> <span class="token class-name">Object</span> value<span class="token punctuation">,</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> valueBytes<span class="token punctuation">,</span> <span class="token class-name">Cluster</span> cluster<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment">// 获取分区列表</span>
-        <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">PartitionInfo</span><span class="token punctuation">&gt;</span></span> partitionInfos <span class="token operator">=</span> cluster<span class="token punctuation">.</span><span class="token function">partitionsForTopic</span><span class="token punctuation">(</span>topic<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment">// 获取分区数</span>
-        <span class="token keyword">int</span> partitionNum <span class="token operator">=</span> partitionInfos<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token punctuation">(</span>keyBytes <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token punctuation">(</span>key <span class="token keyword">instanceof</span> <span class="token class-name">String</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span><span class="token string">"key is null or not a string"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token comment">// 如果key为key，则分配到最后一个分区</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token string">"key"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-            <span class="token keyword">return</span> partitionNum<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token comment">//其余的消息都分配到最后一个分区</span>
-        <span class="token keyword">return</span> <span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token function">abs</span><span class="token punctuation">(</span>key<span class="token punctuation">.</span><span class="token function">hashCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">%</span> <span class="token punctuation">(</span>partitionNum <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-
-    <span class="token punctuation">}</span>
-
-    <span class="token comment">/*
-     * @description:
-     * @author bronya
-     * @date: 2024/4/20 14:50
-     * @param map
-     */</span>
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">configure</span><span class="token punctuation">(</span><span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token operator">?</span><span class="token punctuation">&gt;</span></span> map<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        myKey <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">)</span> map<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"key"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-</li>
-<li>consumer:<ul>
-<li>API:<ol>
-<li>consumer类的创建方式和producer一致，但是推荐指定 group.id来指定属于哪个群组，</li>
-<li>consumer.subscirbe()订阅相关的topic，同时支持正则表达式 <code>consumer.subscribe(Arrays.asList("topic1", "topic2"));</code></li>
-<li>consumer.poll(xxx) 参数是轮询的阻塞时间，会等待broker返回数据</li>
-<li>记得.close()</li>
-<li>建议一个线程中只有一个消费者</li>
-</ol>
-</li>
-<li>配置：<ul>
-<li>大部分和producer类似</li>
-<li>fetch.min.bytes消费者从服务器获取记录的最小字节数，当数据量大于等于这个值才会被返回给消费者</li>
-</ul>
-</li>
-<li>提交和偏移量：消费者往_consumer_offset特殊主题发送消息，消息包含每个分区的偏移量，当触发再均衡时，消费者会读取每个分区组后一次提交的偏移量，然后从偏移量指定的地方开始处理<ul>
-<li>提交方式：<ol>
-<li>自动提交:每隔一段时间自动提交一次</li>
-<li>提交当前偏移量:设置auto.commit.offset为false.然后使用commitSync()提交偏移量，会提交最新的一次由poll获得的偏移量</li>
-<li>异步提交：commitAsync()，也可使用回调函数来处理</li>
-<li>可以提交特定偏移量，而不是最后一次poll得到的偏移量</li>
-</ol>
-</li>
-</ul>
-</li>
-<li>通过实现 ConsumerRebalanceListener接口来定义在consumer失去对分区的所有权时需要处理的事件，可在这里使用.seek()方法加上自定义的函数来实现从数据库中获得偏移量</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
 <h1 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h1><p><a target="_blank" rel="noopener" href="https://javaguide.cn/high-performance/message-queue/rabbitmq-questions.html">常见问题</a></p>
 <h2 id="RabbitMQ主要架构"><a href="#RabbitMQ主要架构" class="headerlink" title="RabbitMQ主要架构"></a>RabbitMQ主要架构</h2><p><img src="/2024/04/07/hou-duan/mq/RabbitMQ%E6%9E%B6%E6%9E%84.png" class="lazyload" data-srcset="/2024/04/07/hou-duan/mq/RabbitMQ%E6%9E%B6%E6%9E%84.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="RabbitMQ架构"></p>
 <ul>
@@ -2839,10 +2752,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateModified" datetime="2024-07-19T16:44:13+08:00">
+          <div class="new-meta-item date" itemprop="dateModified" datetime="2024-09-03T14:58:41+08:00">
   <a class='notlink'>
     <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2024年7月19日</p>
+    <p>更新于：2024年9月3日</p>
   </a>
 </div>
 
@@ -2932,7 +2845,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         <a class='next' href='/2024/03/30/hou-duan/netty/'>
           <p class='title'>Netty<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></p>
           <p class='content'>I/O模型：
-阻塞I/O BIO：进程条用recvfrom系统调用时，内核开始准备数据，整个进程就会被阻塞，直到数据准备好为止。
+阻塞I/O BIO：进程调用recvfrom系统调用时，内核开始准备数据，整个进程就会被阻塞，直到数据准备好为止。
 非阻塞IO NIO：如果内核没有准备好，会立刻返回一个error...</p>
         </a>
       
@@ -2991,7 +2904,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E5%87%BA%E7%8E%B0%E5%A0%86%E7%A7%AF%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3"><span class="toc-text">生产者出现堆积如何解决</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E6%B6%88%E8%B4%B9%E8%BF%87%E7%A8%8B%E4%B8%AD%E5%A6%82%E6%9E%9C%E6%9C%8D%E5%8A%A1%E5%87%BA%E7%8E%B0%E5%BC%82%E5%B8%B8%EF%BC%8C%E5%A6%82%E4%BD%95%E6%81%A2%E5%A4%8D"><span class="toc-text">生产消费过程中如果服务出现异常，如何恢复</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AMQP%E5%8D%8F%E8%AE%AE"><span class="toc-text">AMQP协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RocketMQ"><span class="toc-text">RocketMQ</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kafka"><span class="toc-text">Kafka</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RabbitMQ%E4%B8%BB%E8%A6%81%E6%9E%B6%E6%9E%84"><span class="toc-text">RabbitMQ主要架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring%E4%B8%AD%E4%BD%BF%E7%94%A8"><span class="toc-text">Spring中使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#publisher"><span class="toc-text">publisher</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#consumer"><span class="toc-text">consumer</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%9A%84%E7%B1%BB%E5%9E%8B%EF%BC%9A"><span class="toc-text">交换机的类型：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Fanout"><span class="toc-text">Fanout</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Direct"><span class="toc-text">Direct</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Topic"><span class="toc-text">Topic</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E5%87%BA%E7%8E%B0%E5%A0%86%E7%A7%AF%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3"><span class="toc-text">生产者出现堆积如何解决</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E6%B6%88%E8%B4%B9%E8%BF%87%E7%A8%8B%E4%B8%AD%E5%A6%82%E6%9E%9C%E6%9C%8D%E5%8A%A1%E5%87%BA%E7%8E%B0%E5%BC%82%E5%B8%B8%EF%BC%8C%E5%A6%82%E4%BD%95%E6%81%A2%E5%A4%8D"><span class="toc-text">生产消费过程中如果服务出现异常，如何恢复</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AMQP%E5%8D%8F%E8%AE%AE"><span class="toc-text">AMQP协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RocketMQ"><span class="toc-text">RocketMQ</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RabbitMQ%E4%B8%BB%E8%A6%81%E6%9E%B6%E6%9E%84"><span class="toc-text">RabbitMQ主要架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring%E4%B8%AD%E4%BD%BF%E7%94%A8"><span class="toc-text">Spring中使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#publisher"><span class="toc-text">publisher</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#consumer"><span class="toc-text">consumer</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%9A%84%E7%B1%BB%E5%9E%8B%EF%BC%9A"><span class="toc-text">交换机的类型：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Fanout"><span class="toc-text">Fanout</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Direct"><span class="toc-text">Direct</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Topic"><span class="toc-text">Topic</span></a></li></ol></li></ol>
     </div>
   </section>
 
@@ -3561,7 +3474,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"QingQiu'Blog","url":"https://zuofw.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/","sameAs":["https://github.com/volantis-x"],"description":"个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://zuofw.github.io/","name":"QingQiu'Blog"}},{"@type":"ListItem","position":2,"item":{"@id":"https://zuofw.github.io/categories/分布式/","name":"分布式"}},{"@type":"ListItem","position":3,"item":{"@id":"https://zuofw.github.io/2024/04/07/hou-duan/mq/","name":"MQ"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"QingQiu'Blog","url":"https://zuofw.github.io/","keywords":"博客，学习，成长","description":"个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝","author":{"@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/","description":"个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝"},"publisher":{"@type":"Organization","name":"QingQiu'Blog","url":"https://zuofw.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://zuofw.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"MQ","description":"个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://zuofw.github.io/2024/04/07/hou-duan/mq/"},"author":{"@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/"},"publisher":{"@type":"Organization","name":"QingQiu'Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://zuofw.github.io/2024/04/07/hou-duan/mq/","wordCount":0,"datePublished":"2024-04-07T02:07:18.000Z","dateModified":"2024-07-19T08:44:13.751Z","articleSection":"分布式","keywords":"mq","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"QingQiu'Blog","url":"https://zuofw.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/","sameAs":["https://github.com/volantis-x"],"description":"个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://zuofw.github.io/","name":"QingQiu'Blog"}},{"@type":"ListItem","position":2,"item":{"@id":"https://zuofw.github.io/categories/分布式/","name":"分布式"}},{"@type":"ListItem","position":3,"item":{"@id":"https://zuofw.github.io/2024/04/07/hou-duan/mq/","name":"MQ"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"QingQiu'Blog","url":"https://zuofw.github.io/","keywords":"博客，学习，成长","description":"个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝","author":{"@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/","description":"个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝"},"publisher":{"@type":"Organization","name":"QingQiu'Blog","url":"https://zuofw.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://zuofw.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"MQ","description":"个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://zuofw.github.io/2024/04/07/hou-duan/mq/"},"author":{"@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/"},"publisher":{"@type":"Organization","name":"QingQiu'Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://zuofw.github.io/2024/04/07/hou-duan/mq/","wordCount":0,"datePublished":"2024-04-07T02:07:18.000Z","dateModified":"2024-09-03T06:58:41.966Z","articleSection":"分布式","keywords":"mq","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 

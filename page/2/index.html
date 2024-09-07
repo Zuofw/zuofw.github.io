@@ -1743,7 +1743,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1724929493729),
+    lastupdate: new Date(1725676480407),
     sidebar: {
       for_page: ["blogger","category","tagcloud","donate"],
       for_post: ["toc"],
@@ -2525,6 +2525,75 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         
           <div class='post-wrapper'>
             <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
+  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/05/13/hou-duan/duo-xian-cheng/">
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="QingQiu'Blog">
+  </span>
+  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
+    <meta itemprop="name" content="QingQiu'Blog">
+    <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
+  </span>
+  
+  
+  
+    <span hidden>
+      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+    </span>
+  
+  
+    
+    <h2 class="article-title"  itemprop="name headline">
+      <a href="/2024/05/13/hou-duan/duo-xian-cheng/"  itemprop="url">
+        多线程
+      </a>
+    </h2>
+  
+  <div class='md article-desc' itemprop="articleBody">
+    
+      
+        多线程基本概念
+CAS (Compare-And-Swap，比较并交换)，是一种用于实现多线程同步的原子操作。主要原理：1.比较内存中的某个位置的当前值和预期值 2.交换如果当前值与预期值相等，则将该位置的值更新为新值，否则不进行任何操作。
+因为是原子操作所以在多线程中很高效。可以实现无锁编程，避免了上下文切换的开销。
+缺点是如果CAS操作失败后，通常会进行自旋，消耗CPU资源。
+
+
+自旋：...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+        <time itemprop="dateCreated datePublished" datetime="2024-05-13T18:05:08+08:00">2024-05-13</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/%E5%B9%B6%E5%8F%91/">并发</a>
+          
+            <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
+              <a href="/categories/%E5%B9%B6%E5%8F%91/" itemprop="url"><span itemprop="name">并发</span></a>
+            </span>
+          
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2024/05/13/hou-duan/duo-xian-cheng/' itemprop="url">
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
   <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/05/13/hou-duan/spring-xun-huan-yi-lai-hui-chu-xian-shi-me-qing-kuang-ru-he-jie-jue/">
   <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
     <meta itemprop="name" content="QingQiu'Blog">
@@ -2948,7 +3017,7 @@ mongodb和mysql和redis
     
       
         I/O模型：
-阻塞I/O BIO：进程条用recvfrom系统调用时，内核开始准备数据，整个进程就会被阻塞，直到数据准备好为止。
+阻塞I/O BIO：进程调用recvfrom系统调用时，内核开始准备数据，整个进程就会被阻塞，直到数据准备好为止。
 非阻塞IO NIO：如果内核没有准备好，会立刻返回一个error，进程接受之后可以再次发送操作，直到数据准备好，区别在于，系统调用之后会立刻返回不会等待内核的准备。程序需要不断轮询，仍然没有释放CPU资源
 多路复用I/O：多个进程的I/O可以注册到一个复用器上(S...
       
@@ -3196,72 +3265,6 @@ AuthenticationProvider是AuthenticationManager的一个组成部分，它负责�
       
         <div>
           <a class='readmore' href='/2024/03/06/xiang-mu-jian-li-shi-xi/6-s081/' itemprop="url">
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/03/06/408/os/">
-  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="QingQiu'Blog">
-  </span>
-  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
-    <meta itemprop="name" content="QingQiu'Blog">
-    <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
-  </span>
-  
-  
-  
-    <span hidden>
-      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
-    </span>
-  
-  
-    
-    <h2 class="article-title"  itemprop="name headline">
-      <a href="/2024/03/06/408/os/"  itemprop="url">
-        os
-      </a>
-    </h2>
-  
-  <div class='md article-desc' itemprop="articleBody">
-    
-      
-        OS面试常问编码问题ASCII码规定了128个字符的编码Unicode 是⼀个很⼤的集合，将世界上所有的符号都纳⼊其中，每⼀个符号都给予⼀个独⼀⽆⼆的编码。可以容纳100多万个符号；但是存储⽅式不确定，还可能浪费字节空间
-Unicode 是⼀个很⼤的集合，将世界上所有的符号都纳⼊其中，每⼀个符号都给予⼀个独⼀⽆⼆的编
-码。可以容纳100多万个符号；但是存储⽅式不确定，还可能浪费字节空间
-ut...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time itemprop="dateCreated datePublished" datetime="2024-03-06T14:14:38+08:00">2024-03-06</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a>
-          
-            <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
-              <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" itemprop="url"><span itemprop="name">计算机基础</span></a>
-            </span>
-          
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2024/03/06/408/os/' itemprop="url">
             阅读全文
           </a>
         </div>
