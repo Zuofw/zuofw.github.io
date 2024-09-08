@@ -1743,7 +1743,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1725717405522),
+    lastupdate: new Date(1725782726386),
     sidebar: {
       for_page: ["blogger","category","tagcloud","donate"],
       for_post: ["toc"],
@@ -3138,9 +3138,9 @@ mongodb和mysql和redis
     
       
         I/O模型：
-阻塞I/O BIO：进程调用recvfrom系统调用时，内核开始准备数据，整个进程就会被阻塞，直到数据准备好为止。
-非阻塞IO NIO：如果内核没有准备好，会立刻返回一个error，进程接受之后可以再次发送操作，直到数据准备好，区别在于，系统调用之后会立刻返回不会等待内核的准备。程序需要不断轮询，仍然没有释放CPU资源
-多路复用I/O：多个进程的I/O可以注册到一个复用器上(S...
+阻塞I/O BIO：程序向内核发起I/O调用，发起调用的线程就一直等待内核返回结果。如果使用BIO实现异步，只能使用多线程模型，会导致增加线程切换的开销。
+同步非阻塞IO NIO：应用程序通过轮询的方式获取请求结果。
+多路复用I/O：多个进程的I/O可以注册到一个复用器上(Selector)，如果Selector监听的所有的I/O内核缓冲区都没有可读数据，select调用会被阻...
       
     
   </div>

@@ -3618,8 +3618,8 @@ text 在jsp页面和文档中使用写入文本的模板<span aria-hidden="true"
     <title>Netty</title>
     <url>/2024/03/30/hou-duan/netty/</url>
     <content><![CDATA[<h1 id="I-x2F-O模型："><a href="#I-x2F-O模型：" class="headerlink" title="I/O模型："></a>I/O模型：</h1><ol>
-<li>阻塞I/O BIO：进程调用recvfrom系统调用时，内核开始准备数据，整个进程就会被阻塞，直到数据准备好为止。</li>
-<li>非阻塞IO NIO：如果内核没有准备好，会立刻返回一个error，进程接受之后可以再次发送操作，直到数据准备好，区别在于，系统调用之后会立刻返回不会等待内核的准备。程序需要不断轮询，仍然没有释放CPU资源</li>
+<li>阻塞I/O BIO：程序向内核发起I/O调用，发起调用的线程就一直等待内核返回结果。如果使用BIO实现异步，只能使用多线程模型，会导致增加线程切换的开销。</li>
+<li>同步非阻塞IO NIO：应用程序通过轮询的方式获取请求结果。</li>
 <li>多路复用I/O：多个进程的I/O可以注册到一个复用器上(Selector)，如果Selector监听的所有的I/O内核缓冲区都没有可读数据，select调用会被阻塞，直到任意I/O在内核缓冲区中有刻度数据时，会立刻返回。并通知其他进程再次发起I/O，也就是使用一个线程监控多个IO操作</li>
 <li>信号驱动I/O：进程预先告知内核，向内核注册一个信号处理函数，之后进程返回不阻塞，进程通过信号处理函数继续调用I/O读取数据。IO操作就绪后，操作系统会发送信号通知应用程序。</li>
 <li>异步I/O AIO：应用程序发起IO操作之后，立刻返回，操作系统在IO操作执行后，会通知应用程序，应用程序无需轮询IO状态。</li>
@@ -3627,6 +3627,24 @@ text 在jsp页面和文档中使用写入文本的模板<span aria-hidden="true"
 <ul>
 <li>BIO和NIO的区别: <img src="/2024/03/30/hou-duan/netty/BIOandNIO.png" class="lazyload" data-srcset="/2024/03/30/hou-duan/netty/BIOandNIO.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
 <li>AIO-&gt;异步I/O</li>
+</ul>
+<h2 id="Reactor-模型"><a href="#Reactor-模型" class="headerlink" title="Reactor 模型"></a>Reactor 模型</h2><blockquote>
+<p>是一种处理并发I/O操作的设计模式。核心思想是通过实践多路复用机制来管理多个I/O事件。<br>主要的组件：1. 事件多路分发器(负责监听多个I/O事件，将这些事件分发给相应的事件处理器)<br>2.事件处理器 3.事件分发器：将事件从多路分发器中分发到响应的处理器。</p>
+</blockquote>
+<h2 id="select、poll、epoll的区别"><a href="#select、poll、epoll的区别" class="headerlink" title="select、poll、epoll的区别"></a>select、poll、epoll的区别</h2><ol>
+<li>select：将已连接的Socket都放在一个文件描述符集合中，然后调用select函数将文件描述集合拷贝到内核中，让内核来检查是否有网络事件发生，检查方式就是遍历文件描述符集合。</li>
+<li>poll：与select区别是，不再使用BitMap来存储文件描述符，突破了个数上限</li>
+<li>epoll：内核使用红黑树来关注待检测的Socket高效，使用事件驱动，内核维护了一个链表来记录就绪事件，只会将事件发生的Socket集合传递给应用程序吗，而不是轮询整个集合</li>
+</ol>
+<h2 id="零拷贝"><a href="#零拷贝" class="headerlink" title="零拷贝"></a>零拷贝</h2><blockquote>
+<p>数据从读取到内核缓冲区，然后直接由内核缓冲区发送到网络。而不是拷贝到用户缓冲区域再拷贝到内核缓冲区进行发送。</p>
+</blockquote>
+<h3 id="Netty零拷贝实现"><a href="#Netty零拷贝实现" class="headerlink" title="Netty零拷贝实现"></a>Netty零拷贝实现</h3><ul>
+<li>使用堆外内存，避免JVM堆内存到堆外内存的数据拷贝</li>
+<li>CompositeByteBuf 类，可以组合多个 Buffer 对象合并成一个逻辑上的对象，避免通过传统内存拷贝的方式将几个 Buffer 合并成一个大的 Buffer。</li>
+<li>通过 Unpooled.wrappedBuffer 可以将 byte 数组包装成 ByteBuf 对象，包装过程中不会产生内存拷贝。</li>
+<li>ByteBuf.slice ，slice 操作可以将一个 ByteBuf 对象切分成多个 ByteBuf 对象，切分过程中不会产生内存拷贝，底层共享一个 byte 数组的存储空间。</li>
+<li>Netty 使用 封装了transferTo() 方法 FileRegion，可以将文件缓冲区的数据直接传输到目标 Channel，避免内核缓冲区和用户态缓冲区之间的数据拷贝</li>
 </ul>
 <h2 id="Java中的IO模型"><a href="#Java中的IO模型" class="headerlink" title="Java中的IO模型"></a>Java中的IO模型</h2><ol>
 <li>BIO java.io是BIO</li>
@@ -3638,41 +3656,31 @@ text 在jsp页面和文档中使用写入文本的模板<span aria-hidden="true"
 <li>Selector</li>
 <li>Bootstrap</li>
 </ol>
-<ul>
-<li>主要构建块：<ul>
-<li>Channel：管道，数据通信的载体，可以被打开，关闭，连接或断开 -&gt;<strong>Socket</strong> 是一个Socket的抽象，提供关于Socket的信息</li>
-<li>回调: 一个方法，可以在适当的时候通知调用这个方法的方法 </li>
-<li>Future：是一个对象，可以看作是一个异步操作的返回值的占位符。-&gt;<strong>异步通知</strong></li>
-<li>事件和ChannelHandler ：</li>
-<li>EventLoop -&gt; 控制流多线程处理，并发</li>
+<h3 id="逻辑架构"><a href="#逻辑架构" class="headerlink" title="逻辑架构"></a>逻辑架构</h3><p><img src="/2024/03/30/hou-duan/netty/Netty%E6%95%B4%E4%BD%93%E9%80%BB%E8%BE%91.png" class="lazyload" data-srcset="/2024/03/30/hou-duan/netty/Netty%E6%95%B4%E4%BD%93%E9%80%BB%E8%BE%91.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+<ol>
+<li>网络通信层：支持多种网络协议，当网络数据读取到内核缓冲区后，会触发各种网络事件，会分发给事件调度层进行处理。核心是<ul>
+<li>BootStrap，负责Netty客户端的启动、初始化、服务器连接等过程</li>
+<li>ServerBootStrap：用于服务端绑定本地端端口，会绑定Boss和Worker两个EventLoopGroup</li>
+<li>Channle 通道，基于NIO更高层次的抽象吗</li>
 </ul>
 </li>
-<li>选择器、事件、EventLoop Netty通过触发事件，将Selector抽象出来，为每个Channel分配一个EventLoop，来处理所有的事件。</li>
-</ul>
-<ol start="4">
-<li>具体的一些api<ul>
-<li>ChannerlHandler：继承 ChannelInboundHandlerAdapter<ul>
-<li>channelRead()—对于每个传入的消息都要调用；</li>
-<li>hannelReadComplete()—通知ChannelInboundHandler最后一次对channelRead()的调用是当前批量读取中的最后一条消息；</li>
-<li>exceptionCaught()—在读取操作期间，有异常抛出时会调用</li>
+<li>事件调度层：通过Reactor线程模型对各种事件进行聚合处理。通过Selector主循环线程继承u洞中时间，实际业务处理逻辑是交由服务编排曾中的Handler解决的。<ul>
+<li>EventLoopGroup（核心）：本质是一个<strong>线程池</strong>，主要负责接收I/O请求，并分配线程执行处理请求。通过创建不同的EventLoopGroup参数可以支持Reactor三种线程模型：<ul>
+<li>单线程模型：Group中只包含一个EventLoop，Boss和Worker使用同一个Group</li>
+<li>多线程：多个EventLoop，B和W使用同一个</li>
+<li>主从多线程：多个EventLoop，B和W使用不同的Group</li>
 </ul>
 </li>
-<li>bootstrapy用于加载启动项， 用于客户端，serverbootstrapy用于服务端。 主要设置EventLoopGroup，设置channel类型，以及地址和端设置handler来来处理I/O事件，也提供connet来连接，总之就是一个启动类，Netty中用来包装异步请求和返回事件处理的一个类</li>
-<li>服务端一般有两个线程，每次处理事件都是使用一个新的线程来处理，这个线程由EventLoopGroup来处理</li>
-<li>EventLoop是Netty中的一个核心组件，它负责处理与Channel相关的所有I/O操作。在Netty中，所有的I/O操作都是异步的，这意味着任何I/O调用都将立即返回，而不必等待结果。当一个I/O操作完成时，Netty将会通知相应的EventLoop，然后EventLoop将会通知所有对该操作结果感兴趣的ChannelHandler。</li>
-<li>EventLoopGroup是用来处理多个EventLoop</li>
+<li>EventLoop负责处理Channel生命周期中所有的I/O事件，一个EventLoopGroup包含一个或者多个EventLoop，一个EventLoop同一时间只会绑定一个Channel，Channel生命周期内可以和多个EventLoop进行多次绑定和解绑<img src="/2024/03/30/hou-duan/netty/EventLoop.png" class="lazyload" data-srcset="/2024/03/30/hou-duan/netty/EventLoop.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+</ul>
+</li>
+<li>服务编排层：负责组装各种服务，是核心处理链。<ul>
+<li>ChannelPipeline核心编排组件，负责组装各种ChannelHandler，I/O读写触发时，会依次调用Handler进行拦截和处理。</li>
+<li>ChannelHandler完成具体的树decode和encode工作和处理公国。</li>
+<li>ChannelHandlerContext：用于保存上下文，通过HandlerContext可以知道Pipeline和Handler的关联关系，包含Handler生命周期的所有事件。</li>
 </ul>
 </li>
 </ol>
-<ul>
-<li>EventLoop接口:运行任务来处理在连接的生命周期内发生的事件是任何网络框架的基本功能。与之相应的编程上的构造通常被称为事件循环<ul>
-<li><img src="/2024/03/30/hou-duan/netty/EventLoop%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB.png" class="lazyload" data-srcset="/2024/03/30/hou-duan/netty/EventLoop%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
-<li>特点 <img src="/2024/03/30/hou-duan/netty/EventLoop%E7%89%B9%E7%82%B9.png" class="lazyload" data-srcset="/2024/03/30/hou-duan/netty/EventLoop%E7%89%B9%E7%82%B9.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
-<li>当Channel被分配给EventLoop，它将在这个EventLoop中完成整个生命周期，所有在相同EventLoop中的Channel共享这一个EventLoop和对应的线程</li>
-<li><img src="/2024/03/30/hou-duan/netty/%E7%9B%B8%E4%BA%92%E5%85%BC%E5%AE%B9%E7%9A%84NIO%E5%92%8COIO.png" class="lazyload" data-srcset="/2024/03/30/hou-duan/netty/%E7%9B%B8%E4%BA%92%E5%85%BC%E5%AE%B9%E7%9A%84NIO%E5%92%8COIO.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
-</ul>
-</li>
-</ul>
 <h1 id="Bootstrap"><a href="#Bootstrap" class="headerlink" title="Bootstrap"></a>Bootstrap</h1><blockquote>
 <p>Netty客户端的启动</p>
 </blockquote>
@@ -3761,7 +3769,14 @@ text 在jsp页面和文档中使用写入文本的模板<span aria-hidden="true"
 <li>解码器：ByteToMessageDecoder 编码器：MessageToByteEncoder实际上这两个实现了Handler</li>
 <li>协议的支持，自己去看数，Netty实战</li>
 </ul>
-<h2 id="Selector"><a href="#Selector" class="headerlink" title="Selector"></a>Selector</h2>]]></content>
+<h2 id="Selector"><a href="#Selector" class="headerlink" title="Selector"></a>Selector</h2><h1 id="Netty实现的一些有特色"><a href="#Netty实现的一些有特色" class="headerlink" title="Netty实现的一些有特色"></a>Netty实现的一些有特色</h1><h2 id="FastThreadLocal"><a href="#FastThreadLocal" class="headerlink" title="FastThreadLocal"></a>FastThreadLocal</h2><p>使用Object数组替代Entry数据，<code>Object[0]</code>存储的是一个<code>Set&lt;FastThreadLocal&lt;?&gt;&gt;</code>集合，1以后都是存value的数据，而不是使用键值对的方式实现。<br>set方法：</p>
+<ol>
+<li>找到index位置，设置新的value</li>
+<li>将<strong>FastThreadLocal对象保存到待清理的Set中</strong><br>优点：</li>
+<li>高效查找：可以直接通过数组下标获取，而且扩容不需要进行rehash</li>
+<li>安全性更高：ThreadLocal有可能会造成内存泄漏，只能等待线程销毁，但是的线程池下只能主动检测，而FastThreadLocal则封装了FastThreadLocalRunnable，任务执行完成之后一定会执行<code>FastThreadLocal.removeAll()</code>，从而将Set中所有的对象都销毁。</li>
+</ol>
+]]></content>
   </entry>
   <entry>
     <title>RPC</title>
