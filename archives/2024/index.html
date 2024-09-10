@@ -1743,7 +1743,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1725782895316),
+    lastupdate: new Date(1725954266420),
     sidebar: {
       for_page: ["blogger","category","tagcloud","donate"],
       for_post: ["toc"],
@@ -2550,6 +2550,68 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         
           <div class='post-wrapper'>
             <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
+  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/09/09/mian-jing/mei-tuan-ce-kai-yi-mian/">
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="QingQiu'Blog">
+  </span>
+  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
+    <meta itemprop="name" content="QingQiu'Blog">
+    <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
+  </span>
+  
+  
+  
+    <span hidden>
+      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+    </span>
+  
+  
+    
+    <h2 class="article-title"  itemprop="name headline">
+      <a href="/2024/09/09/mian-jing/mei-tuan-ce-kai-yi-mian/"  itemprop="url">
+        美团测开一面
+      </a>
+    </h2>
+  
+  <div class='md article-desc' itemprop="articleBody">
+    
+      
+        美团一进宫许愿oc，好想当团孝子😭
+基本流程
+自我介绍
+介绍实习项目
+[[美团测开一面#美团一进宫#多态有哪些|如何理解封装继承和多态(多态记得不牢)]]
+子类可以继承父类的方法吗？(看关键字，可以继承public和protected方法，默认访问权限的话如果在一个包内可以继承，private不可继承)
+常见的集合(List，Set，Map，Queue，Stack)
+[[美团测开一面#美团...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+        <time itemprop="dateCreated datePublished" datetime="2024-09-09T21:33:30+08:00">2024-09-09</time>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2024/09/09/mian-jing/mei-tuan-ce-kai-yi-mian/' itemprop="url">
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
   <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/09/03/hou-duan/shen-ru-qian-chu-kafka/">
   <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
     <meta itemprop="name" content="QingQiu'Blog">
@@ -2576,14 +2638,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class='md article-desc' itemprop="articleBody">
     
       
-        Kafka常见问题
-Java API
-一个独立的Kafka服务器被称作broker,broker是集群的组成部分，每个集群都有一个broker同时充当了集群控制器的角色
-kafka的主题被分为多个分区，分区存储在磁盘中
-kafka的消息特点：消息会保留一段时间，即使应用程序下线，消息仍然会保存在kafka里，是基于磁盘的数据存储。
-API使用：
-producer
-record的参数，topi...
+        Kafka常见问题## Java API- 一个独立的Kafka服务器被称作broker,broker是集群的组成部分，每个集群都有一个broker同时充当了集群控制器的角色- kafka的主题被分为多个分区，分区存储在磁盘中- kafka的消息特点：消息会保留一段时间，即使应用程序下线，消息仍然会保存在kafka里，是基于磁盘的数据存储。- API使用：    - producer    ...
       
     
   </div>
@@ -2829,13 +2884,15 @@ git后悔药
     
       
         面试常问[黑马JVM面试](‌⁠​​‍​‍﻿​﻿‌​​​​​⁠​‌﻿​‌‌​‍​​​﻿​​⁠​‬‍​﻿​﻿​​‍​‍​​‌‌​‬面试篇 - 飞书云文档 (feishu.cn))
+new的过程/创建对象的步骤
+类加载检查，先去检查是否能在常量池中定位到这个类的符号引用来判断是否已经创建了
+分配内存(指针碰撞，空闲列表)
+初始化零值
+设置对象头：
+执行init方法
+
 静态变量存储在哪里呢？
-JDK6及之前的版本中，静态变量是存放在方法区中的，也就是永久代。
-JDK7及之后的版本中，静态变量是存放在堆中的Class对象中，脱离了永久代。
-
-组成
-
-编译器：不属于Java虚拟机的一部...
+JD...
       
     
   </div>
@@ -3100,72 +3157,6 @@ ZooKeeper是什么ZooKeeper是一个开源的分布式协调服务，设计目�
       
         <div>
           <a class='readmore' href='/2024/06/13/ruan-jian-gong-cheng/' itemprop="url">
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/06/07/mian-shi-ji-lu/">
-  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="QingQiu'Blog">
-  </span>
-  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
-    <meta itemprop="name" content="QingQiu'Blog">
-    <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
-  </span>
-  
-  
-  
-    <span hidden>
-      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
-    </span>
-  
-  
-    
-    <h2 class="article-title"  itemprop="name headline">
-      <a href="/2024/06/07/mian-shi-ji-lu/"  itemprop="url">
-        面试记录
-      </a>
-    </h2>
-  
-  <div class='md article-desc' itemprop="articleBody">
-    
-      
-        DevOps
-2024-05-11 同余信科一面（二面已过，但是不要26届的）项目中承担的开发工作写过哪些模块Redis集群Java的常用集合用过哪些
-ArrayList
-LinkedList
-HashSet
-TreeSet
-HashMap
-
-Stream流HashMap的扩容机制
-当超过最大长度的0.75的时候开始扩容
-创建新的哈希表，容量为原来的两倍
-重新哈希：遍历旧的哈希表，将每个元素...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time itemprop="dateCreated datePublished" datetime="2024-06-07T16:52:17+08:00">2024-06-07</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2024/06/07/mian-shi-ji-lu/' itemprop="url">
             阅读全文
           </a>
         </div>
