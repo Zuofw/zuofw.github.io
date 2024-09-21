@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <!-- SEO相关 -->
   
-  <link rel="canonical" href="https://zuofw.github.io/2024/04/14/xiang-mu-jian-li-shi-xi/blog-da-jian-da-bing/"/>
+  <link rel="canonical" href="https://zuofw.github.io/2024/09/14/408/shen-ru-qian-chu-mysql/"/>
   <!-- 渲染优化 -->
     <meta http-equiv='x-dns-prefetch-control' content='on' />
       <link rel='dns-prefetch' href='https://unpkg.com'>
@@ -33,19 +33,19 @@
 
   <!-- feed -->
   <!-- 页面元数据 -->
-  <title>blog搭建 - QingQiu'Blog</title>
+  <title>深入浅出MySQL - QingQiu'Blog</title>
   <meta name="keywords" content="博客，学习，成长">
   <meta desc name="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝 - QingQiu - QingQiu'Blog">
   
 <meta property="og:type" content="article">
-<meta property="og:title" content="blog搭建">
-<meta property="og:url" content="https://zuofw.github.io/2024/04/14/xiang-mu-jian-li-shi-xi/blog-da-jian-da-bing/index.html">
+<meta property="og:title" content="深入浅出MySQL">
+<meta property="og:url" content="https://zuofw.github.io/2024/09/14/408/shen-ru-qian-chu-mysql/index.html">
 <meta property="og:site_name" content="QingQiu&#39;Blog">
-<meta property="og:description" content="目前的想法：  静态解析 + 动态评论 mongodb作为文章的存储，mysql来存储评论信息 两种都做，由命令来指定使用哪种基本的技术栈：暂定 ElasticSearch 作为文章搜索的索引 vue来做前端，尽量少使用element组件 mongodb和mysql和redis 认证使用springsecurity，然后尽量自己写这次 可以加一个实时聊天系统，试试websocket 账号管理和权限">
+<meta property="og:description" content="深入浅出MySQL存储引擎对于不同的表可以设置不同的存储引擎 CREATE TABLE tableName ( 	xxxx ) ENGINE &#x3D; 引擎名称; # 修改 ALTER TABLE tableName ENGINE &#x3D; xxx; 编码格式mysql中的utf8默认的是使用的自定义的1~3字节表示的uft8mb3，对于一些特殊的字符，比如emoji，需要我们指定为utf8mb4才能够存储。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
-<meta property="article:published_time" content="2024-04-14T08:01:18.000Z">
-<meta property="article:modified_time" content="2024-04-14T08:12:13.265Z">
+<meta property="article:published_time" content="2024-09-14T14:21:10.000Z">
+<meta property="article:modified_time" content="2024-09-20T08:08:03.000Z">
 <meta property="article:author" content="QingQiu">
 <meta property="article:tag" content="博客，学习，成长">
 <meta name="twitter:card" content="summary">
@@ -1745,7 +1745,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1725954266420),
+    lastupdate: new Date(1726890534533),
     sidebar: {
       for_page: ["blogger","category","tagcloud","donate"],
       for_post: ["toc"],
@@ -2520,7 +2520,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
 <div id="l_main" class=''>
   <article itemscope itemtype="http://schema.org/Article" class="article post white-box reveal md shadow floatable blur article-type-post" id="post" itemscope itemprop="blogPost">
-  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/04/14/xiang-mu-jian-li-shi-xi/blog-da-jian-da-bing/">
+  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/09/14/408/shen-ru-qian-chu-mysql/">
   <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
     <meta itemprop="name" content="QingQiu'Blog">
   </span>
@@ -2541,7 +2541,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
     
       <h1 class="title" itemprop="name headline">
-        blog搭建
+        深入浅出MySQL
       </h1>
       <div class='new-meta-box'>
         
@@ -2562,10 +2562,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
         
           
-            <div class="new-meta-item date" itemprop="dateCreated datePublished" datetime="2024-04-14T16:01:18+08:00">
+            <div class="new-meta-item date" itemprop="dateCreated datePublished" datetime="2024-09-14T22:21:10+08:00">
   <a class='notlink'>
     <i class="fa-solid fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：2024年4月14日</p>
+    <p>发布于：2024年9月14日</p>
   </a>
 </div>
 
@@ -2588,21 +2588,92 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   <div id="layoutHelper-page-plugins"></div>
   <div id="post-body" itemprop="articleBody">
-    <p>目前的想法：</p>
-<ol>
-<li>静态解析 + 动态评论</li>
-<li>mongodb作为文章的存储，mysql来存储评论信息</li>
-<li>两种都做，由命令来指定使用哪种<br>基本的技术栈：暂定</li>
-<li>ElasticSearch 作为文章搜索的索引</li>
-<li>vue来做前端，尽量少使用element组件</li>
-<li>mongodb和mysql和redis</li>
-<li>认证使用springsecurity，然后尽量自己写这次</li>
-<li>可以加一个实时聊天系统，试试websocket</li>
-<li>账号管理和权限管理</li>
-<li>后端可以使用分布式，然后使用消息队列来进行通信</li>
-<li></li>
+    <h1 id="深入浅出MySQL"><a href="#深入浅出MySQL" class="headerlink" title="深入浅出MySQL"></a>深入浅出MySQL</h1><h2 id="存储引擎"><a href="#存储引擎" class="headerlink" title="存储引擎"></a>存储引擎</h2><p>对于不同的表可以设置不同的存储引擎</p>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">CREATE TABLE tableName (
+	xxxx
+) ENGINE = 引擎名称;
+# 修改
+ALTER TABLE tableName ENGINE = xxx;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="编码格式"><a href="#编码格式" class="headerlink" title="编码格式"></a>编码格式</h3><p>mysql中的utf8默认的是使用的自定义的1~3字节表示的uft8mb3，对于一些特殊的字符，比如emoji，需要我们指定为utf8mb4才能够存储。</p>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">CREATE / ALTER DATABASE 数据库名
+ CHARACTER SET 字符集名称
+ COLLATE 比较规则名称
+# 或者对于表来修改
+	CREATE TABLE tableName(
+	)
+	CHARACTER SET 字符集
+	COLLATE 比较规则
+ALTER tableName CHARACTER SET 字符集名称
+## 或者对于某一列
+CREATE TABLE 表名(
+列名 字符串类型 [CHARACTER SET 字符集名称] [COLLATE 比较规则名称],
+其他列...
+);
+ALTER TABLE 表名 MODIFY 列名 字符串类型 [CHARACTER SET 字符集名称] [COLLATE 比较规则名称];<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="InnoDB"><a href="#InnoDB" class="headerlink" title="InnoDB"></a>InnoDB</h2><h2 id="物理存储结构"><a href="#物理存储结构" class="headerlink" title="物理存储结构"></a>物理存储结构</h2><ol>
+<li>页<br>将数据划分为页，以页为单位作为磁盘和内存交互的单位，默认页大小为16KB</li>
+<li>行结构<br>记录的单位是行。</li>
 </ol>
-
+<h3 id="行格式"><a href="#行格式" class="headerlink" title="行格式"></a>行格式</h3><p>行/记录格式有很多，可以在建表的时候指定行格式</p>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">CREATE TABLE tableName(
+xxxx;
+) ROW_FORMAT=COMPACT;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<ol>
+<li>COMPACT格式 （重点，最常用）<br><img src="/2024/09/14/408/shen-ru-qian-chu-mysql/Compact.png" class="lazyload" data-srcset="/2024/09/14/408/shen-ru-qian-chu-mysql/Compact.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+</ol>
+<ul>
+<li>变长字段长度列表，<strong>只会存放变长字段的长度</strong><br>支持VARCHAR等变成字段类型的，结构</li>
+</ul>
+<ol>
+<li>真正的数据内容</li>
+<li>占用的字节数<br>所有变长字段的真实占用长度，按照列顺序的<strong>逆序</strong>来进行存放。<br>这个长度占用的字节数：<br>如果可变字段允许的最大字节数超过255字节，并且真实存储的字节数超过127字节，就使用两个字节来表示这个长度，否则使用一个字节来表示。</li>
+</ol>
+<ul>
+<li>NULL值列表<br>Compact将列中的NULL值统一进行管理。而不是放在真实数据里面，从而减少存储占用<br>进行的流程：</li>
+</ul>
+<ol>
+<li>统计允许存储NULL值的列有哪些，如果不存在，NULL值列表就不存在了</li>
+<li>表示形式：使用1表示为NULL值，0表示不为NULL，按照<strong>逆序</strong>排序。</li>
+<li>要求NULL值列表必须使用整个字节的位来表示，如果不足位数，就在最前面补0<img src="/2024/09/14/408/shen-ru-qian-chu-mysql/NULL%E5%80%BC%E8%A1%A8%E7%A4%BA.png" class="lazyload" data-srcset="/2024/09/14/408/shen-ru-qian-chu-mysql/NULL%E5%80%BC%E8%A1%A8%E7%A4%BA.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+</ol>
+<ul>
+<li><p>记录头信息<img src="/2024/09/14/408/shen-ru-qian-chu-mysql/%E8%AE%B0%E5%BD%95%E5%A4%B4%E4%BF%A1%E6%81%AF.png" class="lazyload" data-srcset="/2024/09/14/408/shen-ru-qian-chu-mysql/%E8%AE%B0%E5%BD%95%E5%A4%B4%E4%BF%A1%E6%81%AF.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+</li>
+<li><p>记录的真实数据</p>
+<blockquote>
+<p>记录的真实数据除了会有我们定义的数据，还会有MySQL为每一条记录添加的一些隐藏列<img src="/2024/09/14/408/shen-ru-qian-chu-mysql/%E9%9A%90%E8%97%8F%E5%88%97.png" class="lazyload" data-srcset="/2024/09/14/408/shen-ru-qian-chu-mysql/%E9%9A%90%E8%97%8F%E5%88%97.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+<ol>
+<li>row_id 行id，唯一标识一条记录</li>
+<li>transaction_id 事务ID，MVCC中会使用</li>
+<li>roll_pointer 回滚指针，事务回滚会用到，undo_log相关</li>
+</ol>
+</blockquote>
+</li>
+<li><p>主键选取：<br>优先使用用户定义的主键，如果没设置就选择一个Unique的键作为主键，如果不存在这种，就生成一个隐藏的row_id作为主键，所以 row_id不是 <strong>必须的</strong></p>
+</li>
+</ul>
+<p>#todo </p>
+<ul>
+<li><input disabled="" type="checkbox"> 重点，可以加一个书签<br>对于CHAR(M)，MySQL会为分配大于这个值的空间，并且要求至少占用M个字节，即使存的是一个空字符串也会占用M个字节，而VARCHAR(M)没有这个要求。<br>目的是：如果后续更新CHAR(M)的大小，就无需分配一个额外的记录空间，直接在原记录上进行更新即可。就不会造成碎片空间。</li>
+<li>Redundant行格式(老东西，不常用了)</li>
+</ul>
+<h4 id="溢出数据存储"><a href="#溢出数据存储" class="headerlink" title="溢出数据存储"></a>溢出数据存储</h4><p>可变数据类型需要占用3部分的存储空间：</p>
+<ol>
+<li>真实数据</li>
+<li>真实数据占用字节的长度</li>
+<li>NULL值标识，如果该列有NOT NULL属性则可以没有这部分存储空间<br>如果要存储的列非常大 ，只会保存实际真实数据的一部分，把剩余的数据分散在几个其他页中。</li>
+</ol>
+<h2 id="数据页-重点，重中之重"><a href="#数据页-重点，重中之重" class="headerlink" title="数据页(重点，重中之重)"></a>数据页(重点，重中之重)</h2><p><img src="/2024/09/14/408/shen-ru-qian-chu-mysql/InnoDB%E6%95%B0%E6%8D%AE%E9%A1%B5.png" class="lazyload" data-srcset="/2024/09/14/408/shen-ru-qian-chu-mysql/InnoDB%E6%95%B0%E6%8D%AE%E9%A1%B5.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br>大小16KB</p>
+<ul>
+<li>File Header 文件头部，记录页的一些通用信息</li>
+<li>Page Header 页面头部，数据页专有</li>
+<li>Infimum + Supremum 最小记录和最大记录， 虚拟行记录</li>
+<li>User Records 用户记录  实际存储的行记录内容，一开始没有，每次从Free Space中分配空间</li>
+<li>Free Space 空闲空间 页中未使用的空间</li>
+<li>PageDirectory 页面目录  页中某些记录的相对位置</li>
+<li>File Trailer 文件尾部   检验页是否完整</li>
+</ul>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3>
   </div>
   
   
@@ -2626,10 +2697,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateModified" datetime="2024-04-14T16:12:13+08:00">
+          <div class="new-meta-item date" itemprop="dateModified" datetime="2024-09-20T16:08:03+08:00">
   <a class='notlink'>
     <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2024年4月14日</p>
+    <p>更新于：2024年9月20日</p>
   </a>
 </div>
 
@@ -2648,7 +2719,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://zuofw.github.io/2024/04/14/xiang-mu-jian-li-shi-xi/blog-da-jian-da-bing/&title=blog搭建 - QingQiu'Blog&summary="
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://zuofw.github.io/2024/09/14/408/shen-ru-qian-chu-mysql/&title=深入浅出MySQL - QingQiu'Blog&summary="
           
           >
           
@@ -2660,7 +2731,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://zuofw.github.io/2024/04/14/xiang-mu-jian-li-shi-xi/blog-da-jian-da-bing/&title=blog搭建 - QingQiu'Blog&summary="
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://zuofw.github.io/2024/09/14/408/shen-ru-qian-chu-mysql/&title=深入浅出MySQL - QingQiu'Blog&summary="
           
           >
           
@@ -2672,7 +2743,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://zuofw.github.io/2024/04/14/xiang-mu-jian-li-shi-xi/blog-da-jian-da-bing/&title=blog搭建 - QingQiu'Blog&summary="
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://zuofw.github.io/2024/09/14/408/shen-ru-qian-chu-mysql/&title=深入浅出MySQL - QingQiu'Blog&summary="
           
           >
           
@@ -2705,20 +2776,15 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     <div class="prev-next">
       
-        <a class='prev' href='/2024/04/14/hou-duan/es/'>
-          <p class='title'><i class="fa-solid fa-chevron-left" aria-hidden="true"></i>es</p>
-          <p class='content'>Elasticsearch学习笔记
-面试问题：
-索引文档的过程：
-协调节点默认使用文档ID参与计算，为路由提供合适的分片，转发请求
-分片所在节点接收到请求之后，将请求写入内存缓冲区，定时refr...</p>
-        </a>
       
-      
-        <a class='next' href='/2024/04/11/hou-duan/k8s/'>
-          <p class='title'>k8s<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>执行kubeadm 时报错，
-</p>
+        <a class='next' href='/2024/09/09/mian-jing/mei-tuan-ce-kai-yi-mian/'>
+          <p class='title'>美团测开一面<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>美团一进宫🤡
+基本流程
+自我介绍
+介绍实习项目
+[[美团测开一面#美团一进宫#多态有哪些|如何理解封装继承和多态(多态记得不牢)]]
+子类可以继承父类的方法吗？(看关键字，可以继承public...</p>
         </a>
       
     </div>
@@ -2734,7 +2800,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   <article class="post white-box shadow floatable blur" id="comments">
     <span hidden>
-      <meta itemprop="discussionUrl" content="/2024/04/14/xiang-mu-jian-li-shi-xi/blog-da-jian-da-bing/index.html#comments">
+      <meta itemprop="discussionUrl" content="/2024/09/14/408/shen-ru-qian-chu-mysql/index.html#comments">
     </span>
     <p ct><i class='fa-solid fa-comments'></i> 评论</p>
     
@@ -2766,9 +2832,19 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
 
 
-  <div class="">
-    <!-- pjax占位 -->
-  </div>
+  <section class="widget toc-wrapper desktop mobile " id="toc-div" >
+    
+  <header>
+    
+      <i class="fa-solid fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E"><span class="toc-text">存储引擎</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E7%A0%81%E6%A0%BC%E5%BC%8F"><span class="toc-text">编码格式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#InnoDB"><span class="toc-text">InnoDB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%A9%E7%90%86%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84"><span class="toc-text">物理存储结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%8C%E6%A0%BC%E5%BC%8F"><span class="toc-text">行格式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BA%A2%E5%87%BA%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8"><span class="toc-text">溢出数据存储</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%A1%B5-%E9%87%8D%E7%82%B9%EF%BC%8C%E9%87%8D%E4%B8%AD%E4%B9%8B%E9%87%8D"><span class="toc-text">数据页(重点，重中之重)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text"></span></a></li></ol></li></ol>
+    </div>
+  </section>
 
   
 
@@ -3336,7 +3412,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"QingQiu'Blog","url":"https://zuofw.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/","sameAs":["https://github.com/volantis-x"],"description":"个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://zuofw.github.io/","name":"QingQiu'Blog"}},{"@type":"ListItem","position":3,"item":{"@id":"https://zuofw.github.io/2024/04/14/xiang-mu-jian-li-shi-xi/blog-da-jian-da-bing/","name":"blog搭建"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"QingQiu'Blog","url":"https://zuofw.github.io/","keywords":"博客，学习，成长","description":"个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝","author":{"@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/","description":"个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝"},"publisher":{"@type":"Organization","name":"QingQiu'Blog","url":"https://zuofw.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://zuofw.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"blog搭建","description":"个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://zuofw.github.io/2024/04/14/xiang-mu-jian-li-shi-xi/blog-da-jian-da-bing/"},"author":{"@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/"},"publisher":{"@type":"Organization","name":"QingQiu'Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://zuofw.github.io/2024/04/14/xiang-mu-jian-li-shi-xi/blog-da-jian-da-bing/","wordCount":0,"datePublished":"2024-04-14T08:01:18.000Z","dateModified":"2024-04-14T08:12:13.265Z","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"QingQiu'Blog","url":"https://zuofw.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/","sameAs":["https://github.com/volantis-x"],"description":"个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://zuofw.github.io/","name":"QingQiu'Blog"}},{"@type":"ListItem","position":3,"item":{"@id":"https://zuofw.github.io/2024/09/14/408/shen-ru-qian-chu-mysql/","name":"深入浅出MySQL"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"QingQiu'Blog","url":"https://zuofw.github.io/","keywords":"博客，学习，成长","description":"个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝","author":{"@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/","description":"个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝"},"publisher":{"@type":"Organization","name":"QingQiu'Blog","url":"https://zuofw.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://zuofw.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"深入浅出MySQL","description":"个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://zuofw.github.io/2024/09/14/408/shen-ru-qian-chu-mysql/"},"author":{"@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/"},"publisher":{"@type":"Organization","name":"QingQiu'Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://zuofw.github.io/2024/09/14/408/shen-ru-qian-chu-mysql/","wordCount":0,"datePublished":"2024-09-14T14:21:10.000Z","dateModified":"2024-09-20T08:08:03.000Z","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 

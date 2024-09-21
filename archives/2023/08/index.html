@@ -1743,7 +1743,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1725954266420),
+    lastupdate: new Date(1726890534533),
     sidebar: {
       for_page: ["blogger","category","tagcloud","donate"],
       for_post: ["toc"],
@@ -2631,7 +2631,16 @@ JIT 运行时编译，当JIT编译器第一次编译之后，会把字节码对�
       
         数据库数据库同步问题：
 Mysql面试指南60 道 MySQL 精选面试题👍 | 二哥的Java进阶之路 (javabetter.cn)
-数据库中的CAPC：Consistency强一致性，系统在执行某项操作之后，仍然能够保持一致。更新操作执行成功，所有的用户都应该读到最新的值A：Availabliy可用性，每个操作总是能够在一定时间内返回结果。结果可以是成功或者失败P：分区容错性，出现网...
+InnoDB为什么是默认的引擎
+是mysql中唯一支持事务的引擎
+锁机制：使用行级锁，而不是表级锁
+支持外键约束
+具有崩溃恢复
+
+索引为什么使用B+树
+支出快速查找：B+树高度相对较低，查找效率高
+有序性：节点的键值是有序排列的
+支持高效插入和删除操作：...
       
     
   </div>

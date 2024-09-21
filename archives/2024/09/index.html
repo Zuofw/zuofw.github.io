@@ -1743,7 +1743,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1725954266420),
+    lastupdate: new Date(1726890534533),
     sidebar: {
       for_page: ["blogger","category","tagcloud","donate"],
       for_post: ["toc"],
@@ -2529,9 +2529,72 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         
           
         
+          
+        
       
     
     
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
+  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/09/14/408/shen-ru-qian-chu-mysql/">
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="QingQiu'Blog">
+  </span>
+  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
+    <meta itemprop="name" content="QingQiu'Blog">
+    <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
+  </span>
+  
+  
+  
+    <span hidden>
+      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+    </span>
+  
+  
+    
+    <h2 class="article-title"  itemprop="name headline">
+      <a href="/2024/09/14/408/shen-ru-qian-chu-mysql/"  itemprop="url">
+        深入浅出MySQL
+      </a>
+    </h2>
+  
+  <div class='md article-desc' itemprop="articleBody">
+    
+      
+        深入浅出MySQL存储引擎对于不同的表可以设置不同的存储引擎
+CREATE TABLE tableName (
+	xxxx
+) ENGINE = 引擎名称;
+# 修改
+ALTER TABLE tableName ENGINE = xxx;
+编码格式mysql中的utf8默认的是使用的自定义的1~3字节表示的uft8mb3，对于一些特殊的字符，比如emoji，需要我们指定为utf8mb4才能够...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+        <time itemprop="dateCreated datePublished" datetime="2024-09-14T22:21:10+08:00">2024-09-14</time>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2024/09/14/408/shen-ru-qian-chu-mysql/' itemprop="url">
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
       
         
           <div class='post-wrapper'>
@@ -2562,14 +2625,14 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class='md article-desc' itemprop="articleBody">
     
       
-        美团一进宫许愿oc，好想当团孝子😭
+        美团一进宫🤡
 基本流程
 自我介绍
 介绍实习项目
 [[美团测开一面#美团一进宫#多态有哪些|如何理解封装继承和多态(多态记得不牢)]]
 子类可以继承父类的方法吗？(看关键字，可以继承public和protected方法，默认访问权限的话如果在一个包内可以继承，private不可继承)
 常见的集合(List，Set，Map，Queue，Stack)
-[[美团测开一面#美团...
+[[美团测开一面#美团一进宫#ArrayLi...
       
     
   </div>
@@ -2679,18 +2742,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class='md article-desc' itemprop="articleBody">
     
       
-        基本架构
+        个人博客https://zuofw.github.io/本项目详细介绍和实现：https://zuofw.github.io/2024/09/02/xiang-mu-jian-li-shi-xi/shou-xie-rpc/
+项目介绍zhi-rpc是一款基于Java、Netty、Zookeeper实现的RPC通信框架，它具有以下核心特性：
 
-注册中心，用于服务注册和获取
-服务端：提供服务的一方Provider
-客户端：调用服务的一方Consumer基本流程：
-服务端把服务信息注册到注册中心上，一般包括服务端地址、接口类和方法
-客户端从注册中心获取对应的服务信息
-客户端根据服务的信息，通过网络调用服务端的接口
-
-设计
-注册中心：如何实现或者使用哪个
-动态代理：客户端调用接口，需要框架去根据接口去远程调用服务，需要使用动...
+使用”微内核+可插拔”架构，通过自定义SPI加载机制...
       
     
   </div>

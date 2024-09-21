@@ -1743,7 +1743,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1725954266420),
+    lastupdate: new Date(1726890534533),
     sidebar: {
       for_page: ["blogger","category","tagcloud","donate"],
       for_post: ["toc"],
@@ -2525,6 +2525,70 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         
           <div class='post-wrapper'>
             <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
+  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/06/07/hou-duan/shen-ru-qian-chu-spring/">
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="QingQiu'Blog">
+  </span>
+  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
+    <meta itemprop="name" content="QingQiu'Blog">
+    <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
+  </span>
+  
+  
+  
+    <span hidden>
+      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+    </span>
+  
+  
+    
+    <h2 class="article-title"  itemprop="name headline">
+      <a href="/2024/06/07/hou-duan/shen-ru-qian-chu-spring/"  itemprop="url">
+        深入浅出Spring
+      </a>
+    </h2>
+  
+  <div class='md article-desc' itemprop="articleBody">
+    
+      
+        面试常问注解
+@Nullable 注解的主要作用是为开发者和静态分析工具提供信息，指示某个字段、方法返回值或参数可以为 null。具体来说，它会：  帮助静态分析工具：静态分析工具可以利用 @Nullable 注解来检查代码中是否正确处理了可能为 null 的情况，并在发现潜在问题时发出警告。增强代码可读性：开发者可以通过查看注解来了解哪些变量或返回值可能为 null，从而在使用这些变量时进...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+        <time itemprop="dateCreated datePublished" datetime="2024-06-07T16:30:04+08:00">2024-06-07</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/Spring/">Spring</a>
+          
+            <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
+              <a href="/categories/Spring/" itemprop="url"><span itemprop="name">Spring</span></a>
+            </span>
+          
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2024/06/07/hou-duan/shen-ru-qian-chu-spring/' itemprop="url">
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
   <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/05/23/yun-wei/">
   <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
     <meta itemprop="name" content="QingQiu'Blog">
@@ -2671,13 +2735,13 @@ interface和abstract class的...
   <div class='md article-desc' itemprop="articleBody">
     
       
-        多线程基本概念
-CAS (Compare-And-Swap，比较并交换)，是一种用于实现多线程同步的原子操作。主要原理：1.比较内存中的某个位置的当前值和预期值 2.交换如果当前值与预期值相等，则将该位置的值更新为新值，否则不进行任何操作。
-因为是原子操作所以在多线程中很高效。可以实现无锁编程，避免了上下文切换的开销。
-缺点是如果CAS操作失败后，通常会进行自旋，消耗CPU资源。
+        多线程#todo 
 
+ 金三银四精选面试题系列-徐庶 (yuque.com)专门写一个线程池相关的文章
+ 泛型相关的👍 2024金三银四100道面试题笔记资料 (yuque.com)
 
-自旋：...
+基本概念
+CAS (Compare-And-Swap，比较并交换)，是一种用于实现多线程同步的原子操作。主要原理：1.比较内存中的某个位置的当前值和预期值 2.交换如果当前值与预期值相等，则将该位置的值更新...
       
     
   </div>
@@ -2891,71 +2955,6 @@ es的删除：es中的文件并没有删除...
       
         <div>
           <a class='readmore' href='/2024/04/14/hou-duan/es/' itemprop="url">
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/04/14/xiang-mu-jian-li-shi-xi/blog-da-jian-da-bing/">
-  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="QingQiu'Blog">
-  </span>
-  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
-    <meta itemprop="name" content="QingQiu'Blog">
-    <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
-  </span>
-  
-  
-  
-    <span hidden>
-      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
-    </span>
-  
-  
-    
-    <h2 class="article-title"  itemprop="name headline">
-      <a href="/2024/04/14/xiang-mu-jian-li-shi-xi/blog-da-jian-da-bing/"  itemprop="url">
-        blog搭建
-      </a>
-    </h2>
-  
-  <div class='md article-desc' itemprop="articleBody">
-    
-      
-        目前的想法：
-
-静态解析 + 动态评论
-mongodb作为文章的存储，mysql来存储评论信息
-两种都做，由命令来指定使用哪种基本的技术栈：暂定
-ElasticSearch 作为文章搜索的索引
-vue来做前端，尽量少使用element组件
-mongodb和mysql和redis
-认证使用springsecurity，然后尽量自己写这次
-可以加一个实时聊天系统，试试websocket
-账号管理...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time itemprop="dateCreated datePublished" datetime="2024-04-14T16:01:18+08:00">2024-04-14</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2024/04/14/xiang-mu-jian-li-shi-xi/blog-da-jian-da-bing/' itemprop="url">
             阅读全文
           </a>
         </div>
