@@ -1,0 +1,3914 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/#5.8.0'>
+  <meta name="generator" content="Hexo 6.3.0">
+  <meta name="Volantis" content="5.8.0">
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+  <link rel="canonical" href="https://zuofw.github.io/2024/06/07/17/"/>
+  <!-- 渲染优化 -->
+    <meta http-equiv='x-dns-prefetch-control' content='on' />
+      <link rel='dns-prefetch' href='https://unpkg.com'>
+      <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Content-Security-Policy" content=" default-src 'self' https:; block-all-mixed-content; base-uri 'self' https:; form-action 'self' https:; worker-src 'self' https:; connect-src 'self' https: *; img-src 'self' data: https: *; media-src 'self' https: *; font-src 'self' data: https: *; frame-src 'self' https: *; manifest-src 'self' https: *; child-src https:; script-src 'self' https: 'unsafe-inline' *; style-src 'self' https: 'unsafe-inline' *; ">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+  <meta content="telephone=no" name="format-detection">
+  <!-- import head_begin begin -->
+  <!-- import head_begin end -->
+  <!-- Custom Files headBegin begin-->
+  
+  <!-- Custom Files headBegin end-->
+  <!-- front-matter head_begin begin -->
+  <!-- front-matter head_begin end -->
+  <link rel="preload" href="/css/style.css" as="style">
+  <link rel="preload" href="https://unpkg.com/volantis-static@0.0.1654736714924/media/fonts/VarelaRound/VarelaRound-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+<link rel="preload" href="https://unpkg.com/volantis-static@0.0.1654736714924/media/fonts/UbuntuMono/UbuntuMono-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+
+  <!-- feed -->
+  <!-- 页面元数据 -->
+  <title>面试记录 - QingQiu'Blog</title>
+  <meta name="keywords" content="博客，学习，成长">
+  <meta desc name="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝 - QingQiu - QingQiu'Blog">
+  
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试记录">
+<meta property="og:url" content="https://zuofw.github.io/2024/06/07/17/index.html">
+<meta property="og:site_name" content="QingQiu&#39;Blog">
+<meta property="og:description" content="DevOps 2024-05-11 同余信科一面（二面已过，但是不要26届的）项目中承担的开发工作写过哪些模块Redis集群Java的常用集合用过哪些 ArrayListf LinkedList HashSet TreeSet HashMap  Stream流HashMap的扩容机制 当超过最大长度的0.75的时候开始扩容 创建新的哈希表，容量为原来的两倍 重新哈希：遍历旧的哈希表，将每个元素重新">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+<meta property="article:published_time" content="2024-06-07T08:52:17.000Z">
+<meta property="article:modified_time" content="2024-09-14T06:32:35.757Z">
+<meta property="article:author" content="QingQiu">
+<meta property="article:tag" content="博客，学习，成长">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+  <style>
+    /* 首屏样式 */
+    #safearea {
+  display: none;
+}
+:root {
+  --color-site-body: #f4f4f4;
+  --color-site-bg: #f4f4f4;
+  --color-site-inner: #fff;
+  --color-site-footer: #666;
+  --color-card: #fff;
+  --color-text: #444;
+  --color-block: #f6f6f6;
+  --color-inlinecode: #c74f00;
+  --color-codeblock: #fff7ea;
+  --color-h1: #3a3a3a;
+  --color-h2: #3a3a3a;
+  --color-h3: #333;
+  --color-h4: #444;
+  --color-h5: #555;
+  --color-h6: #666;
+  --color-p: #444;
+  --color-list: #666;
+  --color-list-hl: #30ad91;
+  --color-meta: #888;
+  --color-read-bkg: #e0d8c8;
+  --color-read-post: #f8f1e2;
+  --color-copyright-bkg: #f5f5f5;
+}
+* {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  outline: none;
+  margin: 0;
+  padding: 0;
+}
+*::-webkit-scrollbar {
+  height: 4px;
+  width: 4px;
+}
+*::-webkit-scrollbar-track-piece {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: #3dd9b6;
+  cursor: pointer;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: #ff5722;
+}
+html {
+  color: var(--color-text);
+  width: 100%;
+  height: 100%;
+  font-family: UbuntuMono, "Varela Round", "PingFang SC", "Microsoft YaHei", Helvetica, Arial, Menlo, Monaco, monospace, sans-serif;
+  font-size: 16px;
+}
+html >::-webkit-scrollbar {
+  height: 4px;
+  width: 4px;
+}
+html >::-webkit-scrollbar-track-piece {
+  background: transparent;
+}
+html >::-webkit-scrollbar-thumb {
+  background: #54b5a0 linear-gradient(45deg, rgba(255,255,255,0.4) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.4) 75%, transparent 75%, transparent);
+  cursor: pointer;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+}
+html >::-webkit-scrollbar-thumb:hover {
+  background: #54b5a0 linear-gradient(45deg, rgba(255,255,255,0.4) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.4) 75%, transparent 75%, transparent);
+}
+body {
+  background-color: var(--color-site-body);
+  text-rendering: optimizelegibility;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  line-height: 1.6;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+body.modal-active {
+  overflow: hidden;
+}
+@media screen and (max-width: 680px) {
+  body.modal-active {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}
+a {
+  color: #2092ec;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+a:hover {
+  color: #ff5722;
+}
+a:active,
+a:hover {
+  outline: 0;
+}
+ul,
+ol {
+  padding-left: 0;
+}
+ul li,
+ol li {
+  list-style: none;
+}
+header {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+}
+img {
+  border: 0;
+  background: none;
+  max-width: 100%;
+}
+svg:not(:root) {
+  overflow: hidden;
+}
+hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  height: 0;
+  border: 0;
+  border-radius: 1px;
+  -webkit-border-radius: 1px;
+  border-bottom: 1px solid rgba(68,68,68,0.1);
+}
+button,
+input {
+  color: inherit;
+  font: inherit;
+  margin: 0;
+}
+button {
+  overflow: visible;
+  text-transform: none;
+  -webkit-appearance: button;
+  cursor: pointer;
+}
+@supports (backdrop-filter: blur(20px)) {
+  .blur {
+    background: rgba(255,255,255,0.9) !important;
+    backdrop-filter: saturate(200%) blur(20px);
+  }
+}
+.shadow {
+  box-shadow: 0 1px 2px 0px rgba(0,0,0,0.1);
+  -webkit-box-shadow: 0 1px 2px 0px rgba(0,0,0,0.1);
+}
+.shadow.floatable {
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+.shadow.floatable:hover {
+  box-shadow: 0 2px 4px 0px rgba(0,0,0,0.1), 0 4px 8px 0px rgba(0,0,0,0.1), 0 8px 16px 0px rgba(0,0,0,0.1);
+  -webkit-box-shadow: 0 2px 4px 0px rgba(0,0,0,0.1), 0 4px 8px 0px rgba(0,0,0,0.1), 0 8px 16px 0px rgba(0,0,0,0.1);
+}
+#l_cover {
+  min-height: 64px;
+}
+.cover-wrapper {
+  top: 0;
+  left: 0;
+  max-width: 100%;
+  height: 100vh;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  flex-wrap: nowrap;
+  -webkit-flex-wrap: nowrap;
+  -khtml-flex-wrap: nowrap;
+  -moz-flex-wrap: nowrap;
+  -o-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+  align-content: center;
+  color: var(--color-site-inner);
+  padding: 0 16px;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: -100px;
+}
+.cover-wrapper .cover-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+}
+.cover-wrapper .cover-bg.lazyload:not(.loaded) {
+  opacity: 0;
+  -webkit-opacity: 0;
+  -moz-opacity: 0;
+}
+.cover-wrapper .cover-bg.lazyload.loaded {
+  animation-delay: 0s;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+  animation-name: fadeIn;
+}
+@-moz-keyframes fadeIn {
+  0% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    filter: blur(12px);
+    transform: scale(1.02);
+    -webkit-transform: scale(1.02);
+    -khtml-transform: scale(1.02);
+    -moz-transform: scale(1.02);
+    -o-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    filter: blur(12px);
+    transform: scale(1.02);
+    -webkit-transform: scale(1.02);
+    -khtml-transform: scale(1.02);
+    -moz-transform: scale(1.02);
+    -o-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@-o-keyframes fadeIn {
+  0% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    filter: blur(12px);
+    transform: scale(1.02);
+    -webkit-transform: scale(1.02);
+    -khtml-transform: scale(1.02);
+    -moz-transform: scale(1.02);
+    -o-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    filter: blur(12px);
+    transform: scale(1.02);
+    -webkit-transform: scale(1.02);
+    -khtml-transform: scale(1.02);
+    -moz-transform: scale(1.02);
+    -o-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+.cover-wrapper .cover-body {
+  z-index: 1;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.cover-wrapper#full {
+  height: calc(100vh + 100px);
+  padding-bottom: 100px;
+}
+.cover-wrapper#half {
+  max-height: 640px;
+  min-height: 400px;
+  height: calc(36vh - 64px + 200px);
+}
+.cover-wrapper #scroll-down {
+  width: 100%;
+  height: 64px;
+  position: absolute;
+  bottom: 100px;
+  text-align: center;
+  cursor: pointer;
+}
+.cover-wrapper #scroll-down .scroll-down-effects {
+  color: #fff;
+  font-size: 24px;
+  line-height: 64px;
+  position: absolute;
+  width: 24px;
+  left: calc(50% - 12px);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  animation: scroll-down-effect 1.5s infinite;
+  -webkit-animation: scroll-down-effect 1.5s infinite;
+  -khtml-animation: scroll-down-effect 1.5s infinite;
+  -moz-animation: scroll-down-effect 1.5s infinite;
+  -o-animation: scroll-down-effect 1.5s infinite;
+  -ms-animation: scroll-down-effect 1.5s infinite;
+}
+@-moz-keyframes scroll-down-effect {
+  0% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+  50% {
+    top: -16px;
+    opacity: 0.4;
+    -webkit-opacity: 0.4;
+    -moz-opacity: 0.4;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@-webkit-keyframes scroll-down-effect {
+  0% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+  50% {
+    top: -16px;
+    opacity: 0.4;
+    -webkit-opacity: 0.4;
+    -moz-opacity: 0.4;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@-o-keyframes scroll-down-effect {
+  0% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+  50% {
+    top: -16px;
+    opacity: 0.4;
+    -webkit-opacity: 0.4;
+    -moz-opacity: 0.4;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@keyframes scroll-down-effect {
+  0% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+  50% {
+    top: -16px;
+    opacity: 0.4;
+    -webkit-opacity: 0.4;
+    -moz-opacity: 0.4;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+.cover-wrapper .cover-body {
+  margin-top: 64px;
+  margin-bottom: 100px;
+}
+.cover-wrapper .cover-body,
+.cover-wrapper .cover-body .top,
+.cover-wrapper .cover-body .bottom {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  -webkit-justify-content: center;
+  -khtml-justify-content: center;
+  -moz-justify-content: center;
+  -o-justify-content: center;
+  -ms-justify-content: center;
+  max-width: 100%;
+}
+.cover-wrapper .cover-body .bottom {
+  margin-top: 32px;
+}
+.cover-wrapper .cover-body .title {
+  font-family: "Varela Round", "PingFang SC", "Microsoft YaHei", Helvetica, Arial, Helvetica, monospace;
+  font-size: 3.125rem;
+  line-height: 1.2;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+.cover-wrapper .cover-body .subtitle {
+  font-size: 20px;
+}
+.cover-wrapper .cover-body .logo {
+  max-height: 120px;
+  max-width: calc(100% - 4 * 16px);
+}
+@media screen and (min-height: 1024px) {
+  .cover-wrapper .cover-body .title {
+    font-size: 3rem;
+  }
+  .cover-wrapper .cover-body .subtitle {
+    font-size: 1.05rem;
+  }
+  .cover-wrapper .cover-body .logo {
+    max-height: 150px;
+  }
+}
+.cover-wrapper .cover-body .m_search {
+  position: relative;
+  max-width: calc(100% - 16px);
+  width: 320px;
+  vertical-align: middle;
+}
+.cover-wrapper .cover-body .m_search .form {
+  position: relative;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  width: 100%;
+}
+.cover-wrapper .cover-body .m_search .icon,
+.cover-wrapper .cover-body .m_search .input {
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+.cover-wrapper .cover-body .m_search .icon {
+  position: absolute;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  line-height: 2.5rem;
+  width: 32px;
+  top: 0;
+  left: 5px;
+  color: rgba(68,68,68,0.75);
+}
+.cover-wrapper .cover-body .m_search .input {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  height: 2.5rem;
+  width: 100%;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  font-size: 0.875rem;
+  -webkit-appearance: none;
+  padding-left: 36px;
+  border-radius: 1.4rem;
+  -webkit-border-radius: 1.4rem;
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(10px);
+  border: none;
+  color: var(--color-text);
+}
+@media screen and (max-width: 500px) {
+  .cover-wrapper .cover-body .m_search .input {
+    padding-left: 36px;
+  }
+}
+.cover-wrapper .cover-body .m_search .input:hover {
+  background: rgba(255,255,255,0.8);
+}
+.cover-wrapper .cover-body .m_search .input:focus {
+  background: #fff;
+}
+.cover-wrapper .list-h {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -khtml-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -o-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  align-items: stretch;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+.cover-wrapper .list-h a {
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -webkit-flex: 1 0;
+  -ms-flex: 1 0;
+  flex: 1 0;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  font-weight: 600;
+}
+.cover-wrapper .list-h a img {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  margin: 4px;
+  min-width: 40px;
+  max-width: 44px;
+}
+@media screen and (max-width: 768px) {
+  .cover-wrapper .list-h a img {
+    min-width: 36px;
+    max-width: 40px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .cover-wrapper .list-h a img {
+    margin: 2px 4px;
+    min-width: 32px;
+    max-width: 36px;
+  }
+}
+@media screen and (max-width: 375px) {
+  .cover-wrapper .list-h a img {
+    min-width: 28px;
+    max-width: 32px;
+  }
+}
+.cover-wrapper {
+  max-width: 100%;
+}
+.cover-wrapper.search .bottom .menu {
+  margin-top: 16px;
+}
+.cover-wrapper.search .bottom .menu .list-h a {
+  white-space: nowrap;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  align-items: baseline;
+  padding: 2px;
+  margin: 4px;
+  color: var(--color-site-inner);
+  opacity: 0.75;
+  -webkit-opacity: 0.75;
+  -moz-opacity: 0.75;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  border-bottom: 2px solid transparent;
+}
+.cover-wrapper.search .bottom .menu .list-h a i {
+  margin-right: 4px;
+}
+.cover-wrapper.search .bottom .menu .list-h a p {
+  font-size: 0.9375rem;
+}
+.cover-wrapper.search .bottom .menu .list-h a:hover,
+.cover-wrapper.search .bottom .menu .list-h a.active,
+.cover-wrapper.search .bottom .menu .list-h a:active {
+  opacity: 1;
+  -webkit-opacity: 1;
+  -moz-opacity: 1;
+  border-bottom: 2px solid var(--color-site-inner);
+}
+.cover-wrapper.dock .menu,
+.cover-wrapper.featured .menu,
+.cover-wrapper.focus .menu {
+  border-radius: 6px;
+  -webkit-border-radius: 6px;
+}
+.cover-wrapper.dock .menu .list-h a,
+.cover-wrapper.featured .menu .list-h a,
+.cover-wrapper.focus .menu .list-h a {
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px;
+  line-height: 24px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-bottom: none;
+  text-align: center;
+  align-content: flex-end;
+  color: rgba(68,68,68,0.7);
+  font-size: 1.5rem;
+}
+@media screen and (max-width: 500px) {
+  .cover-wrapper.dock .menu .list-h a,
+  .cover-wrapper.featured .menu .list-h a,
+  .cover-wrapper.focus .menu .list-h a {
+    padding: 12px 8px;
+  }
+}
+.cover-wrapper.dock .menu .list-h a i,
+.cover-wrapper.featured .menu .list-h a i,
+.cover-wrapper.focus .menu .list-h a i {
+  margin: 8px;
+}
+.cover-wrapper.dock .menu .list-h a p,
+.cover-wrapper.featured .menu .list-h a p,
+.cover-wrapper.focus .menu .list-h a p {
+  font-size: 0.875rem;
+}
+.cover-wrapper.dock .menu .list-h a.active,
+.cover-wrapper.featured .menu .list-h a.active,
+.cover-wrapper.focus .menu .list-h a.active {
+  background: var(--color-card);
+  backdrop-filter: none;
+}
+.cover-wrapper.dock .menu .list-h a.active i,
+.cover-wrapper.featured .menu .list-h a.active i,
+.cover-wrapper.focus .menu .list-h a.active i,
+.cover-wrapper.dock .menu .list-h a.active i+p,
+.cover-wrapper.featured .menu .list-h a.active i+p,
+.cover-wrapper.focus .menu .list-h a.active i+p {
+  color: #3dd9b6;
+}
+.cover-wrapper.dock .menu .list-h a.active img+p,
+.cover-wrapper.featured .menu .list-h a.active img+p,
+.cover-wrapper.focus .menu .list-h a.active img+p {
+  color: var(--color-text);
+}
+.cover-wrapper.dock .menu .list-h a:hover,
+.cover-wrapper.featured .menu .list-h a:hover,
+.cover-wrapper.focus .menu .list-h a:hover {
+  background: var(--color-card);
+}
+.cover-wrapper.dock .top {
+  margin-bottom: 48px;
+}
+.cover-wrapper.dock .menu {
+  background: rgba(255,255,255,0.5);
+  position: absolute;
+  bottom: 0;
+  max-width: 100%;
+}
+.cover-wrapper.dock .menu .list-h {
+  flex-wrap: nowrap;
+  -webkit-flex-wrap: nowrap;
+  -khtml-flex-wrap: nowrap;
+  -moz-flex-wrap: nowrap;
+  -o-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  margin: 4px;
+}
+.cover-wrapper.dock .menu .list-h a+a {
+  margin-left: 4px;
+}
+@media screen and (max-width: 500px) {
+  .cover-wrapper.dock .menu .list-h {
+    overflow-x: scroll;
+  }
+  .cover-wrapper.dock .menu .list-h::-webkit-scrollbar {
+    height: 0;
+    width: 0;
+  }
+  .cover-wrapper.dock .menu .list-h::-webkit-scrollbar-track-piece {
+    background: transparent;
+  }
+  .cover-wrapper.dock .menu .list-h::-webkit-scrollbar-thumb {
+    background: #3dd9b6;
+    cursor: pointer;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+  }
+  .cover-wrapper.dock .menu .list-h::-webkit-scrollbar-thumb:hover {
+    background: #ff5722;
+  }
+}
+@supports (backdrop-filter: blur(20px)) {
+  .cover-wrapper.dock .menu {
+    background: rgba(255,255,255,0.5);
+    backdrop-filter: saturate(200%) blur(20px);
+  }
+}
+@font-face {
+  font-family: 'UbuntuMono';
+  src: url("https://unpkg.com/volantis-static@0.0.1654736714924/media/fonts/UbuntuMono/UbuntuMono-Regular.ttf");
+  font-weight: 'normal';
+  font-style: 'normal';
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Varela Round';
+  src: url("https://unpkg.com/volantis-static@0.0.1654736714924/media/fonts/VarelaRound/VarelaRound-Regular.ttf");
+  font-weight: 'normal';
+  font-style: 'normal';
+  font-display: swap;
+}
+.l_header {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  width: 100%;
+  height: 64px;
+  background: var(--color-card);
+  box-shadow: 0 1px 2px 0px rgba(0,0,0,0.1);
+  -webkit-box-shadow: 0 1px 2px 0px rgba(0,0,0,0.1);
+}
+.l_header.auto {
+  transition: opacity 0.4s ease;
+  -webkit-transition: opacity 0.4s ease;
+  -khtml-transition: opacity 0.4s ease;
+  -moz-transition: opacity 0.4s ease;
+  -o-transition: opacity 0.4s ease;
+  -ms-transition: opacity 0.4s ease;
+  visibility: hidden;
+}
+.l_header.auto.show {
+  opacity: 1 !important;
+  -webkit-opacity: 1 !important;
+  -moz-opacity: 1 !important;
+  visibility: visible;
+}
+.l_header .container {
+  margin-left: 16px;
+  margin-right: 16px;
+}
+.l_header #wrapper {
+  height: 100%;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+.l_header #wrapper .nav-main,
+.l_header #wrapper .nav-sub {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  flex-wrap: nowrap;
+  -webkit-flex-wrap: nowrap;
+  -khtml-flex-wrap: nowrap;
+  -moz-flex-wrap: nowrap;
+  -o-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
+  -khtml-justify-content: space-between;
+  -moz-justify-content: space-between;
+  -o-justify-content: space-between;
+  -ms-justify-content: space-between;
+  align-items: center;
+}
+.l_header #wrapper .nav-main {
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+.l_header #wrapper.sub .nav-main {
+  transform: translateY(-64px);
+  -webkit-transform: translateY(-64px);
+  -khtml-transform: translateY(-64px);
+  -moz-transform: translateY(-64px);
+  -o-transform: translateY(-64px);
+  -ms-transform: translateY(-64px);
+}
+.l_header #wrapper .nav-sub {
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+  opacity: 0;
+  -webkit-opacity: 0;
+  -moz-opacity: 0;
+  height: 64px;
+  width: calc(100% - 2 * 16px);
+  position: absolute;
+}
+.l_header #wrapper .nav-sub ::-webkit-scrollbar {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+}
+@media screen and (min-width: 2048px) {
+  .l_header #wrapper .nav-sub {
+    max-width: 55vw;
+    margin: auto;
+  }
+}
+.l_header #wrapper.sub .nav-sub {
+  opacity: 1;
+  -webkit-opacity: 1;
+  -moz-opacity: 1;
+}
+.l_header #wrapper .title {
+  position: relative;
+  color: var(--color-text);
+  padding-left: 24px;
+  max-height: 64px;
+}
+.l_header #wrapper .nav-main .title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 0;
+  line-height: 64px;
+  padding: 0 24px;
+  font-size: 1.25rem;
+  font-family: "Varela Round", "PingFang SC", "Microsoft YaHei", Helvetica, Arial, Helvetica, monospace;
+}
+.l_header #wrapper .nav-main .title img {
+  height: 64px;
+}
+.l_header .nav-sub {
+  max-width: 1080px;
+  margin: auto;
+}
+.l_header .nav-sub .title {
+  font-weight: bold;
+  font-family: UbuntuMono, "Varela Round", "PingFang SC", "Microsoft YaHei", Helvetica, Arial, Menlo, Monaco, monospace, sans-serif;
+  line-height: 1.2;
+  max-height: 64px;
+  white-space: normal;
+  flex-shrink: 1;
+}
+.l_header .switcher {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+  line-height: 64px;
+  align-items: center;
+}
+.l_header .switcher .s-toc {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  .l_header .switcher .s-toc {
+    display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+    display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+    display: -ms-flexbox /* TWEENER - IE 10 */;
+    display: -webkit-flex /* NEW - Chrome */;
+    display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+    display: flex;
+  }
+}
+.l_header .switcher >li {
+  height: 48px;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+  margin: 2px;
+}
+@media screen and (max-width: 500px) {
+  .l_header .switcher >li {
+    margin: 0 1px;
+    height: 48px;
+  }
+}
+.l_header .switcher >li >a {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  justify-content: center;
+  -webkit-justify-content: center;
+  -khtml-justify-content: center;
+  -moz-justify-content: center;
+  -o-justify-content: center;
+  -ms-justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0.85em 1.1em;
+  border-radius: 100px;
+  -webkit-border-radius: 100px;
+  border: none;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+  color: #3dd9b6;
+}
+.l_header .switcher >li >a:hover {
+  border: none;
+}
+.l_header .switcher >li >a.active,
+.l_header .switcher >li >a:active {
+  border: none;
+  background: var(--color-site-bg);
+}
+@media screen and (max-width: 500px) {
+  .l_header .switcher >li >a {
+    width: 36px;
+    height: 48px;
+  }
+}
+.l_header .nav-sub .switcher {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+}
+.l_header .m_search {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  height: 64px;
+  width: 240px;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+@media screen and (max-width: 1024px) {
+  .l_header .m_search {
+    width: 44px;
+    min-width: 44px;
+  }
+  .l_header .m_search input::placeholder {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+  }
+  .l_header .m_search:hover {
+    width: 240px;
+  }
+  .l_header .m_search:hover input::placeholder {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@media screen and (min-width: 500px) {
+  .l_header .m_search:hover .input {
+    width: 100%;
+  }
+  .l_header .m_search:hover .input::placeholder {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@media screen and (max-width: 500px) {
+  .l_header .m_search {
+    min-width: 0;
+  }
+  .l_header .m_search input::placeholder {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+.l_header .m_search .form {
+  position: relative;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+.l_header .m_search .icon {
+  position: absolute;
+  width: 36px;
+  left: 5px;
+  color: var(--color-meta);
+}
+@media screen and (max-width: 500px) {
+  .l_header .m_search .icon {
+    display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+    display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+    display: none;
+  }
+}
+.l_header .m_search .input {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  line-height: 1.3;
+  width: 100%;
+  color: var(--color-text);
+  background: #fafafa;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  padding-left: 40px;
+  font-size: 0.875rem;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border: none;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+@media screen and (min-width: 500px) {
+  .l_header .m_search .input:focus {
+    box-shadow: 0 4px 8px 0px rgba(0,0,0,0.1);
+    -webkit-box-shadow: 0 4px 8px 0px rgba(0,0,0,0.1);
+  }
+}
+@media screen and (max-width: 500px) {
+  .l_header .m_search .input {
+    background: var(--color-block);
+    padding-left: 8px;
+    border: none;
+  }
+  .l_header .m_search .input:hover,
+  .l_header .m_search .input:focus {
+    border: none;
+  }
+}
+@media (max-width: 500px) {
+  .l_header .m_search {
+    left: 0;
+    width: 0;
+    overflow: hidden;
+    position: absolute;
+    background: #fff;
+    transition: all 0.28s ease;
+    -webkit-transition: all 0.28s ease;
+    -khtml-transition: all 0.28s ease;
+    -moz-transition: all 0.28s ease;
+    -o-transition: all 0.28s ease;
+    -ms-transition: all 0.28s ease;
+  }
+  .l_header .m_search .input {
+    border-radius: 32px;
+    -webkit-border-radius: 32px;
+    margin-left: 16px;
+    padding-left: 16px;
+  }
+  .l_header.z_search-open .m_search {
+    width: 100%;
+  }
+  .l_header.z_search-open .m_search .input {
+    width: calc(100% - 120px);
+  }
+}
+ul.m-pc >li>a {
+  color: inherit;
+  border-bottom: 2px solid transparent;
+}
+ul.m-pc >li>a:active,
+ul.m-pc >li>a.active {
+  border-bottom: 2px solid #3dd9b6;
+}
+ul.m-pc li:hover >ul.list-v,
+ul.list-v li:hover >ul.list-v {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+}
+ul.nav-list-h {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  align-items: stretch;
+}
+ul.nav-list-h>li {
+  position: relative;
+  justify-content: center;
+  -webkit-justify-content: center;
+  -khtml-justify-content: center;
+  -moz-justify-content: center;
+  -o-justify-content: center;
+  -ms-justify-content: center;
+  height: 100%;
+  line-height: 2.4;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+ul.nav-list-h>li >a {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 600;
+}
+ul.list-v {
+  z-index: 1;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+  position: absolute;
+  background: var(--color-card);
+  box-shadow: 0 2px 4px 0px rgba(0,0,0,0.08), 0 4px 8px 0px rgba(0,0,0,0.08), 0 8px 16px 0px rgba(0,0,0,0.08);
+  -webkit-box-shadow: 0 2px 4px 0px rgba(0,0,0,0.08), 0 4px 8px 0px rgba(0,0,0,0.08), 0 8px 16px 0px rgba(0,0,0,0.08);
+  margin-top: -6px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  padding: 8px 0;
+}
+ul.list-v.show {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+}
+ul.list-v hr {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+ul.list-v >li {
+  white-space: nowrap;
+  word-break: keep-all;
+}
+ul.list-v >li.header {
+  font-size: 0.78125rem;
+  font-weight: bold;
+  line-height: 2em;
+  color: var(--color-meta);
+  margin: 8px 16px 4px;
+}
+ul.list-v >li.header i {
+  margin-right: 8px;
+}
+ul.list-v >li ul {
+  margin-left: 0;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+  margin-top: -40px;
+}
+ul.list-v .aplayer-container {
+  min-height: 64px;
+  padding: 6px 16px;
+}
+ul.list-v >li>a {
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  color: var(--color-list);
+  font-size: 0.875rem;
+  font-weight: bold;
+  line-height: 36px;
+  padding: 0 20px 0 16px;
+  text-overflow: ellipsis;
+  margin: 0 4px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+@media screen and (max-width: 1024px) {
+  ul.list-v >li>a {
+    line-height: 40px;
+  }
+}
+ul.list-v >li>a >i {
+  margin-right: 8px;
+}
+ul.list-v >li>a:active,
+ul.list-v >li>a.active {
+  color: var(--color-list-hl);
+}
+ul.list-v >li>a:hover {
+  color: var(--color-list-hl);
+  background: var(--color-site-bg);
+}
+.l_header .menu >ul>li>a {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  padding: 0 8px;
+}
+.l_header .menu >ul>li>a >i {
+  margin-right: 4px;
+}
+.l_header ul.nav-list-h>li {
+  color: var(--color-list);
+  line-height: 64px;
+}
+.l_header ul.nav-list-h>li >a {
+  max-height: 64px;
+  overflow: hidden;
+  color: inherit;
+}
+.l_header ul.nav-list-h>li >a:active,
+.l_header ul.nav-list-h>li >a.active {
+  color: #3dd9b6;
+}
+.l_header ul.nav-list-h>li:hover>a {
+  color: var(--color-list-hl);
+}
+.l_header ul.nav-list-h>li i.music {
+  animation: rotate-effect 1.5s linear infinite;
+  -webkit-animation: rotate-effect 1.5s linear infinite;
+  -khtml-animation: rotate-effect 1.5s linear infinite;
+  -moz-animation: rotate-effect 1.5s linear infinite;
+  -o-animation: rotate-effect 1.5s linear infinite;
+  -ms-animation: rotate-effect 1.5s linear infinite;
+}
+@-moz-keyframes rotate-effect {
+  0% {
+    transform: rotate(0);
+    -webkit-transform: rotate(0);
+    -khtml-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    -ms-transform: rotate(0);
+  }
+  25% {
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -khtml-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+  }
+  50% {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -khtml-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -khtml-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -khtml-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes rotate-effect {
+  0% {
+    transform: rotate(0);
+    -webkit-transform: rotate(0);
+    -khtml-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    -ms-transform: rotate(0);
+  }
+  25% {
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -khtml-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+  }
+  50% {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -khtml-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -khtml-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -khtml-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+  }
+}
+@-o-keyframes rotate-effect {
+  0% {
+    transform: rotate(0);
+    -webkit-transform: rotate(0);
+    -khtml-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    -ms-transform: rotate(0);
+  }
+  25% {
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -khtml-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+  }
+  50% {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -khtml-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -khtml-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -khtml-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+  }
+}
+@keyframes rotate-effect {
+  0% {
+    transform: rotate(0);
+    -webkit-transform: rotate(0);
+    -khtml-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    -ms-transform: rotate(0);
+  }
+  25% {
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -khtml-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+  }
+  50% {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -khtml-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -khtml-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -khtml-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+  }
+}
+.menu-phone li ul.list-v {
+  right: calc(100% - 0.5 * 16px);
+}
+.menu-phone li ul.list-v ul {
+  right: calc(100% - 0.5 * 16px);
+}
+#wrapper {
+  max-width: 1080px;
+  margin: auto;
+}
+@media screen and (min-width: 2048px) {
+  #wrapper {
+    max-width: 55vw;
+  }
+}
+#wrapper .menu {
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -webkit-flex: 1 1;
+  -ms-flex: 1 1;
+  flex: 1 1;
+  margin: 0 16px 0 0;
+}
+#wrapper .menu .list-v ul {
+  left: calc(100% - 0.5 * 16px);
+}
+.menu-phone {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+  margin-top: 16px;
+  right: 8px;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+.menu-phone ul {
+  right: calc(100% - 0.5 * 16px);
+}
+@media screen and (max-width: 500px) {
+  .menu-phone {
+    display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+    display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+    display: block;
+  }
+}
+.l_header {
+  max-width: 65vw;
+  left: calc((100% - 65vw) * 0.5);
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+@media screen and (max-width: 2048px) {
+  .l_header {
+    max-width: 1112px;
+    left: calc((100% - 1112px) * 0.5);
+  }
+}
+@media screen and (max-width: 1112px) {
+  .l_header {
+    left: 0;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    max-width: 100%;
+  }
+}
+@media screen and (max-width: 500px) {
+  .l_header .container {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .l_header #wrapper .nav-main .title {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .l_header #wrapper .nav-sub {
+    width: 100%;
+  }
+  .l_header #wrapper .nav-sub .title {
+    overflow-y: scroll;
+    margin-top: 2px;
+    padding: 8px 16px;
+  }
+  .l_header #wrapper .switcher {
+    display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+    display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+    display: -ms-flexbox /* TWEENER - IE 10 */;
+    display: -webkit-flex /* NEW - Chrome */;
+    display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+    display: flex;
+    margin-right: 8px;
+  }
+  .l_header .menu {
+    display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+    display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+    display: none;
+  }
+}
+@media screen and (max-width: 500px) {
+  .list-v li {
+    max-width: 270px;
+  }
+}
+#u-search {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 60px 20px;
+  z-index: 1001;
+}
+@media screen and (max-width: 680px) {
+  #u-search {
+    padding: 0px;
+  }
+}
+
+  </style>
+  <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+  
+<script>
+if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode))
+    document.write(
+	'<style>'+
+		'html{'+
+			'overflow-x: hidden !important;'+
+			'overflow-y: hidden !important;'+
+		'}'+
+		'.kill-ie{'+
+			'text-align:center;'+
+			'height: 100%;'+
+			'margin-top: 15%;'+
+			'margin-bottom: 5500%;'+
+		'}'+
+    '.kill-t{'+
+      'font-size: 2rem;'+
+    '}'+
+    '.kill-c{'+
+      'font-size: 1.2rem;'+
+    '}'+
+		'#l_header,#l_body{'+
+			'display: none;'+
+		'}'+
+	'</style>'+
+    '<div class="kill-ie">'+
+        `<span class="kill-t"><b>抱歉，您的浏览器无法访问本站</b></span><br/>`+
+        `<span class="kill-c">微软已经于2016年终止了对 Internet Explorer (IE) 10 及更早版本的支持，<br/>继续使用存在极大的安全隐患，请使用当代主流的浏览器进行访问。</span><br/>`+
+        `<a target="_blank" rel="noopener" href="https://blogs.windows.com/windowsexperience/2021/05/19/the-future-of-internet-explorer-on-windows-10-is-in-microsoft-edge/"><strong>了解详情 ></strong></a>`+
+    '</div>');
+</script>
+
+
+<noscript>
+	<style>
+		html{
+			overflow-x: hidden !important;
+			overflow-y: hidden !important;
+		}
+		.kill-noscript{
+			text-align:center;
+			height: 100%;
+			margin-top: 15%;
+			margin-bottom: 5500%;
+		}
+    .kill-t{
+      font-size: 2rem;
+    }
+    .kill-c{
+      font-size: 1.2rem;
+    }
+		#l_header,#l_body{
+			display: none;
+		}
+	</style>
+    <div class="kill-noscript">
+        <span class="kill-t"><b>抱歉，您的浏览器无法访问本站</b></span><br/>
+        <span class="kill-c">本页面需要浏览器支持（启用）JavaScript</span><br/>
+        <a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=启用JavaScript"><strong>了解详情 ></strong></a>
+    </div>
+</noscript>
+
+
+  <script>
+  /************这个文件存放不需要重载的全局变量和全局函数*********/
+  window.volantis = {}; // volantis 全局变量
+  volantis.debug = "env"; // 调试模式
+  volantis.dom = {}; // 页面Dom see: /source/js/app.js etc.
+
+  volantis.GLOBAL_CONFIG ={
+    debug: "env",
+    cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
+    default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
+    lastupdate: new Date(1726899589211),
+    sidebar: {
+      for_page: ["blogger","category","tagcloud","donate"],
+      for_post: ["toc"],
+      webinfo: {
+        lastupd: {
+          enable: true,
+          friendlyShow: true
+        },
+        runtime: {
+          data: "2020/01/01",
+          unit: "天"
+        }
+      }
+    },
+    plugins: {
+      message: {"enable":true,"css":"https://unpkg.com/volantis-static@0.0.1654736714924/libs/izitoast/dist/css/iziToast.min.css","js":"https://unpkg.com/volantis-static@0.0.1654736714924/libs/izitoast/dist/js/iziToast.min.js","icon":{"default":"fa-solid fa-info-circle light-blue","quection":"fa-solid fa-question-circle light-blue"},"time":{"default":5000,"quection":20000},"position":"topRight","transitionIn":"bounceInLeft","transitionOut":"fadeOutRight","titleColor":"var(--color-text)","messageColor":"var(--color-text)","backgroundColor":"var(--color-card)","zindex":2147483647,"copyright":{"enable":true,"title":"知识共享许可协议","message":"请遵守 CC BY-NC-SA 4.0 协议。","icon":"far fa-copyright light-blue"},"aplayer":{"enable":true,"play":"fa-solid fa-play","pause":"fa-solid fa-pause"},"rightmenu":{"enable":true,"notice":true}},
+      fancybox: {"css":"https://unpkg.com/volantis-static@0.0.1654736714924/libs/@fancyapps/ui/dist/fancybox.css","js":"https://unpkg.com/volantis-static@0.0.1654736714924/libs/@fancyapps/ui/dist/fancybox.umd.js"},
+      
+      
+      
+    }
+  }
+
+  /******************** volantis.EventListener ********************************/
+  // 事件监听器 see: /source/js/app.js
+  volantis.EventListener = {}
+  // 这里存放pjax切换页面时将被移除的事件监听器
+  volantis.EventListener.list = []
+  //构造方法
+  function volantisEventListener(type, f, ele) {
+    this.type = type
+    this.f = f
+    this.ele = ele
+  }
+  // 移除事件监听器
+  volantis.EventListener.remove = () => {
+    volantis.EventListener.list.forEach(function (i) {
+      i.ele.removeEventListener(i.type, i.f, false)
+    })
+    volantis.EventListener.list = []
+  }
+  /******************** volantis.dom.$ ********************************/
+  // 注：这里没有选择器，也没有forEach一次只处理一个dom，这里重新封装主题常用的dom方法，返回的是dom对象，对象包含了以下方法，同时保留dom的原生API
+  function volantisDom(ele) {
+    if (!ele) ele = document.createElement("div")
+    this.ele = ele;
+    // ==============================================================
+    this.ele.find = (c) => {
+      let q = this.ele.querySelector(c)
+      if (q)
+        return new volantisDom(q)
+    }
+    // ==============================================================
+    this.ele.hasClass = (c) => {
+      return this.ele.className.match(new RegExp('(\\s|^)' + c + '(\\s|$)'));
+    }
+    this.ele.addClass = (c) => {
+      this.ele.classList.add(c);
+      return this.ele
+    }
+    this.ele.removeClass = (c) => {
+      this.ele.classList.remove(c);
+      return this.ele
+    }
+    this.ele.toggleClass = (c) => {
+      if (this.ele.hasClass(c)) {
+        this.ele.removeClass(c)
+      } else {
+        this.ele.addClass(c)
+      }
+      return this.ele
+    }
+    // ==============================================================
+    // 参数 r 为 true 表示pjax切换页面时事件监听器将被移除，false不移除
+    this.ele.on = (c, f, r = 1) => {
+      this.ele.addEventListener(c, f, false)
+      if (r) {
+        volantis.EventListener.list.push(new volantisEventListener(c, f, this.ele))
+      }
+      return this.ele
+    }
+    this.ele.click = (f, r) => {
+      this.ele.on("click", f, r)
+      return this.ele
+    }
+    this.ele.scroll = (f, r) => {
+      this.ele.on("scroll", f, r)
+      return this.ele
+    }
+    // ==============================================================
+    this.ele.html = (c) => {
+      // if(c=== undefined){
+      //   return this.ele.innerHTML
+      // }else{
+      this.ele.innerHTML = c
+      return this.ele
+      // }
+    }
+    // ==============================================================
+    this.ele.hide = (c) => {
+      this.ele.style.display = "none"
+      return this.ele
+    }
+    this.ele.show = (c) => {
+      this.ele.style.display = "block"
+      return this.ele
+    }
+    // ==============================================================
+    return this.ele
+  }
+  volantis.dom.$ = (ele) => {
+    return !!ele ? new volantisDom(ele) : null;
+  }
+  /******************** RunItem ********************************/
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = ()=>{
+          volantis.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) =>{
+      for (let index = 0; index < this.list.length; index++) {
+        const e = this.list[index];
+        if (e.name == name) {
+          this.list.splice(index,1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+  /******************** Pjax ********************************/
+  // /layout/_plugins/pjax/index.ejs
+  // volantis.pjax.send(callBack[,"callBackName"]) 传入pjax:send回调函数
+  // volantis.pjax.push(callBack[,"callBackName"]) 传入pjax:complete回调函数
+  // volantis.pjax.error(callBack[,"callBackName"]) 传入pjax:error回调函数
+  volantis.pjax = {};
+  volantis.pjax.method = {
+    complete: new RunItem(),
+    error: new RunItem(),
+    send: new RunItem(),
+  };
+  volantis.pjax = Object.assign(volantis.pjax, {
+    push: volantis.pjax.method.complete.push,
+    error: volantis.pjax.method.error.push,
+    send: volantis.pjax.method.send.push,
+  });
+  /******************** RightMenu ********************************/
+  // volantis.rightmenu.handle(callBack[,"callBackName"]) 外部菜单项控制
+  // 可在 volantis.mouseEvent 处获取右键事件
+  volantis.rightmenu = {};
+  volantis.rightmenu.method = {
+    handle: new RunItem(),
+  }
+  volantis.rightmenu = Object.assign(volantis.rightmenu, {
+    handle: volantis.rightmenu.method.handle.push,
+  });
+  /********************  Dark Mode  ********************************/
+  // /layout/_partial/scripts/darkmode.ejs
+  // volantis.dark.mode 当前模式 dark or light
+  // volantis.dark.toggle() 暗黑模式触发器
+  // volantis.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  volantis.dark = {};
+  volantis.dark.method = {
+    toggle: new RunItem(),
+  };
+  volantis.dark = Object.assign(volantis.dark, {
+    push: volantis.dark.method.toggle.push,
+  });
+  /********************  Message  ********************************/
+  // VolantisApp.message
+  /********************  isMobile  ********************************/
+  // /source/js/app.js
+  // volantis.isMobile
+  // volantis.isMobileOld
+  /********************脚本动态加载函数********************************/
+  // volantis.js(src, cb)  cb 可以传入onload回调函数 或者 JSON对象 例如: volantis.js("src", ()=>{}) 或 volantis.js("src", {defer:true,onload:()=>{}})
+  // volantis.css(src)
+
+  // 返回Promise对象，如下方法同步加载资源，这利于处理文件资源之间的依赖关系，例如：APlayer 需要在 MetingJS 之前加载
+  // (async () => {
+  //     await volantis.js("...theme.plugins.aplayer.js.aplayer...")
+  //     await volantis.js("...theme.plugins.aplayer.js.meting...")
+  // })();
+
+  // 已经加入了setTimeout
+  volantis.js = (src, cb) => {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var HEAD = document.getElementsByTagName("head")[0] || document.documentElement;
+        var script = document.createElement("script");
+        script.setAttribute("type", "text/javascript");
+        if (cb) {
+          if (JSON.stringify(cb)) {
+            for (let p in cb) {
+              if (p == "onload") {
+                script[p] = () => {
+                  cb[p]()
+                  resolve()
+                }
+              } else {
+                script[p] = cb[p]
+                script.onload = resolve
+              }
+            }
+          } else {
+            script.onload = () => {
+              cb()
+              resolve()
+            };
+          }
+        } else {
+          script.onload = resolve
+        }
+        script.setAttribute("src", src);
+        HEAD.appendChild(script);
+      });
+    });
+  }
+  volantis.css = (src) => {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var link = document.createElement('link');
+        link.rel = "stylesheet";
+        link.href = src;
+        link.onload = resolve;
+        document.getElementsByTagName("head")[0].appendChild(link);
+      });
+    });
+  }
+  /********************按需加载的插件********************************/
+  // volantis.import.jQuery().then(()=>{})
+  volantis.import = {
+    jQuery: () => {
+      if (typeof jQuery == "undefined") {
+        return volantis.js("https://unpkg.com/volantis-static@0.0.1654736714924/libs/jquery/dist/jquery.min.js")
+      } else {
+        return new Promise(resolve => {
+          resolve()
+        });
+      }
+    }
+  }
+  /********************** requestAnimationFrame ********************************/
+  // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+  // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+  volantis.requestAnimationFrame = (fn)=>{
+    if (!window.requestAnimationFrame) {
+      window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+    }
+    window.requestAnimationFrame(fn)
+  }
+  /************************ layoutHelper *****************************************/
+  volantis.layoutHelper = (helper, html, opt)=>{
+    opt = Object.assign({clean:false, pjax:true}, opt)
+    function myhelper(helper, html, clean) {
+      volantis.tempDiv = document.createElement("div");
+      volantis.tempDiv.innerHTML = html;
+      let layoutHelper = document.querySelector("#layoutHelper-"+helper)
+      if (layoutHelper) {
+        if (clean) {
+          layoutHelper.innerHTML = ""
+        }
+        layoutHelper.append(volantis.tempDiv);
+      }
+    }
+    myhelper(helper, html, opt.clean)
+    if (opt.pjax) {
+      volantis.pjax.push(()=>{
+        myhelper(helper, html, opt.clean)
+      },"layoutHelper-"+helper)
+    }
+  }
+  /****************************** 滚动事件处理 ****************************************/
+  volantis.scroll = {
+    engine: new RunItem(),
+    unengine: new RunItem(),
+  };
+  volantis.scroll = Object.assign(volantis.scroll, {
+    push: volantis.scroll.engine.push,
+  });
+  // 滚动条距离顶部的距离
+  volantis.scroll.getScrollTop = () =>{
+    let scrollPos;
+    if (window.pageYOffset) {
+      scrollPos = window.pageYOffset;
+    } else if (document.compatMode && document.compatMode != 'BackCompat') {
+      scrollPos = document.documentElement.scrollTop;
+    } else if (document.body) {
+      scrollPos = document.body.scrollTop;
+    }
+    return scrollPos;
+  }
+  // 使用 requestAnimationFrame 处理滚动事件
+  // `volantis.scroll.del` 中存储了一个数值, 该数值检测一定时间间隔内滚动条滚动的位移, 数值的检测频率是浏览器的刷新频率. 数值为正数时, 表示向下滚动. 数值为负数时, 表示向上滚动.
+  volantis.scroll.handleScrollEvents = () => {
+    volantis.scroll.lastScrollTop = volantis.scroll.getScrollTop()
+    function loop() {
+      const scrollTop = volantis.scroll.getScrollTop();
+      if (volantis.scroll.lastScrollTop !== scrollTop) {
+        volantis.scroll.del = scrollTop - volantis.scroll.lastScrollTop;
+        volantis.scroll.lastScrollTop = scrollTop;
+        // if (volantis.scroll.del > 0) {
+        //   console.log("向下滚动");
+        // } else {
+        //   console.log("向上滚动");
+        // }
+        // 注销过期的unengine未滚动事件
+        volantis.scroll.unengine.list=[]
+        volantis.scroll.engine.start();
+      }else{
+        volantis.scroll.unengine.start();
+      }
+      volantis.requestAnimationFrame(loop)
+    }
+    volantis.requestAnimationFrame(loop)
+  }
+  volantis.scroll.handleScrollEvents()
+  volantis.scroll.ele = null;
+  // 触发页面滚动至目标元素位置
+  volantis.scroll.to = (ele, option = {}) => {
+    if (!ele) return;
+    volantis.scroll.ele = ele;
+    // 默认配置
+    opt = {
+      top: ele.getBoundingClientRect().top + document.documentElement.scrollTop,
+      behavior: "smooth"
+    }
+    // 定义配置
+    if ("top" in option) {
+      opt.top = option.top
+    }
+    if ("behavior" in option) {
+      opt.behavior = option.behavior
+    }
+    if ("addTop" in option) {
+      opt.top += option.addTop
+    }
+    if (!("observerDic" in option)) {
+      option.observerDic = 100
+    }
+    // 滚动
+    window.scrollTo(opt);
+    // 监视器
+    // 监视并矫正元素滚动到指定位置
+    // 用于处理 lazyload 引起的 cls 导致的定位失败问题
+    // option.observer = false
+    if (option.observer) {
+      setTimeout(() => {
+        if (volantis.scroll.ele != ele) {
+          return
+        }
+        volantis.scroll.unengine.push(() => {
+          let me = ele.getBoundingClientRect().top
+          if(!(me >= -option.observerDic && me <= option.observerDic)){
+            volantis.scroll.to(ele, option)
+          }
+          volantis.scroll.unengine.remove("unengineObserver")
+        },"unengineObserver")
+      },1000)
+    }
+  }
+  /********************** Content Visibility ********************************/
+  // 见 source/css/first.styl 如果遇到任何问题 删除 .post-story 即可
+  // 一个元素被声明 content-visibility 属性后 如果元素不在 viewport 中 浏览器不会计算其后代元素样式和属性 从而节省 Style & Layout 耗时
+  // content-visibility 的副作用: 锚点失效 等等(实验初期 暂不明确), 使用此方法清除样式
+  volantis.cleanContentVisibility = ()=>{
+    if (document.querySelector(".post-story")) {
+      console.log("cleanContentVisibility");
+      document.querySelectorAll(".post-story").forEach(e=>{
+        e.classList.remove("post-story")
+      })
+    }
+  }
+  /******************************************************************************/
+  /******************************************************************************/
+  /******************************************************************************/
+  //图像加载出错时的处理
+  function errorImgAvatar(img) {
+    img.src = "https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg";
+    img.onerror = null;
+  }
+  function errorImgCover(img) {
+    img.src = "https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg";
+    img.onerror = null;
+  }
+  /******************************************************************************/
+</script>
+
+  <!-- import head_end begin -->
+  <!-- import head_end end -->
+  <!-- Custom Files headEnd begin-->
+  
+  <!-- Custom Files headEnd end-->
+  <!-- front-matter head_end begin -->
+  <!-- front-matter head_end end -->
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+  <body itemscope itemtype="http://schema.org/WebPage">
+    <!-- import body_begin begin-->
+    <!-- import body_begin end-->
+    <!-- Custom Files bodyBegin begin-->
+    
+    <!-- Custom Files bodyBegin end-->
+    <!-- front-matter body_begin begin -->
+    <!-- front-matter body_begin end -->
+    <header itemscope itemtype="http://schema.org/WPHeader" id="l_header" class="l_header auto shadow floatable blur show" style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fa-solid fa-comments fa-fw" target="_self"  href="/" onclick="return false;" title="comment"></a></li>
+        
+          <li><a id="s-toc" class="s-toc fa-solid fa-list fa-fw" target="_self"  href="/" onclick="return false;" title="toc"></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+            <img no-lazy class='logo' src='https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/Logo-NavBar@3x.png'/>
+          
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/" title="博客"
+                  
+                  
+                  
+                    active-action="action-home"
+                  >
+                  <i class='fa-solid fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/categories/" title="分类"
+                  
+                  
+                  
+                    active-action="action-categories"
+                  >
+                  <i class='fa-solid fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/tags/" title="标签"
+                  
+                  
+                  
+                    active-action="action-tags"
+                  >
+                  <i class='fa-solid fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/archives/" title="归档"
+                  
+                  
+                  
+                    active-action="action-archives"
+                  >
+                  <i class='fa-solid fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/friends/" title="友链"
+                  
+                  
+                  
+                    active-action="action-friends"
+                  >
+                  <i class='fa-solid fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/about/" title="关于"
+                  
+                  
+                  
+                    active-action="action-about"
+                  >
+                  <i class='fa-solid fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+      
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fa-solid fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+      
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fa-solid fa-search fa-fw" target="_self" href="/" onclick="return false;" title="search"></a></li>
+				
+				<li>
+          <a class="s-menu fa-solid fa-bars fa-fw" target="_self" href="/" onclick="return false;" title="menu"></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/" title="博客"
+                  
+                  
+                  
+                    active-action="action-home"
+                  >
+                  <i class='fa-solid fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/categories/" title="分类"
+                  
+                  
+                  
+                    active-action="action-categories"
+                  >
+                  <i class='fa-solid fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/tags/" title="标签"
+                  
+                  
+                  
+                    active-action="action-tags"
+                  >
+                  <i class='fa-solid fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/archives/" title="归档"
+                  
+                  
+                  
+                    active-action="action-archives"
+                  >
+                  <i class='fa-solid fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/friends/" title="友链"
+                  
+                  
+                  
+                    active-action="action-friends"
+                  >
+                  <i class='fa-solid fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/about/" title="关于"
+                  
+                  
+                  
+                    active-action="action-about"
+                  >
+                  <i class='fa-solid fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+
+      <!-- Custom Files header begin -->
+      
+      <!-- Custom Files header end -->
+		</div>
+	</div>
+  </div>
+</header>
+
+    <div id="l_body">
+      <div id="l_cover">
+  
+    
+      <!-- see: /layout/_partial/scripts/_ctrl/coverCtrl.ejs -->
+      <div id="none" class='cover-wrapper post dock' style="display: none;">
+        
+  <div class='cover-bg lazyload placeholder' data-bg="https://gcore.jsdelivr.net/gh/MHG-LAB/cron@gh-pages/bing/bing.jpg"></div>
+
+<div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">Volantis</p>
+    
+    
+  </div>
+  <div class='bottom'>
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+          
+            <a href="/v4/getting-started/"
+              
+              
+              active-action="action-v4getting-started">
+              <img src='https://unpkg.com/volantis-static@0.0.1654736714924/media/twemoji/assets/svg/1f5c3.svg'><p>文档</p>
+            </a>
+          
+            <a href="/faqs/"
+              
+              
+              active-action="action-faqs">
+              <img src='https://unpkg.com/volantis-static@0.0.1654736714924/media/twemoji/assets/svg/1f516.svg'><p>帮助</p>
+            </a>
+          
+            <a href="/examples/"
+              
+              
+              active-action="action-examples">
+              <img src='https://unpkg.com/volantis-static@0.0.1654736714924/media/twemoji/assets/svg/1f396.svg'><p>示例</p>
+            </a>
+          
+            <a href="/contributors/"
+              
+              
+              active-action="action-contributors">
+              <img src='https://unpkg.com/volantis-static@0.0.1654736714924/media/twemoji/assets/svg/1f389.svg'><p>社区</p>
+            </a>
+          
+            <a href="/archives/"
+              
+              
+              active-action="action-archives">
+              <img src='https://unpkg.com/volantis-static@0.0.1654736714924/media/twemoji/assets/svg/1f4f0.svg'><p>博客</p>
+            </a>
+          
+            <a target="_blank" rel="noopener" href="https://github.com/volantis-x/hexo-theme-volantis/"
+              
+              
+              active-action="action-https:githubcomvolantis-xhexo-theme-volantis">
+              <img src='https://unpkg.com/volantis-static@0.0.1654736714924/media/twemoji/assets/svg/1f9ec.svg'><p>源码</p>
+            </a>
+          
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+        <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+      </div>
+    
+  
+</div>
+
+      <div id="safearea">
+        <div class="body-wrapper">
+          
+<div id="l_main" class=''>
+  <article itemscope itemtype="http://schema.org/Article" class="article post white-box reveal md shadow floatable blur article-type-post" id="post" itemscope itemprop="blogPost">
+  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/06/07/17/">
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="QingQiu'Blog">
+  </span>
+  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
+    <meta itemprop="name" content="QingQiu'Blog">
+    <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
+  </span>
+  
+
+
+  
+    <span hidden>
+      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+    </span>
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title" itemprop="name headline">
+        面试记录
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author' itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <a itemprop="url" class='author' href="/" rel="nofollow">
+    <img itemprop="image" src="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/apple-touch-icon.png" class="lazyload" data-srcset="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/apple-touch-icon.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+    <p itemprop="name">请设置文章作者</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+          
+            <div class="new-meta-item date" itemprop="dateCreated datePublished" datetime="2024-06-07T16:52:17+08:00">
+  <a class='notlink'>
+    <i class="fa-solid fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2024年6月7日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+
+
+          
+        
+        <!-- Custom Files topMeta begin-->
+        
+        <!-- Custom Files topMeta end-->
+      </div>
+    
+  </div>
+
+
+  <div id="layoutHelper-page-plugins"></div>
+  <div id="post-body" itemprop="articleBody">
+    <p>DevOps</p>
+<h2 id="2024-05-11-同余信科一面（二面已过，但是不要26届的）"><a href="#2024-05-11-同余信科一面（二面已过，但是不要26届的）" class="headerlink" title="2024-05-11 同余信科一面（二面已过，但是不要26届的）"></a>2024-05-11 同余信科一面（二面已过，但是不要26届的）</h2><h3 id="项目中承担的开发工作"><a href="#项目中承担的开发工作" class="headerlink" title="项目中承担的开发工作"></a>项目中承担的开发工作</h3><h3 id="写过哪些模块"><a href="#写过哪些模块" class="headerlink" title="写过哪些模块"></a>写过哪些模块</h3><h3 id="Redis集群"><a href="#Redis集群" class="headerlink" title="Redis集群"></a>Redis集群</h3><h3 id="Java的常用集合用过哪些"><a href="#Java的常用集合用过哪些" class="headerlink" title="Java的常用集合用过哪些"></a>Java的常用集合用过哪些</h3><ol>
+<li><strong>ArrayList</strong>f</li>
+<li>LinkedList</li>
+<li>HashSet</li>
+<li>TreeSet</li>
+<li>HashMap</li>
+</ol>
+<h3 id="Stream流"><a href="#Stream流" class="headerlink" title="Stream流"></a>Stream流</h3><h3 id="HashMap的扩容机制"><a href="#HashMap的扩容机制" class="headerlink" title="HashMap的扩容机制"></a>HashMap的扩容机制</h3><ol>
+<li>当超过最大长度的0.75的时候开始扩容</li>
+<li>创建新的哈希表，容量为原来的两倍</li>
+<li>重新哈希：遍历旧的哈希表，将每个元素重新哈希到新的哈希表中。</li>
+<li>替换旧的哈希表。</li>
+</ol>
+<h3 id="类加载的过程"><a href="#类加载的过程" class="headerlink" title="类加载的过程"></a>类加载的过程</h3><ol>
+<li>类加载器找到字节码文件，从这个文件中读取数据，创建一个在内存中表示的java.lang.Class对象</li>
+<li>链接：<ul>
+<li>验证：确保被加载的类是否满足Java虚拟机的限制，例如：字节码是否有正确的格式，符号引用是否可以正确解析等</li>
+<li>准备：在住呢比阶段，Java虚拟机为类的静态变量分配内存，并且初始化默认值</li>
+<li>解析：Java虚拟机将类的符号引用转化为直接引用</li>
+</ul>
+</li>
+<li>初始化：执行类的初始化方法和静态初始化块和静态字段的初始化。</li>
+</ol>
+<h3 id="MySQL的存储引擎"><a href="#MySQL的存储引擎" class="headerlink" title="MySQL的存储引擎"></a>MySQL的存储引擎</h3><h4 id="InnoDB的底层数据结构，B-树和B树的区别"><a href="#InnoDB的底层数据结构，B-树和B树的区别" class="headerlink" title="InnoDB的底层数据结构，B+树和B树的区别"></a>InnoDB的底层数据结构，B+树和B树的区别</h4><p>B+树<br>区别：</p>
+<ol>
+<li>B+树中，所有的数据存储在叶子节点中，非叶子节点只存储关键字信息。而在B树中，关键字和数据可以存储在任何节点</li>
+<li>叶子节点链接：在B+树中，所有的叶子节点都通过指针连接在一次，形成一个链表结构。B树中叶子节点之间没有链接</li>
+<li>关键字重复：B+树种，非叶子节点的关键字会重复出现叶子节点，而在B树种，关键字只出现一次。<br>优点：</li>
+<li>B+树的叶子节点不存数据，仅存键值，相同的页表大小的情况下，B+树可以存更多的键值，从而使得树的高度更矮，查找数据进行磁盘IO次数就会减少。数据查询效率也会更快</li>
+<li>B+树索引的数据都在叶子节点，而且是按照顺序排列的，查找的时候更容易查找，效率更高</li>
+</ol>
+<h4 id="MVCC"><a href="#MVCC" class="headerlink" title="MVCC"></a>MVCC</h4><p>不可以解决幻读问题</p>
+<h3 id="数据库的并发一致性问题"><a href="#数据库的并发一致性问题" class="headerlink" title="数据库的并发一致性问题"></a>数据库的并发一致性问题</h3><ol>
+<li><p><strong>脏读（Dirty Read）</strong>：一个事务读取了另一个未提交事务的修改。如果那个事务回滚，那么这个读取操作就会读到错误的数据。</p>
+</li>
+<li><p><strong>不可重复读（Non-repeatable Read）</strong>：在同一个事务中，一个查询操作对同一行数据进行了多次读取，但由于其他事务的修改，导致多次读取的结果不一致。</p>
+</li>
+<li><p><strong>幻读（Phantom Read）</strong>：在同一个事务中，一个查询操作在前后两次查询中，由于其他事务的插入或删除操作，导致读取到了额外的行或者少了一些行。</p>
+</li>
+<li><p><strong>丢失更新（Lost Update）</strong>：两个事务同时修改同一行数据，后提交的事务会覆盖前一个事务的修改，导致前一个事务的修改丢失。</p>
+</li>
+</ol>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><h3 id="索引在项目中的实际应用"><a href="#索引在项目中的实际应用" class="headerlink" title="索引在项目中的实际应用"></a>索引在项目中的实际应用</h3><h3 id="AOP相关"><a href="#AOP相关" class="headerlink" title="AOP相关"></a>AOP相关</h3><p>业务逻辑成功，AOP数据库插入操作失败，如何解决<br>怎么把日志写到文件里</p>
+<h3 id="对于大量的数据同步，如何处理"><a href="#对于大量的数据同步，如何处理" class="headerlink" title="对于大量的数据同步，如何处理"></a>对于大量的数据同步，如何处理</h3><h4 id="怎么从Nginx的转发中获取实际的IP"><a href="#怎么从Nginx的转发中获取实际的IP" class="headerlink" title="怎么从Nginx的转发中获取实际的IP"></a>怎么从Nginx的转发中获取实际的IP</h4><p>使用proxy_set_header指令将客户端实际IP地址添加到HTTP请求中即可</p>
+<pre class="line-numbers language-nginx" data-language="nginx"><code class="language-nginx"><span class="token directive"><span class="token keyword">location</span> /</span> <span class="token punctuation">{</span>
+    <span class="token directive"><span class="token keyword">proxy_set_header</span> Host <span class="token variable">$host</span></span><span class="token punctuation">;</span>
+    <span class="token directive"><span class="token keyword">proxy_set_header</span> X-Real-IP <span class="token variable">$remote_addr</span></span><span class="token punctuation">;</span>
+    <span class="token directive"><span class="token keyword">proxy_set_header</span> X-Forwarded-For <span class="token variable">$proxy_add_x_forwarded_for</span></span><span class="token punctuation">;</span>
+    <span class="token directive"><span class="token keyword">proxy_pass</span> http://backend</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+//Java
+<span class="token directive"><span class="token keyword">import</span> javax.servlet.http.HttpServletRequest</span><span class="token punctuation">;</span>
+
+@RestController
+<span class="token directive"><span class="token keyword">public</span> class MyController</span> <span class="token punctuation">{</span>
+
+    @RequestMapping("/")
+    <span class="token directive"><span class="token keyword">public</span> String index(HttpServletRequest request)</span> <span class="token punctuation">{</span>
+        <span class="token directive"><span class="token keyword">String</span> ipAddress = request.getHeader(<span class="token string">"X-Forwarded-For"</span>)</span><span class="token punctuation">;</span>
+        <span class="token directive"><span class="token keyword">if</span> (ipAddress == null)</span> <span class="token punctuation">{</span>
+            <span class="token directive"><span class="token keyword">ipAddress</span> = request.getHeader(<span class="token string">"X-Real-IP"</span>)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token directive"><span class="token keyword">return</span> <span class="token string">"Client IP: "</span> + ipAddress</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Canal如何使用，有何好处，项目中如何使用"><a href="#Canal如何使用，有何好处，项目中如何使用" class="headerlink" title="Canal如何使用，有何好处，项目中如何使用"></a>Canal如何使用，有何好处，项目中如何使用</h3><h3 id="多线程对逻辑优化"><a href="#多线程对逻辑优化" class="headerlink" title="多线程对逻辑优化"></a>多线程对逻辑优化</h3><h4 id="使用并行Stream流来处理常用数据"><a href="#使用并行Stream流来处理常用数据" class="headerlink" title="使用并行Stream流来处理常用数据"></a>使用并行Stream流来处理常用数据</h4><h4 id="并行流的各种问题"><a href="#并行流的各种问题" class="headerlink" title="并行流的各种问题"></a>并行流的各种问题</h4><ol>
+<li><p><strong>线程安全问题</strong>：并行处理数据时，需要注意线程安全问题。如果并行流修改了共享资源，可能会导致数据不一致。</p>
+</li>
+<li><p><strong>顺序问题</strong>：并行流在处理数据时，不能保证数据的处理顺序。</p>
+</li>
+<li><p><strong>开销问题</strong>：并行流虽然可以提高处理速度，但是它也会增加额外的开销，如线程切换的开销。对于小数据集，这种开销可能会使并行流的性能低于串行流。</p>
+</li>
+<li><p><strong>阻塞问题</strong>：如果并行流的任务中有阻塞操作，如 I/O 操作，那么并行流的性能可能会大大降低。</p>
+</li>
+</ol>
+<h3 id="可以对自己的代码进行优化，考虑性能优化"><a href="#可以对自己的代码进行优化，考虑性能优化" class="headerlink" title="可以对自己的代码进行优化，考虑性能优化"></a>可以对自己的代码进行优化，考虑性能优化</h3><h3 id="SpringSecurity相关"><a href="#SpringSecurity相关" class="headerlink" title="SpringSecurity相关"></a>SpringSecurity相关</h3><p>SecurityContext是Spring Security中的一个重要组件，它用于存储与当前执行线程相关的安全性和身份验证信息。在任何地方，你都可以通过SecurityContextHolder来访问当前的SecurityContext。</p>
+<h2 id="2024-05-18-青鹤信息一面（笔试挂"><a href="#2024-05-18-青鹤信息一面（笔试挂" class="headerlink" title="2024-05-18 青鹤信息一面（笔试挂)"></a>2024-05-18 青鹤信息一面（笔试挂)</h2><h3 id="MyBatis的延迟加载优化查询效率"><a href="#MyBatis的延迟加载优化查询效率" class="headerlink" title="MyBatis的延迟加载优化查询效率"></a>MyBatis的延迟加载优化查询效率</h3><p>当使用一对多或者多对多的关联查询时，使用延迟加载可以在不需要获取关联数据时，可以避免执行关联查询，从而提高查询效率。</p>
+<h3 id="布隆过滤器"><a href="#布隆过滤器" class="headerlink" title="布隆过滤器"></a>布隆过滤器</h3><h3 id="MySQL的主从同步过程"><a href="#MySQL的主从同步过程" class="headerlink" title="MySQL的主从同步过程"></a>MySQL的主从同步过程</h3><p>使用binlog</p>
+<ul>
+<li>主从复制：<ul>
+<li>master节点会不断将sql命令写入Binary Log，子节点使用I/O线程读入master节点中的Bin Log</li>
+<li>字节点使用SQL线程执行Bin Log的语句</li>
+</ul>
+</li>
+</ul>
+<h3 id="主主同步如何实现，如何解决并发问题"><a href="#主主同步如何实现，如何解决并发问题" class="headerlink" title="主主同步如何实现，如何解决并发问题"></a>主主同步如何实现，如何解决并发问题</h3><h3 id="如何解决IO的负载均衡分布"><a href="#如何解决IO的负载均衡分布" class="headerlink" title="如何解决IO的负载均衡分布"></a>如何解决IO的负载均衡分布</h3><h3 id="AOP的优势"><a href="#AOP的优势" class="headerlink" title="AOP的优势"></a>AOP的优势</h3><h3 id="JDK17和JDK8的区别"><a href="#JDK17和JDK8的区别" class="headerlink" title="JDK17和JDK8的区别"></a>JDK17和JDK8的区别</h3><h2 id="2024-06-19-中和农信一面（一面挂）"><a href="#2024-06-19-中和农信一面（一面挂）" class="headerlink" title="2024-06-19 中和农信一面（一面挂）"></a>2024-06-19 中和农信一面（一面挂）</h2><h3 id="MySQL索引"><a href="#MySQL索引" class="headerlink" title="MySQL索引"></a>MySQL索引</h3><h4 id="索引失效的场景（重点）"><a href="#索引失效的场景（重点）" class="headerlink" title="索引失效的场景（重点）"></a>索引失效的场景（重点）</h4><ol>
+<li>LiIKE操作符以通配符开头例如 “%xx”或 “%xx%” ，但是 “xx%” 可以使用索引。</li>
+<li>对索引使用函数或者表达式操作 <code>select * from t_user where length(name)=6 </code></li>
+<li>对索引隐式转换，如果查询条件中的类型和列的类型不匹配，MySQL可能会进行类型转换，索引就会失效</li>
+<li>联合索引非最左匹配，多个普通字段组合在一起创建的索引叫做联合索引，不遵循最左优先的方式就会失效。</li>
+<li>where子句中使用了OR，如果OR后的条件不是索引列就会失效</li>
+<li>出现NULL值：如果列中包含NULL值，那么使用IS NULL或IS NOT NULL 查询时索引可能会失效。</li>
+</ol>
+<h4 id="Text对于字段类型索引会失效吗"><a href="#Text对于字段类型索引会失效吗" class="headerlink" title="Text对于字段类型索引会失效吗"></a>Text对于字段类型索引会失效吗</h4><p><code>TEXT</code>类型的字段是可以被索引的，但是由于<code>TEXT</code>类型的长度可能非常大，所以必须指定前缀长度。这是因为MySQL的B-Tree索引只能存储固定长度的值。如果不指定前缀长度，MySQL会报错。</p>
+<h4 id="MySQL如何使用索引的"><a href="#MySQL如何使用索引的" class="headerlink" title="MySQL如何使用索引的"></a>MySQL如何使用索引的</h4><h3 id="Java基础"><a href="#Java基础" class="headerlink" title="Java基础"></a>Java基础</h3><h4 id="Java中的类什么时候会加载到内存中"><a href="#Java中的类什么时候会加载到内存中" class="headerlink" title="Java中的类什么时候会加载到内存中"></a>Java中的类什么时候会加载到内存中</h4><ol>
+<li>实例化的时候：new </li>
+<li>访问静态对象时，</li>
+<li>子类加载时会把父类也加载进内存</li>
+<li>通过反射API时，使用反射时会把对应的类加载到内存中。</li>
+</ol>
+<h4 id="Hash冲突-amp-HashMap如何解决Hash冲突的，HashMap插入数据的过程"><a href="#Hash冲突-amp-HashMap如何解决Hash冲突的，HashMap插入数据的过程" class="headerlink" title="Hash冲突 &amp; HashMap如何解决Hash冲突的，HashMap插入数据的过程"></a>Hash冲突 &amp; HashMap如何解决Hash冲突的，HashMap插入数据的过程</h4><p>HashMap使用链地址法解决哈希冲突的。HashMap使用数组加链表的方式，数组中的位置可以看作一个桶，每个桶实际就是一个链表或者红黑树。<br>当桶中的数据超过一定的阈值时，默认为8，会转为红黑树。<br>插入过程：</p>
+<ol>
+<li>计算哈希值，使用键的hashCode()</li>
+<li>确定桶的位置，使用哈希值的一部分来确认键值对应该存储在哪个桶中。一般用哈希值的地位来选择桶</li>
+<li>检查冲突：<ul>
+<li>没有冲突就直接建一个新的节点</li>
+<li>有冲突就判断键值是否相同，使用的是equals方法，相等就覆盖，不相等就添加一个新的节点存储键值对</li>
+</ul>
+</li>
+<li>如果HashMap的大小超过了数组长度的0.75就会进行扩容，扩容之后是原来的两倍</li>
+</ol>
+<h4 id="ThreadLocal的实现原理"><a href="#ThreadLocal的实现原理" class="headerlink" title="ThreadLocal的实现原理"></a>ThreadLocal的实现原理</h4><p>每个Thread对象内部有一个ThreadLocalMap对象，然后它的键是ThreadLocal，值是我们像存储的值</p>
+<h3 id="并发问题"><a href="#并发问题" class="headerlink" title="并发问题"></a>并发问题</h3><h4 id="栅栏-Barrier"><a href="#栅栏-Barrier" class="headerlink" title="栅栏 Barrier"></a>栅栏 Barrier</h4><p>Barrier是一种同步机制，它可以让一组线程在所有线程到达某个点之后再一起继续执行。CountDownLatch就是栅栏的实现。</p>
+<h2 id="2024-06-25-江苏运联笔试（已过"><a href="#2024-06-25-江苏运联笔试（已过" class="headerlink" title="2024-06-25 江苏运联笔试（已过)"></a>2024-06-25 江苏运联笔试（已过)</h2><h3 id="如何捕捉一个IO异常，简单说明NULLPoniterException的理解"><a href="#如何捕捉一个IO异常，简单说明NULLPoniterException的理解" class="headerlink" title="如何捕捉一个IO异常，简单说明NULLPoniterException的理解"></a>如何捕捉一个IO异常，简单说明NULLPoniterException的理解</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">try</span> <span class="token punctuation">{</span>
+	<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span> <span class="token keyword">catch</span><span class="token punctuation">(</span><span class="token class-name">IOException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+<span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
+	<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>NullPointerException是程序尝试使用一个需要对象引用的擦欧总，但是这个对象引用却是null，就会抛出这个异常。</p>
+<h3 id="代码运行题目"><a href="#代码运行题目" class="headerlink" title="代码运行题目"></a>代码运行题目</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RunningMan</span><span class="token punctuation">{</span>
+	<span class="token keyword">public</span> <span class="token class-name">RunningMan</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+		<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>“<span class="token class-name">Hi</span><span class="token punctuation">,</span>man<span class="token operator">!</span> <span class="token class-name">Just</span> run<span class="token operator">!</span>”<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span> <span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span><span class="token punctuation">{</span>
+	<span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">9</span><span class="token punctuation">;</span>
+	<span class="token keyword">while</span><span class="token punctuation">(</span> <span class="token punctuation">(</span>i<span class="token operator">--</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token punctuation">)</span><span class="token operator">&gt;</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+		<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="SQL题目"><a href="#SQL题目" class="headerlink" title="SQL题目"></a>SQL题目</h3><p>建表，多表联合，更新数据，排序，分组</p>
+<h3 id="算法题"><a href="#算法题" class="headerlink" title="算法题"></a>算法题</h3><h3 id="MyBatis的主要组成部分，以及需要配置的东西"><a href="#MyBatis的主要组成部分，以及需要配置的东西" class="headerlink" title="MyBatis的主要组成部分，以及需要配置的东西"></a>MyBatis的主要组成部分，以及需要配置的东西</h3><h2 id="2024-06-28-江苏运联一面-已过"><a href="#2024-06-28-江苏运联一面-已过" class="headerlink" title="2024-06-28 江苏运联一面(已过)"></a>2024-06-28 江苏运联一面(已过)</h2><h3 id="项目提问："><a href="#项目提问：" class="headerlink" title="项目提问："></a>项目提问：</h3><p>哪个项目对你提升最大</p>
+<h3 id="jdk17新特性-（不会"><a href="#jdk17新特性-（不会" class="headerlink" title="jdk17新特性 （不会)"></a>jdk17新特性 （不会)</h3><p>模式匹配for instanceof、记录</p>
+<h4 id="模式匹配的增强"><a href="#模式匹配的增强" class="headerlink" title="模式匹配的增强"></a>模式匹配的增强</h4><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token number">17</span>之前
+<span class="token keyword">if</span> <span class="token punctuation">(</span>obj <span class="token keyword">instanceof</span> <span class="token class-name">String</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token class-name">String</span> s <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">)</span> obj<span class="token punctuation">;</span>
+    <span class="token comment">// 使用s</span>
+<span class="token punctuation">}</span>
+<span class="token number">17</span>中
+<span class="token keyword">if</span> <span class="token punctuation">(</span>obj <span class="token keyword">instanceof</span> <span class="token class-name">String</span> s<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 直接使用s</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="密封类"><a href="#密封类" class="headerlink" title="密封类"></a>密封类</h4><p>可以指定哪些类或者接口可以继承或实现它</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">sealed</span> <span class="token keyword">class</span> <span class="token class-name">Shape</span> <span class="token keyword">permits</span> <span class="token class-name">Circle</span><span class="token punctuation">,</span> <span class="token class-name">Rectangle</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 类定义</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">final</span> <span class="token keyword">class</span> <span class="token class-name">Circle</span> <span class="token keyword">extends</span> <span class="token class-name">Shape</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 类定义</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">non-sealed</span> <span class="token keyword">class</span> <span class="token class-name">Rectangle</span> <span class="token keyword">extends</span> <span class="token class-name">Shape</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 类定义</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="强化的空指针异常信息"><a href="#强化的空指针异常信息" class="headerlink" title="强化的空指针异常信息"></a>强化的空指针异常信息</h4><p>从JDK 17开始，异常信息会明确指出是哪个变量或哪个表达式的结果为<code>null</code>，大大减少了调试时间。</p>
+<h3 id="jdk8-新特性"><a href="#jdk8-新特性" class="headerlink" title="jdk8 新特性"></a>jdk8 新特性</h3><p>Lambda，Stream，新的日期API、Optional类</p>
+<h4 id="Stream流相关"><a href="#Stream流相关" class="headerlink" title="Stream流相关"></a>Stream流相关</h4><p>Lambda表达式是Java 8引入的一个重要特性，它提供了一种简洁的方式来表示匿名方法。这种表达式基于数学中的λ演算（一种用于描述函数的系统），在Java中主要用于实现函数式编程的概念。<br>分组：collect里面使用Collectors.groupingBy方法进行分组</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Integer</span><span class="token punctuation">,</span> <span class="token class-name">List</span><span class="token punctuation">&lt;</span><span class="token class-name">Person</span><span class="token punctuation">&gt;</span><span class="token punctuation">&gt;</span></span> peopleByAge <span class="token operator">=</span> people<span class="token punctuation">.</span><span class="token function">stream</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span><span class="token class-name">Collectors</span><span class="token punctuation">.</span><span class="token function">groupingBy</span><span class="token punctuation">(</span><span class="token class-name">Person</span><span class="token operator">::</span><span class="token function">getAge</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>过滤：filter和 limit和distinct和skip</p>
+<h4 id="lambda表达式"><a href="#lambda表达式" class="headerlink" title="lambda表达式"></a>lambda表达式</h4><p>有什么好处，使用lambda表达式<br>::new 是方法引用的一种，用于引用构造函数<br>可以搭配函数式接口来更加简洁的创建一个类</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Supplier</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Person</span><span class="token punctuation">&gt;</span></span> personSupplier <span class="token operator">=</span> <span class="token class-name">Person</span><span class="token operator">::</span><span class="token keyword">new</span><span class="token punctuation">;</span>
+<span class="token class-name">Person</span> person <span class="token operator">=</span> personSupplier<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 调用Person的无参数构造函数</span>
+<span class="token class-name">Function</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">Person</span><span class="token punctuation">&gt;</span></span> personFunction <span class="token operator">=</span> <span class="token class-name">Person</span><span class="token operator">::</span><span class="token keyword">new</span><span class="token punctuation">;</span>
+<span class="token class-name">Person</span> person <span class="token operator">=</span> personFunction<span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span><span class="token string">"Alice"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 调用Person的带有一个String参数的构造函数</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="有什么用"><a href="#有什么用" class="headerlink" title="::有什么用"></a>::有什么用</h4><ol>
+<li>引用静态方法，例如Integer::parseInt</li>
+<li>引用实例方法：<code>String s = "hello";</code>，则<code>s::toUpperCase</code></li>
+<li>引用特定类型的任意对象的实例方法：String::toLowerCase</li>
+<li>引用构造函数：ArrayList::new</li>
+</ol>
+<h3 id="SpringCloud-Alibaba"><a href="#SpringCloud-Alibaba" class="headerlink" title="SpringCloud Alibaba"></a>SpringCloud Alibaba</h3><h4 id="哪些组件"><a href="#哪些组件" class="headerlink" title="哪些组件"></a>哪些组件</h4><p>Nacos、Sentinel、Dubbo、RocketMQ、Seata、Gateway</p>
+<h3 id="Nacos的作用"><a href="#Nacos的作用" class="headerlink" title="Nacos的作用"></a>Nacos的作用</h3><h4 id="Nacos如何区分不同的配置"><a href="#Nacos如何区分不同的配置" class="headerlink" title="Nacos如何区分不同的配置"></a>Nacos如何区分不同的配置</h4><ol>
+<li><strong>Data ID</strong>：配置ID，通常用于唯一标识一个配置内容。</li>
+<li><strong>Group</strong>：分组，Nacos允许用户通过分组来对配置进行分类，一个Group中可以有多个Data ID。</li>
+<li><strong>Namespace</strong>：命名空间，用于进一步隔离配置。一个命名空间下可以有多个Group，一个Group下可以有多个Data ID。命名空间通常用于区分不同的开发环境，如开发环境、测试环境和生产环境。</li>
+</ol>
+<h4 id="命名空间重复了会怎么用"><a href="#命名空间重复了会怎么用" class="headerlink" title="命名空间重复了会怎么用"></a>命名空间重复了会怎么用</h4><p>命名空间是通过唯一的Namespace ID来标识的，而不是仅仅通过名称。即使两个命名空间的名称相同，它们的Namespace ID也是不同的，因此Nacos仍然能够区分它们。<br>如果服务分发后服务断开了会怎么办</p>
+<h3 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h3><h4 id="Redisson"><a href="#Redisson" class="headerlink" title="Redisson"></a>Redisson</h4><p>Redisson会无限延长一个键的过期时间吗，可以设置超时时间</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">lock<span class="token punctuation">.</span><span class="token function">tryLock</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">60</span><span class="token punctuation">,</span> <span class="token class-name">TimeUnit</span><span class="token punctuation">.</span><span class="token constant">SECONDS</span><span class="token punctuation">)</span> 尝试<span class="token number">10</span>s内获得锁，锁的最大生存时间是<span class="token number">60</span>s
+lock<span class="token punctuation">.</span><span class="token function">lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>进行看门狗
+这两步操作实际上是获得了两个锁，不能做到对同一个锁进行看门狗和到达一定时间就放弃这个锁
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="Java基础-JUC"><a href="#Java基础-JUC" class="headerlink" title="Java基础 JUC***"></a>Java基础 JUC***</h3><p><strong>AtomicInteger</strong>：并发场景下使用，它提供了一种在多线程环境中安全地操作单个整数的方式，而无需使用<code>synchronized</code>关键字。这是通过使用底层的非阻塞算法实现的，通常是利用CPU的原子指令。<code>AtomicInteger</code>支持原子操作，这意味着每个操作都是不可分割的，保证了在并发环境中的线程安全。</p>
+<h4 id="八大数据类型和延展性"><a href="#八大数据类型和延展性" class="headerlink" title="八大数据类型和延展性"></a>八大数据类型和延展性</h4><h3 id="MyBatis如何在查询的时候就进行组装"><a href="#MyBatis如何在查询的时候就进行组装" class="headerlink" title="MyBatis如何在查询的时候就进行组装"></a>MyBatis如何在查询的时候就进行组装</h3><ol>
+<li>使用resultMap进行结果映射<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>resultMap</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>genderResultMap<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>YourModelClass<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>result</span> <span class="token attr-name">property</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>gender<span class="token punctuation">"</span></span> <span class="token attr-name">column</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>gender_column<span class="token punctuation">"</span></span> <span class="token attr-name">javaType</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>java.lang.String<span class="token punctuation">"</span></span> <span class="token attr-name">jdbcType</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>INTEGER<span class="token punctuation">"</span></span> <span class="token attr-name">typeHandler</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>GenderTypeHandler<span class="token punctuation">"</span></span><span class="token punctuation">/&gt;</span></span>
+    <span class="token comment">&lt;!-- 其他字段映射 --&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>resultMap</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>ibatis<span class="token punctuation">.</span>type<span class="token punctuation">.</span></span><span class="token class-name">JdbcType</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>ibatis<span class="token punctuation">.</span>type<span class="token punctuation">.</span></span><span class="token class-name">TypeHandler</span></span><span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">GenderTypeHandler</span> <span class="token keyword">implements</span> <span class="token class-name">TypeHandler</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setParameter</span><span class="token punctuation">(</span><span class="token class-name">PreparedStatement</span> ps<span class="token punctuation">,</span> <span class="token keyword">int</span> i<span class="token punctuation">,</span> <span class="token class-name">String</span> parameter<span class="token punctuation">,</span> <span class="token class-name">JdbcType</span> jdbcType<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">SQLException</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 设置参数时的逻辑（如果需要）</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">getResult</span><span class="token punctuation">(</span><span class="token class-name">ResultSet</span> rs<span class="token punctuation">,</span> <span class="token class-name">String</span> columnName<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">SQLException</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> gender <span class="token operator">=</span> rs<span class="token punctuation">.</span><span class="token function">getInt</span><span class="token punctuation">(</span>columnName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> gender <span class="token operator">==</span> <span class="token number">1</span> <span class="token operator">?</span> <span class="token string">"男"</span> <span class="token operator">:</span> <span class="token string">"女"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">getResult</span><span class="token punctuation">(</span><span class="token class-name">ResultSet</span> rs<span class="token punctuation">,</span> <span class="token keyword">int</span> columnIndex<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">SQLException</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> gender <span class="token operator">=</span> rs<span class="token punctuation">.</span><span class="token function">getInt</span><span class="token punctuation">(</span>columnIndex<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> gender <span class="token operator">==</span> <span class="token number">1</span> <span class="token operator">?</span> <span class="token string">"男"</span> <span class="token operator">:</span> <span class="token string">"女"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">getResult</span><span class="token punctuation">(</span><span class="token class-name">CallableStatement</span> cs<span class="token punctuation">,</span> <span class="token keyword">int</span> columnIndex<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">SQLException</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> gender <span class="token operator">=</span> cs<span class="token punctuation">.</span><span class="token function">getInt</span><span class="token punctuation">(</span>columnIndex<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> gender <span class="token operator">==</span> <span class="token number">1</span> <span class="token operator">?</span> <span class="token string">"男"</span> <span class="token operator">:</span> <span class="token string">"女"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+最后在配置文件中进行注册<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>typeHandlers</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>typeHandler</span> <span class="token attr-name">handler</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>com.yourpackage.GenderTypeHandler<span class="token punctuation">"</span></span><span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>typeHandlers</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+<h2 id="2024-06-28-深圳同行者科技一面（一面挂）"><a href="#2024-06-28-深圳同行者科技一面（一面挂）" class="headerlink" title="2024-06-28 深圳同行者科技一面（一面挂）"></a>2024-06-28 深圳同行者科技一面（一面挂）</h2><h3 id="拷打笔试题-x2F-算法题"><a href="#拷打笔试题-x2F-算法题" class="headerlink" title="拷打笔试题/算法题"></a>拷打笔试题/算法题</h3><h4 id="1000w个数据中只有两个相同的数据，如何找出来"><a href="#1000w个数据中只有两个相同的数据，如何找出来" class="headerlink" title="1000w个数据中只有两个相同的数据，如何找出来"></a>1000w个数据中只有两个相同的数据，如何找出来</h4><p>使用HashSet</p>
+<h3 id="解释一下签到模块中的接口幂等性"><a href="#解释一下签到模块中的接口幂等性" class="headerlink" title="解释一下签到模块中的接口幂等性"></a>解释一下签到模块中的接口幂等性</h3><h3 id="解释一下如何保证的Redis的高可用性"><a href="#解释一下如何保证的Redis的高可用性" class="headerlink" title="解释一下如何保证的Redis的高可用性"></a>解释一下如何保证的Redis的高可用性</h3><h3 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h3><h4 id="分布式架构要注意哪些问题"><a href="#分布式架构要注意哪些问题" class="headerlink" title="分布式架构要注意哪些问题"></a>分布式架构要注意哪些问题</h4><ol>
+<li>数据一致性：要保证集群中的数据是一致的</li>
+<li>网络分区容忍性：出现了网络分区，根据CAP定理，出现网络分区时需要在业务需求的一致性和可用性之间做出均衡</li>
+<li>服务发现：当服务出现增加减少或者移动，客户端需要找到这些服务，可以使用Nacos解决</li>
+<li>负载均衡：合理分配请求或任务到多个服务节点，来优化资源利用率和响应时间</li>
+<li>容错和故障转移：单点故障会导致整个系统不可用</li>
+<li>事务管理：分布式系统中管理跨多个服务的事务，保证操作的原子性和一致性</li>
+<li>安全性：分布式系统中勉励多种安全威胁，数据泄露，服务拒绝攻击</li>
+<li>性能监控和调优：<br>CAP原理<br><strong>一致性（Consistency）</strong><br><strong>可用性（Availability</strong>）<br><strong>分区容忍性（Partition tolerance</strong>）<br>当出现网络分区P时，CA只能保证一个</li>
+</ol>
+<h3 id="项目中遇见的比较棘手的问题，如何解决的"><a href="#项目中遇见的比较棘手的问题，如何解决的" class="headerlink" title="项目中遇见的比较棘手的问题，如何解决的"></a>项目中遇见的比较棘手的问题，如何解决的</h3><h3 id="数据库中的脏数据如何处理"><a href="#数据库中的脏数据如何处理" class="headerlink" title="数据库中的脏数据如何处理"></a>数据库中的脏数据如何处理</h3><h2 id="2024-07-02-江苏运联二面-等结果，自我感觉还可以"><a href="#2024-07-02-江苏运联二面-等结果，自我感觉还可以" class="headerlink" title="2024-07-02 江苏运联二面(等结果，自我感觉还可以)"></a>2024-07-02 江苏运联二面(等结果，自我感觉还可以)</h2><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>主动把自己的亮点项目介绍出来，在自我介绍环节就努力介绍。把自己的优点（英语、六级、博客、项目开发、github、想给开源项目做贡献）</p>
+<h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h3><ol>
+<li>自我介绍</li>
+<li>承担的责任、前后端都参与开发，主要框架搭建，周期</li>
+<li>介绍项目（要主动介绍自己的特点和亮点）</li>
+<li>框架搭建使用了哪些技术栈</li>
+<li>签到相关</li>
+<li>需求怎么来的</li>
+<li>有课否？学分能修满否？大三下学期有可否？大四要干嘛？</li>
+<li>英语如何</li>
+<li>怎么提升阅读</li>
+<li>期望薪资</li>
+<li>最快到岗</li>
+<li></li>
+</ol>
+<h3 id="HashMap和HashTable什么区别"><a href="#HashMap和HashTable什么区别" class="headerlink" title="HashMap和HashTable什么区别"></a>HashMap和HashTable什么区别</h3><ol>
+<li>线程安全：<ul>
+<li><strong>HashTable</strong> 线程更安全,他的每个方法都是同步的，可以用在多线程中，不建议使用，建议使用ConcurrentHashMap</li>
+</ul>
+</li>
+<li>性能：HashMap性能更好，因为不需要进行同步</li>
+<li>空值：HashTable不允许key/value为null，而HashMap允许一条记录的key为null，允许多个记录的value为null</li>
+<li>继承的跟类不同：<ul>
+<li><code>HashTable</code>&nbsp;继承自&nbsp;<code>Dictionary</code>&nbsp;类。</li>
+<li><code>HashMap</code>&nbsp;继承自&nbsp;<code>AbstractMap</code>&nbsp;类并实现了&nbsp;<code>Map</code>&nbsp;接口。</li>
+</ul>
+</li>
+<li>迭代器<ul>
+<li><code>HashTable</code>&nbsp;使用&nbsp;<code>Enumerator</code>&nbsp;进行迭代。</li>
+<li><code>HashMap</code>&nbsp;使用&nbsp;<code>Iterator</code>&nbsp;进行迭代。<code>Iterator</code>&nbsp;是fail-fast迭代器，如果在迭代过程中有其他线程修改了&nbsp;<code>HashMap</code>，则会抛出&nbsp;<code>ConcurrentModificationException</code>。</li>
+</ul>
+</li>
+<li><strong>内部结构</strong>（Java 8 及以后）：<ul>
+<li><code>HashMap</code>&nbsp;在解决哈希冲突时，当链表长度大于阈值（默认为8）时，链表转换为红黑树，以提高搜索效率。</li>
+<li><code>HashTable</code>&nbsp;不具备这种链表到红黑树的转换机制。</li>
+</ul>
+</li>
+</ol>
+<h3 id="ConcurrentHashMap相关"><a href="#ConcurrentHashMap相关" class="headerlink" title="ConcurrentHashMap相关"></a>ConcurrentHashMap相关</h3><h3 id="MySQL索引-1"><a href="#MySQL索引-1" class="headerlink" title="MySQL索引"></a>MySQL索引</h3><h3 id="索引有什么用"><a href="#索引有什么用" class="headerlink" title="索引有什么用"></a>索引有什么用</h3><h4 id="索引失效场景"><a href="#索引失效场景" class="headerlink" title="索引失效场景"></a>索引失效场景</h4><p>建议搭配自己项目中的场景介绍</p>
+<h3 id="工作流"><a href="#工作流" class="headerlink" title="工作流"></a>工作流</h3><h3 id="摄像头识别分析数据类的场景了解过没"><a href="#摄像头识别分析数据类的场景了解过没" class="headerlink" title="摄像头识别分析数据类的场景了解过没"></a>摄像头识别分析数据类的场景了解过没</h3><h2 id="2024-07-03-神州灵云一面-已过，已发ofifer"><a href="#2024-07-03-神州灵云一面-已过，已发ofifer" class="headerlink" title="2024-07-03 神州灵云一面(已过，已发ofifer)"></a>2024-07-03 神州灵云一面(已过，已发ofifer)</h2><h3 id="流程-1"><a href="#流程-1" class="headerlink" title="流程"></a>流程</h3><ol>
+<li>自我介绍</li>
+<li>介绍工作室</li>
+<li>项目上线了or实验室项目</li>
+<li>已经学完的课程</li>
+<li>关于笔试题的提问：<ul>
+<li>解题的关键点是什么</li>
+<li>或运算和＋运算有什么区别，这个题目中两种运算有什么区别</li>
+<li>整型转字符串</li>
+</ul>
+</li>
+<li>一周几天/时间/最快到岗</li>
+<li>项目代码/几人开发 </li>
+<li>反问:<ul>
+<li>多久出面试结果 答：技术面，还有二面</li>
+<li>面的怎么样，有什么建议，答：面的还可以</li>
+<li>职位的职责， 答：文档，简单开发，对网络要求较高。</li>
+</ul>
+</li>
+</ol>
+<h3 id="TCP握手过程-忘了。。。"><a href="#TCP握手过程-忘了。。。" class="headerlink" title="TCP握手过程(忘了。。。)"></a>TCP握手过程(忘了。。。)</h3><ol>
+<li>客户端发送带有同步序列编号(SYN)报文到服务器，然后客户端进入SYN-SENT的状态</li>
+<li>服务器收到带有SYN的报文之后，如果统一建立连接，就会发送一个SYN-ACK报文作文响应，这个报文包含服务器自己的初始序列号，同时对客户端的SYN报文进行确认</li>
+<li>客户端收到服务器的STN-ACK报文之后会发送一个ACK报文作为响应，之后客户端进入ESTABLISHED状态，之后服务器接收到之后也进入连接状态。</li>
+</ol>
+<h3 id="JWT是什么，JWT就是Token的一种格式"><a href="#JWT是什么，JWT就是Token的一种格式" class="headerlink" title="JWT是什么，JWT就是Token的一种格式"></a>JWT是什么，JWT就是Token的一种格式</h3><h3 id="MongoDB基础提问（不会-还有ES的命令"><a href="#MongoDB基础提问（不会-还有ES的命令" class="headerlink" title="MongoDB基础提问（不会)还有ES的命令"></a>MongoDB基础提问（不会)还有ES的命令</h3><p>背背主要的查询语句去</p>
+<h3 id="权限管理的设计"><a href="#权限管理的设计" class="headerlink" title="权限管理的设计"></a>权限管理的设计</h3><h4 id="RBAC-（Role-Based-Access-Control）基于角色的访问控制"><a href="#RBAC-（Role-Based-Access-Control）基于角色的访问控制" class="headerlink" title="RBAC （Role-Based Access Control）基于角色的访问控制"></a>RBAC （<strong>Role-Based Access Control</strong>）基于角色的访问控制</h4><p><img src="/2024/06/07/mian-jing/mian-shi-ji-lu/RABC.png" class="lazyload" data-srcset="/2024/06/07/mian-jing/mian-shi-ji-lu/RABC.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br>将权限赋予角色，然后将角色赋予用户，这样的设计就可以很方柏霓的更改角色内所有用户的权限，也方便将用户的权限变更</p>
+<h4 id="ABAC-Attribute-Based-Access-Control-基于属性的访问控制"><a href="#ABAC-Attribute-Based-Access-Control-基于属性的访问控制" class="headerlink" title="ABAC (**Attribute-Based Access Control ) 基于属性的访问控制"></a>ABAC (**Attribute-Based Access Control ) 基于属性的访问控制</h4><p>通过各种属性来动态判断一个操作是否可以被允许。<br>比如赋予某个人可以查看某个文档的权限，但是不可以修改。<br>是基于对象、资源、操作、环境（上下文，时间和位置，协议等），具体的实现</p>
+<h4 id="新权限系统"><a href="#新权限系统" class="headerlink" title="新权限系统"></a>新权限系统</h4><p><img src="/2024/06/07/mian-jing/mian-shi-ji-lu/%E6%96%B0%E6%9D%83%E9%99%90.png" class="lazyload" data-srcset="/2024/06/07/mian-jing/mian-shi-ji-lu/%E6%96%B0%E6%9D%83%E9%99%90.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br>主要就是在RBAC的基础上，允许绕过角色来直接给用户添加一些权限</p>
+<h3 id="集群怎么设计的，有什么用，如何应对脑裂"><a href="#集群怎么设计的，有什么用，如何应对脑裂" class="headerlink" title="集群怎么设计的，有什么用，如何应对脑裂"></a>集群怎么设计的，有什么用，如何应对脑裂</h3><h3 id="如何中止SQL语句"><a href="#如何中止SQL语句" class="headerlink" title="如何中止SQL语句"></a>如何中止SQL语句</h3><p>场景：有一个访问需要查询一个很大的数据库，然后前端那边等不及了刷新，就会不断发送这个请求，我数据库该如何处理这些无效的查询？</p>
+<h2 id="2024-08-28-北京用友一面"><a href="#2024-08-28-北京用友一面" class="headerlink" title="2024-08-28 北京用友一面"></a>2024-08-28 北京用友一面</h2><p>自我介绍</p>
+<h3 id="介绍旁路缓存，旁路缓存一定能保证一致性吗"><a href="#介绍旁路缓存，旁路缓存一定能保证一致性吗" class="headerlink" title="介绍旁路缓存，旁路缓存一定能保证一致性吗"></a>介绍旁路缓存，旁路缓存一定能保证一致性吗</h3><p>旁路缓存是由应用程序来保证缓存和数据库的一致性，特点是直接更新数据库，删除缓存。<br>可以保证一致性，因为缓存写入的速度是远远快于数据库的写入的。</p>
+<h3 id="为什么使用Redisson而不是使用synchronized"><a href="#为什么使用Redisson而不是使用synchronized" class="headerlink" title="为什么使用Redisson而不是使用synchronized"></a>为什么使用Redisson而不是使用synchronized</h3><ol>
+<li>分布式锁，Synchronized只能在单个JVM内部工作</li>
+<li>可重入性，Redisson提供了可重入性锁的实现，而Synchronized需要手动管理可重入性</li>
+<li>锁超时，Redisson支持超时释放防止死锁发生</li>
+</ol>
+<h3 id="HashMap、ConcurrentHashMap-jdk1-7的区别"><a href="#HashMap、ConcurrentHashMap-jdk1-7的区别" class="headerlink" title="HashMap、ConcurrentHashMap jdk1.7的区别"></a>HashMap、ConcurrentHashMap jdk1.7的区别</h3><h3 id="Sentinel-相关"><a href="#Sentinel-相关" class="headerlink" title="Sentinel 相关"></a>Sentinel 相关</h3><h3 id="建立索引有哪些考量"><a href="#建立索引有哪些考量" class="headerlink" title="建立索引有哪些考量"></a>建立索引有哪些考量</h3><h3 id="索引失效场景-1"><a href="#索引失效场景-1" class="headerlink" title="索引失效场景"></a>索引失效场景</h3><ol>
+<li>查询条件不符合索引列的顺序</li>
+<li>使用函数或表达式</li>
+<li>隐式类型转换</li>
+<li>不等于操作</li>
+<li>范围查询</li>
+</ol>
+<h3 id="ES和MySQL区别"><a href="#ES和MySQL区别" class="headerlink" title="ES和MySQL区别"></a>ES和MySQL区别</h3><h3 id="Redis常见数据结构，string底层"><a href="#Redis常见数据结构，string底层" class="headerlink" title="Redis常见数据结构，string底层"></a>Redis常见数据结构，string底层</h3><h3 id="JVM内存泄漏如何定位、排查"><a href="#JVM内存泄漏如何定位、排查" class="headerlink" title="JVM内存泄漏如何定位、排查"></a>JVM内存泄漏如何定位、排查</h3><h3 id="docker常见指令"><a href="#docker常见指令" class="headerlink" title="docker常见指令"></a>docker常见指令</h3><h3 id="并行Stream流的底层"><a href="#并行Stream流的底层" class="headerlink" title="并行Stream流的底层"></a>并行Stream流的底层</h3><h2 id="ks测开一面-2024-09-04"><a href="#ks测开一面-2024-09-04" class="headerlink" title="ks测开一面 2024.09.04"></a>ks测开一面 2024.09.04</h2><p>自我介绍<br>实习负责的业务<br> 面向对象的三大特性，分别介绍什么场景下使用<br> 重载</p>
+<blockquote>
+<p>多态（Polymorphism）是面向对象编程（OOP）中的一个核心概念，它允许对象以多种形式出现。多态性使得相同的操作可以作用于不同的对象，并且这些对象可以根据具体的实现表现出不同的行为。多态性主要通过继承和接口实现。</p>
+<ol>
+<li><strong>编译时多态（静态多态）</strong>：<br> 通过方法重载（Method Overloading）实现。同一个类中可以有多个方法，它们具有相同的名字但参数不同。<br> <strong>运行时多态（动态多态）</strong>：<br>  通过方法重写（Method Overriding）实现。子类可以重写父类的方法，并且在运行时可以根据对象的实际类型调用相应的方法。</li>
+</ol>
+</blockquote>
+<h3 id="垃圾回收机制，怎么判断哪些对象是回收对象"><a href="#垃圾回收机制，怎么判断哪些对象是回收对象" class="headerlink" title="垃圾回收机制，怎么判断哪些对象是回收对象"></a>垃圾回收机制，怎么判断哪些对象是回收对象</h3><ol>
+<li>引用计数法，每个对象有一个引用计数器，当有一个新的引用指向该对象时，计数器+1，当一个引用不再指向该对象时，计数器-1。如果引用计数器为0，则可以被回收。缺点是：循环引用，两个对象互相引用对方，并且不再被其他对象引用，引用计数器永远不会为0，导致内存泄漏</li>
+<li>可达性算法：通过GC Roots的对象为起点，从这些对象开始，通过引用链可达的就不会被回收，不可达的就会被回收。(常见的GC Roots是虚拟机栈中的引用对象，方法区中的类静态属性引用对象，方法去中的常量引用对象，本地方法栈中的Native方法引用的对象)</li>
+<li>标记-清除算法(Mark-Sweep) <ol>
+<li>从GC Roots开始标记可达对象</li>
+<li>遍历堆中的所有对象，清除那些没有被标记的对象。</li>
+</ol>
+</li>
+</ol>
+<h3 id="常见的集合的实现类，集合的好处"><a href="#常见的集合的实现类，集合的好处" class="headerlink" title="常见的集合的实现类，集合的好处"></a>常见的集合的实现类，集合的好处</h3><ol>
+<li>简化代码，简化数据结构的使用</li>
+<li>提高开发效率</li>
+<li>性能优化</li>
+<li>类型安全，使用泛型可以确保集合中的元素类型一致避免了类型转化错误</li>
+<li>丰富的工具类</li>
+</ol>
+<h3 id="MySQL常见命令"><a href="#MySQL常见命令" class="headerlink" title="MySQL常见命令"></a>MySQL常见命令</h3><ol>
+<li>库 CREATE DATABEASE, DROP DATABASE,USE ,SHOW DATABASES</li>
+<li>表 CREATE TABLE,DROP TABLE,SHOW TABLES, ALTER TABLE ADD/DROP/MODIFY</li>
+<li>数据 INSERT INTO,UPDATE,DELETE FROM,SELECT</li>
+</ol>
+<p>查一个表的第10行和20行，limit 9,10</p>
+<h3 id="MySQL默认索引的数据结构是什么"><a href="#MySQL默认索引的数据结构是什么" class="headerlink" title="MySQL默认索引的数据结构是什么"></a>MySQL默认索引的数据结构是什么</h3><p>默认数据结构是B树，InnoDB存储引擎使用的是B+树作为索引数据结构<br>B树和B+树的区别：将所有的值存在叶子节点中</p>
+<h3 id="Redis和MySQL的区别"><a href="#Redis和MySQL的区别" class="headerlink" title="Redis和MySQL的区别"></a>Redis和MySQL的区别</h3><h3 id="Linux常见命令"><a href="#Linux常见命令" class="headerlink" title="Linux常见命令"></a>Linux常见命令</h3><h3 id="为什么使用了Kafka"><a href="#为什么使用了Kafka" class="headerlink" title="为什么使用了Kafka"></a>为什么使用了Kafka</h3><ol>
+<li>解耦</li>
+<li>异步处理</li>
+<li>流量削峰</li>
+<li>可靠性</li>
+<li>可扩展性</li>
+</ol>
+<h3 id="介绍一下实习项目之间的服务调用"><a href="#介绍一下实习项目之间的服务调用" class="headerlink" title="介绍一下实习项目之间的服务调用"></a>介绍一下实习项目之间的服务调用</h3><h3 id="有用过测试吗"><a href="#有用过测试吗" class="headerlink" title="有用过测试吗"></a>有用过测试吗</h3><p>如何进行压测</p>
+<h3 id="分布式锁如何实现的，有哪些实现方式"><a href="#分布式锁如何实现的，有哪些实现方式" class="headerlink" title="分布式锁如何实现的，有哪些实现方式"></a>分布式锁如何实现的，有哪些实现方式</h3><ol>
+<li>基于Redis实现的分布式锁，</li>
+<li>基于ZooKeeper实现</li>
+</ol>
+<h4 id="ZooKeeper实现"><a href="#ZooKeeper实现" class="headerlink" title="ZooKeeper实现"></a>ZooKeeper实现</h4><p>有更高的可靠性之外，功能外层还有一个分厂有用的特性：Watch机制。这个机制可以用来实现公平的分布式锁。性能方面较差</p>
+<h5 id="如何实现"><a href="#如何实现" class="headerlink" title="如何实现"></a>如何实现</h5><p><img src="/2024/06/07/mian-jing/mian-shi-ji-lu/ZooKeeper%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81.png" class="lazyload" data-srcset="/2024/06/07/mian-jing/mian-shi-ji-lu/ZooKeeper%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="|525"><br>ZooKeeper分布式锁是基于临时顺序节点和Watcher(事件监听器)实现的</p>
+<ol>
+<li>首先要有一个持久节点/locks，客户端获取锁就是在locks下创建临时顺序节点</li>
+<li>创建/locks/lock1节点之后，会判断lock1是否是/locks下最小的子节点</li>
+<li>如果是最小的子节点，则获取锁成功，否则获取失败。</li>
+<li>如果获取失败，客户端会在/locks/lock0上注册一个时间监听器，这个监听器的作业用是当前一个节点释放锁之后通知客户端1，避免无效自旋<br>释放锁：</li>
+<li>成功获取锁的客户端在执行完任务流程之后，会将对应的子节点删除</li>
+<li>成功获取锁的客户端出现故障之后，对应的子节点是临时顺序节点，会被自动删除，避免了锁无法被释放</li>
+<li>事件监听器就是监听这个子节点删除事件</li>
+</ol>
+<h5 id="为什么要使用临时顺序节点"><a href="#为什么要使用临时顺序节点" class="headerlink" title="为什么要使用临时顺序节点"></a>为什么要使用临时顺序节点</h5><p>znode是ZooKeeper中数据的最小单元<br>znode有4大分类</p>
+<ol>
+<li>持久节点：一旦创建就一直存在，即使ZooKeeper集群宕机</li>
+<li>临时节点：与客户端会话绑定，会话小时则节点消失，临时节点只能作为叶子节点，不能再创建子节点</li>
+<li>持久顺序节点：持久+顺序性</li>
+<li>临时顺寻节点：临时+顺序性</li>
+</ol>
+<h5 id="为什么要对前一个节点监听"><a href="#为什么要对前一个节点监听" class="headerlink" title="为什么要对前一个节点监听"></a>为什么要对前一个节点监听</h5><blockquote>
+<p>当前一个节点对应的客户端释放锁之后（也就是前一个节点被删除之后，监听的是删除事件），通知获取锁失败的客户端（唤醒等待的线程，Java 中的 <code>wait/notifyAll</code> ），让它尝试去获取锁，然后就成功获取锁了。</p>
+</blockquote>
+<h3 id="反问"><a href="#反问" class="headerlink" title="反问"></a>反问</h3><ol>
+<li>实习生该做什么：给啥做啥</li>
+<li>测试开发比例多少：至少7：3</li>
+<li>面试结果如何，表现如何：代码能力可以，对测试的了解不太行，对测试是否感兴趣</li>
+<li>测试挂了对其他岗位有什么影响：只有不来会影响</li>
+</ol>
+<h2 id="算法题-1"><a href="#算法题-1" class="headerlink" title="算法题"></a>算法题</h2><p>最大路径和(最小路径和变体) mid难度<br>如何验证算法题是对的</p>
+<h2 id="其他人面试遇到的问题"><a href="#其他人面试遇到的问题" class="headerlink" title="其他人面试遇到的问题"></a>其他人面试遇到的问题</h2><h3 id="什么是动态代理-x2F-静态代理"><a href="#什么是动态代理-x2F-静态代理" class="headerlink" title="什么是动态代理/静态代理"></a>什么是动态代理/静态代理</h3><p>动态代理<br>动态代理是在运行时创建代理对象的机制。代理对象可以在不修改原始对象代码的情况下，拦截对目标对象的方法调用，并在调用前后添加额外的逻辑。Java 中的动态代理主要有两种实现方式：<br>静态代理<br>静态代理是在编译时创建代理类的机制。代理类在编译时就已经存在，并且实现了与目标对象相同的接口。静态代理通过在代理类中调用目标对象的方法来实现对目标对象的代理。</p>
+<h3 id="什么是事务传播"><a href="#什么是事务传播" class="headerlink" title="什么是事务传播"></a>什么是事务传播</h3><p>事务传播 Transaction Propagation 是指Spring框架中定义事务在方法调用的过程中如何传播的机制。决定了一个方法在调用另一个方法时，事务应该如何进行管理。</p>
+<ul>
+<li>REQUIRED：默认支持当前事务，如果当前没有事务，就创建一个事务。这是默认的<img src="/2024/06/07/mian-jing/mian-shi-ji-lu/REQUIRED.png" class="lazyload" data-srcset="/2024/06/07/mian-jing/mian-shi-ji-lu/REQUIRED.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li>REQUIRED_NEW：总是创建一个新事务，当前存在事务就把当前事务挂起<img src="/2024/06/07/mian-jing/mian-shi-ji-lu/REQUIRED_NEW.png" class="lazyload" data-srcset="/2024/06/07/mian-jing/mian-shi-ji-lu/REQUIRED_NEW.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li>SUPPORTS：如果存在事务，就加入该事务，如果没有，就以非事务的方式执行</li>
+<li>NOT_SUPPORTED：即使当前存在事务，也不进行事务操作。</li>
+<li>MANDATORY：存在就加入，没有就抛出异常</li>
+<li>NEVER：总是以非事务的方式运行，存在事务就抛出异常</li>
+<li>NESTED：存在事务就嵌套事务内执行，没有事务就创建一个事务。可以读到嵌套事务</li>
+</ul>
+<h3 id="g1-full-gc退化过程"><a href="#g1-full-gc退化过程" class="headerlink" title="g1 full gc退化过程"></a>g1 full gc退化过程</h3><h4 id="G1的工作原理"><a href="#G1的工作原理" class="headerlink" title="G1的工作原理"></a>G1的工作原理</h4><ol>
+<li>分代收集:G1将堆内存划分为多个大小相等的区域，Yong GC 主要收集Eden区和Survivor区的垃圾对象</li>
+<li>混合收集Mixed GC：不仅手机年轻代，还收集部分老年代的垃圾对象</li>
+<li>并发标记周期：并发标记，垃圾收集可以与应用程序并发执行，减少垃圾收集对应用程序的影响标记老年代中存活对象，以便在混合收集中回收。</li>
+</ol>
+<h4 id="退化的原因"><a href="#退化的原因" class="headerlink" title="退化的原因"></a>退化的原因</h4><ol>
+<li>内存不足：当内存不足以分配新的对象或无法通过Yong GC和Mixed GC会搜狐，足够的内存时，会触发Full GC</li>
+<li>并发失败：在并发标记周期中，如果无法即使完成标记或者回收，可能会退化为Full GC</li>
+<li>晋升失败：当对象从年轻代晋升到老年代时，如果老年代没有足够的空间</li>
+<li>元数据空间不足</li>
+</ol>
+<h4 id="退化过程"><a href="#退化过程" class="headerlink" title="退化过程"></a>退化过程</h4><ol>
+<li>内存分配失败，尝试触发Yong GC</li>
+<li>Yong GC失败，触发Mixed GC</li>
+<li>Mixed GC失败，JVM进入Full GC</li>
+<li>Full GC会暂停所有应用线程，进行全站扫描和压缩，以会搜尽可能多的内存。</li>
+</ol>
+<h3 id="gRPC为什么可以提高效率"><a href="#gRPC为什么可以提高效率" class="headerlink" title="gRPC为什么可以提高效率"></a>gRPC为什么可以提高效率</h3><ol>
+<li>高效的协议 Protocol Buffers</li>
+<li>基于HTTP/2的传输协议：<ul>
+<li>多路复用：HTTP/2允许在单个TCP连接上并行发送多个请求和响应，减少了连接建立的开销</li>
+<li>头部压缩：使用HPACK算法对头部进行压缩</li>
+<li>服务器推送，可以在客户端请求之前发送数据，减少延迟</li>
+<li>流控制：更细力度的流控制，优化了带宽利用率</li>
+</ul>
+</li>
+<li>双向流和流控制：允许客户端和服务器单个连接上同时接收和发送数据。</li>
+<li>负载均衡和服务发现，支持多种负载均衡策略</li>
+<li>高效的异步通信：</li>
+<li>安全性：内置对TLS的支持<br><img src="/2024/06/07/mian-jing/mian-shi-ji-lu/grpc%E5%8E%9F%E7%90%86.png" class="lazyload" data-srcset="/2024/06/07/mian-jing/mian-shi-ji-lu/grpc%E5%8E%9F%E7%90%86.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+</ol>
+<h3 id="synchronized介绍下？底层原理？和LOCK的区别是什么？具体优缺点是什么？"><a href="#synchronized介绍下？底层原理？和LOCK的区别是什么？具体优缺点是什么？" class="headerlink" title="synchronized介绍下？底层原理？和LOCK的区别是什么？具体优缺点是什么？"></a>synchronized介绍下？底层原理？和LOCK的区别是什么？具体优缺点是什么？</h3><p>用来实现线程之间的互斥访问，确保同一时刻只能由一个线程可以执行被修饰的代码。</p>
+<h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>通过对象头中的监视器锁Monitor实现，当一个线程进入同步代码块或者方法时，会尝试获取该对象的监视器锁。<br>监视器锁的组成:</p>
+<ol>
+<li>对象头：每个对象在内存中都一个对象头，包含对象的元数据和锁信息</li>
+<li>Mark Word：对象头中的Mark Word存储了锁装填、哈希码、GC信息等</li>
+<li>Monitor：每个对象都有一个关联的监视器，用于是实现同步。<br>和Lock的区别<br>synchronied是Java语言级别的关键字，使用方便，而且由JVM管理，是隐式锁，如果一个线程获取锁失败会被阻塞，不可中断，线程在等待锁时无法被中断。<br>Lock时显示锁，需要显示获取和释放，支持可重入锁，公平锁等，非阻塞，可中断</li>
+</ol>
+<h3 id="Kafka是如何保证消息的顺序性的？你了解底层的原理吗？"><a href="#Kafka是如何保证消息的顺序性的？你了解底层的原理吗？" class="headerlink" title="Kafka是如何保证消息的顺序性的？你了解底层的原理吗？"></a>Kafka是如何保证消息的顺序性的？你了解底层的原理吗？</h3><h3 id="保障服务稳定性最重要的一个环节是"><a href="#保障服务稳定性最重要的一个环节是" class="headerlink" title="保障服务稳定性最重要的一个环节是"></a>保障服务稳定性最重要的一个环节是</h3><p>监控和预警</p>
+<h4 id="如何提前预估接口的QPS"><a href="#如何提前预估接口的QPS" class="headerlink" title="如何提前预估接口的QPS"></a>如何提前预估接口的QPS</h4><ol>
+<li>历史数据分析：分析历史日志和监控数据，了解不同时间段的QPS</li>
+<li>业务需求分析：</li>
+<li>模拟测试：压测模拟</li>
+</ol>
+<h3 id="HTTP1-0-x2F-1-1-x2F-2-0的区别"><a href="#HTTP1-0-x2F-1-1-x2F-2-0的区别" class="headerlink" title="HTTP1.0/1.1/2.0的区别"></a>HTTP1.0/1.1/2.0的区别</h3><p>HTTP1.0 默认短链接，每次请求都需要建立一次连接<br>1.1 默认长连接，可以在一个TCP连接上传送多个HTTP请求和响应<br>2.0 增加多路复用，报文头压缩，允许服务端推送资源给客户端。</p>
+<h3 id="队头阻塞"><a href="#队头阻塞" class="headerlink" title="队头阻塞"></a>队头阻塞</h3><h3 id="Redis相关"><a href="#Redis相关" class="headerlink" title="Redis相关"></a>Redis相关</h3><h4 id="大key问题"><a href="#大key问题" class="headerlink" title="大key问题"></a>大key问题</h4><p>解决：使用压缩gzip等，定时清理</p>
+<h4 id="热key"><a href="#热key" class="headerlink" title="热key"></a>热key</h4><p>Redis中，频繁被访问的键，可能会导致Redis性能瓶颈。<br>解决方案：</p>
+<ol>
+<li>在Redis之前增加一个缓存层</li>
+<li>数据分片，将热key的数据分片存储到多个Redis实例中</li>
+<li>请求分摊</li>
+</ol>
+<h3 id="数据库相关"><a href="#数据库相关" class="headerlink" title="数据库相关"></a>数据库相关</h3><h4 id="在有多个索引时，数据库会如何选择使用哪个索引？"><a href="#在有多个索引时，数据库会如何选择使用哪个索引？" class="headerlink" title="在有多个索引时，数据库会如何选择使用哪个索引？"></a>在有多个索引时，数据库会如何选择使用哪个索引？</h4><p>会使用选择性高(索引列中的不通知的数量与总行数的比率)、索引覆盖(可以避免回表操作的)、索引类型()、查询条件(例如最左匹配，复合索引(A,B)不可单独作用于B)</p>
+<h3 id="分布式相关"><a href="#分布式相关" class="headerlink" title="分布式相关"></a>分布式相关</h3><h4 id="分布式事务"><a href="#分布式事务" class="headerlink" title="分布式事务"></a>分布式事务</h4><p><a target="_blank" rel="noopener" href="https://xiaomi-info.github.io/2020/01/02/distributed-transaction/">https://xiaomi-info.github.io/2020/01/02/distributed-transaction/</a></p>
+<h3 id="业务相关"><a href="#业务相关" class="headerlink" title="业务相关"></a>业务相关</h3><h4 id="如何实现延迟队列"><a href="#如何实现延迟队列" class="headerlink" title="如何实现延迟队列"></a>如何实现延迟队列</h4><ol>
+<li>使用DelayQueue,<code>DelayQueue</code>的<code>put</code>方法是线程安全的，因为<code>put</code>方法内部使用了<code>ReentrantLock</code>锁进行线程同步。<code>DelayQueue</code>还提供了两种出队的方法 <code>poll()</code> 和 <code>take()</code> ， <code>poll()</code> 为非阻塞获取，没有到期的元素直接返回null；<code>take()</code> 阻塞方式获取，没有到期的元素线程将会等待。</li>
+<li>基于定时任务</li>
+<li>基于Redis过期键的回调函数</li>
+</ol>
+<h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3><h4 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h4><p>反射的原理基于Java的元数据（metadata），这些元数据在编译时被嵌入到类文件中，并在运行时通过Java反射API进行访问。</p>
+<h3 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h3><h4 id="Spring-AOP"><a href="#Spring-AOP" class="headerlink" title="Spring AOP"></a>Spring AOP</h4><blockquote>
+<p>AOP基于动态代理，如果要代理的对象实现了某个接口，那额会使用JDKProxy，如果没实现接口，那么会使用基于asm框架字节流的Cglib动态代理来生成一个被代理对象的子类来作为代理。</p>
+</blockquote>
+<h3 id="创建对象的几种方式"><a href="#创建对象的几种方式" class="headerlink" title="创建对象的几种方式"></a>创建对象的几种方式</h3><ol>
+<li>new</li>
+<li>Class.newInstance：需要有public无参构造器</li>
+<li>Contructor.newInstance：调用有参数和私有的构造函数</li>
+<li>使用Clone</li>
+<li>反序列化</li>
+<li></li>
+</ol>
+<h4 id="Bean"><a href="#Bean" class="headerlink" title="Bean"></a>Bean</h4><h5 id="创建流程"><a href="#创建流程" class="headerlink" title="创建流程"></a>创建流程</h5><ol>
+<li>实例化：也就是new</li>
+<li>IOC注入</li>
+</ol>
+<h4 id="循环依赖"><a href="#循环依赖" class="headerlink" title="循环依赖"></a>循环依赖</h4><blockquote>
+<p>两个或两个以上的Bean互相持有对方，形成相互持有对方，最终形成闭环。</p>
+</blockquote>
+<h5 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h5><p>三级缓存</p>
+<ol>
+<li>Spring容器通过构造器初始化对象之后提前暴漏到Spring容器的singletonFactorys(三级缓存)</li>
+<li>调用另一个对象时，尝试从容器中获取，如果不存在就初始化，现将自己放在三级缓存中，之后从一级、二级、三级缓存中一次获取第一个对象</li>
+<li>获取之后将自己放在单例池中，供第一个实例完成初始化。</li>
+</ol>
+<h2 id="同学的滴滴研发一面面经"><a href="#同学的滴滴研发一面面经" class="headerlink" title="同学的滴滴研发一面面经"></a>同学的滴滴研发一面面经</h2><ol>
+<li>自我介绍</li>
+<li>项目介绍：项目是否为网络上找的demo</li>
+<li>个人职责</li>
+<li>一些具体的功能实现逻辑</li>
+<li>使用Redis进行优化的思路</li>
+<li>HashMap的常见八股，如何进行扩容的(*)</li>
+</ol>
+<h3 id="如何保证多次请求-x2F-刷新的幂等性"><a href="#如何保证多次请求-x2F-刷新的幂等性" class="headerlink" title="如何保证多次请求/刷新的幂等性"></a>如何保证多次请求/刷新的幂等性</h3><ol>
+<li>使用PRG(POST/Redirect/GET)：用户填写表单，之后服务器收到请求之后进行处理，然后通过返回重定向，后续用户通过GET进行请求</li>
+<li>Token机制：服务端通过生成唯一有时效性的Token，之后客户端携带这个Token发送请求，如果Token失效则拒绝执行。并发场景下可以使用SETNX来保证有效，同时避免多个请求同时通过验证</li>
+</ol>
+
+  </div>
+  
+  
+    
+    <div class='footer'>
+       <!-- 参考资料、相关资料等 -->
+      
+       <!-- 相关文章 -->
+      
+      <!-- 版权声明组件 -->
+      
+      <!-- 打赏组件 -->
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateModified" datetime="2024-09-14T14:32:35+08:00">
+  <a class='notlink'>
+    <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2024年9月14日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://zuofw.github.io/2024/06/07/17/&title=面试记录 - QingQiu'Blog&summary="
+          
+          >
+          
+            <img src="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/logo/128/qq.png" class="lazyload" data-srcset="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/logo/128/qq.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://zuofw.github.io/2024/06/07/17/&title=面试记录 - QingQiu'Blog&summary="
+          
+          >
+          
+            <img src="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/logo/128/qzone.png" class="lazyload" data-srcset="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/logo/128/qzone.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://zuofw.github.io/2024/06/07/17/&title=面试记录 - QingQiu'Blog&summary="
+          
+          >
+          
+            <img src="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/logo/128/weibo.png" class="lazyload" data-srcset="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/logo/128/weibo.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+    <!-- Custom Files bottomMeta begin -->
+    
+    <!-- Custom Files bottomMeta end -->
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+        <a class='prev' href='/2024/06/13/21/'>
+          <p class='title'><i class="fa-solid fa-chevron-left" aria-hidden="true"></i>软件工程</p>
+          <p class='content'>软件工程相关软件开发模型瀑布模型（Waterfall Model）、快速原型模型（Rapid Prototype Model）、V 模型（V-model）、W 模型（W-model）、敏捷开发模...</p>
+        </a>
+      
+      
+        <a class='next' href='/2024/06/07/04/'>
+          <p class='title'>深入浅出Spring<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>面试常问注解
+@Nullable 注解的主要作用是为开发者和静态分析工具提供信息，指示某个字段、方法返回值或参数可以为 null。具体来说，它会：  帮助静态分析工具：静态分析工具可以利用 @N...</p>
+        </a>
+      
+    </div>
+  
+  <!-- Custom Files postEnd begin-->
+  
+  <!-- Custom Files postEnd end-->
+</article>
+
+
+  
+
+
+  <article class="post white-box shadow floatable blur" id="comments">
+    <span hidden>
+      <meta itemprop="discussionUrl" content="/2024/06/07/17/index.html#comments">
+    </span>
+    <p ct><i class='fa-solid fa-comments'></i> 评论</p>
+    
+
+    <div id="layoutHelper-comments"></div>
+
+  </article>
+
+
+
+
+
+
+</div>
+<aside id='l_side' itemscope itemtype="http://schema.org/WPSideBar">
+  
+
+  
+    
+    
+      
+    
+  
+
+
+<div class="widget-sticky pjax">
+
+  
+  
+
+
+  <section class="widget toc-wrapper desktop mobile " id="toc-div" >
+    
+  <header>
+    
+      <i class="fa-solid fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#2024-05-11-%E5%90%8C%E4%BD%99%E4%BF%A1%E7%A7%91%E4%B8%80%E9%9D%A2%EF%BC%88%E4%BA%8C%E9%9D%A2%E5%B7%B2%E8%BF%87%EF%BC%8C%E4%BD%86%E6%98%AF%E4%B8%8D%E8%A6%8126%E5%B1%8A%E7%9A%84%EF%BC%89"><span class="toc-text">2024-05-11 同余信科一面（二面已过，但是不要26届的）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E4%B8%AD%E6%89%BF%E6%8B%85%E7%9A%84%E5%BC%80%E5%8F%91%E5%B7%A5%E4%BD%9C"><span class="toc-text">项目中承担的开发工作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%99%E8%BF%87%E5%93%AA%E4%BA%9B%E6%A8%A1%E5%9D%97"><span class="toc-text">写过哪些模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Redis%E9%9B%86%E7%BE%A4"><span class="toc-text">Redis集群</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Java%E7%9A%84%E5%B8%B8%E7%94%A8%E9%9B%86%E5%90%88%E7%94%A8%E8%BF%87%E5%93%AA%E4%BA%9B"><span class="toc-text">Java的常用集合用过哪些</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Stream%E6%B5%81"><span class="toc-text">Stream流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HashMap%E7%9A%84%E6%89%A9%E5%AE%B9%E6%9C%BA%E5%88%B6"><span class="toc-text">HashMap的扩容机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E5%8A%A0%E8%BD%BD%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="toc-text">类加载的过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E"><span class="toc-text">MySQL的存储引擎</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#InnoDB%E7%9A%84%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%8CB-%E6%A0%91%E5%92%8CB%E6%A0%91%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">InnoDB的底层数据结构，B+树和B树的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MVCC"><span class="toc-text">MVCC</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%B9%B6%E5%8F%91%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98"><span class="toc-text">数据库的并发一致性问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-text">其他</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8"><span class="toc-text">索引在项目中的实际应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AOP%E7%9B%B8%E5%85%B3"><span class="toc-text">AOP相关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E4%BA%8E%E5%A4%A7%E9%87%8F%E7%9A%84%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%EF%BC%8C%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86"><span class="toc-text">对于大量的数据同步，如何处理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%8E%E4%B9%88%E4%BB%8ENginx%E7%9A%84%E8%BD%AC%E5%8F%91%E4%B8%AD%E8%8E%B7%E5%8F%96%E5%AE%9E%E9%99%85%E7%9A%84IP"><span class="toc-text">怎么从Nginx的转发中获取实际的IP</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Canal%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%EF%BC%8C%E6%9C%89%E4%BD%95%E5%A5%BD%E5%A4%84%EF%BC%8C%E9%A1%B9%E7%9B%AE%E4%B8%AD%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8"><span class="toc-text">Canal如何使用，有何好处，项目中如何使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AF%B9%E9%80%BB%E8%BE%91%E4%BC%98%E5%8C%96"><span class="toc-text">多线程对逻辑优化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%B9%B6%E8%A1%8CStream%E6%B5%81%E6%9D%A5%E5%A4%84%E7%90%86%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE"><span class="toc-text">使用并行Stream流来处理常用数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B9%B6%E8%A1%8C%E6%B5%81%E7%9A%84%E5%90%84%E7%A7%8D%E9%97%AE%E9%A2%98"><span class="toc-text">并行流的各种问题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E4%BB%A5%E5%AF%B9%E8%87%AA%E5%B7%B1%E7%9A%84%E4%BB%A3%E7%A0%81%E8%BF%9B%E8%A1%8C%E4%BC%98%E5%8C%96%EF%BC%8C%E8%80%83%E8%99%91%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="toc-text">可以对自己的代码进行优化，考虑性能优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SpringSecurity%E7%9B%B8%E5%85%B3"><span class="toc-text">SpringSecurity相关</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2024-05-18-%E9%9D%92%E9%B9%A4%E4%BF%A1%E6%81%AF%E4%B8%80%E9%9D%A2%EF%BC%88%E7%AC%94%E8%AF%95%E6%8C%82"><span class="toc-text">2024-05-18 青鹤信息一面（笔试挂)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MyBatis%E7%9A%84%E5%BB%B6%E8%BF%9F%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96%E6%9F%A5%E8%AF%A2%E6%95%88%E7%8E%87"><span class="toc-text">MyBatis的延迟加载优化查询效率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="toc-text">布隆过滤器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL%E7%9A%84%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E8%BF%87%E7%A8%8B"><span class="toc-text">MySQL的主从同步过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E4%B8%BB%E5%90%8C%E6%AD%A5%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%EF%BC%8C%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E5%B9%B6%E5%8F%91%E9%97%AE%E9%A2%98"><span class="toc-text">主主同步如何实现，如何解决并发问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3IO%E7%9A%84%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%88%86%E5%B8%83"><span class="toc-text">如何解决IO的负载均衡分布</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AOP%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="toc-text">AOP的优势</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JDK17%E5%92%8CJDK8%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">JDK17和JDK8的区别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2024-06-19-%E4%B8%AD%E5%92%8C%E5%86%9C%E4%BF%A1%E4%B8%80%E9%9D%A2%EF%BC%88%E4%B8%80%E9%9D%A2%E6%8C%82%EF%BC%89"><span class="toc-text">2024-06-19 中和农信一面（一面挂）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL%E7%B4%A2%E5%BC%95"><span class="toc-text">MySQL索引</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E7%9A%84%E5%9C%BA%E6%99%AF%EF%BC%88%E9%87%8D%E7%82%B9%EF%BC%89"><span class="toc-text">索引失效的场景（重点）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Text%E5%AF%B9%E4%BA%8E%E5%AD%97%E6%AE%B5%E7%B1%BB%E5%9E%8B%E7%B4%A2%E5%BC%95%E4%BC%9A%E5%A4%B1%E6%95%88%E5%90%97"><span class="toc-text">Text对于字段类型索引会失效吗</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MySQL%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E7%B4%A2%E5%BC%95%E7%9A%84"><span class="toc-text">MySQL如何使用索引的</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Java%E5%9F%BA%E7%A1%80"><span class="toc-text">Java基础</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Java%E4%B8%AD%E7%9A%84%E7%B1%BB%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BC%9A%E5%8A%A0%E8%BD%BD%E5%88%B0%E5%86%85%E5%AD%98%E4%B8%AD"><span class="toc-text">Java中的类什么时候会加载到内存中</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Hash%E5%86%B2%E7%AA%81-amp-HashMap%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3Hash%E5%86%B2%E7%AA%81%E7%9A%84%EF%BC%8CHashMap%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="toc-text">Hash冲突 &amp; HashMap如何解决Hash冲突的，HashMap插入数据的过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ThreadLocal%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-text">ThreadLocal的实现原理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%B6%E5%8F%91%E9%97%AE%E9%A2%98"><span class="toc-text">并发问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%85%E6%A0%8F-Barrier"><span class="toc-text">栅栏 Barrier</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2024-06-25-%E6%B1%9F%E8%8B%8F%E8%BF%90%E8%81%94%E7%AC%94%E8%AF%95%EF%BC%88%E5%B7%B2%E8%BF%87"><span class="toc-text">2024-06-25 江苏运联笔试（已过)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E6%8D%95%E6%8D%89%E4%B8%80%E4%B8%AAIO%E5%BC%82%E5%B8%B8%EF%BC%8C%E7%AE%80%E5%8D%95%E8%AF%B4%E6%98%8ENULLPoniterException%E7%9A%84%E7%90%86%E8%A7%A3"><span class="toc-text">如何捕捉一个IO异常，简单说明NULLPoniterException的理解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E8%BF%90%E8%A1%8C%E9%A2%98%E7%9B%AE"><span class="toc-text">代码运行题目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SQL%E9%A2%98%E7%9B%AE"><span class="toc-text">SQL题目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E9%A2%98"><span class="toc-text">算法题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MyBatis%E7%9A%84%E4%B8%BB%E8%A6%81%E7%BB%84%E6%88%90%E9%83%A8%E5%88%86%EF%BC%8C%E4%BB%A5%E5%8F%8A%E9%9C%80%E8%A6%81%E9%85%8D%E7%BD%AE%E7%9A%84%E4%B8%9C%E8%A5%BF"><span class="toc-text">MyBatis的主要组成部分，以及需要配置的东西</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2024-06-28-%E6%B1%9F%E8%8B%8F%E8%BF%90%E8%81%94%E4%B8%80%E9%9D%A2-%E5%B7%B2%E8%BF%87"><span class="toc-text">2024-06-28 江苏运联一面(已过)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E6%8F%90%E9%97%AE%EF%BC%9A"><span class="toc-text">项目提问：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jdk17%E6%96%B0%E7%89%B9%E6%80%A7-%EF%BC%88%E4%B8%8D%E4%BC%9A"><span class="toc-text">jdk17新特性 （不会)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D%E7%9A%84%E5%A2%9E%E5%BC%BA"><span class="toc-text">模式匹配的增强</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%86%E5%B0%81%E7%B1%BB"><span class="toc-text">密封类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%BA%E5%8C%96%E7%9A%84%E7%A9%BA%E6%8C%87%E9%92%88%E5%BC%82%E5%B8%B8%E4%BF%A1%E6%81%AF"><span class="toc-text">强化的空指针异常信息</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jdk8-%E6%96%B0%E7%89%B9%E6%80%A7"><span class="toc-text">jdk8 新特性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Stream%E6%B5%81%E7%9B%B8%E5%85%B3"><span class="toc-text">Stream流相关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">lambda表达式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%89%E4%BB%80%E4%B9%88%E7%94%A8"><span class="toc-text">::有什么用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SpringCloud-Alibaba"><span class="toc-text">SpringCloud Alibaba</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%93%AA%E4%BA%9B%E7%BB%84%E4%BB%B6"><span class="toc-text">哪些组件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nacos%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-text">Nacos的作用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Nacos%E5%A6%82%E4%BD%95%E5%8C%BA%E5%88%86%E4%B8%8D%E5%90%8C%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="toc-text">Nacos如何区分不同的配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E9%87%8D%E5%A4%8D%E4%BA%86%E4%BC%9A%E6%80%8E%E4%B9%88%E7%94%A8"><span class="toc-text">命名空间重复了会怎么用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Redis"><span class="toc-text">Redis</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Redisson"><span class="toc-text">Redisson</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Java%E5%9F%BA%E7%A1%80-JUC"><span class="toc-text">Java基础 JUC***</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%AB%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%BB%B6%E5%B1%95%E6%80%A7"><span class="toc-text">八大数据类型和延展性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MyBatis%E5%A6%82%E4%BD%95%E5%9C%A8%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%97%B6%E5%80%99%E5%B0%B1%E8%BF%9B%E8%A1%8C%E7%BB%84%E8%A3%85"><span class="toc-text">MyBatis如何在查询的时候就进行组装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2024-06-28-%E6%B7%B1%E5%9C%B3%E5%90%8C%E8%A1%8C%E8%80%85%E7%A7%91%E6%8A%80%E4%B8%80%E9%9D%A2%EF%BC%88%E4%B8%80%E9%9D%A2%E6%8C%82%EF%BC%89"><span class="toc-text">2024-06-28 深圳同行者科技一面（一面挂）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%B7%E6%89%93%E7%AC%94%E8%AF%95%E9%A2%98-x2F-%E7%AE%97%E6%B3%95%E9%A2%98"><span class="toc-text">拷打笔试题&#x2F;算法题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1000w%E4%B8%AA%E6%95%B0%E6%8D%AE%E4%B8%AD%E5%8F%AA%E6%9C%89%E4%B8%A4%E4%B8%AA%E7%9B%B8%E5%90%8C%E7%9A%84%E6%95%B0%E6%8D%AE%EF%BC%8C%E5%A6%82%E4%BD%95%E6%89%BE%E5%87%BA%E6%9D%A5"><span class="toc-text">1000w个数据中只有两个相同的数据，如何找出来</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E9%87%8A%E4%B8%80%E4%B8%8B%E7%AD%BE%E5%88%B0%E6%A8%A1%E5%9D%97%E4%B8%AD%E7%9A%84%E6%8E%A5%E5%8F%A3%E5%B9%82%E7%AD%89%E6%80%A7"><span class="toc-text">解释一下签到模块中的接口幂等性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E9%87%8A%E4%B8%80%E4%B8%8B%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%9A%84Redis%E7%9A%84%E9%AB%98%E5%8F%AF%E7%94%A8%E6%80%A7"><span class="toc-text">解释一下如何保证的Redis的高可用性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F"><span class="toc-text">分布式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84%E8%A6%81%E6%B3%A8%E6%84%8F%E5%93%AA%E4%BA%9B%E9%97%AE%E9%A2%98"><span class="toc-text">分布式架构要注意哪些问题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E4%B8%AD%E9%81%87%E8%A7%81%E7%9A%84%E6%AF%94%E8%BE%83%E6%A3%98%E6%89%8B%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%8C%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E7%9A%84"><span class="toc-text">项目中遇见的比较棘手的问题，如何解决的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%9A%84%E8%84%8F%E6%95%B0%E6%8D%AE%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86"><span class="toc-text">数据库中的脏数据如何处理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2024-07-02-%E6%B1%9F%E8%8B%8F%E8%BF%90%E8%81%94%E4%BA%8C%E9%9D%A2-%E7%AD%89%E7%BB%93%E6%9E%9C%EF%BC%8C%E8%87%AA%E6%88%91%E6%84%9F%E8%A7%89%E8%BF%98%E5%8F%AF%E4%BB%A5"><span class="toc-text">2024-07-02 江苏运联二面(等结果，自我感觉还可以)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%81%E7%A8%8B"><span class="toc-text">流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HashMap%E5%92%8CHashTable%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB"><span class="toc-text">HashMap和HashTable什么区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ConcurrentHashMap%E7%9B%B8%E5%85%B3"><span class="toc-text">ConcurrentHashMap相关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL%E7%B4%A2%E5%BC%95-1"><span class="toc-text">MySQL索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95%E6%9C%89%E4%BB%80%E4%B9%88%E7%94%A8"><span class="toc-text">索引有什么用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E5%9C%BA%E6%99%AF"><span class="toc-text">索引失效场景</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="toc-text">工作流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%91%84%E5%83%8F%E5%A4%B4%E8%AF%86%E5%88%AB%E5%88%86%E6%9E%90%E6%95%B0%E6%8D%AE%E7%B1%BB%E7%9A%84%E5%9C%BA%E6%99%AF%E4%BA%86%E8%A7%A3%E8%BF%87%E6%B2%A1"><span class="toc-text">摄像头识别分析数据类的场景了解过没</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2024-07-03-%E7%A5%9E%E5%B7%9E%E7%81%B5%E4%BA%91%E4%B8%80%E9%9D%A2-%E5%B7%B2%E8%BF%87%EF%BC%8C%E5%B7%B2%E5%8F%91ofifer"><span class="toc-text">2024-07-03 神州灵云一面(已过，已发ofifer)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%81%E7%A8%8B-1"><span class="toc-text">流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B-%E5%BF%98%E4%BA%86%E3%80%82%E3%80%82%E3%80%82"><span class="toc-text">TCP握手过程(忘了。。。)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JWT%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%8CJWT%E5%B0%B1%E6%98%AFToken%E7%9A%84%E4%B8%80%E7%A7%8D%E6%A0%BC%E5%BC%8F"><span class="toc-text">JWT是什么，JWT就是Token的一种格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MongoDB%E5%9F%BA%E7%A1%80%E6%8F%90%E9%97%AE%EF%BC%88%E4%B8%8D%E4%BC%9A-%E8%BF%98%E6%9C%89ES%E7%9A%84%E5%91%BD%E4%BB%A4"><span class="toc-text">MongoDB基础提问（不会)还有ES的命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86%E7%9A%84%E8%AE%BE%E8%AE%A1"><span class="toc-text">权限管理的设计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#RBAC-%EF%BC%88Role-Based-Access-Control%EF%BC%89%E5%9F%BA%E4%BA%8E%E8%A7%92%E8%89%B2%E7%9A%84%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6"><span class="toc-text">RBAC （Role-Based Access Control）基于角色的访问控制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ABAC-Attribute-Based-Access-Control-%E5%9F%BA%E4%BA%8E%E5%B1%9E%E6%80%A7%E7%9A%84%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6"><span class="toc-text">ABAC (**Attribute-Based Access Control ) 基于属性的访问控制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B0%E6%9D%83%E9%99%90%E7%B3%BB%E7%BB%9F"><span class="toc-text">新权限系统</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4%E6%80%8E%E4%B9%88%E8%AE%BE%E8%AE%A1%E7%9A%84%EF%BC%8C%E6%9C%89%E4%BB%80%E4%B9%88%E7%94%A8%EF%BC%8C%E5%A6%82%E4%BD%95%E5%BA%94%E5%AF%B9%E8%84%91%E8%A3%82"><span class="toc-text">集群怎么设计的，有什么用，如何应对脑裂</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%B8%AD%E6%AD%A2SQL%E8%AF%AD%E5%8F%A5"><span class="toc-text">如何中止SQL语句</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2024-08-28-%E5%8C%97%E4%BA%AC%E7%94%A8%E5%8F%8B%E4%B8%80%E9%9D%A2"><span class="toc-text">2024-08-28 北京用友一面</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D%E6%97%81%E8%B7%AF%E7%BC%93%E5%AD%98%EF%BC%8C%E6%97%81%E8%B7%AF%E7%BC%93%E5%AD%98%E4%B8%80%E5%AE%9A%E8%83%BD%E4%BF%9D%E8%AF%81%E4%B8%80%E8%87%B4%E6%80%A7%E5%90%97"><span class="toc-text">介绍旁路缓存，旁路缓存一定能保证一致性吗</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8Redisson%E8%80%8C%E4%B8%8D%E6%98%AF%E4%BD%BF%E7%94%A8synchronized"><span class="toc-text">为什么使用Redisson而不是使用synchronized</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HashMap%E3%80%81ConcurrentHashMap-jdk1-7%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">HashMap、ConcurrentHashMap jdk1.7的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sentinel-%E7%9B%B8%E5%85%B3"><span class="toc-text">Sentinel 相关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BB%BA%E7%AB%8B%E7%B4%A2%E5%BC%95%E6%9C%89%E5%93%AA%E4%BA%9B%E8%80%83%E9%87%8F"><span class="toc-text">建立索引有哪些考量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E5%9C%BA%E6%99%AF-1"><span class="toc-text">索引失效场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ES%E5%92%8CMySQL%E5%8C%BA%E5%88%AB"><span class="toc-text">ES和MySQL区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Redis%E5%B8%B8%E8%A7%81%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%8Cstring%E5%BA%95%E5%B1%82"><span class="toc-text">Redis常见数据结构，string底层</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JVM%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E5%A6%82%E4%BD%95%E5%AE%9A%E4%BD%8D%E3%80%81%E6%8E%92%E6%9F%A5"><span class="toc-text">JVM内存泄漏如何定位、排查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#docker%E5%B8%B8%E8%A7%81%E6%8C%87%E4%BB%A4"><span class="toc-text">docker常见指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%B6%E8%A1%8CStream%E6%B5%81%E7%9A%84%E5%BA%95%E5%B1%82"><span class="toc-text">并行Stream流的底层</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ks%E6%B5%8B%E5%BC%80%E4%B8%80%E9%9D%A2-2024-09-04"><span class="toc-text">ks测开一面 2024.09.04</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6%EF%BC%8C%E6%80%8E%E4%B9%88%E5%88%A4%E6%96%AD%E5%93%AA%E4%BA%9B%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%9B%9E%E6%94%B6%E5%AF%B9%E8%B1%A1"><span class="toc-text">垃圾回收机制，怎么判断哪些对象是回收对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9B%86%E5%90%88%E7%9A%84%E5%AE%9E%E7%8E%B0%E7%B1%BB%EF%BC%8C%E9%9B%86%E5%90%88%E7%9A%84%E5%A5%BD%E5%A4%84"><span class="toc-text">常见的集合的实现类，集合的好处</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4"><span class="toc-text">MySQL常见命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL%E9%BB%98%E8%AE%A4%E7%B4%A2%E5%BC%95%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-text">MySQL默认索引的数据结构是什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Redis%E5%92%8CMySQL%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">Redis和MySQL的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4"><span class="toc-text">Linux常见命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8%E4%BA%86Kafka"><span class="toc-text">为什么使用了Kafka</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B%E5%AE%9E%E4%B9%A0%E9%A1%B9%E7%9B%AE%E4%B9%8B%E9%97%B4%E7%9A%84%E6%9C%8D%E5%8A%A1%E8%B0%83%E7%94%A8"><span class="toc-text">介绍一下实习项目之间的服务调用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%89%E7%94%A8%E8%BF%87%E6%B5%8B%E8%AF%95%E5%90%97"><span class="toc-text">有用过测试吗</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%9A%84%EF%BC%8C%E6%9C%89%E5%93%AA%E4%BA%9B%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="toc-text">分布式锁如何实现的，有哪些实现方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ZooKeeper%E5%AE%9E%E7%8E%B0"><span class="toc-text">ZooKeeper实现</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0"><span class="toc-text">如何实现</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E4%B8%B4%E6%97%B6%E9%A1%BA%E5%BA%8F%E8%8A%82%E7%82%B9"><span class="toc-text">为什么要使用临时顺序节点</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%AF%B9%E5%89%8D%E4%B8%80%E4%B8%AA%E8%8A%82%E7%82%B9%E7%9B%91%E5%90%AC"><span class="toc-text">为什么要对前一个节点监听</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E9%97%AE"><span class="toc-text">反问</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E9%A2%98-1"><span class="toc-text">算法题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E4%BA%BA%E9%9D%A2%E8%AF%95%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-text">其他人面试遇到的问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86-x2F-%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86"><span class="toc-text">什么是动态代理&#x2F;静态代理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%BA%8B%E5%8A%A1%E4%BC%A0%E6%92%AD"><span class="toc-text">什么是事务传播</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#g1-full-gc%E9%80%80%E5%8C%96%E8%BF%87%E7%A8%8B"><span class="toc-text">g1 full gc退化过程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#G1%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-text">G1的工作原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%80%E5%8C%96%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="toc-text">退化的原因</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%80%E5%8C%96%E8%BF%87%E7%A8%8B"><span class="toc-text">退化过程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#gRPC%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%AF%E4%BB%A5%E6%8F%90%E9%AB%98%E6%95%88%E7%8E%87"><span class="toc-text">gRPC为什么可以提高效率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#synchronized%E4%BB%8B%E7%BB%8D%E4%B8%8B%EF%BC%9F%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%EF%BC%9F%E5%92%8CLOCK%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E5%85%B7%E4%BD%93%E4%BC%98%E7%BC%BA%E7%82%B9%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">synchronized介绍下？底层原理？和LOCK的区别是什么？具体优缺点是什么？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-text">原理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Kafka%E6%98%AF%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%B6%88%E6%81%AF%E7%9A%84%E9%A1%BA%E5%BA%8F%E6%80%A7%E7%9A%84%EF%BC%9F%E4%BD%A0%E4%BA%86%E8%A7%A3%E5%BA%95%E5%B1%82%E7%9A%84%E5%8E%9F%E7%90%86%E5%90%97%EF%BC%9F"><span class="toc-text">Kafka是如何保证消息的顺序性的？你了解底层的原理吗？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%9D%E9%9A%9C%E6%9C%8D%E5%8A%A1%E7%A8%B3%E5%AE%9A%E6%80%A7%E6%9C%80%E9%87%8D%E8%A6%81%E7%9A%84%E4%B8%80%E4%B8%AA%E7%8E%AF%E8%8A%82%E6%98%AF"><span class="toc-text">保障服务稳定性最重要的一个环节是</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E6%8F%90%E5%89%8D%E9%A2%84%E4%BC%B0%E6%8E%A5%E5%8F%A3%E7%9A%84QPS"><span class="toc-text">如何提前预估接口的QPS</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP1-0-x2F-1-1-x2F-2-0%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">HTTP1.0&#x2F;1.1&#x2F;2.0的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%9F%E5%A4%B4%E9%98%BB%E5%A1%9E"><span class="toc-text">队头阻塞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Redis%E7%9B%B8%E5%85%B3"><span class="toc-text">Redis相关</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%A7key%E9%97%AE%E9%A2%98"><span class="toc-text">大key问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%83%ADkey"><span class="toc-text">热key</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9B%B8%E5%85%B3"><span class="toc-text">数据库相关</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%A8%E6%9C%89%E5%A4%9A%E4%B8%AA%E7%B4%A2%E5%BC%95%E6%97%B6%EF%BC%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%9A%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%E4%BD%BF%E7%94%A8%E5%93%AA%E4%B8%AA%E7%B4%A2%E5%BC%95%EF%BC%9F"><span class="toc-text">在有多个索引时，数据库会如何选择使用哪个索引？</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E7%9B%B8%E5%85%B3"><span class="toc-text">分布式相关</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1"><span class="toc-text">分布式事务</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%9A%E5%8A%A1%E7%9B%B8%E5%85%B3"><span class="toc-text">业务相关</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%BB%B6%E8%BF%9F%E9%98%9F%E5%88%97"><span class="toc-text">如何实现延迟队列</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Java"><span class="toc-text">Java</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%8D%E5%B0%84"><span class="toc-text">反射</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring"><span class="toc-text">Spring</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Spring-AOP"><span class="toc-text">Spring AOP</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="toc-text">创建对象的几种方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Bean"><span class="toc-text">Bean</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%B5%81%E7%A8%8B"><span class="toc-text">创建流程</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96"><span class="toc-text">循环依赖</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="toc-text">解决方法</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8C%E5%AD%A6%E7%9A%84%E6%BB%B4%E6%BB%B4%E7%A0%94%E5%8F%91%E4%B8%80%E9%9D%A2%E9%9D%A2%E7%BB%8F"><span class="toc-text">同学的滴滴研发一面面经</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E5%A4%9A%E6%AC%A1%E8%AF%B7%E6%B1%82-x2F-%E5%88%B7%E6%96%B0%E7%9A%84%E5%B9%82%E7%AD%89%E6%80%A7"><span class="toc-text">如何保证多次请求&#x2F;刷新的幂等性</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
+  
+
+</div>
+
+
+<!-- 没有 pjax 占位会报错 万恶的 pjax -->
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <!-- Custom Files side begin -->
+  
+  <!-- Custom Files side end -->
+</aside>
+
+
+
+          <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<pjax>
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+  pdata.commentConfig={};
+  //  see: /layout/_partial/scripts/_ctrl/coverCtrl.ejs
+  
+    // header
+    var l_header=document.getElementById("l_header");
+    
+    l_header.classList.add("show");
+    
+    
+      // cover
+      var cover_wrapper=document.querySelector('#l_cover .cover-wrapper');
+      var scroll_down=document.getElementById('scroll-down');
+      cover_wrapper.id="none";
+      cover_wrapper.style.display="none";
+      scroll_down.style.display="none";
+    
+  
+</script>
+</pjax>
+        </div>
+        
+  
+  <footer class="footer clearfix"  itemscope itemtype="http://schema.org/WPFooter">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper" itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          
+            
+          
+            
+          
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        
+          <div><p><span id="lc-sv">本站总访问量为 <span id='number'><i class="fa-solid fa-loader fa-spin fa-fw" aria-hidden="true"></i></span> 次</span> <span id="lc-uv">访客数为 <span id='number'><i class="fa-solid fa-loader fa-spin fa-fw" aria-hidden="true"></i></span> 人</span></p>
+</div>
+        
+      
+    
+      
+        本站使用
+        <a href="https://github.com/volantis-x/hexo-theme-volantis/#5.8.0" target="_blank" class="codename">Volantis</a>
+        作为主题
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="/">Copyright © since 2017 XXX</a></p>
+
+        </div>
+      
+    
+    <!-- Custom Files footer begin-->
+    
+    <!-- Custom Files footer end-->
+  </footer>
+
+
+        <a id="s-top" class="fa-solid fa-arrow-up fa-fw" href="/" onclick="return false;" title="top"></a>
+      </div>
+    </div>
+    <div>
+      <script>
+  /******************** volantis.dom ********************************/
+  // 页面选择器 将dom对象缓存起来 see: /source/js/app.js etc.
+  volantis.dom.bodyAnchor = volantis.dom.$(document.getElementById("safearea")); // 页面主体
+  volantis.dom.topBtn = volantis.dom.$(document.getElementById('s-top')); // 向上
+  volantis.dom.wrapper = volantis.dom.$(document.getElementById('wrapper')); // 整个导航栏
+  volantis.dom.coverAnchor = volantis.dom.$(document.querySelector('#l_cover .cover-wrapper')); // 1个
+  volantis.dom.switcher = volantis.dom.$(document.querySelector('#l_header .switcher .s-search')); // 搜索按钮   移动端 1个
+  volantis.dom.header = volantis.dom.$(document.getElementById('l_header')); // 移动端导航栏
+  volantis.dom.search = volantis.dom.$(document.querySelector('#l_header .m_search')); // 搜索框 桌面端 移动端 1个
+  volantis.dom.mPhoneList = volantis.dom.$(document.querySelectorAll('#l_header .m-phone .list-v')); //  手机端 子菜单 多个
+</script>
+
+<script>
+  
+  volantis.css("https://unpkg.com/volantis-static@0.0.1654736714924/libs/@fortawesome/fontawesome-free/css/all.min.css");
+  
+  
+  
+</script>
+
+<!-- required -->
+
+
+<!-- internal -->
+
+<script src="/js/app.js"></script>
+
+
+
+
+
+
+<!-- rightmenu要在darkmode之前（ToggleButton） darkmode要在comments之前（volantis.dark.push）-->
+
+
+
+<script>
+  function loadIssuesJS() {
+    
+      const sites_api = document.getElementById('sites-api');
+      if (sites_api != undefined && typeof SitesJS === 'undefined') {
+        volantis.js("/js/plugins/tags/sites.js")
+      }
+    
+    
+      const friends_api = document.getElementById('friends-api');
+      if (friends_api != undefined && typeof FriendsJS === 'undefined') {
+        volantis.js("/js/plugins/tags/friends.js")
+      }
+    
+    
+      const contributors_api = document.getElementById('contributors-api');
+      if (contributors_api != undefined && typeof ContributorsJS === 'undefined') {
+        volantis.js("/js/plugins/tags/contributors.js")
+      }
+    
+  };
+  loadIssuesJS()
+  volantis.pjax.push(()=>{
+    loadIssuesJS();
+  })
+
+</script>
+
+
+
+
+  <script defer src="https://unpkg.com/volantis-static@0.0.1654736714924/libs/vanilla-lazyload/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+
+<script>
+  window.FPConfig = {
+	delay: 0,
+	ignoreKeywords: ["#"],
+	maxRPS: 6,
+	hoverDelay: 0
+  };
+</script>
+<script defer src="https://unpkg.com/volantis-static@0.0.1654736714924/libs/flying-pages/flying-pages.min.js"></script>
+
+
+
+
+
+
+
+
+
+      <script>
+  volantis.layoutHelper("comments",`<div id="giscus_container"></div>`)
+
+  volantis.giscus = {};
+
+  function check_giscus() {
+    if (volantis.dark.mode === "dark") {
+      volantis.giscus.Theme = 'dark';
+    } else {
+      volantis.giscus.Theme = 'light';
+    }
+
+    return document.getElementById("giscus_container");
+  }
+
+  function pjax_giscus() {
+    const HEAD = check_giscus();
+    if (!HEAD) return;
+    let cfg = Object.assign({"theme":{"light":"light","dark":"dark"}},pdata.commentConfig)
+    const script = document.createElement('script');
+    script.setAttribute('src', 'https://giscus.app/client.js');
+    Object.keys(cfg).forEach(k=>{
+      if (k != "theme") {
+        script.setAttribute('data-'+k, cfg[k]);
+      }
+    })
+    script.setAttribute('data-theme', volantis.giscus.Theme);
+    script.setAttribute('crossorigin', "anonymous");
+    HEAD.appendChild(script);
+  }
+
+  function dark_giscus() {
+    const HEAD = check_giscus();
+    if (!HEAD) return;
+
+    const message = {
+      setConfig: {
+        theme: volantis.giscus.Theme
+      }
+    };
+    const giscusIframe = document.querySelector('iframe.giscus-frame');
+    giscusIframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+  }
+  pjax_giscus();
+  volantis.pjax.push(pjax_giscus);
+  volantis.dark.push(dark_giscus);
+</script>
+
+    
+
+
+
+
+
+<!-- optional -->
+
+  <script>
+  const SearchServiceDataPathRoot = ("/" || "/").endsWith("/") ?
+    "/" || "/" :
+    "//" || "/";
+  const SearchServiceDataPath = SearchServiceDataPathRoot + "content.json";
+
+  function loadSearchScript() {
+    // see: layout/_partial/scripts/_ctrl/cdnCtrl.ejs
+    return volantis.js("/js/search/hexo.js");
+  }
+
+  function loadSearchService() {
+    loadSearchScript();
+    document.querySelectorAll(".input.u-search-input").forEach((e) => {
+      e.removeEventListener("focus", loadSearchService, false);
+    });
+
+    document.querySelectorAll(".u-search-form").forEach((e) => {
+      e.addEventListener("submit", (event) => {
+        event.preventDefault();
+      }, false);
+    });
+  }
+
+  // 打开并搜索 字符串 s
+  function OpenSearch(s) {
+    if (typeof SearchService === 'undefined')
+      loadSearchScript().then(() => {
+        SearchService.setQueryText(s);
+        SearchService.search();
+      });
+    else {
+      SearchService.setQueryText(s);
+      SearchService.search();
+    }
+  }
+
+  // 访问含有 ?s=xxx  的链接时打开搜索 // 与搜索引擎 structured data 相关: /scripts/helpers/structured-data/lib/config.js
+  if (window.location.search && /^\?s=/g.test(window.location.search)) {
+    let queryText = decodeURI(window.location.search)
+      .replace(/\ /g, "-")
+      .replace(/^\?s=/g, "");
+    OpenSearch(queryText);
+  }
+
+  // 搜索输入框获取焦点时加载搜索
+  document.querySelectorAll(".input.u-search-input").forEach((e) => {
+    e.addEventListener("focus", loadSearchService, false);
+  });
+</script>
+
+
+
+
+
+
+
+  <script>
+
+
+
+  function pjax_highlightjs_copyCode(){
+    if (!(document.querySelector(".highlight .code pre") ||
+      document.querySelector(".article pre code"))) {
+      return;
+    }
+    VolantisApp.utilCopyCode(".highlight .code pre, .article pre code")
+  }
+  volantis.requestAnimationFrame(pjax_highlightjs_copyCode)
+  volantis.pjax.push(pjax_highlightjs_copyCode)
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  <script>
+  function load_swiper() {
+    if (!document.querySelectorAll(".swiper-container")[0]) return;
+    volantis.css("https://unpkg.com/volantis-static@0.0.1654736714924/libs/swiper/swiper-bundle.min.css");
+    volantis.js("https://unpkg.com/volantis-static@0.0.1654736714924/libs/swiper/swiper-bundle.min.js").then(() => {
+      pjax_swiper();
+    });
+  }
+
+  load_swiper();
+
+  function pjax_swiper() {
+    volantis.swiper = new Swiper('.swiper-container', {
+      slidesPerView: 'auto',
+      spaceBetween: 8,
+      centeredSlides: true,
+      loop: true,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+  }
+
+  volantis.pjax.push(() => {
+    if (!document.querySelectorAll(".swiper-container")[0]) return;
+    if (typeof volantis.swiper === "undefined") {
+      load_swiper();
+    } else {
+      pjax_swiper();
+    }
+  });
+</script>
+
+
+<!-- pjax 标签必须存在于所有页面 否则 pjax error -->
+<pjax>
+
+</pjax>
+
+<script>
+  function listennSidebarTOC() {
+    const navItems = document.querySelectorAll(".toc li");
+    if (!navItems.length) return;
+    let targets = []
+    const sections = [...navItems].map((element) => {
+      const link = element.querySelector(".toc-link");
+      const target = document.getElementById(
+        decodeURI(link.getAttribute("href")).replace("#", "")
+      );
+      targets.push(target)
+      // 解除 a 标签 href 的 锚点定位, a 标签 href 的 锚点定位 会随机启用?? 产生错位???
+      link.setAttribute("onclick","return false;")
+      link.setAttribute("toc-action","toc-"+decodeURI(link.getAttribute("href")).replace("#", ""))
+      link.setAttribute("href","/")
+      // 配置 点击 触发新的锚点定位
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        // 这里的 addTop 是通过错位使得 toc 自动展开.
+        volantis.scroll.to(target,{addTop: 5, observer:true})
+        // Anchor id
+        history.pushState(null, document.title, "#" + target.id);
+      });
+      return target;
+    });
+
+    function activateNavByIndex(target) {
+      if (target.classList.contains("active-current")) return;
+
+      document.querySelectorAll(".toc .active").forEach((element) => {
+        element.classList.remove("active", "active-current");
+      });
+      target.classList.add("active", "active-current");
+      let parent = target.parentNode;
+      while (!parent.matches(".toc")) {
+        if (parent.matches("li")) parent.classList.add("active");
+        parent = parent.parentNode;
+      }
+    }
+
+    // 方案一：
+    volantis.activateNavIndex=0
+    activateNavByIndex(navItems[volantis.activateNavIndex])
+    volantis.scroll.push(()=>{
+      if (targets[0].getBoundingClientRect().top >= 0) {
+        volantis.activateNavIndex = 0
+      }else if (targets[targets.length-1].getBoundingClientRect().top < 0) {
+        volantis.activateNavIndex = targets.length-1
+      } else {
+        for (let index = 0; index < targets.length; index++) {
+          const target0 = targets[index];
+          const target1 = targets[(index+1)%targets.length];
+          if (target0.getBoundingClientRect().top < 0&&target1.getBoundingClientRect().top >= 0) {
+            volantis.activateNavIndex=index
+            break;
+          }
+        }
+      }
+      activateNavByIndex(navItems[volantis.activateNavIndex])
+    })
+
+    // 方案二：
+    // IntersectionObserver 不是完美精确到像素级别 也不是低延时性的
+    // function findIndex(entries) {
+    //   let index = 0;
+    //   let entry = entries[index];
+    //   if (entry.boundingClientRect.top > 0) {
+    //     index = sections.indexOf(entry.target);
+    //     return index === 0 ? 0 : index - 1;
+    //   }
+    //   for (; index < entries.length; index++) {
+    //     if (entries[index].boundingClientRect.top <= 0) {
+    //       entry = entries[index];
+    //     } else {
+    //       return sections.indexOf(entry.target);
+    //     }
+    //   }
+    //   return sections.indexOf(entry.target);
+    // }
+    // function createIntersectionObserver(marginTop) {
+    //   marginTop = Math.floor(marginTop + 10000);
+    //   let intersectionObserver = new IntersectionObserver(
+    //     (entries, observe) => {
+    //       let scrollHeight = document.documentElement.scrollHeight;
+    //       if (scrollHeight > marginTop) {
+    //         observe.disconnect();
+    //         createIntersectionObserver(scrollHeight);
+    //         return;
+    //       }
+    //       let index = findIndex(entries);
+    //       activateNavByIndex(navItems[index]);
+    //     }, {
+    //       rootMargin: marginTop + "px 0px -100% 0px",
+    //       threshold: 0,
+    //     }
+    //   );
+    //   sections.forEach((element) => {
+    //     element && intersectionObserver.observe(element);
+    //   });
+    // }
+    // createIntersectionObserver(document.documentElement.scrollHeight);
+  }
+
+  document.addEventListener("DOMContentLoaded", ()=>{
+    volantis.requestAnimationFrame(listennSidebarTOC)
+  });
+  document.addEventListener("pjax:success", ()=>{
+    volantis.requestAnimationFrame(listennSidebarTOC)
+  });
+</script>
+
+
+
+<script>
+  document.onreadystatechange = function () {
+    if (document.readyState == 'complete') {
+      // 页面加载完毕 样式加载失败，或是当前网速慢，或是开启了省流模式
+      const { saveData, effectiveType } = navigator.connection || navigator.mozConnection || navigator.webkitConnection || {}
+      if (getComputedStyle(document.querySelector("#safearea"), null)["display"] == "none" || saveData || /2g/.test(effectiveType)) {
+        document.querySelectorAll(".reveal").forEach(function (e) {
+          e.style["opacity"] = "1";
+        });
+        document.querySelector("#safearea").style["display"] = "block";
+      }
+    }
+  }
+</script>
+
+
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"QingQiu'Blog","url":"https://zuofw.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/","sameAs":["https://github.com/volantis-x"],"description":"个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://zuofw.github.io/","name":"QingQiu'Blog"}},{"@type":"ListItem","position":3,"item":{"@id":"https://zuofw.github.io/2024/06/07/17/","name":"面试记录"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"QingQiu'Blog","url":"https://zuofw.github.io/","keywords":"博客，学习，成长","description":"个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝","author":{"@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/","description":"个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝"},"publisher":{"@type":"Organization","name":"QingQiu'Blog","url":"https://zuofw.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://zuofw.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"面试记录","description":"个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://zuofw.github.io/2024/06/07/17/"},"author":{"@type":"Person","name":"QingQiu","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://zuofw.github.io/"},"publisher":{"@type":"Organization","name":"QingQiu'Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://zuofw.github.io/2024/06/07/17/","wordCount":0,"datePublished":"2024-06-07T08:52:17.000Z","dateModified":"2024-09-14T06:32:35.757Z","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+
+
+
+      
+        <!--
+  pjax重载区域接口：
+  1.  <pjax></pjax> 标签 pjax 标签必须存在于所有页面 否则 pjax error
+  2.  script[data-pjax]
+  3.  .pjax-reload script
+  4.  .pjax
+-->
+
+
+
+<script src="https://unpkg.com/volantis-static@0.0.1654736714924/libs/pjax/pjax.min.js"></script>
+
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox]):not([onclick="return false;"]):not([onclick="return!1"]):not([target="_blank"]):not([target="view_window"]):not([href$=".xml"])',
+        selectors: [
+          "head title",
+          "head meta[name=keywords]",
+          "head meta[name=description]",
+          
+          "#l_main",
+          "#pjax-header-nav-list",
+          ".pjax",
+          "pjax", // <pjax></pjax> 标签
+          "script[data-pjax], .pjax-reload script" // script标签添加data-pjax 或 script标签外层添加.pjax-reload 的script代码段重载
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000,
+        
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      // 使用 volantis.pjax.send 方法传入pjax:send回调函数 参见layout/_partial/scripts/global.ejs
+      volantis.pjax.method.send.start();
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      // 使用 volantis.pjax.push 方法传入重载函数 参见layout/_partial/scripts/global.ejs
+      volantis.pjax.method.complete.start();
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+      if(volantis.debug) {
+        console.error(e);
+        console.log('pjax error: \n' + JSON.stringify(e));
+      }else{
+        // 使用 volantis.pjax.error 方法传入pjax:error回调函数 参见layout/_partial/scripts/global.ejs
+        volantis.pjax.method.error.start();
+        window.location.href = e.triggerElement.href;
+      }
+    });
+</script>
+
+      
+    </div>
+    <!-- import body_end begin-->
+    <!-- import body_end end-->
+    <!-- Custom Files bodyEnd begin-->
+    
+    <!-- Custom Files bodyEnd end-->
+    <!-- front-matter body_end begin -->
+    <!-- front-matter body_end end -->
+  <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+</html>

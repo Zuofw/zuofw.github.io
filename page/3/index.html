@@ -1743,7 +1743,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1726890534533),
+    lastupdate: new Date(1726899589211),
     sidebar: {
       for_page: ["blogger","category","tagcloud","donate"],
       for_post: ["toc"],
@@ -2525,7 +2525,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         
           <div class='post-wrapper'>
             <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/03/17/ai/tvm/">
+  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/04/07/18/">
   <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
     <meta itemprop="name" content="QingQiu'Blog">
   </span>
@@ -2543,7 +2543,259 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title"  itemprop="name headline">
-      <a href="/2024/03/17/ai/tvm/"  itemprop="url">
+      <a href="/2024/04/07/18/"  itemprop="url">
+        MQ
+      </a>
+    </h2>
+  
+  <div class='md article-desc' itemprop="articleBody">
+    
+      
+        面试常问：生产者出现堆积如何解决
+增加消费者
+优化消费者的处理速度
+使用优先队列，优先处理优先级高的消息
+消息压缩：如果网络带宽是瓶颈
+升级设备
+消息过滤：生产者端发送真正需要处理的消息
+调整生产者的速度
+
+生产消费过程中如果服务出现异常，如何恢复
+重试机制：
+死信队列：将无法处理的消息放在一个特殊的队列中，由人工去处理或者特殊处理
+备份和恢复：对于重要数据应该定期进行备份，当服务出现异常时...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+        <time itemprop="dateCreated datePublished" datetime="2024-04-07T10:07:18+08:00">2024-04-07</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+          
+            <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
+              <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url"><span itemprop="name">分布式</span></a>
+            </span>
+          
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2024/04/07/18/' itemprop="url">
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
+  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/03/30/44/">
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="QingQiu'Blog">
+  </span>
+  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
+    <meta itemprop="name" content="QingQiu'Blog">
+    <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
+  </span>
+  
+  
+  
+    <span hidden>
+      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+    </span>
+  
+  
+    
+    <h2 class="article-title"  itemprop="name headline">
+      <a href="/2024/03/30/44/"  itemprop="url">
+        Netty
+      </a>
+    </h2>
+  
+  <div class='md article-desc' itemprop="articleBody">
+    
+      
+        I/O模型：
+阻塞I/O BIO：程序向内核发起I/O调用，发起调用的线程就一直等待内核返回结果。如果使用BIO实现异步，只能使用多线程模型，会导致增加线程切换的开销。
+同步非阻塞IO NIO：应用程序通过轮询的方式获取请求结果。
+多路复用I/O：多个进程的I/O可以注册到一个复用器上(Selector)，如果Selector监听的所有的I/O内核缓冲区都没有可读数据，select调用会被阻...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+        <time itemprop="dateCreated datePublished" datetime="2024-03-30T19:25:44+08:00">2024-03-30</time>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2024/03/30/44/' itemprop="url">
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
+  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/03/30/46/">
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="QingQiu'Blog">
+  </span>
+  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
+    <meta itemprop="name" content="QingQiu'Blog">
+    <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
+  </span>
+  
+  
+  
+    <span hidden>
+      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+    </span>
+  
+  
+    
+    <h2 class="article-title"  itemprop="name headline">
+      <a href="/2024/03/30/46/"  itemprop="url">
+        mybatis
+      </a>
+    </h2>
+  
+  <div class='md article-desc' itemprop="articleBody">
+    
+      
+        面试常问:
+延迟加载提高加载效率：
+
+Mybatis的缓存
+一级缓存：也即是本地缓存，是SqlSession级别的,读个sql语句之间不会共享缓存，使用@Transactional来生效，也就是说在一次事务中多次查询会使用到一级缓存
+默认开启，可以在配置中关闭
+当我们执行查询操作时，MyBatis会先去一级缓存中查找是否有之前查询过的数据。如果有，直接返回缓存中的数据；如果没有，去数据库查询...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+        <time itemprop="dateCreated datePublished" datetime="2024-03-30T14:37:46+08:00">2024-03-30</time>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2024/03/30/46/' itemprop="url">
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
+  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/03/30/39/">
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="QingQiu'Blog">
+  </span>
+  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
+    <meta itemprop="name" content="QingQiu'Blog">
+    <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
+  </span>
+  
+  
+  
+    <span hidden>
+      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+    </span>
+  
+  
+    
+    <h2 class="article-title"  itemprop="name headline">
+      <a href="/2024/03/30/39/"  itemprop="url">
+        SpringSecurity和其他的认证相关
+      </a>
+    </h2>
+  
+  <div class='md article-desc' itemprop="articleBody">
+    
+      
+        Security
+RBAC模型： Role-Based Access Control 基于角色的权限控制访问控制，角色关联权限，角色又关联用户的授权方式一个用户可以有多个角色，每一个角色又可以分配多个权限
+
+AuthenticationProvider是AuthenticationManager的一个组成部分，它负责处理特定类型的Authentication对象。Authentication...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+        <time itemprop="dateCreated datePublished" datetime="2024-03-30T10:41:39+08:00">2024-03-30</time>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2024/03/30/39/' itemprop="url">
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
+  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/03/17/19/">
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="QingQiu'Blog">
+  </span>
+  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
+    <meta itemprop="name" content="QingQiu'Blog">
+    <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
+  </span>
+  
+  
+  
+    <span hidden>
+      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+    </span>
+  
+  
+    
+    <h2 class="article-title"  itemprop="name headline">
+      <a href="/2024/03/17/19/"  itemprop="url">
         TVM
       </a>
     </h2>
@@ -2565,7 +2817,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       </div>
       
         <div>
-          <a class='readmore' href='/2024/03/17/ai/tvm/' itemprop="url">
+          <a class='readmore' href='/2024/03/17/19/' itemprop="url">
             阅读全文
           </a>
         </div>
@@ -2581,7 +2833,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         
           <div class='post-wrapper'>
             <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/03/06/xiang-mu-jian-li-shi-xi/6-s081/">
+  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/03/06/23/">
   <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
     <meta itemprop="name" content="QingQiu'Blog">
   </span>
@@ -2599,7 +2851,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title"  itemprop="name headline">
-      <a href="/2024/03/06/xiang-mu-jian-li-shi-xi/6-s081/"  itemprop="url">
+      <a href="/2024/03/06/23/"  itemprop="url">
         6.S081
       </a>
     </h2>
@@ -2622,7 +2874,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       </div>
       
         <div>
-          <a class='readmore' href='/2024/03/06/xiang-mu-jian-li-shi-xi/6-s081/' itemprop="url">
+          <a class='readmore' href='/2024/03/06/23/' itemprop="url">
             阅读全文
           </a>
         </div>
@@ -2638,7 +2890,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         
           <div class='post-wrapper'>
             <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/03/06/408/os/">
+  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/03/06/38/">
   <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
     <meta itemprop="name" content="QingQiu'Blog">
   </span>
@@ -2656,7 +2908,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title"  itemprop="name headline">
-      <a href="/2024/03/06/408/os/"  itemprop="url">
+      <a href="/2024/03/06/38/"  itemprop="url">
         os
       </a>
     </h2>
@@ -2688,7 +2940,7 @@ ut...
       </div>
       
         <div>
-          <a class='readmore' href='/2024/03/06/408/os/' itemprop="url">
+          <a class='readmore' href='/2024/03/06/38/' itemprop="url">
             阅读全文
           </a>
         </div>
@@ -2704,7 +2956,7 @@ ut...
         
           <div class='post-wrapper'>
             <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/">
+  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/03/05/33/">
   <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
     <meta itemprop="name" content="QingQiu'Blog">
   </span>
@@ -2722,7 +2974,7 @@ ut...
   
     
     <h2 class="article-title"  itemprop="name headline">
-      <a href="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/"  itemprop="url">
+      <a href="/2024/03/05/33/"  itemprop="url">
         微服务
       </a>
     </h2>
@@ -2760,7 +3012,7 @@ P分区容错，当分布式系统节点之间出现网络故障导致节点之�
       </div>
       
         <div>
-          <a class='readmore' href='/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/' itemprop="url">
+          <a class='readmore' href='/2024/03/05/33/' itemprop="url">
             阅读全文
           </a>
         </div>
@@ -2776,7 +3028,7 @@ P分区容错，当分布式系统节点之间出现网络故障导致节点之�
         
           <div class='post-wrapper'>
             <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/02/27/ai/python-and-web-or-ai/">
+  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/02/27/04/">
   <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
     <meta itemprop="name" content="QingQiu'Blog">
   </span>
@@ -2794,7 +3046,7 @@ P分区容错，当分布式系统节点之间出现网络故障导致节点之�
   
     
     <h2 class="article-title"  itemprop="name headline">
-      <a href="/2024/02/27/ai/python-and-web-or-ai/"  itemprop="url">
+      <a href="/2024/02/27/04/"  itemprop="url">
         python and web or ai
       </a>
     </h2>
@@ -2824,7 +3076,7 @@ scrapy startpr...
       </div>
       
         <div>
-          <a class='readmore' href='/2024/02/27/ai/python-and-web-or-ai/' itemprop="url">
+          <a class='readmore' href='/2024/02/27/04/' itemprop="url">
             阅读全文
           </a>
         </div>
@@ -2840,7 +3092,7 @@ scrapy startpr...
         
           <div class='post-wrapper'>
             <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2023/10/23/408/ji-wang/">
+  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2023/10/23/46/">
   <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
     <meta itemprop="name" content="QingQiu'Blog">
   </span>
@@ -2858,7 +3110,7 @@ scrapy startpr...
   
     
     <h2 class="article-title"  itemprop="name headline">
-      <a href="/2023/10/23/408/ji-wang/"  itemprop="url">
+      <a href="/2023/10/23/46/"  itemprop="url">
         计网
       </a>
     </h2>
@@ -2887,383 +3139,7 @@ scrapy startpr...
       </div>
       
         <div>
-          <a class='readmore' href='/2023/10/23/408/ji-wang/' itemprop="url">
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2023/10/21/xiang-mu-jian-li-shi-xi/jian-li/">
-  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="QingQiu'Blog">
-  </span>
-  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
-    <meta itemprop="name" content="QingQiu'Blog">
-    <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
-  </span>
-  
-  
-  
-    <span hidden>
-      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
-    </span>
-  
-  
-    
-    <h2 class="article-title"  itemprop="name headline">
-      <a href="/2023/10/21/xiang-mu-jian-li-shi-xi/jian-li/"  itemprop="url">
-        简历
-      </a>
-    </h2>
-  
-  <div class='md article-desc' itemprop="articleBody">
-    
-      
-        国外的那些课的实验是可以写在简历上的比如 15445苍穹外卖项目 + 服务器部署
-
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time itemprop="dateCreated datePublished" datetime="2023-10-21T10:10:39+08:00">2023-10-21</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2023/10/21/xiang-mu-jian-li-shi-xi/jian-li/' itemprop="url">
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2023/10/16/hou-duan/ji-zu/">
-  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="QingQiu'Blog">
-  </span>
-  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
-    <meta itemprop="name" content="QingQiu'Blog">
-    <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
-  </span>
-  
-  
-  
-    <span hidden>
-      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
-    </span>
-  
-  
-    
-    <h2 class="article-title"  itemprop="name headline">
-      <a href="/2023/10/16/hou-duan/ji-zu/"  itemprop="url">
-        计组
-      </a>
-    </h2>
-  
-  <div class='md article-desc' itemprop="articleBody">
-    
-      
-        海明码:https://www.cnblogs.com/godoforange/p/12003676.htmlhttps://www.bilibili.com/video/BV1t4411e7LH?p=38&amp;spm_id_from=pageDriver&amp;vd_source=603b67fa519e58ee792d9e969a3ad8a1
-基本名词解释PC 程序计数器IR 指令...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time itemprop="dateCreated datePublished" datetime="2023-10-16T19:11:48+08:00">2023-10-16</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a>
-          
-            <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
-              <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" itemprop="url"><span itemprop="name">计算机基础</span></a>
-            </span>
-          
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2023/10/16/hou-duan/ji-zu/' itemprop="url">
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2023/10/11/xiang-mu-jian-li-shi-xi/ren-shi/">
-  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="QingQiu'Blog">
-  </span>
-  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
-    <meta itemprop="name" content="QingQiu'Blog">
-    <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
-  </span>
-  
-  
-  
-    <span hidden>
-      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
-    </span>
-  
-  
-    
-    <h2 class="article-title"  itemprop="name headline">
-      <a href="/2023/10/11/xiang-mu-jian-li-shi-xi/ren-shi/"  itemprop="url">
-        人事
-      </a>
-    </h2>
-  
-  <div class='md article-desc' itemprop="articleBody">
-    
-      
-        简单的增删改查练习数据库## 服务器
-给nginx设置负载均衡即可
-## 具体编码
-1. BeanUtils的使用
-2. DigestUtils md5加密
-
-
-
-- 一些借鉴
-jwt拦截器,md5加密，全局错误处理，ThreadLocal 进行线程内部传递变量
-
-PageHelper分页
-```java
-//设置分页和分页大小
-    PageHelper.startPage(employ...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time itemprop="dateCreated datePublished" datetime="2023-10-11T14:29:58+08:00">2023-10-11</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2023/10/11/xiang-mu-jian-li-shi-xi/ren-shi/' itemprop="url">
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2023/09/30/qian-duan/blog-da-jian/">
-  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="QingQiu'Blog">
-  </span>
-  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
-    <meta itemprop="name" content="QingQiu'Blog">
-    <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
-  </span>
-  
-  
-  
-    <span hidden>
-      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
-    </span>
-  
-  
-    
-    <h2 class="article-title"  itemprop="name headline">
-      <a href="/2023/09/30/qian-duan/blog-da-jian/"  itemprop="url">
-        blog搭建
-      </a>
-    </h2>
-  
-  <div class='md article-desc' itemprop="articleBody">
-    
-      
-        项目介绍一次自己blog手动搭建记录技术栈：
-
-前端：vue
-后端:   express redis
-
-
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time itemprop="dateCreated datePublished" datetime="2023-09-30T10:45:23+08:00">2023-09-30</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2023/09/30/qian-duan/blog-da-jian/' itemprop="url">
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2023/09/29/qian-duan/qian-duan-xue-xi/">
-  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="QingQiu'Blog">
-  </span>
-  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
-    <meta itemprop="name" content="QingQiu'Blog">
-    <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
-  </span>
-  
-  
-  
-    <span hidden>
-      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
-    </span>
-  
-  
-    
-    <h2 class="article-title"  itemprop="name headline">
-      <a href="/2023/09/29/qian-duan/qian-duan-xue-xi/"  itemprop="url">
-        前端学习
-      </a>
-    </h2>
-  
-  <div class='md article-desc' itemprop="articleBody">
-    
-      
-        HTML
-head中的
-meta的使用，description可以用来记录文章主要内容，方便搜索引擎使用
-&lt;link rel="icon" href="./favicon.ico"&gt; 引入ico
-
-
-
-Vue文件结构:
-
-api 存放封装了Ajax的请求文件
-components 公共组件存放目录
-views 视图组件
-App.vue 主组件，入口文件
-main.ts 项目的路口...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time itemprop="dateCreated datePublished" datetime="2023-09-29T20:52:36+08:00">2023-09-29</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2023/09/29/qian-duan/qian-duan-xue-xi/' itemprop="url">
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2023/09/19/xiang-mu-jian-li-shi-xi/ruan-kao/">
-  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="QingQiu'Blog">
-  </span>
-  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
-    <meta itemprop="name" content="QingQiu'Blog">
-    <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
-  </span>
-  
-  
-  
-    <span hidden>
-      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
-    </span>
-  
-  
-    
-    <h2 class="article-title"  itemprop="name headline">
-      <a href="/2023/09/19/xiang-mu-jian-li-shi-xi/ruan-kao/"  itemprop="url">
-        软考
-      </a>
-    </h2>
-  
-  <div class='md article-desc' itemprop="articleBody">
-    
-      
-        软件工程描述软件需求的方法：
-功能层次模型：一般来讲就是系统的功能图，模块分布图等描述整个系统的功能的分布和功能的层次结构；
-数据流模型：就是以数据流为着眼点的分析方法得到的模型，主要通过数据在整个系统的流动情况来确定系统的主要功能主线和流程；
-控制流模型：通过了解和界定系统中控制线，通过控制流的走向和控制的对象来确定系统的功能分布和控制与被控制的关系；
-结构化分析（SA) 方法是一种面向数...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time itemprop="dateCreated datePublished" datetime="2023-09-19T20:46:11+08:00">2023-09-19</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2023/09/19/xiang-mu-jian-li-shi-xi/ruan-kao/' itemprop="url">
+          <a class='readmore' href='/2023/10/23/46/' itemprop="url">
             阅读全文
           </a>
         </div>
@@ -3290,7 +3166,7 @@ main.ts 项目的路口...
           </a>
         
         <p class="current">
-          3 / 4
+          3 / 5
         </p>
         
           <a class="next" rel="next" href="/page/4/">
