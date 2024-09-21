@@ -14477,7 +14477,7 @@ redis<br>1.打开redis的配置文件“redis.conf”。</li>
 <li>实现自定义request - response模型，在异步通信条件下确保消息的请求和响应成功</li>
 <li>基于自定义starter实现，优化SpringBoot环境下的使用。</li>
 </ol>
-<h2 id="基本架构"><a href="#基本架构" class="headerlink" title="基本架构"></a>基本架构</h2><p><img src="/2024/09/02/xiang-mu-jian-li-shi-xi/shou-xie-rpc/%E5%9F%BA%E6%9C%AC%E6%9E%B6%E6%9E%84.png" class="lazyload" data-srcset="/2024/09/02/xiang-mu-jian-li-shi-xi/shou-xie-rpc/%E5%9F%BA%E6%9C%AC%E6%9E%B6%E6%9E%84.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+<h2 id="基本架构"><a href="#基本架构" class="headerlink" title="基本架构"></a>基本架构</h2><p><img src="/2024/09/02/00/%E5%9F%BA%E6%9C%AC%E6%9E%B6%E6%9E%84.png" class="lazyload" data-srcset="/2024/09/02/00/%E5%9F%BA%E6%9C%AC%E6%9E%B6%E6%9E%84.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
 <ol>
 <li>注册中心，用于服务注册和获取</li>
 <li>服务端：提供服务的一方Provider</li>
@@ -15210,7 +15210,7 @@ redis<br>1.打开redis的配置文件“redis.conf”。</li>
 <blockquote>
 <p>SPI(Service Provider Interface 服务提供者的接口)与API(应用提供的接口，供外部调用)类似，是JDK内置的一种服务提供发现机制，可以用来启用框架拓展和替换组件。SPI 允许框架或应用程序通过接口定义服务，并允许第三方或用户提供这些服务的实现。SPI 的主要目的是提供一种可插拔的架构，使得服务的实现可以在运行时动态加载和替换。类似于IOC，只不过将装配的控制移交到了程序之外</p>
 </blockquote>
-<p><img src="/2024/09/02/xiang-mu-jian-li-shi-xi/shou-xie-rpc/SPI.png" class="lazyload" data-srcset="/2024/09/02/xiang-mu-jian-li-shi-xi/shou-xie-rpc/SPI.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+<p><img src="/2024/09/02/00/SPI.png" class="lazyload" data-srcset="/2024/09/02/00/SPI.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
 <h4 id="实现热拔插的流程"><a href="#实现热拔插的流程" class="headerlink" title="实现热拔插的流程"></a>实现热拔插的流程</h4><ol>
 <li>服务的提供者实现一种接口的实现，然后在classpath路径下的META-INF/services/目录里创建一个以服务接口命名的文件。里面填写需要加载的实现类的全限定符</li>
 <li>使用自定义加载，加载实现的接口<br>自定义加载实现：<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> calss <span class="token class-name">SPILoader</span> <span class="token punctuation">{</span>
@@ -15285,7 +15285,7 @@ redis<br>1.打开redis的配置文件“redis.conf”。</li>
        <span class="token punctuation">}</span>
        <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token class-name">T</span><span class="token punctuation">)</span> instanceCache<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>implClassName<span class="token punctuation">)</span><span class="token punctuation">;</span>
    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-文件内容：<img src="/2024/09/02/xiang-mu-jian-li-shi-xi/shou-xie-rpc/SPIURL.png" class="lazyload" data-srcset="/2024/09/02/xiang-mu-jian-li-shi-xi/shou-xie-rpc/SPIURL.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="|475"> <img src="/2024/09/02/xiang-mu-jian-li-shi-xi/shou-xie-rpc/URL%E5%86%85%E5%AE%B9.png" class="lazyload" data-srcset="/2024/09/02/xiang-mu-jian-li-shi-xi/shou-xie-rpc/URL%E5%86%85%E5%AE%B9.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br>核心流程：</li>
+文件内容：<img src="/2024/09/02/00/SPIURL.png" class="lazyload" data-srcset="/2024/09/02/00/SPIURL.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="|475"> <img src="/2024/09/02/00/URL%E5%86%85%E5%AE%B9.png" class="lazyload" data-srcset="/2024/09/02/00/URL%E5%86%85%E5%AE%B9.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br>核心流程：</li>
 <li>通过URL来定位文件位置</li>
 <li>读取文件内容，将类的信息加载到map中</li>
 <li>获取实例时根据类型来加载具体的类型和是实现类。</li>
@@ -15543,7 +15543,7 @@ redis<br>1.打开redis的配置文件“redis.conf”。</li>
         byteBuf<span class="token punctuation">.</span><span class="token function">writeBytes</span><span class="token punctuation">(</span>compressedBody<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-如何加入Netty中？<br>我们需要在netty的handler中添加这个即可，注意需要在我们消息handler处理类之前添加<img src="/2024/09/02/xiang-mu-jian-li-shi-xi/shou-xie-rpc/%E7%BC%96%E7%A0%81%E5%92%8C%E8%A7%A3%E7%A0%81.png" class="lazyload" data-srcset="/2024/09/02/xiang-mu-jian-li-shi-xi/shou-xie-rpc/%E7%BC%96%E7%A0%81%E5%92%8C%E8%A7%A3%E7%A0%81.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br>同时对于一个消息的发送和接收，Netty中的路径顺序是不一样的，发送消息时，我们先经过解码器，将要发送的内容解码成ZMessage，之后经过编码器，将其解码成字节的形式<br>接收消息时我们要经历的流程是相反的，要先将byte编码成我们的自定义的字节格式，之后再解码成我们的ZMessage。</li>
+如何加入Netty中？<br>我们需要在netty的handler中添加这个即可，注意需要在我们消息handler处理类之前添加<img src="/2024/09/02/00/%E7%BC%96%E7%A0%81%E5%92%8C%E8%A7%A3%E7%A0%81.png" class="lazyload" data-srcset="/2024/09/02/00/%E7%BC%96%E7%A0%81%E5%92%8C%E8%A7%A3%E7%A0%81.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br>同时对于一个消息的发送和接收，Netty中的路径顺序是不一样的，发送消息时，我们先经过解码器，将要发送的内容解码成ZMessage，之后经过编码器，将其解码成字节的形式<br>接收消息时我们要经历的流程是相反的，要先将byte编码成我们的自定义的字节格式，之后再解码成我们的ZMessage。</li>
 </ol>
 <h3 id="网络传输的实现"><a href="#网络传输的实现" class="headerlink" title="网络传输的实现"></a>网络传输的实现</h3><p>Netty实现</p>
 <blockquote>
@@ -15556,8 +15556,8 @@ redis<br>1.打开redis的配置文件“redis.conf”。</li>
 </li>
 </ol>
 </blockquote>
-<h4 id="request-response模型"><a href="#request-response模型" class="headerlink" title="request - response模型"></a>request - response模型</h4><p>Netty的通信是异步通信，也就是说我们的客户端和服务端是不能够同步来确认请求和响应是否成功，所以我们可以使用一个未处理请求来确定我们的请求是否成功得到响应<br><img src="/2024/09/02/xiang-mu-jian-li-shi-xi/shou-xie-rpc/%E6%9C%AA%E5%A4%84%E7%90%86%E8%AF%B7%E6%B1%82.png" class="lazyload" data-srcset="/2024/09/02/xiang-mu-jian-li-shi-xi/shou-xie-rpc/%E6%9C%AA%E5%A4%84%E7%90%86%E8%AF%B7%E6%B1%82.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br>在Invoker中，我们成功发送请求之前先将这个结果放入map中<br><img src="/2024/09/02/xiang-mu-jian-li-shi-xi/shou-xie-rpc/put.png" class="lazyload" data-srcset="/2024/09/02/xiang-mu-jian-li-shi-xi/shou-xie-rpc/put.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br>在我们的ClientHandler中，我们可以通过响应的requestId来确认我们是否成功收到了回复<br><img src="/2024/09/02/xiang-mu-jian-li-shi-xi/shou-xie-rpc/complete.png" class="lazyload" data-srcset="/2024/09/02/xiang-mu-jian-li-shi-xi/shou-xie-rpc/complete.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
-<h4 id="心跳机制"><a href="#心跳机制" class="headerlink" title="心跳机制"></a>心跳机制</h4><p>更加详细的介绍 <a href="https://www.cnblogs.com/chenchuxin/p/15236259.html">从零开始实现简单 RPC 框架 9：网络通信之心跳与重连机制 - 小新是也 - 博客园 (cnblogs.com)</a><br>Netty已经帮我们提供了一个心跳Handler <code>IdleStateHandler</code>，当连接的空闲时间过长时，<code>IdleStateHandler</code>会触发一个 <code>IdleStateEvent</code> 事件，传递的到下一个Handler，我们可以通过在自定义的Handler中重写<code>userEventTrigged</code>方法来处理这个事件。<strong>需要注意的是自定义的Handler应该追加在心跳Handler之后。</strong><br>1.完整的构造函数<img src="/2024/09/02/xiang-mu-jian-li-shi-xi/shou-xie-rpc/Idle%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0.png" class="lazyload" data-srcset="/2024/09/02/xiang-mu-jian-li-shi-xi/shou-xie-rpc/Idle%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+<h4 id="request-response模型"><a href="#request-response模型" class="headerlink" title="request - response模型"></a>request - response模型</h4><p>Netty的通信是异步通信，也就是说我们的客户端和服务端是不能够同步来确认请求和响应是否成功，所以我们可以使用一个未处理请求来确定我们的请求是否成功得到响应<br><img src="/2024/09/02/00/%E6%9C%AA%E5%A4%84%E7%90%86%E8%AF%B7%E6%B1%82.png" class="lazyload" data-srcset="/2024/09/02/00/%E6%9C%AA%E5%A4%84%E7%90%86%E8%AF%B7%E6%B1%82.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br>在Invoker中，我们成功发送请求之前先将这个结果放入map中<br><img src="/2024/09/02/00/put.png" class="lazyload" data-srcset="/2024/09/02/00/put.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br>在我们的ClientHandler中，我们可以通过响应的requestId来确认我们是否成功收到了回复<br><img src="/2024/09/02/00/complete.png" class="lazyload" data-srcset="/2024/09/02/00/complete.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+<h4 id="心跳机制"><a href="#心跳机制" class="headerlink" title="心跳机制"></a>心跳机制</h4><p>更加详细的介绍 <a href="https://www.cnblogs.com/chenchuxin/p/15236259.html">从零开始实现简单 RPC 框架 9：网络通信之心跳与重连机制 - 小新是也 - 博客园 (cnblogs.com)</a><br>Netty已经帮我们提供了一个心跳Handler <code>IdleStateHandler</code>，当连接的空闲时间过长时，<code>IdleStateHandler</code>会触发一个 <code>IdleStateEvent</code> 事件，传递的到下一个Handler，我们可以通过在自定义的Handler中重写<code>userEventTrigged</code>方法来处理这个事件。<strong>需要注意的是自定义的Handler应该追加在心跳Handler之后。</strong><br>1.完整的构造函数<img src="/2024/09/02/00/Idle%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0.png" class="lazyload" data-srcset="/2024/09/02/00/Idle%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
 <ul>
 <li><code>observeOutput</code>：是否考虑出站较慢的情况。如果为true就不触发此次事件，如果false就会触发。默认为false</li>
 <li><code>readerIdleTime</code>：读空闲时间，0表示禁用读空闲时间事件</li>
@@ -15654,8 +15654,8 @@ redis<br>1.打开redis的配置文件“redis.conf”。</li>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 可以看到，其实实际上就是将事件传给下一个Handler，也就是调用了userEventTriggered方法<br>3.实现</li>
-<li>客户端Client实现<img src="/2024/09/02/xiang-mu-jian-li-shi-xi/shou-xie-rpc/client%E5%BF%83%E8%B7%B3.png" class="lazyload" data-srcset="/2024/09/02/xiang-mu-jian-li-shi-xi/shou-xie-rpc/client%E5%BF%83%E8%B7%B3.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
-<li>服务端实现：对于心跳包我们没必要去回复，我们只需要处理是否有写事件是否发生即可<br>4.断线重连的秘密<br>核心就是我们的这个缓存，对于每一个连接，我们都通过连接地址来保存他的Channel<img src="/2024/09/02/xiang-mu-jian-li-shi-xi/shou-xie-rpc/channel%E7%BC%93%E5%AD%98.png" class="lazyload" data-srcset="/2024/09/02/xiang-mu-jian-li-shi-xi/shou-xie-rpc/channel%E7%BC%93%E5%AD%98.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br>核心函数是这个<img src="/2024/09/02/xiang-mu-jian-li-shi-xi/shou-xie-rpc/getChannel.png" class="lazyload" data-srcset="/2024/09/02/xiang-mu-jian-li-shi-xi/shou-xie-rpc/getChannel.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br>当我们检测到这个channel不存在或者不活跃时我们重新建立连接并放在缓存中即可<br>需要保证我们的字节数要对的上，因为我们自定义协议的字节不满足会放在缓冲区，<br>然后如果不需要处理其他协议比如HTTP可以不加那种Handler</li>
+<li>客户端Client实现<img src="/2024/09/02/00/client%E5%BF%83%E8%B7%B3.png" class="lazyload" data-srcset="/2024/09/02/00/client%E5%BF%83%E8%B7%B3.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li>服务端实现：对于心跳包我们没必要去回复，我们只需要处理是否有写事件是否发生即可<br>4.断线重连的秘密<br>核心就是我们的这个缓存，对于每一个连接，我们都通过连接地址来保存他的Channel<img src="/2024/09/02/00/channel%E7%BC%93%E5%AD%98.png" class="lazyload" data-srcset="/2024/09/02/00/channel%E7%BC%93%E5%AD%98.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br>核心函数是这个<img src="/2024/09/02/00/getChannel.png" class="lazyload" data-srcset="/2024/09/02/00/getChannel.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br>当我们检测到这个channel不存在或者不活跃时我们重新建立连接并放在缓存中即可<br>需要保证我们的字节数要对的上，因为我们自定义协议的字节不满足会放在缓冲区，<br>然后如果不需要处理其他协议比如HTTP可以不加那种Handler</li>
 </ul>
 <h4 id="消息的处理Handler"><a href="#消息的处理Handler" class="headerlink" title="消息的处理Handler"></a>消息的处理Handler</h4><p>具体实现可以参考 NettyClientHandler和NettyServerHandler两个类的实现，思路很简单这里就不贴出源码了。</p>
 <h3 id="负载均衡的实现"><a href="#负载均衡的实现" class="headerlink" title="负载均衡的实现"></a>负载均衡的实现</h3><ol>
@@ -15748,7 +15748,7 @@ redis<br>1.打开redis的配置文件“redis.conf”。</li>
         <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">RuntimeException</span><span class="token punctuation">(</span><span class="token string">"容错失败,所有的服务重试都失败"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-实际使用：<img src="/2024/09/02/xiang-mu-jian-li-shi-xi/shou-xie-rpc/%E5%AE%B9%E9%94%99%E4%BD%BF%E7%94%A8.png" class="lazyload" data-srcset="/2024/09/02/xiang-mu-jian-li-shi-xi/shou-xie-rpc/%E5%AE%B9%E9%94%99%E4%BD%BF%E7%94%A8.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+实际使用：<img src="/2024/09/02/00/%E5%AE%B9%E9%94%99%E4%BD%BF%E7%94%A8.png" class="lazyload" data-srcset="/2024/09/02/00/%E5%AE%B9%E9%94%99%E4%BD%BF%E7%94%A8.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
 </ol>
 <h3 id="Starter包"><a href="#Starter包" class="headerlink" title="Starter包"></a>Starter包</h3><ol>
 <li>服务扫描设计<br>使用BeanPostProcessor来加载被@ZuoRpcService注解的类<blockquote>
@@ -15936,6 +15936,12 @@ redis<br>1.打开redis的配置文件“redis.conf”。</li>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>感谢观看，到这里我们基本缕清了一遍RPC的实现原理，具体的实现可以到我的Github中查看源码。</p>
 ]]></content>
+      <categories>
+        <category>深入理解系列</category>
+      </categories>
+      <tags>
+        <tag>rpc</tag>
+      </tags>
   </entry>
   <entry>
     <title>深入浅出Kafka</title>
