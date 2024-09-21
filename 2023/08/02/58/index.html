@@ -5,20 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 6.3.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/site/96memo.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/site/32memo.ico">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/site/16memo.ico">
-  <link rel="mask-icon" href="/images/site/memo.ico" color="#222">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"zuofw.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":true,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"zuofw.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="数据库数据库同步问题： Mysql面试指南60 道 MySQL 精选面试题👍 | 二哥的Java进阶之路 (javabetter.cn) InnoDB为什么是默认的引擎 是mysql中唯一支持事务的引擎 锁机制：使用行级锁，而不是表级锁 支持外键约束 具有崩溃恢复  索引为什么使用B+树 支出快速查找：B+树高度相对较低，查找效率高 有序性：节点的键值是有序排列的 支持高效插入和删除操作：叶子节">
@@ -28,43 +27,43 @@
 <meta property="og:site_name" content="QingQiu&#39;Blog">
 <meta property="og:description" content="数据库数据库同步问题： Mysql面试指南60 道 MySQL 精选面试题👍 | 二哥的Java进阶之路 (javabetter.cn) InnoDB为什么是默认的引擎 是mysql中唯一支持事务的引擎 锁机制：使用行级锁，而不是表级锁 支持外键约束 具有崩溃恢复  索引为什么使用B+树 支出快速查找：B+树高度相对较低，查找效率高 有序性：节点的键值是有序排列的 支持高效插入和删除操作：叶子节">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/%E6%85%A2%E6%9F%A5%E8%AF%A2%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/%E9%9A%94%E7%A6%BB%E7%AD%89%E7%BA%A7.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/ReadView%E5%8F%AF%E8%A7%81%E6%80%A7.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/undolog.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/undolog%E8%A1%A8.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/InnoDB%E6%95%B0%E6%8D%AE%E9%A1%B5.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/FileHeader.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/PageHeader.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/%E6%95%B0%E6%8D%AE%E9%A1%B5%E8%AF%A6%E8%A7%A3.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/next_record%E7%A4%BA%E4%BE%8B.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/%E8%AE%B0%E5%BD%95%E5%A4%B4%E4%BF%A1%E6%81%AF.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/%E9%9A%90%E8%97%8F%E5%88%97.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/PageDirectory%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/%E7%B4%A2%E5%BC%95.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/B+%E6%A0%91.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/%E4%BA%8C%E7%BA%A7%E7%B4%A2%E5%BC%95.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/sql%E5%BB%BA%E7%AB%8B%E7%B4%A2%E5%BC%95.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/%E8%A1%A8%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/compact.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/join.jpg">
-<meta property="og:image" content="https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/1.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/%E5%93%A8%E5%85%B5%E5%8E%9F%E7%90%86.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/%E5%85%A8%E9%87%8F%E5%90%8C%E6%AD%A5.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/%E5%A2%9E%E9%87%8F%E5%90%8C%E6%AD%A5.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/%E7%8E%AF%E5%BD%A2%E6%95%B0%E7%BB%84.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/%E5%88%86%E7%89%87%E9%9B%86%E7%BE%A4.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/redis%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/%E8%81%9A%E5%90%88%E7%AE%A1%E9%81%93.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/SQL%E5%AF%B9%E6%AF%94%E8%81%9A%E5%90%88.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/08/02/58/%E6%85%A2%E6%9F%A5%E8%AF%A2%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/08/02/58/%E9%9A%94%E7%A6%BB%E7%AD%89%E7%BA%A7.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/08/02/58/ReadView%E5%8F%AF%E8%A7%81%E6%80%A7.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/08/02/58/undolog.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/08/02/58/undolog%E8%A1%A8.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/08/02/58/InnoDB%E6%95%B0%E6%8D%AE%E9%A1%B5.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/08/02/58/FileHeader.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/08/02/58/PageHeader.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/08/02/58/%E6%95%B0%E6%8D%AE%E9%A1%B5%E8%AF%A6%E8%A7%A3.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/08/02/58/next_record%E7%A4%BA%E4%BE%8B.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/08/02/58/%E8%AE%B0%E5%BD%95%E5%A4%B4%E4%BF%A1%E6%81%AF.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/08/02/58/%E9%9A%90%E8%97%8F%E5%88%97.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/08/02/58/PageDirectory%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/08/02/58/%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/08/02/58/%E7%B4%A2%E5%BC%95.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/08/02/58/B+%E6%A0%91.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/08/02/58/%E4%BA%8C%E7%BA%A7%E7%B4%A2%E5%BC%95.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/08/02/58/sql%E5%BB%BA%E7%AB%8B%E7%B4%A2%E5%BC%95.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/08/02/58/%E8%A1%A8%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/08/02/58/compact.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/08/02/58/join.jpg">
+<meta property="og:image" content="https://zuofw.github.io/2023/08/02/58/1.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/08/02/58/%E5%93%A8%E5%85%B5%E5%8E%9F%E7%90%86.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/08/02/58/%E5%85%A8%E9%87%8F%E5%90%8C%E6%AD%A5.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/08/02/58/%E5%A2%9E%E9%87%8F%E5%90%8C%E6%AD%A5.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/08/02/58/%E7%8E%AF%E5%BD%A2%E6%95%B0%E7%BB%84.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/08/02/58/%E5%88%86%E7%89%87%E9%9B%86%E7%BE%A4.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/08/02/58/redis%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/08/02/58/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/08/02/58/%E8%81%9A%E5%90%88%E7%AE%A1%E9%81%93.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/08/02/58/SQL%E5%AF%B9%E6%AF%94%E8%81%9A%E5%90%88.png">
 <meta property="article:published_time" content="2023-08-02T07:36:58.000Z">
 <meta property="article:modified_time" content="2024-09-14T06:31:12.213Z">
 <meta property="article:author" content="QingQiu">
 <meta property="article:tag" content="database">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zuofw.github.io/2023/08/02/hou-duan/shu-ju-ku/%E6%85%A2%E6%9F%A5%E8%AF%A2%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96.png">
+<meta name="twitter:image" content="https://zuofw.github.io/2023/08/02/58/%E6%85%A2%E6%9F%A5%E8%AF%A2%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96.png">
 
 <link rel="canonical" href="https://zuofw.github.io/2023/08/02/58/">
 
@@ -140,7 +139,6 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
-        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -149,64 +147,27 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
+  <ul id="menu" class="menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+    <a href="/" rel="section"><i class="fa fa-fw fa-fa fa-home"></i>首页</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-fa fa-archive"></i>归档</a>
 
   </li>
         <li class="menu-item menu-item-github">
 
-    <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1p1b2Z3"><i class="fab fa-github fa-fw"></i>Github</span>
+    <a href="https://github.com/Zuofw" rel="noopener" target="_blank"><i class="fa fa-fw fa-fab fa-github"></i>Github</a>
 
   </li>
-        <li class="menu-item menu-item-rss">
-
-    <a href="/atom.xml" rel="section"><i class="fa fa-rss fa-fw"></i>RSS</a>
-
-  </li>
-      <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
-        </a>
-      </li>
   </ul>
 </nav>
 
 
 
-  <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
-           placeholder="搜索..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
-  </div>
-</div>
-
-    </div>
-  </div>
 
 </div>
     </header>
@@ -216,7 +177,6 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
-  <div class="reading-progress-bar"></div>
   <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
@@ -251,7 +211,7 @@
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
+                <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
@@ -259,14 +219,14 @@
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
+                  <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2024-09-14 14:31:12" itemprop="dateModified" datetime="2024-09-14T14:31:12+08:00">2024-09-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
+                <i class="fa fa-folder-o"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -277,7 +237,7 @@
           <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
+                <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
               <span>39k</span>
@@ -312,7 +272,7 @@
 <li>混滚时，按照事务的执行的逆序进行回滚。</li>
 <li>Undo Log记录了事务对数据库的修改操作</li>
 </ol>
-<h3 id="慢查询如何考虑优化"><a href="#慢查询如何考虑优化" class="headerlink" title="慢查询如何考虑优化"></a>慢查询如何考虑优化</h3><p><img src="/2023/08/02/hou-duan/shu-ju-ku/%E6%85%A2%E6%9F%A5%E8%AF%A2%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96.png" class="lazyload" data-srcset="/2023/08/02/hou-duan/shu-ju-ku/%E6%85%A2%E6%9F%A5%E8%AF%A2%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+<h3 id="慢查询如何考虑优化"><a href="#慢查询如何考虑优化" class="headerlink" title="慢查询如何考虑优化"></a>慢查询如何考虑优化</h3><p><img src="/2023/08/02/58/%E6%85%A2%E6%9F%A5%E8%AF%A2%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96.png"></p>
 <h3 id="数据库中的CAP"><a href="#数据库中的CAP" class="headerlink" title="数据库中的CAP"></a>数据库中的CAP</h3><p>C：Consistency强一致性，系统在执行某项操作之后，仍然能够保持一致。更新操作执行成功，所有的用户都应该读到最新的值<br>A：Availabliy可用性，每个操作总是能够在一定时间内返回结果。结果可以是成功或者失败<br>P：分区容错性，出现网络分区时，系统能够正常运行。</p>
 <h3 id="怎么对plan进行优化"><a href="#怎么对plan进行优化" class="headerlink" title="怎么对plan进行优化"></a>怎么对plan进行优化</h3><ol>
 <li>谓词下推：查询时，竟遭过滤掉不需要的数据<code>SELECT * FROM orders WHERE order_date &gt; '2023-01-01';</code></li>
@@ -335,7 +295,7 @@
 <p>看看几个隔离级别和解决办法<br>GBKh和UTF-8不是一种编码方式<br>mysql中使用的utf-8是utf8mb3 使用1<del>3个字节来表示一个字符<br>而utf-8使用1</del>4<br>MVCC （Multi-Version Concurrency Control ，多版本并发控制）MVCC （Multi-Version Concurrency Control ，多版本并发控制）指的就是在使用 READ COMMITTD 、 REPEATABLE READ 这两种隔离级别的事务在执行普通的 SEELCT 操作时访问记录的版本链的过程，这样子可以使不同事务的 读-写 、 写-读 操作并发执行，从而提升系统性能。</p>
 <ul>
 <li>sql语句的执行过程：mysql8.0 client发送sql语句-&gt;sql解析-&gt;执行优化和执行计划生成-&gt;执行-&gt;返回结果</li>
-<li>隔离等级：<img src="/2023/08/02/hou-duan/shu-ju-ku/%E9%9A%94%E7%A6%BB%E7%AD%89%E7%BA%A7.png" class="lazyload" data-srcset="/2023/08/02/hou-duan/shu-ju-ku/%E9%9A%94%E7%A6%BB%E7%AD%89%E7%BA%A7.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="|575"><ul>
+<li>隔离等级：<img src="/2023/08/02/58/%E9%9A%94%E7%A6%BB%E7%AD%89%E7%BA%A7.png" alt="|575"><ul>
 <li>MySQL默认是可重复读，可以解决幻读。然后串行化是基于锁实现的，可重复读和读已提交都是基于MVCC实现的，可重复读在当前读的情况下需要加锁才能保证不会出现幻读，所以仅仅使用MVCC不能解决幻读</li>
 </ul>
 </li>
@@ -372,7 +332,7 @@
 <li>创建这个Read View时下个即将被分配的事务ID m_low_limit_id</li>
 <li>活跃列表中最小的事务ID m_up_limit_id</li>
 <li>Read View创建时，其他未提交的活跃事务ID列表 m_ids</li>
-<li>创建该Read View 的事务ID m_creator_trx_id<br> 之后对数据行进行读取时，检查该行的创建事务ID和删除事务ID <img src="/2023/08/02/hou-duan/shu-ju-ku/ReadView%E5%8F%AF%E8%A7%81%E6%80%A7.png" class="lazyload" data-srcset="/2023/08/02/hou-duan/shu-ju-ku/ReadView%E5%8F%AF%E8%A7%81%E6%80%A7.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="ReadView可见性|525"></li>
+<li>创建该Read View 的事务ID m_creator_trx_id<br> 之后对数据行进行读取时，检查该行的创建事务ID和删除事务ID <img src="/2023/08/02/58/ReadView%E5%8F%AF%E8%A7%81%E6%80%A7.png" alt="ReadView可见性|525"></li>
 <li>如果创建ID大于m_low_limit_id，说明是在当前事务之后创建的，不可见</li>
 <li>如果删除ID小于m_up_limit_id，说明在当前事务开始前就已经被删除了，不可见</li>
 <li>如果创建事务ID小于m_low_limit_id但删除ID大于m_up_limit_id，需要与m_ids列表中比对，如果存在于m_ids列表中，则不可见</li>
@@ -430,9 +390,9 @@
 </ol>
 </li>
 <li>MVCC的原理：</li>
-<li>这两个隐藏的列就是undo log日志<img src="/2023/08/02/hou-duan/shu-ju-ku/undolog.png" class="lazyload" data-srcset="/2023/08/02/hou-duan/shu-ju-ku/undolog.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="|700"><ul>
+<li>这两个隐藏的列就是undo log日志<img src="/2023/08/02/58/undolog.png" alt="|700"><ul>
 <li>这俩就是隐藏列，trx_id当前修改之后的事务id，roll_pointer指向修改之前的信息</li>
-<li><img src="/2023/08/02/hou-duan/shu-ju-ku/undolog%E8%A1%A8.png" class="lazyload" data-srcset="/2023/08/02/hou-duan/shu-ju-ku/undolog%E8%A1%A8.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="|725"></li>
+<li><img src="/2023/08/02/58/undolog%E8%A1%A8.png" alt="|725"></li>
 <li>MVCC实现原理：ReadView<ul>
 <li>主要内容：<ul>
 <li>m_ids:生成ReadView时当前系统活跃的读写事务id列表</li>
@@ -486,17 +446,17 @@ CALL productpricing()<span aria-hidden="true" class="line-numbers-rows"><span></
 </ul>
 <h3 id="InooDB详解"><a href="#InooDB详解" class="headerlink" title="InooDB详解"></a>InooDB详解</h3><ol>
 <li>InooDB大小一般为16kb</li>
-<li>InooDB页表:<img src="/2023/08/02/hou-duan/shu-ju-ku/InnoDB%E6%95%B0%E6%8D%AE%E9%A1%B5.png" class="lazyload" data-srcset="/2023/08/02/hou-duan/shu-ju-ku/InnoDB%E6%95%B0%E6%8D%AE%E9%A1%B5.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
-<li>File Header：<img src="/2023/08/02/hou-duan/shu-ju-ku/FileHeader.png" class="lazyload" data-srcset="/2023/08/02/hou-duan/shu-ju-ku/FileHeader.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
-<li>Page Header：<img src="/2023/08/02/hou-duan/shu-ju-ku/PageHeader.png" class="lazyload" data-srcset="/2023/08/02/hou-duan/shu-ju-ku/PageHeader.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
-<li>infimumu+supremum 最小记录和最大记录。不存放真是数据<img src="/2023/08/02/hou-duan/shu-ju-ku/%E6%95%B0%E6%8D%AE%E9%A1%B5%E8%AF%A6%E8%A7%A3.png" class="lazyload" data-srcset="/2023/08/02/hou-duan/shu-ju-ku/%E6%95%B0%E6%8D%AE%E9%A1%B5%E8%AF%A6%E8%A7%A3.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><ul>
+<li>InooDB页表:<img src="/2023/08/02/58/InnoDB%E6%95%B0%E6%8D%AE%E9%A1%B5.png"></li>
+<li>File Header：<img src="/2023/08/02/58/FileHeader.png"></li>
+<li>Page Header：<img src="/2023/08/02/58/PageHeader.png"></li>
+<li>infimumu+supremum 最小记录和最大记录。不存放真是数据<img src="/2023/08/02/58/%E6%95%B0%E6%8D%AE%E9%A1%B5%E8%AF%A6%E8%A7%A3.png"><ul>
 <li>heap_no分别为0和1， record_type分为4种，0普通记录，1表示B+树非叶节点记录，2最小记录，3最大记录。</li>
 <li>next_record 由当前真实数据指向吓一跳记录的真实数据。吓一跳记录不是按照插入顺序的下一条，而是根据主键排序之后的下一条。infimum的下一条记录是用户记录中主键最小的，用户记录中主键最大的下一条指向supremum</li>
 <li>为什么指向的是真是数据的开头？<ul>
 <li>因为向左读取为记录头信息，向右读取真实数据。 记录头信息刚好是<strong>逆序的！</strong></li>
 </ul>
 </li>
-<li><img src="/2023/08/02/hou-duan/shu-ju-ku/next_record%E7%A4%BA%E4%BE%8B.png" class="lazyload" data-srcset="/2023/08/02/hou-duan/shu-ju-ku/next_record%E7%A4%BA%E4%BE%8B.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li><img src="/2023/08/02/58/next_record%E7%A4%BA%E4%BE%8B.png"></li>
 </ul>
 </li>
 <li>User Record ： <ul>
@@ -504,7 +464,7 @@ CALL productpricing()<span aria-hidden="true" class="line-numbers-rows"><span></
 <li>额外记录：<ul>
 <li>变长字段的真实数据的字节长度都放在记录的开头，逆序存放。不存放NULL的字节长度</li>
 <li>NULLL值列表，NULL值存储在这里，并且是逆序存储，如果存在NULL值就不会存在这个列表</li>
-<li>记录头信息：<img src="/2023/08/02/hou-duan/shu-ju-ku/%E8%AE%B0%E5%BD%95%E5%A4%B4%E4%BF%A1%E6%81%AF.png" class="lazyload" data-srcset="/2023/08/02/hou-duan/shu-ju-ku/%E8%AE%B0%E5%BD%95%E5%A4%B4%E4%BF%A1%E6%81%AF.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><ul>
+<li>记录头信息：<img src="/2023/08/02/58/%E8%AE%B0%E5%BD%95%E5%A4%B4%E4%BF%A1%E6%81%AF.png"><ul>
 <li>delete_mask标记的记录不会理科删除，而是会放在垃圾列表中，等待覆盖。</li>
 <li>heap_no是根据主键的大小来确定的</li>
 </ul>
@@ -512,7 +472,7 @@ CALL productpricing()<span aria-hidden="true" class="line-numbers-rows"><span></
 </ul>
 </li>
 <li>真实信息：<ul>
-<li><img src="/2023/08/02/hou-duan/shu-ju-ku/%E9%9A%90%E8%97%8F%E5%88%97.png" class="lazyload" data-srcset="/2023/08/02/hou-duan/shu-ju-ku/%E9%9A%90%E8%97%8F%E5%88%97.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li><img src="/2023/08/02/58/%E9%9A%90%E8%97%8F%E5%88%97.png"></li>
 <li>如果未指定主键，会生成row_id隐藏列</li>
 </ul>
 </li>
@@ -522,7 +482,7 @@ CALL productpricing()<span aria-hidden="true" class="line-numbers-rows"><span></
 <li>将正常的所有记录划分为几个组，包括最大和最小记录，不包括已删除的记录,最小记录所在的分组只包括自己。</li>
 <li>每组最后一个记录的头信息中的n_ownd来表示该组中记录数。</li>
 <li>将每组的最后一条记录的地址偏移量拿出来放入PageDirectory中，偏移量被称为槽(slot)</li>
-<li><img src="/2023/08/02/hou-duan/shu-ju-ku/PageDirectory%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F.png" class="lazyload" data-srcset="/2023/08/02/hou-duan/shu-ju-ku/PageDirectory%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li><img src="/2023/08/02/58/PageDirectory%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F.png"></li>
 </ul>
 </li>
 <li>File Trailer: 用于检验一个页是否完整：</li>
@@ -532,25 +492,25 @@ CALL productpricing()<span aria-hidden="true" class="line-numbers-rows"><span></
 <li>前提<ol>
 <li>数据页链表中的前后保证前一个数据页中的主键的最大值大于后一个页表中主键的最小值，也就主键递增，每一个页表内，主键也递增</li>
 <li>建立一个目录项：包括 key:页中主键最小值 page_no:页号。</li>
-<li><img src="/2023/08/02/hou-duan/shu-ju-ku/%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86.png" class="lazyload" data-srcset="/2023/08/02/hou-duan/shu-ju-ku/%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li><img src="/2023/08/02/58/%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86.png"></li>
 </ol>
 </li>
 <li>mysql中的实现：<ol>
 <li>使用用户记录的数据页来存储目录项，并且使用record_type = 1来标明，只包含key和page_no即可</li>
 <li>使用双向列表来维护多个目录项</li>
-<li>使用树的结构来重复建立索引，加快访问<img src="/2023/08/02/hou-duan/shu-ju-ku/%E7%B4%A2%E5%BC%95.png" class="lazyload" data-srcset="/2023/08/02/hou-duan/shu-ju-ku/%E7%B4%A2%E5%BC%95.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><img src="/2023/08/02/hou-duan/shu-ju-ku/B+%E6%A0%91.png" class="lazyload" data-srcset="/2023/08/02/hou-duan/shu-ju-ku/B+%E6%A0%91.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li>使用树的结构来重复建立索引，加快访问<img src="/2023/08/02/58/%E7%B4%A2%E5%BC%95.png"><img src="/2023/08/02/58/B+%E6%A0%91.png"></li>
 <li>真正的数据页都放在最底层的叶子节点</li>
 </ol>
 <ul>
 <li>聚簇索引：1. 使用主键值大小进行记录和排序 2. 叶子节点是完整的用户记录。索引即数据，数据即索引</li>
-<li>二级索引：1.使用非主键值来进行记录和排序 2. 叶子节点存储的是索引键和主键的值 3. 查询到叶子节点之后需要再查找一变主键的索引来找到真正的用户记录。 优点是节省空间。<img src="/2023/08/02/hou-duan/shu-ju-ku/%E4%BA%8C%E7%BA%A7%E7%B4%A2%E5%BC%95.png" class="lazyload" data-srcset="/2023/08/02/hou-duan/shu-ju-ku/%E4%BA%8C%E7%BA%A7%E7%B4%A2%E5%BC%95.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li>二级索引：1.使用非主键值来进行记录和排序 2. 叶子节点存储的是索引键和主键的值 3. 查询到叶子节点之后需要再查找一变主键的索引来找到真正的用户记录。 优点是节省空间。<img src="/2023/08/02/58/%E4%BA%8C%E7%BA%A7%E7%B4%A2%E5%BC%95.png"></li>
 <li>联合索引：1.使用多个列的大小来进行排序。先按照一个列排序，列大小相同时，使用下一个列大小来排序。2. 对于这多个列只需要建立一个B+树即可，节省了空间3.实质上也是二级索引</li>
 <li>对比：MyISAM<ul>
 <li>存储在一个文件中，按照插入顺序，有行号</li>
 <li>索引放在另一个文件中，使用主键值+行号作为索引，所以全是二级索引，而且不能二分查找。</li>
 </ul>
 </li>
-<li>SQL建立索引：每一个表会自动为主键或者unique建立一个聚簇索引，可使用语句指定建立其他列的索引<img src="/2023/08/02/hou-duan/shu-ju-ku/sql%E5%BB%BA%E7%AB%8B%E7%B4%A2%E5%BC%95.png" class="lazyload" data-srcset="/2023/08/02/hou-duan/shu-ju-ku/sql%E5%BB%BA%E7%AB%8B%E7%B4%A2%E5%BC%95.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li>SQL建立索引：每一个表会自动为主键或者unique建立一个聚簇索引，可使用语句指定建立其他列的索引<img src="/2023/08/02/58/sql%E5%BB%BA%E7%AB%8B%E7%B4%A2%E5%BC%95.png"></li>
 <li>删除索引：ALTER TABLE index_demo DROP INDEX idx_c2_c3;</li>
 </ul>
 </li>
@@ -585,7 +545,7 @@ CALL productpricing()<span aria-hidden="true" class="line-numbers-rows"><span></
 </ul>
 </li>
 <li>表空间文件的结构 ：<ul>
-<li><img src="/2023/08/02/hou-duan/shu-ju-ku/%E8%A1%A8%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84.png" class="lazyload" data-srcset="/2023/08/02/hou-duan/shu-ju-ku/%E8%A1%A8%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li><img src="/2023/08/02/58/%E8%A1%A8%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84.png"></li>
 <li>段 <ul>
 <li>索引段：存放 B + 树的非叶子节点的区的集合；</li>
 <li>数据段：存放 B + 树的叶子节点的区的集合；</li>
@@ -595,7 +555,7 @@ CALL productpricing()<span aria-hidden="true" class="line-numbers-rows"><span></
 <li>区 InnoDB 使用的是B+树 以页为单位来来分配空间时，链表中相邻的两个页的物理位置是不连续的，为了防止随机I/O，可以按照区来分配，一个区可以包含多个页，这样页在位置上就是相邻的了可以使用顺序I/O</li>
 <li>页 读取数据以页为单位，当读取一行时，会将一页一同读取出来，放入内存中 默认页 16kb ,页是 InnoDB 存储引擎磁盘管理的最小单元，</li>
 <li>行 记录按照行<ul>
-<li>行格式：COMPACT <img src="/2023/08/02/hou-duan/shu-ju-ku/compact.png" class="lazyload" data-srcset="/2023/08/02/hou-duan/shu-ju-ku/compact.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><ul>
+<li>行格式：COMPACT <img src="/2023/08/02/58/compact.png"><ul>
 <li>变长字段长度列表，用于保存数据占用的大小， 在列表中采用逆序存放数据占用的实际字节，当一行中没有变长字段时，例如全int时，就不会存在变长字段列表了。</li>
 <li>NULL列表，数据中为NULL 的数据会放在NULL值列表中的。NULL值也是按照逆序存储的，使用二进制 0 1 来表示是否为NULL值，1 为是  <strong>当数据表的字段都定义成 NOT NULL 的时候，这时候表里的行格式就不会有 NULL 值列表了</strong>。</li>
 <li>记录头信息</li>
@@ -1089,13 +1049,13 @@ FROM Customers INNER JOIN Orders
 
 <p>外联结：<br>使用场景</p>
 <ul>
-<li><p><input disabled="" type="checkbox"> 
+<li><p><input disabled type="checkbox"> 
 对每个顾客下的订单进行计数，包括那些至今尚未下订单的顾客；</p>
 </li>
-<li><p><input disabled="" type="checkbox"> 
+<li><p><input disabled type="checkbox"> 
 列出所有产品以及订购数量，包括没有人订购的产品；</p>
 </li>
-<li><p><input disabled="" type="checkbox"> 
+<li><p><input disabled type="checkbox"> 
 计算平均销售规模，包括那些至今尚未下订单的顾客。</p>
 </li>
 </ul>
@@ -1129,7 +1089,7 @@ FROM Customers LEFT OUTER JOIN Orders
 <p><strong><u><strong>前分别测试每个联结。这会使故障排除更为简单。</strong></u></strong> </p>
 </blockquote>
 <h3 id="join区别"><a href="#join区别" class="headerlink" title="join区别"></a>join区别</h3><p><strong>普通的join是笛卡尔积，即为两张表的排列组合</strong></p>
-<p><img src="/2023/08/02/hou-duan/shu-ju-ku/join.jpg" class="lazyload" data-srcset="/2023/08/02/hou-duan/shu-ju-ku/join.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+<p><img src="/2023/08/02/58/join.jpg"></p>
 <h2 id="起别名"><a href="#起别名" class="headerlink" title="起别名"></a>起别名</h2><p>在使用时直接用AS +别名就可以用了 ^1cd456</p>
 <p><strong>只能每次用的时候起一次别名并且当时使用</strong></p>
 <p>下一个语句别名就不能用了，要重新起名字</p>
@@ -1498,7 +1458,7 @@ rollback 回滚 <span aria-hidden="true" class="line-numbers-rows"><span></span>
 <h3 id="并发事务问题"><a href="#并发事务问题" class="headerlink" title="并发事务问题"></a>并发事务问题</h3><ul>
 <li>脏读 一个事务读到另一个事务还没有提交的数据</li>
 <li>不可重复读，一个事务先后读取一条重复记录，但两次读取的数据不同，成为不可重复读</li>
-<li>幻读 一个事务按照条件查询时，没有对应的数据行但是在插入数据时，这行数据已经存在了，出现了幻影<br>事务隔离级别<br><img src="/2023/08/02/hou-duan/shu-ju-ku/1.png" class="lazyload" data-srcset="/2023/08/02/hou-duan/shu-ju-ku/1.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br>可以手动设置系统的隔离级别</li>
+<li>幻读 一个事务按照条件查询时，没有对应的数据行但是在插入数据时，这行数据已经存在了，出现了幻影<br>事务隔离级别<br><img src="/2023/08/02/58/1.png"><br>可以手动设置系统的隔离级别</li>
 </ul>
 <h2 id="引擎"><a href="#引擎" class="headerlink" title="引擎"></a>引擎</h2><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">CREATE TABLE 表名(
 
@@ -1616,7 +1576,7 @@ select <span class="token operator">?</span> from <span class="token operator">?
 </ul>
 </li>
 <li>集群问题：<ol>
-<li>Sentinel是哨兵：监控节点状态并自动实现故障转移 <img src="/2023/08/02/hou-duan/shu-ju-ku/%E5%93%A8%E5%85%B5%E5%8E%9F%E7%90%86.png" class="lazyload" data-srcset="/2023/08/02/hou-duan/shu-ju-ku/%E5%93%A8%E5%85%B5%E5%8E%9F%E7%90%86.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="|400"><ul>
+<li>Sentinel是哨兵：监控节点状态并自动实现故障转移 <img src="/2023/08/02/58/%E5%93%A8%E5%85%B5%E5%8E%9F%E7%90%86.png" alt="|400"><ul>
 <li>哨兵的作用：状态监控，故障转移，状态通知</li>
 <li>主观下线是某一个sentinel节点发现某个节点没在规定时间内响应，客观下线是指的是有一半以上的sentinel都认为下线了才行</li>
 <li>选举新的master: </li>
@@ -1629,7 +1589,7 @@ select <span class="token operator">?</span> from <span class="token operator">?
 </ol>
 </li>
 <li>主从复制：<ul>
-<li>全量同步，当slave第一次连接到master或者slave断开太久了，repl_baklog(复制积压缓冲区)的offset已经被覆盖了，同步过程中收到的读写命令都会先执行然后记录在repl_baklog中，逐个发送给slave <img src="/2023/08/02/hou-duan/shu-ju-ku/%E5%85%A8%E9%87%8F%E5%90%8C%E6%AD%A5.png" class="lazyload" data-srcset="/2023/08/02/hou-duan/shu-ju-ku/%E5%85%A8%E9%87%8F%E5%90%8C%E6%AD%A5.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="|550"><ol>
+<li>全量同步，当slave第一次连接到master或者slave断开太久了，repl_baklog(复制积压缓冲区)的offset已经被覆盖了，同步过程中收到的读写命令都会先执行然后记录在repl_baklog中，逐个发送给slave <img src="/2023/08/02/58/%E5%85%A8%E9%87%8F%E5%90%8C%E6%AD%A5.png" alt="|550"><ol>
 <li>从节点保存主节点信息，与主节点建立连接，主节点判断是否是第一次请求，是就与从节点同步版本信息</li>
 <li>主节点fork一个子进程保存当前所有的数据，2.发送数据快照3.之后主节点每次执行其他的操作都会同步给从节点<ul>
 <li><p>**<code>Replication Id</code>**：简称<code>replid</code>，是数据集的标记，replid一致则是同一数据集。每个<code>master</code>都有唯一的<code>replid</code>，<code>slave</code>则会继承<code>master</code>节点的<code>replid</code></p>
@@ -1640,9 +1600,9 @@ select <span class="token operator">?</span> from <span class="token operator">?
 </li>
 </ol>
 </li>
-<li>增量同步：<img src="/2023/08/02/hou-duan/shu-ju-ku/%E5%A2%9E%E9%87%8F%E5%90%8C%E6%AD%A5.png" class="lazyload" data-srcset="/2023/08/02/hou-duan/shu-ju-ku/%E5%A2%9E%E9%87%8F%E5%90%8C%E6%AD%A5.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="|750"><ul>
+<li>增量同步：<img src="/2023/08/02/58/%E5%A2%9E%E9%87%8F%E5%90%8C%E6%AD%A5.png" alt="|750"><ul>
 <li>根据offset来进行同步</li>
-<li>具体的比较是通过<code>repl_baklog</code>，记录Redis处理过的命令及<code>offset</code>，包括master当前的<code>offset</code>，和slave已经拷贝到的<code>offset</code>发送的是命令： <img src="/2023/08/02/hou-duan/shu-ju-ku/%E7%8E%AF%E5%BD%A2%E6%95%B0%E7%BB%84.png" class="lazyload" data-srcset="/2023/08/02/hou-duan/shu-ju-ku/%E7%8E%AF%E5%BD%A2%E6%95%B0%E7%BB%84.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li>具体的比较是通过<code>repl_baklog</code>，记录Redis处理过的命令及<code>offset</code>，包括master当前的<code>offset</code>，和slave已经拷贝到的<code>offset</code>发送的是命令： <img src="/2023/08/02/58/%E7%8E%AF%E5%BD%A2%E6%95%B0%E7%BB%84.png"></li>
 </ul>
 </li>
 </ul>
@@ -1651,7 +1611,7 @@ select <span class="token operator">?</span> from <span class="token operator">?
 <li>offset复制偏移量：主从各自维护自己的offset，子节点把自己的offset上报，master保存offset ，部分复制使用二者的偏移量来同步缺失的数据</li>
 </ul>
 </li>
-<li>分片集群：<img src="/2023/08/02/hou-duan/shu-ju-ku/%E5%88%86%E7%89%87%E9%9B%86%E7%BE%A4.png" class="lazyload" data-srcset="/2023/08/02/hou-duan/shu-ju-ku/%E5%88%86%E7%89%87%E9%9B%86%E7%BE%A4.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><ul>
+<li>分片集群：<img src="/2023/08/02/58/%E5%88%86%E7%89%87%E9%9B%86%E7%BE%A4.png"><ul>
 <li>每个master保存不同的数据，然后每个master都可以有多个slave节点，之后master之间通过ping来检测彼此之间的健康状态，客户端请求可以访问集群任意节点，最终都会被转发到数据所在的节点</li>
 <li>故障转移：每个master转移到自己的slave即可</li>
 <li>为什么插槽的数量是16384,16384是2的14次方，是一个平衡性、行呢个和兼容性之间取得折衷的结果</li>
@@ -1722,7 +1682,7 @@ select <span class="token operator">?</span> from <span class="token operator">?
 <li>数据相关：<ul>
 <li>数据淘汰策略：<ul>
 <li>如何保证Redis中的数据是热点数据？ 答案是可以使用LRU删除策略，每次删除数据时删除最近最少使用的键，同时也可以主动去更新热点数据</li>
-<li>其余的各种内存淘汰机制：1.内存到达限制时返回错误，不删除，2.删除最近最少使用键，3.lru但是只删除设置了过期时间的键，4.随机删除一些 5. 随机删除一些设置了过期时间的键6. 对访问频率来进行删除<img src="/2023/08/02/hou-duan/shu-ju-ku/redis%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5.png" class="lazyload" data-srcset="/2023/08/02/hou-duan/shu-ju-ku/redis%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li>其余的各种内存淘汰机制：1.内存到达限制时返回错误，不删除，2.删除最近最少使用键，3.lru但是只删除设置了过期时间的键，4.随机删除一些 5. 随机删除一些设置了过期时间的键6. 对访问频率来进行删除<img src="/2023/08/02/58/redis%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5.png"></li>
 </ul>
 </li>
 <li>持久化：<ul>
@@ -1786,7 +1746,7 @@ select <span class="token operator">?</span> from <span class="token operator">?
 <li>非法请求的限制，当有大量恶意请求访问不存在的数据时，在API入口要判断请求参数是否合理</li>
 <li>设置空值或者默认值</li>
 <li>使用<strong>布隆过滤器快速判断数据是否存在，避免通过查询数据库来判断数据是否存在</strong>：</li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/94433082">布隆过滤器</a>对一个数据用多个哈希函数来映射，当查询时，如果多个哈希函数的映射后任何一个索引都为0，则一定不存在，如果所有的映射后的位置都是1时，则可能存在集合中。使用的是位图<img src="/2023/08/02/hou-duan/shu-ju-ku/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8.png" class="lazyload" data-srcset="/2023/08/02/hou-duan/shu-ju-ku/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/94433082">布隆过滤器</a>对一个数据用多个哈希函数来映射，当查询时，如果多个哈希函数的映射后任何一个索引都为0，则一定不存在，如果所有的映射后的位置都是1时，则可能存在集合中。使用的是位图<img src="/2023/08/02/58/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8.png"></li>
 </ul>
 </li>
 <li>数据一致性<ul>
@@ -2111,8 +2071,8 @@ select <span class="token operator">?</span> from <span class="token operator">?
 <li>1代表是升序，unique是指定索引的选项，指定了索引是唯一的，slug一般用于存储URL</li>
 </ul>
 </li>
-<li>聚合管道： 类似stream流和channel管道，可以执行一系列的handler,最后返回结果 <img src="/2023/08/02/hou-duan/shu-ju-ku/%E8%81%9A%E5%90%88%E7%AE%A1%E9%81%93.png" class="lazyload" data-srcset="/2023/08/02/hou-duan/shu-ju-ku/%E8%81%9A%E5%90%88%E7%AE%A1%E9%81%93.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><ol>
-<li><img src="/2023/08/02/hou-duan/shu-ju-ku/SQL%E5%AF%B9%E6%AF%94%E8%81%9A%E5%90%88.png" class="lazyload" data-srcset="/2023/08/02/hou-duan/shu-ju-ku/SQL%E5%AF%B9%E6%AF%94%E8%81%9A%E5%90%88.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li>聚合管道： 类似stream流和channel管道，可以执行一系列的handler,最后返回结果 <img src="/2023/08/02/58/%E8%81%9A%E5%90%88%E7%AE%A1%E9%81%93.png"><ol>
+<li><img src="/2023/08/02/58/SQL%E5%AF%B9%E6%AF%94%E8%81%9A%E5%90%88.png"></li>
 </ol>
 </li>
 </ul>
@@ -2141,28 +2101,10 @@ select <span class="token operator">?</span> from <span class="token operator">?
     
     
     
-        
-
-<div>
-<ul class="post-copyright">
-  <li class="post-copyright-author">
-    <strong>本文作者： </strong>QingQiu
-  </li>
-  <li class="post-copyright-link">
-    <strong>本文链接：</strong>
-    <a href="https://zuofw.github.io/2023/08/02/58/" title="数据库">https://zuofw.github.io/2023/08/02/58/</a>
-  </li>
-  <li class="post-copyright-license">
-    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
-  </li>
-</ul>
-</div>
-
 
       <footer class="post-footer">
-          
           <div class="post-tags">
-              <a href="/tags/database/" rel="tag"><i class="fa fa-tag"></i> database</a>
+              <a href="/tags/database/" rel="tag"># database</a>
           </div>
 
         
@@ -2268,7 +2210,7 @@ select <span class="token operator">?</span> from <span class="token operator">?
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1p1b2Z3" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Zuofw"><i class="fab fa-github fa-fw"></i>GitHub</span>
+        <a href="https://github.com/Zuofw/zuofw-rpc" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Zuofw&#x2F;zuofw-rpc" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
       </span>
   </div>
 
@@ -2295,14 +2237,13 @@ select <span class="token operator">?</span> from <span class="token operator">?
   &copy; 2022 – 
   <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
-    <i class="heart"></i>
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">QingQiu</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
-      <i class="fa fa-chart-area"></i>
+      <i class="fa fa-area-chart"></i>
     </span>
-      <span class="post-meta-item-text">站点总字数：</span>
     <span title="站点总字数">365k</span>
 </div>
 
@@ -2321,10 +2262,6 @@ select <span class="token operator">?</span> from <span class="token operator">?
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 
@@ -2333,7 +2270,7 @@ select <span class="token operator">?</span> from <span class="token operator">?
 <script src="/js/motion.js"></script>
 
 
-<script src="/js/schemes/pisces.js"></script>
+<script src="/js/schemes/muse.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
@@ -2344,37 +2281,8 @@ select <span class="token operator">?</span> from <span class="token operator">?
 
 
   
-  <script>
-    (function(){
-      var canonicalURL, curProtocol;
-      //Get the <link> tag
-      var x=document.getElementsByTagName("link");
-		//Find the last canonical URL
-		if(x.length > 0){
-			for (i=0;i<x.length;i++){
-				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
-					canonicalURL=x[i].href;
-				}
-			}
-		}
-    //Get protocol
-	    if (!canonicalURL){
-	    	curProtocol = window.location.protocol.split(':')[0];
-	    }
-	    else{
-	    	curProtocol = canonicalURL.split(':')[0];
-	    }
-      //Get current URL if the canonical URL does not exist
-	    if (!canonicalURL) canonicalURL = window.location.href;
-	    //Assign script content. Replace current URL with the canonical URL
-      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
-  </script>
 
 
-
-
-  
-<script src="/js/local-search.js"></script>
 
 
 
@@ -2391,71 +2299,6 @@ select <span class="token operator">?</span> from <span class="token operator">?
   
 
   
-      
 
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
-    
-
-  
-  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
-  <script>
-      window.addEventListener('load', () => {
-      quicklink({
-        timeout : 3000,
-        priority: true,
-        ignores : [uri => uri.includes('#'),uri => uri === 'https://zuofw.github.io/2023/08/02/58/',]
-      });
-      });
-  </script>
-
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
 </html>

@@ -5,20 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 6.3.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/site/96memo.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/site/32memo.ico">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/site/16memo.ico">
-  <link rel="mask-icon" href="/images/site/memo.ico" color="#222">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"zuofw.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":true,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"zuofw.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="深入浅出MySQL存储引擎对于不同的表可以设置不同的存储引擎 CREATE TABLE tableName ( 	xxxx ) ENGINE &#x3D; 引擎名称; # 修改 ALTER TABLE tableName ENGINE &#x3D; xxx; 编码格式mysql中的utf8默认的是使用的自定义的1~3字节表示的uft8mb3，对于一些特殊的字符，比如emoji，需要我们指定为utf8mb4才能够存储。">
@@ -28,17 +27,17 @@
 <meta property="og:site_name" content="QingQiu&#39;Blog">
 <meta property="og:description" content="深入浅出MySQL存储引擎对于不同的表可以设置不同的存储引擎 CREATE TABLE tableName ( 	xxxx ) ENGINE &#x3D; 引擎名称; # 修改 ALTER TABLE tableName ENGINE &#x3D; xxx; 编码格式mysql中的utf8默认的是使用的自定义的1~3字节表示的uft8mb3，对于一些特殊的字符，比如emoji，需要我们指定为utf8mb4才能够存储。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zuofw.github.io/2024/09/14/408/shen-ru-qian-chu-mysql/Compact.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/09/14/408/shen-ru-qian-chu-mysql/NULL%E5%80%BC%E8%A1%A8%E7%A4%BA.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/09/14/408/shen-ru-qian-chu-mysql/%E8%AE%B0%E5%BD%95%E5%A4%B4%E4%BF%A1%E6%81%AF.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/09/14/408/shen-ru-qian-chu-mysql/%E9%9A%90%E8%97%8F%E5%88%97.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/09/14/408/shen-ru-qian-chu-mysql/InnoDB%E6%95%B0%E6%8D%AE%E9%A1%B5.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/09/14/10/Compact.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/09/14/10/NULL%E5%80%BC%E8%A1%A8%E7%A4%BA.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/09/14/10/%E8%AE%B0%E5%BD%95%E5%A4%B4%E4%BF%A1%E6%81%AF.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/09/14/10/%E9%9A%90%E8%97%8F%E5%88%97.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/09/14/10/InnoDB%E6%95%B0%E6%8D%AE%E9%A1%B5.png">
 <meta property="article:published_time" content="2024-09-14T14:21:10.000Z">
 <meta property="article:modified_time" content="2024-09-20T08:08:03.000Z">
 <meta property="article:author" content="QingQiu">
 <meta property="article:tag" content="博客，学习，成长">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zuofw.github.io/2024/09/14/408/shen-ru-qian-chu-mysql/Compact.png">
+<meta name="twitter:image" content="https://zuofw.github.io/2024/09/14/10/Compact.png">
 
 <link rel="canonical" href="https://zuofw.github.io/2024/09/14/10/">
 
@@ -114,7 +113,6 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
-        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -123,64 +121,27 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
+  <ul id="menu" class="menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+    <a href="/" rel="section"><i class="fa fa-fw fa-fa fa-home"></i>首页</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-fa fa-archive"></i>归档</a>
 
   </li>
         <li class="menu-item menu-item-github">
 
-    <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1p1b2Z3"><i class="fab fa-github fa-fw"></i>Github</span>
+    <a href="https://github.com/Zuofw" rel="noopener" target="_blank"><i class="fa fa-fw fa-fab fa-github"></i>Github</a>
 
   </li>
-        <li class="menu-item menu-item-rss">
-
-    <a href="/atom.xml" rel="section"><i class="fa fa-rss fa-fw"></i>RSS</a>
-
-  </li>
-      <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
-        </a>
-      </li>
   </ul>
 </nav>
 
 
 
-  <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
-           placeholder="搜索..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
-  </div>
-</div>
-
-    </div>
-  </div>
 
 </div>
     </header>
@@ -190,7 +151,6 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
-  <div class="reading-progress-bar"></div>
   <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
@@ -225,7 +185,7 @@
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
+                <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
@@ -233,7 +193,7 @@
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
+                  <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2024-09-20 16:08:03" itemprop="dateModified" datetime="2024-09-20T16:08:03+08:00">2024-09-20</time>
@@ -242,7 +202,7 @@
           <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
+                <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
               <span>1.7k</span>
@@ -288,7 +248,7 @@ ALTER TABLE 表名 MODIFY 列名 字符串类型 [CHARACTER SET 字符集名称]
 xxxx;
 ) ROW_FORMAT=COMPACT;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <ol>
-<li>COMPACT格式 （重点，最常用）<br><img src="/2024/09/14/408/shen-ru-qian-chu-mysql/Compact.png" class="lazyload" data-srcset="/2024/09/14/408/shen-ru-qian-chu-mysql/Compact.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li>COMPACT格式 （重点，最常用）<br><img src="/2024/09/14/10/Compact.png"></li>
 </ol>
 <ul>
 <li>变长字段长度列表，<strong>只会存放变长字段的长度</strong><br>支持VARCHAR等变成字段类型的，结构</li>
@@ -303,14 +263,14 @@ xxxx;
 <ol>
 <li>统计允许存储NULL值的列有哪些，如果不存在，NULL值列表就不存在了</li>
 <li>表示形式：使用1表示为NULL值，0表示不为NULL，按照<strong>逆序</strong>排序。</li>
-<li>要求NULL值列表必须使用整个字节的位来表示，如果不足位数，就在最前面补0<img src="/2024/09/14/408/shen-ru-qian-chu-mysql/NULL%E5%80%BC%E8%A1%A8%E7%A4%BA.png" class="lazyload" data-srcset="/2024/09/14/408/shen-ru-qian-chu-mysql/NULL%E5%80%BC%E8%A1%A8%E7%A4%BA.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li>要求NULL值列表必须使用整个字节的位来表示，如果不足位数，就在最前面补0<img src="/2024/09/14/10/NULL%E5%80%BC%E8%A1%A8%E7%A4%BA.png"></li>
 </ol>
 <ul>
-<li><p>记录头信息<img src="/2024/09/14/408/shen-ru-qian-chu-mysql/%E8%AE%B0%E5%BD%95%E5%A4%B4%E4%BF%A1%E6%81%AF.png" class="lazyload" data-srcset="/2024/09/14/408/shen-ru-qian-chu-mysql/%E8%AE%B0%E5%BD%95%E5%A4%B4%E4%BF%A1%E6%81%AF.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+<li><p>记录头信息<img src="/2024/09/14/10/%E8%AE%B0%E5%BD%95%E5%A4%B4%E4%BF%A1%E6%81%AF.png"></p>
 </li>
 <li><p>记录的真实数据</p>
 <blockquote>
-<p>记录的真实数据除了会有我们定义的数据，还会有MySQL为每一条记录添加的一些隐藏列<img src="/2024/09/14/408/shen-ru-qian-chu-mysql/%E9%9A%90%E8%97%8F%E5%88%97.png" class="lazyload" data-srcset="/2024/09/14/408/shen-ru-qian-chu-mysql/%E9%9A%90%E8%97%8F%E5%88%97.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+<p>记录的真实数据除了会有我们定义的数据，还会有MySQL为每一条记录添加的一些隐藏列<img src="/2024/09/14/10/%E9%9A%90%E8%97%8F%E5%88%97.png"></p>
 <ol>
 <li>row_id 行id，唯一标识一条记录</li>
 <li>transaction_id 事务ID，MVCC中会使用</li>
@@ -323,7 +283,7 @@ xxxx;
 </ul>
 <p>#todo </p>
 <ul>
-<li><input disabled="" type="checkbox"> 重点，可以加一个书签<br>对于CHAR(M)，MySQL会为分配大于这个值的空间，并且要求至少占用M个字节，即使存的是一个空字符串也会占用M个字节，而VARCHAR(M)没有这个要求。<br>目的是：如果后续更新CHAR(M)的大小，就无需分配一个额外的记录空间，直接在原记录上进行更新即可。就不会造成碎片空间。</li>
+<li><input disabled type="checkbox"> 重点，可以加一个书签<br>对于CHAR(M)，MySQL会为分配大于这个值的空间，并且要求至少占用M个字节，即使存的是一个空字符串也会占用M个字节，而VARCHAR(M)没有这个要求。<br>目的是：如果后续更新CHAR(M)的大小，就无需分配一个额外的记录空间，直接在原记录上进行更新即可。就不会造成碎片空间。</li>
 <li>Redundant行格式(老东西，不常用了)</li>
 </ul>
 <h4 id="溢出数据存储"><a href="#溢出数据存储" class="headerlink" title="溢出数据存储"></a>溢出数据存储</h4><p>可变数据类型需要占用3部分的存储空间：</p>
@@ -332,7 +292,7 @@ xxxx;
 <li>真实数据占用字节的长度</li>
 <li>NULL值标识，如果该列有NOT NULL属性则可以没有这部分存储空间<br>如果要存储的列非常大 ，只会保存实际真实数据的一部分，把剩余的数据分散在几个其他页中。</li>
 </ol>
-<h2 id="数据页-重点，重中之重"><a href="#数据页-重点，重中之重" class="headerlink" title="数据页(重点，重中之重)"></a>数据页(重点，重中之重)</h2><p><img src="/2024/09/14/408/shen-ru-qian-chu-mysql/InnoDB%E6%95%B0%E6%8D%AE%E9%A1%B5.png" class="lazyload" data-srcset="/2024/09/14/408/shen-ru-qian-chu-mysql/InnoDB%E6%95%B0%E6%8D%AE%E9%A1%B5.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br>大小16KB</p>
+<h2 id="数据页-重点，重中之重"><a href="#数据页-重点，重中之重" class="headerlink" title="数据页(重点，重中之重)"></a>数据页(重点，重中之重)</h2><p><img src="/2024/09/14/10/InnoDB%E6%95%B0%E6%8D%AE%E9%A1%B5.png"><br>大小16KB</p>
 <ul>
 <li>File Header 文件头部，记录页的一些通用信息</li>
 <li>Page Header 页面头部，数据页专有</li>
@@ -342,29 +302,12 @@ xxxx;
 <li>PageDirectory 页面目录  页中某些记录的相对位置</li>
 <li>File Trailer 文件尾部   检验页是否完整</li>
 </ul>
-<h3 id=""><a href="#" class="headerlink" title=""></a></h3>
+<h3 id><a href="#" class="headerlink" title></a></h3>
     </div>
 
     
     
     
-        
-
-<div>
-<ul class="post-copyright">
-  <li class="post-copyright-author">
-    <strong>本文作者： </strong>QingQiu
-  </li>
-  <li class="post-copyright-link">
-    <strong>本文链接：</strong>
-    <a href="https://zuofw.github.io/2024/09/14/10/" title="深入浅出MySQL">https://zuofw.github.io/2024/09/14/10/</a>
-  </li>
-  <li class="post-copyright-license">
-    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
-  </li>
-</ul>
-</div>
-
 
       <footer class="post-footer">
 
@@ -468,7 +411,7 @@ xxxx;
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1p1b2Z3" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Zuofw"><i class="fab fa-github fa-fw"></i>GitHub</span>
+        <a href="https://github.com/Zuofw/zuofw-rpc" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Zuofw&#x2F;zuofw-rpc" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
       </span>
   </div>
 
@@ -495,14 +438,13 @@ xxxx;
   &copy; 2022 – 
   <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
-    <i class="heart"></i>
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">QingQiu</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
-      <i class="fa fa-chart-area"></i>
+      <i class="fa fa-area-chart"></i>
     </span>
-      <span class="post-meta-item-text">站点总字数：</span>
     <span title="站点总字数">365k</span>
 </div>
 
@@ -521,10 +463,6 @@ xxxx;
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 
@@ -533,7 +471,7 @@ xxxx;
 <script src="/js/motion.js"></script>
 
 
-<script src="/js/schemes/pisces.js"></script>
+<script src="/js/schemes/muse.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
@@ -544,37 +482,8 @@ xxxx;
 
 
   
-  <script>
-    (function(){
-      var canonicalURL, curProtocol;
-      //Get the <link> tag
-      var x=document.getElementsByTagName("link");
-		//Find the last canonical URL
-		if(x.length > 0){
-			for (i=0;i<x.length;i++){
-				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
-					canonicalURL=x[i].href;
-				}
-			}
-		}
-    //Get protocol
-	    if (!canonicalURL){
-	    	curProtocol = window.location.protocol.split(':')[0];
-	    }
-	    else{
-	    	curProtocol = canonicalURL.split(':')[0];
-	    }
-      //Get current URL if the canonical URL does not exist
-	    if (!canonicalURL) canonicalURL = window.location.href;
-	    //Assign script content. Replace current URL with the canonical URL
-      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
-  </script>
 
 
-
-
-  
-<script src="/js/local-search.js"></script>
 
 
 
@@ -591,71 +500,6 @@ xxxx;
   
 
   
-      
 
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
-    
-
-  
-  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
-  <script>
-      window.addEventListener('load', () => {
-      quicklink({
-        timeout : 3000,
-        priority: true,
-        ignores : [uri => uri.includes('#'),uri => uri === 'https://zuofw.github.io/2024/09/14/10/',]
-      });
-      });
-  </script>
-
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
 </html>

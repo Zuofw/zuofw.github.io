@@ -5,20 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 6.3.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/site/96memo.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/site/32memo.ico">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/site/16memo.ico">
-  <link rel="mask-icon" href="/images/site/memo.ico" color="#222">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"zuofw.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":true,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"zuofw.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="Quarkus GreetingResourceTest是在jvm中测试  面试常问微服务面试  CAP理论：任何一个分布式系统都无法做到一致性（Consistency）、可用性（Availability）和分区容错性（Partition tolerance）全部满足。  C数据一致 A读写操作必须都能成功 P分区容错，当分布式系统节点之间出现网络故障导致节点之间无法通信，导致出现了分区 必须要满">
@@ -28,53 +27,53 @@
 <meta property="og:site_name" content="QingQiu&#39;Blog">
 <meta property="og:description" content="Quarkus GreetingResourceTest是在jvm中测试  面试常问微服务面试  CAP理论：任何一个分布式系统都无法做到一致性（Consistency）、可用性（Availability）和分区容错性（Partition tolerance）全部满足。  C数据一致 A读写操作必须都能成功 P分区容错，当分布式系统节点之间出现网络故障导致节点之间无法通信，导致出现了分区 必须要满">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/BASE.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/TCC%E4%BC%98%E7%82%B9.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%9C%AC%E5%9C%B0%E6%B6%88%E6%81%AF%E8%A1%A8.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%B6%88%E6%81%AF%E7%9A%84%E6%9C%80%E7%BB%88%E4%B8%80%E8%87%B4%E6%80%A7.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/namespace.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/Nacos%E5%88%86%E7%BA%A7%E6%A8%A1%E5%9E%8B.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/Nacos%E5%88%86%E7%BA%A7%E6%A8%A1%E5%9E%8B%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/nacos%E8%AF%BB%E5%85%A5%E9%85%8D%E7%BD%AE%E7%9A%84%E6%B5%81%E7%A8%8B.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/OpenFeign%E6%89%A7%E8%A1%8C%E9%80%BB%E8%BE%91.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%96%AD%E8%B7%AF%E5%99%A8%E7%8A%B6%E6%80%81%E6%9C%BA.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/seata%E6%9E%B6%E6%9E%84.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/AT%E4%B8%80%E9%98%B6%E6%AE%B5.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/AT%E4%BA%8C%E9%98%B6%E6%AE%B5.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/TCC%E6%A8%A1%E5%BC%8F.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/MQ%E7%9A%84%E9%80%89%E6%8B%A9.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E7%9A%84%E4%BD%9C%E7%94%A8.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%96%AD%E8%B7%AF%E5%99%A8%E9%85%8D%E7%BD%AE.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E7%8A%B6%E6%80%81.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E5%8E%9F%E7%90%86.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E5%8E%9F%E5%9B%A0.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E7%BD%91%E5%85%B3.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/alibaba.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E5%8A%9F%E8%83%BD.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E7%BB%84%E4%BB%B6.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E5%AF%B9%E6%AF%94.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/controller%E7%A4%BA%E8%8C%83.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/model.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E9%9B%AA%E5%B4%A9.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E9%99%8D%E7%BA%A7.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E7%86%94%E6%96%AD.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E9%99%90%E6%B5%81.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E9%9A%94%E7%A6%BB.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E9%9A%94%E7%A6%BB.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E8%B6%85%E6%97%B6.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%87%92%E5%8A%A0%E8%BD%BD.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%B5%81%E6%8E%A7%E8%A7%84%E5%88%99.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/senta.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/AT%E9%9D%A2%E8%AF%95%E9%A2%98.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/AT%E9%9D%A2%E8%AF%95%E9%A2%981.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%8F%90%E4%BA%A4.png">
-<meta property="og:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E5%9B%9E%E6%BB%9A.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/BASE.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/TCC%E4%BC%98%E7%82%B9.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/%E6%9C%AC%E5%9C%B0%E6%B6%88%E6%81%AF%E8%A1%A8.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/%E6%B6%88%E6%81%AF%E7%9A%84%E6%9C%80%E7%BB%88%E4%B8%80%E8%87%B4%E6%80%A7.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/namespace.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/Nacos%E5%88%86%E7%BA%A7%E6%A8%A1%E5%9E%8B.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/Nacos%E5%88%86%E7%BA%A7%E6%A8%A1%E5%9E%8B%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/nacos%E8%AF%BB%E5%85%A5%E9%85%8D%E7%BD%AE%E7%9A%84%E6%B5%81%E7%A8%8B.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/OpenFeign%E6%89%A7%E8%A1%8C%E9%80%BB%E8%BE%91.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/%E6%96%AD%E8%B7%AF%E5%99%A8%E7%8A%B6%E6%80%81%E6%9C%BA.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/seata%E6%9E%B6%E6%9E%84.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/AT%E4%B8%80%E9%98%B6%E6%AE%B5.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/AT%E4%BA%8C%E9%98%B6%E6%AE%B5.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/TCC%E6%A8%A1%E5%BC%8F.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/MQ%E7%9A%84%E9%80%89%E6%8B%A9.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E7%9A%84%E4%BD%9C%E7%94%A8.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/%E6%96%AD%E8%B7%AF%E5%99%A8%E9%85%8D%E7%BD%AE.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/%E7%8A%B6%E6%80%81.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/%E5%8E%9F%E7%90%86.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/%E5%8E%9F%E5%9B%A0.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/%E7%BD%91%E5%85%B3.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/alibaba.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/%E5%8A%9F%E8%83%BD.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/%E7%BB%84%E4%BB%B6.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E5%AF%B9%E6%AF%94.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/controller%E7%A4%BA%E8%8C%83.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/model.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/%E9%9B%AA%E5%B4%A9.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/%E9%99%8D%E7%BA%A7.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/%E7%86%94%E6%96%AD.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/%E9%99%90%E6%B5%81.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/%E9%9A%94%E7%A6%BB.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/%E9%9A%94%E7%A6%BB.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/%E8%B6%85%E6%97%B6.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/%E6%87%92%E5%8A%A0%E8%BD%BD.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/%E6%B5%81%E6%8E%A7%E8%A7%84%E5%88%99.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/senta.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/AT%E9%9D%A2%E8%AF%95%E9%A2%98.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/AT%E9%9D%A2%E8%AF%95%E9%A2%981.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/%E6%8F%90%E4%BA%A4.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/03/05/33/%E5%9B%9E%E6%BB%9A.png">
 <meta property="article:published_time" content="2024-03-05T09:45:33.000Z">
 <meta property="article:modified_time" content="2024-07-19T08:43:23.312Z">
 <meta property="article:author" content="QingQiu">
 <meta property="article:tag" content="博客，学习，成长">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zuofw.github.io/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/BASE.png">
+<meta name="twitter:image" content="https://zuofw.github.io/2024/03/05/33/BASE.png">
 
 <link rel="canonical" href="https://zuofw.github.io/2024/03/05/33/">
 
@@ -150,7 +149,6 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
-        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -159,64 +157,27 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
+  <ul id="menu" class="menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+    <a href="/" rel="section"><i class="fa fa-fw fa-fa fa-home"></i>首页</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-fa fa-archive"></i>归档</a>
 
   </li>
         <li class="menu-item menu-item-github">
 
-    <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1p1b2Z3"><i class="fab fa-github fa-fw"></i>Github</span>
+    <a href="https://github.com/Zuofw" rel="noopener" target="_blank"><i class="fa fa-fw fa-fab fa-github"></i>Github</a>
 
   </li>
-        <li class="menu-item menu-item-rss">
-
-    <a href="/atom.xml" rel="section"><i class="fa fa-rss fa-fw"></i>RSS</a>
-
-  </li>
-      <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
-        </a>
-      </li>
   </ul>
 </nav>
 
 
 
-  <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
-           placeholder="搜索..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
-  </div>
-</div>
-
-    </div>
-  </div>
 
 </div>
     </header>
@@ -226,7 +187,6 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
-  <div class="reading-progress-bar"></div>
   <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
@@ -261,7 +221,7 @@
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
+                <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
@@ -269,14 +229,14 @@
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
+                  <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2024-07-19 16:43:23" itemprop="dateModified" datetime="2024-07-19T16:43:23+08:00">2024-07-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
+                <i class="fa fa-folder-o"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -287,7 +247,7 @@
           <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
+                <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
               <span>15k</span>
@@ -314,7 +274,7 @@
 <li>P分区容错，当分布式系统节点之间出现网络故障导致节点之间无法通信，导致出现了分区 必须要满足的</li>
 </ul>
 </li>
-<li><p>BASE理论：<img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/BASE.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/BASE.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+<li><p>BASE理论：<img src="/2024/03/05/33/BASE.png"></p>
 <ul>
 <li>基于BASE理论的柔性事务，不同于ACID的刚性事务，通过一些新的方案，只要保证最终一致性即可</li>
 </ul>
@@ -340,13 +300,13 @@
 </li>
 </ul>
 </li>
-<li>TCC Try-Confirm-Cancel <img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/TCC%E4%BC%98%E7%82%B9.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/TCC%E4%BC%98%E7%82%B9.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><ol>
+<li>TCC Try-Confirm-Cancel <img src="/2024/03/05/33/TCC%E4%BC%98%E7%82%B9.png"><ol>
 <li>Try 阶段：尝试执行，完成所有业务检查（一致性）, 预留必须业务资源（准隔离性）  </li>
 <li>Confirm 阶段：确认执行真正执行业务，不作任何业务检查，只使用 Try 阶段预留的业务资源，Confirm 操作满足幂等性。要求具备幂等设计，Confirm 失败后需要进行重试。  </li>
 <li>Cancel 阶段：取消执行，释放 Try 阶段预留的业务资源 Cancel 操作满足幂等性 Cancel 阶段的异常和 Confirm 阶段异常处理方案基本上一致。</li>
 </ol>
 </li>
-<li>本地消息表：依靠MQ实现<img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%9C%AC%E5%9C%B0%E6%B6%88%E6%81%AF%E8%A1%A8.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%9C%AC%E5%9C%B0%E6%B6%88%E6%81%AF%E8%A1%A8.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="> <img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%B6%88%E6%81%AF%E7%9A%84%E6%9C%80%E7%BB%88%E4%B8%80%E8%87%B4%E6%80%A7.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%B6%88%E6%81%AF%E7%9A%84%E6%9C%80%E7%BB%88%E4%B8%80%E8%87%B4%E6%80%A7.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="|500"></li>
+<li>本地消息表：依靠MQ实现<img src="/2024/03/05/33/%E6%9C%AC%E5%9C%B0%E6%B6%88%E6%81%AF%E8%A1%A8.png"> <img src="/2024/03/05/33/%E6%B6%88%E6%81%AF%E7%9A%84%E6%9C%80%E7%BB%88%E4%B8%80%E8%87%B4%E6%80%A7.png" alt="|500"></li>
 </ul>
 </li>
 <li><p>路由：</p>
@@ -365,8 +325,8 @@
 </li>
 <li><p>Nacos:</p>
 <ul>
-<li>namespace：用于环境隔离 <img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/namespace.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/namespace.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="|500"></li>
-<li>分级模型：<img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/Nacos%E5%88%86%E7%BA%A7%E6%A8%A1%E5%9E%8B.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/Nacos%E5%88%86%E7%BA%A7%E6%A8%A1%E5%9E%8B.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/Nacos%E5%88%86%E7%BA%A7%E6%A8%A1%E5%9E%8B%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/Nacos%E5%88%86%E7%BA%A7%E6%A8%A1%E5%9E%8B%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><ul>
+<li>namespace：用于环境隔离 <img src="/2024/03/05/33/namespace.png" alt="|500"></li>
+<li>分级模型：<img src="/2024/03/05/33/Nacos%E5%88%86%E7%BA%A7%E6%A8%A1%E5%9E%8B.png"><img src="/2024/03/05/33/Nacos%E5%88%86%E7%BA%A7%E6%A8%A1%E5%9E%8B%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86.png"><ul>
 <li>namespace 命名空间<ul>
 <li>group分组<ul>
 <li>服务service<ul>
@@ -390,7 +350,7 @@
 <li>Nacos默认使用AP方式，</li>
 </ul>
 </li>
-<li>nacos读取配置的流程<img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/nacos%E8%AF%BB%E5%85%A5%E9%85%8D%E7%BD%AE%E7%9A%84%E6%B5%81%E7%A8%8B.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/nacos%E8%AF%BB%E5%85%A5%E9%85%8D%E7%BD%AE%E7%9A%84%E6%B5%81%E7%A8%8B.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li>nacos读取配置的流程<img src="/2024/03/05/33/nacos%E8%AF%BB%E5%85%A5%E9%85%8D%E7%BD%AE%E7%9A%84%E6%B5%81%E7%A8%8B.png"></li>
 <li>配置热更新：<ul>
 <li><h2 id="动态路由：-需要实现Nacos动态监听配置接口-引入配置"><a href="#动态路由：-需要实现Nacos动态监听配置接口-引入配置" class="headerlink" title="动态路由：  - 需要实现Nacos动态监听配置接口  - 引入配置"></a>动态路由：<br>  - 需要实现Nacos动态监听配置接口<br>  - 引入配置</h2></li>
 </ul>
@@ -399,7 +359,7 @@
 </li>
 <li><p>OpenFeign：</p>
 <ul>
-<li>执行过程：<img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/OpenFeign%E6%89%A7%E8%A1%8C%E9%80%BB%E8%BE%91.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/OpenFeign%E6%89%A7%E8%A1%8C%E9%80%BB%E8%BE%91.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><ol>
+<li>执行过程：<img src="/2024/03/05/33/OpenFeign%E6%89%A7%E8%A1%8C%E9%80%BB%E8%BE%91.png"><ol>
 <li>获取请求中的serviceId</li>
 <li>根据serviceId负载均衡，找到一个可用的服务实例</li>
 <li>利用服务实例ip和port信息重构url</li>
@@ -456,7 +416,7 @@
 </ul>
 </li>
 <li>熔断：对于超过QPS上限的请求或者延迟较高的请求，对其进行熔断，同时设置一个降级处理逻辑。<ul>
-<li><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%96%AD%E8%B7%AF%E5%99%A8%E7%8A%B6%E6%80%81%E6%9C%BA.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%96%AD%E8%B7%AF%E5%99%A8%E7%8A%B6%E6%80%81%E6%9C%BA.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="断路器的工作状态机|475"><ol>
+<li><img src="/2024/03/05/33/%E6%96%AD%E8%B7%AF%E5%99%A8%E7%8A%B6%E6%80%81%E6%9C%BA.png" alt="断路器的工作状态机|475"><ol>
 <li>closed关闭装填，放行所有请求，并开始统计异常比例、满请求比例，超过阈值切换到open</li>
 <li>open服务调用被熔断，访问这个被熔断的请求会被拒绝，快速失败，走降级逻辑。持续一段时间之后转到half-open</li>
 <li>half-open 半开模式，放行一次请求，根据执行结果来判断接下来的操作<ul>
@@ -473,7 +433,7 @@
 <li><p>分布式事务：</p>
 <ul>
 <li>使用seata解决分布式事务：<ul>
-<li>seata有三个重要角色：<img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/seata%E6%9E%B6%E6%9E%84.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/seata%E6%9E%B6%E6%9E%84.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="|500"><ul>
+<li>seata有三个重要角色：<img src="/2024/03/05/33/seata%E6%9E%B6%E6%9E%84.png" alt="|500"><ul>
 <li>TC 事务协调者：维护全局和分支失物的状态，协调全局事务的</li>
 <li>TM 事务管理器：定义全局事务的范围，开始全局事务，提交或回滚全局事务</li>
 <li>RM 资源管理器：管理分支事务，与TC交谈以注册分之十五和报告分支事务的状态，并驱动分支事务的提交和回滚</li>
@@ -504,7 +464,7 @@
 </ul>
 </li>
 <li>at模式：<ol>
-<li>阶段一RM：<img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/AT%E4%B8%80%E9%98%B6%E6%AE%B5.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/AT%E4%B8%80%E9%98%B6%E6%AE%B5.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="|525"><ul>
+<li>阶段一RM：<img src="/2024/03/05/33/AT%E4%B8%80%E9%98%B6%E6%AE%B5.png" alt="|525"><ul>
 <li>注册分支事务，</li>
 <li>记录undo-log 快照数据</li>
 <li>执行业务sql并提交</li>
@@ -513,7 +473,7 @@
 </li>
 </ol>
 <ul>
-<li>二阶段<img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/AT%E4%BA%8C%E9%98%B6%E6%AE%B5.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/AT%E4%BA%8C%E9%98%B6%E6%AE%B5.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="|500"><ol>
+<li>二阶段<img src="/2024/03/05/33/AT%E4%BA%8C%E9%98%B6%E6%AE%B5.png" alt="|500"><ol>
 <li>阶段而提交时RM工作：删除undo-log</li>
 <li>回滚时，RM工作：根据undo-log恢复数据到更新前</li>
 </ol>
@@ -526,7 +486,7 @@
 <li>XA模式强一致性，AT模式最终一致</li>
 </ul>
 </li>
-<li>TCC模式：TCC模式与AT模式非常相似，每阶段都是独立事务，不同的是TCC通过人工编码来实现数据恢复。需要实现三个方法：<img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/TCC%E6%A8%A1%E5%BC%8F.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/TCC%E6%A8%A1%E5%BC%8F.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><ul>
+<li>TCC模式：TCC模式与AT模式非常相似，每阶段都是独立事务，不同的是TCC通过人工编码来实现数据恢复。需要实现三个方法：<img src="/2024/03/05/33/TCC%E6%A8%A1%E5%BC%8F.png"><ul>
 <li><code>try</code>：资源的检测和预留；</li>
 <li><code>confirm</code>：完成资源操作业务；要求 <code>try</code> 成功 <code>confirm</code> 一定要能成功。</li>
 <li><code>cancel</code>：预留资源释放，可以理解为try的反向操作。</li>
@@ -543,7 +503,7 @@
 <li>使用token+redis实现接口幂等性，第二次请求之后每次请求都会携带之前的token，后台先对redis进行验证，如果存在token则执行业务，同时删除token，如果不存再则直接返回，保证了幂等性，保证了同一个token只处理一次业务</li>
 </ul>
 </li>
-<li><h2 id="MQ：-组成-producer消息的生产者-broker-消息的保存-consumer-消息的消费者-选择："><a href="#MQ：-组成-producer消息的生产者-broker-消息的保存-consumer-消息的消费者-选择：" class="headerlink" title="MQ：  - 组成      - producer消息的生产者      - broker 消息的保存      - consumer 消息的消费者  - 选择："></a>MQ：<br>  - 组成<br>      - producer消息的生产者<br>      - broker 消息的保存<br>      - consumer 消息的消费者<br>  - 选择：<img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/MQ%E7%9A%84%E9%80%89%E6%8B%A9.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/MQ%E7%9A%84%E9%80%89%E6%8B%A9.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></h2></li>
+<li><h2 id="MQ：-组成-producer消息的生产者-broker-消息的保存-consumer-消息的消费者-选择："><a href="#MQ：-组成-producer消息的生产者-broker-消息的保存-consumer-消息的消费者-选择：" class="headerlink" title="MQ：  - 组成      - producer消息的生产者      - broker 消息的保存      - consumer 消息的消费者  - 选择："></a>MQ：<br>  - 组成<br>      - producer消息的生产者<br>      - broker 消息的保存<br>      - consumer 消息的消费者<br>  - 选择：<img src="/2024/03/05/33/MQ%E7%9A%84%E9%80%89%E6%8B%A9.png"></h2></li>
 </ul>
 <h3 id="Kafka面试题"><a href="#Kafka面试题" class="headerlink" title="Kafka面试题"></a>Kafka面试题</h3><ul>
 <li>如何保证消息不丢失：<ol>
@@ -618,7 +578,7 @@
 <h2 id="SpringCloud"><a href="#SpringCloud" class="headerlink" title="SpringCloud"></a>SpringCloud</h2><h3 id="注册中心"><a href="#注册中心" class="headerlink" title="注册中心"></a>注册中心</h3><ol>
 <li>方便更改微服务的ip和 端口号</li>
 <li>如果存在多个服务，可以配置负载均衡</li>
-<li>方便维护<br>服务注册中心：实现微服务之间的动态注册与发现<br><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E7%9A%84%E4%BD%9C%E7%94%A8.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E7%9A%84%E4%BD%9C%E7%94%A8.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li>方便维护<br>服务注册中心：实现微服务之间的动态注册与发现<br><img src="/2024/03/05/33/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E7%9A%84%E4%BD%9C%E7%94%A8.png"></li>
 </ol>
 <h3 id="consul"><a href="#consul" class="headerlink" title="consul"></a>consul</h3><p>功能：</p>
 <ol>
@@ -768,12 +728,12 @@ api接口上使用:<br>@FeignClient(value = “xxx”)</li>
 <p>对于高流量的应用来说，单一的后端依赖可能会导致所有服务器上的所有资源都在几秒钟内饱和。比失败更糟糕的是，这些应用程序还可能导致服务之间的延迟增加，备份队列，线程和其他系统资源紧张，导致整个系统发生更多的级联故障。这些都表示需要对故障和延迟进行隔离和管理，以便单个依赖关系的失败，不能取消整个应用程序或系统。</p>
 <p>所以，</p>
 <p>通常当你发现一个模块下的某个实例失败后，这时候这个模块依然还会接收流量，然后这个有问题的模块还调用了其他的模块，这样就会发生级联故障，或者叫雪崩。</p>
-<h2 id="CircuitBreaker-断路器"><a href="#CircuitBreaker-断路器" class="headerlink" title="CircuitBreaker  断路器"></a>CircuitBreaker  断路器</h2><p>配置参考<br><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%96%AD%E8%B7%AF%E5%99%A8%E9%85%8D%E7%BD%AE.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%96%AD%E8%B7%AF%E5%99%A8%E9%85%8D%E7%BD%AE.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="断路器配置"></p>
+<h2 id="CircuitBreaker-断路器"><a href="#CircuitBreaker-断路器" class="headerlink" title="CircuitBreaker  断路器"></a>CircuitBreaker  断路器</h2><p>配置参考<br><img src="/2024/03/05/33/%E6%96%AD%E8%B7%AF%E5%99%A8%E9%85%8D%E7%BD%AE.png" alt="断路器配置"></p>
 <p>断路器的状态：</p>
 <ol>
 <li>CLOSED</li>
 <li>OPEN</li>
-<li>HALF_OPEN 半开<br><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E7%8A%B6%E6%80%81.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E7%8A%B6%E6%80%81.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br>pox<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!--resilience4j-circuitbreaker--&gt;</span>
+<li>HALF_OPEN 半开<br><img src="/2024/03/05/33/%E7%8A%B6%E6%80%81.png"><br>pox<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!--resilience4j-circuitbreaker--&gt;</span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-cloud-starter-circuitbreaker-resilience4j<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
@@ -783,11 +743,11 @@ api接口上使用:<br>@FeignClient(value = “xxx”)</li>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-boot-starter-aop<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E5%8E%9F%E7%90%86.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E5%8E%9F%E7%90%86.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<img src="/2024/03/05/33/%E5%8E%9F%E7%90%86.png"></li>
 </ol>
-<h2 id="分布式链路追踪"><a href="#分布式链路追踪" class="headerlink" title="分布式链路追踪"></a>分布式链路追踪</h2><p>原因:<br><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E5%8E%9F%E5%9B%A0.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E5%8E%9F%E5%9B%A0.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="原因"><br><strong>ZipKin概述</strong></p>
+<h2 id="分布式链路追踪"><a href="#分布式链路追踪" class="headerlink" title="分布式链路追踪"></a>分布式链路追踪</h2><p>原因:<br><img src="/2024/03/05/33/%E5%8E%9F%E5%9B%A0.png" alt="原因"><br><strong>ZipKin概述</strong></p>
 <p>Zipkin是一种分布式链路跟踪系统图形化的工具，Zipkin 是 Twitter 开源的分布式跟踪系统，能够收集微服务运行过程中的实时调用链路信息，并能够将这些调用链路信息展示到Web图形化界面上供开发人员分析，开发人员能够从ZipKin中分析出调用链路中的性能瓶颈，识别出存在问题的应用程序，进而定位问题和解决问题<br>运行: java -jar zipkin-server-3.0.0-rc0-exec.jar</p>
-<h2 id="网关"><a href="#网关" class="headerlink" title="网关"></a>网关</h2><p><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E7%BD%91%E5%85%B3.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E7%BD%91%E5%85%B3.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="网关"></p>
+<h2 id="网关"><a href="#网关" class="headerlink" title="网关"></a>网关</h2><p><img src="/2024/03/05/33/%E7%BD%91%E5%85%B3.png" alt="网关"></p>
 <h3 id="执行流程："><a href="#执行流程：" class="headerlink" title="执行流程："></a>执行流程：</h3><ol>
 <li>路由判断：用户端的请求到达网关之后，根据Gateway Handler Mapping 处理，会进行断言判断</li>
 <li>路由过滤：很多Handler 组成的Fileter Chain</li>
@@ -838,13 +798,13 @@ yml<pre class="line-numbers language-yaml" data-language="yaml"><code class="lan
           <span class="token key atrule">predicates</span><span class="token punctuation">:</span>
             <span class="token punctuation">-</span> Path=/pay/gateway/info/<span class="token important">**</span>              <span class="token comment"># 断言，路径相匹配的进行路由      </span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
-<h2 id="SpringCloud-1"><a href="#SpringCloud-1" class="headerlink" title="SpringCloud"></a>SpringCloud</h2><p><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/alibaba.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/alibaba.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="阿里巴巴"></p>
+<h2 id="SpringCloud-1"><a href="#SpringCloud-1" class="headerlink" title="SpringCloud"></a>SpringCloud</h2><p><img src="/2024/03/05/33/alibaba.png" alt="阿里巴巴"></p>
 <ul>
-<li>功能<br><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E5%8A%9F%E8%83%BD.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E5%8A%9F%E8%83%BD.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="功能"></li>
-<li>组件<br><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E7%BB%84%E4%BB%B6.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E7%BB%84%E4%BB%B6.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="组件"></li>
+<li>功能<br><img src="/2024/03/05/33/%E5%8A%9F%E8%83%BD.png" alt="功能"></li>
+<li>组件<br><img src="/2024/03/05/33/%E7%BB%84%E4%BB%B6.png" alt="组件"></li>
 </ul>
 <h3 id="服务注册-Nacos-x3D-x3D-consul"><a href="#服务注册-Nacos-x3D-x3D-consul" class="headerlink" title="服务注册 Nacos == consul"></a>服务注册 Nacos == consul</h3><p><strong>注意是根据ID来区分的不是根据名字来区分命名空间的，所以ID要填自己想填的</strong></p>
-<p><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E5%AF%B9%E6%AF%94.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E5%AF%B9%E6%AF%94.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="对比"></p>
+<p><img src="/2024/03/05/33/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E5%AF%B9%E6%AF%94.png" alt="对比"></p>
 <ul>
 <li><p>命令行</p>
 <pre class="line-numbers language-css" data-language="css"><code class="language-css">startup.cmd -m standalone<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
@@ -864,7 +824,7 @@ yml<pre class="line-numbers language-yaml" data-language="yaml"><code class="lan
     <span class="token key atrule">nacos</span><span class="token punctuation">:</span>
       <span class="token key atrule">discovery</span><span class="token punctuation">:</span>
         <span class="token key atrule">server-addr</span><span class="token punctuation">:</span> localhost<span class="token punctuation">:</span><span class="token number">8848</span> <span class="token comment">#配置Nacos地址</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>main函数上使用@EnableDiscoveryClient<br>业务类示范<br><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/controller%E7%A4%BA%E8%8C%83.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/controller%E7%A4%BA%E8%8C%83.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="示范"></p>
+<p>main函数上使用@EnableDiscoveryClient<br>业务类示范<br><img src="/2024/03/05/33/controller%E7%A4%BA%E8%8C%83.png" alt="示范"></p>
 </li>
 <li><p>消费者<br>pom</p>
 <pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!--nacos-discovery--&gt;</span>
@@ -964,8 +924,8 @@ controller层上使用@RefreshScope //在控制器类加入@RefreshScope注解�
 <p>一个大型分布式微服务系统会有很多微服务子项目，</p>
 <p>每个微服务项目又都会有相应的开发环境、测试环境、预发环境、正式环境……</p>
 <p>那怎么对这些微服务配置进行分组和命名空间管理呢？</p>
-<p><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/model.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/model.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="model"></p>
-<h2 id="Sentinel-等价于-Circuit-Breaker-自己去官网看"><a href="#Sentinel-等价于-Circuit-Breaker-自己去官网看" class="headerlink" title="Sentinel 等价于 Circuit Breaker 自己去官网看"></a>Sentinel 等价于 Circuit Breaker 自己去官网看</h2><p><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E9%9B%AA%E5%B4%A9.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E9%9B%AA%E5%B4%A9.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E9%99%8D%E7%BA%A7.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E9%99%8D%E7%BA%A7.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E7%86%94%E6%96%AD.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E7%86%94%E6%96%AD.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E9%99%90%E6%B5%81.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E9%99%90%E6%B5%81.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E9%9A%94%E7%A6%BB.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E9%9A%94%E7%A6%BB.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E9%9A%94%E7%A6%BB.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E9%9A%94%E7%A6%BB.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E8%B6%85%E6%97%B6.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E8%B6%85%E6%97%B6.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+<p><img src="/2024/03/05/33/model.png" alt="model"></p>
+<h2 id="Sentinel-等价于-Circuit-Breaker-自己去官网看"><a href="#Sentinel-等价于-Circuit-Breaker-自己去官网看" class="headerlink" title="Sentinel 等价于 Circuit Breaker 自己去官网看"></a>Sentinel 等价于 Circuit Breaker 自己去官网看</h2><p><img src="/2024/03/05/33/%E9%9B%AA%E5%B4%A9.png"><br><img src="/2024/03/05/33/%E9%99%8D%E7%BA%A7.png"><br><img src="/2024/03/05/33/%E7%86%94%E6%96%AD.png"><br><img src="/2024/03/05/33/%E9%99%90%E6%B5%81.png"><br><img src="/2024/03/05/33/%E9%9A%94%E7%A6%BB.png"><br><img src="/2024/03/05/33/%E9%9A%94%E7%A6%BB.png"><br><img src="/2024/03/05/33/%E8%B6%85%E6%97%B6.png"></p>
 <p>pom</p>
 <pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!--SpringCloud alibaba sentinel --&gt;</span>
        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
@@ -987,16 +947,16 @@ controller层上使用@RefreshScope //在控制器类加入@RefreshScope注解�
       <span class="token property">transport</span><span class="token punctuation">:</span>
         <span class="token property">dashboard</span><span class="token punctuation">:</span> <span class="token property">localhost</span><span class="token punctuation">:</span>8080 #配置Sentinel dashboard控制台服务地址
         <span class="token property">port</span><span class="token punctuation">:</span> 8719 #默认8719端口，假如被占用会自动从8719开始依次+1扫描<span class="token punctuation">,</span>直至找到未被占用的端口<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%87%92%E5%8A%A0%E8%BD%BD.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%87%92%E5%8A%A0%E8%BD%BD.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="懒加载"></p>
+<p><img src="/2024/03/05/33/%E6%87%92%E5%8A%A0%E8%BD%BD.png" alt="懒加载"></p>
 <ul>
-<li>流控规则<br><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%B5%81%E6%8E%A7%E8%A7%84%E5%88%99.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%B5%81%E6%8E%A7%E8%A7%84%E5%88%99.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li>流控规则<br><img src="/2024/03/05/33/%E6%B5%81%E6%8E%A7%E8%A7%84%E5%88%99.png"></li>
 <li>熔断降级<br>Sentinel 熔断降级会在调用链路中某个资源出现不稳定状态时（例如调用超时或异常比例升高），对这个资源的调用进行限制，</li>
 </ul>
 <p>让请求快速失败，避免影响到其它的资源而导致级联错误。当资源被降级后，在接下来的降级时间窗口之内，对该资源的调用都自动熔断（默认行为是抛出 DegradeException）。、</p>
-<h3 id="如何处理分布式-事务"><a href="#如何处理分布式-事务" class="headerlink" title="如何处理分布式 事务"></a>如何处理分布式 事务</h3><h2 id="Seata"><a href="#Seata" class="headerlink" title="Seata"></a>Seata</h2><p><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/senta.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/senta.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="senta"></p>
+<h3 id="如何处理分布式-事务"><a href="#如何处理分布式-事务" class="headerlink" title="如何处理分布式 事务"></a>如何处理分布式 事务</h3><h2 id="Seata"><a href="#Seata" class="headerlink" title="Seata"></a>Seata</h2><p><img src="/2024/03/05/33/senta.png" alt="senta"></p>
 <p>去官网看</p>
-<p>面试题：<br><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/AT%E9%9D%A2%E8%AF%95%E9%A2%98.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/AT%E9%9D%A2%E8%AF%95%E9%A2%98.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/AT%E9%9D%A2%E8%AF%95%E9%A2%981.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/AT%E9%9D%A2%E8%AF%95%E9%A2%981.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
-<p><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%8F%90%E4%BA%A4.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%8F%90%E4%BA%A4.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E5%9B%9E%E6%BB%9A.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E5%9B%9E%E6%BB%9A.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+<p>面试题：<br><img src="/2024/03/05/33/AT%E9%9D%A2%E8%AF%95%E9%A2%98.png"><br><img src="/2024/03/05/33/AT%E9%9D%A2%E8%AF%95%E9%A2%981.png"></p>
+<p><img src="/2024/03/05/33/%E6%8F%90%E4%BA%A4.png"><br><img src="/2024/03/05/33/%E5%9B%9E%E6%BB%9A.png"></p>
 <h2 id="分布式详细"><a href="#分布式详细" class="headerlink" title="分布式详细"></a>分布式详细</h2><h3 id="分布式ID-分布式ID-https-javaguide-cn-distributed-system-distributed-id-design-html"><a href="#分布式ID-分布式ID-https-javaguide-cn-distributed-system-distributed-id-design-html" class="headerlink" title="[分布式ID](### 分布式ID https://javaguide.cn/distributed-system/distributed-id-design.html)"></a>[分布式ID](### 分布式ID <a target="_blank" rel="noopener" href="https://javaguide.cn/distributed-system/distributed-id-design.html">https://javaguide.cn/distributed-system/distributed-id-design.html</a>)</h3><h4 id="需求："><a href="#需求：" class="headerlink" title="需求："></a>需求：</h4><ol>
 <li>全局唯一</li>
 <li>高可用</li>
@@ -1013,23 +973,6 @@ controller层上使用@RefreshScope //在控制器类加入@RefreshScope注解�
     
     
     
-        
-
-<div>
-<ul class="post-copyright">
-  <li class="post-copyright-author">
-    <strong>本文作者： </strong>QingQiu
-  </li>
-  <li class="post-copyright-link">
-    <strong>本文链接：</strong>
-    <a href="https://zuofw.github.io/2024/03/05/33/" title="微服务">https://zuofw.github.io/2024/03/05/33/</a>
-  </li>
-  <li class="post-copyright-license">
-    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
-  </li>
-</ul>
-</div>
-
 
       <footer class="post-footer">
 
@@ -1136,7 +1079,7 @@ controller层上使用@RefreshScope //在控制器类加入@RefreshScope注解�
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1p1b2Z3" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Zuofw"><i class="fab fa-github fa-fw"></i>GitHub</span>
+        <a href="https://github.com/Zuofw/zuofw-rpc" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Zuofw&#x2F;zuofw-rpc" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
       </span>
   </div>
 
@@ -1163,14 +1106,13 @@ controller层上使用@RefreshScope //在控制器类加入@RefreshScope注解�
   &copy; 2022 – 
   <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
-    <i class="heart"></i>
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">QingQiu</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
-      <i class="fa fa-chart-area"></i>
+      <i class="fa fa-area-chart"></i>
     </span>
-      <span class="post-meta-item-text">站点总字数：</span>
     <span title="站点总字数">365k</span>
 </div>
 
@@ -1189,10 +1131,6 @@ controller层上使用@RefreshScope //在控制器类加入@RefreshScope注解�
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 
@@ -1201,7 +1139,7 @@ controller层上使用@RefreshScope //在控制器类加入@RefreshScope注解�
 <script src="/js/motion.js"></script>
 
 
-<script src="/js/schemes/pisces.js"></script>
+<script src="/js/schemes/muse.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
@@ -1212,37 +1150,8 @@ controller层上使用@RefreshScope //在控制器类加入@RefreshScope注解�
 
 
   
-  <script>
-    (function(){
-      var canonicalURL, curProtocol;
-      //Get the <link> tag
-      var x=document.getElementsByTagName("link");
-		//Find the last canonical URL
-		if(x.length > 0){
-			for (i=0;i<x.length;i++){
-				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
-					canonicalURL=x[i].href;
-				}
-			}
-		}
-    //Get protocol
-	    if (!canonicalURL){
-	    	curProtocol = window.location.protocol.split(':')[0];
-	    }
-	    else{
-	    	curProtocol = canonicalURL.split(':')[0];
-	    }
-      //Get current URL if the canonical URL does not exist
-	    if (!canonicalURL) canonicalURL = window.location.href;
-	    //Assign script content. Replace current URL with the canonical URL
-      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
-  </script>
 
 
-
-
-  
-<script src="/js/local-search.js"></script>
 
 
 
@@ -1259,71 +1168,6 @@ controller层上使用@RefreshScope //在控制器类加入@RefreshScope注解�
   
 
   
-      
 
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
-    
-
-  
-  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
-  <script>
-      window.addEventListener('load', () => {
-      quicklink({
-        timeout : 3000,
-        priority: true,
-        ignores : [uri => uri.includes('#'),uri => uri === 'https://zuofw.github.io/2024/03/05/33/',]
-      });
-      });
-  </script>
-
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
 </html>

@@ -5,20 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 6.3.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/site/96memo.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/site/32memo.ico">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/site/16memo.ico">
-  <link rel="mask-icon" href="/images/site/memo.ico" color="#222">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"zuofw.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":true,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"zuofw.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
@@ -45,7 +44,7 @@
   };
 </script>
 
-  <title>QingQiu'Blog - 清秋的博客</title>
+  <title>QingQiu'Blog</title>
   
 
 
@@ -106,7 +105,6 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
-        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -115,64 +113,27 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
+  <ul id="menu" class="menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+    <a href="/" rel="section"><i class="fa fa-fw fa-fa fa-home"></i>首页</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-fa fa-archive"></i>归档</a>
 
   </li>
         <li class="menu-item menu-item-github">
 
-    <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1p1b2Z3"><i class="fab fa-github fa-fw"></i>Github</span>
+    <a href="https://github.com/Zuofw" rel="noopener" target="_blank"><i class="fa fa-fw fa-fab fa-github"></i>Github</a>
 
   </li>
-        <li class="menu-item menu-item-rss">
-
-    <a href="/atom.xml" rel="section"><i class="fa fa-rss fa-fw"></i>RSS</a>
-
-  </li>
-      <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
-        </a>
-      </li>
   </ul>
 </nav>
 
 
 
-  <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
-           placeholder="搜索..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
-  </div>
-</div>
-
-    </div>
-  </div>
 
 </div>
     </header>
@@ -182,7 +143,6 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
-  <div class="reading-progress-bar"></div>
   <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
@@ -217,7 +177,7 @@
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
+                <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
@@ -225,14 +185,14 @@
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
+                  <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2024-09-03 14:58:41" itemprop="dateModified" datetime="2024-09-03T14:58:41+08:00">2024-09-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
+                <i class="fa fa-folder-o"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -243,7 +203,7 @@
           <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
+                <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
               <span>2.3k</span>
@@ -285,7 +245,7 @@
 </li>
 </ul>
 <h2 id="RocketMQ"><a href="#RocketMQ" class="headerlink" title="RocketMQ"></a>RocketMQ</h2><p><a target="_blank" rel="noopener" href="https://javaguide.cn/high-performance/message-queue/rocketmq-questions.html">常见问题</a></p>
-<p><img src="/2024/04/07/hou-duan/mq/%E8%A7%92%E8%89%B2.png" class="lazyload" data-srcset="/2024/04/07/hou-duan/mq/%E8%A7%92%E8%89%B2.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+<p><img src="/2024/04/07/18/%E8%A7%92%E8%89%B2.png"></p>
 <ol>
 <li>生产者组-&gt;发送消息的一方<ul>
 <li>消息的类型：<ol>
@@ -294,7 +254,7 @@
 <li>全局有序：把一个Topic分区数设为1，所有的消息都支持FIFO</li>
 <li>延迟消息：消息发送后，消费者不能立刻消费，需要等待</li>
 <li>事务消息：涉及分布式事务，保证多个操作同时成功或者失败，消费者才能使用</li>
-<li><img src="/2024/04/07/hou-duan/mq/%E4%B8%8D%E5%90%8C%E6%B6%88%E6%81%AF%E7%89%B9%E7%82%B9.png" class="lazyload" data-srcset="/2024/04/07/hou-duan/mq/%E4%B8%8D%E5%90%8C%E6%B6%88%E6%81%AF%E7%89%B9%E7%82%B9.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li><img src="/2024/04/07/18/%E4%B8%8D%E5%90%8C%E6%B6%88%E6%81%AF%E7%89%B9%E7%82%B9.png"></li>
 </ol>
 </li>
 <li>消息保证机制：<ol>
@@ -336,7 +296,7 @@
 <li>Namesrv集群：一个无状态的元数据管理，Namesrv之于RocketMQ等价于Zookeeper之于Kafka。Topic路由注册和管理、Broker注册和发现的管理者</li>
 </ul>
 <h1 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h1><p><a target="_blank" rel="noopener" href="https://javaguide.cn/high-performance/message-queue/rabbitmq-questions.html">常见问题</a></p>
-<h2 id="RabbitMQ主要架构"><a href="#RabbitMQ主要架构" class="headerlink" title="RabbitMQ主要架构"></a>RabbitMQ主要架构</h2><p><img src="/2024/04/07/hou-duan/mq/RabbitMQ%E6%9E%B6%E6%9E%84.png" class="lazyload" data-srcset="/2024/04/07/hou-duan/mq/RabbitMQ%E6%9E%B6%E6%9E%84.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="RabbitMQ架构"></p>
+<h2 id="RabbitMQ主要架构"><a href="#RabbitMQ主要架构" class="headerlink" title="RabbitMQ主要架构"></a>RabbitMQ主要架构</h2><p><img src="/2024/04/07/18/RabbitMQ%E6%9E%B6%E6%9E%84.png" alt="RabbitMQ架构"></p>
 <ul>
 <li><p>**<code>publisher</code>**：生产者，也就是发送消息的一方</p>
 </li>
@@ -427,7 +387,7 @@
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
+                <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
@@ -435,7 +395,7 @@
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
+                  <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2024-09-08 12:39:01" itemprop="dateModified" datetime="2024-09-08T12:39:01+08:00">2024-09-08</time>
@@ -444,7 +404,7 @@
           <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
+                <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
               <span>4.8k</span>
@@ -467,7 +427,7 @@
 <li>异步I/O AIO：应用程序发起IO操作之后，立刻返回，操作系统在IO操作执行后，会通知应用程序，应用程序无需轮询IO状态。</li>
 </ol>
 <ul>
-<li>BIO和NIO的区别: <img src="/2024/03/30/hou-duan/netty/BIOandNIO.png" class="lazyload" data-srcset="/2024/03/30/hou-duan/netty/BIOandNIO.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li>BIO和NIO的区别: <img src="/2024/03/30/44/BIOandNIO.png"></li>
 <li>AIO-&gt;异步I/O</li>
 </ul>
 <h2 id="Reactor-模型"><a href="#Reactor-模型" class="headerlink" title="Reactor 模型"></a>Reactor 模型</h2><blockquote>
@@ -498,7 +458,7 @@
 <li>Selector</li>
 <li>Bootstrap</li>
 </ol>
-<h3 id="逻辑架构"><a href="#逻辑架构" class="headerlink" title="逻辑架构"></a>逻辑架构</h3><p><img src="/2024/03/30/hou-duan/netty/Netty%E6%95%B4%E4%BD%93%E9%80%BB%E8%BE%91.png" class="lazyload" data-srcset="/2024/03/30/hou-duan/netty/Netty%E6%95%B4%E4%BD%93%E9%80%BB%E8%BE%91.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+<h3 id="逻辑架构"><a href="#逻辑架构" class="headerlink" title="逻辑架构"></a>逻辑架构</h3><p><img src="/2024/03/30/44/Netty%E6%95%B4%E4%BD%93%E9%80%BB%E8%BE%91.png"></p>
 <ol>
 <li>网络通信层：支持多种网络协议，当网络数据读取到内核缓冲区后，会触发各种网络事件，会分发给事件调度层进行处理。核心是<ul>
 <li>BootStrap，负责Netty客户端的启动、初始化、服务器连接等过程</li>
@@ -513,7 +473,7 @@
 <li>主从多线程：多个EventLoop，B和W使用不同的Group</li>
 </ul>
 </li>
-<li>EventLoop负责处理Channel生命周期中所有的I/O事件，一个EventLoopGroup包含一个或者多个EventLoop，一个EventLoop同一时间只会绑定一个Channel，Channel生命周期内可以和多个EventLoop进行多次绑定和解绑<img src="/2024/03/30/hou-duan/netty/EventLoop.png" class="lazyload" data-srcset="/2024/03/30/hou-duan/netty/EventLoop.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li>EventLoop负责处理Channel生命周期中所有的I/O事件，一个EventLoopGroup包含一个或者多个EventLoop，一个EventLoop同一时间只会绑定一个Channel，Channel生命周期内可以和多个EventLoop进行多次绑定和解绑<img src="/2024/03/30/44/EventLoop.png"></li>
 </ul>
 </li>
 <li>服务编排层：负责组装各种服务，是核心处理链。<ul>
@@ -537,9 +497,9 @@
 <li>ChannelHandler：事件处理的具体逻辑<ol>
 <li>生存周期：handlerAddedChannelHandler被添加到ChannelPipeline中时被调用，handlerRemoved被被移除，exceptionCaught处理过程中在ChannelPipeline中有错误产生时。</li>
 <li>ChannelInboundHandler-&gt;处理入站数据及状态变化。<ul>
-<li>方法：<img src="/2024/03/30/hou-duan/netty/ChannelInboundHandler.png" class="lazyload" data-srcset="/2024/03/30/hou-duan/netty/ChannelInboundHandler.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li>方法：<img src="/2024/03/30/44/ChannelInboundHandler.png"></li>
 <li>SimpleChannelInboundHandler会自动释放资源</li>
-<li><img src="/2024/03/30/hou-duan/netty/ChannelOutboundHandler.png" class="lazyload" data-srcset="/2024/03/30/hou-duan/netty/ChannelOutboundHandler.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li><img src="/2024/03/30/44/ChannelOutboundHandler.png"></li>
 </ul>
 </li>
 </ol>
@@ -566,7 +526,7 @@
 <li></li>
 </ol>
 </li>
-<li>二者的联系和区别：<img src="/2024/03/30/hou-duan/netty/PipeLine%E5%92%8CHandler%E7%9A%84%E5%8C%BA%E5%88%AB.png" class="lazyload" data-srcset="/2024/03/30/hou-duan/netty/PipeLine%E5%92%8CHandler%E7%9A%84%E5%8C%BA%E5%88%AB.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br>  通过使用作为参数传递到每个方法的 ChannelHandlerContext，事件可以被传递给当前ChannelHandler 链中的下一个 ChannelHandler。<ul>
+<li>二者的联系和区别：<img src="/2024/03/30/44/PipeLine%E5%92%8CHandler%E7%9A%84%E5%8C%BA%E5%88%AB.png"><br>  通过使用作为参数传递到每个方法的 ChannelHandlerContext，事件可以被传递给当前ChannelHandler 链中的下一个 ChannelHandler。<ul>
 <li>ChannelInboundHandler </li>
 <li>SimpleChannelInboundHandler&lt; T &gt; T是要处理消息的Java类型，适用于只需要解码消息并处理逻辑<ul>
 <li>channelRead0(ChannelHandlerContext,T)</li>
@@ -581,13 +541,13 @@
 </li>
 <li>Channel接口：<ul>
 <li>方法：</li>
-<li><img src="/2024/03/30/hou-duan/netty/Channel%E6%96%B9%E6%B3%95.png" class="lazyload" data-srcset="/2024/03/30/hou-duan/netty/Channel%E6%96%B9%E6%B3%95.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li><img src="/2024/03/30/44/Channel%E6%96%B9%E6%B3%95.png"></li>
 <li>Channel的生命周期：ChannelUnregistered已创建但是没有注册到EventLoop中；已注册ChannelRegistered；ChannelActive处于活跃状态，已经连接到远程节点， ChannelInactive 没有连接到远程给节点。</li>
 </ul>
 </li>
 <li>内置的传输<ol>
-<li>NIO 非阻塞-&gt;基于选择器 <img src="/2024/03/30/hou-duan/netty/Selector.png" class="lazyload" data-srcset="/2024/03/30/hou-duan/netty/Selector.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><ul>
-<li><img src="/2024/03/30/hou-duan/netty/Selector%E6%B5%81%E7%A8%8B.png" class="lazyload" data-srcset="/2024/03/30/hou-duan/netty/Selector%E6%B5%81%E7%A8%8B.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li>NIO 非阻塞-&gt;基于选择器 <img src="/2024/03/30/44/Selector.png"><ul>
+<li><img src="/2024/03/30/44/Selector%E6%B5%81%E7%A8%8B.png"></li>
 </ul>
 </li>
 <li>Epoll -&gt; 基于JNI驱动的，速度更快，完全非阻塞的<ul>
@@ -603,11 +563,11 @@
 <li>使用两个索引：readIndex和writerIndex，开始时，两个都位于开头。也就是队列</li>
 <li>ByteBufHolder接口用来存储各种属性值。</li>
 <li>Netty提供了两种ByteBufAllocator的实现：PooledByteBufAllocator和UnpooledByteBufAllocator。前者池化了ByteBuf的实例以提高性能并最大限度地减少内存碎片。后者不池化。</li>
-<li>Unpooled缓冲区：静态工具类来创建未池化的ByteBuf实例<img src="/2024/03/30/hou-duan/netty/Unpooled.png" class="lazyload" data-srcset="/2024/03/30/hou-duan/netty/Unpooled.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li>Unpooled缓冲区：静态工具类来创建未池化的ByteBuf实例<img src="/2024/03/30/44/Unpooled.png"></li>
 <li></li>
 </ol>
 </li>
-<li>RPC框架的调用流程<br><img src="/2024/03/30/hou-duan/netty/RPC%E8%B0%83%E7%94%A8%E6%B5%81%E7%A8%8B.png" class="lazyload" data-srcset="/2024/03/30/hou-duan/netty/RPC%E8%B0%83%E7%94%A8%E6%B5%81%E7%A8%8B.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li>RPC框架的调用流程<br><img src="/2024/03/30/44/RPC%E8%B0%83%E7%94%A8%E6%B5%81%E7%A8%8B.png"></li>
 <li>解码器：ByteToMessageDecoder 编码器：MessageToByteEncoder实际上这两个实现了Handler</li>
 <li>协议的支持，自己去看数，Netty实战</li>
 </ul>
@@ -657,7 +617,7 @@
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
+                <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
@@ -665,7 +625,7 @@
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
+                  <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2024-07-27 16:53:11" itemprop="dateModified" datetime="2024-07-27T16:53:11+08:00">2024-07-27</time>
@@ -674,7 +634,7 @@
           <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
+                <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
               <span>5.7k</span>
@@ -764,7 +724,7 @@
 <ul>
 <li>执行过程<ul>
 <li>java程序加载config文件，创建SqlSessionFactory对象，之后通过SqlSessionFactory创建SqlSession对象，之后通过SqlSession对象执行映射配置文件中定义的SQL语句，最后通过SqlSession对象提交事务，关闭SqlSession对象</li>
-<li><img src="/2024/03/30/hou-duan/mybatis/%E5%88%86%E5%B1%82.png" class="lazyload" data-srcset="/2024/03/30/hou-duan/mybatis/%E5%88%86%E5%B1%82.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li><img src="/2024/03/30/46/%E5%88%86%E5%B1%82.png"></li>
 </ul>
 </li>
 </ul>
@@ -893,7 +853,7 @@ person.age &gt; 18 &amp;&amp; person.gender == <span class="token string">'male'
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
+                <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
@@ -901,7 +861,7 @@ person.age &gt; 18 &amp;&amp; person.gender == <span class="token string">'male'
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
+                  <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2024-06-16 09:52:18" itemprop="dateModified" datetime="2024-06-16T09:52:18+08:00">2024-06-16</time>
@@ -910,7 +870,7 @@ person.age &gt; 18 &amp;&amp; person.gender == <span class="token string">'male'
           <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
+                <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
               <span>2k</span>
@@ -1031,7 +991,7 @@ person.age &gt; 18 &amp;&amp; person.gender == <span class="token string">'male'
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
+                <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
@@ -1039,7 +999,7 @@ person.age &gt; 18 &amp;&amp; person.gender == <span class="token string">'male'
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
+                  <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2024-03-18 23:10:01" itemprop="dateModified" datetime="2024-03-18T23:10:01+08:00">2024-03-18</time>
@@ -1048,7 +1008,7 @@ person.age &gt; 18 &amp;&amp; person.gender == <span class="token string">'male'
           <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
+                <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
               <span>158</span>
@@ -1103,7 +1063,7 @@ person.age &gt; 18 &amp;&amp; person.gender == <span class="token string">'male'
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
+                <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
@@ -1111,7 +1071,7 @@ person.age &gt; 18 &amp;&amp; person.gender == <span class="token string">'male'
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
+                  <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2024-03-17 19:08:12" itemprop="dateModified" datetime="2024-03-17T19:08:12+08:00">2024-03-17</time>
@@ -1120,7 +1080,7 @@ person.age &gt; 18 &amp;&amp; person.gender == <span class="token string">'male'
           <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
+                <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
               <span>5.1k</span>
@@ -1139,7 +1099,7 @@ person.age &gt; 18 &amp;&amp; person.gender == <span class="token string">'male'
 <li><p>系统调用跳到内核与标准的函数调用跳到另一个函数相比，区别是什么？</p>
 <p> Kernel的代码总是有特殊的权限。当机器启动Kernel时，Kernel会有特殊的权限能直接访问各种各样的硬件，例如磁盘。而普通的用户程序是没有办法直接访问这些硬件的。所以，当你执行一个普通的函数调用时，你所调用的函数并没有对于硬件的特殊权限。然而，如果你触发系统调用到内核中，内核中的具体实现会具有这些特殊的权限，这样就能修改敏感的和被保护的硬件资源，比如访问硬件磁盘。我们之后会介绍更多有关的细节。</p>
 </li>
-<li><p>Kernel<br> 内核使用CPU提供的硬件保护机制来确保每个在用户空间执行的进程只能访问它自己的内存。内核程序的执行拥有操控硬件的权限，它需要实现这些保护；而用户程序执行时没有这些特权。当用户程序调用系统调用时，硬件会提升权限级别，并开始执行内核中预先安排好的函数。<br> <img src="/2024/03/06/xiang-mu-jian-li-shi-xi/6-s081/Kernel.png" class="lazyload" data-srcset="/2024/03/06/xiang-mu-jian-li-shi-xi/6-s081/Kernel.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="Kernel"></p>
+<li><p>Kernel<br> 内核使用CPU提供的硬件保护机制来确保每个在用户空间执行的进程只能访问它自己的内存。内核程序的执行拥有操控硬件的权限，它需要实现这些保护；而用户程序执行时没有这些特权。当用户程序调用系统调用时，硬件会提升权限级别，并开始执行内核中预先安排好的函数。<br> <img src="/2024/03/06/23/Kernel.png" alt="Kernel"></p>
 </li>
 <li><p>xv6提供的系统调用<br> <a target="_blank" rel="noopener" href="https://xv6.dgs.zone/tranlate_books/book-riscv-rev1/c1/s0.html">看文档</a></p>
 </li>
@@ -1381,7 +1341,7 @@ int main(int argc, char **argv)</span> <span class="token punctuation">{</span>
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
+                <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
@@ -1389,14 +1349,14 @@ int main(int argc, char **argv)</span> <span class="token punctuation">{</span>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
+                  <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2024-08-07 16:04:28" itemprop="dateModified" datetime="2024-08-07T16:04:28+08:00">2024-08-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
+                <i class="fa fa-folder-o"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1407,7 +1367,7 @@ int main(int argc, char **argv)</span> <span class="token punctuation">{</span>
           <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
+                <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
               <span>9.6k</span>
@@ -1471,7 +1431,7 @@ int main(int argc, char **argv)</span> <span class="token punctuation">{</span>
 <h6 id="Available内存"><a href="#Available内存" class="headerlink" title="Available内存"></a>Available内存</h6><p>系统中立刻可以分配给进程的内存数量，包括free内存和一部分被缓存的内存。available = free + buff/chche</p>
 <h5 id="Buffer"><a href="#Buffer" class="headerlink" title="Buffer"></a>Buffer</h5><p>缓冲区适用于存储文件系统元数据的内存。读取/写入文件时，数据首先暂存在Buffers中，来提高读取和写入的效率。</p>
 <h5 id="Cached"><a href="#Cached" class="headerlink" title="Cached"></a>Cached</h5><p>缓存：用于存储已经从磁盘读取的文件的副本，这些文件可能是系统频繁使用的文件。由Linux内核自动管理，用于提高系统性能。系统有足够的空闲内存时，会将一些文件的副本保留在Cached中。</p>
-<h5 id="内存回收"><a href="#内存回收" class="headerlink" title="内存回收"></a>内存回收</h5><p><img src="/2024/03/06/408/os/%E5%86%85%E5%AD%98%E5%9B%9E%E6%94%B6.png" class="lazyload" data-srcset="/2024/03/06/408/os/%E5%86%85%E5%AD%98%E5%9B%9E%E6%94%B6.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br>当内存大于pages_high是，系统内存充足不会进行内存回收<br>当内存小于pages_low时，标识内存存在压力，会触发kswapd0，进行后台内存回收。直到pages_high位置<br>当内存⼩于 pages_min 时，表⽰此时⽤⼾内存耗尽，会触发直接内存回收，进程被阻塞</p>
+<h5 id="内存回收"><a href="#内存回收" class="headerlink" title="内存回收"></a>内存回收</h5><p><img src="/2024/03/06/38/%E5%86%85%E5%AD%98%E5%9B%9E%E6%94%B6.png"><br>当内存大于pages_high是，系统内存充足不会进行内存回收<br>当内存小于pages_low时，标识内存存在压力，会触发kswapd0，进行后台内存回收。直到pages_high位置<br>当内存⼩于 pages_min 时，表⽰此时⽤⼾内存耗尽，会触发直接内存回收，进程被阻塞</p>
 <p>OOM⸺Out of Memory 如果直接内存回收之后，系统的剩余空闲内存还不⾜以进⾏内存分配，则会<br>进⼀步触发OOM机制。 OOM Killer 机制会根据算法选择并kill掉⼀个占⽤物理内存较⾼的进程，以便<br>释放内存资源，如果物理内存依然不⾜，OOM Killer 会继续杀死占⽤物理内存较⾼的进程，直到释放<br>⾜够的内存位置。</p>
 <h5 id="MMU和TLB"><a href="#MMU和TLB" class="headerlink" title="MMU和TLB"></a>MMU和TLB</h5><p>MMU （Memory Management Unit，内存管理单元）<br>用于在CPU和内存之间实现虚拟内存管理。将虚拟地址转换为物理地址，同时提供访问权限的控制和缓存管理等功能。<br>TLB 是高所缓存，哟关于缓存页表转换的结果。存在TLB时，虚拟地址到物理地址的转换过程发生了变化，虚拟地址首先发往TLB确认是否命中Cache</p>
 <h5 id="Drop-Cache"><a href="#Drop-Cache" class="headerlink" title="Drop Cache"></a>Drop Cache</h5><p>“Drop Cache” 是一种清理系统缓存的方法。系统缓存包括页面缓存、目录项缓存（dentry cache）和inode缓存。<br>• dirty pages不能回收；</p>
@@ -1588,7 +1548,7 @@ int main(int argc, char **argv)</span> <span class="token punctuation">{</span>
 <li>消息队列：进程发送消息后就可以继续做工作，另一个进程读取到消息进行处理，消息队列是保存在内核中的消息链表，缺点是：通信不及时，附件大小有限制</li>
 <li>共享内存:拿出一块虚拟地址空间，将其映射到相同的物理内存中，即可做到消除拷贝过程、<ul>
 <li>缺点：多个进程共同修改共享地址会出现冲突</li>
-<li><img src="/2024/03/06/408/os/%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98.png" class="lazyload" data-srcset="/2024/03/06/408/os/%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li><img src="/2024/03/06/38/%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98.png"></li>
 </ul>
 </li>
 <li>信号量：P V 操作 初始量为1时，是互斥操作， 为0时是同步操作</li>
@@ -1612,7 +1572,7 @@ int main(int argc, char **argv)</span> <span class="token punctuation">{</span>
 <li>一致哈希算法也用了取模运算，但与哈希算法不同的是，哈希算法是对节点的数量进行取模运算，而<strong>一致哈希算法是对 2^32 进行取模运算，是一个固定的值</strong>。</li>
 </ul>
 <p>我们可以把一致哈希算法是对 2^32 进行取模运算的结果值组织成一个圆环，就像钟表一样，钟表的圆可以理解成由 60 个点组成的圆，而此处我们把这个圆想象成由 2^32 个点组成的圆，这个圆环被称为<strong>哈希环</strong>，如下图：</p>
-<p><img src="https://cdn.xiaolincoding.com//mysql/other/0ea3960fef48d4cbaeb4bec4345301e7.png" class="lazyload" data-srcset="https://cdn.xiaolincoding.com//mysql/other/0ea3960fef48d4cbaeb4bec4345301e7.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+<p><img src="https://cdn.xiaolincoding.com//mysql/other/0ea3960fef48d4cbaeb4bec4345301e7.png"></p>
 <h3 id="内核"><a href="#内核" class="headerlink" title="内核"></a>内核</h3><p>现代操作系统，内核一般会提供 4 个基本能力：</p>
 <ul>
 <li>管理进程、线程，决定哪个进程、线程使用 CPU，也就是进程调度的能力；</li>
@@ -1633,7 +1593,7 @@ int main(int argc, char **argv)</span> <span class="token punctuation">{</span>
 <h3 id="调度"><a href="#调度" class="headerlink" title="调度"></a><a target="_blank" rel="noopener" href="https://xiaolincoding.com/os/1_hardware/how_cpu_deal_task.html#%E5%AE%8C%E5%85%A8%E5%85%AC%E5%B9%B3%E8%B0%83%E5%BA%A6">调度</a></h3><h2 id="存储"><a href="#存储" class="headerlink" title="存储"></a>存储</h2><ul>
 <li>寄存器；</li>
 <li>CPU Cache：使用SRAM 静态存储器，断电丢失数据</li>
-<li><img src="/2024/03/06/408/os/Cache%E5%88%86%E7%B1%BB.png" class="lazyload" data-srcset="/2024/03/06/408/os/Cache%E5%88%86%E7%B1%BB.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><ol>
+<li><img src="/2024/03/06/38/Cache%E5%88%86%E7%B1%BB.png"><ol>
 <li>L1-Cache；&nbsp;L1 高速缓存通常分成<strong>指令缓存</strong>和<strong>数据缓存</strong>。速度几乎和寄存器一样快。每个核心都拥有一个</li>
 <li>L2-Cache；比L2离CPU远，大小更大，每一个核心都有</li>
 <li>L3-Cahce；多核心公用</li>
@@ -1642,7 +1602,7 @@ int main(int argc, char **argv)</span> <span class="token punctuation">{</span>
 <li>写回（_Write Back_）只有当Cache 中的数据被替换时，写入内存</li>
 </ul>
 </li>
-<li><h2 id="Cache一致性-第一点，某个-CPU-核心里的-Cache-数据更新时，必须要传播到其他核心的-Cache，这个称为写传播（-Write-Propagation-）；使用锁-第二点，某个-CPU-核心里对数据的操作顺序，必须在其他核心看起来顺序是一样的，这个称为事务的串行化（-Transaction-Serialization-）。-使用基于总线嗅探的MESI模型-伪共享：-多个线程同时读写同一个-Cache-Line-的不同变量时，而导致-CPU-Cache-失效的现象称为伪共享（-False-Sharing-）-解决：尽量避免这些数据刚好在同一个Cache-Line-将他们变成对齐的情况。-应用层面解决："><a href="#Cache一致性-第一点，某个-CPU-核心里的-Cache-数据更新时，必须要传播到其他核心的-Cache，这个称为写传播（-Write-Propagation-）；使用锁-第二点，某个-CPU-核心里对数据的操作顺序，必须在其他核心看起来顺序是一样的，这个称为事务的串行化（-Transaction-Serialization-）。-使用基于总线嗅探的MESI模型-伪共享：-多个线程同时读写同一个-Cache-Line-的不同变量时，而导致-CPU-Cache-失效的现象称为伪共享（-False-Sharing-）-解决：尽量避免这些数据刚好在同一个Cache-Line-将他们变成对齐的情况。-应用层面解决：" class="headerlink" title="Cache一致性- - 第一点，某个 CPU 核心里的 Cache 数据更新时，必须要传播到其他核心的 Cache，这个称为写传播（_Write Propagation_）；使用锁 - 第二点，某个 CPU 核心里对数据的操作顺序，必须在其他核心看起来顺序是一样的，这个称为事务的串行化（_Transaction Serialization_）。 - 使用基于总线嗅探的MESI模型 -  -  - 伪共享： 多个线程同时读写同一个 Cache Line 的不同变量时，而导致 CPU Cache 失效的现象称为伪共享（_False Sharing_） - 解决：尽量避免这些数据刚好在同一个Cache Line,将他们变成对齐的情况。 - 应用层面解决："></a>Cache一致性-<br> - 第一点，某个 CPU 核心里的 Cache 数据更新时，必须要传播到其他核心的 Cache，这个称为<strong>写传播（_Write Propagation_）</strong>；使用锁<br> - 第二点，某个 CPU 核心里对数据的操作顺序，必须在其他核心看起来顺序是一样的，这个称为<strong>事务的串行化（_Transaction Serialization_）</strong>。<br> - 使用基于总线嗅探的MESI模型<br> - <img src="/2024/03/06/408/os/%E7%8A%B6%E6%80%81%E5%9B%BE.png" class="lazyload" data-srcset="/2024/03/06/408/os/%E7%8A%B6%E6%80%81%E5%9B%BE.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br> - <img src="/2024/03/06/408/os/MESI.png" class="lazyload" data-srcset="/2024/03/06/408/os/MESI.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br> - 伪共享： 多个线程同时读写同一个 Cache Line 的不同变量时，而导致 CPU Cache 失效的现象称为<strong>伪共享（_False Sharing_）</strong><br> - 解决：尽量避免这些数据刚好在同一个Cache Line,将他们变成对齐的情况。<br> - 应用层面解决：<img src="/2024/03/06/408/os/%E5%BA%94%E7%94%A8%E5%B1%82%E9%9D%A2%E8%A7%A3%E5%86%B3.png" class="lazyload" data-srcset="/2024/03/06/408/os/%E5%BA%94%E7%94%A8%E5%B1%82%E9%9D%A2%E8%A7%A3%E5%86%B3.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></h2></li>
+<li><h2 id="Cache一致性-第一点，某个-CPU-核心里的-Cache-数据更新时，必须要传播到其他核心的-Cache，这个称为写传播（-Write-Propagation-）；使用锁-第二点，某个-CPU-核心里对数据的操作顺序，必须在其他核心看起来顺序是一样的，这个称为事务的串行化（-Transaction-Serialization-）。-使用基于总线嗅探的MESI模型-伪共享：-多个线程同时读写同一个-Cache-Line-的不同变量时，而导致-CPU-Cache-失效的现象称为伪共享（-False-Sharing-）-解决：尽量避免这些数据刚好在同一个Cache-Line-将他们变成对齐的情况。-应用层面解决："><a href="#Cache一致性-第一点，某个-CPU-核心里的-Cache-数据更新时，必须要传播到其他核心的-Cache，这个称为写传播（-Write-Propagation-）；使用锁-第二点，某个-CPU-核心里对数据的操作顺序，必须在其他核心看起来顺序是一样的，这个称为事务的串行化（-Transaction-Serialization-）。-使用基于总线嗅探的MESI模型-伪共享：-多个线程同时读写同一个-Cache-Line-的不同变量时，而导致-CPU-Cache-失效的现象称为伪共享（-False-Sharing-）-解决：尽量避免这些数据刚好在同一个Cache-Line-将他们变成对齐的情况。-应用层面解决：" class="headerlink" title="Cache一致性- - 第一点，某个 CPU 核心里的 Cache 数据更新时，必须要传播到其他核心的 Cache，这个称为写传播（_Write Propagation_）；使用锁 - 第二点，某个 CPU 核心里对数据的操作顺序，必须在其他核心看起来顺序是一样的，这个称为事务的串行化（_Transaction Serialization_）。 - 使用基于总线嗅探的MESI模型 -  -  - 伪共享： 多个线程同时读写同一个 Cache Line 的不同变量时，而导致 CPU Cache 失效的现象称为伪共享（_False Sharing_） - 解决：尽量避免这些数据刚好在同一个Cache Line,将他们变成对齐的情况。 - 应用层面解决："></a>Cache一致性-<br> - 第一点，某个 CPU 核心里的 Cache 数据更新时，必须要传播到其他核心的 Cache，这个称为<strong>写传播（_Write Propagation_）</strong>；使用锁<br> - 第二点，某个 CPU 核心里对数据的操作顺序，必须在其他核心看起来顺序是一样的，这个称为<strong>事务的串行化（_Transaction Serialization_）</strong>。<br> - 使用基于总线嗅探的MESI模型<br> - <img src="/2024/03/06/38/%E7%8A%B6%E6%80%81%E5%9B%BE.png"><br> - <img src="/2024/03/06/38/MESI.png"><br> - 伪共享： 多个线程同时读写同一个 Cache Line 的不同变量时，而导致 CPU Cache 失效的现象称为<strong>伪共享（_False Sharing_）</strong><br> - 解决：尽量避免这些数据刚好在同一个Cache Line,将他们变成对齐的情况。<br> - 应用层面解决：<img src="/2024/03/06/38/%E5%BA%94%E7%94%A8%E5%B1%82%E9%9D%A2%E8%A7%A3%E5%86%B3.png"></h2></li>
 </ol>
 </li>
 <li>内存；DRAM 不断刷新，数据才能被存储起来。</li>
@@ -1713,10 +1673,10 @@ int main(int argc, char **argv)</span> <span class="token punctuation">{</span>
 <li>索引表指向PCB</li>
 </ul>
 <h4 id="PCB的使用"><a href="#PCB的使用" class="headerlink" title="PCB的使用"></a>PCB的使用</h4><p>进程创建：生成该进程的PCB<br>进程终止：回收它的PCB</p>
-<h3 id="进程的状态："><a href="#进程的状态：" class="headerlink" title="进程的状态："></a>进程的状态：</h3><p>创建状态、运行态、就绪态、阻塞态、结束状态<br><img src="/2024/03/06/408/os/%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2.png" class="lazyload" data-srcset="/2024/03/06/408/os/%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="进程状态转换"><br>需要一个新的状态，来<strong>描述进程没有占用实际的物理内存空间的情况，这个状态就是挂起状态</strong>。</p>
+<h3 id="进程的状态："><a href="#进程的状态：" class="headerlink" title="进程的状态："></a>进程的状态：</h3><p>创建状态、运行态、就绪态、阻塞态、结束状态<br><img src="/2024/03/06/38/%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2.png" alt="进程状态转换"><br>需要一个新的状态，来<strong>描述进程没有占用实际的物理内存空间的情况，这个状态就是挂起状态</strong>。</p>
 <ul>
 <li>阻塞挂起状态：进程在外存（硬盘）并等待某个事件的出现；</li>
-<li>就绪挂起状态：进程在外存（硬盘），但只要进入内存，即刻立刻运行；<br><img src="/2024/03/06/408/os/%E6%8C%82%E8%B5%B7.png" class="lazyload" data-srcset="/2024/03/06/408/os/%E6%8C%82%E8%B5%B7.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li>就绪挂起状态：进程在外存（硬盘），但只要进入内存，即刻立刻运行；<br><img src="/2024/03/06/38/%E6%8C%82%E8%B5%B7.png"></li>
 </ul>
 <h4 id="进程创建"><a href="#进程创建" class="headerlink" title="进程创建"></a>进程创建</h4><h3 id="主要的事件：系统初始化，正在运行的程序执行了创建进程的系统调用，用户请求创建一个进程，一个批处理作业的初始化"><a href="#主要的事件：系统初始化，正在运行的程序执行了创建进程的系统调用，用户请求创建一个进程，一个批处理作业的初始化" class="headerlink" title="主要的事件：系统初始化，正在运行的程序执行了创建进程的系统调用，用户请求创建一个进程，一个批处理作业的初始化"></a>主要的事件：系统初始化，正在运行的程序执行了创建进程的系统调用，用户请求创建一个进程，一个批处理作业的初始化</h3><p>进程执行</p>
 <p>进程等待</p>
@@ -1791,7 +1751,7 @@ int main(int argc, char **argv)</span> <span class="token punctuation">{</span>
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
+                <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
@@ -1799,14 +1759,14 @@ int main(int argc, char **argv)</span> <span class="token punctuation">{</span>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
+                  <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2024-07-19 16:43:23" itemprop="dateModified" datetime="2024-07-19T16:43:23+08:00">2024-07-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
+                <i class="fa fa-folder-o"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1817,7 +1777,7 @@ int main(int argc, char **argv)</span> <span class="token punctuation">{</span>
           <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
+                <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
               <span>15k</span>
@@ -1844,7 +1804,7 @@ int main(int argc, char **argv)</span> <span class="token punctuation">{</span>
 <li>P分区容错，当分布式系统节点之间出现网络故障导致节点之间无法通信，导致出现了分区 必须要满足的</li>
 </ul>
 </li>
-<li><p>BASE理论：<img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/BASE.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/BASE.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+<li><p>BASE理论：<img src="/2024/03/05/33/BASE.png"></p>
 <ul>
 <li>基于BASE理论的柔性事务，不同于ACID的刚性事务，通过一些新的方案，只要保证最终一致性即可</li>
 </ul>
@@ -1870,13 +1830,13 @@ int main(int argc, char **argv)</span> <span class="token punctuation">{</span>
 </li>
 </ul>
 </li>
-<li>TCC Try-Confirm-Cancel <img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/TCC%E4%BC%98%E7%82%B9.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/TCC%E4%BC%98%E7%82%B9.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><ol>
+<li>TCC Try-Confirm-Cancel <img src="/2024/03/05/33/TCC%E4%BC%98%E7%82%B9.png"><ol>
 <li>Try 阶段：尝试执行，完成所有业务检查（一致性）, 预留必须业务资源（准隔离性）  </li>
 <li>Confirm 阶段：确认执行真正执行业务，不作任何业务检查，只使用 Try 阶段预留的业务资源，Confirm 操作满足幂等性。要求具备幂等设计，Confirm 失败后需要进行重试。  </li>
 <li>Cancel 阶段：取消执行，释放 Try 阶段预留的业务资源 Cancel 操作满足幂等性 Cancel 阶段的异常和 Confirm 阶段异常处理方案基本上一致。</li>
 </ol>
 </li>
-<li>本地消息表：依靠MQ实现<img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%9C%AC%E5%9C%B0%E6%B6%88%E6%81%AF%E8%A1%A8.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%9C%AC%E5%9C%B0%E6%B6%88%E6%81%AF%E8%A1%A8.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="> <img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%B6%88%E6%81%AF%E7%9A%84%E6%9C%80%E7%BB%88%E4%B8%80%E8%87%B4%E6%80%A7.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%B6%88%E6%81%AF%E7%9A%84%E6%9C%80%E7%BB%88%E4%B8%80%E8%87%B4%E6%80%A7.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="|500"></li>
+<li>本地消息表：依靠MQ实现<img src="/2024/03/05/33/%E6%9C%AC%E5%9C%B0%E6%B6%88%E6%81%AF%E8%A1%A8.png"> <img src="/2024/03/05/33/%E6%B6%88%E6%81%AF%E7%9A%84%E6%9C%80%E7%BB%88%E4%B8%80%E8%87%B4%E6%80%A7.png" alt="|500"></li>
 </ul>
 </li>
 <li><p>路由：</p>
@@ -1895,8 +1855,8 @@ int main(int argc, char **argv)</span> <span class="token punctuation">{</span>
 </li>
 <li><p>Nacos:</p>
 <ul>
-<li>namespace：用于环境隔离 <img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/namespace.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/namespace.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="|500"></li>
-<li>分级模型：<img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/Nacos%E5%88%86%E7%BA%A7%E6%A8%A1%E5%9E%8B.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/Nacos%E5%88%86%E7%BA%A7%E6%A8%A1%E5%9E%8B.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/Nacos%E5%88%86%E7%BA%A7%E6%A8%A1%E5%9E%8B%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/Nacos%E5%88%86%E7%BA%A7%E6%A8%A1%E5%9E%8B%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><ul>
+<li>namespace：用于环境隔离 <img src="/2024/03/05/33/namespace.png" alt="|500"></li>
+<li>分级模型：<img src="/2024/03/05/33/Nacos%E5%88%86%E7%BA%A7%E6%A8%A1%E5%9E%8B.png"><img src="/2024/03/05/33/Nacos%E5%88%86%E7%BA%A7%E6%A8%A1%E5%9E%8B%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86.png"><ul>
 <li>namespace 命名空间<ul>
 <li>group分组<ul>
 <li>服务service<ul>
@@ -1920,7 +1880,7 @@ int main(int argc, char **argv)</span> <span class="token punctuation">{</span>
 <li>Nacos默认使用AP方式，</li>
 </ul>
 </li>
-<li>nacos读取配置的流程<img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/nacos%E8%AF%BB%E5%85%A5%E9%85%8D%E7%BD%AE%E7%9A%84%E6%B5%81%E7%A8%8B.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/nacos%E8%AF%BB%E5%85%A5%E9%85%8D%E7%BD%AE%E7%9A%84%E6%B5%81%E7%A8%8B.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li>nacos读取配置的流程<img src="/2024/03/05/33/nacos%E8%AF%BB%E5%85%A5%E9%85%8D%E7%BD%AE%E7%9A%84%E6%B5%81%E7%A8%8B.png"></li>
 <li>配置热更新：<ul>
 <li><h2 id="动态路由：-需要实现Nacos动态监听配置接口-引入配置"><a href="#动态路由：-需要实现Nacos动态监听配置接口-引入配置" class="headerlink" title="动态路由：  - 需要实现Nacos动态监听配置接口  - 引入配置"></a>动态路由：<br>  - 需要实现Nacos动态监听配置接口<br>  - 引入配置</h2></li>
 </ul>
@@ -1929,7 +1889,7 @@ int main(int argc, char **argv)</span> <span class="token punctuation">{</span>
 </li>
 <li><p>OpenFeign：</p>
 <ul>
-<li>执行过程：<img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/OpenFeign%E6%89%A7%E8%A1%8C%E9%80%BB%E8%BE%91.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/OpenFeign%E6%89%A7%E8%A1%8C%E9%80%BB%E8%BE%91.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><ol>
+<li>执行过程：<img src="/2024/03/05/33/OpenFeign%E6%89%A7%E8%A1%8C%E9%80%BB%E8%BE%91.png"><ol>
 <li>获取请求中的serviceId</li>
 <li>根据serviceId负载均衡，找到一个可用的服务实例</li>
 <li>利用服务实例ip和port信息重构url</li>
@@ -1986,7 +1946,7 @@ int main(int argc, char **argv)</span> <span class="token punctuation">{</span>
 </ul>
 </li>
 <li>熔断：对于超过QPS上限的请求或者延迟较高的请求，对其进行熔断，同时设置一个降级处理逻辑。<ul>
-<li><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%96%AD%E8%B7%AF%E5%99%A8%E7%8A%B6%E6%80%81%E6%9C%BA.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%96%AD%E8%B7%AF%E5%99%A8%E7%8A%B6%E6%80%81%E6%9C%BA.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="断路器的工作状态机|475"><ol>
+<li><img src="/2024/03/05/33/%E6%96%AD%E8%B7%AF%E5%99%A8%E7%8A%B6%E6%80%81%E6%9C%BA.png" alt="断路器的工作状态机|475"><ol>
 <li>closed关闭装填，放行所有请求，并开始统计异常比例、满请求比例，超过阈值切换到open</li>
 <li>open服务调用被熔断，访问这个被熔断的请求会被拒绝，快速失败，走降级逻辑。持续一段时间之后转到half-open</li>
 <li>half-open 半开模式，放行一次请求，根据执行结果来判断接下来的操作<ul>
@@ -2003,7 +1963,7 @@ int main(int argc, char **argv)</span> <span class="token punctuation">{</span>
 <li><p>分布式事务：</p>
 <ul>
 <li>使用seata解决分布式事务：<ul>
-<li>seata有三个重要角色：<img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/seata%E6%9E%B6%E6%9E%84.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/seata%E6%9E%B6%E6%9E%84.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="|500"><ul>
+<li>seata有三个重要角色：<img src="/2024/03/05/33/seata%E6%9E%B6%E6%9E%84.png" alt="|500"><ul>
 <li>TC 事务协调者：维护全局和分支失物的状态，协调全局事务的</li>
 <li>TM 事务管理器：定义全局事务的范围，开始全局事务，提交或回滚全局事务</li>
 <li>RM 资源管理器：管理分支事务，与TC交谈以注册分之十五和报告分支事务的状态，并驱动分支事务的提交和回滚</li>
@@ -2034,7 +1994,7 @@ int main(int argc, char **argv)</span> <span class="token punctuation">{</span>
 </ul>
 </li>
 <li>at模式：<ol>
-<li>阶段一RM：<img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/AT%E4%B8%80%E9%98%B6%E6%AE%B5.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/AT%E4%B8%80%E9%98%B6%E6%AE%B5.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="|525"><ul>
+<li>阶段一RM：<img src="/2024/03/05/33/AT%E4%B8%80%E9%98%B6%E6%AE%B5.png" alt="|525"><ul>
 <li>注册分支事务，</li>
 <li>记录undo-log 快照数据</li>
 <li>执行业务sql并提交</li>
@@ -2043,7 +2003,7 @@ int main(int argc, char **argv)</span> <span class="token punctuation">{</span>
 </li>
 </ol>
 <ul>
-<li>二阶段<img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/AT%E4%BA%8C%E9%98%B6%E6%AE%B5.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/AT%E4%BA%8C%E9%98%B6%E6%AE%B5.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="|500"><ol>
+<li>二阶段<img src="/2024/03/05/33/AT%E4%BA%8C%E9%98%B6%E6%AE%B5.png" alt="|500"><ol>
 <li>阶段而提交时RM工作：删除undo-log</li>
 <li>回滚时，RM工作：根据undo-log恢复数据到更新前</li>
 </ol>
@@ -2056,7 +2016,7 @@ int main(int argc, char **argv)</span> <span class="token punctuation">{</span>
 <li>XA模式强一致性，AT模式最终一致</li>
 </ul>
 </li>
-<li>TCC模式：TCC模式与AT模式非常相似，每阶段都是独立事务，不同的是TCC通过人工编码来实现数据恢复。需要实现三个方法：<img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/TCC%E6%A8%A1%E5%BC%8F.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/TCC%E6%A8%A1%E5%BC%8F.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><ul>
+<li>TCC模式：TCC模式与AT模式非常相似，每阶段都是独立事务，不同的是TCC通过人工编码来实现数据恢复。需要实现三个方法：<img src="/2024/03/05/33/TCC%E6%A8%A1%E5%BC%8F.png"><ul>
 <li><code>try</code>：资源的检测和预留；</li>
 <li><code>confirm</code>：完成资源操作业务；要求 <code>try</code> 成功 <code>confirm</code> 一定要能成功。</li>
 <li><code>cancel</code>：预留资源释放，可以理解为try的反向操作。</li>
@@ -2073,7 +2033,7 @@ int main(int argc, char **argv)</span> <span class="token punctuation">{</span>
 <li>使用token+redis实现接口幂等性，第二次请求之后每次请求都会携带之前的token，后台先对redis进行验证，如果存在token则执行业务，同时删除token，如果不存再则直接返回，保证了幂等性，保证了同一个token只处理一次业务</li>
 </ul>
 </li>
-<li><h2 id="MQ：-组成-producer消息的生产者-broker-消息的保存-consumer-消息的消费者-选择："><a href="#MQ：-组成-producer消息的生产者-broker-消息的保存-consumer-消息的消费者-选择：" class="headerlink" title="MQ：  - 组成      - producer消息的生产者      - broker 消息的保存      - consumer 消息的消费者  - 选择："></a>MQ：<br>  - 组成<br>      - producer消息的生产者<br>      - broker 消息的保存<br>      - consumer 消息的消费者<br>  - 选择：<img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/MQ%E7%9A%84%E9%80%89%E6%8B%A9.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/MQ%E7%9A%84%E9%80%89%E6%8B%A9.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></h2></li>
+<li><h2 id="MQ：-组成-producer消息的生产者-broker-消息的保存-consumer-消息的消费者-选择："><a href="#MQ：-组成-producer消息的生产者-broker-消息的保存-consumer-消息的消费者-选择：" class="headerlink" title="MQ：  - 组成      - producer消息的生产者      - broker 消息的保存      - consumer 消息的消费者  - 选择："></a>MQ：<br>  - 组成<br>      - producer消息的生产者<br>      - broker 消息的保存<br>      - consumer 消息的消费者<br>  - 选择：<img src="/2024/03/05/33/MQ%E7%9A%84%E9%80%89%E6%8B%A9.png"></h2></li>
 </ul>
 <h3 id="Kafka面试题"><a href="#Kafka面试题" class="headerlink" title="Kafka面试题"></a>Kafka面试题</h3><ul>
 <li>如何保证消息不丢失：<ol>
@@ -2148,7 +2108,7 @@ int main(int argc, char **argv)</span> <span class="token punctuation">{</span>
 <h2 id="SpringCloud"><a href="#SpringCloud" class="headerlink" title="SpringCloud"></a>SpringCloud</h2><h3 id="注册中心"><a href="#注册中心" class="headerlink" title="注册中心"></a>注册中心</h3><ol>
 <li>方便更改微服务的ip和 端口号</li>
 <li>如果存在多个服务，可以配置负载均衡</li>
-<li>方便维护<br>服务注册中心：实现微服务之间的动态注册与发现<br><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E7%9A%84%E4%BD%9C%E7%94%A8.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E7%9A%84%E4%BD%9C%E7%94%A8.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li>方便维护<br>服务注册中心：实现微服务之间的动态注册与发现<br><img src="/2024/03/05/33/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E7%9A%84%E4%BD%9C%E7%94%A8.png"></li>
 </ol>
 <h3 id="consul"><a href="#consul" class="headerlink" title="consul"></a>consul</h3><p>功能：</p>
 <ol>
@@ -2298,12 +2258,12 @@ api接口上使用:<br>@FeignClient(value = “xxx”)</li>
 <p>对于高流量的应用来说，单一的后端依赖可能会导致所有服务器上的所有资源都在几秒钟内饱和。比失败更糟糕的是，这些应用程序还可能导致服务之间的延迟增加，备份队列，线程和其他系统资源紧张，导致整个系统发生更多的级联故障。这些都表示需要对故障和延迟进行隔离和管理，以便单个依赖关系的失败，不能取消整个应用程序或系统。</p>
 <p>所以，</p>
 <p>通常当你发现一个模块下的某个实例失败后，这时候这个模块依然还会接收流量，然后这个有问题的模块还调用了其他的模块，这样就会发生级联故障，或者叫雪崩。</p>
-<h2 id="CircuitBreaker-断路器"><a href="#CircuitBreaker-断路器" class="headerlink" title="CircuitBreaker  断路器"></a>CircuitBreaker  断路器</h2><p>配置参考<br><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%96%AD%E8%B7%AF%E5%99%A8%E9%85%8D%E7%BD%AE.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%96%AD%E8%B7%AF%E5%99%A8%E9%85%8D%E7%BD%AE.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="断路器配置"></p>
+<h2 id="CircuitBreaker-断路器"><a href="#CircuitBreaker-断路器" class="headerlink" title="CircuitBreaker  断路器"></a>CircuitBreaker  断路器</h2><p>配置参考<br><img src="/2024/03/05/33/%E6%96%AD%E8%B7%AF%E5%99%A8%E9%85%8D%E7%BD%AE.png" alt="断路器配置"></p>
 <p>断路器的状态：</p>
 <ol>
 <li>CLOSED</li>
 <li>OPEN</li>
-<li>HALF_OPEN 半开<br><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E7%8A%B6%E6%80%81.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E7%8A%B6%E6%80%81.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br>pox<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!--resilience4j-circuitbreaker--&gt;</span>
+<li>HALF_OPEN 半开<br><img src="/2024/03/05/33/%E7%8A%B6%E6%80%81.png"><br>pox<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!--resilience4j-circuitbreaker--&gt;</span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-cloud-starter-circuitbreaker-resilience4j<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
@@ -2313,11 +2273,11 @@ api接口上使用:<br>@FeignClient(value = “xxx”)</li>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-boot-starter-aop<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E5%8E%9F%E7%90%86.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E5%8E%9F%E7%90%86.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<img src="/2024/03/05/33/%E5%8E%9F%E7%90%86.png"></li>
 </ol>
-<h2 id="分布式链路追踪"><a href="#分布式链路追踪" class="headerlink" title="分布式链路追踪"></a>分布式链路追踪</h2><p>原因:<br><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E5%8E%9F%E5%9B%A0.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E5%8E%9F%E5%9B%A0.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="原因"><br><strong>ZipKin概述</strong></p>
+<h2 id="分布式链路追踪"><a href="#分布式链路追踪" class="headerlink" title="分布式链路追踪"></a>分布式链路追踪</h2><p>原因:<br><img src="/2024/03/05/33/%E5%8E%9F%E5%9B%A0.png" alt="原因"><br><strong>ZipKin概述</strong></p>
 <p>Zipkin是一种分布式链路跟踪系统图形化的工具，Zipkin 是 Twitter 开源的分布式跟踪系统，能够收集微服务运行过程中的实时调用链路信息，并能够将这些调用链路信息展示到Web图形化界面上供开发人员分析，开发人员能够从ZipKin中分析出调用链路中的性能瓶颈，识别出存在问题的应用程序，进而定位问题和解决问题<br>运行: java -jar zipkin-server-3.0.0-rc0-exec.jar</p>
-<h2 id="网关"><a href="#网关" class="headerlink" title="网关"></a>网关</h2><p><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E7%BD%91%E5%85%B3.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E7%BD%91%E5%85%B3.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="网关"></p>
+<h2 id="网关"><a href="#网关" class="headerlink" title="网关"></a>网关</h2><p><img src="/2024/03/05/33/%E7%BD%91%E5%85%B3.png" alt="网关"></p>
 <h3 id="执行流程："><a href="#执行流程：" class="headerlink" title="执行流程："></a>执行流程：</h3><ol>
 <li>路由判断：用户端的请求到达网关之后，根据Gateway Handler Mapping 处理，会进行断言判断</li>
 <li>路由过滤：很多Handler 组成的Fileter Chain</li>
@@ -2368,13 +2328,13 @@ yml<pre class="line-numbers language-yaml" data-language="yaml"><code class="lan
           <span class="token key atrule">predicates</span><span class="token punctuation">:</span>
             <span class="token punctuation">-</span> Path=/pay/gateway/info/<span class="token important">**</span>              <span class="token comment"># 断言，路径相匹配的进行路由      </span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
-<h2 id="SpringCloud-1"><a href="#SpringCloud-1" class="headerlink" title="SpringCloud"></a>SpringCloud</h2><p><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/alibaba.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/alibaba.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="阿里巴巴"></p>
+<h2 id="SpringCloud-1"><a href="#SpringCloud-1" class="headerlink" title="SpringCloud"></a>SpringCloud</h2><p><img src="/2024/03/05/33/alibaba.png" alt="阿里巴巴"></p>
 <ul>
-<li>功能<br><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E5%8A%9F%E8%83%BD.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E5%8A%9F%E8%83%BD.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="功能"></li>
-<li>组件<br><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E7%BB%84%E4%BB%B6.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E7%BB%84%E4%BB%B6.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="组件"></li>
+<li>功能<br><img src="/2024/03/05/33/%E5%8A%9F%E8%83%BD.png" alt="功能"></li>
+<li>组件<br><img src="/2024/03/05/33/%E7%BB%84%E4%BB%B6.png" alt="组件"></li>
 </ul>
 <h3 id="服务注册-Nacos-x3D-x3D-consul"><a href="#服务注册-Nacos-x3D-x3D-consul" class="headerlink" title="服务注册 Nacos == consul"></a>服务注册 Nacos == consul</h3><p><strong>注意是根据ID来区分的不是根据名字来区分命名空间的，所以ID要填自己想填的</strong></p>
-<p><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E5%AF%B9%E6%AF%94.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E5%AF%B9%E6%AF%94.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="对比"></p>
+<p><img src="/2024/03/05/33/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E5%AF%B9%E6%AF%94.png" alt="对比"></p>
 <ul>
 <li><p>命令行</p>
 <pre class="line-numbers language-css" data-language="css"><code class="language-css">startup.cmd -m standalone<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
@@ -2394,7 +2354,7 @@ yml<pre class="line-numbers language-yaml" data-language="yaml"><code class="lan
     <span class="token key atrule">nacos</span><span class="token punctuation">:</span>
       <span class="token key atrule">discovery</span><span class="token punctuation">:</span>
         <span class="token key atrule">server-addr</span><span class="token punctuation">:</span> localhost<span class="token punctuation">:</span><span class="token number">8848</span> <span class="token comment">#配置Nacos地址</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>main函数上使用@EnableDiscoveryClient<br>业务类示范<br><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/controller%E7%A4%BA%E8%8C%83.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/controller%E7%A4%BA%E8%8C%83.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="示范"></p>
+<p>main函数上使用@EnableDiscoveryClient<br>业务类示范<br><img src="/2024/03/05/33/controller%E7%A4%BA%E8%8C%83.png" alt="示范"></p>
 </li>
 <li><p>消费者<br>pom</p>
 <pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!--nacos-discovery--&gt;</span>
@@ -2494,8 +2454,8 @@ controller层上使用@RefreshScope //在控制器类加入@RefreshScope注解�
 <p>一个大型分布式微服务系统会有很多微服务子项目，</p>
 <p>每个微服务项目又都会有相应的开发环境、测试环境、预发环境、正式环境……</p>
 <p>那怎么对这些微服务配置进行分组和命名空间管理呢？</p>
-<p><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/model.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/model.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="model"></p>
-<h2 id="Sentinel-等价于-Circuit-Breaker-自己去官网看"><a href="#Sentinel-等价于-Circuit-Breaker-自己去官网看" class="headerlink" title="Sentinel 等价于 Circuit Breaker 自己去官网看"></a>Sentinel 等价于 Circuit Breaker 自己去官网看</h2><p><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E9%9B%AA%E5%B4%A9.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E9%9B%AA%E5%B4%A9.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E9%99%8D%E7%BA%A7.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E9%99%8D%E7%BA%A7.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E7%86%94%E6%96%AD.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E7%86%94%E6%96%AD.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E9%99%90%E6%B5%81.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E9%99%90%E6%B5%81.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E9%9A%94%E7%A6%BB.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E9%9A%94%E7%A6%BB.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E9%9A%94%E7%A6%BB.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E9%9A%94%E7%A6%BB.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E8%B6%85%E6%97%B6.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E8%B6%85%E6%97%B6.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+<p><img src="/2024/03/05/33/model.png" alt="model"></p>
+<h2 id="Sentinel-等价于-Circuit-Breaker-自己去官网看"><a href="#Sentinel-等价于-Circuit-Breaker-自己去官网看" class="headerlink" title="Sentinel 等价于 Circuit Breaker 自己去官网看"></a>Sentinel 等价于 Circuit Breaker 自己去官网看</h2><p><img src="/2024/03/05/33/%E9%9B%AA%E5%B4%A9.png"><br><img src="/2024/03/05/33/%E9%99%8D%E7%BA%A7.png"><br><img src="/2024/03/05/33/%E7%86%94%E6%96%AD.png"><br><img src="/2024/03/05/33/%E9%99%90%E6%B5%81.png"><br><img src="/2024/03/05/33/%E9%9A%94%E7%A6%BB.png"><br><img src="/2024/03/05/33/%E9%9A%94%E7%A6%BB.png"><br><img src="/2024/03/05/33/%E8%B6%85%E6%97%B6.png"></p>
 <p>pom</p>
 <pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!--SpringCloud alibaba sentinel --&gt;</span>
        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
@@ -2517,16 +2477,16 @@ controller层上使用@RefreshScope //在控制器类加入@RefreshScope注解�
       <span class="token property">transport</span><span class="token punctuation">:</span>
         <span class="token property">dashboard</span><span class="token punctuation">:</span> <span class="token property">localhost</span><span class="token punctuation">:</span>8080 #配置Sentinel dashboard控制台服务地址
         <span class="token property">port</span><span class="token punctuation">:</span> 8719 #默认8719端口，假如被占用会自动从8719开始依次+1扫描<span class="token punctuation">,</span>直至找到未被占用的端口<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%87%92%E5%8A%A0%E8%BD%BD.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%87%92%E5%8A%A0%E8%BD%BD.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="懒加载"></p>
+<p><img src="/2024/03/05/33/%E6%87%92%E5%8A%A0%E8%BD%BD.png" alt="懒加载"></p>
 <ul>
-<li>流控规则<br><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%B5%81%E6%8E%A7%E8%A7%84%E5%88%99.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%B5%81%E6%8E%A7%E8%A7%84%E5%88%99.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li>流控规则<br><img src="/2024/03/05/33/%E6%B5%81%E6%8E%A7%E8%A7%84%E5%88%99.png"></li>
 <li>熔断降级<br>Sentinel 熔断降级会在调用链路中某个资源出现不稳定状态时（例如调用超时或异常比例升高），对这个资源的调用进行限制，</li>
 </ul>
 <p>让请求快速失败，避免影响到其它的资源而导致级联错误。当资源被降级后，在接下来的降级时间窗口之内，对该资源的调用都自动熔断（默认行为是抛出 DegradeException）。、</p>
-<h3 id="如何处理分布式-事务"><a href="#如何处理分布式-事务" class="headerlink" title="如何处理分布式 事务"></a>如何处理分布式 事务</h3><h2 id="Seata"><a href="#Seata" class="headerlink" title="Seata"></a>Seata</h2><p><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/senta.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/senta.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="senta"></p>
+<h3 id="如何处理分布式-事务"><a href="#如何处理分布式-事务" class="headerlink" title="如何处理分布式 事务"></a>如何处理分布式 事务</h3><h2 id="Seata"><a href="#Seata" class="headerlink" title="Seata"></a>Seata</h2><p><img src="/2024/03/05/33/senta.png" alt="senta"></p>
 <p>去官网看</p>
-<p>面试题：<br><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/AT%E9%9D%A2%E8%AF%95%E9%A2%98.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/AT%E9%9D%A2%E8%AF%95%E9%A2%98.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/AT%E9%9D%A2%E8%AF%95%E9%A2%981.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/AT%E9%9D%A2%E8%AF%95%E9%A2%981.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
-<p><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%8F%90%E4%BA%A4.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E6%8F%90%E4%BA%A4.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><br><img src="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E5%9B%9E%E6%BB%9A.png" class="lazyload" data-srcset="/2024/03/05/hou-duan/wei-fu-wu-he-fen-bu-shi/%E5%9B%9E%E6%BB%9A.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+<p>面试题：<br><img src="/2024/03/05/33/AT%E9%9D%A2%E8%AF%95%E9%A2%98.png"><br><img src="/2024/03/05/33/AT%E9%9D%A2%E8%AF%95%E9%A2%981.png"></p>
+<p><img src="/2024/03/05/33/%E6%8F%90%E4%BA%A4.png"><br><img src="/2024/03/05/33/%E5%9B%9E%E6%BB%9A.png"></p>
 <h2 id="分布式详细"><a href="#分布式详细" class="headerlink" title="分布式详细"></a>分布式详细</h2><h3 id="分布式ID-分布式ID-https-javaguide-cn-distributed-system-distributed-id-design-html"><a href="#分布式ID-分布式ID-https-javaguide-cn-distributed-system-distributed-id-design-html" class="headerlink" title="[分布式ID](### 分布式ID https://javaguide.cn/distributed-system/distributed-id-design.html)"></a>[分布式ID](### 分布式ID <a target="_blank" rel="noopener" href="https://javaguide.cn/distributed-system/distributed-id-design.html">https://javaguide.cn/distributed-system/distributed-id-design.html</a>)</h3><h4 id="需求："><a href="#需求：" class="headerlink" title="需求："></a>需求：</h4><ol>
 <li>全局唯一</li>
 <li>高可用</li>
@@ -2576,7 +2536,7 @@ controller层上使用@RefreshScope //在控制器类加入@RefreshScope注解�
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
+                <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
@@ -2584,7 +2544,7 @@ controller层上使用@RefreshScope //在控制器类加入@RefreshScope注解�
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
+                  <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2024-03-01 20:12:49" itemprop="dateModified" datetime="2024-03-01T20:12:49+08:00">2024-03-01</time>
@@ -2593,7 +2553,7 @@ controller层上使用@RefreshScope //在控制器类加入@RefreshScope注解�
           <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
+                <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
               <span>815</span>
@@ -2681,7 +2641,7 @@ print("{:.3f} / {:.3f} = {:.3f}" .format (x, y, x / &nbsp;y))<span aria-hidden="
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
+                <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
@@ -2689,14 +2649,14 @@ print("{:.3f} / {:.3f} = {:.3f}" .format (x, y, x / &nbsp;y))<span aria-hidden="
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
+                  <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2024-08-27 22:11:17" itemprop="dateModified" datetime="2024-08-27T22:11:17+08:00">2024-08-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
+                <i class="fa fa-folder-o"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -2707,7 +2667,7 @@ print("{:.3f} / {:.3f} = {:.3f}" .format (x, y, x / &nbsp;y))<span aria-hidden="
           <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
+                <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
               <span>15k</span>
@@ -2728,7 +2688,7 @@ print("{:.3f} / {:.3f} = {:.3f}" .format (x, y, x / &nbsp;y))<span aria-hidden="
 <h1 id="面试常问"><a href="#面试常问" class="headerlink" title="面试常问"></a>面试常问</h1><ul>
 <li>UDP是面向报文的：发送方不会对报文进行拆分，所以一个报文就是一个完整的消息，接收方使用队列来区分不同报文</li>
 <li>TCP是面向字节流的：粘包问题：TCP报文会拆分成多个，取决于<strong>发送窗口、拥塞窗口以及当前发送缓冲区的大小等条件</strong>，所以不容易知道一个用户消息的边界<ul>
-<li><img src="/2023/10/23/408/ji-wang/TcpHeader.png" class="lazyload" data-srcset="/2023/10/23/408/ji-wang/TcpHeader.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li><img src="/2023/10/23/46/TcpHeader.png"></li>
 <li>控制位是单独的留出来的几个位置</li>
 <li>TCP面向字节流的，发送的是一个个连续的字节，而UDP是面向数据报的，一个UDP数据报就是一个完整的消息</li>
 <li>重传机制：1.超时重传，重传时间最好略大于包的往返时间，2.快速重传3.SACK重传，选择性确认&nbsp;TCP 头部「选项」字段里加一个&nbsp;<code>SACK</code>&nbsp;的东西，它<strong>可以将已收到的数据的信息发送给「发送方」</strong>，这样发送方就可以知道哪些数据收到了，哪些数据没收到，知道了这些信息，就可以<strong>只重传丢失的数据</strong>。4.   Duplicate SACK,只告诉对方有哪些数据被重复接受了</li>
@@ -2838,7 +2798,7 @@ print("{:.3f} / {:.3f} = {:.3f}" .format (x, y, x / &nbsp;y))<span aria-hidden="
 <li>快速重传：当收到三个相同ACK报文时，说明出现了丢包，会重传丢失的报文。</li>
 </ol>
 <h3 id="滑动窗口-4-2-TCP-重传、滑动窗口、流量控制、拥塞控制-小林coding-xiaolincoding-com"><a href="#滑动窗口-4-2-TCP-重传、滑动窗口、流量控制、拥塞控制-小林coding-xiaolincoding-com" class="headerlink" title="[滑动窗口](4.2 TCP 重传、滑动窗口、流量控制、拥塞控制 | 小林coding (xiaolincoding.com))"></a>[滑动窗口](<a target="_blank" rel="noopener" href="https://xiaolincoding.com/network/3_tcp/tcp_feature.html#%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6">4.2 TCP 重传、滑动窗口、流量控制、拥塞控制 | 小林coding (xiaolincoding.com)</a>)</h3><p>TCP头中有一个Window字段，代表滑动窗口大小。表示接受方告诉对方自己还有多少缓冲区可以接受数据。</p>
-<h4 id="发送方窗口"><a href="#发送方窗口" class="headerlink" title="发送方窗口"></a>发送方窗口</h4><p><img src="/2023/10/23/408/ji-wang/%E5%8F%91%E9%80%81%E6%96%B9%E7%AA%97%E5%8F%A3.png" class="lazyload" data-srcset="/2023/10/23/408/ji-wang/%E5%8F%91%E9%80%81%E6%96%B9%E7%AA%97%E5%8F%A3.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+<h4 id="发送方窗口"><a href="#发送方窗口" class="headerlink" title="发送方窗口"></a>发送方窗口</h4><p><img src="/2023/10/23/46/%E5%8F%91%E9%80%81%E6%96%B9%E7%AA%97%E5%8F%A3.png"></p>
 <h2 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>HTTP是一个在计算机世界中专门在亮点之间传输文字、图片等超文本的约定与规范</p>
 <h3 id="常见的状态码"><a href="#常见的状态码" class="headerlink" title="常见的状态码"></a>常见的状态码</h3><ol>
 <li>1xx 是一种中间状态，实际使用较少</li>
@@ -2874,7 +2834,7 @@ print("{:.3f} / {:.3f} = {:.3f}" .format (x, y, x / &nbsp;y))<span aria-hidden="
 <li>再次请求时，根据请求时间和这个过期时间进行比较，来判断是否过期，并且更新这个时间</li>
 </ul>
 </li>
-<li>协商缓存： 与服务器协商之后，通过协商结果来判断是否使用本地缓存。<img src="/2023/10/23/408/ji-wang/%E5%8D%8F%E5%95%86%E7%BC%93%E5%AD%98.png" class="lazyload" data-srcset="/2023/10/23/408/ji-wang/%E5%8D%8F%E5%95%86%E7%BC%93%E5%AD%98.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li>协商缓存： 与服务器协商之后，通过协商结果来判断是否使用本地缓存。<img src="/2023/10/23/46/%E5%8D%8F%E5%95%86%E7%BC%93%E5%AD%98.png"></li>
 </ol>
 <h2 id="不同版本的HTTP特点"><a href="#不同版本的HTTP特点" class="headerlink" title="不同版本的HTTP特点"></a>不同版本的HTTP特点</h2><p>HTTP: 80<br>HTTPS: 443</p>
 <h3 id="HTTP的迭代和对比"><a href="#HTTP的迭代和对比" class="headerlink" title="HTTP的迭代和对比"></a>HTTP的迭代和对比</h3><h4 id="HTTP1-1的进步和缺点"><a href="#HTTP1-1的进步和缺点" class="headerlink" title="HTTP1.1的进步和缺点"></a>HTTP1.1的进步和缺点</h4><p>进步：</p>
@@ -2899,11 +2859,11 @@ print("{:.3f} / {:.3f} = {:.3f}" .format (x, y, x / &nbsp;y))<span aria-hidden="
 <h4 id="核心"><a href="#核心" class="headerlink" title="核心"></a>核心</h4><ol>
 <li>混合加密：对称加密和非对称加密的混合加密方式，通信建立之前使用的是非对称加密，建立之后通信使用的对称加密，对称加密只需要使用一个密钥，所以更加高效。</li>
 <li>摘要算法 + 数字签名：通过摘要算法获得哈希值，来判断报文是否被修改。而数字签名则能保证通信双方的身份</li>
-<li>数字证书：可信的第三方来保证双方身份，主要是CA通过私钥加密双方的公钥数字签名，然后CA的公钥是公开的，之后另一方通过CA的公钥解密获得对方的公钥，之后对方使用私钥加密，就可以使用公钥进行解密了或者是加密通信。<img src="/2023/10/23/408/ji-wang/CA%E7%AE%97%E6%B3%95.png" class="lazyload" data-srcset="/2023/10/23/408/ji-wang/CA%E7%AE%97%E6%B3%95.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li>数字证书：可信的第三方来保证双方身份，主要是CA通过私钥加密双方的公钥数字签名，然后CA的公钥是公开的，之后另一方通过CA的公钥解密获得对方的公钥，之后对方使用私钥加密，就可以使用公钥进行解密了或者是加密通信。<img src="/2023/10/23/46/CA%E7%AE%97%E6%B3%95.png"></li>
 </ol>
 <h4 id="非对称加密"><a href="#非对称加密" class="headerlink" title="非对称加密"></a>非对称加密</h4><ol>
 <li>公钥加密，私钥解密：保证内容的安全，只有私钥可以解密内容</li>
-<li>私钥加密，公钥解密：保证消息不可冒充，因为私钥是不可以泄漏的，验证双方身份，也就是数字签名算法<img src="/2023/10/23/408/ji-wang/%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E7%AE%97%E6%B3%95.png" class="lazyload" data-srcset="/2023/10/23/408/ji-wang/%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E7%AE%97%E6%B3%95.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="|525"></li>
+<li>私钥加密，公钥解密：保证消息不可冒充，因为私钥是不可以泄漏的，验证双方身份，也就是数字签名算法<img src="/2023/10/23/46/%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E7%AE%97%E6%B3%95.png" alt="|525"></li>
 </ol>
 <h4 id="流程-RSA算法为例"><a href="#流程-RSA算法为例" class="headerlink" title="流程(RSA算法为例)"></a>流程(RSA算法为例)</h4><ol>
 <li>三次握手建立TCP连接</li>
@@ -2956,8 +2916,8 @@ print("{:.3f} / {:.3f} = {:.3f}" .format (x, y, x / &nbsp;y))<span aria-hidden="
 <h3 id="BGP、OSPF协议原理"><a href="#BGP、OSPF协议原理" class="headerlink" title="BGP、OSPF协议原理"></a>BGP、OSPF协议原理</h3><blockquote>
 <p>边界⽹关协议(Border Gateway Protocol，简称BGP)和开放最短路径优先协议(Open Shortest Path<br>First，简称OSPF)是世界上最流⾏的两种基于标准的动态路由协议。</p>
 </blockquote>
-<h3 id="三握四挥"><a href="#三握四挥" class="headerlink" title="三握四挥"></a>三握四挥</h3><p><img src="/2023/10/23/408/ji-wang/%E4%B8%89%E6%8F%A1%E5%9B%9B%E6%8C%A5.png" class="lazyload" data-srcset="/2023/10/23/408/ji-wang/%E4%B8%89%E6%8F%A1%E5%9B%9B%E6%8C%A5.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
-<h3 id="TCP和UDP"><a href="#TCP和UDP" class="headerlink" title="TCP和UDP"></a>TCP和UDP</h3><p><img src="/2023/10/23/408/ji-wang/%E5%A4%B4%E9%83%A8.png" class="lazyload" data-srcset="/2023/10/23/408/ji-wang/%E5%A4%B4%E9%83%A8.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="|525"></p>
+<h3 id="三握四挥"><a href="#三握四挥" class="headerlink" title="三握四挥"></a>三握四挥</h3><p><img src="/2023/10/23/46/%E4%B8%89%E6%8F%A1%E5%9B%9B%E6%8C%A5.png"></p>
+<h3 id="TCP和UDP"><a href="#TCP和UDP" class="headerlink" title="TCP和UDP"></a>TCP和UDP</h3><p><img src="/2023/10/23/46/%E5%A4%B4%E9%83%A8.png" alt="|525"></p>
 <ol>
 <li>序列号：建立连接时，由计算机生成的随机数作为初始值，通过SYN包传给接收端主机，每发送一次，就累加一次该数据字节数的大小，解决网络包乱序问题。</li>
 <li>确认应答号：下一次期望收到数据的序列号。发送端收到这个之后可以认为在这之前的数据都被正常接收，用于解决丢包问题。</li>
@@ -2981,22 +2941,22 @@ print("{:.3f} / {:.3f} = {:.3f}" .format (x, y, x / &nbsp;y))<span aria-hidden="
 <li>增大net.core.somaxconn</li>
 </ul>
 </li>
-<li>开启net.ipv4.tcp_syncookies，就可以在使用SYN半连接的情况下成功建立连接。<img src="/2023/10/23/408/ji-wang/%E4%BD%BF%E7%94%A8cookie%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5.png" class="lazyload" data-srcset="/2023/10/23/408/ji-wang/%E4%BD%BF%E7%94%A8cookie%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="|550"></li>
+<li>开启net.ipv4.tcp_syncookies，就可以在使用SYN半连接的情况下成功建立连接。<img src="/2023/10/23/46/%E4%BD%BF%E7%94%A8cookie%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5.png" alt="|550"></li>
 </ol>
 <ul>
 <li>减少SYN+ACK重传次数，tcp_synack_retries内核参数</li>
 <li>Anti-DDoS系统拦截客⼾端发送的SYN报⽂，代替服务器向客⼾端发送SYN-ACK报⽂，如果客⼾端不应答，则认为该客⼾端为虚假源；如果客⼾端应答，则Anti-DDoS系统认为该客⼾端为真实源，并将其IP地址加⼊⽩名单，在⼀段时间允许该源发送的所有SYN报⽂通过，也不做代答。</li>
 </ul>
-<h4 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h4><p>滑动窗口机制允许发送方在等待接收方确认之前发送多个数据包，从而提高数据传输效率。<br>为了解决一发一答的效率问题。窗口的实现实际上是操作系统开辟一个缓存空间，发送方主机在等到确认应答返回之前，必须在缓冲区中保留已发送的数据，如果按期收到确认应答，这个数据就可以从缓冲区删除。<img src="/2023/10/23/408/ji-wang/TCP%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3.png" class="lazyload" data-srcset="/2023/10/23/408/ji-wang/TCP%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+<h4 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h4><p>滑动窗口机制允许发送方在等待接收方确认之前发送多个数据包，从而提高数据传输效率。<br>为了解决一发一答的效率问题。窗口的实现实际上是操作系统开辟一个缓存空间，发送方主机在等到确认应答返回之前，必须在缓冲区中保留已发送的数据，如果按期收到确认应答，这个数据就可以从缓冲区删除。<img src="/2023/10/23/46/TCP%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3.png"></p>
 <h4 id="慢启动"><a href="#慢启动" class="headerlink" title="慢启动"></a>慢启动</h4><p>当连接开始时，以指数速率增加发送速率，直到第一次报文丢失事件发生为止。<br>初始：拥塞窗口值cwnd = 1 MSS<br>每RTT倍增cwnd<br>每收到一个ACK，增加cwnd<br>初始速率很低，但是以指数增加</p>
 <h4 id="阻塞控制"><a href="#阻塞控制" class="headerlink" title="阻塞控制"></a>阻塞控制</h4><ol>
 <li>慢启动：发送方每收到一个ACK，拥塞窗口cwnd大小指数增加</li>
 <li>拥塞避免算法：当cwnd超过慢启动门限ssthresh就会进入拥塞避免算法：每个 RTT（往返时间）增加 1 个 MSS，而不是每个 ACK 增加 1 个 MSS。</li>
 <li>拥塞发生：发生了 超时重传时，sshtresh设置为cwnd/2，cwnd恢复为初始化值，发生快速重传是，cwnd =cwnd/2，ssthresh=cwnd并进入快速恢复算法。</li>
-<li>快速恢复<img src="/2023/10/23/408/ji-wang/%E5%BF%AB%E9%80%9F%E6%81%A2%E5%A4%8D.png" class="lazyload" data-srcset="/2023/10/23/408/ji-wang/%E5%BF%AB%E9%80%9F%E6%81%A2%E5%A4%8D.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li>快速恢复<img src="/2023/10/23/46/%E5%BF%AB%E9%80%9F%E6%81%A2%E5%A4%8D.png"></li>
 </ol>
 <h4 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h4><p>主机名到IP地址的转换<br>主机别名：一个主机可以有一个规范主机名和多个主机别名。<br>邮件服务器别名：负载分配：DNS实现冗余服务器，一个IP地址集合可以对应同一个规范主机名。</p>
-<p>DNS客⼾端设置使⽤的DNS服务器⼀般都是递归服务器，它负责全权处理客⼾端的DNS查询请求，直<br>到返回最终结果。⽽DNS服务器之间⼀般采⽤迭代查询⽅式。<br><img src="/2023/10/23/408/ji-wang/DNS%E8%AE%B0%E5%BD%95%E6%A0%BC%E5%BC%8F.png" class="lazyload" data-srcset="/2023/10/23/408/ji-wang/DNS%E8%AE%B0%E5%BD%95%E6%A0%BC%E5%BC%8F.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+<p>DNS客⼾端设置使⽤的DNS服务器⼀般都是递归服务器，它负责全权处理客⼾端的DNS查询请求，直<br>到返回最终结果。⽽DNS服务器之间⼀般采⽤迭代查询⽅式。<br><img src="/2023/10/23/46/DNS%E8%AE%B0%E5%BD%95%E6%A0%BC%E5%BC%8F.png"></p>
 <h4 id="DNS劫持"><a href="#DNS劫持" class="headerlink" title="DNS劫持"></a>DNS劫持</h4><blockquote>
 <p>通过某些手段获得对某域名的解析控制权，修改此域名的解析结果，导致对该域名的访问由原IP转为修改后的指定IP，记过就是对特定网站不能访问/访问的是假网站</p>
 </blockquote>
@@ -3246,7 +3206,7 @@ print("{:.3f} / {:.3f} = {:.3f}" .format (x, y, x / &nbsp;y))<span aria-hidden="
 <li>管道化：TCP拥塞控制和流量控制设置窗口的大小</li>
 <li>面向连接：交换数据之前，通过握手来初始化双方的状态变量</li>
 <li>流量控制：发送方不会淹没接收方</li>
-<li><img src="/2023/10/23/408/ji-wang/tcp%E6%8A%A5%E6%96%87.png" class="lazyload" data-srcset="/2023/10/23/408/ji-wang/tcp%E6%8A%A5%E6%96%87.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="tcp报文"></li>
+<li><img src="/2023/10/23/46/tcp%E6%8A%A5%E6%96%87.png" alt="tcp报文"></li>
 <li>序号：报文段首字节在字节流的编号</li>
 <li>确认号：期望从另一方收到的下一个字节的序号</li>
 <li>TCP超时时间= EstimatedRTT + 安全边界时间</li>
@@ -3513,7 +3473,7 @@ print("{:.3f} / {:.3f} = {:.3f}" .format (x, y, x / &nbsp;y))<span aria-hidden="
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1p1b2Z3" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Zuofw"><i class="fab fa-github fa-fw"></i>GitHub</span>
+        <a href="https://github.com/Zuofw/zuofw-rpc" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Zuofw&#x2F;zuofw-rpc" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
       </span>
   </div>
 
@@ -3540,14 +3500,13 @@ print("{:.3f} / {:.3f} = {:.3f}" .format (x, y, x / &nbsp;y))<span aria-hidden="
   &copy; 2022 – 
   <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
-    <i class="heart"></i>
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">QingQiu</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
-      <i class="fa fa-chart-area"></i>
+      <i class="fa fa-area-chart"></i>
     </span>
-      <span class="post-meta-item-text">站点总字数：</span>
     <span title="站点总字数">365k</span>
 </div>
 
@@ -3566,10 +3525,6 @@ print("{:.3f} / {:.3f} = {:.3f}" .format (x, y, x / &nbsp;y))<span aria-hidden="
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 
@@ -3578,7 +3533,7 @@ print("{:.3f} / {:.3f} = {:.3f}" .format (x, y, x / &nbsp;y))<span aria-hidden="
 <script src="/js/motion.js"></script>
 
 
-<script src="/js/schemes/pisces.js"></script>
+<script src="/js/schemes/muse.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
@@ -3589,37 +3544,8 @@ print("{:.3f} / {:.3f} = {:.3f}" .format (x, y, x / &nbsp;y))<span aria-hidden="
 
 
   
-  <script>
-    (function(){
-      var canonicalURL, curProtocol;
-      //Get the <link> tag
-      var x=document.getElementsByTagName("link");
-		//Find the last canonical URL
-		if(x.length > 0){
-			for (i=0;i<x.length;i++){
-				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
-					canonicalURL=x[i].href;
-				}
-			}
-		}
-    //Get protocol
-	    if (!canonicalURL){
-	    	curProtocol = window.location.protocol.split(':')[0];
-	    }
-	    else{
-	    	curProtocol = canonicalURL.split(':')[0];
-	    }
-      //Get current URL if the canonical URL does not exist
-	    if (!canonicalURL) canonicalURL = window.location.href;
-	    //Assign script content. Replace current URL with the canonical URL
-      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
-  </script>
 
 
-
-
-  
-<script src="/js/local-search.js"></script>
 
 
 
@@ -3636,71 +3562,6 @@ print("{:.3f} / {:.3f} = {:.3f}" .format (x, y, x / &nbsp;y))<span aria-hidden="
   
 
   
-      
 
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
-    
-
-  
-  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
-  <script>
-      window.addEventListener('load', () => {
-      quicklink({
-        timeout : 3000,
-        priority: true,
-        ignores : [uri => uri.includes('#'),uri => uri === 'https://zuofw.github.io/page/3/',]
-      });
-      });
-  </script>
-
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
 </html>

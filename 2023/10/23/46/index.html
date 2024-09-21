@@ -5,20 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 6.3.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/site/96memo.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/site/32memo.ico">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/site/16memo.ico">
-  <link rel="mask-icon" href="/images/site/memo.ico" color="#222">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"zuofw.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":true,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"zuofw.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="计网概念MTU:网络中一次可以传输的最大数据包的大小MSS:TCP中除去TCP和IP的头部，能够传输的最大的数据量SDU，Service Data Unit，服务数据单元。ISP 是 Internet Service Provider 的缩写，翻译为互联网服务提供商。协议Telnet 客户端登录协议，属于应用层TLD 是 Top-Level Domain 的缩写，翻译为顶级域名GBN (Go-Ba">
@@ -28,24 +27,24 @@
 <meta property="og:site_name" content="QingQiu&#39;Blog">
 <meta property="og:description" content="计网概念MTU:网络中一次可以传输的最大数据包的大小MSS:TCP中除去TCP和IP的头部，能够传输的最大的数据量SDU，Service Data Unit，服务数据单元。ISP 是 Internet Service Provider 的缩写，翻译为互联网服务提供商。协议Telnet 客户端登录协议，属于应用层TLD 是 Top-Level Domain 的缩写，翻译为顶级域名GBN (Go-Ba">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zuofw.github.io/2023/10/23/408/ji-wang/TcpHeader.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/10/23/408/ji-wang/%E5%8F%91%E9%80%81%E6%96%B9%E7%AA%97%E5%8F%A3.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/10/23/408/ji-wang/%E5%8D%8F%E5%95%86%E7%BC%93%E5%AD%98.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/10/23/408/ji-wang/CA%E7%AE%97%E6%B3%95.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/10/23/408/ji-wang/%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E7%AE%97%E6%B3%95.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/10/23/408/ji-wang/%E4%B8%89%E6%8F%A1%E5%9B%9B%E6%8C%A5.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/10/23/408/ji-wang/%E5%A4%B4%E9%83%A8.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/10/23/408/ji-wang/%E4%BD%BF%E7%94%A8cookie%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/10/23/408/ji-wang/TCP%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/10/23/408/ji-wang/%E5%BF%AB%E9%80%9F%E6%81%A2%E5%A4%8D.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/10/23/408/ji-wang/DNS%E8%AE%B0%E5%BD%95%E6%A0%BC%E5%BC%8F.png">
-<meta property="og:image" content="https://zuofw.github.io/2023/10/23/408/ji-wang/tcp%E6%8A%A5%E6%96%87.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/10/23/46/TcpHeader.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/10/23/46/%E5%8F%91%E9%80%81%E6%96%B9%E7%AA%97%E5%8F%A3.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/10/23/46/%E5%8D%8F%E5%95%86%E7%BC%93%E5%AD%98.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/10/23/46/CA%E7%AE%97%E6%B3%95.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/10/23/46/%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E7%AE%97%E6%B3%95.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/10/23/46/%E4%B8%89%E6%8F%A1%E5%9B%9B%E6%8C%A5.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/10/23/46/%E5%A4%B4%E9%83%A8.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/10/23/46/%E4%BD%BF%E7%94%A8cookie%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/10/23/46/TCP%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/10/23/46/%E5%BF%AB%E9%80%9F%E6%81%A2%E5%A4%8D.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/10/23/46/DNS%E8%AE%B0%E5%BD%95%E6%A0%BC%E5%BC%8F.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/10/23/46/tcp%E6%8A%A5%E6%96%87.png">
 <meta property="article:published_time" content="2023-10-23T12:01:46.000Z">
 <meta property="article:modified_time" content="2024-08-27T14:11:17.000Z">
 <meta property="article:author" content="QingQiu">
 <meta property="article:tag" content="计算机网络">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zuofw.github.io/2023/10/23/408/ji-wang/TcpHeader.png">
+<meta name="twitter:image" content="https://zuofw.github.io/2023/10/23/46/TcpHeader.png">
 
 <link rel="canonical" href="https://zuofw.github.io/2023/10/23/46/">
 
@@ -121,7 +120,6 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
-        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -130,64 +128,27 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
+  <ul id="menu" class="menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+    <a href="/" rel="section"><i class="fa fa-fw fa-fa fa-home"></i>首页</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-fa fa-archive"></i>归档</a>
 
   </li>
         <li class="menu-item menu-item-github">
 
-    <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1p1b2Z3"><i class="fab fa-github fa-fw"></i>Github</span>
+    <a href="https://github.com/Zuofw" rel="noopener" target="_blank"><i class="fa fa-fw fa-fab fa-github"></i>Github</a>
 
   </li>
-        <li class="menu-item menu-item-rss">
-
-    <a href="/atom.xml" rel="section"><i class="fa fa-rss fa-fw"></i>RSS</a>
-
-  </li>
-      <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
-        </a>
-      </li>
   </ul>
 </nav>
 
 
 
-  <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
-           placeholder="搜索..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
-  </div>
-</div>
-
-    </div>
-  </div>
 
 </div>
     </header>
@@ -197,7 +158,6 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
-  <div class="reading-progress-bar"></div>
   <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
@@ -232,7 +192,7 @@
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
+                <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
@@ -240,14 +200,14 @@
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
+                  <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2024-08-27 22:11:17" itemprop="dateModified" datetime="2024-08-27T22:11:17+08:00">2024-08-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
+                <i class="fa fa-folder-o"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -258,7 +218,7 @@
           <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
+                <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
               <span>15k</span>
@@ -279,7 +239,7 @@
 <h1 id="面试常问"><a href="#面试常问" class="headerlink" title="面试常问"></a>面试常问</h1><ul>
 <li>UDP是面向报文的：发送方不会对报文进行拆分，所以一个报文就是一个完整的消息，接收方使用队列来区分不同报文</li>
 <li>TCP是面向字节流的：粘包问题：TCP报文会拆分成多个，取决于<strong>发送窗口、拥塞窗口以及当前发送缓冲区的大小等条件</strong>，所以不容易知道一个用户消息的边界<ul>
-<li><img src="/2023/10/23/408/ji-wang/TcpHeader.png" class="lazyload" data-srcset="/2023/10/23/408/ji-wang/TcpHeader.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li><img src="/2023/10/23/46/TcpHeader.png"></li>
 <li>控制位是单独的留出来的几个位置</li>
 <li>TCP面向字节流的，发送的是一个个连续的字节，而UDP是面向数据报的，一个UDP数据报就是一个完整的消息</li>
 <li>重传机制：1.超时重传，重传时间最好略大于包的往返时间，2.快速重传3.SACK重传，选择性确认&nbsp;TCP 头部「选项」字段里加一个&nbsp;<code>SACK</code>&nbsp;的东西，它<strong>可以将已收到的数据的信息发送给「发送方」</strong>，这样发送方就可以知道哪些数据收到了，哪些数据没收到，知道了这些信息，就可以<strong>只重传丢失的数据</strong>。4.   Duplicate SACK,只告诉对方有哪些数据被重复接受了</li>
@@ -389,7 +349,7 @@
 <li>快速重传：当收到三个相同ACK报文时，说明出现了丢包，会重传丢失的报文。</li>
 </ol>
 <h3 id="滑动窗口-4-2-TCP-重传、滑动窗口、流量控制、拥塞控制-小林coding-xiaolincoding-com"><a href="#滑动窗口-4-2-TCP-重传、滑动窗口、流量控制、拥塞控制-小林coding-xiaolincoding-com" class="headerlink" title="[滑动窗口](4.2 TCP 重传、滑动窗口、流量控制、拥塞控制 | 小林coding (xiaolincoding.com))"></a>[滑动窗口](<a target="_blank" rel="noopener" href="https://xiaolincoding.com/network/3_tcp/tcp_feature.html#%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6">4.2 TCP 重传、滑动窗口、流量控制、拥塞控制 | 小林coding (xiaolincoding.com)</a>)</h3><p>TCP头中有一个Window字段，代表滑动窗口大小。表示接受方告诉对方自己还有多少缓冲区可以接受数据。</p>
-<h4 id="发送方窗口"><a href="#发送方窗口" class="headerlink" title="发送方窗口"></a>发送方窗口</h4><p><img src="/2023/10/23/408/ji-wang/%E5%8F%91%E9%80%81%E6%96%B9%E7%AA%97%E5%8F%A3.png" class="lazyload" data-srcset="/2023/10/23/408/ji-wang/%E5%8F%91%E9%80%81%E6%96%B9%E7%AA%97%E5%8F%A3.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+<h4 id="发送方窗口"><a href="#发送方窗口" class="headerlink" title="发送方窗口"></a>发送方窗口</h4><p><img src="/2023/10/23/46/%E5%8F%91%E9%80%81%E6%96%B9%E7%AA%97%E5%8F%A3.png"></p>
 <h2 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>HTTP是一个在计算机世界中专门在亮点之间传输文字、图片等超文本的约定与规范</p>
 <h3 id="常见的状态码"><a href="#常见的状态码" class="headerlink" title="常见的状态码"></a>常见的状态码</h3><ol>
 <li>1xx 是一种中间状态，实际使用较少</li>
@@ -425,7 +385,7 @@
 <li>再次请求时，根据请求时间和这个过期时间进行比较，来判断是否过期，并且更新这个时间</li>
 </ul>
 </li>
-<li>协商缓存： 与服务器协商之后，通过协商结果来判断是否使用本地缓存。<img src="/2023/10/23/408/ji-wang/%E5%8D%8F%E5%95%86%E7%BC%93%E5%AD%98.png" class="lazyload" data-srcset="/2023/10/23/408/ji-wang/%E5%8D%8F%E5%95%86%E7%BC%93%E5%AD%98.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li>协商缓存： 与服务器协商之后，通过协商结果来判断是否使用本地缓存。<img src="/2023/10/23/46/%E5%8D%8F%E5%95%86%E7%BC%93%E5%AD%98.png"></li>
 </ol>
 <h2 id="不同版本的HTTP特点"><a href="#不同版本的HTTP特点" class="headerlink" title="不同版本的HTTP特点"></a>不同版本的HTTP特点</h2><p>HTTP: 80<br>HTTPS: 443</p>
 <h3 id="HTTP的迭代和对比"><a href="#HTTP的迭代和对比" class="headerlink" title="HTTP的迭代和对比"></a>HTTP的迭代和对比</h3><h4 id="HTTP1-1的进步和缺点"><a href="#HTTP1-1的进步和缺点" class="headerlink" title="HTTP1.1的进步和缺点"></a>HTTP1.1的进步和缺点</h4><p>进步：</p>
@@ -450,11 +410,11 @@
 <h4 id="核心"><a href="#核心" class="headerlink" title="核心"></a>核心</h4><ol>
 <li>混合加密：对称加密和非对称加密的混合加密方式，通信建立之前使用的是非对称加密，建立之后通信使用的对称加密，对称加密只需要使用一个密钥，所以更加高效。</li>
 <li>摘要算法 + 数字签名：通过摘要算法获得哈希值，来判断报文是否被修改。而数字签名则能保证通信双方的身份</li>
-<li>数字证书：可信的第三方来保证双方身份，主要是CA通过私钥加密双方的公钥数字签名，然后CA的公钥是公开的，之后另一方通过CA的公钥解密获得对方的公钥，之后对方使用私钥加密，就可以使用公钥进行解密了或者是加密通信。<img src="/2023/10/23/408/ji-wang/CA%E7%AE%97%E6%B3%95.png" class="lazyload" data-srcset="/2023/10/23/408/ji-wang/CA%E7%AE%97%E6%B3%95.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li>数字证书：可信的第三方来保证双方身份，主要是CA通过私钥加密双方的公钥数字签名，然后CA的公钥是公开的，之后另一方通过CA的公钥解密获得对方的公钥，之后对方使用私钥加密，就可以使用公钥进行解密了或者是加密通信。<img src="/2023/10/23/46/CA%E7%AE%97%E6%B3%95.png"></li>
 </ol>
 <h4 id="非对称加密"><a href="#非对称加密" class="headerlink" title="非对称加密"></a>非对称加密</h4><ol>
 <li>公钥加密，私钥解密：保证内容的安全，只有私钥可以解密内容</li>
-<li>私钥加密，公钥解密：保证消息不可冒充，因为私钥是不可以泄漏的，验证双方身份，也就是数字签名算法<img src="/2023/10/23/408/ji-wang/%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E7%AE%97%E6%B3%95.png" class="lazyload" data-srcset="/2023/10/23/408/ji-wang/%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E7%AE%97%E6%B3%95.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="|525"></li>
+<li>私钥加密，公钥解密：保证消息不可冒充，因为私钥是不可以泄漏的，验证双方身份，也就是数字签名算法<img src="/2023/10/23/46/%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E7%AE%97%E6%B3%95.png" alt="|525"></li>
 </ol>
 <h4 id="流程-RSA算法为例"><a href="#流程-RSA算法为例" class="headerlink" title="流程(RSA算法为例)"></a>流程(RSA算法为例)</h4><ol>
 <li>三次握手建立TCP连接</li>
@@ -507,8 +467,8 @@
 <h3 id="BGP、OSPF协议原理"><a href="#BGP、OSPF协议原理" class="headerlink" title="BGP、OSPF协议原理"></a>BGP、OSPF协议原理</h3><blockquote>
 <p>边界⽹关协议(Border Gateway Protocol，简称BGP)和开放最短路径优先协议(Open Shortest Path<br>First，简称OSPF)是世界上最流⾏的两种基于标准的动态路由协议。</p>
 </blockquote>
-<h3 id="三握四挥"><a href="#三握四挥" class="headerlink" title="三握四挥"></a>三握四挥</h3><p><img src="/2023/10/23/408/ji-wang/%E4%B8%89%E6%8F%A1%E5%9B%9B%E6%8C%A5.png" class="lazyload" data-srcset="/2023/10/23/408/ji-wang/%E4%B8%89%E6%8F%A1%E5%9B%9B%E6%8C%A5.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
-<h3 id="TCP和UDP"><a href="#TCP和UDP" class="headerlink" title="TCP和UDP"></a>TCP和UDP</h3><p><img src="/2023/10/23/408/ji-wang/%E5%A4%B4%E9%83%A8.png" class="lazyload" data-srcset="/2023/10/23/408/ji-wang/%E5%A4%B4%E9%83%A8.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="|525"></p>
+<h3 id="三握四挥"><a href="#三握四挥" class="headerlink" title="三握四挥"></a>三握四挥</h3><p><img src="/2023/10/23/46/%E4%B8%89%E6%8F%A1%E5%9B%9B%E6%8C%A5.png"></p>
+<h3 id="TCP和UDP"><a href="#TCP和UDP" class="headerlink" title="TCP和UDP"></a>TCP和UDP</h3><p><img src="/2023/10/23/46/%E5%A4%B4%E9%83%A8.png" alt="|525"></p>
 <ol>
 <li>序列号：建立连接时，由计算机生成的随机数作为初始值，通过SYN包传给接收端主机，每发送一次，就累加一次该数据字节数的大小，解决网络包乱序问题。</li>
 <li>确认应答号：下一次期望收到数据的序列号。发送端收到这个之后可以认为在这之前的数据都被正常接收，用于解决丢包问题。</li>
@@ -532,22 +492,22 @@
 <li>增大net.core.somaxconn</li>
 </ul>
 </li>
-<li>开启net.ipv4.tcp_syncookies，就可以在使用SYN半连接的情况下成功建立连接。<img src="/2023/10/23/408/ji-wang/%E4%BD%BF%E7%94%A8cookie%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5.png" class="lazyload" data-srcset="/2023/10/23/408/ji-wang/%E4%BD%BF%E7%94%A8cookie%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="|550"></li>
+<li>开启net.ipv4.tcp_syncookies，就可以在使用SYN半连接的情况下成功建立连接。<img src="/2023/10/23/46/%E4%BD%BF%E7%94%A8cookie%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5.png" alt="|550"></li>
 </ol>
 <ul>
 <li>减少SYN+ACK重传次数，tcp_synack_retries内核参数</li>
 <li>Anti-DDoS系统拦截客⼾端发送的SYN报⽂，代替服务器向客⼾端发送SYN-ACK报⽂，如果客⼾端不应答，则认为该客⼾端为虚假源；如果客⼾端应答，则Anti-DDoS系统认为该客⼾端为真实源，并将其IP地址加⼊⽩名单，在⼀段时间允许该源发送的所有SYN报⽂通过，也不做代答。</li>
 </ul>
-<h4 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h4><p>滑动窗口机制允许发送方在等待接收方确认之前发送多个数据包，从而提高数据传输效率。<br>为了解决一发一答的效率问题。窗口的实现实际上是操作系统开辟一个缓存空间，发送方主机在等到确认应答返回之前，必须在缓冲区中保留已发送的数据，如果按期收到确认应答，这个数据就可以从缓冲区删除。<img src="/2023/10/23/408/ji-wang/TCP%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3.png" class="lazyload" data-srcset="/2023/10/23/408/ji-wang/TCP%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+<h4 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h4><p>滑动窗口机制允许发送方在等待接收方确认之前发送多个数据包，从而提高数据传输效率。<br>为了解决一发一答的效率问题。窗口的实现实际上是操作系统开辟一个缓存空间，发送方主机在等到确认应答返回之前，必须在缓冲区中保留已发送的数据，如果按期收到确认应答，这个数据就可以从缓冲区删除。<img src="/2023/10/23/46/TCP%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3.png"></p>
 <h4 id="慢启动"><a href="#慢启动" class="headerlink" title="慢启动"></a>慢启动</h4><p>当连接开始时，以指数速率增加发送速率，直到第一次报文丢失事件发生为止。<br>初始：拥塞窗口值cwnd = 1 MSS<br>每RTT倍增cwnd<br>每收到一个ACK，增加cwnd<br>初始速率很低，但是以指数增加</p>
 <h4 id="阻塞控制"><a href="#阻塞控制" class="headerlink" title="阻塞控制"></a>阻塞控制</h4><ol>
 <li>慢启动：发送方每收到一个ACK，拥塞窗口cwnd大小指数增加</li>
 <li>拥塞避免算法：当cwnd超过慢启动门限ssthresh就会进入拥塞避免算法：每个 RTT（往返时间）增加 1 个 MSS，而不是每个 ACK 增加 1 个 MSS。</li>
 <li>拥塞发生：发生了 超时重传时，sshtresh设置为cwnd/2，cwnd恢复为初始化值，发生快速重传是，cwnd =cwnd/2，ssthresh=cwnd并进入快速恢复算法。</li>
-<li>快速恢复<img src="/2023/10/23/408/ji-wang/%E5%BF%AB%E9%80%9F%E6%81%A2%E5%A4%8D.png" class="lazyload" data-srcset="/2023/10/23/408/ji-wang/%E5%BF%AB%E9%80%9F%E6%81%A2%E5%A4%8D.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li>快速恢复<img src="/2023/10/23/46/%E5%BF%AB%E9%80%9F%E6%81%A2%E5%A4%8D.png"></li>
 </ol>
 <h4 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h4><p>主机名到IP地址的转换<br>主机别名：一个主机可以有一个规范主机名和多个主机别名。<br>邮件服务器别名：负载分配：DNS实现冗余服务器，一个IP地址集合可以对应同一个规范主机名。</p>
-<p>DNS客⼾端设置使⽤的DNS服务器⼀般都是递归服务器，它负责全权处理客⼾端的DNS查询请求，直<br>到返回最终结果。⽽DNS服务器之间⼀般采⽤迭代查询⽅式。<br><img src="/2023/10/23/408/ji-wang/DNS%E8%AE%B0%E5%BD%95%E6%A0%BC%E5%BC%8F.png" class="lazyload" data-srcset="/2023/10/23/408/ji-wang/DNS%E8%AE%B0%E5%BD%95%E6%A0%BC%E5%BC%8F.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+<p>DNS客⼾端设置使⽤的DNS服务器⼀般都是递归服务器，它负责全权处理客⼾端的DNS查询请求，直<br>到返回最终结果。⽽DNS服务器之间⼀般采⽤迭代查询⽅式。<br><img src="/2023/10/23/46/DNS%E8%AE%B0%E5%BD%95%E6%A0%BC%E5%BC%8F.png"></p>
 <h4 id="DNS劫持"><a href="#DNS劫持" class="headerlink" title="DNS劫持"></a>DNS劫持</h4><blockquote>
 <p>通过某些手段获得对某域名的解析控制权，修改此域名的解析结果，导致对该域名的访问由原IP转为修改后的指定IP，记过就是对特定网站不能访问/访问的是假网站</p>
 </blockquote>
@@ -797,7 +757,7 @@
 <li>管道化：TCP拥塞控制和流量控制设置窗口的大小</li>
 <li>面向连接：交换数据之前，通过握手来初始化双方的状态变量</li>
 <li>流量控制：发送方不会淹没接收方</li>
-<li><img src="/2023/10/23/408/ji-wang/tcp%E6%8A%A5%E6%96%87.png" class="lazyload" data-srcset="/2023/10/23/408/ji-wang/tcp%E6%8A%A5%E6%96%87.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="tcp报文"></li>
+<li><img src="/2023/10/23/46/tcp%E6%8A%A5%E6%96%87.png" alt="tcp报文"></li>
 <li>序号：报文段首字节在字节流的编号</li>
 <li>确认号：期望从另一方收到的下一个字节的序号</li>
 <li>TCP超时时间= EstimatedRTT + 安全边界时间</li>
@@ -968,28 +928,10 @@
     
     
     
-        
-
-<div>
-<ul class="post-copyright">
-  <li class="post-copyright-author">
-    <strong>本文作者： </strong>QingQiu
-  </li>
-  <li class="post-copyright-link">
-    <strong>本文链接：</strong>
-    <a href="https://zuofw.github.io/2023/10/23/46/" title="计网">https://zuofw.github.io/2023/10/23/46/</a>
-  </li>
-  <li class="post-copyright-license">
-    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
-  </li>
-</ul>
-</div>
-
 
       <footer class="post-footer">
-          
           <div class="post-tags">
-              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag"><i class="fa fa-tag"></i> 计算机网络</a>
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag"># 计算机网络</a>
           </div>
 
         
@@ -1095,7 +1037,7 @@
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1p1b2Z3" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Zuofw"><i class="fab fa-github fa-fw"></i>GitHub</span>
+        <a href="https://github.com/Zuofw/zuofw-rpc" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Zuofw&#x2F;zuofw-rpc" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
       </span>
   </div>
 
@@ -1122,14 +1064,13 @@
   &copy; 2022 – 
   <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
-    <i class="heart"></i>
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">QingQiu</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
-      <i class="fa fa-chart-area"></i>
+      <i class="fa fa-area-chart"></i>
     </span>
-      <span class="post-meta-item-text">站点总字数：</span>
     <span title="站点总字数">365k</span>
 </div>
 
@@ -1148,10 +1089,6 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 
@@ -1160,7 +1097,7 @@
 <script src="/js/motion.js"></script>
 
 
-<script src="/js/schemes/pisces.js"></script>
+<script src="/js/schemes/muse.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
@@ -1171,37 +1108,8 @@
 
 
   
-  <script>
-    (function(){
-      var canonicalURL, curProtocol;
-      //Get the <link> tag
-      var x=document.getElementsByTagName("link");
-		//Find the last canonical URL
-		if(x.length > 0){
-			for (i=0;i<x.length;i++){
-				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
-					canonicalURL=x[i].href;
-				}
-			}
-		}
-    //Get protocol
-	    if (!canonicalURL){
-	    	curProtocol = window.location.protocol.split(':')[0];
-	    }
-	    else{
-	    	curProtocol = canonicalURL.split(':')[0];
-	    }
-      //Get current URL if the canonical URL does not exist
-	    if (!canonicalURL) canonicalURL = window.location.href;
-	    //Assign script content. Replace current URL with the canonical URL
-      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
-  </script>
 
 
-
-
-  
-<script src="/js/local-search.js"></script>
 
 
 
@@ -1218,71 +1126,6 @@
   
 
   
-      
 
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
-    
-
-  
-  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
-  <script>
-      window.addEventListener('load', () => {
-      quicklink({
-        timeout : 3000,
-        priority: true,
-        ignores : [uri => uri.includes('#'),uri => uri === 'https://zuofw.github.io/2023/10/23/46/',]
-      });
-      });
-  </script>
-
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
 </html>
