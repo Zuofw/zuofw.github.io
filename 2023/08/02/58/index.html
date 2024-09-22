@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"zuofw.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"zuofw.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="数据库数据库同步问题： Mysql面试指南60 道 MySQL 精选面试题👍 | 二哥的Java进阶之路 (javabetter.cn) InnoDB为什么是默认的引擎 是mysql中唯一支持事务的引擎 锁机制：使用行级锁，而不是表级锁 支持外键约束 具有崩溃恢复  索引为什么使用B+树 支出快速查找：B+树高度相对较低，查找效率高 有序性：节点的键值是有序排列的 支持高效插入和删除操作：叶子节">
@@ -1049,13 +1049,13 @@ FROM Customers INNER JOIN Orders
 
 <p>外联结：<br>使用场景</p>
 <ul>
-<li><p><input disabled type="checkbox"> 
+<li><p><input disabled="" type="checkbox"> 
 对每个顾客下的订单进行计数，包括那些至今尚未下订单的顾客；</p>
 </li>
-<li><p><input disabled type="checkbox"> 
+<li><p><input disabled="" type="checkbox"> 
 列出所有产品以及订购数量，包括没有人订购的产品；</p>
 </li>
-<li><p><input disabled type="checkbox"> 
+<li><p><input disabled="" type="checkbox"> 
 计算平均销售规模，包括那些至今尚未下订单的顾客。</p>
 </li>
 </ul>
@@ -2192,7 +2192,7 @@ select <span class="token operator">?</span> from <span class="token operator">?
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">45</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2244,7 +2244,7 @@ select <span class="token operator">?</span> from <span class="token operator">?
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">365k</span>
+    <span title="站点总字数">367k</span>
 </div>
 
         

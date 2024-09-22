@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"zuofw.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"zuofw.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="写在前面本文不是git入门，但后续会补一些入门知识，主要是写给工作室的学弟学妹快速排障使用。主要是被某些同学整无语了才想着记录一下观看前提：会上github git后悔药 世上没有后悔药  但是git有(￣︶￣*))还在担心上班时脑子一热写下臭骂老板的话导致绩效奖没有吗，还在担心提交记录写的丑吗，还在担心远程push的时候不会搞吗，这篇文章用来记录如何解决这些问题。 基本概念先介绍一些概念：  工">
@@ -237,7 +237,7 @@
 </ol>
 <h2 id="已经推送到远程仓库"><a href="#已经推送到远程仓库" class="headerlink" title="已经推送到远程仓库"></a>已经推送到远程仓库</h2><p>当你到达这一步的时候，你肯定已经慌了，绩效奖多半是没了（；´д｀）ゞ<br><code>git revert HEAD</code><br>使用这个可以将你修改的东西撤回，然后你将这个新的提交上去就能够覆盖掉你原来的提交了，但是你原来的那个提交还是在记录中的，仍然可以访问的。</p>
 <h1 id="git开发注意"><a href="#git开发注意" class="headerlink" title="git开发注意"></a>git开发注意</h1><h2 id="如何进去github"><a href="#如何进去github" class="headerlink" title="如何进去github"></a>如何进去github</h2><p>由于不可抗力，github需要一些魔法才能进去。不过工作室目前使用的是工作室服务器上搭建的gitea进行代码的管理，操作和github上基本一致。但是仓库目前由于学校锁ip，必须使用校园网才能进去，所以当成员不在校时，可以使用github来进行开发。</p>
-<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><h3 id><a href="#" class="headerlink" title></a></h3><h3 id="如何提交代码"><a href="#如何提交代码" class="headerlink" title="如何提交代码"></a>如何提交代码</h3><ol>
+<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><h3 id=""><a href="#" class="headerlink" title=""></a></h3><h3 id="如何提交代码"><a href="#如何提交代码" class="headerlink" title="如何提交代码"></a>如何提交代码</h3><ol>
 <li>在仓库上中建立一个你英文名字的分支或者forked一个到自己仓库中(工作室一般采用第一种)</li>
 <li>本地打开terminal，输入<code>git push origin 你要提交的本地分支:你要提交到的远程分支名字</code>，示例：<code>git push origin main:huangzhenwei</code> </li>
 <li>点开仓库，找到Pull Request (pr)</li>
@@ -340,7 +340,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">45</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -392,7 +392,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">365k</span>
+    <span title="站点总字数">367k</span>
 </div>
 
         
