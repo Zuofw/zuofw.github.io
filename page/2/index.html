@@ -157,6 +157,691 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/07/22/14/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="QingQiu">
+      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QingQiu'Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/07/22/14/" class="post-title-link" itemprop="url">git快速使用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-07-22 10:27:14 / 修改时间：17:17:57" itemprop="dateCreated datePublished" datetime="2024-07-22T10:27:14+08:00">2024-07-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/tools/" itemprop="url" rel="index"><span itemprop="name">tools</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.1k</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>本文不是git入门，但后续会补一些入门知识，主要是写给工作室的学弟学妹快速排障使用。<del>主要是被某些同学整无语了才想着记录一下</del><br>观看前提：会上github</p>
+<h1 id="git后悔药"><a href="#git后悔药" class="headerlink" title="git后悔药"></a>git后悔药</h1><blockquote>
+<p>世上没有后悔药</p>
+</blockquote>
+<p>但是git有(￣︶￣*))<br>还在担心上班时脑子一热写下臭骂老板的话导致绩效奖没有吗，还在担心提交记录写的丑吗，还在担心远程push的时候不会搞吗，这篇文章用来记录如何解决这些问题。</p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>先介绍一些概念：</p>
+<ol>
+<li>工作区：工作区就是我们修改的文件但是还没有进行git add</li>
+<li>暂存区：我们使用git add 之后但是还么有进行git commit</li>
+<li>已提交：进行git commit 之后</li>
+<li>已经推送到远程仓库：git push之后</li>
+<li>HEAD：Git中的一个特殊的指针，指向了当前<strong>所在分支的最新提交</strong>。可以使用 ^ 来当作指针修饰符，HEAD^代表前一个提交， HEAD^^或者HEAD<del>2代表上两层提交，同理HEAD</del>n 当前提交的第n级父提交</li>
+</ol>
+<h2 id="工作区"><a href="#工作区" class="headerlink" title="工作区"></a>工作区</h2><p>在工作区进行修改之后，发现不想要了可以使用<br><code>git checkout -- &lt;文件名&gt;</code>来撤回修改<br>不过现在git新版本推荐使用<br><code>git restore &lt;文件名&gt;</code> 来撤回修改</p>
+<h2 id="暂存区"><a href="#暂存区" class="headerlink" title="暂存区"></a>暂存区</h2><p><code>git reset HEAD &lt;文件名&gt;</code> 使用这个命令可以将这个文件放回工作区，之后如果不想要了可以结合工作区的命令来撤回修改</p>
+<h2 id="已提交"><a href="#已提交" class="headerlink" title="已提交"></a>已提交</h2><ol>
+<li>撤回提交但是保留修改：也就是回到工作区 : <code>git reset --soft HEAD^</code></li>
+<li>撤回提交并且撤回修改：也就是回到暂存区，<code>git rest --mixed HEAD^</code>可以简写为 <code>git rest HEAD^</code></li>
+<li>撤回修改并且丢失所有的修改：也就是将工作区和暂存区的修改都给撤回：<code>git reset --hard HEAD^</code></li>
+</ol>
+<h2 id="已经推送到远程仓库"><a href="#已经推送到远程仓库" class="headerlink" title="已经推送到远程仓库"></a>已经推送到远程仓库</h2><p>当你到达这一步的时候，你肯定已经慌了，绩效奖多半是没了（；´д｀）ゞ<br><code>git revert HEAD</code><br>使用这个可以将你修改的东西撤回，然后你将这个新的提交上去就能够覆盖掉你原来的提交了，但是你原来的那个提交还是在记录中的，仍然可以访问的。</p>
+<h1 id="git开发注意"><a href="#git开发注意" class="headerlink" title="git开发注意"></a>git开发注意</h1><h2 id="如何进去github"><a href="#如何进去github" class="headerlink" title="如何进去github"></a>如何进去github</h2><p>由于不可抗力，github需要一些魔法才能进去。不过工作室目前使用的是工作室服务器上搭建的gitea进行代码的管理，操作和github上基本一致。但是仓库目前由于学校锁ip，必须使用校园网才能进去，所以当成员不在校时，可以使用github来进行开发。</p>
+<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><h3 id><a href="#" class="headerlink" title></a></h3><h3 id="如何提交代码"><a href="#如何提交代码" class="headerlink" title="如何提交代码"></a>如何提交代码</h3><ol>
+<li>在仓库上中建立一个你英文名字的分支或者forked一个到自己仓库中(工作室一般采用第一种)</li>
+<li>本地打开terminal，输入<code>git push origin 你要提交的本地分支:你要提交到的远程分支名字</code>，示例：<code>git push origin main:huangzhenwei</code> </li>
+<li>点开仓库，找到Pull Request (pr)</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/06/24/02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="QingQiu">
+      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QingQiu'Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/06/24/02/" class="post-title-link" itemprop="url">JVM学习</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-06-24 21:41:02" itemprop="dateCreated datePublished" datetime="2024-06-24T21:41:02+08:00">2024-06-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-09-15 14:31:11" itemprop="dateModified" datetime="2024-09-15T14:31:11+08:00">2024-09-15</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>16k</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="面试常问"><a href="#面试常问" class="headerlink" title="面试常问"></a>面试常问</h1><p>[黑马JVM面试](<a target="_blank" rel="noopener" href="https://lisxpq12rl7.feishu.cn/wiki/QkOzwr3gIiv8eTkKngTc6Lv6nlf">‌⁠​​‍​‍﻿​﻿‌​​​​​⁠​‌﻿​‌‌​‍​​​﻿​​⁠​‬‍​﻿​﻿​​‍​‍​​‌‌​‬面试篇 - 飞书云文档 (feishu.cn)</a>)<br><a target="_blank" rel="noopener" href="https://www.yuque.com/tulingzhouyu/db22bv/td5a84ty4vel22ge#f8eDZ">👍Java虚拟机8-11双版本 -JVM高频面试题👍 (yuque.com)</a></p>
+<h2 id="new的过程-x2F-创建对象的步骤"><a href="#new的过程-x2F-创建对象的步骤" class="headerlink" title="new的过程/创建对象的步骤"></a>new的过程/创建对象的步骤</h2><ol>
+<li>类加载检查，先去检查是否能在常量池中定位到这个类的符号引用来判断是否已经创建了</li>
+<li>分配内存(指针碰撞，空闲列表)</li>
+<li>初始化零值</li>
+<li>设置对象头：</li>
+<li>执行init方法</li>
+</ol>
+<h2 id="静态变量存储在哪里呢？"><a href="#静态变量存储在哪里呢？" class="headerlink" title="静态变量存储在哪里呢？"></a>静态变量存储在哪里呢？</h2><ul>
+<li>JDK6及之前的版本中，静态变量是存放在方法区中的，也就是永久代。</li>
+<li>JDK7及之后的版本中，静态变量是存放在堆中的Class对象中，脱离了永久代。</li>
+</ul>
+<h2 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h2><p><img src="/2024/06/24/02/JVM%E7%BB%84%E6%88%90.png" alt="|525"></p>
+<ul>
+<li><del>编译器</del>：不属于Java虚拟机的一部分，负责将源代码文件编译成字节码文件。</li>
+<li>类加载子系统，负责将字节码文件读取、解析并保存到内存中。其核心就是类加载器。</li>
+<li>运行时数据区，管理JVM使用到的内存。</li>
+<li>执行引用，分为解释器 解释执行字节码指令；即时编译器 优化代码执行性能； 垃圾回收器 将不再使用的对象进行回收。</li>
+<li>本地接口，保存了本地已经编译好的方法，使用C/C++语言实现。</li>
+</ul>
+<h2 id="运行时数据区的组成"><a href="#运行时数据区的组成" class="headerlink" title="运行时数据区的组成"></a>运行时数据区的组成</h2><p><img src="/2024/06/24/02/%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E7%9A%84%E7%BB%84%E6%88%90.png" alt="|900"></p>
+<ul>
+<li>堆，可分为新生代和老年代，新生代可分为Eden，Surviver1，Surviver2</li>
+<li>方法区：永久区，存储已经被Java虚拟机架子啊的类信息等，jdk1.8之后称为元空间。</li>
+<li>虚拟机栈：线程私有，内有多个栈帧，方法在执行时会创建栈帧，包含(局部变量表，操作数栈，动态链接，返回地址等)<ul>
+<li>局部变量表：存放方法参数，局部变量</li>
+<li>操作数栈：记录一个方法在执行过程中，字节码指令向操作数栈进行入栈和出栈的过程。</li>
+<li>动态链接：字节码中的符号链接，一部分在类加载过程中转化为直接引用(静态解析)，还有一部分在运行时转化为直接引用，也就是动态链接。</li>
+<li>返回地址：当前方法执行过程中，当前方法需要返回的位置。</li>
+</ul>
+</li>
+<li>本地方法栈：服务的是Native方法</li>
+<li>PC程序计数器：线程私有</li>
+</ul>
+<h2 id="Java虚拟机栈"><a href="#Java虚拟机栈" class="headerlink" title="Java虚拟机栈"></a>Java虚拟机栈</h2><p>每一个方法的调用使用一个栈帧来保存，每一个线程都有一个自己的虚拟机栈，生命周期和线程相同<br>主要包括</p>
+<ol>
+<li>局部变量表：方法执行过程中存放所有的局部变量</li>
+<li>操作数栈：虚拟机在执行指令过程中用来存放临时数据的一块区域</li>
+<li>帧数据：主要包括动态链接、方法出口、异常表等内容。</li>
+</ol>
+<h2 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h2><p>存储的是native本地方法的栈<br>本地方法（Native Method）是使用非 Java 语言（通常是 C 或 C++）编写的方法。这些方法通过 Java 本地接口（Java Native Interface，JNI）与 Java 代码进行交互。使用本地方法的主要目的是为了实现以下几个功能：</p>
+<ol>
+<li><strong>与操作系统交互</strong>：直接调用操作系统的底层功能。</li>
+<li><strong>提高性能</strong>：在性能关键的部分使用更高效的本地代码。</li>
+<li><strong>访问硬件</strong>：与特定硬件设备进行交互。</li>
+<li><strong>复用现有库</strong>：调用已有的用其他语言编写的库。</li>
+</ol>
+<h2 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h2><p>用来存放创建出来的对象，栈上的局部变量表中，可以存放对上的引用，静态变量也可以存放堆对象的引用，实现对象在线程之间的共享<br>堆是垃圾回收的最主要部分</p>
+<h3 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h3><p>ClassLoader是Java虚拟机提供给应用程序去实现获取类和接口字节码数据的技术。去获得二进制字节码信息。然后通过JVM调用JNI也就是本地接口方法区创建对象<br><img src="/2024/06/24/02/%E4%B8%8D%E5%90%8C%E7%89%88%E6%9C%AC%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8.png"></p>
+<h4 id="类加载器的分类"><a href="#类加载器的分类" class="headerlink" title="类加载器的分类"></a>类加载器的分类</h4><h5 id="jdk8以及之前"><a href="#jdk8以及之前" class="headerlink" title="jdk8以及之前"></a>jdk8以及之前</h5><ol>
+<li>Java代码实现的(扩展类加载器，应用程序类加载器)</li>
+<li>Java虚拟机底层代码实现的(启动类加载器)<br>使用启动加载类器加载器去加载用户的jar包，可以在虚拟机参数那里添加：<br><code>-Xbootclasspath /a: jar包名</code><br>Java中的加载器： 是一个静态内部类，继承自URLClassLoader，通过目录或者指定jar包将字节码文件加载到内存中<br><img src="/2024/06/24/02/Java%E4%B8%AD%E7%9A%84%E9%BB%98%E8%AE%A4%E5%8A%A0%E8%BD%BD%E5%99%A8.png"></li>
+</ol>
+<h5 id="双亲委派机制-jdk8以及之前重点"><a href="#双亲委派机制-jdk8以及之前重点" class="headerlink" title="双亲委派机制(jdk8以及之前重点)"></a>双亲委派机制(jdk8以及之前重点)</h5><p>可以解决的问题:<br>重复的类：启动类，根据双亲委派机制，如果同一个类出现在三个类加载器中，会由启动类加载器来加载。<br>String类能覆盖吗？ 不能，会由启动类加载器加载在rt.jar包中的String类<br>类加载器的关系：应用类加载器的父类加载器识扩展类加载器，扩展类加载器没有父类加载器，但是会委派给启动类加载器。<br>双亲委派机制的作用：<br>保证类加载器的安全性，避免重复加载。</p>
+<ol>
+<li>每一个类加载器都有一个父类加载器，在类加载的过程中，每个加载器会先检查是否已经加载了该类，如果已经加载则直接返回否则奖将载请求委派给父类加载器</li>
+<li>如果所有的父类加载器都无法加载，就由当前加载器尝试加载，也就是说，如果父类加载器的加载路径中没有这个类，就会由他自己加载 <img src="/2024/06/24/02/%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE.png"><img src="/2024/06/24/02/%E4%B8%8A%E4%B8%8B%E5%A7%94%E6%B4%BE.png"></li>
+</ol>
+<h5 id="如何打破双亲委派机制"><a href="#如何打破双亲委派机制" class="headerlink" title="如何打破双亲委派机制"></a>如何打破双亲委派机制</h5><ol>
+<li>自定义类加载器并且重写loadClass方法就可以将双亲委派机制的代码去除。Tomcat通过这种方式实现应用之间类隔离，每一个应用会有一个独立的类加载器加载对应的类</li>
+<li>线程上下文加载器加载类，比如JDBC和JNDI等,JDBC使用DriverManager来管理项目中引入的不同的数据库驱动，DriverManager类位于rt.jar包中，由启动类加载器加载。依赖中的mysql驱动对应的类，由应用程序类加载器来加载，DriverManager属于rt.jar是启动类加载器加载的。而用户jar包中的驱动需要由应用类加载器加载，这就违反了双亲委派机制。<img src="/2024/06/24/02/JDBC.png">定义服务接口：JDBC定义了java.sql.Driver接口。<br>服务提供者：各个数据库厂商实现java.sql.Driver接口，并在META-INF/services目录下创建文件java.sql.Driver，文件内容为实现类的全限定名。<br>加载驱动：DriverManager类在静态代码块中通过ServiceLoader加载所有实现java.sql.Driver接口的类，并调用Class.forName方法加载驱动类。<blockquote>
+<p>定义服务接口：JDBC定义了java.sql.Driver接口。<br>服务提供者：各个数据库厂商实现java.sql.Driver接口，并在META-INF/services目录下创建文件java.sql.Driver，文件内容为实现类的全限定名。<br>加载驱动：DriverManager类在静态代码块中通过ServiceLoader加载所有实现java.sql.Driver接口的类，并调用Class.forName方法加载驱动类</p>
+</blockquote>
+</li>
+<li>Osgi框架的类加载器，允许同级之间委托进行类的加载<br>自定义类加载器父类怎么是AppClassLoader呢？<br><img src="/2024/06/24/02/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8A%A0%E8%BD%BD%E5%99%A8%E7%9A%84%E7%88%B6%E7%B1%BB.png"></li>
+</ol>
+<h5 id="JDK9之后的类加载器"><a href="#JDK9之后的类加载器" class="headerlink" title="JDK9之后的类加载器"></a>JDK9之后的类加载器</h5><p><strong>为什么抛弃了拓展类加载器</strong> ？<br>因为扩展类加载器主要是和加载jre环境下lib下的jar包，需要拓展Java的功能时，需要把jar包能够在ext文件夹下，不安全<br>JDK9引入的模块化开发取代了他</p>
+<ol>
+<li>启动类加载器使用Java编写，位于jdk.internal.loader.ClassLoaders类中。Java中的BootClassLoader继承自BuiltinClassLoader实现从模块中找到要加载的字节码资源文件。但是还是无法获取到</li>
+<li>扩展类加载器被替换成了平台类加载器，所以继承关系从URLClassLoader变成了BuiltinClassLoader，BuiltinClassLoader实现了从模块中加载字节码文件。平台类加载器的存在更多的是为了与老版本的设计方案兼容，自身没有特殊的逻辑</li>
+</ol>
+<h5 id="双亲委派机制总结"><a href="#双亲委派机制总结" class="headerlink" title="双亲委派机制总结"></a>双亲委派机制总结</h5><p><img src="/2024/06/24/02/%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%9C%BA%E5%88%B6%E6%80%BB%E7%BB%93.png" alt="|500"></p>
+<h4 id="类的生命周期"><a href="#类的生命周期" class="headerlink" title="类的生命周期"></a>类的生命周期</h4><h5 id="加载"><a href="#加载" class="headerlink" title="加载"></a>加载</h5><p>简单概括：找到需要加载的类，并把类的信息加载到JVM中，然后在堆中实例化一个java.lang.Class对象，作为方法区中的这个类的信息的入口</p>
+<ol>
+<li>加载过程中是类加载器根据类的全限定名通过不同的渠道以二进制流的形式获取字节码信息</li>
+<li>加载器加载完类之后，Java虚拟机将字节码中的信息保存到方法区中，生成一个InstanceKlass对象，保存类的所有信息，里面还包含实现特定功能比如多态的信息</li>
+<li>Java虚拟机在堆中生成一份与方法去中数据类似的java.lang.Class对象，作用是在Java代码中获取类的信息和存储静态字段的数据，jkd8以后将静态字段放在堆区中。 优点是：对于开发者来说只需要访问堆中的Class对象而不需要访问方法区中的所有信息，能够很好的控制开发者访问数据的范围</li>
+</ol>
+<h5 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h5><ol>
+<li>验证，校验Java字节码文件是都遵循了约束，一般不需要程序员参与</li>
+<li>为静态变量分配内存并设置初始值，如果使用了final来修饰，就会直接将代码中的值赋给静态变量</li>
+<li>解析，将符号引用替换为直接引用，符号引用是在字节码中使用序号来进行引用，而直接引用就是使用内存中的地址直接进行访问</li>
+</ol>
+<h5 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h5><p>当类被直接引用的时候才会出发类的初始化。类被直接引用的情况有-&gt;<br>new,读取或设置类的静态变量，调用类的静态方法，通过反射来执行前三种，初始化子类时会触发父类的初始化，接口实现类初始化时，会出发直接或间接实现的所有接口的初始化<br>类的初始化只会运行静态部分，而且优先父类</p>
+<ol>
+<li>执行静态代码块中的代码，为静态变量赋值</li>
+<li>初始化阶段会执行字节码中clinit部分的字节码指令</li>
+</ol>
+<h5 id="程序中可以直接导致初始化的操作："><a href="#程序中可以直接导致初始化的操作：" class="headerlink" title="程序中可以直接导致初始化的操作："></a>程序中可以直接导致初始化的操作：</h5><ol>
+<li>访问一个类的静态变量或者静态方法，final修饰的并且等号在右侧是常量的话不会触发初始化，因为在连接阶段就已经进行赋值了</li>
+<li>调用Class.forName(String className)时会进行初始化</li>
+<li>new </li>
+<li>执行Main方法的当前类<br><code>&lt;clinit&gt;</code>是Java中的一个特殊方法，代表初始化器（class initializer）。这个方法不是由程序员显式编写的，而是由Java虚拟机（JVM）自动生成的。当类被首次加载到JVM时，<code>&lt;clinit&gt;</code>方法负责执行类变量的静态初始化和静态初始化块的代码<br><code>clinit</code> 在以下情况不会出现：</li>
+<li>无静态代码块</li>
+<li>有静态变量声明但是没有赋值语句</li>
+<li>静态变量的定义使用final字段，会在准备阶段直接进行初始化。<br>访问父类静态变量，只会初始化父类<br>new 子类时会先执行父类的clinit方法<br>数组的创建不会导致数组中元素的类的初始化。<br>final修饰的变量如果不是常量需要执行指令才能得出结果会执行clinit方法进行初始化</li>
+</ol>
+<h5 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h5><h5 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h5><h4 id="字节码文件"><a href="#字节码文件" class="headerlink" title="字节码文件"></a>字节码文件</h4><ol>
+<li>常量池：避免保存重复的内容，节省空间</li>
+<li>具体的字节码文件分析 <img src="/2024/06/24/02/%E5%AD%97%E8%8A%82%E7%A0%81.png"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//源码</span>
+<span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>  
+i <span class="token operator">=</span> i <span class="token operator">++</span><span class="token punctuation">;</span>
+<span class="token comment">//字节码</span>
+<span class="token number">0</span> iconst_0  将<span class="token number">0</span>放在操作数栈中
+<span class="token number">1</span> istore_1 弹出操作数栈最顶层数据到局部变量<span class="token number">1</span>号位
+<span class="token number">2</span> iload_1  复制到操作数栈顶
+<span class="token number">3</span> iinc <span class="token number">1</span> by <span class="token number">1</span> 将局部变量<span class="token number">1</span>号位的数据 <span class="token operator">+</span> <span class="token number">1</span>
+<span class="token number">6</span> istore_1 弹出，保存在一号位，所以被覆盖了
+<span class="token number">7</span> <span class="token keyword">return</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+<h5 id="组成-1"><a href="#组成-1" class="headerlink" title="组成"></a>组成</h5><p>基础信息，常量池(保存字符串常量、类或者接口名，主要在字节码指令中使用)，字段，方法，属性</p>
+<h3 id="运行时数据区"><a href="#运行时数据区" class="headerlink" title="运行时数据区"></a>运行时数据区</h3><h4 id="按照线程共享不共享区分："><a href="#按照线程共享不共享区分：" class="headerlink" title="按照线程共享不共享区分："></a>按照线程共享不共享区分：</h4><ul>
+<li>线程不共享<ol>
+<li>程序计数器</li>
+<li>Java虚拟机栈</li>
+<li>本地方法栈</li>
+</ol>
+</li>
+<li>线程共享<ol>
+<li>方法区</li>
+<li>堆</li>
+</ol>
+</li>
+</ul>
+<h5 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h5><p>内存溢出：程序在使用某一块内存区域时，存放的数据需要占用的内存大小超过了虚拟机能提供的内存上限<br>每个线程只需要存储一个固定长度的内存地址，所以程序计数器是不会发生内存溢出的<br>程序员无需对程序计数器进行任何处理</p>
+<h5 id="虚拟机栈"><a href="#虚拟机栈" class="headerlink" title="虚拟机栈"></a>虚拟机栈</h5><p>Java虚拟机使用栈来管理方法调用中的基本数据。每一个方法的调用使用一个栈帧来保存，每个线程都包含一个自己的虚拟机栈<br><img src="/2024/06/24/02/%E6%A0%88%E5%86%85%E5%AD%98.png"></p>
+<h6 id="栈帧的组成"><a href="#栈帧的组成" class="headerlink" title="栈帧的组成"></a>栈帧的组成</h6><ul>
+<li>局部变量表：存放运行中的所有局部变量，包括局部变量表保存的内容有：实例方法的this对象，方法的参数，方法体中声明的局部变量。<img src="/2024/06/24/02/%E5%8F%98%E9%87%8F%E8%A1%A8.png"></li>
+<li>操作数栈：存放临时数据<ul>
+<li>栈帧中的局部变量表是一个数组，数组中每一个位置称之为槽(slot) ，long和double类型占用两个槽，其他类型占用一个槽。</li>
+<li>实例方法中的序号为0的位置存放的是this，指的是当前调用方法的对象，运行时会在内存中存放实例对象的地址。</li>
+<li>为了节省空间，局部变量表中的槽是可以复用的，一旦某个局部变量不再生效，当前槽就可以再次被使用。</li>
+</ul>
+</li>
+<li>帧数据：包含动态链接、方法出口、异常表的引用<img src="/2024/06/24/02/%E6%96%B9%E6%B3%95%E5%87%BA%E5%8F%A3.png"></li>
+</ul>
+<h5 id="本地方法栈："><a href="#本地方法栈：" class="headerlink" title="本地方法栈："></a>本地方法栈：</h5><p>存储natice本地方法的栈帧，在Hotspot虚拟机中，Java虚拟机栈和本地方法栈实现上使用了同一个栈空间。</p>
+<h5 id="堆内存"><a href="#堆内存" class="headerlink" title="堆内存"></a>堆内存</h5><p><img src="/2024/06/24/02/%E6%A0%B9%E6%8D%AE%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%90%86%E8%AE%BA%E5%88%92%E5%88%86%E7%9A%84%E5%A0%86.png"><br>一般Java程序中堆内存是空间最大的一块内存区域。创建出来的对象都存在于堆上。栈上的局部变量表中，可以存放堆上对象的引用。静态变量也可以存放堆对象的引用，通过静态变量就可以实现对象在线程之间共享。<br>堆空间有三个需要关注的值，used、total、max。used指的是当前已使用的堆内存，total是java虚拟机已经分配的可用堆内存，max是java虚拟机可以分配的最大堆内存。<br><strong>不是当used = max = total的时候，堆内存就溢出</strong></p>
+<hr>
+<h5 id="方法区："><a href="#方法区：" class="headerlink" title="方法区："></a>方法区：</h5><p>方法区存放基础信息的位置，线程共享的，主要包含三部分：</p>
+<ul>
+<li>类的元信息，保存所有类的基本信息</li>
+<li>运行时常量池，保存了字节码文件中常量池内容</li>
+<li>字符串常量池，保存了字符串常量</li>
+</ul>
+<h6 id="元信息"><a href="#元信息" class="headerlink" title="元信息"></a>元信息</h6><p>一般称之为InstanceKlass对象。在类的加载阶段完成。其中就包含了类的字段、方法等字节码文件中的内容，同时还保存了运行过程中需要使用的虚方法表（实现多态的基础）等信息。</p>
+<h6 id="运行时常量池"><a href="#运行时常量池" class="headerlink" title="运行时常量池"></a>运行时常量池</h6><p>字节码文件中通过编号查表的方式找到常量，这种常量池称为静态常量池。当常量池加载到内存中之后，可以通过内存地址快速的定位到常量池中的内容，这种常量池称为运行时常量池。<img src="/2024/06/24/02/%E6%96%B9%E6%B3%95%E5%8C%BA%E7%9A%84%E5%AE%9E%E7%8E%B0.png"></p>
+<h6 id="字符串常量池"><a href="#字符串常量池" class="headerlink" title="字符串常量池"></a>字符串常量池</h6><p>字符串的拼接操作会创建一个新的字符串对象，而不是使用字符串常量池中的现有对象。<br>而直接用两个字符串拼接是放在常量池的，不是新建了一个对象</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">String</span> s1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">String</span> s2 <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>s1 <span class="token operator">==</span> s2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+答案是<span class="token boolean">false</span><span class="token punctuation">,</span>因为<span class="token string">"abc"</span>是直接放入字符串常量池的，而<span class="token keyword">new</span> 出来的是放在堆内存中，两者所在的位置不同。
+<span class="token number">1.</span>
+
+<span class="token comment">/**
+ * 字符串常量池案例
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Demo3</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">String</span> a <span class="token operator">=</span> <span class="token string">"1"</span><span class="token punctuation">;</span>
+        <span class="token class-name">String</span> b <span class="token operator">=</span> <span class="token string">"2"</span><span class="token punctuation">;</span>
+        <span class="token class-name">String</span> c <span class="token operator">=</span> <span class="token string">"12"</span><span class="token punctuation">;</span>
+        <span class="token class-name">String</span> d <span class="token operator">=</span> <span class="token string">"1"</span> <span class="token operator">+</span> <span class="token string">"2"</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>c <span class="token operator">==</span> d<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+答案是<span class="token boolean">true</span><span class="token punctuation">,</span>在编译阶段就把 <span class="token string">"1"</span> <span class="token operator">+</span> <span class="token string">"2"</span>连接在一起了
+<span class="token number">2.</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Demo2</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">String</span> a <span class="token operator">=</span> <span class="token string">"1"</span><span class="token punctuation">;</span>
+        <span class="token class-name">String</span> b <span class="token operator">=</span> <span class="token string">"2"</span><span class="token punctuation">;</span>
+        <span class="token class-name">String</span> c <span class="token operator">=</span> <span class="token string">"12"</span><span class="token punctuation">;</span>
+        <span class="token class-name">String</span> d <span class="token operator">=</span> a <span class="token operator">+</span> b<span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>c <span class="token operator">==</span> d<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+答案是<span class="token boolean">false</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>jdk8之后运行时常量池放在元空间，而字符串常量池还在堆中。<br><strong>String.intern()方法是可以手动将字符串放入字符串常量池中</strong></p>
+<h5 id="直接内存"><a href="#直接内存" class="headerlink" title="直接内存"></a>直接内存</h5><p>直接内存不属于Java运行时的内存区域，NIO机制中使用直接内存来解决</p>
+<ol>
+<li>Java堆中的对象如果不再使用要回收，回收时会影响对象的创建和使用。</li>
+<li>IO操作比如读文件，需要先把文件读入直接内存（缓冲区）再把数据复制到Java堆中。<br>现在直接放入直接内存即可，同时Java堆上维护直接内存的引用，减少了数据复制的开销。写文件也是类似的思路。<img src="/2024/06/24/02/%E6%96%87%E4%BB%B6%E5%A4%8D%E5%88%B6.png"></li>
+</ol>
+<h3 id="执行引擎"><a href="#执行引擎" class="headerlink" title="执行引擎"></a>执行引擎</h3><h3 id="本地接口"><a href="#本地接口" class="headerlink" title="本地接口"></a>本地接口</h3><h3 id="垃圾收集器GC"><a href="#垃圾收集器GC" class="headerlink" title="垃圾收集器GC"></a>垃圾收集器GC</h3><p>GC (Garbage Collection)，堆是垃圾回收最主要的区域，所以也被乘坐GC堆。<br>如何手动触发垃圾回收：使用<code>System.gc()</code>，但是这个方法不会立即进行回收，只是向虚拟机发送一个垃圾回收的请求。</p>
+<h4 id="不由GC进行回收的部分"><a href="#不由GC进行回收的部分" class="headerlink" title="不由GC进行回收的部分"></a>不由GC进行回收的部分</h4><p>线程不共享的部分不需要GC进行回收，因为随着线程的销毁，对应的方法的栈帧就会自动弹出栈并且释放掉对应的内存。</p>
+<h4 id="进行回收的部分"><a href="#进行回收的部分" class="headerlink" title="进行回收的部分"></a>进行回收的部分</h4><h5 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h5><p>主要回收不再使用的类，需要满足以下条件</p>
+<ol>
+<li>这个类所有的实例对象都被回收，在队中不存在该类的实例对象以及子类对象</li>
+<li>加载该类的类加载器已经被回收，类加载器的任务完成之后引用被去除后就会被回收</li>
+<li>java.lang.Class对象没有在任何地方被引用<img src="/2024/06/24/02/Class.png"></li>
+</ol>
+<h5 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h5><p>Java中的对象能否被回收是根据对象是否被引用来决定的。如果对象被引用就不允许被回收<br>主要的算法：</p>
+<h6 id="引用计数法"><a href="#引用计数法" class="headerlink" title="引用计数法"></a>引用计数法</h6><p>为每个对象维护一个指针，对象被引用时+1，取消引用时-d。<br>缺点是：</p>
+<ol>
+<li>每次引用都要维护计数器，会影响系统的性能</li>
+<li>存在循环引用问题，A引用B，B引用A就无法回收了</li>
+</ol>
+<h6 id="可达性分析法"><a href="#可达性分析法" class="headerlink" title="可达性分析法"></a>可达性分析法</h6><p>可达性分析法将对象分为：垃圾回收的根对象 (GC Root)和普通对象，对象之间存在引用关系。<br>可达性分析就是如果某个对象到GC Root是可达的，就不能被回收。<br>哪些对象被称之为GC Root对象呢？</p>
+<ul>
+<li>线程Thread对象，引用线程栈帧中的方法参数、局部变量等。</li>
+<li>系统类加载器加载的java.lang.Class对象，引用类中的静态变量。<img src="/2024/06/24/02/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E5%AF%B9%E8%B1%A1.png"></li>
+<li>监视器对象，用来保存同步锁synchronized关键字持有的对象。<img src="/2024/06/24/02/%E7%9B%91%E8%A7%86%E5%99%A8%E5%AF%B9%E8%B1%A1.png"></li>
+<li>本地方法调用时使用的全局对象。</li>
+</ul>
+<h4 id="常见的引用对象"><a href="#常见的引用对象" class="headerlink" title="常见的引用对象"></a>常见的引用对象</h4><p>可达性算法中描述的对象引用，一般指的是强引用，Java中还设计了几种其他引用方式：</p>
+<ul>
+<li>软引用</li>
+<li>弱引用</li>
+<li>虚引用</li>
+<li>终结器引用</li>
+</ul>
+<h5 id="软引用"><a href="#软引用" class="headerlink" title="软引用"></a>软引用</h5><p>如果一个对象只有软引用关联到他时，程序内存不足时回将其中的数据及逆行回收，软引用常用于缓存中<br>好处就是用作缓存快速从内存中读取，即使被释放了也可以重新获取，减少内存溢出的可能性<br>软引用对象本身，也需要被强引用，否则软引用对象也会被回收掉。<br>使用案例：</p>
+<pre class="line-numbers language-Java" data-language="Java"><code class="language-Java">/**
+ * 软引用案例2 - 基本使用
+ */
+public class SoftReferenceDemo2 {
+    public static void main(String[] args) throws IOException {
+
+        byte[] bytes = new byte[1024 * 1024 * 100];
+        SoftReference&lt;byte[]&gt; softReference = new SoftReference&lt;byte[]&gt;(bytes);
+        bytes = null;
+        System.out.println(softReference.get());
+
+        byte[] bytes2 = new byte[1024 * 1024 * 100];
+        System.out.println(softReference.get());
+//
+//        byte[] bytes3 = new byte[1024 * 1024 * 100];
+//        softReference = null;
+//        System.gc();
+//
+//        System.in.read();
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如果软引用对象中的数据已经被回收了，那么这个对象本身也可以被回收了<br>SoftReference提供了一套队列机制：</p>
+<ol>
+<li>软引用创建时，通过构造器传入引用队列</li>
+<li>在软引用中包含的对象被回收时，该软引用对象会被放入引用队列</li>
+<li>通过代码遍历引用队列，将SoftReference的强引用删除<pre class="line-numbers language-Java" data-language="Java"><code class="language-Java">/**
+ * 软引用案例3 - 引用队列使用
+ */
+public class SoftReferenceDemo3 {
+
+    public static void main(String[] args) throws IOException {
+
+        ArrayList&lt;SoftReference&gt; softReferences = new ArrayList&lt;&gt;();
+        ReferenceQueue&lt;byte[]&gt; queues = new ReferenceQueue&lt;byte[]&gt;();
+        for (int i = 0; i &lt; 10; i++) {
+            byte[] bytes = new byte[1024 * 1024 * 100];
+            SoftReference studentRef = new SoftReference&lt;byte[]&gt;(bytes,queues);
+            softReferences.add(studentRef);
+        }
+
+        SoftReference&lt;byte[]&gt; ref = null;
+        int count = 0;
+        while ((ref = (SoftReference&lt;byte[]&gt;) queues.poll()) != null) {
+            count++;
+        }
+        System.out.println(count);
+
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+<h5 id="弱引用"><a href="#弱引用" class="headerlink" title="弱引用"></a>弱引用</h5><p>弱引用整体与软引用基本一致，但是弱引用不管内存够不够都会直接被回收</p>
+<pre class="line-numbers language-Java" data-language="Java"><code class="language-Java">package chapter04.weak;
+
+import java.io.IOException;
+import java.lang.ref.WeakReference;
+
+/**
+ * 弱引用案例 - 基本使用
+ */
+public class WeakReferenceDemo2 {
+    public static void main(String[] args) throws IOException {
+
+        byte[] bytes = new byte[1024 * 1024 * 100];
+        WeakReference&lt;byte[]&gt; weakReference = new WeakReference&lt;byte[]&gt;(bytes);
+        bytes = null;
+        System.out.println(weakReference.get());
+
+        System.gc();
+
+        System.out.println(weakReference.get());
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="虚引用和终结器引用"><a href="#虚引用和终结器引用" class="headerlink" title="虚引用和终结器引用"></a>虚引用和终结器引用</h5><p>这两种引用在常规开发中是不会使用的。</p>
+<ul>
+<li>虚引用也叫幽灵引用/幻影引用，不能通过虚引用对象获取到包含的对象。虚引用唯一的用途是当对象被垃圾回收器回收时可以接收到对应的通知。Java中使用PhantomReference实现了虚引用，直接内存中为了及时知道直接内存对象不再使用，从而回收内存，使用了虚引用来实现。</li>
+<li>终结器引用指的是在对象需要被回收时，终结器引用会关联对象并放置在Finalizer类中的引用队列中，在稍后由一条由FinalizerThread线程从队列中获取对象，然后执行对象的finalize方法，在对象第二次被回收时，该对象才真正的被回收。在这个过程中可以在finalize方法中再将自身对象使用强引用关联上，但是不建议这样做。<pre class="line-numbers language-Java" data-language="Java"><code class="language-Java">package chapter04.finalreference;
+
+/**
+ * 终结器引用案例
+ */
+public class FinalizeReferenceDemo {
+    public static FinalizeReferenceDemo reference = null;
+
+    public void alive() {
+        System.out.println("当前对象还存活");
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        try{
+            System.out.println("finalize()执行了...");
+            //设置强引用自救
+            reference = this;
+        }finally {
+            super.finalize();
+        }
+    }
+
+    public static void main(String[] args) throws Throwable {
+        reference = new FinalizeReferenceDemo();
+       test();
+       test();
+    }
+
+    private static void test() throws InterruptedException {
+        reference = null;
+        //回收对象
+        System.gc();
+        //执行finalize方法的优先级比较低，休眠500ms等待一下
+        Thread.sleep(500);
+        if (reference != null) {
+            reference.alive();
+        } else {
+            System.out.println("对象已被回收");
+        }
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<h4 id="垃圾回收算法"><a href="#垃圾回收算法" class="headerlink" title="垃圾回收算法"></a>垃圾回收算法</h4><ol>
+<li>找到内存中存活的对象</li>
+<li>释放不再存活对象的内存，使得程序能再次利用这部分空间</li>
+</ol>
+<h4 id="垃圾回收算法的历史和分类"><a href="#垃圾回收算法的历史和分类" class="headerlink" title="垃圾回收算法的历史和分类"></a>垃圾回收算法的历史和分类</h4><p>1960年John McCarthy发布了第一个GC算法：标记-清除算法。<br>1963年Marvin L. Minsky 发布了复制算法。</p>
+<p>本质上后续所有的垃圾回收算法，都是在上述两种算法的基础上优化而来。</p>
+<h5 id="标记清除算法"><a href="#标记清除算法" class="headerlink" title="标记清除算法"></a>标记清除算法</h5><p>GCRoot包含的对象：</p>
+<blockquote>
+<p>• 虚拟机栈(栈帧中的局部变量表)中引⽤的对象<br>• 本地⽅法栈(Native ⽅法)中引⽤的对象<br>• ⽅法区中类静态属性引⽤的对象<br>• ⽅法区中常量引⽤的对象<br>• 所有被同步锁持有的对象<br>• JNI（Java Native Interface）引⽤的对象</p>
+</blockquote>
+<p>标记清除算法的核心思想分为两个阶段：</p>
+<ol>
+<li>标记阶段，将所有存活的对象进行标记。Java中使用可达性分析算法，从GC Root开始通过引用链遍历出所有存活对象。从GC Root对象开始扫描，将对象A、B、C在引用链上的对象标记出来</li>
+<li>清除阶段，从内存中删除没有被标记也就是非存活对象。将没有标记的对象清理掉，所以对象D就被清理掉了。<br>缺点：</li>
+<li>碎片化问题由于内存是连续的，所以在对象被删除之后，内存中会出现很多细小的可用内存单元。如果我们需要的是一个比较大的空间，很有可能这些内存单元的大小过小无法进行分配</li>
+<li>分配速度慢。由于内存碎片的存在，需要维护一个空闲链表，极有可能发生每次需要遍历到链表的最后才能获得合适的内存空间。 我们需要用一个链表来维护，哪些空间可以分配对象，很有可能需要遍历这个链表到最后，才能发现这块空间足够我们去创建一个对象。如下图，遍历到最后才发现有足够的空间分配3个字节的对象了。如果链表很长，遍历也会花费较长的时间。</li>
+</ol>
+<h5 id="复制算法"><a href="#复制算法" class="headerlink" title="复制算法"></a>复制算法</h5><ol>
+<li>准备两块空间From空间和To空间，每次在对象分配阶段，只能使用其中一块空间（From空间）。</li>
+<li>在垃圾回收GC阶段，将From中存活对象复制到To空间。</li>
+<li>将两块空间的From和To名字互换。下次依然在From空间上创建对象。<br>优点：</li>
+</ol>
+<ul>
+<li>吞吐量高，复制算法只需要遍历一次存活对象复制到To空间即可，比标记-整理算法少了一次遍历的过程，因而性能较好，但是不如标记-清除算法，因为标记清除算法不需要进行对象的移动</li>
+<li>不会发生碎片化，复制算法在复制之后就会将对象按顺序放入To空间中，所以对象以外的区域都是可用空间，不存在碎片化内存空间。<br>缺点：<br>内存使用效率低，每次只能让一半的内存空间来为创建对象使用。</li>
+</ul>
+<h5 id="标记整理算法"><a href="#标记整理算法" class="headerlink" title="标记整理算法"></a>标记整理算法</h5><p>标记整理算法也叫标记压缩算法，是对标记清理算法中容易产生内存碎片问题的一种解决方案。</p>
+<p>核心思想分为两个阶段：</p>
+<ol>
+<li>标记阶段，将所有存活的对象进行标记。Java中使用可达性分析算法，从GC Root开始通过引用链遍历出所有存活对象。</li>
+<li>整理阶段，将存活对象移动到堆的一端。清理掉存活对象的内存空间。<br>优点：</li>
+</ol>
+<ul>
+<li>内存使用效率高，整个堆内存都可以使用，不会像复制算法只能使用半个堆内存</li>
+<li>不会发生碎片化，在整理阶段可以将对象往内存的一侧进行移动，剩下的空间都是可以分配对象的有效空间<br>缺点：<br>整理阶段的效率不高，整理算法有很多种，比如Lisp2整理算法需要对整个堆中的对象搜索3次，整体性能不佳。可以通过Two-Finger、表格算法、ImmixGC等高效的整理算法优化此阶段的性能</li>
+</ul>
+<h5 id="分代垃圾回收算法"><a href="#分代垃圾回收算法" class="headerlink" title="分代垃圾回收算法"></a>分代垃圾回收算法</h5><p>现代优秀的垃圾回收算法，会将上述描述的垃圾回收算法组合进行使用，其中应用最广的就是分代垃圾回收算法(Generational GC)。<br>分代垃圾回收将整个内存区域划分为年轻代和老年代：<img src="/2024/06/24/02/%E5%88%92%E5%88%86.png"></p>
+<ol>
+<li>分代回收时，创建出来的对象，首先会被放入Eden伊甸园区。<img src="/2024/06/24/02/Eden.png"></li>
+<li>随着对象在Eden区越来越多，如果Eden区满，新创建的对象已经无法放入，就会触发年轻代的GC，称为Minor GC或者Young GC。Minor GC会把需要eden中和From需要回收的对象回收，把没有回收的对象放入To区。<img src="/2024/06/24/02/MinorGC.png"></li>
+<li>接下来，S0会变成To区，S1变成From区。当eden区满时再往里放入对象，依然会发生Minor GC。<img src="/2024/06/24/02/%E5%8F%98%E6%8D%A2.png"></li>
+<li>如果Minor GC后对象的年龄达到阈值（最大15，默认值和垃圾回收器有关），对象就会被晋升至老年代。<img src="/2024/06/24/02/%E8%BF%AD%E4%BB%A3.png"></li>
+<li>当老年代中空间不足，无法放入新的对象时，先尝试minor gc如果还是不足，就会触发Full GC，Full GC会对整个堆进行垃圾回收。如果Full GC依然无法回收掉老年代的对象，那么当对象继续放入老年代时，就会抛出Out Of Memory异常。</li>
+</ol>
+<p>为什么分代GC算法要把堆分成年轻代和老年代？首先我们要知道堆内存中对象的特性：</p>
+<ul>
+<li>系统中的大部分对象，都是创建出来之后很快就不再使用可以被回收，比如用户获取订单数据，订单数据返回给用户之后就可以释放了。</li>
+<li>老年代中会存放长期存活的对象，比如Spring的大部分bean对象，在程序启动之后就不会被回收了。</li>
+<li>在虚拟机的默认设置中，新生代大小要远小于老年代的大小。</li>
+</ul>
+<p>分代GC算法将堆分成年轻代和老年代主要原因有：</p>
+<ol>
+<li>可以通过调整年轻代和老年代的比例来适应不同类型的应用程序，提高内存的利用率和性能。</li>
+<li>新生代和老年代使用不同的垃圾回收算法，新生代一般选择复制算法，老年代可以选择标记-清除和标记-整理算法，由程序员来选择灵活度较高。</li>
+<li>分代的设计中允许只回收新生代（minor gc），如果能满足对象分配的要求就不需要对整个堆进行回收(full gc),STW时间就会减少。</li>
+</ol>
+<h4 id="垃圾回收器-重点"><a href="#垃圾回收器-重点" class="headerlink" title="垃圾回收器 重点"></a>垃圾回收器 重点</h4><h2 id="一些好用JVM分析工具"><a href="#一些好用JVM分析工具" class="headerlink" title="一些好用JVM分析工具"></a>一些好用JVM分析工具</h2><h3 id="Arthas-Arthas-Install-arthas-aliyun-com"><a href="#Arthas-Arthas-Install-arthas-aliyun-com" class="headerlink" title="[Arthas](Arthas Install | arthas (aliyun.com))"></a>[Arthas](<a target="_blank" rel="noopener" href="https://arthas.aliyun.com/doc/install-detail.html">Arthas Install | arthas (aliyun.com)</a>)</h3><p><img src="/2024/06/24/02/Arthas.png"><br>阿里开发的工具</p>
+<h1 id="内存分配"><a href="#内存分配" class="headerlink" title="内存分配"></a>内存分配</h1><p><img src="/2024/06/24/02/%E5%A0%86%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D.png"></p>
+<ol>
+<li>优先分配在Eden区，如果Eden区没有足够的空间进行分配时，虚拟机会进行一次MinorGC，而那些无需回收的存货对象会进入Survivor的From区，再不满足就进入Old区</li>
+<li>大对象直接进入老年代，避免在Eden区和两个Survivor区之间发生大量的内存拷贝</li>
+<li>长期存货的对象进入老年代，虚拟机为每一个对象定义一个年龄计数器，经过一次MinorCG就会进入Survivor区，此后每经历一次都会年龄+1，到达阈值，对象进入老年区。</li>
+<li></li>
+</ol>
+<h2 id="Full-GC和Minor-GC和内存回收算法"><a href="#Full-GC和Minor-GC和内存回收算法" class="headerlink" title="Full GC和Minor GC和内存回收算法"></a>Full GC和Minor GC和内存回收算法</h2><blockquote>
+<p>大多数情况下，对象在新生代中Eden区分配，当Eden区没有足够的内存进行分配时，回发起一次Minor GC。经过第一次Minor GC仍能够存货，并且能够被Survior容器容纳的话，会被移动到Survivor空间。并且将对象年龄设置为1，之后对象每熬过一次MinorGC，年龄就增加1岁，当它的年龄达到一定程度时，就会被晋级到老年代中。部分垃圾回收器会将大对象直接放入就老代。</p>
+</blockquote>
+<h3 id="Minor-GC-x2F-Young-GC"><a href="#Minor-GC-x2F-Young-GC" class="headerlink" title="Minor GC/ Young GC"></a>Minor GC/ Young GC</h3><p>只对新生代进行垃圾收集</p>
+<h3 id="Major-GC-x2F-Old-GC"><a href="#Major-GC-x2F-Old-GC" class="headerlink" title="Major GC / Old GC"></a>Major GC / Old GC</h3><p>只对老年代进行GC，有时候也可以代指Full GC</p>
+<h3 id="Full-GC"><a href="#Full-GC" class="headerlink" title="Full GC"></a>Full GC</h3><p>回收整个Java堆和方法区</p>
+<h2 id="内存调优"><a href="#内存调优" class="headerlink" title="内存调优"></a>内存调优</h2><p>内存泄漏(memory leak)：Java中的如果不再使用一个对象，但是该对象依然在CG ROOT的引用链上，这个对象就不会被回收。<br>绝大数情况都是由堆内存泄露引起的<br>常见由：</p>
+<ol>
+<li>没有及时删除缓存数据</li>
+<li>分布式任务调度系统等进行任务调度任务结束中出现了内存泄漏。</li>
+</ol>
+<h3 id="代码中的内存泄漏"><a href="#代码中的内存泄漏" class="headerlink" title="代码中的内存泄漏"></a>代码中的内存泄漏</h3><h4 id="equals和hashCode，不正确使用会导致泄漏"><a href="#equals和hashCode，不正确使用会导致泄漏" class="headerlink" title="equals和hashCode，不正确使用会导致泄漏"></a>equals和hashCode，不正确使用会导致泄漏</h4><ol>
+<li><strong>不一致的&nbsp;<code>equals()</code>&nbsp;和&nbsp;<code>hashCode()</code>&nbsp;实现</strong>：<ul>
+<li>如果两个对象根据&nbsp;<code>equals()</code>&nbsp;方法被认为是相等的，那么它们的&nbsp;<code>hashCode()</code>&nbsp;值也必须相等。如果这个规则被违反，可能会导致哈希表中的对象无法正确地被访问和删除，从而导致内存泄漏。</li>
+</ul>
+</li>
+<li><strong>对象无法被正确移除</strong>：<ul>
+<li>在使用哈希表时，如果对象的&nbsp;<code>hashCode()</code>&nbsp;值在插入后发生变化，可能会导致对象无法被正确移除，因为哈希表依赖于&nbsp;<code>hashCode()</code>&nbsp;值来定位对象。<br>在定义新类时没有重写正确的equals()和hashCode()方法。在使用HashMap的场景下，如果使用这个类对象作为key，HashMap在判断key是否已经存在时会使用这些方法，如果重写方式不正确，会导致相同的数据被保存多份。<br>正常情况：</li>
+</ul>
+</li>
+<li>以JDK8为例，首先调用hash方法计算key的哈希值，hash方法中会使用到key的hashcode方法。根据hash方法的结果决定存放的数组中位置。</li>
+<li>如果没有元素，直接放入。如果有元素，先判断key是否相等，会用到equals方法，如果key相等，直接替换value；key不相等，走链表或者红黑树查找逻辑，其中也会使用equals比对是否相同。<br>异常情况：</li>
+<li>hashCode方法不对，导致相同id的学生对象计算出来的hash值不同被放在不同的槽中</li>
+<li>equals方法不对，导致即使id相同，也会被认为是不同的对象<br>下列代码会重复添加这个对象，导致内存溢出，因为不是相同的对象实例</li>
+</ol>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">  <span class="token keyword">class</span> <span class="token class-name">Student</span> <span class="token punctuation">{</span>
+        <span class="token class-name">Integer</span> id<span class="token punctuation">;</span>
+        <span class="token class-name">String</span> name<span class="token punctuation">;</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setId</span><span class="token punctuation">(</span><span class="token class-name">Integer</span> id<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>id <span class="token operator">=</span> id<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setName</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">public</span> <span class="token class-name">Integer</span> <span class="token function">getId</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> id<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> name<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token keyword">class</span> <span class="token class-name">Main</span> <span class="token punctuation">{</span>
+	    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">long</span> count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+	    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Student</span><span class="token punctuation">,</span><span class="token class-name">Long</span><span class="token punctuation">&gt;</span></span> map <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">InterruptedException</span> <span class="token punctuation">{</span>
+	        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+	            <span class="token class-name">Student</span> student <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Student</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	            student<span class="token punctuation">.</span><span class="token function">setId</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	            student<span class="token punctuation">.</span><span class="token function">setName</span><span class="token punctuation">(</span><span class="token string">"张三"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	            map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>student<span class="token punctuation">,</span><span class="token number">1L</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	        <span class="token punctuation">}</span>
+	    <span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>解决方案：</p>
+<ol>
+<li>在定义新实体时，始终重写equals()和hashCode()方法。</li>
+<li>重写时一定要确定使用了唯一标识去区分不同的对象，比如用户的id等。</li>
+<li>hashmap使用时尽量使用编号id等数据作为key，不要将整个实体类对象作为key存放。</li>
+</ol>
+<h4 id="ThreadLocal的使用"><a href="#ThreadLocal的使用" class="headerlink" title="ThreadLocal的使用"></a>ThreadLocal的使用</h4><p>线程池中的线程不被回收导致的ThreadLocal内存泄漏<br>如果仅仅使用手动创建的线程，就算没有调用ThreadLocal的remove方法清理数据，也不会产生内存泄漏。因为当线程被回收时，ThreadLocal也同样被回收。但是如果使用线程池就不一定了。<br>解决方案：<br>线程方法执行完，一定要调用ThreadLocal中的remove方法清理对象。</p>
+<h4 id="内部类引用外部类"><a href="#内部类引用外部类" class="headerlink" title="内部类引用外部类"></a>内部类引用外部类</h4><p>非静态的内部类和匿名内部类的错误使用导致内存泄漏</p>
+<ol>
+<li><strong>非静态的内部类默认会持有外部类</strong> ，尽管代码上不再使用外部类，所以如果有地方引用了这个非静态内部类，会导致外部类也被引用，垃圾回收时无法回收这个外部类。</li>
+<li>匿名内部类对象如果在非静态方法中被创建，会持有调用者对象，垃圾回收时无法回收调用者。</li>
+</ol>
+<p>解决方案：</p>
+<ol>
+<li>使用静态内部类从而不持有外部对象</li>
+<li>使用静态方法，避免匿名内部类持有调用者对象</li>
+</ol>
+<h4 id="String的intern方法"><a href="#String的intern方法" class="headerlink" title="String的intern方法"></a>String的intern方法</h4><p>由于JDK6中的字符串常量池位于永久代，intern被大量调用并保存产生的内存泄漏</p>
+<h4 id="通过静态字段保存对象"><a href="#通过静态字段保存对象" class="headerlink" title="通过静态字段保存对象"></a>通过静态字段保存对象</h4><p>大量的数据在静态变量中被引用，但是不再使用，成为了内存泄漏<br>问题：<br>如果大量的数据在静态变量中被长期引用，数据就不会被释放，如果这些数据不再使用，就成为了内存泄漏。</p>
+<p>解决方案：<br>1、尽量减少将对象长时间的保存在静态变量中，如果不再使用，必须将对象删除（比如在集合中）或者将静态变量设置为null。<br>2、使用单例模式时，尽量使用懒加载，而不是立即加载。</p>
+<pre class="line-numbers language-Java" data-language="Java"><code class="language-Java">package com.itheima.jvmoptimize.leakdemo.demo7;
+
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
+
+@Lazy //懒加载
+@Component
+public class TestLazy {
+    private byte[] bytes = new byte[1024 * 1024 * 1024];
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="资源没有正常关闭"><a href="#资源没有正常关闭" class="headerlink" title="资源没有正常关闭"></a>资源没有正常关闭</h4><p>由于资源没有调用close方法正常关闭，导致的内存溢出<br>连接和流这些资源会占用内存，如果使用完之后没有关闭，这部分内存不一定会出现内存泄漏，但是会导致close方法不被执行。<br>解决方案：</p>
+<ol>
+<li>为了防止出现这类的资源对象泄漏问题，必须在finally块中关闭不再使用的资源。</li>
+<li>从 Java 7 开始，使用try-with-resources语法可以用于自动关闭资源。<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">try</span> <span class="token punctuation">(</span>
+    <span class="token class-name">BufferedReader</span> br <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BufferedReader</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">FileReader</span><span class="token punctuation">(</span><span class="token string">"file1.txt"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">BufferedReader</span> br2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BufferedReader</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">FileReader</span><span class="token punctuation">(</span><span class="token string">"file2.txt"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 使用资源</span>
+<span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">IOException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+<h4 id="并发请求问题"><a href="#并发请求问题" class="headerlink" title="并发请求问题"></a>并发请求问题</h4><h2 id="GC调优"><a href="#GC调优" class="headerlink" title="GC调优"></a>GC调优</h2><p>GC调优是对垃圾回收进行调优，GC调优的主要目标是避免由垃圾回收引起程序性能下降<br>可以进行调优的内容：</p>
+<ol>
+<li>通用JVM参数的设置</li>
+<li>特定垃圾回收器的JVM参数的设置</li>
+<li>解决由频繁FULLGC引起的程序性能问题</li>
+</ol>
+<h3 id="调优指标："><a href="#调优指标：" class="headerlink" title="调优指标："></a>调优指标：</h3><h4 id="垃圾回收的吞吐量"><a href="#垃圾回收的吞吐量" class="headerlink" title="垃圾回收的吞吐量"></a>垃圾回收的吞吐量</h4><ul>
+<li>吞吐量，一段时间内程序需要完成的业务数量。<br>保证高吞吐量的常规手段有两条：<br>1、优化业务执行性能，减少单次业务的执行时间<br>2、优化垃圾回收吞吐量</li>
+</ul>
+<p>垃圾回收吞吐量指的是 CPU 用于执行用户代码的时间与 CPU 总执行时间的比值，即吞吐量 = 执行用户代码时间 /（执行用户代码时间 + GC时间）。吞吐量数值越高，垃圾回收的效率就越高，允许更多的CPU时间去处理用户的业务，相应的业务吞吐量也就越高。</p>
+<h4 id="延迟"><a href="#延迟" class="headerlink" title="延迟"></a>延迟</h4><p>1延迟指的是从用户发起一个请求到收到响应这其中经历的时间。比如企业中对于延迟的要求可能会是这样的：<br>所有的请求必须在5秒内返回给用户结果</p>
+<p>延迟 = GC延迟 + 业务执行时间，所以如果GC时间过长，会影响到用户的使用。</p>
+<h4 id="内存使用量"><a href="#内存使用量" class="headerlink" title="内存使用量"></a>内存使用量</h4><p>内存使用量指的是Java应用占用系统内存的最大值，一般通过Jvm参数调整，在满足上述两个指标的前提下，这个值越小越好。</p>
+<h3 id="调优工具"><a href="#调优工具" class="headerlink" title="调优工具"></a>调优工具</h3><h4 id="jstat工具"><a href="#jstat工具" class="headerlink" title="jstat工具"></a>jstat工具</h4><p>Jstat工具是JDK自带的一款监控工具，可以提供各种垃圾回收、类加载、编译信息<br>等不同的数据。使用方法为：<code>jstat -gc 进程ID 每次统计的间隔（毫秒） 统计次数</code></p>
+<p>C代表Capacity容量，U代表Used使用量<br>S – 幸存者区，E – 伊甸园区，O – 老年代，M – 元空间<br>YGC、YGT：年轻代GC次数和GC耗时（单位：秒）<br>FGC、FGCT：Full GC次数和Full GC耗时<br>GCT：GC总耗时</p>
+<h4 id="Visualvm插件"><a href="#Visualvm插件" class="headerlink" title="Visualvm插件"></a>Visualvm插件</h4><h4 id="Prometheus-Grafana"><a href="#Prometheus-Grafana" class="headerlink" title="Prometheus + Grafana"></a>Prometheus + Grafana</h4><h4 id="GC日志"><a href="#GC日志" class="headerlink" title="GC日志"></a>GC日志</h4><h5 id="分析GC日志-GCViewer"><a href="#分析GC日志-GCViewer" class="headerlink" title="分析GC日志 - GCViewer"></a>分析GC日志 - GCViewer</h5><hr>
+<h2 id="GraalVM"><a href="#GraalVM" class="headerlink" title="GraalVM"></a>GraalVM</h2><p>GraalVM是Oracle官方推出的一款高性能JDK，使用它享受比OpenJDK或者OracleJDK更好的性能。<br>两种模式：</p>
+<ul>
+<li>JIT（ Just-In-Time ）模式 ，即时编译模式，在运行时将热点代码编译为本地机器码，以提高执行效率。</li>
+<li>AOT（Ahead-Of-Time）模式 ，提前编译模式</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/06/17/08/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2273,448 +2958,6 @@ fi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/05/13/08/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="QingQiu">
-      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="QingQiu'Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/05/13/08/" class="post-title-link" itemprop="url">多线程</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-05-13 18:05:08" itemprop="dateCreated datePublished" datetime="2024-05-13T18:05:08+08:00">2024-05-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-09-29 15:55:52" itemprop="dateModified" datetime="2024-09-29T15:55:52+08:00">2024-09-29</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B9%B6%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">并发</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>8.6k</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h1><p>#todo </p>
-<ul>
-<li><input disabled type="checkbox"> <a target="_blank" rel="noopener" href="https://www.yuque.com/tulingzhouyu/db22bv/gd98aqe6nn6e73qq">金三银四精选面试题系列-徐庶 (yuque.com)</a>专门写一个线程池相关的文章</li>
-<li><input disabled type="checkbox"> 泛型相关的<a target="_blank" rel="noopener" href="https://www.yuque.com/tulingzhouyu/db22bv/avpxs3qirk1w4qod">👍 2024金三银四100道面试题笔记资料 (yuque.com)</a></li>
-</ul>
-<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><ol>
-<li>CAS (Compare-And-Swap，比较并交换)，是一种用于实现多线程同步的原子操作。主要原理：1.比较内存中的某个位置的当前值和预期值 2.交换如果当前值与预期值相等，则将该位置的值更新为新值，否则不进行任何操作。<ul>
-<li>因为是原子操作所以在多线程中很高效。可以实现无锁编程，避免了上下文切换的开销。</li>
-<li>缺点是如果CAS操作失败后，通常会进行自旋，消耗CPU资源。</li>
-</ul>
-</li>
-<li>自旋：当一个线程尝试获取锁但是所以经被其他线程获取时，该线程不会进入睡眠模式，而是会在一个循环中不断的检查锁的状态，直到锁被释放，这种方式叫做自旋。<ul>
-<li>优点是：低开销，可以避免线程上下文切换的开销，因为线程不会进入睡眠状态。适用于短时间的锁定，因为时间段，自旋等待的开销可能比线程切换开销更低。</li>
-<li>缺点是：CPU消耗搞，自旋不断等待占用CPU，也不适合长时间锁定，因为线程会长时间占用CPU资源进行无效的检查。</li>
-</ul>
-</li>
-<li>并发：一段时间内进行  并行：同一时刻同时进行</li>
-</ol>
-<h2 id="原子操作"><a href="#原子操作" class="headerlink" title="原子操作"></a>原子操作</h2><p><img src="/2024/05/13/08/CPU%E6%A6%82%E5%BF%B5.png"></p>
-<h3 id="处理器如何实现原子操作的"><a href="#处理器如何实现原子操作的" class="headerlink" title="处理器如何实现原子操作的"></a>处理器如何实现原子操作的</h3><ol>
-<li>使用总线锁来保证原子性：如果多个处理器同时对共享变量进行读改写操作(例如i++)，共享会被多个处理器同时进行操作，导致共享变量的值与期望不同。<img src="/2024/05/13/08/i++.png">因为他们会从自己的缓存中读取变量i，然后分别进行+1，之后分别写入系统内存中<ul>
-<li>处理器总线锁：使用了处理器提供的LOCK#信号，当一个处理器在总线上发出这个信号，其他处理器的请求将被阻塞住。从而实现独占共享内存。</li>
-</ul>
-</li>
-<li>使用缓存锁：总线锁会导致其他处理器不能处理其他内存地址的数据，我们只需要保证对某个内存地址的操作是原子的就行。<ul>
-<li>频繁使用的内存会缓存在处理器的L1、L2、L3高速缓存中。</li>
-<li>缓存锁定：缓存锁定是某个CPU对缓存数据进行更改时，会通知缓存了该数据的该数据的CPU抛弃缓存的数据或者从内存重新读取。</li>
-</ul>
-</li>
-</ol>
-<h2 id="多线程就一定快吗？"><a href="#多线程就一定快吗？" class="headerlink" title="多线程就一定快吗？"></a>多线程就一定快吗？</h2><p>不一定，因为线程切换涉及到上下文切换和线程创建的开销</p>
-<h2 id="如何减少上下文的切换次数"><a href="#如何减少上下文的切换次数" class="headerlink" title="如何减少上下文的切换次数"></a>如何减少上下文的切换次数</h2><ol>
-<li>无锁并发编程：避免使用锁，利用将数据的ID按照Hash算法取模运算，不同线程处理不同段的数据</li>
-<li>CAS算法：不需要加锁</li>
-<li>使用最少线程：避免创建不需要的线程</li>
-<li>协程：单线程中实现多任务的调度，并且再单线程中维持多个任务间的切</li>
-</ol>
-<h2 id="资源限制"><a href="#资源限制" class="headerlink" title="资源限制"></a>资源限制</h2><p>并发编程中，如果多线程占用的资源超过系统资源的限制，实际上仍然是串行执行的，而且因为有上下文切换的影响，反而会更慢</p>
-<h2 id="如何避免死锁"><a href="#如何避免死锁" class="headerlink" title="如何避免死锁"></a>如何避免死锁</h2><ol>
-<li>避免一个线程同时获得多个锁</li>
-<li>避免一个线程在锁内同事占用多个资源，尽量保证每个锁只占用一个资源</li>
-<li>尝试使用定时锁 <code>lock.tryLock(timeout)</code>来替代内部锁机制</li>
-<li>对于数据库锁，枷锁和解锁必须在一个数据库连接里，否则会出现解锁失败的情况</li>
-</ol>
-<h2 id="常用的线程分析工具"><a href="#常用的线程分析工具" class="headerlink" title="常用的线程分析工具"></a>常用的线程分析工具</h2><h3 id="vmstat"><a href="#vmstat" class="headerlink" title="vmstat"></a>vmstat</h3><p>常用指令，具体的参数自己去搜，这里主要看的是cs指标，代表每秒上下文切换次数</p>
-<pre class="line-numbers language-css" data-language="css"><code class="language-css">vmstat [delay] [count] 后面参数可选
-每隔delay秒输出一次统计信息，总共输出count次
-vmstat -s 显示系统的累计统计信息
-	   -d 显示统计信息
-	   -p +指定分区 显示指定分区的统计信息
-	   -a 显示活动内存和非活动内存的信息
-	   -m 显示slabinfo信息<span class="token punctuation">(</span>`slabinfo` 是 Linux 内核中用于显示 slab 分配器（slab allocator）信息的工具<span class="token punctuation">)</span>
-	   -t 在输出中添加时间戳<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="Java中的多线程"><a href="#Java中的多线程" class="headerlink" title="Java中的多线程"></a>Java中的多线程</h2><p>当在一个JVM进程里面开多个线程时，这些线程被分成两类：守护线程和非守护线程。默认开的都是非守护线程。在Java中有一个规定：当所有的非守护线程退出后，整个JVM进程就会退出。意思就是守护线程“不算作数”，守护线程不影响整个 JVM 进程的退出。例如，垃圾回收线程就是守护线程，它们在后台默默工作，当开发者的所有前台线程（非守护线程）都退出之后，整个JVM进程就退出了。</p>
-<h2 id="Wait方法为什么不定义在Thread中？"><a href="#Wait方法为什么不定义在Thread中？" class="headerlink" title="Wait方法为什么不定义在Thread中？"></a>Wait方法为什么不定义在Thread中？</h2><p>Wait释放的锁是写在Java对象头中，所以是写在Object中而非当前线程</p>
-<h3 id="锁的分类和对比"><a href="#锁的分类和对比" class="headerlink" title="锁的分类和对比"></a>锁的分类和对比</h3><p>Java中锁存在四种状态</p>
-<ol>
-<li>无锁状态</li>
-<li>偏向锁状态</li>
-<li>轻量级锁状态</li>
-<li>重量级锁状态<br>锁可以升级但是不能降级，这种设定能够提高获得锁和释放锁的效率<br><img src="/2024/05/13/08/%E9%94%81%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9.png"></li>
-</ol>
-<h4 id="偏向锁"><a href="#偏向锁" class="headerlink" title="偏向锁"></a>偏向锁</h4><p>大多数情况下锁不仅不存在多线程竞争，而且总是由同意线程多次获得。<br>当一个线程访问同步块并且获得锁时，会在对象头和栈帧中的锁记录里面存锁偏向的线程ID，以后该线程进入/推出额同步块块时，不需要进行CAS来进行枷锁和解锁，只需要测试对象头Mark Word里是否存储着这项当前线程的偏向锁。<br>如果测试失败就看偏向锁的标识是否为1，1是偏向锁，如果不是就用CAS竞争锁，否则尝试使用CAS将偏向锁设置为当前线程</p>
-<h5 id="偏向锁的撤销"><a href="#偏向锁的撤销" class="headerlink" title="偏向锁的撤销"></a>偏向锁的撤销</h5><ol>
-<li>偏向锁只有其他线程尝试竞争偏向锁时持有偏向锁的线程才会释放锁。</li>
-<li>偏向锁的撤销，需要在全局安全点(在这个事件电商没有正在执行的字节码)，会先暂停拥有偏向锁的线程，然后检查持有偏向锁的线程是否或者，如果线程处于不活跃状态，则将对象头设置成无锁状态；如果线程仍然存活，则拥有偏向锁的栈会被执行，便利偏向对象的锁记录，要么重新偏向其他线程，要么恢复到无锁或者标记独享不适合作为偏向锁，最后唤醒暂停的线程。</li>
-</ol>
-<h4 id="轻量级锁"><a href="#轻量级锁" class="headerlink" title="轻量级锁"></a>轻量级锁</h4><h5 id="加锁"><a href="#加锁" class="headerlink" title="加锁"></a>加锁</h5><blockquote>
-<p>线程在执行同步块之前，JVM会在当前线程的栈帧中创建用于存储锁记录的空间，并且将对象头中的Mark Word复制到锁记录中(Displaced Mark Word替)。然后线程尝试使用CAS将对象头中的Mark Word替换为只想所记录的指针。如果成功，当前线程获得锁，如果失败，尝试使用自旋来获得锁。</p>
-</blockquote>
-<h5 id="解锁"><a href="#解锁" class="headerlink" title="解锁"></a>解锁</h5><blockquote>
-<p>会使用原子的CAS操作将Displaced Mark Word替换回对象头。如果成功则说明没有竞争发生，如果失败，标识当前锁存在竞争。锁会升级成重量级锁。</p>
-</blockquote>
-<h3 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h3><p>volatile是轻量级的synchronized，保证了共享变量的可见性，同时不会引起上下文的切换和调度。<br>但是i++不能保证原子性的，因为i++是读写两次操作。<br>JVM中并没有要求64位long/double写入是原子的。所以多线程读取时又可以读到的是”一半”的值。这个时候就需要使用volatile了</p>
-<h4 id="主要功能"><a href="#主要功能" class="headerlink" title="主要功能"></a>主要功能</h4><ol>
-<li>保证单词写入/读入原子性</li>
-<li>内存可见性</li>
-<li>禁止重排序</li>
-</ol>
-<h4 id="前置概念"><a href="#前置概念" class="headerlink" title="前置概念"></a>前置概念</h4><p><img src="/2024/05/13/08/%E5%89%8D%E7%BD%AE%E6%A6%82%E5%BF%B5.png"></p>
-<h4 id="volatile是如何实现的？"><a href="#volatile是如何实现的？" class="headerlink" title="volatile是如何实现的？"></a>volatile是如何实现的？</h4><ol>
-<li>转变成汇编语言之后会多一个Lock前缀，这个前缀会将当前处理器缓存行的数据写回系统内存，同时其他CPU中缓存了该内存地址的数据无效。修改volatile变量会强制将修改之后的值刷新到内存中同时导致其他线程中的该变量值失效。</li>
-<li>处理器会根据MESI(修改、独占、共享、无效)控制协议去维护内部缓存。处理器使用嗅探技术保证它的内部缓存、系统内存和其他处理器的缓存的数据在总线上保持一致。</li>
-</ol>
-<p>可见性：<br>修改volatile变量会强制将修改之后的值刷新到内存中<br>同时导致其他线程中的该变量值失效。<br>有序性：遵循happen-before<br>内存屏障：JVM通过内存屏障来实现的</p>
-<h4 id="内存屏障"><a href="#内存屏障" class="headerlink" title="内存屏障"></a>内存屏障</h4><p>CPU防止代码进行重排序而提供的指令。<br>Unsafe提供了以下的内存屏障方法</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//内存屏障，禁止load操作重排序。屏障前的load操作不能被重排序到屏障后，屏障后的load操作不能被重排序到屏障前</span>
-<span class="token keyword">public</span> <span class="token keyword">native</span> <span class="token keyword">void</span> <span class="token function">loadFence</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment">//内存屏障，禁止store操作重排序。屏障前的store操作不能被重排序到屏障后，屏障后的store操作不能被重排序到屏障前</span>
-<span class="token keyword">public</span> <span class="token keyword">native</span> <span class="token keyword">void</span> <span class="token function">storeFence</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment">//内存屏障，禁止load、store操作重排序</span>
-<span class="token keyword">public</span> <span class="token keyword">native</span> <span class="token keyword">void</span> <span class="token function">fullFence</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="重排序问题"><a href="#重排序问题" class="headerlink" title="重排序问题"></a>重排序问题</h4><blockquote>
-<p>执行程序时，为了提高性能编译器和处理器常常会对执行进行重排序。</p>
-<ol>
-<li>编译器优化的重排序：不改变单线程语义的情况下，可以重新安排语句的执行顺序</li>
-<li>指令级并行的重排序：现代处理器采用了指令级并行技术来讲多条指令重叠执行。如果不存在数据依赖性，处理器可以改变语句对应机器指令的执行顺序。</li>
-<li>内存系统的重排序：由于处理器使用缓存和读/写缓冲区，是的加载和存储操作看上去可能时再乱序执行</li>
-</ol>
-</blockquote>
-<p><img src="/2024/05/13/08/%E9%87%8D%E6%8E%92%E5%BA%8F.png"></p>
-<h5 id="as-if-serial"><a href="#as-if-serial" class="headerlink" title="as-if-serial"></a>as-if-serial</h5><p>多线程程序中的重排序，编译器和CPU只能保证每个线程的线程内部之间都是“看似完全串行的”，但是多个线程会相互读取和写入共享的变量不会进行考虑。</p>
-<h5 id="happen-before"><a href="#happen-before" class="headerlink" title="happen-before"></a>happen-before</h5><p>保证一个线程的执行结果对另一个线程可见。</p>
-<h3 id="synchronized"><a href="#synchronized" class="headerlink" title="synchronized"></a>synchronized</h3><h4 id="是可重入的吗"><a href="#是可重入的吗" class="headerlink" title="是可重入的吗"></a>是可重入的吗</h4><blockquote>
-<p>可重入（Reentrant）是指在多线程环境中，一个函数可以被多个线程同时调用而不会引起任何问题。</p>
-</blockquote>
-<p>是可重入的，因为synchronized关键字是基于JVM内部的监视器锁，这种锁是依赖于对象头中的标记字段来管理锁的状态。<br>当线程第一次获得锁时，他的线程ID会被记录在对象头的标记字段中，并且计数器设置为1，如果同一线程需要再次进入由自己持有锁的synchronized块时，计数器就会+1，当synchronized块时，计数器-1。当计数器回到0时，锁才真正被释放，此时其他线程可以尝试获取这个锁。</p>
-<h4 id="synchronized可以锁的类型"><a href="#synchronized可以锁的类型" class="headerlink" title="synchronized可以锁的类型"></a>synchronized可以锁的类型</h4><ol>
-<li>对于普通同步方法，锁的是实例对象</li>
-<li>对于静态同步方法，锁的是当前类的Class对象，包括这个类的所有对象</li>
-<li>对于同步方法块，锁的是Synchornized括号里的对象</li>
-</ol>
-<h4 id="实现和原理"><a href="#实现和原理" class="headerlink" title="实现和原理"></a>实现和原理</h4><ol>
-<li>synchronized用的锁是存在Java对象头里的，如果对象是数组类型，则虚拟机用三个字宽存储对象头。<img src="/2024/05/13/08/Java%E5%AF%B9%E8%B1%A1%E5%A4%B4.png"></li>
-<li>对象头会随着锁标志位的变化而变化 <img src="/2024/05/13/08/%E5%AF%B9%E8%B1%A1%E5%A4%B4%E4%BC%9A%E9%9A%8F%E7%9D%80%E9%94%81%E6%A0%87%E5%BF%97%E4%BD%8D%E7%9A%84%E5%8F%98%E5%8C%96%E8%80%8C%E5%8F%98%E5%8C%96.png" alt="对象头会随着锁标志位的变化而变化"></li>
-</ol>
-<h3 id="Java内存模型的基础"><a href="#Java内存模型的基础" class="headerlink" title="Java内存模型的基础"></a>Java内存模型的基础</h3><p>并发编程中常常需要解决线程之间如何进行通信和如何进行同步。<br>在命令式编程中，线程之间的通信机制有两种：共享内存和消息传递。</p>
-<blockquote>
-<p>共享内存是线程共享程序的公共状态，通过读写内存的公共状态来进行通信。消息传递则是线程之间必须通过发送消息来显示的进行通信。</p>
-</blockquote>
-<p>Java中使用的是共享内存模型。<img src="/2024/05/13/08/Java%E7%BA%BF%E7%A8%8B%E5%86%85%E5%AD%98%E5%85%B1%E4%BA%AB.png"><br>他们之间的通信需要修改共享变量，然后由另一个去读取共享变量来实现。<br>JDK5 开始，Java使用JSP-133内存模型，使用happens-before：前一个操作的结果对后一个操作可见 </p>
-<h3 id="CountDownLatch"><a href="#CountDownLatch" class="headerlink" title="CountDownLatch"></a>CountDownLatch</h3><h4 id="什么是CountDownLatch？"><a href="#什么是CountDownLatch？" class="headerlink" title="什么是CountDownLatch？"></a>什么是CountDownLatch？</h4><p>CountDownLatch 是通过一个计数器来实现的，计数器的初始值就是线程的数量，每当一个线程执行完毕之后，计数器的值就-1，然后在闭锁上等待的线程就可以恢复工作了。<br>主要使用场景：</p>
-<ul>
-<li>用于等待多个线程完成一个整体的前提任务<br>实例：在进行业务之前将两个数据库中的数据进行同步(非集群的数据库)<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>concurrent<span class="token punctuation">.</span></span><span class="token class-name">CountDownLatch</span></span><span class="token punctuation">;</span>
-
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DatabaseSync</span> <span class="token punctuation">{</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">syncDatabase1</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment">// 这里是同步数据库1的代码</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">syncDatabase2</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment">// 这里是同步数据库2的代码</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">sync</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">InterruptedException</span> <span class="token punctuation">{</span>
-        <span class="token class-name">CountDownLatch</span> latch <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">CountDownLatch</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-        <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-&gt;</span> <span class="token punctuation">{</span>
-            <span class="token function">syncDatabase1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            latch<span class="token punctuation">.</span><span class="token function">countDown</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-        <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-&gt;</span> <span class="token punctuation">{</span>
-            <span class="token function">syncDatabase2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            latch<span class="token punctuation">.</span><span class="token function">countDown</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-        <span class="token comment">// 等待两个数据库同步操作完成</span>
-        latch<span class="token punctuation">.</span><span class="token function">await</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Both databases have been synchronized."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">InterruptedException</span> <span class="token punctuation">{</span>
-        <span class="token keyword">new</span> <span class="token class-name">DatabaseSync</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sync</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-<h3 id="JUC包"><a href="#JUC包" class="headerlink" title="JUC包"></a>JUC包</h3><h4 id="CompletableFuture"><a href="#CompletableFuture" class="headerlink" title="CompletableFuture"></a>CompletableFuture</h4><p>Future的缺点：不支持异步任务的编排，同时get方法是阻塞调用<br>完全可控的Fututure<br>使⽤线程池时，我们应该尽量避免将耗时任务提交到线程池中执⾏。对于⼀些⽐较耗时的操作，如<br>⽹络请求、⽂件读写等，可以采⽤ CompletableFuture 等其他异步操作的⽅式来处理，以避<br>免阻塞线程池中的线程<br>示例代码：</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">CompletableFuture</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Map</span><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">Map</span><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">&gt;</span><span class="token punctuation">&gt;</span><span class="token punctuation">&gt;</span></span> future <span class="token operator">=</span> <span class="token class-name">CompletableFuture</span><span class="token punctuation">.</span><span class="token function">supplyAsync</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-&gt;</span> adminClient<span class="token punctuation">.</span><span class="token function">distributedInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h4 id="CompletableFuture源码分析"><a href="#CompletableFuture源码分析" class="headerlink" title="CompletableFuture源码分析"></a>CompletableFuture源码分析</h4><ul>
-<li>runAsync不允许返回值，适合需要一步操作但是不关心返回结果 </li>
-<li>supplyAsync需要返回值，适合需要返回值的异步操作</li>
-<li>thenApply、thenAccept、thenRun、whenComplete 可以对结果进行进一步处理</li>
-<li>异常处理使用handle</li>
-<li>合并future结果，thenCompose是链接两个CompletabelFuture，并将前一个结果作为下一个任务参数，thenCombine会将两个任务都结束之后，将两个任务的结果合并，并行执行</li>
-<li>allOf等待所有的执行完成之后再调用<br>默认使用的是ForkJoinPool.commonPool作为执行器，这个线程池全局共享，可能会被其他任务占用</li>
-</ul>
-<h4 id="ConcurrentHashMap"><a href="#ConcurrentHashMap" class="headerlink" title="ConcurrentHashMap"></a>ConcurrentHashMap</h4><p>线程安全的HashMap，多线程情况下HashMap进行put操作会进入死循环。而使用HashTable效率又很低，因为当一个线程访问HashTable的同步方法，其他线程也访问时，会进入阻塞或轮询状态，所有的线程都必须竞争同一把锁。而我们只需要有多把锁，每一把锁都只锁住某一部分数据即可。这就是ConcurrentHashMap使用的锁分段技术。<br>JDK1.7使用的是分段的数据+链表实现的，JDK1.8使用的数据结构跟HashMap一职，数组+链表/红黑树。使用的是Node数组+链表+红黑树，通过synchronized和CAS操作来帮正线程安全</p>
-<h4 id="实现原理-具体看源码"><a href="#实现原理-具体看源码" class="headerlink" title="实现原理 具体看源码"></a>实现原理 具体看源码</h4><h5 id="1-7"><a href="#1-7" class="headerlink" title="1.7"></a>1.7</h5><p>Segment数组(不可扩容) 作为分段锁，是可重入锁，对其中的一部分加锁<img src="/2024/05/13/08/JDK1.67%E5%AE%9E%E7%8E%B0.png"></p>
-<h4 id="1-8"><a href="#1-8" class="headerlink" title="1.8"></a>1.8</h4><p>使用的是Node数组+链表/红黑树，Node只适用于链表的情况，而红黑树需要TreeNode。使用Node+CAS+synchronized来保证线程安全<img src="/2024/05/13/08/JDK1.8%E5%AE%9E%E7%8E%B0.png"></p>
-<h5 id="常用的api"><a href="#常用的api" class="headerlink" title="常用的api"></a>常用的api</h5><h6 id="get"><a href="#get" class="headerlink" title="get"></a>get</h6><p>先进性一次散列，然后使用这个散列值定位到Segment，再进行散列定位到元素。<br>get不需要加锁，因为get方法中使用的共享变量都顶i成volatile类型，额能够在线程之间保持可见性。保证不会读到过期的值，但是只能被单线程写(如果写入的值依赖原值)<br>根据happen before原则，对volatile字段的写是优先于读的。</p>
-<h6 id="put"><a href="#put" class="headerlink" title="put"></a>put</h6><p>对共享变量进行写入操作，为了线程安全必须加锁。<br>先定位到Segment，之后再Segment里进行操作，所以只需要锁住一个Segment即可<br>扩容机制：只会对某个segment进行扩容。</p>
-<h6 id="count"><a href="#count" class="headerlink" title="count"></a>count</h6><p>先尝试不加锁来统计各个Segment的大小，如果两次中出现了不同的数值，就采用加锁的方式来统计所有Segment大小。<br>原理是格局modCount变量，put、remove、clean方法都会把modCount+1</p>
-<h4 id="CopyOnWriteArrayList"><a href="#CopyOnWriteArrayList" class="headerlink" title="CopyOnWriteArrayList"></a>CopyOnWriteArrayList</h4><p>线程安全的&nbsp;List，用来替代Vector<br>Vector的核心思想是每次访问都上锁，使用synchronized进行加锁，会导致性能很差<br>而CopyOnWriteArrayList则是使用了跟读写锁相似的思想，读读不互斥。写不会堵塞读取操作，只有写写才会出现互斥，核心思想是写时复制：不会直接修改原数组，而是先创建底层数组的副本，对副本进行修改，修改完之后再将修改后的数据赋值回去。</p>
-<h4 id="ConcurrentLinkedQueue"><a href="#ConcurrentLinkedQueue" class="headerlink" title="ConcurrentLinkedQueue"></a>ConcurrentLinkedQueue</h4><p>线程安全的队列，是非阻塞实现的</p>
-<h5 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h5><p>入队<br>使用CAS算法实现的</p>
-<ol>
-<li>定位尾节点</li>
-<li>使用CAS算法来不断尝试将节点加入队列：如果尾节点的next是null表示已经是尾节点了，如果不是说明其他县城更新了尾节点，需要重新或如当前队列的尾节点。<br>出队<br>先获得头节点的元素，判断头节点元素是否为空，如果为空就是已经被别的线程取走，如果不为空就用CAS尝试出队</li>
-</ol>
-<h4 id="BlockingQueue"><a href="#BlockingQueue" class="headerlink" title="BlockingQueue"></a>BlockingQueue</h4><p>有多种实现<br>值得注意的时Pirority和Delay<br>阻塞队列，当队列满时，队列会阻塞插入元素的线程，之道队列布满。<br>当队列为空时，获取元素的线程会等待队列变成非空<br>常用于成缠着消费者问题</p>
-<h5 id="实现原理-1"><a href="#实现原理-1" class="headerlink" title="实现原理"></a>实现原理</h5><p>通知模式实现</p>
-<blockquote>
-<p>通知模式是生产者往满的队列中添加队列时会阻塞住生产者。当消费者消费了一个队列中的元素后，会通知生产者当前的队列可用</p>
-</blockquote>
-<h4 id="CountDownLatch-1"><a href="#CountDownLatch-1" class="headerlink" title="CountDownLatch"></a>CountDownLatch</h4><p>示例代码</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Main</span> <span class="token punctuation">{</span>
-
-    <span class="token keyword">static</span> <span class="token class-name">CountDownLatch</span> countDownLatch <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">CountDownLatch</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">InterruptedException</span> <span class="token punctuation">{</span>
-        <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-&gt;</span><span class="token punctuation">{</span>
-            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            countDownLatch<span class="token punctuation">.</span><span class="token function">countDown</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"2"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            countDownLatch<span class="token punctuation">.</span><span class="token function">countDown</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        countDownLatch<span class="token punctuation">.</span><span class="token function">await</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"3"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="CyclicBarrier"><a href="#CyclicBarrier" class="headerlink" title="CyclicBarrier"></a>CyclicBarrier</h4><p>同步屏障<br>功能是让一组线程到达一个屏障(同步点)时被阻塞，直到最后一个线程到达屏障时才开门，所有被阻塞的线程才会继续运行。<br>与CountDownLatch的区别：countdownlatch只能使用一次，计数器无法重置。cyclicbarrier可以多次重复使用，当所有的线程到达同步点之后屏障会重置。</p>
-<p><strong>CyclicBarrier：用于让一组线程互相等待，直到所有线程都到达某个屏障点，然后所有线程再继续执行。可以重用。<br>CountDownLatch：用于一个或多个线程等待其他线程完成某些操作。不能重用。</strong> </p>
-<p>二者使用方法相似<br>如何选择：<br>简单的一次性同步任务可以使用countdownlatch，例如初始化一些配置<br>多阶段反复同步线程或者并发任务需要分阶段执行，每个阶段都需要等待所有的线程完成，选择cyclicbarrier</p>
-<h4 id="Semaphore"><a href="#Semaphore" class="headerlink" title="Semaphore"></a>Semaphore</h4><p>信号量，控制同时访问特定资源的线程数量。</p>
-<h4 id="Exchanger"><a href="#Exchanger" class="headerlink" title="Exchanger"></a>Exchanger</h4><p>进行线程之间协作的工具类。提供一个同步点，两个线程可以在这个同步点交换彼此的数据。</p>
-<h3 id="原子类"><a href="#原子类" class="headerlink" title="原子类"></a>原子类</h3><p>Atomic包</p>
-<h3 id="Java中的线程池"><a href="#Java中的线程池" class="headerlink" title="Java中的线程池"></a>Java中的线程池</h3><h4 id="实现原理-2"><a href="#实现原理-2" class="headerlink" title="实现原理"></a>实现原理</h4><ol>
-<li>判断核心线程池里的线程是否都在执行任务，如果不是则新建一个工作线程来执行任务；如果都在执行任务，则进入下一个流程</li>
-<li>判断工作 队列是否已经满，如果没满，将新提交的任务存储在这个工作队列里，如果满了，进入下一个流程</li>
-<li>判断线程池中 当线程是否都在工作中，如果没有就创建一个新的工作线程来执行任务，如果已经满了，则交给饱和策略来处理这个任务<br><img src="/2024/05/13/08/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%89%A7%E8%A1%8C%E7%A4%BA%E6%84%8F%E5%9B%BE.png"><br><img src="/2024/05/13/08/jdk%E7%BA%BF%E7%A8%8B%E6%B1%A0.png"></li>
-</ol>
-<h4 id="核心参数"><a href="#核心参数" class="headerlink" title="核心参数"></a>核心参数</h4><ol>
-<li>核心线程数：任务队列没满时可以同时执行的最大线程数</li>
-<li>最大线程数：任务队列满时，可以同时运行的线程数</li>
-<li>线程空闲时间：线程数量超过核心线程数时，多余的空闲线程再中止前等待新任务的最长时间</li>
-<li>时间单位</li>
-<li>任务队列：</li>
-<li>线程工厂</li>
-<li>拒绝策略：当任务无法提交到线程池时的处理策略。<ul>
-<li><code>AbortPolicy</code>：抛出&nbsp;<code>RejectedExecutionException</code>&nbsp;异常（默认策略）。</li>
-<li><code>CallerRunsPolicy</code>：由调用线程处理该任务。</li>
-<li><code>DiscardPolicy</code>：直接丢弃任务。</li>
-<li><code>DiscardOldestPolicy</code>：丢弃队列中最旧的任务，然后重新提交新任务。<br><img src="/2024/05/13/08/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E4%BB%BB%E5%8A%A1%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F.png"></li>
-</ul>
-</li>
-</ol>
-<h4 id="任务执行顺序"><a href="#任务执行顺序" class="headerlink" title="任务执行顺序"></a>任务执行顺序</h4><ol>
-<li>当前运行中的线程数小于核心线程数，就新建一个线程来执行任务，即使线程池中存在空闲线程</li>
-<li>如果大于等于核心线程数，但是小于最大线程数，就把任务加入到任务队列中</li>
-<li>如果队列已满，但是线程数小于最大线程数，就新建一个线程来执行任务</li>
-<li>如果新创建线程会导致当前运行中的线程数大于最大线程数，就会调用拒绝策略</li>
-</ol>
-<h3 id="生产者-消费者模型："><a href="#生产者-消费者模型：" class="headerlink" title="生产者-消费者模型："></a>生产者-消费者模型：</h3><p>一个内存队列，多个生产线程往内存队列中放数据，多个消费者线程从内存对俄中取数据。</p>
-<ol>
-<li>内存队列本身需要枷锁，才能实现线程安全</li>
-<li>阻塞。当内存队列满了，生产者被阻塞，内存队列为空时消费者被阻塞。</li>
-<li>双向通知：消费者被阻塞之后，生产者放入新数据，要通知消费者，反之要通知生产者。</li>
-</ol>
-<h1 id="Unsafe"><a href="#Unsafe" class="headerlink" title="Unsafe"></a>Unsafe</h1><p>主要功能</p>
-<ol>
-<li>内存屏障</li>
-</ol>
-<h1 id="ReenTrantLock"><a href="#ReenTrantLock" class="headerlink" title="ReenTrantLock"></a>ReenTrantLock</h1><h2 id="实现原理-3"><a href="#实现原理-3" class="headerlink" title="实现原理"></a>实现原理</h2><p>实现是一种自旋锁，使用循环调用CAS操作来进行加锁。</p>
-<h1 id="线程同步的方法"><a href="#线程同步的方法" class="headerlink" title="线程同步的方法"></a>线程同步的方法</h1><ol>
-<li>Synchronized</li>
-<li>ReentrantLock</li>
-<li>CountDownLatch</li>
-<li>CyclicBarrier</li>
-<li>Semaphore</li>
-<li>Wait和No</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/05/13/00/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="QingQiu">
-      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="QingQiu'Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/05/13/00/" class="post-title-link" itemprop="url">Spring 循环依赖会出现什么情况？ 如何解决?</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-05-13 15:46:00" itemprop="dateCreated datePublished" datetime="2024-05-13T15:46:00+08:00">2024-05-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-08 15:00:56" itemprop="dateModified" datetime="2024-06-08T15:00:56+08:00">2024-06-08</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.3k</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="一、什么是循环依赖"><a href="#一、什么是循环依赖" class="headerlink" title="一、什么是循环依赖?"></a>一、什么是循环依赖?</h2><p>在Spring项目中我们经常使用 @Autowired或者@Resource去注入Bean，我们称之为依赖。<br>当多个Bean之间存在互相依赖的关系，并且出现了循环调用时，Spring就会找不到依赖的七点，就会死循环直到抛出异常。<br>例如：A依赖B,B依赖C,C依赖A，三者必须在依赖的类初始化之后才会初始化自己，从而出现死循环。</p>
-<h2 id="二、实战场景"><a href="#二、实战场景" class="headerlink" title="二、实战场景"></a>二、实战场景</h2><p>笔者是在使用Spring Security 编写登录和权限验证代码时出现了循环依赖的场景。</p>
-<h2 id="三、解决方法"><a href="#三、解决方法" class="headerlink" title="三、解决方法"></a>三、解决方法</h2><p>省流： 笔者使用的方法</p>
-<ol>
-<li>使用@Lazy延迟创建对象</li>
-<li>将@Resource替换为@Autowired</li>
-<li>新建一个空Bean，来解决依赖问题： 例如 A依赖B,B依赖A,我们可以新建一个C，然后让A依赖C，B实现C即可将直接依赖转化为间接依赖关系 中介方式打破循环链<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// 新的接口</span>
-<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">C</span> <span class="token punctuation">{</span>
-    <span class="token keyword">void</span> <span class="token function">doSomething</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-
-<span class="token comment">// B实现C</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">B</span> <span class="token keyword">implements</span> <span class="token class-name">C</span> <span class="token punctuation">{</span>
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">doSomething</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment">// ...</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-
-<span class="token comment">// A依赖C，而不是直接依赖B</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">A</span> <span class="token punctuation">{</span>
-    <span class="token keyword">private</span> <span class="token class-name">C</span> c<span class="token punctuation">;</span>
-
-    <span class="token keyword">public</span> <span class="token class-name">A</span><span class="token punctuation">(</span><span class="token class-name">C</span> c<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>c <span class="token operator">=</span> c<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">doSomething</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        c<span class="token punctuation">.</span><span class="token function">doSomething</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ol>
-<h2 id="四、扩展：-Autowired是如何解决循环依赖的的问题的"><a href="#四、扩展：-Autowired是如何解决循环依赖的的问题的" class="headerlink" title="四、扩展：@Autowired是如何解决循环依赖的的问题的"></a>四、扩展：@Autowired是如何解决循环依赖的的问题的</h2><p>解决的核心是使用了Spring的三级缓存：</p>
-<ul>
-<li>第一级缓存：singletonObjects，用于存放完全初始化好的bean，避免重复创建，单例池</li>
-<li>二级缓存：earlySingletonObjects 存放原始的bean对象，尚未填充属性，同时也没有进行完成依赖注入的类 (<strong>核心</strong>)</li>
-<li>三级缓存：singletonFactories 用于存放bean工厂对象中的getObject方法，用于产生原始的bean或者代理对象(如果Bean被AOP切面代理)来放入二级缓存<br>首先我们要知道，实例化 ≠ 完全初始化，当Spring容器创建bean时，会从一级缓存中寻找，如果没找到，会搜索二级缓存，如果存在就会把它注入，如果没有会找三级缓存。当bean初始化时，如果发现依赖的类没有完成完全初始化，就会先使用二级缓存中的bean实例，当所有的bean都初始化之后再从一级缓存中获取完全初始化的bean<br>而我们使用的@Resource并不存在这种机制，会直接抛出BeanCurrentlyInCreationException<br><strong>只用两级缓存可以吗？</strong><br>如果没有AOP的情况下只是用一级和三级缓存就能解决，但是涉及到AOP时，必须使用了<br>如果发生循环依赖的话，就去 <strong>三级缓存 <code>singletonFactories</code></strong> 中拿到三级缓存中存储的 <code>ObjectFactory</code> 并调用它的 <code>getObject()</code> 方法来获取这个循环依赖对象的前期暴露对象（虽然还没初始化完成，但是可以拿到该对象在堆中的存储地址了），并且将这个前期暴露对象放到二级缓存中，这样在循环依赖时，就不会重复初始化了！</li>
-</ul>
-<hr>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2784,7 +3027,7 @@ vmstat -s 显示系统的累计统计信息
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-count">49</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
