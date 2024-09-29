@@ -157,6 +157,236 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/06/17/08/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="QingQiu">
+      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QingQiu'Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/06/17/08/" class="post-title-link" itemprop="url">深入浅出Zookeeper</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-06-17 15:12:08" itemprop="dateCreated datePublished" datetime="2024-06-17T15:12:08+08:00">2024-06-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-09-12 20:29:55" itemprop="dateModified" datetime="2024-09-12T20:29:55+08:00">2024-09-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">分布式</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.2k</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a target="_blank" rel="noopener" href="https://javaguide.cn/distributed-system/distributed-process-coordination/zookeeper/zookeeper-plus.html">https://javaguide.cn/distributed-system/distributed-process-coordination/zookeeper/zookeeper-plus.html</a></p>
+<h2 id="ZooKeeper是什么"><a href="#ZooKeeper是什么" class="headerlink" title="ZooKeeper是什么"></a>ZooKeeper是什么</h2><p>ZooKeeper是一个开源的<strong>分布式协调服务</strong>，设计目标是将哪些复杂且容易出错的分布式一致性服务封装起来，构成一个高效的原语(原语的执行必须连续且不可分割)集，并以一系列简单易用的接口提供给用户时使用</p>
+<h2 id="常用场景"><a href="#常用场景" class="headerlink" title="常用场景"></a>常用场景</h2><ol>
+<li>命名服务：通过ZooKeepe的顺序节点生成全局唯一ID</li>
+<li>数据发布/订阅：通过Watcher机制可以很方便的实现数据发布/订阅。其他机器可以通过监听ZooKeeper上的节点变化来实现配置的动态更新</li>
+<li>分布式锁：通过创建唯一节点获得分布式锁，当获得锁的乙方执行完相关的代码或者挂掉后就释放，也需要使用Watcher机制</li>
+</ol>
+<h2 id="一些可以使用的场景"><a href="#一些可以使用的场景" class="headerlink" title="一些可以使用的场景"></a>一些可以使用的场景</h2><h3 id="手写rpc-注册中心-使用ZooKeeper作为注册中心手写RPC"><a href="#手写rpc-注册中心-使用ZooKeeper作为注册中心手写RPC" class="headerlink" title="[[手写rpc#注册中心|使用ZooKeeper作为注册中心手写RPC]]"></a>[[手写rpc#注册中心|使用ZooKeeper作为注册中心手写RPC]]</h3><h3 id="使用ZooKeeper作为分布式锁"><a href="#使用ZooKeeper作为分布式锁" class="headerlink" title="使用ZooKeeper作为分布式锁"></a>使用ZooKeeper作为分布式锁</h3><h2 id="重要概念"><a href="#重要概念" class="headerlink" title="重要概念"></a>重要概念</h2><h3 id="Data-model"><a href="#Data-model" class="headerlink" title="Data model"></a>Data model</h3><p>ZooKeeper数据模型使用层次化的多叉树形结构，每个节点上都可以存储数据，而且数据可以是数字、字符串、二进制序列。每个节点可以有N个子节点。每个数据节点叫做znode，是数据的最小单元，每个znode都有唯一的路径标识<br><strong>znode存储的数据大小上线为1M</strong>，避免将大数据保存在ZooKeeper中</p>
+<h3 id="znode"><a href="#znode" class="headerlink" title="znode"></a>znode</h3><h3 id="分类："><a href="#分类：" class="headerlink" title="分类："></a>分类：</h3><ul>
+<li>持久(PERSISTENT)节点：一旦创建就存在即使ZooKeeper集群宕机，知道将其删除</li>
+<li>临时(<strong>EPHEMERAL</strong>)节点：临时节点的声明周期与客户端会话绑定。会话节点小时则节点消失，临时节点只能作为叶子节点，不可创建属于自己的子节点。</li>
+<li>持久顺序节点：除了具有持久节点外，子节点的名称还有顺序性。</li>
+</ul>
+<h3 id="znode的组成："><a href="#znode的组成：" class="headerlink" title="znode的组成："></a>znode的组成：</h3><ul>
+<li>stat：状态信息<img src="/2024/06/17/08/znode%E7%8A%B6%E6%80%81%E4%BF%A1%E6%81%AF.png"></li>
+<li>data：节点存放数据的具体内容</li>
+</ul>
+<h3 id="版本："><a href="#版本：" class="headerlink" title="版本："></a>版本：</h3><p>ZooKeeper会为每一个znode维护一个叫做Stat的数据结构<br>Stat中记录了三个znode相关的版本：</p>
+<ul>
+<li>dataVersion：当前znode节点的版本号</li>
+<li>cversion：当前znode子节点的版本</li>
+<li>aclVersion：当前znode的ACL的版本</li>
+</ul>
+<h3 id="ACL：权限控制"><a href="#ACL：权限控制" class="headerlink" title="ACL：权限控制"></a>ACL：权限控制</h3><ul>
+<li>CREATE：创建子节点</li>
+<li>READ：获取节点数据和列出其子节点</li>
+<li>WRITE：设置/更新节点数据</li>
+<li>DELETE：删除子节点</li>
+<li>ADMIN：设置节点ACL的权限<br>身份认证有四种方式：</li>
+<li>world：默认，任何用户都可以无条件访问</li>
+<li>auth ： 不适用任何id，代表任何已经认证的用户</li>
+<li>digest：用户名:密码的方式</li>
+<li>ip：对指定ip进行限制</li>
+</ul>
+<h2 id="Watcher-事件监听器"><a href="#Watcher-事件监听器" class="headerlink" title="Watcher(事件监听器)"></a>Watcher(事件监听器)</h2><p>ZooKeeper允许用户在指定节点上注册一些Watcher，并且在一些特定事件触发时，ZooKeeper服务器会将事件通知到感兴趣的客户端上。<img src="/2024/06/17/08/watcher%E7%9A%84%E4%BD%9C%E7%94%A8.png"></p>
+<h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><p>ZooKeeper服务端与客户端之间的一个TCP长连接。客户端可以通过它进行心跳检测与服务器保持有效的会话，也能够向ZooKeeper服务器发送请求并接受响应。同时也能接收来在服务器的Watcher事件通知</p>
+<h2 id="集群"><a href="#集群" class="headerlink" title="集群"></a>集群</h2><h3 id="ZooKeeper将集群中节点的角色分为三类："><a href="#ZooKeeper将集群中节点的角色分为三类：" class="headerlink" title="ZooKeeper将集群中节点的角色分为三类："></a>ZooKeeper将集群中节点的角色分为三类：</h3><ul>
+<li>Leader 为客户端提供读写服务，负责投票的发起和决议，更新系统状态</li>
+<li>Follower：<strong>只读</strong>，将写服务转发给Leader，参与选举过程的头票</li>
+<li>Observer：<strong>只读</strong>，写服务转发给Leader，不参与选举中的投票，也不参与”过半写成功”策略。 在不影响写性能的情况下提升集群的读性能。</li>
+</ul>
+<h3 id="Leader的选举过程"><a href="#Leader的选举过程" class="headerlink" title="Leader的选举过程"></a>Leader的选举过程</h3><p>条件：<br>当Leader服务器出现网络中断、崩溃退出与重启等异常情况是，会进去Leader选举过程。<br>流程：</p>
+<ol>
+<li>Leader election 选举阶段：开始投票，只要有一个节点获得过半节点的票数即可作为准Leader</li>
+<li>Discovery发现阶段：followers跟准节点leader进行通信，同步followers最近接收的事务提议</li>
+<li>Synchronization 同步阶段：利用leader前一阶段获得的最新提议历史，同步集群中所有的副本，同步之后，准leader成为正式节点</li>
+<li>Broadcast 广播阶段：Zookeeper集群正式对外提供事务服务，leader及逆行消息广播，如果有新的节点加入，还需要进行同步<br>节点的状态：</li>
+</ol>
+<ul>
+<li>LOOKING：寻找Leader</li>
+<li>LEADING：Leader状态，对应的节点成为Leader</li>
+<li>FOLLOWING：对应的节点成为Follower</li>
+<li>OBSERVING：对应的节点成为OBSERVING<br>脑裂问题通过过半机制解决</li>
+</ul>
+<h2 id="ZAB协议"><a href="#ZAB协议" class="headerlink" title="ZAB协议"></a>ZAB协议</h2><p>ZooKeeper Atomic Broadcast，原子广播<br>###3 模式</p>
+<ul>
+<li>崩溃恢复：启动或者出现异常状况时，进行崩溃恢复状态，当选举出新的Leader节点，并且已经进行状态同步之后，退出恢复状态。</li>
+<li>消息广播：当集群中已经完成状态通过，整个服务架构进入消息广播模式。新加入的节点会自觉进入数据恢复状态。</li>
+</ul>
+<h2 id="常见的Java-API"><a href="#常见的Java-API" class="headerlink" title="常见的Java API"></a>常见的Java API</h2><blockquote>
+<p>curator-x-discovery是 Apache Curator 库中的一个模块，用于简化与 Apache ZooKeeper 交互时的服务发现和注册功能</p>
+</blockquote>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">ServiceDiscovery</span> 用于管理服务的注册和发现
+<span class="token class-name">ServiceInstance</span> 描述一个服务的信息
+<span class="token class-name">CuratorFramework</span> zk连接客户端<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/06/17/36/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="QingQiu">
+      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QingQiu'Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/06/17/36/" class="post-title-link" itemprop="url">RPC</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-06-17 10:48:36 / 修改时间：15:04:09" itemprop="dateCreated datePublished" datetime="2024-06-17T10:48:36+08:00">2024-06-17</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>648</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="RPC（Remote-Procedure-Call）-远程调用"><a href="#RPC（Remote-Procedure-Call）-远程调用" class="headerlink" title="RPC（Remote Procedure Call） 远程调用"></a><strong>RPC（Remote Procedure Call）</strong> 远程调用</h1><h2 id="RPC原理"><a href="#RPC原理" class="headerlink" title="RPC原理"></a>RPC原理</h2><p>可以分为五个部分实现</p>
+<ol>
+<li>客户端(服务消费端)： 调用方法的一端</li>
+<li>客户端Stub(桩):代理类，将调用的方法、类、方法参数作为信息传递到服务端</li>
+<li>网络传输: 将信息传输到服务端，并且将返回结果发挥给调用端，推荐使用Netty</li>
+<li>服务端Stub: 接收信息，去执行对应的方法，将结果返回</li>
+<li>服务端(服务提供端): 提供服务的一端<br>过程：</li>
+<li>服务消费端client以本地调用的方式去调用远程服务</li>
+<li>客户端Stub (client stud) 接收调用后将方法、参数等组装进能够进行网络传输的消息体(序列化之后) : RpcRequest</li>
+<li>客户端Stub 找到远程服务的地址，将消息发送到服务提供端</li>
+<li>服务端Stub 收到消息后，反序列化为RpcRequest 对象</li>
+<li>服务端Stub 根据RpcRequest中的类，方法，方法参数等信息调用本地方法1</li>
+<li>服务端Stub 将得到的结果封装为 RpcResponse序列化后发送给消费方</li>
+<li>客户端Stub接收消息并将其反序列化为RpcReponse</li>
+</ol>
+<h2 id="Invoker是什么"><a href="#Invoker是什么" class="headerlink" title="Invoker是什么"></a>Invoker是什么</h2><p>Inboker 是Dubbo对远程调用的抽象<img src="/2024/06/17/36/invoker.png"></p>
+<h2 id="Dubbo-的SPI机制"><a href="#Dubbo-的SPI机制" class="headerlink" title="Dubbo 的SPI机制"></a>Dubbo 的SPI机制</h2><p>SPI (Service Provider Interface)：将接口的实现放在配置文件中，在程序的执行过程中读取配置文件，通过反射加载实现类。也就是提供接口，允许第三方实现这个接口</p>
+<h2 id="Dubbo-的微内核架构"><a href="#Dubbo-的微内核架构" class="headerlink" title="Dubbo 的微内核架构"></a>Dubbo 的微内核架构</h2><blockquote>
+<p>微内核架构模式又名插件架构模式，是基于产品应用程序的一种自然模式。允许用户添加额外的应用到核心应用。例如IDE</p>
+</blockquote>
+<h2 id="Dubbo的负载均衡策略"><a href="#Dubbo的负载均衡策略" class="headerlink" title="Dubbo的负载均衡策略"></a>Dubbo的负载均衡策略</h2>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/06/16/16/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -466,7 +696,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-09-14 14:32:35" itemprop="dateModified" datetime="2024-09-14T14:32:35+08:00">2024-09-14</time>
+                <time title="修改时间：2024-09-29 15:53:02" itemprop="dateModified" datetime="2024-09-29T15:53:02+08:00">2024-09-29</time>
               </span>
 
           <br>
@@ -599,7 +829,10 @@
 </li>
 <li>如果HashMap的大小超过了数组长度的0.75就会进行扩容，扩容之后是原来的两倍</li>
 </ol>
-<h4 id="ThreadLocal的实现原理"><a href="#ThreadLocal的实现原理" class="headerlink" title="ThreadLocal的实现原理"></a>ThreadLocal的实现原理</h4><p>每个Thread对象内部有一个ThreadLocalMap对象，然后它的键是ThreadLocal，值是我们像存储的值</p>
+<h4 id="ThreadLocal的实现原理"><a href="#ThreadLocal的实现原理" class="headerlink" title="ThreadLocal的实现原理"></a>ThreadLocal的实现原理</h4><ol>
+<li>每个Thread对象内部有一个ThreadLocalMap对象，然后它的键是ThreadLocal，值是我们像存储的值</li>
+<li>ThreadLocal的get实际上使用了ThreadLocalMap来获取值的</li>
+</ol>
 <h3 id="并发问题"><a href="#并发问题" class="headerlink" title="并发问题"></a>并发问题</h3><h4 id="栅栏-Barrier"><a href="#栅栏-Barrier" class="headerlink" title="栅栏 Barrier"></a>栅栏 Barrier</h4><p>Barrier是一种同步机制，它可以让一组线程在所有线程到达某个点之后再一起继续执行。CountDownLatch就是栅栏的实现。</p>
 <h2 id="2024-06-25-江苏运联笔试（已过"><a href="#2024-06-25-江苏运联笔试（已过" class="headerlink" title="2024-06-25 江苏运联笔试（已过)"></a>2024-06-25 江苏运联笔试（已过)</h2><h3 id="如何捕捉一个IO异常，简单说明NULLPoniterException的理解"><a href="#如何捕捉一个IO异常，简单说明NULLPoniterException的理解" class="headerlink" title="如何捕捉一个IO异常，简单说明NULLPoniterException的理解"></a>如何捕捉一个IO异常，简单说明NULLPoniterException的理解</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">try</span> <span class="token punctuation">{</span>
 	<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
@@ -889,7 +1122,7 @@ lock<span class="token punctuation">.</span><span class="token function">lock</s
 </ul>
 <h3 id="g1-full-gc退化过程"><a href="#g1-full-gc退化过程" class="headerlink" title="g1 full gc退化过程"></a>g1 full gc退化过程</h3><h4 id="G1的工作原理"><a href="#G1的工作原理" class="headerlink" title="G1的工作原理"></a>G1的工作原理</h4><ol>
 <li>分代收集:G1将堆内存划分为多个大小相等的区域，Yong GC 主要收集Eden区和Survivor区的垃圾对象</li>
-<li>混合收集Mixed GC：不仅手机年轻代，还收集部分老年代的垃圾对象</li>
+<li>混合收集Mixed GC：不仅年轻代，还收集部分老年代的垃圾对象</li>
 <li>并发标记周期：并发标记，垃圾收集可以与应用程序并发执行，减少垃圾收集对应用程序的影响标记老年代中存活对象，以便在混合收集中回收。</li>
 </ol>
 <h4 id="退化的原因"><a href="#退化的原因" class="headerlink" title="退化的原因"></a>退化的原因</h4><ol>
@@ -983,6 +1216,10 @@ lock<span class="token punctuation">.</span><span class="token function">lock</s
 <li>使用PRG(POST/Redirect/GET)：用户填写表单，之后服务器收到请求之后进行处理，然后通过返回重定向，后续用户通过GET进行请求</li>
 <li>Token机制：服务端通过生成唯一有时效性的Token，之后客户端携带这个Token发送请求，如果Token失效则拒绝执行。并发场景下可以使用SETNX来保证有效，同时避免多个请求同时通过验证</li>
 </ol>
+<p>#todo </p>
+<ul>
+<li><input disabled type="checkbox"> leetcode手写LRU</li>
+</ul>
 
       
     </div>
@@ -2071,7 +2308,7 @@ fi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-09-13 15:01:07" itemprop="dateModified" datetime="2024-09-13T15:01:07+08:00">2024-09-13</time>
+                <time title="修改时间：2024-09-29 15:55:52" itemprop="dateModified" datetime="2024-09-29T15:55:52+08:00">2024-09-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2089,7 +2326,7 @@ fi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>8.5k</span>
+              <span>8.6k</span>
             </span>
 
         </div>
@@ -2103,8 +2340,8 @@ fi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><
       
           <h1 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h1><p>#todo </p>
 <ul>
-<li><input disabled="" type="checkbox"> <a target="_blank" rel="noopener" href="https://www.yuque.com/tulingzhouyu/db22bv/gd98aqe6nn6e73qq">金三银四精选面试题系列-徐庶 (yuque.com)</a>专门写一个线程池相关的文章</li>
-<li><input disabled="" type="checkbox"> 泛型相关的<a target="_blank" rel="noopener" href="https://www.yuque.com/tulingzhouyu/db22bv/avpxs3qirk1w4qod">👍 2024金三银四100道面试题笔记资料 (yuque.com)</a></li>
+<li><input disabled type="checkbox"> <a target="_blank" rel="noopener" href="https://www.yuque.com/tulingzhouyu/db22bv/gd98aqe6nn6e73qq">金三银四精选面试题系列-徐庶 (yuque.com)</a>专门写一个线程池相关的文章</li>
+<li><input disabled type="checkbox"> 泛型相关的<a target="_blank" rel="noopener" href="https://www.yuque.com/tulingzhouyu/db22bv/avpxs3qirk1w4qod">👍 2024金三银四100道面试题笔记资料 (yuque.com)</a></li>
 </ul>
 <h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><ol>
 <li>CAS (Compare-And-Swap，比较并交换)，是一种用于实现多线程同步的原子操作。主要原理：1.比较内存中的某个位置的当前值和预期值 2.交换如果当前值与预期值相等，则将该位置的值更新为新值，否则不进行任何操作。<ul>
@@ -2345,6 +2582,14 @@ vmstat -s 显示系统的累计统计信息
 <li>内存屏障</li>
 </ol>
 <h1 id="ReenTrantLock"><a href="#ReenTrantLock" class="headerlink" title="ReenTrantLock"></a>ReenTrantLock</h1><h2 id="实现原理-3"><a href="#实现原理-3" class="headerlink" title="实现原理"></a>实现原理</h2><p>实现是一种自旋锁，使用循环调用CAS操作来进行加锁。</p>
+<h1 id="线程同步的方法"><a href="#线程同步的方法" class="headerlink" title="线程同步的方法"></a>线程同步的方法</h1><ol>
+<li>Synchronized</li>
+<li>ReentrantLock</li>
+<li>CountDownLatch</li>
+<li>CyclicBarrier</li>
+<li>Semaphore</li>
+<li>Wait和No</li>
+</ol>
 
       
     </div>
@@ -2470,452 +2715,6 @@ vmstat -s 显示系统的累计统计信息
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/04/23/25/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="QingQiu">
-      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="QingQiu'Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/04/23/25/" class="post-title-link" itemprop="url">train</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-04-23 13:39:25" itemprop="dateCreated datePublished" datetime="2024-04-23T13:39:25+08:00">2024-04-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-01 20:56:27" itemprop="dateModified" datetime="2024-05-01T20:56:27+08:00">2024-05-01</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.5k</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Tigs:</p>
-<ol>
-<li>相同的application文件优先使用公共的配置</li>
-</ol>
-<h2 id="一些没什么用的小概念"><a href="#一些没什么用的小概念" class="headerlink" title="一些没什么用的小概念"></a>一些没什么用的小概念</h2><ul>
-<li>并发量：同一时间内，系统中同时处理的用户请求数</li>
-<li>响应时间：系统处理一个请求所需的时间</li>
-<li>吞吐量：系统在给定时间内处理处理的业务请求数量</li>
-<li>QPS(Queries Per Second) 表示系统每秒钟处理的请求数量</li>
-<li>TPS(Transactions Per Second ) 表示系统每秒钟完成的事务数量</li>
-</ul>
-<h2 id="Gateway-网关负责分发前端请求"><a href="#Gateway-网关负责分发前端请求" class="headerlink" title="Gateway 网关负责分发前端请求"></a>Gateway 网关负责分发前端请求</h2><p>使用分布式锁来解决缓存击穿</p>
-<ul>
-<li><strong>以下是要自己完成的：</strong><ol>
-<li>使用Spring Security和GateWay完成路由转发和认证</li>
-<li>使用kafka或rocketmq<br>Redis作为缓存</li>
-</ol>
-</li>
-<li>缓存问题：<ol>
-<li>每天的用户很多但是用户每天使用的次数很少，同时会员的信息涉及的表很多<ul>
-<li>解决：使用本地缓存，因为每个会员使用次数很少，一分钟有效，</li>
-<li>问题:fullgc频繁，导致短时间内大量请求失败，因为缓存时间很短，所以大量的新生代出现，引起频繁的gc，然后大量放入老年代引起fullgc ， 解决：不用本地缓存，而是用线程本地变量，放在内存中。</li>
-</ul>
-</li>
-</ol>
-</li>
-</ul>
-<h2 id="Senta"><a href="#Senta" class="headerlink" title="Senta"></a>Senta</h2><ul>
-<li>原理：生成反向sql</li>
-<li>模式：<ol>
-<li>AT模式：默认，添加undo_log,反向生成sql，回滚之后原来没数据的依然没有数据<ul>
-<li>使用方法：<ol>
-<li>建立undo_log表</li>
-</ol>
-</li>
-</ul>
-</li>
-<li>TCC模式： try confirm/cancel 三个阶段的代码自己实现，Seata负责调度</li>
-<li>SAGA模式：长事务解决方案，需要编写两个阶段的代码，需要一个JSON文件，可以异步执行</li>
-<li>XA模式：适用于银行和金融，需要数据库支持XA协议<br>  try 之前的代码出现异常会直接结束，不会走finally</li>
-</ol>
-</li>
-</ul>
-<h2 id="如何处理多并发的买票"><a href="#如何处理多并发的买票" class="headerlink" title="如何处理多并发的买票"></a>如何处理多并发的买票</h2><ol>
-<li>使用synchronized ，缺点：会导致卡住，只适合单机</li>
-<li>使用Redis分布式锁，使用日期+车次来作为锁key，然后放入Redis中，如果拿到锁则继续执行，使用的使setIfAbsent(key,value,timeout),如果这个锁不存在则设置并且返回true，买到票之后删除key 缺点：如果线程执行时间超过了超时时间，也会导致超卖    <strong>对应Redis的命令是setnx</strong></li>
-<li>使用Redisson看门狗，使用一个守护线程来关注超时间是，如果事务未完成但是锁即将过期则重置时间，如果事务结束则守护线程结束，lock.isHeldByCurrentThread来判断是否是当前线程的锁，缺点：Redis集群中Redis宕机，会导致获得得不到锁，然后新的线程向新的Redis主节点中获得锁，仍然可以获得锁 ， <strong>最常用</strong> ，Redisson中的锁在释放了之后Redis就查不到了！！！</li>
-<li>使用红锁：只有拿到半数以上的同等地位的Redis的锁才算拿到锁，Redisson中也有自带的红锁，不常用， 缺点：性能问题，并且如果都得不到锁就都会等待了，尽量去尝试获得更多的锁来解决单机宕机问题</li>
-</ol>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@RestController</span>
-<span class="token annotation punctuation">@Slf4j</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RedisController</span> <span class="token punctuation">{</span>
-    <span class="token annotation punctuation">@Resource</span>
-    <span class="token keyword">private</span> <span class="token class-name">RedissonClient</span> redissonClient<span class="token punctuation">;</span>
-
-    <span class="token annotation punctuation">@PostMapping</span><span class="token punctuation">(</span><span class="token string">"/buy"</span><span class="token punctuation">)</span>
-    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">set</span><span class="token punctuation">(</span><span class="token class-name">String</span> ticket<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">InterruptedException</span> <span class="token punctuation">{</span>
-        <span class="token comment">//当前日期</span>
-        <span class="token class-name">String</span> key <span class="token operator">=</span> ticket <span class="token punctuation">;</span>
-        log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"key:{}"</span><span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token class-name">RLock</span> lock <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
-
-            <span class="token comment">//获取锁</span>
-            lock <span class="token operator">=</span> redissonClient<span class="token punctuation">.</span><span class="token function">getLock</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token comment">//尝试加锁，最多等待100秒，上锁以后10秒自动解锁</span>
-            <span class="token keyword">boolean</span> tryLock <span class="token operator">=</span> lock<span class="token punctuation">.</span><span class="token function">tryLock</span><span class="token punctuation">(</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token class-name">TimeUnit</span><span class="token punctuation">.</span><span class="token constant">SECONDS</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//等待100秒，上锁以后10秒自动解锁</span>
-            log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"tryLock:{}"</span><span class="token punctuation">,</span> tryLock<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token comment">//模拟业务处理</span>
-            <span class="token keyword">if</span><span class="token punctuation">(</span>tryLock<span class="token punctuation">)</span><span class="token punctuation">{</span>
-                <span class="token class-name">Thread</span><span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">10000</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//单位是毫秒</span>
-                log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"购买成功"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token keyword">null</span> <span class="token operator">!=</span> lock <span class="token operator">&amp;&amp;</span> lock<span class="token punctuation">.</span><span class="token function">isHeldByCurrentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-                    lock<span class="token punctuation">.</span><span class="token function">unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token punctuation">}</span>
-                <span class="token keyword">return</span> <span class="token string">"购买成功"</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-                log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"没拿到锁"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token keyword">return</span> <span class="token string">"购买失败"</span><span class="token punctuation">;</span>
-<span class="token comment">//                throw new RuntimeException("没拿到锁");</span>
-            <span class="token punctuation">}</span>
-
-
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="使用Sentinal进行限流和降级"><a href="#使用Sentinal进行限流和降级" class="headerlink" title="使用Sentinal进行限流和降级"></a>使用Sentinal进行限流和降级</h3><ul>
-<li>常见的限流算法：<ol>
-<li>静态窗口限流：每秒限制多少个请求，例如：第2.5会统计第2秒到现在的流量</li>
-<li>动态窗口限流：滑动窗口，往前取1秒,例如：第2.5秒会统计第1.5秒到现在的请求数</li>
-<li>漏桶限流：队列，请求全在队列中，出队是匀速的</li>
-<li>令牌桶限流：放的是令牌，令牌就是计数，会有一个计数器匀速产生令牌,出队不是匀速的可以适应短时间内大量请求</li>
-<li>令牌大闸：当令牌到达一定数量就不再产生新的令牌</li>
-</ol>
-</li>
-</ul>
-<h2 id="如何应对刷票"><a href="#如何应对刷票" class="headerlink" title="如何应对刷票"></a>如何应对刷票</h2><p>使用令牌大闸：令牌按照匀速生成，即使有再多的机器人刷票也会被领票的数量限制，判断令牌肯定比更新库存更快</p>
-<ol>
-<li>使用令牌锁，持有令牌锁的人才能对令牌进行操作</li>
-<li>检测令牌数量，如果有就执行，没有就不能执行</li>
-<li>不要立刻释放令牌锁，使用固定的时间来释放令牌锁，这样即使有机器人也得等待令牌锁的释放</li>
-</ol>
-<ul>
-<li>同时也可以加入验证码来防止机器人刷票<br>优化：使用缓存加速令牌锁<br>将数据库查出来的令牌存在Redis中，每次对Redis中的令牌数量-1，只有当数量等于我们设定的阈值时再去更改数据库的令牌数量，所以需要在Redis中长期保持这个key</li>
-</ul>
-<h2 id="使用RocketMQ"><a href="#使用RocketMQ" class="headerlink" title="使用RocketMQ"></a>使用RocketMQ</h2><p>使用RocketMQ来完成<br>购票之后，将请求发送给RocketMQ，然后另一边去消费这个消息，并且进行数据库的增删改查，可以将请求直接转为String 发送，之后另一端pull然后转为需要的类，之后执行具体具体的逻辑</p>
-<h2 id="纯手写"><a href="#纯手写" class="headerlink" title="纯手写"></a>纯手写</h2><ol>
-<li>登录：<ul>
-<li>使用gateway + SpringSecurity + JWT + Redis实现微服务登录</li>
-<li>Mybatis+Mybatis-plus</li>
-</ul>
-</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/04/14/28/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="QingQiu">
-      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="QingQiu'Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/04/14/28/" class="post-title-link" itemprop="url">es</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-04-14 19:45:28" itemprop="dateCreated datePublished" datetime="2024-04-14T19:45:28+08:00">2024-04-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-07-19 16:43:40" itemprop="dateModified" datetime="2024-07-19T16:43:40+08:00">2024-07-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">分布式</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>4k</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Elasticsearch学习笔记"><a href="#Elasticsearch学习笔记" class="headerlink" title="Elasticsearch学习笔记"></a>Elasticsearch学习笔记</h1><ul>
-<li>面试问题：<ol>
-<li>索引文档的过程：<ol>
-<li>协调节点默认使用文档ID参与计算，为路由提供合适的分片，转发请求</li>
-<li>分片所在节点接收到请求之后，将请求写入内存缓冲区，定时refresh到文件系统缓存，经过这一步既可以被搜索到了，当Filesystem cache中的数据写入到磁盘中时，才会清除掉translog，这个过程叫做flush；</li>
-</ol>
-</li>
-<li>es的删除：es中的文件并没有删除，每个段都有一个.del文件，删除是在这里进行标志，该文档仍然能够匹配到，但是会在结果中被过滤掉，后续在执行merge(周期性的将较小的段合并为一个较大的段)操作时，会被彻底清除掉</li>
-<li>更新：每次更新都是先标记旧的文档为已删除，重新建立一个文档，并通过版本号来区分</li>
-<li>搜索过程：<ul>
-<li>Query Then Fetch</li>
-</ul>
-<ol>
-<li>查询广播到每一个分片，分片本地执行搜索，建立一个优先队列，搜索只能搜到文件缓存的内容，所以并不是完全实时的</li>
-<li>分片返回优先队列中文档的ID和排序值给协调节点，协调节点合并结果并排序</li>
-<li>协调节点确定要取回的文档，然后向对应分片发送请求，最后协调节点返回给客户端</li>
-</ol>
-</li>
-<li>写过程：客户端选择一个node(作为协调节点）发请求，协调节点对文档进行路由，将请求转发给有这个文档的主分片的节点，主分片处理请求，并将将数据同步到副本中，之后协调节点根据完成状态，相应给客户端</li>
-<li>读过程：协调节点根据doc id来查询，然后对doc id进行hash来确认到了哪个分片上，然后转发请求到对应的节点，使用负载均衡 来选取一个分片来处理，并转发给它，之后由这个节点来读取并返回给协调节点，协调节点返回给客户端</li>
-<li>es相对于mongodb，mysql的优势：1.全文检索，相关性排名 2.近实时性3.分布式处理4.数据分析 缺点：不支持事务</li>
-</ol>
-</li>
-<li>DSL查询：由es提供的基于JSON的DSL语句<ul>
-<li>叶子查询：在特定字段中查询特定值</li>
-<li>符合查询：以逻辑方式组合多个叶子查询或者更改叶子查询的行为方式</li>
-<li>指定高亮字段：<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">GET /</span><span class="token punctuation">{</span>索引库名<span class="token punctuation">}</span><span class="token selector">/_search</span>
-<span class="token punctuation">{</span>
-  <span class="token string">"query"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
-    <span class="token string">"match"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
-      <span class="token string">"搜索字段"</span><span class="token punctuation">:</span> <span class="token string">"搜索关键字"</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span><span class="token selector">,
-  "highlight":</span> <span class="token punctuation">{</span>
-    <span class="token string">"fields"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
-      <span class="token string">"高亮字段名称"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
-        <span class="token string">"pre_tags"</span><span class="token punctuation">:</span> <span class="token string">"&lt;em&gt;"</span><span class="token punctuation">,</span>
-        <span class="token string">"post_tags"</span><span class="token punctuation">:</span> <span class="token string">"&lt;/em&gt;"</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-</li>
-<li>索引 :<img src="/2024/04/14/28/%E4%B8%8Emysql%E5%AF%B9%E6%AF%94.png" alt="|725"><ul>
-<li>倒排索引和正排索引的区别：<ul>
-<li>正排索引是词条分到文档中</li>
-<li>倒排索引是给词条统计文档</li>
-<li><img src="/2024/04/14/28/%E4%BA%8C%E8%80%85%E5%8C%BA%E5%88%AB.png" alt="|275"></li>
-</ul>
-</li>
-<li>使用索引模板来加快索引的创建与属性设置</li>
-<li>索引结构：倒排索引，使用分词，记录每一个分词出现的文档编号和在文档中出现的位置<ul>
-<li><img src="/2024/04/14/28/%E5%80%92%E6%8E%92%E7%B4%A2%E5%BC%95.jpg"></li>
-<li>搜索模块，路由值时，</li>
-</ul>
-</li>
-<li>索引搜索：<ul>
-<li>当搜索请求不带路由值时，接收到请求的节点成为协调节点，之后会选择使用的分片，之后会转发请求到拥有这些分片的节点上，每个分片产生一部分的局部结果汇总给协调节点，由协调节点汇总并排序之后返回。</li>
-<li>使用路由条件进行搜索时，会将请求转发，之后直接由选中的节点进行返回</li>
-</ul>
-</li>
-<li>索引映射：<ul>
-<li>相当于指定了索引字段的名字和能够存储的类型</li>
-<li>常用的数据类型：long , integer,short,byte,double,date(date可以在后面加一个format字段来执行时间的格式转换),keyword(用于保存原始文本，不会进行分词处理，用于精确匹配)，boolean,geo_poinst经纬度类型，json格式(需要使用properties来指定内部对象的属性，实际存储时会使用 . 来表示层次结构)，lists(数组)</li>
-<li>**<em>如何既能快速匹配，又能精确匹配?</em>**，给字段添加一个fields参数，然后在里面放一个keyword字段</li>
-<li>在每一个字段的后面使用：”copy_to”:”复制出来的新字段名字” 可以做到复制这些字段的内容</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">PUT mysougoulog/_mapping</span> 
-<span class="token punctuation">{</span>
-  <span class="token string">"properties"</span><span class="token punctuation">:</span><span class="token punctuation">{</span>
-      <span class="token string">"visitTime"</span><span class="token punctuation">:</span><span class="token punctuation">{</span>
-        <span class="token string">"type"</span><span class="token punctuation">:</span><span class="token string">"date"</span><span class="token punctuation">,</span>
-        <span class="token string">"format"</span><span class="token punctuation">:</span><span class="token string">"yyyy-MM-dd HH:mm:ss || epoch_millis"</span><span class="token punctuation">,</span>
-        <span class="token string">"ignore_malformed"</span><span class="token punctuation">:</span>true # 这个字段类型不对时，不写入，但是不影响其他字段的写入
-      <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-
-<span class="token selector"># 二者兼得
-PUT mysougoulog/_mapping</span> 
-<span class="token punctuation">{</span>
-    <span class="token string">"properties"</span><span class="token punctuation">:</span><span class="token punctuation">{</span>
-        <span class="token string">"key"</span><span class="token punctuation">:</span><span class="token punctuation">{</span>
-          <span class="token string">"type"</span><span class="token punctuation">:</span><span class="token string">"text"</span><span class="token punctuation">,</span>
-          <span class="token string">"fields"</span><span class="token punctuation">:</span><span class="token punctuation">{</span>
-            <span class="token string">"keyword"</span><span class="token punctuation">:</span><span class="token punctuation">{</span>
-              <span class="token string">"type"</span><span class="token punctuation">:</span><span class="token string">"keyword"</span><span class="token punctuation">,</span>
-              <span class="token string">"ignore_above"</span><span class="token punctuation">:</span>256 # 表示256个字符后面的内容被忽略，用来节省字段
-            <span class="token punctuation">}</span>
-          <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<ul>
-<li>文档：<ul>
-<li>CRUD时如何控制并发：<ul>
-<li>修改时，加上?if_seq_no = xx&amp;if_primary_term=xx来使用乐观锁来控制，这两个字段是可以查到的，Elastisearch不支持事务管理</li>
-</ul>
-</li>
-<li>文本分析：<ul>
-<li>文本分析需要经过&gt;=0个字符过滤器一个分词器，&gt;=0 个分词过滤器<ul>
-<li>字符过滤器：对原始文档本进行转换，如去掉html标签</li>
-<li>分词器：按照规则切分为单词，</li>
-<li>分词过滤器：过滤掉一些没有用的词比如，的，删除停用词,也可进行分词的处理，如大小写转化，添加同义词</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>分词器：<ul>
-<li>创建倒排索引时对文档进行分词，用户搜索时，对输入的内容进行分词</li>
-<li>IK分词器：<ul>
-<li>ik_smart 智能切分模式，粗粒度</li>
-<li>ik_max_word：最细切分，细粒度</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h2 id="数据：-搜索数据：-1-精确搜索：搜索内容不经过文本分析直接进行文本匹配，适用于非text类，一般用于keyword字段-2-全文检索：对检索内容和字段都会进行文本分析-3-经纬度搜索，可以指定某个区域，例如⚪-4-复合搜索：-布尔搜索：通过指定布尔逻辑条件来组织多条查询语句，同时满足整个布尔条件的才会被搜索出来-等等-父子关联-因为es会把数据折叠起来，使用点，所以当一个对象有多个相同的key时，不能进行搜索了，例如goods商品，里面存放商品id和生产时间，就会被折叠-警告：-避免使用对象数组-解决方法：使用嵌套对象-使用join字段来明确父子关系-聚集统计：用于分析索引和文档，类似于mysql中的聚集操作"><a href="#数据：-搜索数据：-1-精确搜索：搜索内容不经过文本分析直接进行文本匹配，适用于非text类，一般用于keyword字段-2-全文检索：对检索内容和字段都会进行文本分析-3-经纬度搜索，可以指定某个区域，例如⚪-4-复合搜索：-布尔搜索：通过指定布尔逻辑条件来组织多条查询语句，同时满足整个布尔条件的才会被搜索出来-等等-父子关联-因为es会把数据折叠起来，使用点，所以当一个对象有多个相同的key时，不能进行搜索了，例如goods商品，里面存放商品id和生产时间，就会被折叠-警告：-避免使用对象数组-解决方法：使用嵌套对象-使用join字段来明确父子关系-聚集统计：用于分析索引和文档，类似于mysql中的聚集操作" class="headerlink" title="数据：  - 搜索数据：      1. 精确搜索：搜索内容不经过文本分析直接进行文本匹配，适用于非text类，一般用于keyword字段      2. 全文检索：对检索内容和字段都会进行文本分析      3. 经纬度搜索，可以指定某个区域，例如⚪      4. 复合搜索：          - 布尔搜索：通过指定布尔逻辑条件来组织多条查询语句，同时满足整个布尔条件的才会被搜索出来          - 等等  - 父子关联:      - 因为es会把数据折叠起来，使用点，所以当一个对象有多个相同的key时，不能进行搜索了，例如goods商品，里面存放商品id和生产时间，就会被折叠 警告： 避免使用对象数组      - 解决方法：使用嵌套对象      - 使用join字段来明确父子关系  - 聚集统计：用于分析索引和文档，类似于mysql中的聚集操作"></a>数据：<br>  - 搜索数据：<br>      1. 精确搜索：搜索内容不经过文本分析直接进行文本匹配，适用于非text类，一般用于keyword字段<br>      2. 全文检索：对检索内容和字段都会进行文本分析<br>      3. 经纬度搜索，可以指定某个区域，例如⚪<br>      4. 复合搜索：<br>          - 布尔搜索：通过指定布尔逻辑条件来组织多条查询语句，同时满足整个布尔条件的才会被搜索出来<br>          - 等等<br>  - 父子关联:<br>      - 因为es会把数据折叠起来，使用点，所以当一个对象有多个相同的key时，不能进行搜索了，例如goods商品，里面存放商品id和生产时间，就会被折叠 <strong>警告：</strong> 避免使用对象数组<br>      - 解决方法：使用嵌套对象<br>      - 使用join字段来明确父子关系<br>  - 聚集统计：用于分析索引和文档，类似于mysql中的聚集操作</h2></li>
-<li>集群：<ol>
-<li>新集群的产生：master节点的职责主要包括集群、节点和索引的管理，不负责文档级别的管理，主节点和数据节点不是一个<ul>
-<li>初始化投票配置：将配置文件中的候选节点写入投票配置，所有节点均可参与投票</li>
-<li>选举主节点：超过半数就可成为主节点</li>
-<li>发现集群中的其他节点，节点尝试连接主节点，连接上之后主节点把最新的状态发布到这些节点中</li>
-<li>集群完成，对外启动统一的服务</li>
-</ul>
-</li>
-<li>集群状态的发布过程:  <strong>删除或者新增节点时触发</strong><ul>
-<li>主节点把最新的集群状态发送到每个节点上，每个节点将数据保存并向主节点发送确认响应</li>
-<li>主节点接收到半数以上的确认消息，开始提交，发送给每个节点通知使用最新的集群状态，子节点接收后发送确认响应，所有的都确认即可完成发布</li>
-<li>响应超过时间限制，则删除这个子节点</li>
-</ul>
-</li>
-</ol>
-</li>
-<li>如何实现master选举？<ul>
-<li>对于所有可以成为master的节点，根据nodeId来排序，每个节点把自己直到的节点排一次序，然后选出第一个节点，认为他是master节点，入股某个节点到达可以成为超过master节点的一半，那就成为了master节点</li>
-</ul>
-</li>
-<li>脑裂问题：<ul>
-<li>设置最小主节点设置，设置的值应该是集群中节点总数的一半 + 1</li>
-</ul>
-</li>
-<li>读写一致：<ul>
-<li>版本控制：每个文档在ES中都有一个版本号，每次被修改后，版本号会增加，获取文档时，会同时或者它的版本号，更新时可以指定这个版本号，如果版本号不匹配，更新操作就会被拒绝</li>
-<li>刷新与同步：向ES中写入数据时，数据先被写入内存缓冲区，然后每隔一段时间刷新一次或者缓冲区满时被刷新到磁盘后就可以被搜索到了，但是没有被写入磁盘，之后定期同步到磁盘中，同步后就是持久化存储了</li>
-<li>副本和分片:只有主节点可以写入数据，然后被复制到副本分片中，读取数据时可以从任何一个包含该数据的分片中获取</li>
-<li>设置写入确认级别</li>
-</ul>
-</li>
-<li>代码中使用:<img src="/2024/04/14/28/%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%811.png" alt="|575"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Test</span>
-<span class="token keyword">void</span> <span class="token function">testMatchAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">IOException</span> <span class="token punctuation">{</span>
-    <span class="token comment">// 1.创建Request</span>
-    <span class="token class-name">SearchRequest</span> request <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SearchRequest</span><span class="token punctuation">(</span><span class="token string">"items"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// 2.组织请求参数</span>
-    request<span class="token punctuation">.</span><span class="token function">source</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token class-name">QueryBuilders</span><span class="token punctuation">.</span><span class="token function">matchAllQuery</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// 3.发送请求</span>
-    <span class="token class-name">SearchResponse</span> response <span class="token operator">=</span> client<span class="token punctuation">.</span><span class="token function">search</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> <span class="token class-name">RequestOptions</span><span class="token punctuation">.</span><span class="token constant">DEFAULT</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// 4.解析响应</span>
-    <span class="token function">handleResponse</span><span class="token punctuation">(</span>response<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">handleResponse</span><span class="token punctuation">(</span><span class="token class-name">SearchResponse</span> response<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token class-name">SearchHits</span> searchHits <span class="token operator">=</span> response<span class="token punctuation">.</span><span class="token function">getHits</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// 1.获取总条数</span>
-    <span class="token keyword">long</span> total <span class="token operator">=</span> searchHits<span class="token punctuation">.</span><span class="token function">getTotalHits</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>value<span class="token punctuation">;</span>
-    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"共搜索到"</span> <span class="token operator">+</span> total <span class="token operator">+</span> <span class="token string">"条数据"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// 2.遍历结果数组</span>
-    <span class="token class-name">SearchHit</span><span class="token punctuation">[</span><span class="token punctuation">]</span> hits <span class="token operator">=</span> searchHits<span class="token punctuation">.</span><span class="token function">getHits</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">SearchHit</span> hit <span class="token operator">:</span> hits<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment">// 3.得到_source，也就是原始json文档</span>
-        <span class="token class-name">String</span> source <span class="token operator">=</span> hit<span class="token punctuation">.</span><span class="token function">getSourceAsString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment">// 4.反序列化并打印</span>
-        <span class="token class-name">ItemDoc</span> item <span class="token operator">=</span> <span class="token class-name">JSONUtil</span><span class="token punctuation">.</span><span class="token function">toBean</span><span class="token punctuation">(</span>source<span class="token punctuation">,</span> <span class="token class-name">ItemDoc</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2985,7 +2784,7 @@ PUT mysougoulog/_mapping</span>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-count">47</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -3037,7 +2836,7 @@ PUT mysougoulog/_mapping</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">367k</span>
+    <span title="站点总字数">391k</span>
 </div>
 
         

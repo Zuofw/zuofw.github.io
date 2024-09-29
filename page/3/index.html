@@ -157,6 +157,452 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/04/23/25/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="QingQiu">
+      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QingQiu'Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/04/23/25/" class="post-title-link" itemprop="url">train</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-04-23 13:39:25" itemprop="dateCreated datePublished" datetime="2024-04-23T13:39:25+08:00">2024-04-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-05-01 20:56:27" itemprop="dateModified" datetime="2024-05-01T20:56:27+08:00">2024-05-01</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.5k</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Tigs:</p>
+<ol>
+<li>相同的application文件优先使用公共的配置</li>
+</ol>
+<h2 id="一些没什么用的小概念"><a href="#一些没什么用的小概念" class="headerlink" title="一些没什么用的小概念"></a>一些没什么用的小概念</h2><ul>
+<li>并发量：同一时间内，系统中同时处理的用户请求数</li>
+<li>响应时间：系统处理一个请求所需的时间</li>
+<li>吞吐量：系统在给定时间内处理处理的业务请求数量</li>
+<li>QPS(Queries Per Second) 表示系统每秒钟处理的请求数量</li>
+<li>TPS(Transactions Per Second ) 表示系统每秒钟完成的事务数量</li>
+</ul>
+<h2 id="Gateway-网关负责分发前端请求"><a href="#Gateway-网关负责分发前端请求" class="headerlink" title="Gateway 网关负责分发前端请求"></a>Gateway 网关负责分发前端请求</h2><p>使用分布式锁来解决缓存击穿</p>
+<ul>
+<li><strong>以下是要自己完成的：</strong><ol>
+<li>使用Spring Security和GateWay完成路由转发和认证</li>
+<li>使用kafka或rocketmq<br>Redis作为缓存</li>
+</ol>
+</li>
+<li>缓存问题：<ol>
+<li>每天的用户很多但是用户每天使用的次数很少，同时会员的信息涉及的表很多<ul>
+<li>解决：使用本地缓存，因为每个会员使用次数很少，一分钟有效，</li>
+<li>问题:fullgc频繁，导致短时间内大量请求失败，因为缓存时间很短，所以大量的新生代出现，引起频繁的gc，然后大量放入老年代引起fullgc ， 解决：不用本地缓存，而是用线程本地变量，放在内存中。</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="Senta"><a href="#Senta" class="headerlink" title="Senta"></a>Senta</h2><ul>
+<li>原理：生成反向sql</li>
+<li>模式：<ol>
+<li>AT模式：默认，添加undo_log,反向生成sql，回滚之后原来没数据的依然没有数据<ul>
+<li>使用方法：<ol>
+<li>建立undo_log表</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>TCC模式： try confirm/cancel 三个阶段的代码自己实现，Seata负责调度</li>
+<li>SAGA模式：长事务解决方案，需要编写两个阶段的代码，需要一个JSON文件，可以异步执行</li>
+<li>XA模式：适用于银行和金融，需要数据库支持XA协议<br>  try 之前的代码出现异常会直接结束，不会走finally</li>
+</ol>
+</li>
+</ul>
+<h2 id="如何处理多并发的买票"><a href="#如何处理多并发的买票" class="headerlink" title="如何处理多并发的买票"></a>如何处理多并发的买票</h2><ol>
+<li>使用synchronized ，缺点：会导致卡住，只适合单机</li>
+<li>使用Redis分布式锁，使用日期+车次来作为锁key，然后放入Redis中，如果拿到锁则继续执行，使用的使setIfAbsent(key,value,timeout),如果这个锁不存在则设置并且返回true，买到票之后删除key 缺点：如果线程执行时间超过了超时时间，也会导致超卖    <strong>对应Redis的命令是setnx</strong></li>
+<li>使用Redisson看门狗，使用一个守护线程来关注超时间是，如果事务未完成但是锁即将过期则重置时间，如果事务结束则守护线程结束，lock.isHeldByCurrentThread来判断是否是当前线程的锁，缺点：Redis集群中Redis宕机，会导致获得得不到锁，然后新的线程向新的Redis主节点中获得锁，仍然可以获得锁 ， <strong>最常用</strong> ，Redisson中的锁在释放了之后Redis就查不到了！！！</li>
+<li>使用红锁：只有拿到半数以上的同等地位的Redis的锁才算拿到锁，Redisson中也有自带的红锁，不常用， 缺点：性能问题，并且如果都得不到锁就都会等待了，尽量去尝试获得更多的锁来解决单机宕机问题</li>
+</ol>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@RestController</span>
+<span class="token annotation punctuation">@Slf4j</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RedisController</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@Resource</span>
+    <span class="token keyword">private</span> <span class="token class-name">RedissonClient</span> redissonClient<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@PostMapping</span><span class="token punctuation">(</span><span class="token string">"/buy"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">set</span><span class="token punctuation">(</span><span class="token class-name">String</span> ticket<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">InterruptedException</span> <span class="token punctuation">{</span>
+        <span class="token comment">//当前日期</span>
+        <span class="token class-name">String</span> key <span class="token operator">=</span> ticket <span class="token punctuation">;</span>
+        log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"key:{}"</span><span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">RLock</span> lock <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+
+            <span class="token comment">//获取锁</span>
+            lock <span class="token operator">=</span> redissonClient<span class="token punctuation">.</span><span class="token function">getLock</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment">//尝试加锁，最多等待100秒，上锁以后10秒自动解锁</span>
+            <span class="token keyword">boolean</span> tryLock <span class="token operator">=</span> lock<span class="token punctuation">.</span><span class="token function">tryLock</span><span class="token punctuation">(</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token class-name">TimeUnit</span><span class="token punctuation">.</span><span class="token constant">SECONDS</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//等待100秒，上锁以后10秒自动解锁</span>
+            log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"tryLock:{}"</span><span class="token punctuation">,</span> tryLock<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment">//模拟业务处理</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>tryLock<span class="token punctuation">)</span><span class="token punctuation">{</span>
+                <span class="token class-name">Thread</span><span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">10000</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//单位是毫秒</span>
+                log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"购买成功"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token keyword">null</span> <span class="token operator">!=</span> lock <span class="token operator">&amp;&amp;</span> lock<span class="token punctuation">.</span><span class="token function">isHeldByCurrentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                    lock<span class="token punctuation">.</span><span class="token function">unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token keyword">return</span> <span class="token string">"购买成功"</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"没拿到锁"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">return</span> <span class="token string">"购买失败"</span><span class="token punctuation">;</span>
+<span class="token comment">//                throw new RuntimeException("没拿到锁");</span>
+            <span class="token punctuation">}</span>
+
+
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="使用Sentinal进行限流和降级"><a href="#使用Sentinal进行限流和降级" class="headerlink" title="使用Sentinal进行限流和降级"></a>使用Sentinal进行限流和降级</h3><ul>
+<li>常见的限流算法：<ol>
+<li>静态窗口限流：每秒限制多少个请求，例如：第2.5会统计第2秒到现在的流量</li>
+<li>动态窗口限流：滑动窗口，往前取1秒,例如：第2.5秒会统计第1.5秒到现在的请求数</li>
+<li>漏桶限流：队列，请求全在队列中，出队是匀速的</li>
+<li>令牌桶限流：放的是令牌，令牌就是计数，会有一个计数器匀速产生令牌,出队不是匀速的可以适应短时间内大量请求</li>
+<li>令牌大闸：当令牌到达一定数量就不再产生新的令牌</li>
+</ol>
+</li>
+</ul>
+<h2 id="如何应对刷票"><a href="#如何应对刷票" class="headerlink" title="如何应对刷票"></a>如何应对刷票</h2><p>使用令牌大闸：令牌按照匀速生成，即使有再多的机器人刷票也会被领票的数量限制，判断令牌肯定比更新库存更快</p>
+<ol>
+<li>使用令牌锁，持有令牌锁的人才能对令牌进行操作</li>
+<li>检测令牌数量，如果有就执行，没有就不能执行</li>
+<li>不要立刻释放令牌锁，使用固定的时间来释放令牌锁，这样即使有机器人也得等待令牌锁的释放</li>
+</ol>
+<ul>
+<li>同时也可以加入验证码来防止机器人刷票<br>优化：使用缓存加速令牌锁<br>将数据库查出来的令牌存在Redis中，每次对Redis中的令牌数量-1，只有当数量等于我们设定的阈值时再去更改数据库的令牌数量，所以需要在Redis中长期保持这个key</li>
+</ul>
+<h2 id="使用RocketMQ"><a href="#使用RocketMQ" class="headerlink" title="使用RocketMQ"></a>使用RocketMQ</h2><p>使用RocketMQ来完成<br>购票之后，将请求发送给RocketMQ，然后另一边去消费这个消息，并且进行数据库的增删改查，可以将请求直接转为String 发送，之后另一端pull然后转为需要的类，之后执行具体具体的逻辑</p>
+<h2 id="纯手写"><a href="#纯手写" class="headerlink" title="纯手写"></a>纯手写</h2><ol>
+<li>登录：<ul>
+<li>使用gateway + SpringSecurity + JWT + Redis实现微服务登录</li>
+<li>Mybatis+Mybatis-plus</li>
+</ul>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/04/14/28/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="QingQiu">
+      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QingQiu'Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/04/14/28/" class="post-title-link" itemprop="url">es</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-04-14 19:45:28" itemprop="dateCreated datePublished" datetime="2024-04-14T19:45:28+08:00">2024-04-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-07-19 16:43:40" itemprop="dateModified" datetime="2024-07-19T16:43:40+08:00">2024-07-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">分布式</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4k</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Elasticsearch学习笔记"><a href="#Elasticsearch学习笔记" class="headerlink" title="Elasticsearch学习笔记"></a>Elasticsearch学习笔记</h1><ul>
+<li>面试问题：<ol>
+<li>索引文档的过程：<ol>
+<li>协调节点默认使用文档ID参与计算，为路由提供合适的分片，转发请求</li>
+<li>分片所在节点接收到请求之后，将请求写入内存缓冲区，定时refresh到文件系统缓存，经过这一步既可以被搜索到了，当Filesystem cache中的数据写入到磁盘中时，才会清除掉translog，这个过程叫做flush；</li>
+</ol>
+</li>
+<li>es的删除：es中的文件并没有删除，每个段都有一个.del文件，删除是在这里进行标志，该文档仍然能够匹配到，但是会在结果中被过滤掉，后续在执行merge(周期性的将较小的段合并为一个较大的段)操作时，会被彻底清除掉</li>
+<li>更新：每次更新都是先标记旧的文档为已删除，重新建立一个文档，并通过版本号来区分</li>
+<li>搜索过程：<ul>
+<li>Query Then Fetch</li>
+</ul>
+<ol>
+<li>查询广播到每一个分片，分片本地执行搜索，建立一个优先队列，搜索只能搜到文件缓存的内容，所以并不是完全实时的</li>
+<li>分片返回优先队列中文档的ID和排序值给协调节点，协调节点合并结果并排序</li>
+<li>协调节点确定要取回的文档，然后向对应分片发送请求，最后协调节点返回给客户端</li>
+</ol>
+</li>
+<li>写过程：客户端选择一个node(作为协调节点）发请求，协调节点对文档进行路由，将请求转发给有这个文档的主分片的节点，主分片处理请求，并将将数据同步到副本中，之后协调节点根据完成状态，相应给客户端</li>
+<li>读过程：协调节点根据doc id来查询，然后对doc id进行hash来确认到了哪个分片上，然后转发请求到对应的节点，使用负载均衡 来选取一个分片来处理，并转发给它，之后由这个节点来读取并返回给协调节点，协调节点返回给客户端</li>
+<li>es相对于mongodb，mysql的优势：1.全文检索，相关性排名 2.近实时性3.分布式处理4.数据分析 缺点：不支持事务</li>
+</ol>
+</li>
+<li>DSL查询：由es提供的基于JSON的DSL语句<ul>
+<li>叶子查询：在特定字段中查询特定值</li>
+<li>符合查询：以逻辑方式组合多个叶子查询或者更改叶子查询的行为方式</li>
+<li>指定高亮字段：<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">GET /</span><span class="token punctuation">{</span>索引库名<span class="token punctuation">}</span><span class="token selector">/_search</span>
+<span class="token punctuation">{</span>
+  <span class="token string">"query"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token string">"match"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      <span class="token string">"搜索字段"</span><span class="token punctuation">:</span> <span class="token string">"搜索关键字"</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token selector">,
+  "highlight":</span> <span class="token punctuation">{</span>
+    <span class="token string">"fields"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      <span class="token string">"高亮字段名称"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        <span class="token string">"pre_tags"</span><span class="token punctuation">:</span> <span class="token string">"&lt;em&gt;"</span><span class="token punctuation">,</span>
+        <span class="token string">"post_tags"</span><span class="token punctuation">:</span> <span class="token string">"&lt;/em&gt;"</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+</li>
+<li>索引 :<img src="/2024/04/14/28/%E4%B8%8Emysql%E5%AF%B9%E6%AF%94.png" alt="|725"><ul>
+<li>倒排索引和正排索引的区别：<ul>
+<li>正排索引是词条分到文档中</li>
+<li>倒排索引是给词条统计文档</li>
+<li><img src="/2024/04/14/28/%E4%BA%8C%E8%80%85%E5%8C%BA%E5%88%AB.png" alt="|275"></li>
+</ul>
+</li>
+<li>使用索引模板来加快索引的创建与属性设置</li>
+<li>索引结构：倒排索引，使用分词，记录每一个分词出现的文档编号和在文档中出现的位置<ul>
+<li><img src="/2024/04/14/28/%E5%80%92%E6%8E%92%E7%B4%A2%E5%BC%95.jpg"></li>
+<li>搜索模块，路由值时，</li>
+</ul>
+</li>
+<li>索引搜索：<ul>
+<li>当搜索请求不带路由值时，接收到请求的节点成为协调节点，之后会选择使用的分片，之后会转发请求到拥有这些分片的节点上，每个分片产生一部分的局部结果汇总给协调节点，由协调节点汇总并排序之后返回。</li>
+<li>使用路由条件进行搜索时，会将请求转发，之后直接由选中的节点进行返回</li>
+</ul>
+</li>
+<li>索引映射：<ul>
+<li>相当于指定了索引字段的名字和能够存储的类型</li>
+<li>常用的数据类型：long , integer,short,byte,double,date(date可以在后面加一个format字段来执行时间的格式转换),keyword(用于保存原始文本，不会进行分词处理，用于精确匹配)，boolean,geo_poinst经纬度类型，json格式(需要使用properties来指定内部对象的属性，实际存储时会使用 . 来表示层次结构)，lists(数组)</li>
+<li>**<em>如何既能快速匹配，又能精确匹配?</em>**，给字段添加一个fields参数，然后在里面放一个keyword字段</li>
+<li>在每一个字段的后面使用：”copy_to”:”复制出来的新字段名字” 可以做到复制这些字段的内容</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">PUT mysougoulog/_mapping</span> 
+<span class="token punctuation">{</span>
+  <span class="token string">"properties"</span><span class="token punctuation">:</span><span class="token punctuation">{</span>
+      <span class="token string">"visitTime"</span><span class="token punctuation">:</span><span class="token punctuation">{</span>
+        <span class="token string">"type"</span><span class="token punctuation">:</span><span class="token string">"date"</span><span class="token punctuation">,</span>
+        <span class="token string">"format"</span><span class="token punctuation">:</span><span class="token string">"yyyy-MM-dd HH:mm:ss || epoch_millis"</span><span class="token punctuation">,</span>
+        <span class="token string">"ignore_malformed"</span><span class="token punctuation">:</span>true # 这个字段类型不对时，不写入，但是不影响其他字段的写入
+      <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector"># 二者兼得
+PUT mysougoulog/_mapping</span> 
+<span class="token punctuation">{</span>
+    <span class="token string">"properties"</span><span class="token punctuation">:</span><span class="token punctuation">{</span>
+        <span class="token string">"key"</span><span class="token punctuation">:</span><span class="token punctuation">{</span>
+          <span class="token string">"type"</span><span class="token punctuation">:</span><span class="token string">"text"</span><span class="token punctuation">,</span>
+          <span class="token string">"fields"</span><span class="token punctuation">:</span><span class="token punctuation">{</span>
+            <span class="token string">"keyword"</span><span class="token punctuation">:</span><span class="token punctuation">{</span>
+              <span class="token string">"type"</span><span class="token punctuation">:</span><span class="token string">"keyword"</span><span class="token punctuation">,</span>
+              <span class="token string">"ignore_above"</span><span class="token punctuation">:</span>256 # 表示256个字符后面的内容被忽略，用来节省字段
+            <span class="token punctuation">}</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>文档：<ul>
+<li>CRUD时如何控制并发：<ul>
+<li>修改时，加上?if_seq_no = xx&amp;if_primary_term=xx来使用乐观锁来控制，这两个字段是可以查到的，Elastisearch不支持事务管理</li>
+</ul>
+</li>
+<li>文本分析：<ul>
+<li>文本分析需要经过&gt;=0个字符过滤器一个分词器，&gt;=0 个分词过滤器<ul>
+<li>字符过滤器：对原始文档本进行转换，如去掉html标签</li>
+<li>分词器：按照规则切分为单词，</li>
+<li>分词过滤器：过滤掉一些没有用的词比如，的，删除停用词,也可进行分词的处理，如大小写转化，添加同义词</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>分词器：<ul>
+<li>创建倒排索引时对文档进行分词，用户搜索时，对输入的内容进行分词</li>
+<li>IK分词器：<ul>
+<li>ik_smart 智能切分模式，粗粒度</li>
+<li>ik_max_word：最细切分，细粒度</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h2 id="数据：-搜索数据：-1-精确搜索：搜索内容不经过文本分析直接进行文本匹配，适用于非text类，一般用于keyword字段-2-全文检索：对检索内容和字段都会进行文本分析-3-经纬度搜索，可以指定某个区域，例如⚪-4-复合搜索：-布尔搜索：通过指定布尔逻辑条件来组织多条查询语句，同时满足整个布尔条件的才会被搜索出来-等等-父子关联-因为es会把数据折叠起来，使用点，所以当一个对象有多个相同的key时，不能进行搜索了，例如goods商品，里面存放商品id和生产时间，就会被折叠-警告：-避免使用对象数组-解决方法：使用嵌套对象-使用join字段来明确父子关系-聚集统计：用于分析索引和文档，类似于mysql中的聚集操作"><a href="#数据：-搜索数据：-1-精确搜索：搜索内容不经过文本分析直接进行文本匹配，适用于非text类，一般用于keyword字段-2-全文检索：对检索内容和字段都会进行文本分析-3-经纬度搜索，可以指定某个区域，例如⚪-4-复合搜索：-布尔搜索：通过指定布尔逻辑条件来组织多条查询语句，同时满足整个布尔条件的才会被搜索出来-等等-父子关联-因为es会把数据折叠起来，使用点，所以当一个对象有多个相同的key时，不能进行搜索了，例如goods商品，里面存放商品id和生产时间，就会被折叠-警告：-避免使用对象数组-解决方法：使用嵌套对象-使用join字段来明确父子关系-聚集统计：用于分析索引和文档，类似于mysql中的聚集操作" class="headerlink" title="数据：  - 搜索数据：      1. 精确搜索：搜索内容不经过文本分析直接进行文本匹配，适用于非text类，一般用于keyword字段      2. 全文检索：对检索内容和字段都会进行文本分析      3. 经纬度搜索，可以指定某个区域，例如⚪      4. 复合搜索：          - 布尔搜索：通过指定布尔逻辑条件来组织多条查询语句，同时满足整个布尔条件的才会被搜索出来          - 等等  - 父子关联:      - 因为es会把数据折叠起来，使用点，所以当一个对象有多个相同的key时，不能进行搜索了，例如goods商品，里面存放商品id和生产时间，就会被折叠 警告： 避免使用对象数组      - 解决方法：使用嵌套对象      - 使用join字段来明确父子关系  - 聚集统计：用于分析索引和文档，类似于mysql中的聚集操作"></a>数据：<br>  - 搜索数据：<br>      1. 精确搜索：搜索内容不经过文本分析直接进行文本匹配，适用于非text类，一般用于keyword字段<br>      2. 全文检索：对检索内容和字段都会进行文本分析<br>      3. 经纬度搜索，可以指定某个区域，例如⚪<br>      4. 复合搜索：<br>          - 布尔搜索：通过指定布尔逻辑条件来组织多条查询语句，同时满足整个布尔条件的才会被搜索出来<br>          - 等等<br>  - 父子关联:<br>      - 因为es会把数据折叠起来，使用点，所以当一个对象有多个相同的key时，不能进行搜索了，例如goods商品，里面存放商品id和生产时间，就会被折叠 <strong>警告：</strong> 避免使用对象数组<br>      - 解决方法：使用嵌套对象<br>      - 使用join字段来明确父子关系<br>  - 聚集统计：用于分析索引和文档，类似于mysql中的聚集操作</h2></li>
+<li>集群：<ol>
+<li>新集群的产生：master节点的职责主要包括集群、节点和索引的管理，不负责文档级别的管理，主节点和数据节点不是一个<ul>
+<li>初始化投票配置：将配置文件中的候选节点写入投票配置，所有节点均可参与投票</li>
+<li>选举主节点：超过半数就可成为主节点</li>
+<li>发现集群中的其他节点，节点尝试连接主节点，连接上之后主节点把最新的状态发布到这些节点中</li>
+<li>集群完成，对外启动统一的服务</li>
+</ul>
+</li>
+<li>集群状态的发布过程:  <strong>删除或者新增节点时触发</strong><ul>
+<li>主节点把最新的集群状态发送到每个节点上，每个节点将数据保存并向主节点发送确认响应</li>
+<li>主节点接收到半数以上的确认消息，开始提交，发送给每个节点通知使用最新的集群状态，子节点接收后发送确认响应，所有的都确认即可完成发布</li>
+<li>响应超过时间限制，则删除这个子节点</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>如何实现master选举？<ul>
+<li>对于所有可以成为master的节点，根据nodeId来排序，每个节点把自己直到的节点排一次序，然后选出第一个节点，认为他是master节点，入股某个节点到达可以成为超过master节点的一半，那就成为了master节点</li>
+</ul>
+</li>
+<li>脑裂问题：<ul>
+<li>设置最小主节点设置，设置的值应该是集群中节点总数的一半 + 1</li>
+</ul>
+</li>
+<li>读写一致：<ul>
+<li>版本控制：每个文档在ES中都有一个版本号，每次被修改后，版本号会增加，获取文档时，会同时或者它的版本号，更新时可以指定这个版本号，如果版本号不匹配，更新操作就会被拒绝</li>
+<li>刷新与同步：向ES中写入数据时，数据先被写入内存缓冲区，然后每隔一段时间刷新一次或者缓冲区满时被刷新到磁盘后就可以被搜索到了，但是没有被写入磁盘，之后定期同步到磁盘中，同步后就是持久化存储了</li>
+<li>副本和分片:只有主节点可以写入数据，然后被复制到副本分片中，读取数据时可以从任何一个包含该数据的分片中获取</li>
+<li>设置写入确认级别</li>
+</ul>
+</li>
+<li>代码中使用:<img src="/2024/04/14/28/%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%811.png" alt="|575"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Test</span>
+<span class="token keyword">void</span> <span class="token function">testMatchAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">IOException</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 1.创建Request</span>
+    <span class="token class-name">SearchRequest</span> request <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SearchRequest</span><span class="token punctuation">(</span><span class="token string">"items"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 2.组织请求参数</span>
+    request<span class="token punctuation">.</span><span class="token function">source</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token class-name">QueryBuilders</span><span class="token punctuation">.</span><span class="token function">matchAllQuery</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 3.发送请求</span>
+    <span class="token class-name">SearchResponse</span> response <span class="token operator">=</span> client<span class="token punctuation">.</span><span class="token function">search</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> <span class="token class-name">RequestOptions</span><span class="token punctuation">.</span><span class="token constant">DEFAULT</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 4.解析响应</span>
+    <span class="token function">handleResponse</span><span class="token punctuation">(</span>response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">handleResponse</span><span class="token punctuation">(</span><span class="token class-name">SearchResponse</span> response<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token class-name">SearchHits</span> searchHits <span class="token operator">=</span> response<span class="token punctuation">.</span><span class="token function">getHits</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 1.获取总条数</span>
+    <span class="token keyword">long</span> total <span class="token operator">=</span> searchHits<span class="token punctuation">.</span><span class="token function">getTotalHits</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>value<span class="token punctuation">;</span>
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"共搜索到"</span> <span class="token operator">+</span> total <span class="token operator">+</span> <span class="token string">"条数据"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 2.遍历结果数组</span>
+    <span class="token class-name">SearchHit</span><span class="token punctuation">[</span><span class="token punctuation">]</span> hits <span class="token operator">=</span> searchHits<span class="token punctuation">.</span><span class="token function">getHits</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">SearchHit</span> hit <span class="token operator">:</span> hits<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 3.得到_source，也就是原始json文档</span>
+        <span class="token class-name">String</span> source <span class="token operator">=</span> hit<span class="token punctuation">.</span><span class="token function">getSourceAsString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 4.反序列化并打印</span>
+        <span class="token class-name">ItemDoc</span> item <span class="token operator">=</span> <span class="token class-name">JSONUtil</span><span class="token punctuation">.</span><span class="token function">toBean</span><span class="token punctuation">(</span>source<span class="token punctuation">,</span> <span class="token class-name">ItemDoc</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/04/11/19/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -479,7 +925,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-09-08 12:39:01" itemprop="dateModified" datetime="2024-09-08T12:39:01+08:00">2024-09-08</time>
+                <time title="修改时间：2024-09-29 15:17:45" itemprop="dateModified" datetime="2024-09-29T15:17:45+08:00">2024-09-29</time>
               </span>
 
           <br>
@@ -488,7 +934,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>4.8k</span>
+              <span>6.4k</span>
             </span>
 
         </div>
@@ -500,46 +946,58 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="I-x2F-O模型："><a href="#I-x2F-O模型：" class="headerlink" title="I/O模型："></a>I/O模型：</h1><ol>
+          <p>#todo </p>
+<ul>
+<li><input disabled type="checkbox"> 使用Netty替代springboot的tomcat作为服务器</li>
+<li><input disabled type="checkbox"> 使用Netty替代websocket来通信</li>
+<li><input disabled type="checkbox"> 更新一下一致性哈希算法，如何更高效，顺便加上解释</li>
+</ul>
+<h1 id="基本介绍和使用介绍"><a href="#基本介绍和使用介绍" class="headerlink" title="基本介绍和使用介绍"></a>基本介绍和使用介绍</h1><h2 id="I-x2F-O模型："><a href="#I-x2F-O模型：" class="headerlink" title="I/O模型："></a>I/O模型：</h2><ol>
 <li>阻塞I/O BIO：程序向内核发起I/O调用，发起调用的线程就一直等待内核返回结果。如果使用BIO实现异步，只能使用多线程模型，会导致增加线程切换的开销。</li>
 <li>同步非阻塞IO NIO：应用程序通过轮询的方式获取请求结果。</li>
-<li>多路复用I/O：多个进程的I/O可以注册到一个复用器上(Selector)，如果Selector监听的所有的I/O内核缓冲区都没有可读数据，select调用会被阻塞，直到任意I/O在内核缓冲区中有刻度数据时，会立刻返回。并通知其他进程再次发起I/O，也就是使用一个线程监控多个IO操作</li>
-<li>信号驱动I/O：进程预先告知内核，向内核注册一个信号处理函数，之后进程返回不阻塞，进程通过信号处理函数继续调用I/O读取数据。IO操作就绪后，操作系统会发送信号通知应用程序。</li>
-<li>异步I/O AIO：应用程序发起IO操作之后，立刻返回，操作系统在IO操作执行后，会通知应用程序，应用程序无需轮询IO状态。</li>
+<li>多路复用I/O：多个进程的I/O可以注册到一个复用器上(Selector)，如果Selector监听的所有的I/O内核缓冲区都没有可读数据，select调用会被阻塞，直到任意I/O在内核缓冲区中有刻度数据时，会立刻返回。并通知其他进程再次发起I/O，也就是使用一个线程监控多个IO操作。 </li>
+<li>信号驱动I/O：进程预先告知内核，向内核注册一个信号处理函数，之后进程返回不阻塞，进程通过信号处理函数继续调用I/O读取数据。IO操作就绪后，操作系统会发送信号通知应用程序。 通知何时可以开始一个I/O操作</li>
+<li>异步I/O AIO：应用程序发起IO操作之后，立刻返回，操作系统在IO操作执行后，会通知应用程序，应用程序无需轮询IO状态。 通知I/O操作何时结束</li>
 </ol>
 <ul>
 <li>BIO和NIO的区别: <img src="/2024/03/30/44/BIOandNIO.png"></li>
 <li>AIO-&gt;异步I/O</li>
 </ul>
-<h2 id="Reactor-模型"><a href="#Reactor-模型" class="headerlink" title="Reactor 模型"></a>Reactor 模型</h2><blockquote>
+<h3 id="Reactor-模型"><a href="#Reactor-模型" class="headerlink" title="Reactor 模型"></a>Reactor 模型</h3><blockquote>
 <p>是一种处理并发I/O操作的设计模式。核心思想是通过实践多路复用机制来管理多个I/O事件。<br>主要的组件：1. 事件多路分发器(负责监听多个I/O事件，将这些事件分发给相应的事件处理器)<br>2.事件处理器 3.事件分发器：将事件从多路分发器中分发到响应的处理器。</p>
 </blockquote>
-<h2 id="select、poll、epoll的区别"><a href="#select、poll、epoll的区别" class="headerlink" title="select、poll、epoll的区别"></a>select、poll、epoll的区别</h2><ol>
+<h3 id="select、poll、epoll的区别"><a href="#select、poll、epoll的区别" class="headerlink" title="select、poll、epoll的区别"></a>select、poll、epoll的区别</h3><ol>
 <li>select：将已连接的Socket都放在一个文件描述符集合中，然后调用select函数将文件描述集合拷贝到内核中，让内核来检查是否有网络事件发生，检查方式就是遍历文件描述符集合。</li>
 <li>poll：与select区别是，不再使用BitMap来存储文件描述符，突破了个数上限</li>
 <li>epoll：内核使用红黑树来关注待检测的Socket高效，使用事件驱动，内核维护了一个链表来记录就绪事件，只会将事件发生的Socket集合传递给应用程序吗，而不是轮询整个集合</li>
 </ol>
-<h2 id="零拷贝"><a href="#零拷贝" class="headerlink" title="零拷贝"></a>零拷贝</h2><blockquote>
+<h2 id="如何解决对象创建和销毁问题"><a href="#如何解决对象创建和销毁问题" class="headerlink" title="如何解决对象创建和销毁问题"></a>如何解决对象创建和销毁问题</h2><ol>
+<li>对象池服用技术</li>
+<li>零拷贝技术：Netty在进行I/O读写时，直接使用DirectBuffer，从而直接避免了数据在堆内存和堆外内存之间的拷贝</li>
+</ol>
+<h3 id="零拷贝"><a href="#零拷贝" class="headerlink" title="零拷贝"></a>零拷贝</h3><blockquote>
 <p>数据从读取到内核缓冲区，然后直接由内核缓冲区发送到网络。而不是拷贝到用户缓冲区域再拷贝到内核缓冲区进行发送。</p>
 </blockquote>
-<h3 id="Netty零拷贝实现"><a href="#Netty零拷贝实现" class="headerlink" title="Netty零拷贝实现"></a>Netty零拷贝实现</h3><ul>
+<p>Netty零拷贝实现</p>
+<ul>
 <li>使用堆外内存，避免JVM堆内存到堆外内存的数据拷贝</li>
 <li>CompositeByteBuf 类，可以组合多个 Buffer 对象合并成一个逻辑上的对象，避免通过传统内存拷贝的方式将几个 Buffer 合并成一个大的 Buffer。</li>
 <li>通过 Unpooled.wrappedBuffer 可以将 byte 数组包装成 ByteBuf 对象，包装过程中不会产生内存拷贝。</li>
 <li>ByteBuf.slice ，slice 操作可以将一个 ByteBuf 对象切分成多个 ByteBuf 对象，切分过程中不会产生内存拷贝，底层共享一个 byte 数组的存储空间。</li>
 <li>Netty 使用 封装了transferTo() 方法 FileRegion，可以将文件缓冲区的数据直接传输到目标 Channel，避免内核缓冲区和用户态缓冲区之间的数据拷贝</li>
 </ul>
-<h2 id="Java中的IO模型"><a href="#Java中的IO模型" class="headerlink" title="Java中的IO模型"></a>Java中的IO模型</h2><ol>
+<h3 id="Java中的IO模型"><a href="#Java中的IO模型" class="headerlink" title="Java中的IO模型"></a>Java中的IO模型</h3><ol>
 <li>BIO java.io是BIO</li>
 <li>NIO java.nio包是NIO的实现，实质上仍然是同步的，读写操作时非同步的，但是这些操作是由应用程序主动发起和处理的，所以仍然是同步的。</li>
 <li>AIO java.nio.channels是NIO的实现</li>
 </ol>
-<h1 id="按照定义来说，Netty是一个异步的、事件驱动的、用来做高性能高可靠性的网络应用的框架"><a href="#按照定义来说，Netty是一个异步的、事件驱动的、用来做高性能高可靠性的网络应用的框架" class="headerlink" title="按照定义来说，Netty是一个异步的、事件驱动的、用来做高性能高可靠性的网络应用的框架"></a>按照定义来说，Netty是一个异步的、事件驱动的、用来做高性能高可靠性的网络应用的框架</h1><h2 id="三大组件"><a href="#三大组件" class="headerlink" title="三大组件"></a>三大组件</h2><ol>
+<h2 id="按照定义来说，Netty是一个异步的、事件驱动的、用来做高性能高可靠性的网络应用的框架"><a href="#按照定义来说，Netty是一个异步的、事件驱动的、用来做高性能高可靠性的网络应用的框架" class="headerlink" title="按照定义来说，Netty是一个异步的、事件驱动的、用来做高性能高可靠性的网络应用的框架"></a>按照定义来说，Netty是一个异步的、事件驱动的、用来做高性能高可靠性的网络应用的框架</h2><p>Netty相比于Tomcat，不需要遵循Serlet规范，可以最大化的发挥NIO的特性。<br>如果需要面向TCP的网络应用开发，那么Netty才是最佳选择</p>
+<h3 id="三大组件"><a href="#三大组件" class="headerlink" title="三大组件"></a>三大组件</h3><ol>
 <li>Channel &amp; Buffer</li>
 <li>Selector</li>
 <li>Bootstrap</li>
 </ol>
-<h3 id="逻辑架构"><a href="#逻辑架构" class="headerlink" title="逻辑架构"></a>逻辑架构</h3><p><img src="/2024/03/30/44/Netty%E6%95%B4%E4%BD%93%E9%80%BB%E8%BE%91.png"></p>
+<h4 id="逻辑架构"><a href="#逻辑架构" class="headerlink" title="逻辑架构"></a>逻辑架构</h4><p><img src="/2024/03/30/44/Netty%E6%95%B4%E4%BD%93%E9%80%BB%E8%BE%91.png"></p>
 <ol>
 <li>网络通信层：支持多种网络协议，当网络数据读取到内核缓冲区后，会触发各种网络事件，会分发给事件调度层进行处理。核心是<ul>
 <li>BootStrap，负责Netty客户端的启动、初始化、服务器连接等过程</li>
@@ -564,13 +1022,30 @@
 </ul>
 </li>
 </ol>
-<h1 id="Bootstrap"><a href="#Bootstrap" class="headerlink" title="Bootstrap"></a>Bootstrap</h1><blockquote>
+<h2 id="Bootstrap"><a href="#Bootstrap" class="headerlink" title="Bootstrap"></a>Bootstrap</h2><blockquote>
 <p>Netty客户端的启动</p>
 </blockquote>
-<h1 id="ServerBootStrap"><a href="#ServerBootStrap" class="headerlink" title="ServerBootStrap"></a>ServerBootStrap</h1><blockquote>
+<h2 id="ServerBootStrap"><a href="#ServerBootStrap" class="headerlink" title="ServerBootStrap"></a>ServerBootStrap</h2><blockquote>
 <p>服务端启动，会绑定Boss和 Worker两个EventLoopGroup</p>
 </blockquote>
-<h1 id="Channel"><a href="#Channel" class="headerlink" title="Channel"></a>Channel</h1><ul>
+<p>Boss线程会不断接受新的连接，然后将连接分给Worker去处理</p>
+<h2 id="Channel"><a href="#Channel" class="headerlink" title="Channel"></a>Channel</h2><h3 id="常用的Channel实现类"><a href="#常用的Channel实现类" class="headerlink" title="常用的Channel实现类"></a>常用的Channel实现类</h3><ul>
+<li>NioServerSocketChannel 异步 TCP 服务端。</li>
+<li>NioSocketChannel 异步 TCP 客户端。</li>
+<li>OioServerSocketChannel 同步 TCP 服务端。</li>
+<li>OioSocketChannel 同步 TCP 客户端。</li>
+<li>NioDatagramChannel 异步 UDP 连接。</li>
+<li>OioDatagramChannel 同步 UDP 连接。</li>
+</ul>
+<h3 id="Channel与事件"><a href="#Channel与事件" class="headerlink" title="Channel与事件"></a>Channel与事件</h3><ul>
+<li>channelRegistered：Channel创建后被注册后被注册</li>
+<li>channelUnregistered：Channel创建后未注册或者从EventLoop取消注册</li>
+<li>channelActive：Channel处于就绪状态，可以被读写</li>
+<li>channelInactive：处于非就绪状态</li>
+<li>channelRead：Channel可以从远端读取数据</li>
+<li>channelReadComplete：Channel读取数据完成</li>
+</ul>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><ul>
 <li>ChannelFuture<ul>
 <li>其 addListener()方法会注册一个ChannelFutureListener来等待通知</li>
 </ul>
@@ -652,13 +1127,39 @@
 <li>解码器：ByteToMessageDecoder 编码器：MessageToByteEncoder实际上这两个实现了Handler</li>
 <li>协议的支持，自己去看数，Netty实战</li>
 </ul>
-<h2 id="Selector"><a href="#Selector" class="headerlink" title="Selector"></a>Selector</h2><h1 id="Netty实现的一些有特色"><a href="#Netty实现的一些有特色" class="headerlink" title="Netty实现的一些有特色"></a>Netty实现的一些有特色</h1><h2 id="FastThreadLocal"><a href="#FastThreadLocal" class="headerlink" title="FastThreadLocal"></a>FastThreadLocal</h2><p>使用Object数组替代Entry数据，<code>Object[0]</code>存储的是一个<code>Set&lt;FastThreadLocal&lt;?&gt;&gt;</code>集合，1以后都是存value的数据，而不是使用键值对的方式实现。<br>set方法：</p>
+<h3 id="EventLoopGroup-事件调度层"><a href="#EventLoopGroup-事件调度层" class="headerlink" title="EventLoopGroup 事件调度层"></a>EventLoopGroup 事件调度层</h3><ul>
+<li><input disabled type="checkbox"> 如何使用自定义线程池，如何确定线程池的参数<br>EventLoopGroup是一个线程池，负责接受I/O请求并分配线程执行处理请求。<br><img src="/2024/03/30/44/EventLoop%E5%92%8CChannel.png"></li>
+</ul>
+<ol>
+<li>EventLoopGroup包含多个EventLoop</li>
+<li>EventLoop用于处理Channel生命周期内的所有I/O事件</li>
+<li>EventLoop同一时间只会与一个线程绑定，每个EventLoop处理多个Channel</li>
+<li>Channel在生命周期内可以对EventLoop进行多次绑定和解绑</li>
+</ol>
+<h3 id="服务编排层"><a href="#服务编排层" class="headerlink" title="服务编排层"></a>服务编排层</h3><ul>
+<li>ChannelPipeline<br>负责组装各种ChannelHandler，内部通过双向链表将不同的ChannelHandler链接起来，依次调用，对Channel中的数据进行拦截和处理。<br>ChannelPipeline是线程安全的，因为一个新的Channel都会绑定一个新的ChannelPipeline，一个ChannelPipeline关联一个EventLoop，然后一个EventLoop绑定一个线程<img src="/2024/03/30/44/%E8%BF%9B%E5%87%BA%E7%AB%99.png"></li>
+<li>ChannelHandler &amp; ChannelHandlerContext<br><img src="/2024/03/30/44/ChannelHandler.png"><br>ChannelHandlerContext用于保存ChannelHanler的上下文，可以实现ChannelHandler之间的交互。<br>同时包含了ChannelHandler生命周期的所有事件。<br>使用方式：</li>
+</ul>
+<p>#todo </p>
+<ul>
+<li><input disabled type="checkbox"> 如何做，搜搜<br>如果ChannelHandler有一些通用的逻辑需要实现，那么就可以放在这里。</li>
+</ul>
+<h3 id="Selector"><a href="#Selector" class="headerlink" title="Selector"></a>Selector</h3><h2 id="Netty实现的一些有特色"><a href="#Netty实现的一些有特色" class="headerlink" title="Netty实现的一些有特色"></a>Netty实现的一些有特色</h2><h3 id="FastThreadLocal"><a href="#FastThreadLocal" class="headerlink" title="FastThreadLocal"></a>FastThreadLocal</h3><p>使用Object数组替代Entry数据，<code>Object[0]</code>存储的是一个<code>Set&lt;FastThreadLocal&lt;?&gt;&gt;</code>集合，1以后都是存value的数据，而不是使用键值对的方式实现。<br>set方法：</p>
 <ol>
 <li>找到index位置，设置新的value</li>
 <li>将<strong>FastThreadLocal对象保存到待清理的Set中</strong><br>优点：</li>
 <li>高效查找：可以直接通过数组下标获取，而且扩容不需要进行rehash</li>
 <li>安全性更高：ThreadLocal有可能会造成内存泄漏，只能等待线程销毁，但是的线程池下只能主动检测，而FastThreadLocal则封装了FastThreadLocalRunnable，任务执行完成之后一定会执行<code>FastThreadLocal.removeAll()</code>，从而将Set中所有的对象都销毁。</li>
 </ol>
+<p>#todo </p>
+<ul>
+<li><input disabled type="checkbox"> 以下内容是新开的文章《深入浅出Netty：原理与源码解读》记得新开一篇文章</li>
+<li><input disabled type="checkbox"> 看看能不能写个爬虫把这个文章爬下来，或者自己复制下来<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/grey-wolf/p/12017818.html">曹工杂谈：Spring boot应用，自己动手用Netty替换底层Tomcat容器 - 三国梦回 - 博客园 (cnblogs.com)</a><br><a target="_blank" rel="noopener" href="https://learn.lianglianglee.com/%e4%b8%93%e6%a0%8f/Netty%20%e6%a0%b8%e5%bf%83%e5%8e%9f%e7%90%86%e5%89%96%e6%9e%90%e4%b8%8e%20RPC%20%e5%ae%9e%e8%b7%b5-%e5%ae%8c/00%20%e5%ad%a6%e5%a5%bd%20Netty%ef%bc%8c%e6%98%af%e4%bd%a0%e4%bf%ae%e7%82%bc%20Java%20%e5%86%85%e5%8a%9f%e7%9a%84%e5%bf%85%e7%bb%8f%e4%b9%8b%e8%b7%af.md">00 学好 Netty，是你修炼 Java 内功的必经之路 (lianglianglee.com)</a></li>
+</ul>
+<h1 id="深入和源码解读"><a href="#深入和源码解读" class="headerlink" title="深入和源码解读"></a>深入和源码解读</h1><h2 id="Netty内部的逻辑流程"><a href="#Netty内部的逻辑流程" class="headerlink" title="Netty内部的逻辑流程"></a>Netty内部的逻辑流程</h2><p><img src="/2024/03/30/44/%E9%80%BB%E8%BE%91%E6%B5%81%E7%A8%8B.png"><br>#todo </p>
+<ul>
+<li><input disabled type="checkbox"> 源码解读<a target="_blank" rel="noopener" href="https://learn.lianglianglee.com/%e4%b8%93%e6%a0%8f/Netty%20%e6%a0%b8%e5%bf%83%e5%8e%9f%e7%90%86%e5%89%96%e6%9e%90%e4%b8%8e%20RPC%20%e5%ae%9e%e8%b7%b5-%e5%ae%8c/02%20%20%e7%ba%b5%e8%a7%88%e5%85%a8%e5%b1%80%ef%bc%9a%e6%8a%8a%e6%8f%a1%20Netty%20%e6%95%b4%e4%bd%93%e6%9e%b6%e6%9e%84%e8%84%89%e7%bb%9c.md">02 纵览全局：把握 Netty 整体架构脉络 (lianglianglee.com)</a></li>
+</ul>
 
       
     </div>
@@ -1808,896 +2309,6 @@ int main(int argc, char **argv)</span> <span class="token punctuation">{</span>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/03/05/33/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="QingQiu">
-      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="QingQiu'Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/03/05/33/" class="post-title-link" itemprop="url">微服务</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-03-05 17:45:33" itemprop="dateCreated datePublished" datetime="2024-03-05T17:45:33+08:00">2024-03-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-07-19 16:43:23" itemprop="dateModified" datetime="2024-07-19T16:43:23+08:00">2024-07-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">分布式</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>15k</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Quarkus"><a href="#Quarkus" class="headerlink" title="Quarkus"></a>Quarkus</h2><ul>
-<li>GreetingResourceTest是在jvm中测试</li>
-</ul>
-<h2 id="面试常问"><a href="#面试常问" class="headerlink" title="面试常问"></a>面试常问</h2><p><a target="_blank" rel="noopener" href="https://ticknet-studio.feishu.cn/docx/TNCGdBx2vodggwxqLcCcK3hTnpc">微服务面试</a></p>
-<ul>
-<li><p>CAP理论：任何一个分布式系统都无法做到一致性（Consistency）、可用性（Availability）和分区容错性（Partition tolerance）全部满足。</p>
-<ul>
-<li>C数据一致</li>
-<li>A读写操作必须都能成功</li>
-<li>P分区容错，当分布式系统节点之间出现网络故障导致节点之间无法通信，导致出现了分区 必须要满足的</li>
-</ul>
-</li>
-<li><p>BASE理论：<img src="/2024/03/05/33/BASE.png"></p>
-<ul>
-<li>基于BASE理论的柔性事务，不同于ACID的刚性事务，通过一些新的方案，只要保证最终一致性即可</li>
-</ul>
-</li>
-<li><p>AP：无需锁定数据，实现最终一致即可</p>
-</li>
-<li><p>CP：各个子事务执行后不要提交，锁定资源，不允许其他人访问。</p>
-</li>
-<li><p>SpringCloud </p>
-</li>
-<li><p>分布式事务：</p>
-<ul>
-<li>接口幂等性：接口的幂等性是指一次和多次请求某一个资源应该具有同样的副作用。</li>
-<li>XA/两阶段提交：<ul>
-<li>第一阶段：存在一个负责协调各个本地资源管理的事务管理器，事务管理器在第一阶段询问各个资源管理器是否就绪，如果收到的没辙资源的回复都是yes，在在第二阶段提交事务时，任意一个回复no就回滚事务</li>
-<li>第二阶段：事务管理器根据所有本地资源管理器的返回，通知所有本地资源管理器，步调一致的在所有分支上提交或者回滚事务</li>
-<li>缺点：<ul>
-<li>同步阻塞：当参与事务者存在占用公共资源的情况，齐总一个占用了资源，其他参与者只能等待资源释放，处于阻塞装填。</li>
-<li>单点故障：一旦事务管理器故障，整个系统都不可用了</li>
-<li>数据不一致：在阶段二如果事务管理器只发送了部分commit消息，如果出现网络异常，那么只有部分参与者会提交事务</li>
-<li>不确定性：当协事务管理器发送 commit 之后，并且此时只有一个参与者收到了 commit，那么当该参与者与事务管理器同时宕机之后，重新选举的事务管理器无法确定该条消息是否提交成功。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>TCC Try-Confirm-Cancel <img src="/2024/03/05/33/TCC%E4%BC%98%E7%82%B9.png"><ol>
-<li>Try 阶段：尝试执行，完成所有业务检查（一致性）, 预留必须业务资源（准隔离性）  </li>
-<li>Confirm 阶段：确认执行真正执行业务，不作任何业务检查，只使用 Try 阶段预留的业务资源，Confirm 操作满足幂等性。要求具备幂等设计，Confirm 失败后需要进行重试。  </li>
-<li>Cancel 阶段：取消执行，释放 Try 阶段预留的业务资源 Cancel 操作满足幂等性 Cancel 阶段的异常和 Confirm 阶段异常处理方案基本上一致。</li>
-</ol>
-</li>
-<li>本地消息表：依靠MQ实现<img src="/2024/03/05/33/%E6%9C%AC%E5%9C%B0%E6%B6%88%E6%81%AF%E8%A1%A8.png"> <img src="/2024/03/05/33/%E6%B6%88%E6%81%AF%E7%9A%84%E6%9C%80%E7%BB%88%E4%B8%80%E8%87%B4%E6%80%A7.png" alt="|500"></li>
-</ul>
-</li>
-<li><p>路由：</p>
-<ul>
-<li>gateway<ul>
-<li>配置<ul>
-<li><code>id</code>：路由的唯一标示</li>
-<li><code>predicates</code>：路由断言，其实就是匹配条件</li>
-<li><code>filters</code>：路由过滤条件，后面讲</li>
-<li><code>uri</code>：路由目标地址，<code>lb://</code>代表负载均衡，从注册中心获取目标微服务的实例列表，并且负载均衡选择一个访问。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Nacos:</p>
-<ul>
-<li>namespace：用于环境隔离 <img src="/2024/03/05/33/namespace.png" alt="|500"></li>
-<li>分级模型：<img src="/2024/03/05/33/Nacos%E5%88%86%E7%BA%A7%E6%A8%A1%E5%9E%8B.png"><img src="/2024/03/05/33/Nacos%E5%88%86%E7%BA%A7%E6%A8%A1%E5%9E%8B%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86.png"><ul>
-<li>namespace 命名空间<ul>
-<li>group分组<ul>
-<li>服务service<ul>
-<li>集群cluster 对应不同的机房/ip<ul>
-<li>实例instance：</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Nacos挂了能不能正常访问：答案是能，Nacos会把注册的服务的地址推送给他们，他们各自维护一个列表，所以Nacos挂了也不影响调用</li>
-<li>nacos和eureka的区别：<ul>
-<li>Nacos支持服务端主动检测提供者状态：临时实例采用心跳模式，非临时实例采用主动检测模式</li>
-<li>临时实例心跳不正常会被删除，非临时实例不会呗删除</li>
-<li>Nacos支持服务列表变更的消息推送模式，服务列表更新更及时</li>
-<li>Nacos默认使用AP方式，</li>
-</ul>
-</li>
-<li>nacos读取配置的流程<img src="/2024/03/05/33/nacos%E8%AF%BB%E5%85%A5%E9%85%8D%E7%BD%AE%E7%9A%84%E6%B5%81%E7%A8%8B.png"></li>
-<li>配置热更新：<ul>
-<li><h2 id="动态路由：-需要实现Nacos动态监听配置接口-引入配置"><a href="#动态路由：-需要实现Nacos动态监听配置接口-引入配置" class="headerlink" title="动态路由：  - 需要实现Nacos动态监听配置接口  - 引入配置"></a>动态路由：<br>  - 需要实现Nacos动态监听配置接口<br>  - 引入配置</h2></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>OpenFeign：</p>
-<ul>
-<li>执行过程：<img src="/2024/03/05/33/OpenFeign%E6%89%A7%E8%A1%8C%E9%80%BB%E8%BE%91.png"><ol>
-<li>获取请求中的serviceId</li>
-<li>根据serviceId负载均衡，找到一个可用的服务实例</li>
-<li>利用服务实例ip和port信息重构url</li>
-<li>向真正的url发起请求</li>
-</ol>
-</li>
-</ul>
-</li>
-<li><p>负载均衡：</p>
-<ul>
-<li>使用LoadBalancer实现负载均衡</li>
-<li>使用Ribbon组件实现：发起远程调用时，ribbon先从注册中心拉取服务地址列表，然后按照一定的路由策略选择一个发起远程调用，</li>
-<li>Ribbon发负载均衡策略： 已经被集成到Eureka-client和Nacos-Discovery中，后来被废弃，使用LoadBalancer了，OpenFeign也整合了LoadBalancer<ul>
-<li>轮询，根据权重选择，随机选择一个可用的，</li>
-<li>区域敏感策略，以区域可用的服务器为基础进行服务器的选择。使用Zone对服务器进行分类，这个Zone可以理解为一个机房、一个机架等。而后再对Zone内的多个服务做轮询(默认)</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>服务保护</p>
-<ul>
-<li>Sentinel：<ul>
-<li>线程隔离：<ol>
-<li>线程池隔离：给每个服务调用业务分配一个线程池，利用线程池本身进行隔离<ul>
-<li>支持主动超时，支持异步调用</li>
-<li>缺点是线程的额外开销较大</li>
-<li>使用场景低扇出</li>
-</ul>
-</li>
-<li>信号量隔离：不创建线程池而是使用计数器模式，记录业务使用的线程数量，打到信号量上限时，禁止新的请求<ul>
-<li>优点：轻量级，无额外开销</li>
-<li>缺点：不支持主动超时，不支持异步调用</li>
-<li>适合高频调用高扇出(一个服务需要调用其他许多服务，那么我们就可以说这个服务有高扇出)</li>
-</ul>
-</li>
-</ol>
-</li>
-<li>限流：<ul>
-<li>滑动窗口算法：</li>
-<li>令牌桶算法：<ul>
-<li>固定速率生成令牌，桶满了就舍弃，每个请求必须向桶中获取令牌才能被处理，没有获得令牌的请求等待或者丢弃</li>
-<li>一般情况下每秒产生的令牌数量就是QPS上限，但是当前这一秒没有请求进入，下一半秒涌入了超过2N个请求，然后这一秒生成了N个令牌，所以放行了2N个请求，超过了阈值，所以要预留一定的波动空间</li>
-</ul>
-</li>
-<li>漏桶算法：请求放入队列中，以固定的速率去取出并处理请求。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>限流：<ul>
-<li>使用nginx基于漏桶实现限流</li>
-<li>使用gateway 的令牌桶算法，根据ip或者路径进行限流</li>
-<li>Feign整合sentinel，在配置文件中开启即可</li>
-</ul>
-</li>
-<li>熔断：对于超过QPS上限的请求或者延迟较高的请求，对其进行熔断，同时设置一个降级处理逻辑。<ul>
-<li><img src="/2024/03/05/33/%E6%96%AD%E8%B7%AF%E5%99%A8%E7%8A%B6%E6%80%81%E6%9C%BA.png" alt="断路器的工作状态机|475"><ol>
-<li>closed关闭装填，放行所有请求，并开始统计异常比例、满请求比例，超过阈值切换到open</li>
-<li>open服务调用被熔断，访问这个被熔断的请求会被拒绝，快速失败，走降级逻辑。持续一段时间之后转到half-open</li>
-<li>half-open 半开模式，放行一次请求，根据执行结果来判断接下来的操作<ul>
-<li>请求成功：切换到closed状态</li>
-<li>请求失败：切换到open状态</li>
-</ul>
-</li>
-</ol>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>分布式事务：</p>
-<ul>
-<li>使用seata解决分布式事务：<ul>
-<li>seata有三个重要角色：<img src="/2024/03/05/33/seata%E6%9E%B6%E6%9E%84.png" alt="|500"><ul>
-<li>TC 事务协调者：维护全局和分支失物的状态，协调全局事务的</li>
-<li>TM 事务管理器：定义全局事务的范围，开始全局事务，提交或回滚全局事务</li>
-<li>RM 资源管理器：管理分支事务，与TC交谈以注册分之十五和报告分支事务的状态，并驱动分支事务的提交和回滚</li>
-</ul>
-</li>
-<li>xa模式：<ul>
-<li>RM一阶段工作：<ol>
-<li>注册分支事务到TC</li>
-<li>执行分支事务sql但不提交</li>
-<li>报告执行状态到TC</li>
-</ol>
-</li>
-<li>TC二阶段工作：<ul>
-<li>TC检测各分支事务执行状态<ul>
-<li>如果都成功则通知所有RM提交事务</li>
-<li>如果都失败则通知所有RM回滚事务</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>RM二阶段工作：<ul>
-<li>接收TC指令，提交或回滚事务</li>
-</ul>
-</li>
-<li>优点：强一致性，没有代码侵入</li>
-<li>缺点：一阶段需要锁定数据库资源，等待二阶段结束才释放，性能差</li>
-<li>依赖关系型数据库实现事务</li>
-</ul>
-</li>
-<li>at模式：<ol>
-<li>阶段一RM：<img src="/2024/03/05/33/AT%E4%B8%80%E9%98%B6%E6%AE%B5.png" alt="|525"><ul>
-<li>注册分支事务，</li>
-<li>记录undo-log 快照数据</li>
-<li>执行业务sql并提交</li>
-<li>报告事务状态</li>
-</ul>
-</li>
-</ol>
-<ul>
-<li>二阶段<img src="/2024/03/05/33/AT%E4%BA%8C%E9%98%B6%E6%AE%B5.png" alt="|500"><ol>
-<li>阶段而提交时RM工作：删除undo-log</li>
-<li>回滚时，RM工作：根据undo-log恢复数据到更新前</li>
-</ol>
-</li>
-</ul>
-</li>
-<li>两者区别：<ul>
-<li>XA一阶段不提交事务，锁定资源，AT一阶段提交事务，不锁定资源</li>
-<li>XA模式伊利数据库实现回滚，AT模式利用数据快照实现数据回滚</li>
-<li>XA模式强一致性，AT模式最终一致</li>
-</ul>
-</li>
-<li>TCC模式：TCC模式与AT模式非常相似，每阶段都是独立事务，不同的是TCC通过人工编码来实现数据恢复。需要实现三个方法：<img src="/2024/03/05/33/TCC%E6%A8%A1%E5%BC%8F.png"><ul>
-<li><code>try</code>：资源的检测和预留；</li>
-<li><code>confirm</code>：完成资源操作业务；要求 <code>try</code> 成功 <code>confirm</code> 一定要能成功。</li>
-<li><code>cancel</code>：预留资源释放，可以理解为try的反向操作。</li>
-<li>优点：一阶段完成直接提交事务，释放资源，无需快照，无需依赖数据库事务，可用于关系型数据库</li>
-<li>缺点：代码侵入严重，软状态，事务最终一致</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>接口幂等性：</p>
-<ul>
-<li>使用token+redis实现接口幂等性，第二次请求之后每次请求都会携带之前的token，后台先对redis进行验证，如果存在token则执行业务，同时删除token，如果不存再则直接返回，保证了幂等性，保证了同一个token只处理一次业务</li>
-</ul>
-</li>
-<li><h2 id="MQ：-组成-producer消息的生产者-broker-消息的保存-consumer-消息的消费者-选择："><a href="#MQ：-组成-producer消息的生产者-broker-消息的保存-consumer-消息的消费者-选择：" class="headerlink" title="MQ：  - 组成      - producer消息的生产者      - broker 消息的保存      - consumer 消息的消费者  - 选择："></a>MQ：<br>  - 组成<br>      - producer消息的生产者<br>      - broker 消息的保存<br>      - consumer 消息的消费者<br>  - 选择：<img src="/2024/03/05/33/MQ%E7%9A%84%E9%80%89%E6%8B%A9.png"></h2></li>
-</ul>
-<h3 id="Kafka面试题"><a href="#Kafka面试题" class="headerlink" title="Kafka面试题"></a>Kafka面试题</h3><ul>
-<li>如何保证消息不丢失：<ol>
-<li>producer时，可以使用异步回调发送，如果消息发送失败，我们可以通过回调获取失败后的消息信息，可以重试或者记录日志，也可以后续进行不成</li>
-<li>broker中消息丢失，通过kafka的复制机制来保证消息不丢失，在生产者发送消息的时候，可以设置一个acks的参数位all，这样就会在broker的leader和foller分区都保存确认，只有所有的副本都确认之后才算是成功过发送了消息</li>
-</ol>
-</li>
-<li>consumer时使用pull，还是push：<ul>
-<li>Kafka使用了pull模式，consumer可以自主决定是否批量从broker拉取数据。push为了避免consumer崩溃而采用较低的推送速率，到一次只推送较少的消息造成浪费，pull模式下，consumer可以根据自己的消费能力而去决定如何拉取消息</li>
-<li>缺点：如果broker没有提供可消费的消息，将导致consumer不断循环中轮询，直到最新消息到达。</li>
-<li>Kafka可以有个参数可以让consumer阻塞知道新消息的到达，或者阻塞直到消息的数量到达某个特定的量就可以批量发送。</li>
-</ul>
-</li>
-<li>Kafka将Topic分成了若干分区，每个分区同一时间只能被有一个consumer消费，意味着每个分区被消费的消息在日志中的位置仅仅是有一个简单的整数：offset ，consumer可以把offset调成一个较老的值，从而重新消费老消息</li>
-<li>主从复制：一个topic可以有多个副本<ul>
-<li>主节点将消息写入本地日志，从节点从主节点拉取信息，写入本地日志，之后向主节点发送确认消息，如果主节点收到所有从节点的确认消息，该消息就会被认为是已提交的，主节点会更新自己的高水位，消费者只能消费已提交的消息</li>
-<li>优点：保证了主节点崩溃消息也不会丢失</li>
-</ul>
-</li>
-<li>脑裂问题：<ul>
-<li>只有领导者负责处理生产者和消费者的读写请求，追随者只能从领导者那里复制数据</li>
-<li>Kafka的选举是由ZooKeeper协调的，ZooKeeper可以保证在任何时候只有一个领导者被选举出来</li>
-<li>Zookeeper是如何做到的？<ul>
-<li>当Zookeeper启动或者领导者崩溃时，所有的Zookeeper节点都会进入选举状态</li>
-<li>投票阶段：每个节点会将自己作为领导者后端，然后发送投票信息给其他节点，当一个节点收到其他节点的投票信息是，如果ZXID更大，也就是收到的消息更，会更新自己的投票信息，并将新的投票信息发送给其他节点</li>
-<li>确定阶段：当一个节点收到超过半数节点的相同投票信息中，他就认为选举结束，选举出的领导者就是投票信息中的候选节点，然后将结果发送给其他节点。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>消息重复消费如何解决<ul>
-<li>kafka都是按照offset进行标记消费的，消费者默认是自动按期提交已经消费的偏移量，如果出现重复消费的问题，我们需要禁用自动提交offset，改为手动提交，消费成功后报告给broker，为了维护消息的幂等性，我们可以设置唯一主键进行区分，或者是枷锁，数据库的锁或者是Redis的分布式锁都能解决幂等问题。</li>
-</ul>
-</li>
-<li>如何保证消息的顺序性：<ol>
-<li>将消息都存储在同一个分区下</li>
-<li>发送消息时按照相同的业务设置相同的key，默认的分区是通过key的hashcode值来选择分区的，如果hash值一样，分区也是一样的。</li>
-</ol>
-</li>
-<li>高可用：<ul>
-<li>集群：多个broker，即使一台宕机，其他可以继续服务<ul>
-<li>broker如何实现消息同步？<ul>
-<li>主从同步，Leader Broker接受消息后，将消息写入本地日志，Follower拉取消息，写入本地日志，当所欲的ISR(同步复制保存的follower)都完成，Leader就会向生产者发送确认消息。</li>
-</ul>
-</li>
-<li>通过过程中Leader宕机了，该怎么办？<ul>
-<li>Kafka回从ISR列表中选择一个新的Leader，ISR列表中的都是已经同步最新数据的副本，当Follower同步完成后，会重新加入到ISR列表中。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>数据清洗：<ul>
-<li>日志清洗：<ul>
-<li>根据消息保留时间，超过指定时间触发清洗，默认是168小时</li>
-<li>根据topic存储的数据大小，大于一定法制，开始删除最久的消息，默认关闭。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>高性能设计：<ul>
-<li>消息分区：不受单台服务器限制，处理更多数据</li>
-<li>顺序读写：顺序读写，提高读写效率</li>
-<li>页缓存：磁盘中的数据缓存到内存，把磁盘的访问变为对内存的访问</li>
-<li>零拷贝：减少上下文切换及数据拷贝</li>
-<li>消息压缩：减少磁盘IO和网络IO</li>
-<li>分批发送：分批发送，将消息打包批量发送，减少网络开销</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="SpringCloud"><a href="#SpringCloud" class="headerlink" title="SpringCloud"></a>SpringCloud</h2><h3 id="注册中心"><a href="#注册中心" class="headerlink" title="注册中心"></a>注册中心</h3><ol>
-<li>方便更改微服务的ip和 端口号</li>
-<li>如果存在多个服务，可以配置负载均衡</li>
-<li>方便维护<br>服务注册中心：实现微服务之间的动态注册与发现<br><img src="/2024/03/05/33/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E7%9A%84%E4%BD%9C%E7%94%A8.png"></li>
-</ol>
-<h3 id="consul"><a href="#consul" class="headerlink" title="consul"></a>consul</h3><p>功能：</p>
-<ol>
-<li>服务发现 支持 http和dns</li>
-<li>健康监测</li>
-<li>KV存储 配置</li>
-<li>多数据中心</li>
-<li>可视化Web界面<br>在main方法上使用 @EnableDiscoveryClient<br>controller 层上<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">String</span> <span class="token class-name">PaymentSrv_URL</span> <span class="token operator">=</span> <span class="token string">"http://cloud-payment-service"</span><span class="token punctuation">;</span><span class="token comment">//服务注册中心上的微服务名称</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<pre class="line-numbers language-cssx" data-language="cssx"><code class="language-cssx">consul agent -dev 进入开发者模式 localhost:8500<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!--SpringCloud consul discovery --&gt;</span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-cloud-starter-consul-discovery<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-css" data-language="css"><code class="language-css">  <span class="token selector">####Spring Cloud Consul for Service Discovery
-spring:
-    cloud: # 服务注册
-      consul: # consul注册中心
-        host: localhost # consul地址
-        port: 8500 # consul端口
-        discovery: # 服务发现
-          service-name: $</span><span class="token punctuation">{</span>spring.application.name<span class="token punctuation">}</span> # 服务名称<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-RestTemplate提供了多种便捷访问远程Http服务的方法，</li>
-</ol>
-<p>&nbsp;</p>
-<p>是一种简单便捷的访问restful服务模板类，是Spring提供的用于访问Rest服务的客户端模板工具集</p>
-<blockquote>
-<p>applicaiton.yml是用户级的资源配置项</p>
-</blockquote>
-<p>bootstrap.yml是系统级的，优先级更加高</p>
-<p>Spring Cloud会创建一个“Bootstrap Context”，作为Spring应用的<code>Application Context</code>的父上下文。初始化的时候，<code>Bootstrap Context</code>负责从外部源加载配置属性并解析配置。这两个上下文共享一个从外部获取的<code>Environment</code>。</p>
-<p><code>Bootstrap</code>属性有高优先级，默认情况下，它们不会被本地配置覆盖。 <code>Bootstrap context</code>和<code>Application Context</code>有着不同的约定，所以新增了一个<code>bootstrap.yml</code>文件，保证<code>Bootstrap Context</code>和<code>Application Context</code>配置的分离。</p>
-<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">spring:
-  application:
-    name: cloud-payment-service
-    ####Spring Cloud Consul for Service Discovery
-  cloud:
-    consul:
-      host: localhost
-      port: 8500
-      discovery:
-        service-name: $</span><span class="token punctuation">{</span>spring.application.name<span class="token punctuation">}</span>
-      <span class="token property">config</span><span class="token punctuation">:</span>
-        <span class="token property">profile-separator</span><span class="token punctuation">:</span> <span class="token string">'-'</span> # default value is <span class="token string">","</span>，we update <span class="token string">'-'</span>
-        <span class="token property">format</span><span class="token punctuation">:</span> YAML
-
-# config/cloud-payment-service/data
-#       /cloud-payment-service-dev/data
-#       /cloud-payment-service-prod/data<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>&nbsp;application.yml文件改为bootstrap.yml,这是很关键的或者两者共存<br>因为bootstrap.yml是比application.yml先加载的。bootstrap.yml优先级高于application.yml </p>
-<ul>
-<li>consul kv写法</li>
-<li>config/配置文件/data  里面写配置</li>
-<li>动态刷新：在main上写 : @RefreshScope<br>问题: 重启consul之后，配置丢失，如何持久化配置？</li>
-</ul>
-<h3 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h3><ul>
-<li>客户端负载和服务器负载<br>loadbalancer本地负载均衡客户端 VS Nginx服务端负载均衡区别</li>
-</ul>
-<p>Nginx是服务器负载均衡，客户端所有请求都会交给nginx，然后由nginx实现转发请求，即负载均衡是由服务端实现的。</p>
-<p>loadbalancer本地负载均衡，在调用微服务接口时候，会在注册中心上获取注册信息服务列表之后缓存到JVM本地，从而在本地实现RPC远程服务调用技术。</p>
-<ul>
-<li>LoadBalancer 在工作时分成两步：</li>
-</ul>
-<p><strong>第一步</strong>，先选择ConsulServer从服务端查询并拉取服务列表，知道了它有多个服务(上图3个服务)，这3个实现是完全一样的，</p>
-<p>默认轮询调用谁都可以正常执行。类似生活中求医挂号，某个科室今日出诊的全部医生，客户端你自己选一个。</p>
-<p><strong>第二步</strong>，按照指定的负载均衡策略从server取到的服务注册列表中由客户端自己选择一个地址，所以LoadBalancer是一个<strong>客户端的</strong>负载均衡器。</p>
-<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!--loadbalancer--&gt;</span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-cloud-starter-loadbalancer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>访问时即可在多个服务器中切换<br>均衡算法默认为轮询：<br>可以切换为随机算法：<br>修改RestTemplateConfig:</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Configuration</span>
-<span class="token annotation punctuation">@LoadBalancerClient</span><span class="token punctuation">(</span>
-        <span class="token comment">//下面的value值大小写一定要和consul里面的名字一样，必须一样</span>
-        value <span class="token operator">=</span> <span class="token string">"cloud-payment-service"</span><span class="token punctuation">,</span>configuration <span class="token operator">=</span> <span class="token class-name">RestTemplateConfig</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RestTemplateConfig</span>
-<span class="token punctuation">{</span>
-    <span class="token annotation punctuation">@Bean</span>
-    <span class="token annotation punctuation">@LoadBalanced</span> <span class="token comment">//使用@LoadBalanced注解赋予RestTemplate负载均衡的能力</span>
-    <span class="token keyword">public</span> <span class="token class-name">RestTemplate</span> <span class="token function">restTemplate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">RestTemplate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token annotation punctuation">@Bean</span>
-    <span class="token class-name">ReactorLoadBalancer</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">ServiceInstance</span><span class="token punctuation">&gt;</span></span> <span class="token function">randomLoadBalancer</span><span class="token punctuation">(</span><span class="token class-name">Environment</span> environment<span class="token punctuation">,</span>
-                                                            <span class="token class-name">LoadBalancerClientFactory</span> loadBalancerClientFactory<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token class-name">String</span> name <span class="token operator">=</span> environment<span class="token punctuation">.</span><span class="token function">getProperty</span><span class="token punctuation">(</span><span class="token class-name">LoadBalancerClientFactory</span><span class="token punctuation">.</span><span class="token constant">PROPERTY_NAME</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">RandomLoadBalancer</span><span class="token punctuation">(</span>loadBalancerClientFactory<span class="token punctuation">.</span><span class="token function">getLazyProvider</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> <span class="token class-name">ServiceInstanceListSupplier</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">,</span> name<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="OpenFeign"><a href="#OpenFeign" class="headerlink" title="OpenFeign"></a>OpenFeign</h2><p>Feign是一个<strong>声明性web服务客户端</strong>。它使编写web服务客户端变得更容易。使用Feign创建一个接口并对其进行注释。它具有可插入的注释支持，包括Feign注释和JAX-RS注释。Feign还支持可插拔编码器和解码器。Spring Cloud添加了对Spring MVC注释的支持，以及对使用Spring Web中默认使用的HttpMessageConverter的支持。Spring Cloud集成了Eureka、Spring Cloud CircuitBreaker以及Spring Cloud LoadBalancer，以便在使用Feign时提供负载平衡的http客户端。</p>
-<p>OpenFeign能干什么</p>
-<p>前面在使用<strong>SpringCloud LoadBalancer</strong>+RestTemplate时，利用RestTemplate对http请求的封装处理形成了一套模版化的调用方法。**<em>但是在实际开发中，</em>**</p>
-<p>由于对服务依赖的调用可能不止一处，往往一个接口会被多处调用，所以通常都会针对每个微服务自行封装一些客户端类来包装这些依赖服务的调用。所以，OpenFeign在此基础上做了进一步封装，由他来帮助我们定义和实现依赖服务接口的定义。在OpenFeign的实现下，我们只需创建一个接口并使用注解的方式来配置它(在一个微服务接口上面标注一个**_@FeignClient_**注解即可)，即可完成对服务提供方的接口绑定，统一对外暴露可以被调用的接口方法，大大简化和降低了调用客户端的开发量，也即由服务提供者给出调用接口清单，消费者直接通过OpenFeign调用即可，O(∩_∩)O。</p>
-<p>OpenFeign同时还集成SpringCloud LoadBalancer</p>
-<p>可以在使用OpenFeign时提供Http客户端的负载均衡，也可以集成阿里巴巴Sentinel来提供熔断、降级等功能。而与SpringCloud LoadBalancer不同的是，通过OpenFeign只需要定义服务绑定接口且以声明式的方法，优雅而简单的实现了服务调用。</p>
-<ul>
-<li>引入依赖:<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!--openfeign--&gt;</span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-cloud-starter-openfeign<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li>配置文件<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">server:
-  port: 80
-
-spring:
-  application:
-    name: cloud-consumer-openfeign-order
-  ####Spring Cloud Consul for Service Discovery
-  cloud:
-    consul:
-      host: localhost
-      port: 8500
-      discovery:
-        prefer-ip-address: true #优先使用服务ip进行注册
-        service-name: $</span><span class="token punctuation">{</span>spring.application.name<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-main函数上使用<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@EnableDiscoveryClient</span> <span class="token comment">//该注解用于向使用consul为注册中心时注册服务</span>
-<span class="token annotation punctuation">@EnableFeignClients</span><span class="token comment">//启用feign客户端,定义服务+绑定接口，以声明式的方法优雅而简单的实现服务调用</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-api接口上使用:<br>@FeignClient(value = “xxx”)</li>
-<li>超时控制<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">sspring</span><span class="token punctuation">:</span>
-  <span class="token key atrule">cloud</span><span class="token punctuation">:</span>
-    <span class="token key atrule">openfeign</span><span class="token punctuation">:</span>
-      <span class="token key atrule">client</span><span class="token punctuation">:</span>
-        <span class="token key atrule">config</span><span class="token punctuation">:</span>
-
-          <span class="token comment"># default 设置的全局超时时间，指定服务名称可以设置单个服务的超时时间</span>
-          <span class="token key atrule">default</span><span class="token punctuation">:</span>
-             <span class="token comment">#连接超时时间</span>
-             <span class="token key atrule">connectTimeout</span><span class="token punctuation">:</span> <span class="token number">4000</span>
-             <span class="token comment">#读取超时时间</span>
-             <span class="token key atrule">readTimeout</span><span class="token punctuation">:</span> <span class="token number">4000</span>
-
-          <span class="token comment"># 为serviceC这个服务单独配置超时时间，单个配置的超时时间将会覆盖全局配置</span>
-
-          <span class="token key atrule">serviceC</span><span class="token punctuation">:</span>
-             <span class="token comment">#连接超时时间</span>
-             <span class="token key atrule">connectTimeout</span><span class="token punctuation">:</span> <span class="token number">2000</span>
-             <span class="token comment">#读取超时时间</span>
-             <span class="token key atrule">readTimeout</span><span class="token punctuation">:</span> <span class="token number">2000</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-<p><strong>服务雪崩</strong></p>
-<p>多个微服务之间调用的时候，假设微服务A调用微服务B和微服务C，微服务B和微服务C又调用其它的微服务，这就是所谓的“扇出”。如果扇出的链路上某个微服务的调用响应时间过长或者不可用，对微服务A的调用就会占用越来越多的系统资源，进而引起系统崩溃，所谓的“雪崩效应”.</p>
-<p>对于高流量的应用来说，单一的后端依赖可能会导致所有服务器上的所有资源都在几秒钟内饱和。比失败更糟糕的是，这些应用程序还可能导致服务之间的延迟增加，备份队列，线程和其他系统资源紧张，导致整个系统发生更多的级联故障。这些都表示需要对故障和延迟进行隔离和管理，以便单个依赖关系的失败，不能取消整个应用程序或系统。</p>
-<p>所以，</p>
-<p>通常当你发现一个模块下的某个实例失败后，这时候这个模块依然还会接收流量，然后这个有问题的模块还调用了其他的模块，这样就会发生级联故障，或者叫雪崩。</p>
-<h2 id="CircuitBreaker-断路器"><a href="#CircuitBreaker-断路器" class="headerlink" title="CircuitBreaker  断路器"></a>CircuitBreaker  断路器</h2><p>配置参考<br><img src="/2024/03/05/33/%E6%96%AD%E8%B7%AF%E5%99%A8%E9%85%8D%E7%BD%AE.png" alt="断路器配置"></p>
-<p>断路器的状态：</p>
-<ol>
-<li>CLOSED</li>
-<li>OPEN</li>
-<li>HALF_OPEN 半开<br><img src="/2024/03/05/33/%E7%8A%B6%E6%80%81.png"><br>pox<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!--resilience4j-circuitbreaker--&gt;</span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-cloud-starter-circuitbreaker-resilience4j<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span>
-<span class="token comment">&lt;!-- 由于断路保护等需要AOP实现，所以必须导入AOP包 --&gt;</span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-boot-starter-aop<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<img src="/2024/03/05/33/%E5%8E%9F%E7%90%86.png"></li>
-</ol>
-<h2 id="分布式链路追踪"><a href="#分布式链路追踪" class="headerlink" title="分布式链路追踪"></a>分布式链路追踪</h2><p>原因:<br><img src="/2024/03/05/33/%E5%8E%9F%E5%9B%A0.png" alt="原因"><br><strong>ZipKin概述</strong></p>
-<p>Zipkin是一种分布式链路跟踪系统图形化的工具，Zipkin 是 Twitter 开源的分布式跟踪系统，能够收集微服务运行过程中的实时调用链路信息，并能够将这些调用链路信息展示到Web图形化界面上供开发人员分析，开发人员能够从ZipKin中分析出调用链路中的性能瓶颈，识别出存在问题的应用程序，进而定位问题和解决问题<br>运行: java -jar zipkin-server-3.0.0-rc0-exec.jar</p>
-<h2 id="网关"><a href="#网关" class="headerlink" title="网关"></a>网关</h2><p><img src="/2024/03/05/33/%E7%BD%91%E5%85%B3.png" alt="网关"></p>
-<h3 id="执行流程："><a href="#执行流程：" class="headerlink" title="执行流程："></a>执行流程：</h3><ol>
-<li>路由判断：用户端的请求到达网关之后，根据Gateway Handler Mapping 处理，会进行断言判断</li>
-<li>路由过滤：很多Handler 组成的Fileter Chain</li>
-<li>服务处理：后端服务会对请求进行处理</li>
-<li>响应过滤：返回给-Gateway的过滤器会再次进行处理，逻辑上可以乘坐Post-Filters</li>
-<li>响应返回：响应经过过处理之后，返回给客户端</li>
-</ol>
-<ul>
-<li>作用<ol>
-<li>反向代理</li>
-<li>鉴权</li>
-<li>流量控制</li>
-<li>熔断</li>
-<li>日志监控</li>
-</ol>
-</li>
-</ul>
-<h3 id="Spring-Cloud-Gateway如何实现动态路由"><a href="#Spring-Cloud-Gateway如何实现动态路由" class="headerlink" title="Spring Cloud Gateway如何实现动态路由"></a>Spring Cloud Gateway如何实现动态路由</h3><p>可以使用Nacos作为注册中心去动态更改<br>配置的路由断言类型</p>
-<h3 id="Gateway过滤器的类型"><a href="#Gateway过滤器的类型" class="headerlink" title="Gateway过滤器的类型"></a>Gateway过滤器的类型</h3><ul>
-<li>Pre类型：在请求被转发到微服务之前及逆行拦截和修改</li>
-<li>Post ： 微服务处理请求之后，返回响应给网关，网关可以再次进行处理，例如修改相应内容或者响应头，日志输出，流量监控<br>或者</li>
-<li>GatewayFilter：局部过滤器，应用在单个路由或者一组路由上的过滤器</li>
-<li>GlobalFilter：全局过滤器<br>pom<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!--gateway--&gt;</span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
-          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
-          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-cloud-starter-gateway<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-yml<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">server</span><span class="token punctuation">:</span>
-  <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">9527</span>
-
-<span class="token key atrule">spring</span><span class="token punctuation">:</span>
-  <span class="token key atrule">application</span><span class="token punctuation">:</span>
-    <span class="token key atrule">name</span><span class="token punctuation">:</span> cloud<span class="token punctuation">-</span>gateway <span class="token comment">#以微服务注册进consul或nacos服务列表内</span>
-  <span class="token key atrule">cloud</span><span class="token punctuation">:</span>
-    <span class="token key atrule">consul</span><span class="token punctuation">:</span> <span class="token comment">#配置consul地址</span>
-      <span class="token key atrule">host</span><span class="token punctuation">:</span> localhost
-      <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">8500</span>
-      <span class="token key atrule">discovery</span><span class="token punctuation">:</span>
-        <span class="token key atrule">prefer-ip-address</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
-        <span class="token key atrule">service-name</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span>spring.application.name<span class="token punctuation">}</span>
-	<span class="token key atrule">gateway</span><span class="token punctuation">:</span>
-      <span class="token key atrule">routes</span><span class="token punctuation">:</span>
-        <span class="token punctuation">-</span> <span class="token key atrule">id</span><span class="token punctuation">:</span> pay_routh1 <span class="token comment">#pay_routh1                #路由的ID(类似mysql主键ID)，没有固定规则但要求唯一，建议配合服务名</span>
-          <span class="token key atrule">uri</span><span class="token punctuation">:</span> http<span class="token punctuation">:</span>//localhost<span class="token punctuation">:</span><span class="token number">8001</span>                <span class="token comment">#匹配后提供服务的路由地址</span>
-          <span class="token key atrule">predicates</span><span class="token punctuation">:</span>
-            <span class="token punctuation">-</span> Path=/pay/gateway/get/<span class="token important">**</span>              <span class="token comment"># 断言，路径相匹配的进行路由id: pay_routh2 #pay_routh2                #路由的ID(类似mysql主键ID)，没有固定规则但要求唯一，建议配合服务名</span>
-          <span class="token key atrule">uri</span><span class="token punctuation">:</span> http<span class="token punctuation">:</span>//localhost<span class="token punctuation">:</span><span class="token number">8001</span>                <span class="token comment">#匹配后提供服务的路由地址</span>
-          <span class="token key atrule">predicates</span><span class="token punctuation">:</span>
-            <span class="token punctuation">-</span> Path=/pay/gateway/info/<span class="token important">**</span>              <span class="token comment"># 断言，路径相匹配的进行路由      </span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-<h2 id="SpringCloud-1"><a href="#SpringCloud-1" class="headerlink" title="SpringCloud"></a>SpringCloud</h2><p><img src="/2024/03/05/33/alibaba.png" alt="阿里巴巴"></p>
-<ul>
-<li>功能<br><img src="/2024/03/05/33/%E5%8A%9F%E8%83%BD.png" alt="功能"></li>
-<li>组件<br><img src="/2024/03/05/33/%E7%BB%84%E4%BB%B6.png" alt="组件"></li>
-</ul>
-<h3 id="服务注册-Nacos-x3D-x3D-consul"><a href="#服务注册-Nacos-x3D-x3D-consul" class="headerlink" title="服务注册 Nacos == consul"></a>服务注册 Nacos == consul</h3><p><strong>注意是根据ID来区分的不是根据名字来区分命名空间的，所以ID要填自己想填的</strong></p>
-<p><img src="/2024/03/05/33/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E5%AF%B9%E6%AF%94.png" alt="对比"></p>
-<ul>
-<li><p>命令行</p>
-<pre class="line-numbers language-css" data-language="css"><code class="language-css">startup.cmd -m standalone<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
-<li><p>服务提供者<br>pom:</p>
-<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>  
-	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>com.alibaba.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>  
-	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-cloud-starter-alibaba-nacos-discovery<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>  
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>yml</p>
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">server</span><span class="token punctuation">:</span>
-  <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">9001</span>
-
-<span class="token key atrule">spring</span><span class="token punctuation">:</span>
-  <span class="token key atrule">application</span><span class="token punctuation">:</span>
-    <span class="token key atrule">name</span><span class="token punctuation">:</span> nacos<span class="token punctuation">-</span>payment<span class="token punctuation">-</span>provider
-  <span class="token key atrule">cloud</span><span class="token punctuation">:</span>
-    <span class="token key atrule">nacos</span><span class="token punctuation">:</span>
-      <span class="token key atrule">discovery</span><span class="token punctuation">:</span>
-        <span class="token key atrule">server-addr</span><span class="token punctuation">:</span> localhost<span class="token punctuation">:</span><span class="token number">8848</span> <span class="token comment">#配置Nacos地址</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>main函数上使用@EnableDiscoveryClient<br>业务类示范<br><img src="/2024/03/05/33/controller%E7%A4%BA%E8%8C%83.png" alt="示范"></p>
-</li>
-<li><p>消费者<br>pom</p>
-<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!--nacos-discovery--&gt;</span>
-       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
-           <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>com.alibaba.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
-           <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-cloud-starter-alibaba-nacos-discovery<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
-       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span>
-       <span class="token comment">&lt;!--loadbalancer--&gt;</span>
-       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
-           <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
-           <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-cloud-starter-loadbalancer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
-       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>xml</p>
-<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">
-server:
-  port: 83
-
-spring:
-  application:
-    name: nacos-order-consumer
-  cloud:
-    nacos:
-      discovery:
-        server-addr: localhost:8848
-#消费者将要去访问的微服务名称(nacos微服务提供者叫什么你写什么)
-service-url:
-  nacos-user-service: http://nacos-payment-provider<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>main上也使用@EnableDiscoveryClient</p>
-</li>
-</ul>
-<p>restTemplate配置</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">ackage com<span class="token punctuation">.</span>atguigu<span class="token punctuation">.</span>cloud<span class="token punctuation">.</span>config<span class="token punctuation">;</span>
-
-<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>cloud<span class="token punctuation">.</span>client<span class="token punctuation">.</span>loadbalancer<span class="token punctuation">.</span></span><span class="token class-name">LoadBalanced</span></span><span class="token punctuation">;</span>
-<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">Bean</span></span><span class="token punctuation">;</span>
-<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">Configuration</span></span><span class="token punctuation">;</span>
-<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>client<span class="token punctuation">.</span></span><span class="token class-name">RestTemplate</span></span><span class="token punctuation">;</span>
-
-<span class="token comment">/**
- * @auther zzyy
- * @create 2023-11-23 17:20
- */</span>
-<span class="token annotation punctuation">@Configuration</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RestTemplateConfig</span>
-<span class="token punctuation">{</span>
-    <span class="token annotation punctuation">@Bean</span>
-    <span class="token annotation punctuation">@LoadBalanced</span> <span class="token comment">//赋予RestTemplate负载均衡的能力</span>
-    <span class="token keyword">public</span> <span class="token class-name">RestTemplate</span> <span class="token function">restTemplate</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">RestTemplate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<ul>
-<li>Nacos作为配置中心，进行动态配置<br>导入pom<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!--bootstrap--&gt;</span>
-     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
-         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
-         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-cloud-starter-bootstrap<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
-     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span>
-     <span class="token comment">&lt;!--nacos-config--&gt;</span>
-     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
-         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>com.alibaba.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
-         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-cloud-starter-alibaba-nacos-config<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
-     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-为什么进行两个配置？ bootstrap和application?<br>Nacos同Consul一样，在项目初始化时，要保证先从配置中心进行配置拉取，<br>拉取配置之后，才能保证项目的正常启动，为了满足动态刷新和全局广播通知<br>springboot中配置文件的加载是存在优先级顺序的，bootstrap优先级高于application<br>bootstrap<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector"># nacos配置
-spring:
-  application:
-    name: nacos-config-client
-  cloud:
-    nacos:
-      discovery:
-        server-addr: localhost:8848 #Nacos服务注册中心地址
-      config:
-        server-addr: localhost:8848 #Nacos作为配置中心地址
-        file-extension: yaml #指定yaml格式的配置
-
-# nacos端配置文件DataId的命名规则是：
-# $</span><span class="token punctuation">{</span>spring.application.name<span class="token punctuation">}</span><span class="token selector">-$</span><span class="token punctuation">{</span>spring.profile.active<span class="token punctuation">}</span><span class="token selector">.$</span><span class="token punctuation">{</span>spring.cloud.nacos.config.file-extension<span class="token punctuation">}</span>
-# <span class="token property">本案例的DataID是</span><span class="token punctuation">:</span>nacos-config-client-dev.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-application<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token property">server</span><span class="token punctuation">:</span>
-  <span class="token property">port</span><span class="token punctuation">:</span> 3377
-
-<span class="token property">spring</span><span class="token punctuation">:</span>
-  <span class="token property">profiles</span><span class="token punctuation">:</span>
-    <span class="token property">active</span><span class="token punctuation">:</span> dev # 表示开发环境
-      #<span class="token property">active</span><span class="token punctuation">:</span> prod # 表示生产环境
-    #<span class="token property">active</span><span class="token punctuation">:</span> test # 表示测试环境<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-controller层上使用@RefreshScope //在控制器类加入@RefreshScope注解使当前类下的配置支持Nacos的动态刷新功能。</li>
-</ul>
-<p><em><strong>问题1：</strong></em></p>
-<p>实际开发中，通常一个系统会准备</p>
-<p>dev开发环境</p>
-<p>test测试环境</p>
-<p>prod生产环境。</p>
-<p>如何保证指定环境启动时服务能正确读取到Nacos上相应环境的配置文件呢？</p>
-<p><em><strong>问题2:</strong></em></p>
-<p>一个大型分布式微服务系统会有很多微服务子项目，</p>
-<p>每个微服务项目又都会有相应的开发环境、测试环境、预发环境、正式环境……</p>
-<p>那怎么对这些微服务配置进行分组和命名空间管理呢？</p>
-<p><img src="/2024/03/05/33/model.png" alt="model"></p>
-<h2 id="Sentinel-等价于-Circuit-Breaker-自己去官网看"><a href="#Sentinel-等价于-Circuit-Breaker-自己去官网看" class="headerlink" title="Sentinel 等价于 Circuit Breaker 自己去官网看"></a>Sentinel 等价于 Circuit Breaker 自己去官网看</h2><p><img src="/2024/03/05/33/%E9%9B%AA%E5%B4%A9.png"><br><img src="/2024/03/05/33/%E9%99%8D%E7%BA%A7.png"><br><img src="/2024/03/05/33/%E7%86%94%E6%96%AD.png"><br><img src="/2024/03/05/33/%E9%99%90%E6%B5%81.png"><br><img src="/2024/03/05/33/%E9%9A%94%E7%A6%BB.png"><br><img src="/2024/03/05/33/%E9%9A%94%E7%A6%BB.png"><br><img src="/2024/03/05/33/%E8%B6%85%E6%97%B6.png"></p>
-<p>pom</p>
-<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!--SpringCloud alibaba sentinel --&gt;</span>
-       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
-           <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>com.alibaba.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
-           <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-cloud-starter-alibaba-sentinel<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
-       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>yml</p>
-<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token property">server</span><span class="token punctuation">:</span>
-  <span class="token property">port</span><span class="token punctuation">:</span> 8401
-
-<span class="token property">spring</span><span class="token punctuation">:</span>
-  <span class="token property">application</span><span class="token punctuation">:</span>
-    <span class="token property">name</span><span class="token punctuation">:</span> cloudalibaba-sentinel-service
-  <span class="token property">cloud</span><span class="token punctuation">:</span>
-    <span class="token property">nacos</span><span class="token punctuation">:</span>
-      <span class="token property">discovery</span><span class="token punctuation">:</span>
-        <span class="token property">server-addr</span><span class="token punctuation">:</span> <span class="token property">localhost</span><span class="token punctuation">:</span>8848         #Nacos服务注册中心地址
-    <span class="token property">sentinel</span><span class="token punctuation">:</span>
-      <span class="token property">transport</span><span class="token punctuation">:</span>
-        <span class="token property">dashboard</span><span class="token punctuation">:</span> <span class="token property">localhost</span><span class="token punctuation">:</span>8080 #配置Sentinel dashboard控制台服务地址
-        <span class="token property">port</span><span class="token punctuation">:</span> 8719 #默认8719端口，假如被占用会自动从8719开始依次+1扫描<span class="token punctuation">,</span>直至找到未被占用的端口<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><img src="/2024/03/05/33/%E6%87%92%E5%8A%A0%E8%BD%BD.png" alt="懒加载"></p>
-<ul>
-<li>流控规则<br><img src="/2024/03/05/33/%E6%B5%81%E6%8E%A7%E8%A7%84%E5%88%99.png"></li>
-<li>熔断降级<br>Sentinel 熔断降级会在调用链路中某个资源出现不稳定状态时（例如调用超时或异常比例升高），对这个资源的调用进行限制，</li>
-</ul>
-<p>让请求快速失败，避免影响到其它的资源而导致级联错误。当资源被降级后，在接下来的降级时间窗口之内，对该资源的调用都自动熔断（默认行为是抛出 DegradeException）。、</p>
-<h3 id="如何处理分布式-事务"><a href="#如何处理分布式-事务" class="headerlink" title="如何处理分布式 事务"></a>如何处理分布式 事务</h3><h2 id="Seata"><a href="#Seata" class="headerlink" title="Seata"></a>Seata</h2><p><img src="/2024/03/05/33/senta.png" alt="senta"></p>
-<p>去官网看</p>
-<p>面试题：<br><img src="/2024/03/05/33/AT%E9%9D%A2%E8%AF%95%E9%A2%98.png"><br><img src="/2024/03/05/33/AT%E9%9D%A2%E8%AF%95%E9%A2%981.png"></p>
-<p><img src="/2024/03/05/33/%E6%8F%90%E4%BA%A4.png"><br><img src="/2024/03/05/33/%E5%9B%9E%E6%BB%9A.png"></p>
-<h2 id="分布式详细"><a href="#分布式详细" class="headerlink" title="分布式详细"></a>分布式详细</h2><h3 id="分布式ID-分布式ID-https-javaguide-cn-distributed-system-distributed-id-design-html"><a href="#分布式ID-分布式ID-https-javaguide-cn-distributed-system-distributed-id-design-html" class="headerlink" title="[分布式ID](### 分布式ID https://javaguide.cn/distributed-system/distributed-id-design.html)"></a>[分布式ID](### 分布式ID <a target="_blank" rel="noopener" href="https://javaguide.cn/distributed-system/distributed-id-design.html">https://javaguide.cn/distributed-system/distributed-id-design.html</a>)</h3><h4 id="需求："><a href="#需求：" class="headerlink" title="需求："></a>需求：</h4><ol>
-<li>全局唯一</li>
-<li>高可用</li>
-<li>高性能</li>
-<li>安全</li>
-<li>方便易用</li>
-</ol>
-<h4 id="解决方式："><a href="#解决方式：" class="headerlink" title="解决方式："></a>解决方式：</h4><p>推荐使用雪花算法</p>
-<h3 id="分布式锁"><a href="#分布式锁" class="headerlink" title="分布式锁"></a>分布式锁</h3><h4 id="Redis实现"><a href="#Redis实现" class="headerlink" title="Redis实现"></a>Redis实现</h4><h5 id="setnx"><a href="#setnx" class="headerlink" title="setnx"></a>setnx</h5><h6 id="Redisson"><a href="#Redisson" class="headerlink" title="Redisson"></a>Redisson</h6><h4 id="可重入锁"><a href="#可重入锁" class="headerlink" title="可重入锁"></a>可重入锁</h4><p>一个线程中可以多次获取同一把锁，例如，方法又调用了另一个需要相同锁的方法。<br>可以使用红锁</p>
-<h4 id="ZooKeeper"><a href="#ZooKeeper" class="headerlink" title="ZooKeeper"></a><a target="_blank" rel="noopener" href="https://javaguide.cn/distributed-system/distributed-lock-implementations.html#%E5%9F%BA%E4%BA%8E-zookeeper-%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81">ZooKeeper</a></h4><p><a target="_blank" rel="noopener" href="https://javaguide.cn/distributed-system/distributed-process-coordination/zookeeper/zookeeper-intro.html">https://javaguide.cn/distributed-system/distributed-process-coordination/zookeeper/zookeeper-intro.html</a><br>Redis的性能更好，但是Zookeeper的可靠性更高。<br>推荐使用 Curator 来实现 ZooKeeper 分布式锁。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/02/27/04/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="QingQiu">
-      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="QingQiu'Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/02/27/04/" class="post-title-link" itemprop="url">python and web or ai</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-02-27 19:23:04" itemprop="dateCreated datePublished" datetime="2024-02-27T19:23:04+08:00">2024-02-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-01 20:12:49" itemprop="dateModified" datetime="2024-03-01T20:12:49+08:00">2024-03-01</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>815</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="基础语法"><a href="#基础语法" class="headerlink" title="基础语法"></a>基础语法</h2><h2 id="web"><a href="#web" class="headerlink" title="web"></a>web</h2><pre class="line-numbers language-python" data-language="python"><code class="language-python">pip install beautifulsoup4 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<h2 id="Scrapy框架"><a href="#Scrapy框架" class="headerlink" title="Scrapy框架"></a>Scrapy框架</h2><p>项目结构:</p>
-<pre class="line-numbers language-css" data-language="css"><code class="language-css">scrapy.cfg 配置文件
-setting.py 定义爬虫的相关配置信息
-items.py 定义待爬页面数据的结构
-pipelines.py 定义存储爬到的数据的方式
-middlewares.py 定义随机切换ip等逻辑
-Spiders 在目录里，存放爬虫代码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">scrapy startproject projectName 新建一个项目
-1.在items模块中定义待爬取内容的数据结构
-2.在spiders文件中
-scrapy genspider name xxx.com 新建一个爬虫文件
-3.pipelines中定义存储方式
-4.settings中加入
-ITEM_PIPELINES =</span> <span class="token punctuation">{</span>
-
-    <span class="token string">"cnblogPrj.pipelines.CnblogprjPipeline"</span><span class="token punctuation">:</span> 300<span class="token punctuation">,</span>
-
-<span class="token punctuation">}</span>
-
-# 禁用cookies
-
-COOKIES_ENABLED = False<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-none"><code class="language-none">x = float(input() )
-
-y = float(input())
-
-print("{:.3f} + {:.3f} = {:.3f}".format(x, y, x + y))
-
-print("{:.3f} - {:.3f} = {:.3f}" .format (x, y, x - y))
-
-print("{:.3f} * {:.3f} = {:.3f}" .format (x, y, x * y))
-
-print("{:.3f} / {:.3f} = {:.3f}" .format (x, y, x / &nbsp;y))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2767,7 +2378,7 @@ print("{:.3f} / {:.3f} = {:.3f}" .format (x, y, x / &nbsp;y))<span aria-hidden="
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-count">47</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2819,7 +2430,7 @@ print("{:.3f} / {:.3f} = {:.3f}" .format (x, y, x / &nbsp;y))<span aria-hidden="
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">367k</span>
+    <span title="站点总字数">391k</span>
 </div>
 
         
