@@ -157,6 +157,72 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/08/01/12/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="QingQiu">
+      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QingQiu'Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/08/01/12/" class="post-title-link" itemprop="url">脚本语言学习</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-08-01 14:30:12 / 修改时间：14:32:03" itemprop="dateCreated datePublished" datetime="2024-08-01T14:30:12+08:00">2024-08-01</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>9</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Shell"><a href="#Shell" class="headerlink" title="Shell"></a>Shell</h1><p>基本语法</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/07/22/14/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2813,151 +2879,6 @@ fi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/05/16/42/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="QingQiu">
-      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="QingQiu'Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/05/16/42/" class="post-title-link" itemprop="url">Java新特性</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2024-05-16 10:11:42 / 修改时间：16:09:30" itemprop="dateCreated datePublished" datetime="2024-05-16T10:11:42+08:00">2024-05-16</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.5k</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Java新特性面试"><a href="#Java新特性面试" class="headerlink" title="Java新特性面试"></a>Java新特性面试</h1><h2 id="Java8"><a href="#Java8" class="headerlink" title="Java8"></a>Java8</h2><ul>
-<li>接口：interface 中可以有默认方法，无需被子类实现，通过Interface实现调用</li>
-<li><strong>“函数式接口”是指仅仅只包含一个抽象方法,但是可以有多个非抽象方法(也就是上面提到的默认方法)的接口。</strong><ol>
-<li>default实现,可以被子类继承重写，使用this调用</li>
-<li>static实现使用方法和静态方法一样，但是不能被子类继承</li>
-<li>interface和abstract class的区别：interface是为了快速扩展功能，而abstract class是为了被继承实现的。<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Main</span> <span class="token keyword">implements</span> <span class="token class-name">InterfaceNew</span><span class="token punctuation">{</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token class-name">InterfaceNew</span><span class="token punctuation">.</span><span class="token function">sm</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment">//调用df方法</span>
-        <span class="token class-name">Main</span> main <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        main<span class="token punctuation">.</span><span class="token function">df</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span class="token comment">/**
- * InnerMain
- */</span>
-<span class="token keyword">interface</span> <span class="token class-name">InterfaceNew</span> <span class="token punctuation">{</span>
-    <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">sm</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"interface中的sm实现"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    
-    <span class="token keyword">default</span> <span class="token keyword">void</span>  <span class="token function">df</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"interface提供的df实现"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ol>
-</li>
-<li>Lambda</li>
-<li>Stream：不存储数据，只是对数据进行一系列的处理<ul>
-<li>串行流：<ul>
-<li>.stream() 为集合创建串行流</li>
-</ul>
-</li>
-<li>并行流：可以多线程执行<ul>
-<li>parallelStream()获得并行流</li>
-</ul>
-</li>
-<li>API：<ul>
-<li>forEach() 迭代每个数据</li>
-<li>map()传入函数作为变量，对每个数据进行映射(处理)</li>
-<li>limit() 获取指定数量的流</li>
-<li>sorted() 对流进行排序</li>
-<li>Collectors 提供很多归约操作，可以讲将流转化为集合或者聚合元素，要配合collect()来实现</li>
-<li>count()返回流的的数据</li>
-<li>distinct() 返回一个去除重复元素的流</li>
-<li>anyMathch() 检查是否有满足条件的元素，返回值为boolean</li>
-<li>allMatch() 检查是否所有元素都满足匹配的条件</li>
-<li>noneMathc()都不符合匹配条件</li>
-<li>findFirst() 返回流中的第一个元素</li>
-<li>findAny()返回流中的任意元素，这个任意元素只有在多线程中可以看出不同，他会任何线程中选择一个元素返回</li>
-<li>reduce() 将流中元素合并成一个元素 <code>numbers.stream().reduce((n1, n2) -&gt; n1 + n2);</code></li>
-<li>filter()过滤</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Optional：用于避免空指针<ul>
-<li>Optional .ofNullable()返回一个包含指定值Optional对象，如果值为null，则返回一个空的Optional对象</li>
-<li>isPresent() Optional不为空，返回true</li>
-<li>get()返回值</li>
-<li>ifPresent() 如果不为空，可以以调用指定的方法</li>
-<li>orElse(默认值) 如果为空返回这个默认值 </li>
-<li>orElseGet() 如果为空调用指定的函数</li>
-<li>filter() 过滤，如果不满足，返回一个空的Optional</li>
-<li>map() 如果对象是Optional，那么就执行给定的函数</li>
-<li>flatMap()将Optional展开，不再包装成嵌套的Optional</li>
-</ul>
-</li>
-</ul>
-<h2 id="Java9"><a href="#Java9" class="headerlink" title="Java9"></a>Java9</h2><ul>
-<li>JShell 类似于python实时命令行交互工具</li>
-<li>G1成为默认的垃圾回收器</li>
-<li>String使用byte[ ]作为底层，节省空间</li>
-</ul>
-<h2 id="Java10"><a href="#Java10" class="headerlink" title="Java10"></a>Java10</h2><ul>
-<li>var关键字局部变量 ，主要作用是，当类型特别长时，可以使用var替代</li>
-<li>Optional增加了orElseThrow来在没有值时抛出指定的异常</li>
-</ul>
-<h2 id="Java17"><a href="#Java17" class="headerlink" title="Java17"></a>Java17</h2><p>- </p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -3027,7 +2948,7 @@ fi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-count">50</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -3079,7 +3000,7 @@ fi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">391k</span>
+    <span title="站点总字数">401k</span>
 </div>
 
         

@@ -27,7 +27,6 @@
 <meta property="og:site_name" content="QingQiu&#39;Blog">
 <meta property="og:description" content="为何写这一篇文章🐭🐭在面试的时候被问到NULL值是否会走索引的时候，感到有点不理解，于是事后就有了这篇文章问题：为name建立索引，name可以为空select * from user where name is null是否会使用索引？生活会拷打每一个做事不认真的人😭 索引的结构详细的可以参照我的上一篇文章深入浅出MySQL，里面有关于索引的详细介绍在InnoDB引擎中，索引分为聚簇索引和">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zuofw.github.io/2024/09/29/55/%E4%BA%8C%E7%BA%A7%E7%B4%A2%E5%BC%95.png">
 <meta property="og:image" content="https://zuofw.github.io/2024/09/29/55/const.png">
 <meta property="og:image" content="https://zuofw.github.io/2024/09/29/55/ref.png">
 <meta property="og:image" content="https://zuofw.github.io/2024/09/29/55/ref-result.png">
@@ -39,7 +38,7 @@
 <meta property="article:author" content="QingQiu">
 <meta property="article:tag" content="博客，学习，成长">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zuofw.github.io/2024/09/29/55/%E4%BA%8C%E7%BA%A7%E7%B4%A2%E5%BC%95.png">
+<meta name="twitter:image" content="https://zuofw.github.io/2024/09/29/55/const.png">
 
 <link rel="canonical" href="https://zuofw.github.io/2024/09/29/55/">
 
@@ -213,7 +212,7 @@
 
       
         <h1 id="为何写这一篇文章"><a href="#为何写这一篇文章" class="headerlink" title="为何写这一篇文章"></a>为何写这一篇文章</h1><p>🐭🐭在面试的时候被问到NULL值是否会走索引的时候，感到有点不理解，于是事后就有了这篇文章<br>问题：<br>为name建立索引，name可以为空<br><code>select * from user where name is null</code>是否会使用索引？<br>生活会拷打每一个做事不认真的人😭</p>
-<h1 id="索引的结构"><a href="#索引的结构" class="headerlink" title="索引的结构"></a>索引的结构</h1><p>详细的可以参照我的上一篇文章深入浅出MySQL，里面有关于索引的详细介绍<br>在InnoDB引擎中，索引分为聚簇索引和二级索引，对于二级索引<img src="/2024/09/29/55/%E4%BA%8C%E7%BA%A7%E7%B4%A2%E5%BC%95.png">，在这个场景下我们要考虑的就是是否会为NULL建立索引和如果列中存在NULL值，是否会走索引去查找这个NULL</p>
+<h1 id="索引的结构"><a href="#索引的结构" class="headerlink" title="索引的结构"></a>索引的结构</h1><p>详细的可以参照我的上一篇文章深入浅出MySQL，里面有关于索引的详细介绍<br>在InnoDB引擎中，索引分为聚簇索引和二级索引，对于二级索引，在这个场景下我们要考虑的就是是否会为NULL建立索引和如果列中存在NULL值，是否会走索引去查找这个NULL</p>
 <h1 id="访问方法"><a href="#访问方法" class="headerlink" title="访问方法"></a>访问方法</h1><p>访问方法是MySQL来实际访问数据的执行方法<br>大致分为：</p>
 <ol>
 <li>全表扫描</li>
@@ -343,7 +342,7 @@ explain select <span class="token operator">*</span> from user where age is not 
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-count">50</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -395,7 +394,7 @@ explain select <span class="token operator">*</span> from user where age is not 
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">391k</span>
+    <span title="站点总字数">401k</span>
 </div>
 
         

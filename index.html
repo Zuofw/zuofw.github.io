@@ -1751,7 +1751,7 @@
 
       
           <h1 id="为何写这一篇文章"><a href="#为何写这一篇文章" class="headerlink" title="为何写这一篇文章"></a>为何写这一篇文章</h1><p>🐭🐭在面试的时候被问到NULL值是否会走索引的时候，感到有点不理解，于是事后就有了这篇文章<br>问题：<br>为name建立索引，name可以为空<br><code>select * from user where name is null</code>是否会使用索引？<br>生活会拷打每一个做事不认真的人😭</p>
-<h1 id="索引的结构"><a href="#索引的结构" class="headerlink" title="索引的结构"></a>索引的结构</h1><p>详细的可以参照我的上一篇文章深入浅出MySQL，里面有关于索引的详细介绍<br>在InnoDB引擎中，索引分为聚簇索引和二级索引，对于二级索引<img src="/2024/09/29/55/%E4%BA%8C%E7%BA%A7%E7%B4%A2%E5%BC%95.png">，在这个场景下我们要考虑的就是是否会为NULL建立索引和如果列中存在NULL值，是否会走索引去查找这个NULL</p>
+<h1 id="索引的结构"><a href="#索引的结构" class="headerlink" title="索引的结构"></a>索引的结构</h1><p>详细的可以参照我的上一篇文章深入浅出MySQL，里面有关于索引的详细介绍<br>在InnoDB引擎中，索引分为聚簇索引和二级索引，对于二级索引，在这个场景下我们要考虑的就是是否会为NULL建立索引和如果列中存在NULL值，是否会走索引去查找这个NULL</p>
 <h1 id="访问方法"><a href="#访问方法" class="headerlink" title="访问方法"></a>访问方法</h1><p>访问方法是MySQL来实际访问数据的执行方法<br>大致分为：</p>
 <ol>
 <li>全表扫描</li>
@@ -1839,7 +1839,7 @@ explain select <span class="token operator">*</span> from user where age is not 
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>7.1k</span>
+              <span>16k</span>
             </span>
 
         </div>
@@ -2108,7 +2108,404 @@ explain select <span class="token operator">*</span> from user where age is not 
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
-<h2 id="ConcurrentHashMap"><a href="#ConcurrentHashMap" class="headerlink" title="ConcurrentHashMap"></a>ConcurrentHashMap</h2><h3 id="ThreadLocal-单独开一篇吧"><a href="#ThreadLocal-单独开一篇吧" class="headerlink" title="ThreadLocal ? 单独开一篇吧"></a>ThreadLocal ? 单独开一篇吧</h3><h1 id="常见八股"><a href="#常见八股" class="headerlink" title="常见八股"></a>常见八股</h1><h2 id="HashMap的底层实现是什么"><a href="#HashMap的底层实现是什么" class="headerlink" title="HashMap的底层实现是什么"></a>HashMap的底层实现是什么</h2><p>JDK1.8之前是数组 + 链表，数组是HashMap的主体，链表是用来解决哈希冲突。使用拉链法来解决。<br>JDK1.8之后变为数组+链表/红黑树，当链表长度大于等于阈值 <u>8</u> 时，会转化，如果当前数组长度小于64就学会先进行数组扩容，否则就转化为红黑树，默认大小为16，每次扩容2倍。</p>
+<h2 id="ConcurrentHashMap"><a href="#ConcurrentHashMap" class="headerlink" title="ConcurrentHashMap"></a>ConcurrentHashMap</h2><h2 id="JDK1-7"><a href="#JDK1-7" class="headerlink" title="JDK1.7"></a>JDK1.7</h2><p>JDK1.7中，ConcurrentHashMap是由多个Segment组合，而每一个Segment都是一个类似于HashMap的结构，可以内部进行扩容，但是Segment的个数一旦初始化就不能改变了。默认支持16个，也就是默认支持16个线程并发<img src="/2024/09/28/24/jdk1.7concurrent.png"></p>
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>无参构造中调用了有参构造，传入三个默认值</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
+ * 默认初始化容量
+ */</span>
+<span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> <span class="token constant">DEFAULT_INITIAL_CAPACITY</span> <span class="token operator">=</span> <span class="token number">16</span><span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * 默认负载因子
+ */</span>
+<span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">float</span> <span class="token constant">DEFAULT_LOAD_FACTOR</span> <span class="token operator">=</span> <span class="token number">0.75f</span><span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * 默认并发级别
+ */</span>
+<span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> <span class="token constant">DEFAULT_CONCURRENCY_LEVEL</span> <span class="token operator">=</span> <span class="token number">16</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>初始化逻辑</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@SuppressWarnings</span><span class="token punctuation">(</span><span class="token string">"unchecked"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token class-name">ConcurrentHashMap</span><span class="token punctuation">(</span><span class="token keyword">int</span> initialCapacity<span class="token punctuation">,</span><span class="token keyword">float</span> loadFactor<span class="token punctuation">,</span> <span class="token keyword">int</span> concurrencyLevel<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 参数校验</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token punctuation">(</span>loadFactor <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">||</span> initialCapacity <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token operator">||</span> concurrencyLevel <span class="token operator">&lt;=</span> <span class="token number">0</span><span class="token punctuation">)</span>
+        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 校验并发级别大小，大于 1&lt;&lt;16，重置为 65536</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>concurrencyLevel <span class="token operator">&gt;</span> <span class="token constant">MAX_SEGMENTS</span><span class="token punctuation">)</span>
+        concurrencyLevel <span class="token operator">=</span> <span class="token constant">MAX_SEGMENTS</span><span class="token punctuation">;</span>
+    <span class="token comment">// Find power-of-two sizes best matching arguments</span>
+    <span class="token comment">// 2的多少次方</span>
+    <span class="token keyword">int</span> sshift <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> ssize <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token comment">// 这个循环可以找到 concurrencyLevel 之上最近的 2的次方值</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span>ssize <span class="token operator">&lt;</span> concurrencyLevel<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token operator">++</span>sshift<span class="token punctuation">;</span>
+        ssize <span class="token operator">&lt;&lt;=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// 记录段偏移量</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>segmentShift <span class="token operator">=</span> <span class="token number">32</span> <span class="token operator">-</span> sshift<span class="token punctuation">;</span>
+    <span class="token comment">// 记录段掩码</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>segmentMask <span class="token operator">=</span> ssize <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token comment">// 设置容量</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>initialCapacity <span class="token operator">&gt;</span> <span class="token constant">MAXIMUM_CAPACITY</span><span class="token punctuation">)</span>
+        initialCapacity <span class="token operator">=</span> <span class="token constant">MAXIMUM_CAPACITY</span><span class="token punctuation">;</span>
+    <span class="token comment">// c = 容量 / ssize ，默认 16 / 16 = 1，这里是计算每个 Segment 中的类似于 HashMap 的容量</span>
+    <span class="token keyword">int</span> c <span class="token operator">=</span> initialCapacity <span class="token operator">/</span> ssize<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>c <span class="token operator">*</span> ssize <span class="token operator">&lt;</span> initialCapacity<span class="token punctuation">)</span>
+        <span class="token operator">++</span>c<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> cap <span class="token operator">=</span> <span class="token constant">MIN_SEGMENT_TABLE_CAPACITY</span><span class="token punctuation">;</span>
+    <span class="token comment">//Segment 中的类似于 HashMap 的容量至少是2或者2的倍数</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span>cap <span class="token operator">&lt;</span> c<span class="token punctuation">)</span>
+        cap <span class="token operator">&lt;&lt;=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token comment">// create segments and segments[0]</span>
+    <span class="token comment">// 创建 Segment 数组，设置 segments[0]</span>
+    <span class="token class-name">Segment</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span> s0 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Segment</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span>loadFactor<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">(</span>cap <span class="token operator">*</span> loadFactor<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                         <span class="token punctuation">(</span><span class="token class-name">HashEntry</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token keyword">new</span> <span class="token class-name">HashEntry</span><span class="token punctuation">[</span>cap<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">Segment</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">[</span><span class="token punctuation">]</span> ss <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">Segment</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token keyword">new</span> <span class="token class-name">Segment</span><span class="token punctuation">[</span>ssize<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token constant">UNSAFE</span><span class="token punctuation">.</span><span class="token function">putOrderedObject</span><span class="token punctuation">(</span>ss<span class="token punctuation">,</span> <span class="token constant">SBASE</span><span class="token punctuation">,</span> s0<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// ordered write of segments[0]</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>segments <span class="token operator">=</span> ss<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol>
+<li>校验并发等级大小，如果大于最大值，就重置为最大值</li>
+<li>初始化容量为大于并发等级最近的2的幂次方，默认16</li>
+<li>记录segmentShift偏移量，2^n 中的n，默认为32 - sshift = 28  </li>
+<li>记录segmentMask，默认是ssize - 1 = 16 - 1 = 15</li>
+<li>初始化<code>segment[0]</code>，默认大小为2，扩容阈值为 2 * 0.75 = 1.5。插入第二个值时才会进行扩容</li>
+</ol>
+<h3 id="put-1"><a href="#put-1" class="headerlink" title="put"></a>put</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
+ * Maps the specified key to the specified value in this table.
+ * Neither the key nor the value can be null.
+ *
+ * &lt;p&gt; The value can be retrieved by calling the &lt;tt&gt;get&lt;/tt&gt; method
+ * with a key that is equal to the original key.
+ *
+ * @param key key with which the specified value is to be associated
+ * @param value value to be associated with the specified key
+ * @return the previous value associated with &lt;tt&gt;key&lt;/tt&gt;, or
+ *         &lt;tt&gt;null&lt;/tt&gt; if there was no mapping for &lt;tt&gt;key&lt;/tt&gt;
+ * @throws NullPointerException if the specified key or value is null
+ */</span>
+<span class="token keyword">public</span> <span class="token class-name">V</span> <span class="token function">put</span><span class="token punctuation">(</span><span class="token class-name">K</span> key<span class="token punctuation">,</span> <span class="token class-name">V</span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token class-name">Segment</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span> s<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>value <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span>
+        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">NullPointerException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> hash <span class="token operator">=</span> <span class="token function">hash</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// hash 值无符号右移 28位（初始化时获得），然后与 segmentMask=15 做与运算</span>
+    <span class="token comment">// 其实也就是把高4位与segmentMask（1111）做与运算</span>
+    <span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token punctuation">(</span>hash <span class="token operator">&gt;&gt;&gt;</span> segmentShift<span class="token punctuation">)</span> <span class="token operator">&amp;</span> segmentMask<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>s <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">Segment</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">)</span><span class="token constant">UNSAFE</span><span class="token punctuation">.</span>getObject          <span class="token comment">// nonvolatile; recheck</span>
+         <span class="token punctuation">(</span>segments<span class="token punctuation">,</span> <span class="token punctuation">(</span>j <span class="token operator">&lt;&lt;</span> <span class="token constant">SSHIFT</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token constant">SBASE</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token comment">//  in ensureSegment</span>
+        <span class="token comment">// 如果查找到的 Segment 为空，初始化</span>
+        s <span class="token operator">=</span> <span class="token function">ensureSegment</span><span class="token punctuation">(</span>j<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> s<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> hash<span class="token punctuation">,</span> value<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/**
+ * Returns the segment for the given index, creating it and
+ * recording in segment table (via CAS) if not already present.
+ *
+ * @param k the index
+ * @return the segment
+ */</span>
+<span class="token annotation punctuation">@SuppressWarnings</span><span class="token punctuation">(</span><span class="token string">"unchecked"</span><span class="token punctuation">)</span>
+<span class="token keyword">private</span> <span class="token class-name">Segment</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span> <span class="token function">ensureSegment</span><span class="token punctuation">(</span><span class="token keyword">int</span> k<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">final</span> <span class="token class-name">Segment</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">[</span><span class="token punctuation">]</span> ss <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>segments<span class="token punctuation">;</span>
+    <span class="token keyword">long</span> u <span class="token operator">=</span> <span class="token punctuation">(</span>k <span class="token operator">&lt;&lt;</span> <span class="token constant">SSHIFT</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token constant">SBASE</span><span class="token punctuation">;</span> <span class="token comment">// raw offset</span>
+    <span class="token class-name">Segment</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span> seg<span class="token punctuation">;</span>
+    <span class="token comment">// 判断 u 位置的 Segment 是否为null</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>seg <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">Segment</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">)</span><span class="token constant">UNSAFE</span><span class="token punctuation">.</span><span class="token function">getObjectVolatile</span><span class="token punctuation">(</span>ss<span class="token punctuation">,</span> u<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">Segment</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span> proto <span class="token operator">=</span> ss<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">// use segment 0 as prototype</span>
+        <span class="token comment">// 获取0号 segment 里的 HashEntry&lt;K,V&gt; 初始化长度</span>
+        <span class="token keyword">int</span> cap <span class="token operator">=</span> proto<span class="token punctuation">.</span>table<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token comment">// 获取0号 segment 里的 hash 表里的扩容负载因子，所有的 segment 的 loadFactor 是相同的</span>
+        <span class="token keyword">float</span> lf <span class="token operator">=</span> proto<span class="token punctuation">.</span>loadFactor<span class="token punctuation">;</span>
+        <span class="token comment">// 计算扩容阀值</span>
+        <span class="token keyword">int</span> threshold <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">(</span>cap <span class="token operator">*</span> lf<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 创建一个 cap 容量的 HashEntry 数组</span>
+        <span class="token class-name">HashEntry</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">[</span><span class="token punctuation">]</span> tab <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">HashEntry</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token keyword">new</span> <span class="token class-name">HashEntry</span><span class="token punctuation">[</span>cap<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>seg <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">Segment</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">)</span><span class="token constant">UNSAFE</span><span class="token punctuation">.</span><span class="token function">getObjectVolatile</span><span class="token punctuation">(</span>ss<span class="token punctuation">,</span> u<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment">// recheck</span>
+            <span class="token comment">// 再次检查 u 位置的 Segment 是否为null，因为这时可能有其他线程进行了操作</span>
+            <span class="token class-name">Segment</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span> s <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Segment</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span>lf<span class="token punctuation">,</span> threshold<span class="token punctuation">,</span> tab<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment">// 自旋检查 u 位置的 Segment 是否为null</span>
+            <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>seg <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">Segment</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">)</span><span class="token constant">UNSAFE</span><span class="token punctuation">.</span><span class="token function">getObjectVolatile</span><span class="token punctuation">(</span>ss<span class="token punctuation">,</span> u<span class="token punctuation">)</span><span class="token punctuation">)</span>
+                   <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment">// 使用CAS 赋值，只会成功一次</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token constant">UNSAFE</span><span class="token punctuation">.</span><span class="token function">compareAndSwapObject</span><span class="token punctuation">(</span>ss<span class="token punctuation">,</span> u<span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span> seg <span class="token operator">=</span> s<span class="token punctuation">)</span><span class="token punctuation">)</span>
+                    <span class="token keyword">break</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> seg<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol>
+<li>计算key的位置，获取指定位置的Segment</li>
+<li>如果指定位置的Segment为空，则初始化这个Segment<ul>
+<li>如果为null，使用<code>Segment[0]</code>的容量和负载因子创建一个HashEntry数组</li>
+<li>再次检查是否为null</li>
+<li>使用HashEntry初始化这个Segment</li>
+<li>自旋计算得到的指定位置是否为null，使用CAS在这个位置赋值Segment</li>
+</ul>
+</li>
+<li>Segment.put插入key，value<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">final</span> <span class="token class-name">V</span> <span class="token function">put</span><span class="token punctuation">(</span><span class="token class-name">K</span> key<span class="token punctuation">,</span> <span class="token keyword">int</span> hash<span class="token punctuation">,</span> <span class="token class-name">V</span> value<span class="token punctuation">,</span> <span class="token keyword">boolean</span> onlyIfAbsent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 获取 ReentrantLock 独占锁，获取不到，scanAndLockForPut 获取。</span>
+    <span class="token class-name">HashEntry</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span> node <span class="token operator">=</span> <span class="token function">tryLock</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token keyword">null</span> <span class="token operator">:</span> <span class="token function">scanAndLockForPut</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> hash<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">V</span> oldValue<span class="token punctuation">;</span>
+    <span class="token keyword">try</span> <span class="token punctuation">{</span>
+        <span class="token class-name">HashEntry</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">[</span><span class="token punctuation">]</span> tab <span class="token operator">=</span> table<span class="token punctuation">;</span>
+        <span class="token comment">// 计算要put的数据位置</span>
+        <span class="token keyword">int</span> index <span class="token operator">=</span> <span class="token punctuation">(</span>tab<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> hash<span class="token punctuation">;</span>
+        <span class="token comment">// CAS 获取 index 坐标的值</span>
+        <span class="token class-name">HashEntry</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span> first <span class="token operator">=</span> <span class="token function">entryAt</span><span class="token punctuation">(</span>tab<span class="token punctuation">,</span> index<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">HashEntry</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span> e <span class="token operator">=</span> first<span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>e <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment">// 检查是否 key 已经存在，如果存在，则遍历链表寻找位置，找到后替换 value</span>
+                <span class="token class-name">K</span> k<span class="token punctuation">;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>k <span class="token operator">=</span> e<span class="token punctuation">.</span>key<span class="token punctuation">)</span> <span class="token operator">==</span> key <span class="token operator">||</span>
+                    <span class="token punctuation">(</span>e<span class="token punctuation">.</span>hash <span class="token operator">==</span> hash <span class="token operator">&amp;&amp;</span> key<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>k<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    oldValue <span class="token operator">=</span> e<span class="token punctuation">.</span>value<span class="token punctuation">;</span>
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>onlyIfAbsent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        e<span class="token punctuation">.</span>value <span class="token operator">=</span> value<span class="token punctuation">;</span>
+                        <span class="token operator">++</span>modCount<span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                    <span class="token keyword">break</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                e <span class="token operator">=</span> e<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                <span class="token comment">// first 有值没说明 index 位置已经有值了，有冲突，链表头插法。</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>node <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span>
+                    node<span class="token punctuation">.</span><span class="token function">setNext</span><span class="token punctuation">(</span>first<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">else</span>
+                    node <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashEntry</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span>hash<span class="token punctuation">,</span> key<span class="token punctuation">,</span> value<span class="token punctuation">,</span> first<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">int</span> c <span class="token operator">=</span> count <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+                <span class="token comment">// 容量大于扩容阀值，小于最大容量，进行扩容</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>c <span class="token operator">&gt;</span> threshold <span class="token operator">&amp;&amp;</span> tab<span class="token punctuation">.</span>length <span class="token operator">&lt;</span> <span class="token constant">MAXIMUM_CAPACITY</span><span class="token punctuation">)</span>
+                    <span class="token function">rehash</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">else</span>
+                    <span class="token comment">// index 位置赋值 node，node 可能是一个元素，也可能是一个链表的表头</span>
+                    <span class="token function">setEntryAt</span><span class="token punctuation">(</span>tab<span class="token punctuation">,</span> index<span class="token punctuation">,</span> node<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token operator">++</span>modCount<span class="token punctuation">;</span>
+                count <span class="token operator">=</span> c<span class="token punctuation">;</span>
+                oldValue <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
+        <span class="token function">unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> oldValue<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+<ul>
+<li><p><code>tryLock()</code> 获取锁，获取不到使用 <strong><code>scanAndLockForPut</code></strong> 方法继续获取。</p>
+</li>
+<li><p>计算 put 的数据要放入的 index 位置，然后获取这个位置上的 <code>HashEntry</code> 。</p>
+</li>
+<li><p>遍历 put 新元素，为什么要遍历？因为这里获取的 <code>HashEntry</code> 可能是一个空元素，也可能是链表已存在，所以要区别对待。</p>
+<p>  如果这个位置上的 <strong><code>HashEntry</code> 不存在</strong>：</p>
+<ol>
+<li>如果当前容量大于扩容阀值，小于最大容量，<strong>进行扩容</strong>。</li>
+<li>直接头插法插入。</li>
+</ol>
+<p>  如果这个位置上的 <strong><code>HashEntry</code> 存在</strong>：</p>
+<ol>
+<li>判断链表当前元素 key 和 hash 值是否和要 put 的 key 和 hash 值一致。一致则替换值</li>
+<li>不一致，获取链表下一个节点，直到发现相同进行值替换，或者链表表里完毕没有相同的。<ol>
+<li>如果当前容量大于扩容阀值，小于最大容量，<strong>进行扩容</strong>。</li>
+<li>直接链表头插法插入。</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>如果要插入的位置之前已经存在，替换后返回旧值，否则返回 null.</p>
+</li>
+</ul>
+<h3 id="resize-1"><a href="#resize-1" class="headerlink" title="resize"></a>resize</h3><p>扩容使用的是头插法</p>
+<h2 id="JDK1-8"><a href="#JDK1-8" class="headerlink" title="JDK1.8"></a>JDK1.8</h2><p><img src="/2024/09/28/24/jdk1.8concurrent.png"><br>由原先的Segment数组 + HashEntry转化为Node数组 + 链表/红黑树</p>
+<h3 id="重要属性"><a href="#重要属性" class="headerlink" title="重要属性"></a>重要属性</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ConcurrentHashMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span> <span class="token keyword">extends</span> <span class="token class-name">AbstractMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span>  
+    <span class="token keyword">implements</span> <span class="token class-name">ConcurrentMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">,</span> <span class="token class-name">Serializable</span> <span class="token punctuation">{</span>
+    <span class="token keyword">transient</span> <span class="token keyword">volatile</span> <span class="token class-name">Node</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">[</span><span class="token punctuation">]</span> table<span class="token punctuation">;</span> <span class="token comment">// 哈希表数组，存储键值对</span>
+
+<span class="token comment">/**
+ * 下一个哈希表数组，仅在扩容时使用，不为空
+ */</span>
+<span class="token keyword">private</span> <span class="token keyword">transient</span> <span class="token keyword">volatile</span> <span class="token class-name">Node</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">[</span><span class="token punctuation">]</span> nextTable<span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * 基础计数器值，主要在没有竞争时使用，也作为表初始化竞争期间的回退。通过CAS更新
+ */</span>
+<span class="token keyword">private</span> <span class="token keyword">transient</span> <span class="token keyword">volatile</span> <span class="token keyword">long</span> baseCount<span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * 表初始化和扩容控制。当为负数时，表示表正在初始化或扩容：-1表示初始化，否则为-(1 + 活动扩容线程数)。
+ * 否则，当表为空时，保存创建时使用的初始表大小，默认为0。初始化后，保存下一个用于扩容的元素计数值
+ */</span>
+<span class="token keyword">private</span> <span class="token keyword">transient</span> <span class="token keyword">volatile</span> <span class="token keyword">int</span> sizeCtl<span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * 扩容时要拆分的下一个表索引（加一）
+ */</span>
+<span class="token keyword">private</span> <span class="token keyword">transient</span> <span class="token keyword">volatile</span> <span class="token keyword">int</span> transferIndex<span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * 扩容和/或创建CounterCells时使用的自旋锁（通过CAS锁定）
+ */</span>
+<span class="token keyword">private</span> <span class="token keyword">transient</span> <span class="token keyword">volatile</span> <span class="token keyword">int</span> cellsBusy<span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * 计数单元表。当不为空时，大小为2的幂
+ */</span>
+<span class="token keyword">private</span> <span class="token keyword">transient</span> <span class="token keyword">volatile</span> <span class="token class-name">CounterCell</span><span class="token punctuation">[</span><span class="token punctuation">]</span> counterCells<span class="token punctuation">;</span>
+
+<span class="token comment">// views</span>
+<span class="token keyword">private</span> <span class="token keyword">transient</span> <span class="token class-name">KeySetView</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span> keySet<span class="token punctuation">;</span> <span class="token comment">// 键集合视图</span>
+<span class="token keyword">private</span> <span class="token keyword">transient</span> <span class="token class-name">ValuesView</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span> values<span class="token punctuation">;</span> <span class="token comment">// 值集合视图</span>
+<span class="token keyword">private</span> <span class="token keyword">transient</span> <span class="token class-name">EntrySetView</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span> entrySet<span class="token punctuation">;</span> <span class="token comment">// 键值对集合视图</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h3><p>基本与HashMap中的相同，所以略过</p>
+<h3 id="initTable"><a href="#initTable" class="headerlink" title="initTable"></a>initTable</h3><p>初始化</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">Node</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">initTable</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+       <span class="token class-name">Node</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">[</span><span class="token punctuation">]</span> tab<span class="token punctuation">;</span> <span class="token keyword">int</span> sc<span class="token punctuation">;</span>
+       <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>tab <span class="token operator">=</span> table<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">||</span> tab<span class="token punctuation">.</span>length <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// sizeCtl &lt; 0 说明其他线程CAS成功，正在初始化或</span>
+           <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>sc <span class="token operator">=</span> sizeCtl<span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
+			<span class="token comment">// 让出cpu</span>
+               <span class="token class-name">Thread</span><span class="token punctuation">.</span><span class="token keyword">yield</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+           <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token class-name">U</span><span class="token punctuation">.</span><span class="token function">compareAndSwapInt</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> <span class="token constant">SIZECTL</span><span class="token punctuation">,</span> sc<span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+               <span class="token keyword">try</span> <span class="token punctuation">{</span>
+                   <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>tab <span class="token operator">=</span> table<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">||</span> tab<span class="token punctuation">.</span>length <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                       <span class="token keyword">int</span> n <span class="token operator">=</span> <span class="token punctuation">(</span>sc <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">?</span> sc <span class="token operator">:</span> <span class="token constant">DEFAULT_CAPACITY</span><span class="token punctuation">;</span>
+                       <span class="token annotation punctuation">@SuppressWarnings</span><span class="token punctuation">(</span><span class="token string">"unchecked"</span><span class="token punctuation">)</span>
+                       <span class="token class-name">Node</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">[</span><span class="token punctuation">]</span> nt <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">Node</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token keyword">new</span> <span class="token class-name">Node</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">,</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                       table <span class="token operator">=</span> tab <span class="token operator">=</span> nt<span class="token punctuation">;</span>
+                       sc <span class="token operator">=</span> n <span class="token operator">-</span> <span class="token punctuation">(</span>n <span class="token operator">&gt;&gt;&gt;</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                   <span class="token punctuation">}</span>
+               <span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
+                   sizeCtl <span class="token operator">=</span> sc<span class="token punctuation">;</span>
+               <span class="token punctuation">}</span>
+               <span class="token keyword">break</span><span class="token punctuation">;</span>
+           <span class="token punctuation">}</span>
+       <span class="token punctuation">}</span>
+       <span class="token keyword">return</span> tab<span class="token punctuation">;</span>
+   <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol>
+<li>通过自旋 + CAS操作来完成初始化</li>
+<li>sizeCtl 的值<ul>
+<li>-1 ： 正在初始化</li>
+<li><ul>
+<li>N：正在扩容高16位位扩容的标识戳，低16位-1位正在扩容的线程数</li>
+</ul>
+</li>
+<li>0 ：table初始化大小，如果table没有初始化</li>
+<li><blockquote>
+<p>0 ： 扩容阈值</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="put-2"><a href="#put-2" class="headerlink" title="put"></a>put</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token class-name">V</span> <span class="token function">put</span><span class="token punctuation">(</span><span class="token class-name">K</span> key<span class="token punctuation">,</span> <span class="token class-name">V</span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+    <span class="token keyword">return</span> <span class="token function">putVal</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+<span class="token punctuation">}</span>  
+  
+<span class="token comment">/** Implementation for put and putIfAbsent */</span>  
+<span class="token keyword">final</span> <span class="token class-name">V</span> <span class="token function">putVal</span><span class="token punctuation">(</span><span class="token class-name">K</span> key<span class="token punctuation">,</span> <span class="token class-name">V</span> value<span class="token punctuation">,</span> <span class="token keyword">boolean</span> onlyIfAbsent<span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>key <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">||</span> value <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">NullPointerException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+    <span class="token comment">// 计算hash</span>
+    <span class="token keyword">int</span> hash <span class="token operator">=</span> <span class="token function">spread</span><span class="token punctuation">(</span>key<span class="token punctuation">.</span><span class="token function">hashCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+    <span class="token comment">// 计数器，检测链表长度，统计节点个数，控制循环</span>
+    <span class="token keyword">int</span> binCount <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>  
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">Node</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">[</span><span class="token punctuation">]</span> tab <span class="token operator">=</span> table<span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+	    <span class="token comment">// f是目标元素的位置, fh是后面存放目标位置元素的hash值</span>
+        <span class="token class-name">Node</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span> f<span class="token punctuation">;</span> <span class="token keyword">int</span> n<span class="token punctuation">,</span> i<span class="token punctuation">,</span> fh<span class="token punctuation">;</span>  
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>tab <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">||</span> <span class="token punctuation">(</span>n <span class="token operator">=</span> tab<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>  
+		    <span class="token comment">// 数据桶为空，就先初始化</span>
+            tab <span class="token operator">=</span> <span class="token function">initTable</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+        <span class="token comment">// 定位到这个位置之后发现桶中没有数据，就直接放入，不加锁，然后跳出即可</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>f <span class="token operator">=</span> <span class="token function">tabAt</span><span class="token punctuation">(</span>tab<span class="token punctuation">,</span> i <span class="token operator">=</span> <span class="token punctuation">(</span>n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> hash<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">casTabAt</span><span class="token punctuation">(</span>tab<span class="token punctuation">,</span> i<span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span>  
+                         <span class="token keyword">new</span> <span class="token class-name">Node</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span>hash<span class="token punctuation">,</span> key<span class="token punctuation">,</span> value<span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  
+                <span class="token keyword">break</span><span class="token punctuation">;</span>                   <span class="token comment">// no lock when adding to empty bin  </span>
+        <span class="token punctuation">}</span>  
+        <span class="token comment">// 检查当前桶中的第一个节点是否是一个 ForwardingNode。ForwardingNode 是在哈希表扩容时使用的一种特殊节点类型，用于指示该桶的内容已经被移动到新的哈希表中。 </span>
+        <span class="token comment">// 如果是就需要helpTranfer</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>fh <span class="token operator">=</span> f<span class="token punctuation">.</span>hash<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token constant">MOVED</span><span class="token punctuation">)</span>  
+            tab <span class="token operator">=</span> <span class="token function">helpTransfer</span><span class="token punctuation">(</span>tab<span class="token punctuation">,</span> f<span class="token punctuation">)</span><span class="token punctuation">;</span>  
+        <span class="token keyword">else</span> <span class="token punctuation">{</span>  
+            <span class="token class-name">V</span> oldVal <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>  
+            <span class="token comment">// 对节点f加锁</span>
+            <span class="token keyword">synchronized</span> <span class="token punctuation">(</span>f<span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">tabAt</span><span class="token punctuation">(</span>tab<span class="token punctuation">,</span> i<span class="token punctuation">)</span> <span class="token operator">==</span> f<span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+	                <span class="token comment">// 发现是链表</span>
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span>fh <span class="token operator">&gt;=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+                        binCount <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>  
+                        <span class="token comment">// 循环加入新的节点，或者覆盖</span>
+                        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">Node</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span> e <span class="token operator">=</span> f<span class="token punctuation">;</span><span class="token punctuation">;</span> <span class="token operator">++</span>binCount<span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+                            <span class="token class-name">K</span> ek<span class="token punctuation">;</span>  
+                            <span class="token keyword">if</span> <span class="token punctuation">(</span>e<span class="token punctuation">.</span>hash <span class="token operator">==</span> hash <span class="token operator">&amp;&amp;</span>  
+                                <span class="token punctuation">(</span><span class="token punctuation">(</span>ek <span class="token operator">=</span> e<span class="token punctuation">.</span>key<span class="token punctuation">)</span> <span class="token operator">==</span> key <span class="token operator">||</span>  
+                                 <span class="token punctuation">(</span>ek <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span> key<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>ek<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+                                oldVal <span class="token operator">=</span> e<span class="token punctuation">.</span>val<span class="token punctuation">;</span>  
+                                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>onlyIfAbsent<span class="token punctuation">)</span>  
+                                    e<span class="token punctuation">.</span>val <span class="token operator">=</span> value<span class="token punctuation">;</span>  
+                                <span class="token keyword">break</span><span class="token punctuation">;</span>  
+                            <span class="token punctuation">}</span>                            <span class="token class-name">Node</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span> pred <span class="token operator">=</span> e<span class="token punctuation">;</span>  
+                            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>e <span class="token operator">=</span> e<span class="token punctuation">.</span>next<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+                                pred<span class="token punctuation">.</span>next <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Node</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span>hash<span class="token punctuation">,</span> key<span class="token punctuation">,</span>  
+                                                          value<span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+                                <span class="token keyword">break</span><span class="token punctuation">;</span>  
+                            <span class="token punctuation">}</span>                        <span class="token punctuation">}</span>                    <span class="token punctuation">}</span>                    <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>f <span class="token keyword">instanceof</span> <span class="token class-name">TreeBin</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+                            <span class="token comment">//发现是红黑树</span>
+                        <span class="token class-name">Node</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span> p<span class="token punctuation">;</span>  
+                        binCount <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>  
+                        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>p <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token class-name">TreeBin</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">)</span>f<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">putTreeVal</span><span class="token punctuation">(</span>hash<span class="token punctuation">,</span> key<span class="token punctuation">,</span>  
+                                                       value<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+                            oldVal <span class="token operator">=</span> p<span class="token punctuation">.</span>val<span class="token punctuation">;</span>  
+                            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>onlyIfAbsent<span class="token punctuation">)</span>  
+                                p<span class="token punctuation">.</span>val <span class="token operator">=</span> value<span class="token punctuation">;</span>  
+                        <span class="token punctuation">}</span>                    <span class="token punctuation">}</span>                <span class="token punctuation">}</span>            <span class="token punctuation">}</span>            <span class="token keyword">if</span> <span class="token punctuation">(</span>binCount <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>binCount <span class="token operator">&gt;=</span> <span class="token constant">TREEIFY_THRESHOLD</span><span class="token punctuation">)</span>  
+                    <span class="token function">treeifyBin</span><span class="token punctuation">(</span>tab<span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>  
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>oldVal <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span>  
+                    <span class="token keyword">return</span> oldVal<span class="token punctuation">;</span>  
+                <span class="token keyword">break</span><span class="token punctuation">;</span>  
+            <span class="token punctuation">}</span>        <span class="token punctuation">}</span>    <span class="token punctuation">}</span>    <span class="token function">addCount</span><span class="token punctuation">(</span><span class="token number">1L</span><span class="token punctuation">,</span> binCount<span class="token punctuation">)</span><span class="token punctuation">;</span>  
+    <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>  
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol>
+<li>通过key计算hashcode</li>
+<li>判断是否需要初始化</li>
+<li>定位到Node，如果为空直接用CAS写入，失败就自旋保证成功</li>
+<li>如果hashcode == MOVED == - 1需要进行扩容</li>
+<li>如果都不满足就使用synchronized锁写入数据</li>
+<li>如果数量大于TREEIFY_THRESHOLD调用treeifyBin进行转化</li>
+</ol>
+<h3 id="get-1"><a href="#get-1" class="headerlink" title="get"></a>get</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token class-name">V</span> <span class="token function">get</span><span class="token punctuation">(</span><span class="token class-name">Object</span> key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token class-name">Node</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">[</span><span class="token punctuation">]</span> tab<span class="token punctuation">;</span> <span class="token class-name">Node</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span> e<span class="token punctuation">,</span> p<span class="token punctuation">;</span> <span class="token keyword">int</span> n<span class="token punctuation">,</span> eh<span class="token punctuation">;</span> <span class="token class-name">K</span> ek<span class="token punctuation">;</span>
+    <span class="token comment">// key 所在的 hash 位置</span>
+    <span class="token keyword">int</span> h <span class="token operator">=</span> <span class="token function">spread</span><span class="token punctuation">(</span>key<span class="token punctuation">.</span><span class="token function">hashCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>tab <span class="token operator">=</span> table<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>n <span class="token operator">=</span> tab<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span>
+        <span class="token punctuation">(</span>e <span class="token operator">=</span> <span class="token function">tabAt</span><span class="token punctuation">(</span>tab<span class="token punctuation">,</span> <span class="token punctuation">(</span>n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> h<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 如果指定位置元素存在，头结点hash值相同</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>eh <span class="token operator">=</span> e<span class="token punctuation">.</span>hash<span class="token punctuation">)</span> <span class="token operator">==</span> h<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>ek <span class="token operator">=</span> e<span class="token punctuation">.</span>key<span class="token punctuation">)</span> <span class="token operator">==</span> key <span class="token operator">||</span> <span class="token punctuation">(</span>ek <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span> key<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>ek<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token comment">// key hash 值相等，key值相同，直接返回元素 value</span>
+                <span class="token keyword">return</span> e<span class="token punctuation">.</span>val<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>eh <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
+            <span class="token comment">// 头结点hash值小于0，说明正在扩容或者是红黑树，find查找</span>
+            <span class="token keyword">return</span> <span class="token punctuation">(</span>p <span class="token operator">=</span> e<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span>h<span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">?</span> p<span class="token punctuation">.</span>val <span class="token operator">:</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>e <span class="token operator">=</span> e<span class="token punctuation">.</span>next<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// 是链表，遍历查找</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>e<span class="token punctuation">.</span>hash <span class="token operator">==</span> h <span class="token operator">&amp;&amp;</span>
+                <span class="token punctuation">(</span><span class="token punctuation">(</span>ek <span class="token operator">=</span> e<span class="token punctuation">.</span>key<span class="token punctuation">)</span> <span class="token operator">==</span> key <span class="token operator">||</span> <span class="token punctuation">(</span>ek <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span> key<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>ek<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token keyword">return</span> e<span class="token punctuation">.</span>val<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="常见八股"><a href="#常见八股" class="headerlink" title="常见八股"></a>常见八股</h1><h2 id="HashMap的底层实现是什么"><a href="#HashMap的底层实现是什么" class="headerlink" title="HashMap的底层实现是什么"></a>HashMap的底层实现是什么</h2><p>JDK1.8之前是数组 + 链表，数组是HashMap的主体，链表是用来解决哈希冲突。使用拉链法来解决。<br>JDK1.8之后变为数组+链表/红黑树，当链表长度大于等于阈值 <u>8</u> 时，会转化，如果当前数组长度小于64就学会先进行数组扩容，否则就转化为红黑树，默认大小为16，每次扩容2倍。</p>
 <h2 id="拉链法到底是什么"><a href="#拉链法到底是什么" class="headerlink" title="拉链法到底是什么"></a>拉链法到底是什么</h2><p>拉链法就是使用一个链表数组，数组中的每一格都是一个链表，如果遇见哈希冲突，则将冲突的值加到链表中。<br>JDK1.8之后会先判断链表的长度是否大于阈值8，然后去根据数据来判断是否转化为红黑树。<br><img src="/2024/09/28/24/%E6%95%B0%E6%8D%AE+%E7%BA%A2%E9%BB%91%E6%A0%91.png" alt="|450"></p>
 <h2 id="为什么使用2作为底数"><a href="#为什么使用2作为底数" class="headerlink" title="为什么使用2作为底数"></a>为什么使用2作为底数</h2><ol>
 <li>使用2作为底数可以使用位运算而不是取模去计算索引，比较方便，提高性能</li>
@@ -2122,6 +2519,100 @@ explain select <span class="token operator">*</span> from user where age is not 
 <li>插入或者覆盖数据之后判断是否需要扩容或者转化为树形结构</li>
 </ol>
 <h2 id="为什么JDK1-8使用尾插法而不是和JDK1-7一样使用头插法"><a href="#为什么JDK1-8使用尾插法而不是和JDK1-7一样使用头插法" class="headerlink" title="为什么JDK1.8使用尾插法而不是和JDK1.7一样使用头插法"></a>为什么JDK1.8使用尾插法而不是和JDK1.7一样使用头插法</h2><p>因为多线程的情况头插法有可能会出现环</p>
+<h2 id="HashMap何时会扩容"><a href="#HashMap何时会扩容" class="headerlink" title="HashMap何时会扩容"></a>HashMap何时会扩容</h2><p>当链表的长度大于TREEIFY_THRESHOLD(默认为8)时会开始转化，同时要判断Node数组的个数是否大于MIN_TREEIFY_CAPACITY(默认64)，如果小于就会先进行扩容，而不是转化，如果大于就直接转化为红黑树</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/09/30/51/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="QingQiu">
+      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QingQiu'Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/09/30/51/" class="post-title-link" itemprop="url">ThreadLoocal原理解析</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-09-30 10:22:51" itemprop="dateCreated datePublished" datetime="2024-09-30T10:22:51+08:00">2024-09-30</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1k</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>ThreadLocal实际起作用的是ThreadLocal内部的ThreadLocalMap类，对于每一个Tread，都有一个ThreadLocalMap属性，从而实现线程隔离，然后set的时候就通过获取当前线程然后给他的ThreadLcoalMap属性添加值</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span>  
+<span class="token keyword">class</span> <span class="token class-name">Thread</span> <span class="token keyword">implements</span> <span class="token class-name">Runnable</span> <span class="token punctuation">{</span>
+	<span class="token class-name">ThreadLocal<span class="token punctuation">.</span>ThreadLocalMap</span> threadLocals <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="ThreadLocalMap"><a href="#ThreadLocalMap" class="headerlink" title="ThreadLocalMap"></a>ThreadLocalMap</h2><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">ThreadLocalMap</span> <span class="token punctuation">{</span>  
+  
+    <span class="token comment">/**  
+     * The entries in this hash map extend WeakReference, using     * its main ref field as the key (which is always a     * ThreadLocal object).  Note that null keys (i.e. entry.get()     * == null) mean that the key is no longer referenced, so the     * entry can be expunged from table.  Such entries are referred to     * as "stale entries" in the code that follows. */</span>
+     <span class="token comment">// Entry是节点，继承了WeakReferentce，定义了一个value</span>
+     <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">Entry</span> <span class="token keyword">extends</span> <span class="token class-name">WeakReference</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">ThreadLocal</span><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">{</span> 
+		  <span class="token class-name">Object</span> value<span class="token punctuation">;</span>
+
+            <span class="token class-name">Entry</span><span class="token punctuation">(</span><span class="token class-name">ThreadLocal</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> k<span class="token punctuation">,</span> <span class="token class-name">Object</span> v<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">super</span><span class="token punctuation">(</span>k<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                value <span class="token operator">=</span> v<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+	        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">set</span><span class="token punctuation">(</span><span class="token class-name">T</span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		        <span class="token class-name">Thread</span> t <span class="token operator">=</span> <span class="token class-name">Thread</span><span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		        <span class="token class-name">ThreadLocalMap</span> map <span class="token operator">=</span> <span class="token function">getMap</span><span class="token punctuation">(</span>t<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		        <span class="token keyword">if</span> <span class="token punctuation">(</span>map <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		            map<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+		            <span class="token function">createMap</span><span class="token punctuation">(</span>t<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		        <span class="token punctuation">}</span>
+		    <span class="token punctuation">}</span>
+		<span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h2><h3 id="为何使用弱引用"><a href="#为何使用弱引用" class="headerlink" title="为何使用弱引用"></a>为何使用弱引用</h3><p>因为ThreadLocalMap的key是Thread，如果像普通的key-value的定义，只要线程未销毁<br>就会一直存在，所以使用弱引用就可以在不存在强引用的时候就将这个销毁。</p>
 
       
     </div>
@@ -3480,72 +3971,6 @@ SELECT ... FOR UPDATE; # 加X锁<span aria-hidden="true" class="line-numbers-row
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/08/01/12/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="QingQiu">
-      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="QingQiu'Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/08/01/12/" class="post-title-link" itemprop="url">脚本语言学习</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2024-08-01 14:30:12 / 修改时间：14:32:03" itemprop="dateCreated datePublished" datetime="2024-08-01T14:30:12+08:00">2024-08-01</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>9</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Shell"><a href="#Shell" class="headerlink" title="Shell"></a>Shell</h1><p>基本语法</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -3615,7 +4040,7 @@ SELECT ... FOR UPDATE; # 加X锁<span aria-hidden="true" class="line-numbers-row
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-count">50</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -3667,7 +4092,7 @@ SELECT ... FOR UPDATE; # 加X锁<span aria-hidden="true" class="line-numbers-row
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">391k</span>
+    <span title="站点总字数">401k</span>
 </div>
 
         
