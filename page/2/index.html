@@ -157,6 +157,112 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/09/03/19/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="QingQiu">
+      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QingQiu'Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/09/03/19/" class="post-title-link" itemprop="url">深入浅出Kafka</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-09-03 14:58:19" itemprop="dateCreated datePublished" datetime="2024-09-03T14:58:19+08:00">2024-09-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-09-08 17:43:22" itemprop="dateModified" datetime="2024-09-08T17:43:22+08:00">2024-09-08</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.6k</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h1><h2 id="常见问题-Java-API-一个独立的Kafka服务器被称作broker-broker是集群的组成部分，每个集群都有一个broker同时充当了集群控制器的角色-kafka的主题被分为多个分区，分区存储在磁盘中-kafka的消息特点：消息会保留一段时间，即使应用程序下线，消息仍然会保存在kafka里，是基于磁盘的数据存储。-API使用：-producer-record的参数，topic-key-value-key可以省略，当省略时就是一个没有key的value，key一般用于把相同key的数据写入同一个分区里-send默认是发送并忘记，send会返回一个Future对象使用-get方法得到RecordMetadata对象，可以获取消息的偏移量-异步发送-send-record-回调函数类-，回调函数需要实现Callback类，并且重写其中的方法-配置设置：-1-acks-x3D-0-生产者无需等待服务器的响应，但消息丢失时不会知晓，-x3D-1，只要集群的首领节点收到即可，-x3D-all需要所有参与复制的节点都受到消息才会受到服务器的响应，不建议-2-buffer-memory设置producer内存缓冲区大小，-3-compression-type设置消息的压缩格式，默认不会压缩-4-retries重试次数-5-batch-size-当多个消息被发送到同一个分区时，producer会把他们放在一起，当作一个批次，这个参数指定一个批次可以使用的最大内存-6-max-in-flight-requests-per-connection-生产者在接收到服务器响应之前可以发送多少个消息，设置为-1-时可以保证消息是按照顺序写入的，适合在银行等严格要求顺序的时候使用-自定义分区：-consumer-API-1-consumer类的创建方式和producer一致，但是推荐指定-group-id来指定属于哪个群组，-2-consumer-subscirbe-订阅相关的topic，同时支持正则表达式-consumer-subscribe-Arrays-asList-quot-topic1-quot-quot-topic2-quot-3-consumer-poll-xxx-参数是轮询的阻塞时间，会等待broker返回数据-4-记得-close-5-建议一个线程中只有一个消费者-配置：-大部分和producer类似-fetch-min-bytes消费者从服务器获取记录的最小字节数，当数据量大于等于这个值才会被返回给消费者-提交和偏移量：消费者往-consumer-offset特殊主题发送消息，消息包含每个分区的偏移量，当触发再均衡时，消费者会读取每个分区组后一次提交的偏移量，然后从偏移量指定的地方开始处理-提交方式：-1-自动提交-每隔一段时间自动提交一次-2-提交当前偏移量-设置auto-commit-offset为false-然后使用commitSync-提交偏移量，会提交最新的一次由poll获得的偏移量-3-异步提交：commitAsync-，也可使用回调函数来处理-4-可以提交特定偏移量，而不是最后一次poll得到的偏移量-通过实现-ConsumerRebalanceListener接口来定义在consumer失去对分区的所有权时需要处理的事件，可在这里使用-seek-方法加上自定义的函数来实现从数据库中获得偏移量-Kafka本体-优势高吞吐，高性能，持久化-将消息持久化到磁盘，通过将数据持久化硬盘，以及follower节点来防止数据丢失-缺点是异步的不适合电商场景-架构设计-Producer-Consumer-Topic-主题，由用户定义并配置在Kafka服务器，建立Producer和Consumer之间的订阅关系，身缠这发送消息到特定的Topic下，消费者从这个Topic下消费消息。逻辑概念，相当于数据库中的表-Partition-消息分区，一个Topic可以分为多个partition，partition是一个有序的队列，partition的每条消息都会被分配一个有序的id-offset-物理实际概念，每一个partition对应一个log，producer生产的数据会不断地追加到该log文件末端，且每条数据都有自己的offset。系哦啊飞着组中的每个消费者都会实时记录自己消费到哪个offset-Broker-一台Kafka就是一个broker，一个集群由多个broker组成，一个broker可以容纳多个topic-ConsumerGroup-消费者组，用于归组同类消费者。每个consumer属于一个特定的consumer-group，多个消费者可以共同消费一个Topic下的消息，每个消费者获取部分消息。-一个Partition对应一个唯一的文件夹，文件夹下使用的是Segment-File的存储方式进行存储。将大文件拆成小文件，分为索引未见和数据文件-基本流程-producer先从zookeeper的broker-x2F-x2F-state节点找到该partiton的leader-producer将消息发送给该leader-leader将消息写出本地log-follower从leader-pull-消息-写入本地log，后向leader发送ACK-leader收到所有ISR中的replication的ACK，增加HT-high-watermark-，最后commit-的offset-并向producer发送ACK-生产过程1-Producer创建时，先创建一个Sender线程并且设置守护线程2-生产的消息经过拦截器-gt-序列化器-gt-分区器，将消息存在缓冲区3-批量发送的条件：缓冲区数据大小达到batch-size或者linger-ms达到上限4-发往指定分区，最后到达broker-acks-x3D-0，消息放到缓冲区就认为发送完成-acks-x3D-1消息写到主分区即可完成，如果主分区收到消息之后宕机，副本分区来不及同步消息，消息就会丢失-acks-x3D-all-等待所有的ISR副本的缺人记录5-如果设置了重试次数并且大于0，就会进行重试6-成功，返回元数据给生产者ISR（In-Sync-Replicas）是指与领导者副本保持同步的副本集合-生产者Offset消息写入的时候，每一个分区都有一个offset，即每个分区的最新最大的offset。-消费者Offset不同消费组中的消费者可以针对一个分区存储不同的Offset，互不影响。-LogSegment日志文件的组成部分-Leader选举-Kafka会在Zookeeper上针对每个Topic维护一个成为ISR的集合-当集合中副本都跟Leader同的副本同步之后，kafka才会认为消息已提交-只有这些跟Leader保持同步的Follower才应该被选作新的Leader"><a href="#常见问题-Java-API-一个独立的Kafka服务器被称作broker-broker是集群的组成部分，每个集群都有一个broker同时充当了集群控制器的角色-kafka的主题被分为多个分区，分区存储在磁盘中-kafka的消息特点：消息会保留一段时间，即使应用程序下线，消息仍然会保存在kafka里，是基于磁盘的数据存储。-API使用：-producer-record的参数，topic-key-value-key可以省略，当省略时就是一个没有key的value，key一般用于把相同key的数据写入同一个分区里-send默认是发送并忘记，send会返回一个Future对象使用-get方法得到RecordMetadata对象，可以获取消息的偏移量-异步发送-send-record-回调函数类-，回调函数需要实现Callback类，并且重写其中的方法-配置设置：-1-acks-x3D-0-生产者无需等待服务器的响应，但消息丢失时不会知晓，-x3D-1，只要集群的首领节点收到即可，-x3D-all需要所有参与复制的节点都受到消息才会受到服务器的响应，不建议-2-buffer-memory设置producer内存缓冲区大小，-3-compression-type设置消息的压缩格式，默认不会压缩-4-retries重试次数-5-batch-size-当多个消息被发送到同一个分区时，producer会把他们放在一起，当作一个批次，这个参数指定一个批次可以使用的最大内存-6-max-in-flight-requests-per-connection-生产者在接收到服务器响应之前可以发送多少个消息，设置为-1-时可以保证消息是按照顺序写入的，适合在银行等严格要求顺序的时候使用-自定义分区：-consumer-API-1-consumer类的创建方式和producer一致，但是推荐指定-group-id来指定属于哪个群组，-2-consumer-subscirbe-订阅相关的topic，同时支持正则表达式-consumer-subscribe-Arrays-asList-quot-topic1-quot-quot-topic2-quot-3-consumer-poll-xxx-参数是轮询的阻塞时间，会等待broker返回数据-4-记得-close-5-建议一个线程中只有一个消费者-配置：-大部分和producer类似-fetch-min-bytes消费者从服务器获取记录的最小字节数，当数据量大于等于这个值才会被返回给消费者-提交和偏移量：消费者往-consumer-offset特殊主题发送消息，消息包含每个分区的偏移量，当触发再均衡时，消费者会读取每个分区组后一次提交的偏移量，然后从偏移量指定的地方开始处理-提交方式：-1-自动提交-每隔一段时间自动提交一次-2-提交当前偏移量-设置auto-commit-offset为false-然后使用commitSync-提交偏移量，会提交最新的一次由poll获得的偏移量-3-异步提交：commitAsync-，也可使用回调函数来处理-4-可以提交特定偏移量，而不是最后一次poll得到的偏移量-通过实现-ConsumerRebalanceListener接口来定义在consumer失去对分区的所有权时需要处理的事件，可在这里使用-seek-方法加上自定义的函数来实现从数据库中获得偏移量-Kafka本体-优势高吞吐，高性能，持久化-将消息持久化到磁盘，通过将数据持久化硬盘，以及follower节点来防止数据丢失-缺点是异步的不适合电商场景-架构设计-Producer-Consumer-Topic-主题，由用户定义并配置在Kafka服务器，建立Producer和Consumer之间的订阅关系，身缠这发送消息到特定的Topic下，消费者从这个Topic下消费消息。逻辑概念，相当于数据库中的表-Partition-消息分区，一个Topic可以分为多个partition，partition是一个有序的队列，partition的每条消息都会被分配一个有序的id-offset-物理实际概念，每一个partition对应一个log，producer生产的数据会不断地追加到该log文件末端，且每条数据都有自己的offset。系哦啊飞着组中的每个消费者都会实时记录自己消费到哪个offset-Broker-一台Kafka就是一个broker，一个集群由多个broker组成，一个broker可以容纳多个topic-ConsumerGroup-消费者组，用于归组同类消费者。每个consumer属于一个特定的consumer-group，多个消费者可以共同消费一个Topic下的消息，每个消费者获取部分消息。-一个Partition对应一个唯一的文件夹，文件夹下使用的是Segment-File的存储方式进行存储。将大文件拆成小文件，分为索引未见和数据文件-基本流程-producer先从zookeeper的broker-x2F-x2F-state节点找到该partiton的leader-producer将消息发送给该leader-leader将消息写出本地log-follower从leader-pull-消息-写入本地log，后向leader发送ACK-leader收到所有ISR中的replication的ACK，增加HT-high-watermark-，最后commit-的offset-并向producer发送ACK-生产过程1-Producer创建时，先创建一个Sender线程并且设置守护线程2-生产的消息经过拦截器-gt-序列化器-gt-分区器，将消息存在缓冲区3-批量发送的条件：缓冲区数据大小达到batch-size或者linger-ms达到上限4-发往指定分区，最后到达broker-acks-x3D-0，消息放到缓冲区就认为发送完成-acks-x3D-1消息写到主分区即可完成，如果主分区收到消息之后宕机，副本分区来不及同步消息，消息就会丢失-acks-x3D-all-等待所有的ISR副本的缺人记录5-如果设置了重试次数并且大于0，就会进行重试6-成功，返回元数据给生产者ISR（In-Sync-Replicas）是指与领导者副本保持同步的副本集合-生产者Offset消息写入的时候，每一个分区都有一个offset，即每个分区的最新最大的offset。-消费者Offset不同消费组中的消费者可以针对一个分区存储不同的Offset，互不影响。-LogSegment日志文件的组成部分-Leader选举-Kafka会在Zookeeper上针对每个Topic维护一个成为ISR的集合-当集合中副本都跟Leader同的副本同步之后，kafka才会认为消息已提交-只有这些跟Leader保持同步的Follower才应该被选作新的Leader" class="headerlink" title="常见问题## Java API- 一个独立的Kafka服务器被称作broker,broker是集群的组成部分，每个集群都有一个broker同时充当了集群控制器的角色- kafka的主题被分为多个分区，分区存储在磁盘中- kafka的消息特点：消息会保留一段时间，即使应用程序下线，消息仍然会保存在kafka里，是基于磁盘的数据存储。- API使用：    - producer        - record的参数，topic , key ,value key可以省略，当省略时就是一个没有key的value，key一般用于把相同key的数据写入同一个分区里        - send默认是发送并忘记，send会返回一个Future对象使用.get方法得到RecordMetadata对象，可以获取消息的偏移量        - 异步发送.send(record,回调函数类)，回调函数需要实现Callback类，并且重写其中的方法        - 配置设置：            1. acks = 0 生产者无需等待服务器的响应，但消息丢失时不会知晓， = 1，只要集群的首领节点收到即可，= all需要所有参与复制的节点都受到消息才会受到服务器的响应，不建议            2. buffer.memory设置producer内存缓冲区大小，            3. compression.type设置消息的压缩格式，默认不会压缩            4. retries重试次数            5. batch.size 当多个消息被发送到同一个分区时，producer会把他们放在一起，当作一个批次，这个参数指定一个批次可以使用的最大内存            6. max.in.flight.requests.per.connection 生产者在接收到服务器响应之前可以发送多少个消息，设置为 1 时可以保证消息是按照顺序写入的，适合在银行等严格要求顺序的时候使用        - 自定义分区：        -  consumer:        - API:            1. consumer类的创建方式和producer一致，但是推荐指定 group.id来指定属于哪个群组，            2. consumer.subscirbe()订阅相关的topic，同时支持正则表达式 consumer.subscribe(Arrays.asList(&quot;topic1&quot;, &quot;topic2&quot;));            3. consumer.poll(xxx) 参数是轮询的阻塞时间，会等待broker返回数据            4. 记得.close()            5. 建议一个线程中只有一个消费者        - 配置：            - 大部分和producer类似            - fetch.min.bytes消费者从服务器获取记录的最小字节数，当数据量大于等于这个值才会被返回给消费者        - 提交和偏移量：消费者往_consumer_offset特殊主题发送消息，消息包含每个分区的偏移量，当触发再均衡时，消费者会读取每个分区组后一次提交的偏移量，然后从偏移量指定的地方开始处理            - 提交方式：                1. 自动提交:每隔一段时间自动提交一次                2. 提交当前偏移量:设置auto.commit.offset为false.然后使用commitSync()提交偏移量，会提交最新的一次由poll获得的偏移量                3. 异步提交：commitAsync()，也可使用回调函数来处理                4. 可以提交特定偏移量，而不是最后一次poll得到的偏移量        - 通过实现 ConsumerRebalanceListener接口来定义在consumer失去对分区的所有权时需要处理的事件，可在这里使用.seek()方法加上自定义的函数来实现从数据库中获得偏移量## Kafka本体### 优势高吞吐，高性能，持久化(将消息持久化到磁盘，通过将数据持久化硬盘，以及follower节点来防止数据丢失)缺点是异步的不适合电商场景### 架构设计- Producer- Consumer- Topic 主题，由用户定义并配置在Kafka服务器，建立Producer和Consumer之间的订阅关系，身缠这发送消息到特定的Topic下，消费者从这个Topic下消费消息。逻辑概念，相当于数据库中的表- Partition 消息分区，一个Topic可以分为多个partition，partition是一个有序的队列，partition的每条消息都会被分配一个有序的id(offset) 物理实际概念，每一个partition对应一个log，producer生产的数据会不断地追加到该log文件末端，且每条数据都有自己的offset。系哦啊飞着组中的每个消费者都会实时记录自己消费到哪个offset- Broker 一台Kafka就是一个broker，一个集群由多个broker组成，一个broker可以容纳多个topic- ConsumerGroup 消费者组，用于归组同类消费者。每个consumer属于一个特定的consumer group，多个消费者可以共同消费一个Topic下的消息，每个消费者获取部分消息。- 一个Partition对应一个唯一的文件夹，文件夹下使用的是Segment File的存储方式进行存储。将大文件拆成小文件，分为索引未见和数据文件### 基本流程- producer先从zookeeper的broker/**/state节点找到该partiton的leader- producer将消息发送给该leader- leader将消息写出本地log- follower从leader pull 消息- 写入本地log，后向leader发送ACK- leader收到所有ISR中的replication的ACK，增加HT(high watermark ，最后commit 的offset)并向producer发送ACK#### 生产过程1. Producer创建时，先创建一个Sender线程并且设置守护线程2. 生产的消息经过拦截器->序列化器->分区器，将消息存在缓冲区3. 批量发送的条件：缓冲区数据大小达到batch.size或者linger.ms达到上限4. 发往指定分区，最后到达broker    - acks = 0，消息放到缓冲区就认为发送完成    - acks = 1消息写到主分区即可完成，如果主分区收到消息之后宕机，副本分区来不及同步消息，消息就会丢失    - acks = all 等待所有的ISR副本的缺人记录5. 如果设置了重试次数并且大于0，就会进行重试6. 成功，返回元数据给生产者ISR（In-Sync Replicas）是指与领导者副本保持同步的副本集合#### 生产者Offset消息写入的时候，每一个分区都有一个offset，即每个分区的最新最大的offset。#### 消费者Offset不同消费组中的消费者可以针对一个分区存储不同的Offset，互不影响。#### LogSegment日志文件的组成部分#### Leader选举- Kafka会在Zookeeper上针对每个Topic维护一个成为ISR的集合- 当集合中副本都跟Leader同的副本同步之后，kafka才会认为消息已提交- 只有这些跟Leader保持同步的Follower才应该被选作新的Leader"></a><a target="_blank" rel="noopener" href="https://javaguide.cn/high-performance/message-queue/kafka-questions-01.html">常见问题</a><br>## Java API<br>- 一个独立的Kafka服务器被称作broker,broker是集群的组成部分，每个集群都有一个broker同时充当了集群控制器的角色<br>- kafka的主题被分为多个分区，分区存储在磁盘中<br>- kafka的消息特点：消息会保留一段时间，即使应用程序下线，消息仍然会保存在kafka里，是基于磁盘的数据存储。<br>- API使用：<br>    - producer<br>        - record的参数，topic , key ,value key可以省略，当省略时就是一个没有key的value，key一般用于把相同key的数据写入同一个分区里<br>        - send默认是发送并忘记，send会返回一个Future对象使用.get方法得到RecordMetadata对象，可以获取消息的偏移量<br>        - 异步发送.send(record,回调函数类)，回调函数需要实现Callback类，并且重写其中的方法<br>        - 配置设置：<br>            1. acks = 0 生产者无需等待服务器的响应，但消息丢失时不会知晓， = 1，只要集群的首领节点收到即可，= all需要所有参与复制的节点都受到消息才会受到服务器的响应，不建议<br>            2. buffer.memory设置producer内存缓冲区大小，<br>            3. compression.type设置消息的压缩格式，默认不会压缩<br>            4. retries重试次数<br>            5. batch.size 当多个消息被发送到同一个分区时，producer会把他们放在一起，当作一个批次，这个参数指定一个批次可以使用的最大内存<br>            6. max.in.flight.requests.per.connection 生产者在接收到服务器响应之前可以发送多少个消息，设置为 1 时可以保证消息是按照顺序写入的，适合在银行等严格要求顺序的时候使用<br>        - 自定义分区：<br>    <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DemoPartitionser</span> <span class="token keyword">implements</span> <span class="token class-name">Partitioner</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">private</span> <span class="token class-name">String</span> myKey<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">partition</span><span class="token punctuation">(</span><span class="token class-name">String</span> topic<span class="token punctuation">,</span> <span class="token class-name">Object</span> key<span class="token punctuation">,</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> keyBytes<span class="token punctuation">,</span> <span class="token class-name">Object</span> value<span class="token punctuation">,</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> valueBytes<span class="token punctuation">,</span> <span class="token class-name">Cluster</span> cluster<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 获取分区列表</span>
+        <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">PartitionInfo</span><span class="token punctuation">&gt;</span></span> partitionInfos <span class="token operator">=</span> cluster<span class="token punctuation">.</span><span class="token function">partitionsForTopic</span><span class="token punctuation">(</span>topic<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 获取分区数</span>
+        <span class="token keyword">int</span> partitionNum <span class="token operator">=</span> partitionInfos<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token punctuation">(</span>keyBytes <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token punctuation">(</span>key <span class="token keyword">instanceof</span> <span class="token class-name">String</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span><span class="token string">"key is null or not a string"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">// 如果key为key，则分配到最后一个分区</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token string">"key"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">return</span> partitionNum<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">//其余的消息都分配到最后一个分区</span>
+        <span class="token keyword">return</span> <span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token function">abs</span><span class="token punctuation">(</span>key<span class="token punctuation">.</span><span class="token function">hashCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">%</span> <span class="token punctuation">(</span>partitionNum <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/*
+     * @description:
+     * @author bronya
+     * @date: 2024/4/20 14:50
+     * @param map
+     */</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">configure</span><span class="token punctuation">(</span><span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token operator">?</span><span class="token punctuation">&gt;</span></span> map<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        myKey <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">)</span> map<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"key"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><br>    -  consumer:<br>        - API:<br>            1. consumer类的创建方式和producer一致，但是推荐指定 group.id来指定属于哪个群组，<br>            2. consumer.subscirbe()订阅相关的topic，同时支持正则表达式 <code>consumer.subscribe(Arrays.asList("topic1", "topic2"));</code><br>            3. consumer.poll(xxx) 参数是轮询的阻塞时间，会等待broker返回数据<br>            4. 记得.close()<br>            5. 建议一个线程中只有一个消费者<br>        - 配置：<br>            - 大部分和producer类似<br>            - fetch.min.bytes消费者从服务器获取记录的最小字节数，当数据量大于等于这个值才会被返回给消费者<br>        - 提交和偏移量：消费者往_consumer_offset特殊主题发送消息，消息包含每个分区的偏移量，当触发再均衡时，消费者会读取每个分区组后一次提交的偏移量，然后从偏移量指定的地方开始处理<br>            - 提交方式：<br>                1. 自动提交:每隔一段时间自动提交一次<br>                2. 提交当前偏移量:设置auto.commit.offset为false.然后使用commitSync()提交偏移量，会提交最新的一次由poll获得的偏移量<br>                3. 异步提交：commitAsync()，也可使用回调函数来处理<br>                4. 可以提交特定偏移量，而不是最后一次poll得到的偏移量<br>        - 通过实现 ConsumerRebalanceListener接口来定义在consumer失去对分区的所有权时需要处理的事件，可在这里使用.seek()方法加上自定义的函数来实现从数据库中获得偏移量<br>## Kafka本体<br>### 优势<br>高吞吐，高性能，持久化(将消息持久化到磁盘，通过将数据持久化硬盘，以及follower节点来防止数据丢失)<br>缺点是异步的不适合电商场景<br>### 架构设计<br>- Producer<br>- Consumer<br>- Topic 主题，由用户定义并配置在Kafka服务器，建立Producer和Consumer之间的订阅关系，身缠这发送消息到特定的Topic下，消费者从这个Topic下消费消息。逻辑概念，相当于数据库中的表<br>- Partition 消息分区，一个Topic可以分为多个partition，partition是一个有序的队列，partition的每条消息都会被分配一个有序的id(offset) 物理实际概念，每一个partition对应一个log，producer生产的数据会不断地追加到该log文件末端，且每条数据都有自己的offset。系哦啊飞着组中的每个消费者都会实时记录自己消费到哪个offset<br>- Broker 一台Kafka就是一个broker，一个集群由多个broker组成，一个broker可以容纳多个topic<br>- ConsumerGroup 消费者组，用于归组同类消费者。每个consumer属于一个特定的consumer group，多个消费者可以共同消费一个Topic下的消息，每个消费者获取部分消息。<br>- 一个Partition对应一个唯一的文件夹，文件夹下使用的是Segment File的存储方式进行存储。将大文件拆成小文件，分为索引未见和数据文件<br>### 基本流程<br>- producer先从zookeeper的broker/**/state节点找到该partiton的leader<br>- producer将消息发送给该leader<br>- leader将消息写出本地log<br>- follower从leader pull 消息<br>- 写入本地log，后向leader发送ACK<br>- leader收到所有ISR中的replication的ACK，增加HT(high watermark ，最后commit 的offset)并向producer发送ACK<br>#### 生产过程<br>1. Producer创建时，先创建一个Sender线程并且设置守护线程<br>2. 生产的消息经过拦截器-&gt;序列化器-&gt;分区器，将消息存在缓冲区<br>3. 批量发送的条件：缓冲区数据大小达到batch.size或者linger.ms达到上限<br>4. 发往指定分区，最后到达broker<br>    - acks = 0，消息放到缓冲区就认为发送完成<br>    - acks = 1消息写到主分区即可完成，如果主分区收到消息之后宕机，副本分区来不及同步消息，消息就会丢失<br>    - acks = all 等待所有的ISR副本的缺人记录<br>5. 如果设置了重试次数并且大于0，就会进行重试<br>6. 成功，返回元数据给生产者<br>ISR（In-Sync Replicas）是指与领导者副本保持同步的副本集合<br>#### 生产者Offset<br>消息写入的时候，每一个分区都有一个offset，即每个分区的最新最大的offset。<br>#### 消费者Offset<br>不同消费组中的消费者可以针对一个分区存储不同的Offset，互不影响。<br>#### LogSegment<br>日志文件的组成部分<br>#### Leader选举<br>- Kafka会在Zookeeper上针对每个Topic维护一个成为ISR的集合<br>- 当集合中副本都跟Leader同的副本同步之后，kafka才会认为消息已提交<br>- 只有这些跟Leader保持同步的Follower才应该被选作新的Leader</h2>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/08/01/12/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -355,7 +461,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-09-15 14:31:11" itemprop="dateModified" datetime="2024-09-15T14:31:11+08:00">2024-09-15</time>
+                <time title="修改时间：2024-09-30 14:49:44" itemprop="dateModified" datetime="2024-09-30T14:49:44+08:00">2024-09-30</time>
               </span>
 
           <br>
@@ -448,7 +554,8 @@
 <li>扩展类加载器被替换成了平台类加载器，所以继承关系从URLClassLoader变成了BuiltinClassLoader，BuiltinClassLoader实现了从模块中加载字节码文件。平台类加载器的存在更多的是为了与老版本的设计方案兼容，自身没有特殊的逻辑</li>
 </ol>
 <h5 id="双亲委派机制总结"><a href="#双亲委派机制总结" class="headerlink" title="双亲委派机制总结"></a>双亲委派机制总结</h5><p><img src="/2024/06/24/02/%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%9C%BA%E5%88%B6%E6%80%BB%E7%BB%93.png" alt="|500"></p>
-<h4 id="类的生命周期"><a href="#类的生命周期" class="headerlink" title="类的生命周期"></a>类的生命周期</h4><h5 id="加载"><a href="#加载" class="headerlink" title="加载"></a>加载</h5><p>简单概括：找到需要加载的类，并把类的信息加载到JVM中，然后在堆中实例化一个java.lang.Class对象，作为方法区中的这个类的信息的入口</p>
+<h4 id="类的生命周期"><a href="#类的生命周期" class="headerlink" title="类的生命周期"></a>类的生命周期</h4><p>加载、连接、初始化、使用、卸载</p>
+<h5 id="加载"><a href="#加载" class="headerlink" title="加载"></a>加载</h5><p>简单概括：找到需要加载的类，并把类的信息加载到JVM中，然后在堆中实例化一个java.lang.Class对象，作为方法区中的这个类的信息的入口</p>
 <ol>
 <li>加载过程中是类加载器根据类的全限定名通过不同的渠道以二进制流的形式获取字节码信息</li>
 <li>加载器加载完类之后，Java虚拟机将字节码中的信息保存到方法区中，生成一个InstanceKlass对象，保存类的所有信息，里面还包含实现特定功能比如多态的信息</li>
@@ -2713,176 +2820,10 @@ lock<span class="token punctuation">.</span><span class="token function">lock</s
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/05/23/22/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="QingQiu">
-      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="QingQiu'Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/05/23/22/" class="post-title-link" itemprop="url">运维</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-05-23 08:52:22" itemprop="dateCreated datePublished" datetime="2024-05-23T08:52:22+08:00">2024-05-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-24 13:29:55" itemprop="dateModified" datetime="2024-05-24T13:29:55+08:00">2024-05-24</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.1k</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Docker-Compose"><a href="#Docker-Compose" class="headerlink" title="Docker Compose"></a>Docker Compose</h2><p>编写docker-compose.yml脚本，配合dockerfile和sh脚本进行搭建</p>
-<ul>
-<li>示例一：搭建一主二从三哨兵的redis集群 ^220b94<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token property">version</span><span class="token punctuation">:</span> <span class="token string">'3'</span> #dockercompose版本
-<span class="token property">services</span><span class="token punctuation">:</span> #定义应用的的服务，每个服务运行一个镜像
-  <span class="token property">redis-master</span><span class="token punctuation">:</span> #服务名称
-    <span class="token property">image</span><span class="token punctuation">:</span> <span class="token property">redis</span><span class="token punctuation">:</span>latest #镜像
-    <span class="token property">command</span><span class="token punctuation">:</span> redis-server --appendonly yes --requirepass bronya #启动容器时要执行命令
-    <span class="token property">volumes</span><span class="token punctuation">:</span> #挂载数据卷，不存在的目录会自动创建
-      - ./data/<span class="token property">master</span><span class="token punctuation">:</span>/data
-    <span class="token property">ports</span><span class="token punctuation">:</span> #定义端口映射
-      - <span class="token string">"6379:6379"</span>
-
-  <span class="token property">redis-slave1</span><span class="token punctuation">:</span>
-    <span class="token property">image</span><span class="token punctuation">:</span> <span class="token property">redis</span><span class="token punctuation">:</span>latest
-    <span class="token property">command</span><span class="token punctuation">:</span> redis-server --slaveof redis-master 6379 --appendonly yes
-    <span class="token property">depends_on</span><span class="token punctuation">:</span>
-      - redis-master
-    <span class="token property">volumes</span><span class="token punctuation">:</span>
-      - ./data/<span class="token property">slave1</span><span class="token punctuation">:</span>/data
-
-  <span class="token property">redis-slave2</span><span class="token punctuation">:</span>
-    <span class="token property">image</span><span class="token punctuation">:</span> <span class="token property">redis</span><span class="token punctuation">:</span>latest
-    <span class="token property">command</span><span class="token punctuation">:</span> redis-server --slaveof redis-master 6379 --appendonly yes
-    <span class="token property">depends_on</span><span class="token punctuation">:</span>
-      - redis-master
-    <span class="token property">volumes</span><span class="token punctuation">:</span>
-      - ./data/<span class="token property">slave2</span><span class="token punctuation">:</span>/data
-
-  <span class="token property">redis-sentinel1</span><span class="token punctuation">:</span>
-    <span class="token property">image</span><span class="token punctuation">:</span> <span class="token property">redis</span><span class="token punctuation">:</span>latest
-    <span class="token property">command</span><span class="token punctuation">:</span> redis-sentinel /etc/redis/sentinel.conf
-    <span class="token property">depends_on</span><span class="token punctuation">:</span>
-      - redis-master
-    <span class="token property">volumes</span><span class="token punctuation">:</span>
-      - ./sentinel1.<span class="token property">conf</span><span class="token punctuation">:</span>/etc/redis/sentinel.conf
-
-  <span class="token property">redis-sentinel2</span><span class="token punctuation">:</span>
-    <span class="token property">image</span><span class="token punctuation">:</span> <span class="token property">redis</span><span class="token punctuation">:</span>latest
-    <span class="token property">command</span><span class="token punctuation">:</span> redis-sentinel /etc/redis/sentinel.conf
-    <span class="token property">depends_on</span><span class="token punctuation">:</span>
-      - redis-master
-    <span class="token property">volumes</span><span class="token punctuation">:</span>
-      - ./sentinel2.<span class="token property">conf</span><span class="token punctuation">:</span>/etc/redis/sentinel.conf
-
-  <span class="token property">redis-sentinel3</span><span class="token punctuation">:</span>
-    <span class="token property">image</span><span class="token punctuation">:</span> <span class="token property">redis</span><span class="token punctuation">:</span>latest
-    <span class="token property">command</span><span class="token punctuation">:</span> redis-sentinel /etc/redis/sentinel.conf
-    <span class="token property">depends_on</span><span class="token punctuation">:</span>
-      - redis-master
-    <span class="token property">volumes</span><span class="token punctuation">:</span>
-      - ./sentinel3.<span class="token property">conf</span><span class="token punctuation">:</span>/etc/redis/sentinel.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/bin/bash</span>
-<span class="token function">docker-compose</span> up <span class="token parameter variable">--build</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
-<li>示例二：基于dockerfile<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token property">version</span><span class="token punctuation">:</span> <span class="token string">'3'</span>
-<span class="token property">services</span><span class="token punctuation">:</span>
-  <span class="token property">app</span><span class="token punctuation">:</span>
-    <span class="token property">build</span><span class="token punctuation">:</span> 
-      <span class="token property">context</span><span class="token punctuation">:</span> .
-      <span class="token property">dockerfile</span><span class="token punctuation">:</span> Dockerfile
-    <span class="token property">ports</span><span class="token punctuation">:</span>
-      - <span class="token string">"8080:8080"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-Dockerfile文件<pre class="line-numbers language-css" data-language="css"><code class="language-css"># 使用官方的java镜像作为基础镜像
-FROM <span class="token property">openjdk</span><span class="token punctuation">:</span>8-jdk-alpine
-
-# 设置工作目录
-WORKDIR /app
-
-# 将本地的jar包复制到Docker镜像中
-COPY ./your-app.jar /app
-
-# 设置启动命令
-ENTRYPOINT [<span class="token string">"java"</span><span class="token punctuation">,</span> <span class="token string">"-jar"</span><span class="token punctuation">,</span> <span class="token string">"/app/your-app.jar"</span>]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-<h2 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h2><h3 id="常见命令"><a href="#常见命令" class="headerlink" title="常见命令"></a>常见命令</h3><ul>
-<li>之间的关系：<br><img src="/2024/05/23/22/docker%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4%E7%9A%84%E5%85%B3%E7%B3%BB.png" alt="常见命令与他们之间的关系"></li>
-<li>使用format对ps的结果进行格式化，更容易观察<pre class="line-numbers language-css" data-language="css"><code class="language-css">docker ps -a --format <span class="token selector">"table</span> <span class="token punctuation">{</span><span class="token punctuation">{</span>.ID<span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token selector">\t</span><span class="token punctuation">{</span><span class="token punctuation">{</span>.Image<span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token selector">\t</span><span class="token punctuation">{</span><span class="token punctuation">{</span>.Ports<span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token selector">\t</span><span class="token punctuation">{</span><span class="token punctuation">{</span>.Status<span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token selector">\t</span><span class="token punctuation">{</span><span class="token punctuation">{</span>.Names<span class="token punctuation">}</span><span class="token punctuation">}</span>"<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
-<li>可以通过编辑/root/.bashrc文件去给常用的命令起别名<pre class="line-numbers language-css" data-language="css"><code class="language-css"># 修改/root/.bashrc文件
-vi /root/.bashrc
-内容如下：
-# .bashrc
-
-# User specific aliases and functions
-
-alias rm=<span class="token string">'rm -i'</span>
-alias cp=<span class="token string">'cp -i'</span>
-alias mv=<span class="token string">'mv -i'</span>
-alias dps=<span class="token string">'docker ps --format "table {{.ID}}\t{{.Image}}\t{{.Ports}}\t{{.Status}}\t{{.Names}}"'</span>
-alias dis=<span class="token string">'docker images'</span>
-
-# Source global definitions
-if [ -f /etc/bashrc ]<span class="token punctuation">;</span> then
-        . /etc/bashrc
-fi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><h2 id="网络问题：-容器的ip是一个虚拟ip，其值并不与容器绑定-可以使用docker的网络功能实现容器的互联"><a href="#网络问题：-容器的ip是一个虚拟ip，其值并不与容器绑定-可以使用docker的网络功能实现容器的互联" class="headerlink" title="网络问题：  - 容器的ip是一个虚拟ip，其值并不与容器绑定  - 可以使用docker的网络功能实现容器的互联"></a>网络问题：<br>  - 容器的ip是一个虚拟ip，其值并不与容器绑定<br>  - 可以使用docker的网络功能实现容器的互联</h2></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -2948,7 +2889,7 @@ fi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-count">51</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -3000,7 +2941,7 @@ fi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">401k</span>
+    <span title="站点总字数">408k</span>
 </div>
 
         

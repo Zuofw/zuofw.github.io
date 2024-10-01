@@ -157,6 +157,144 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/03/30/39/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="QingQiu">
+      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QingQiu'Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/03/30/39/" class="post-title-link" itemprop="url">SpringSecurity和其他的认证相关</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-03-30 10:41:39" itemprop="dateCreated datePublished" datetime="2024-03-30T10:41:39+08:00">2024-03-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-16 09:52:18" itemprop="dateModified" datetime="2024-06-16T09:52:18+08:00">2024-06-16</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2k</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Security"><a href="#Security" class="headerlink" title="Security"></a>Security</h1><blockquote>
+<p>RBAC模型： Role-Based Access Control 基于角色的权限控制访问控制，角色关联权限，角色又关联用户的授权方式<br>一个用户可以有多个角色，每一个角色又可以分配多个权限</p>
+</blockquote>
+<p>AuthenticationProvider是AuthenticationManager的一个组成部分，它负责处理特定类型的Authentication对象。AuthenticationManager可能会有多个AuthenticationProvider，每个AuthenticationProvider都会尝试验证传入的Authentication对象。</p>
+<h4 id="使用流程："><a href="#使用流程：" class="headerlink" title="使用流程："></a>使用流程：</h4><p><a target="_blank" rel="noopener" href="https://shusheng007.top/2023/02/15/springsecurity/">参考</a></p>
+<ol>
+<li>controller</li>
+<li>配置拦截器/Filter，继承OncePerRequestFilter，验证token</li>
+<li>配置security，在这里可以指定自定义的provider<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Configuration</span>
+<span class="token annotation punctuation">@EnableWebSecurity</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">WebSecurityConfig</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">AuthenticationManager</span> <span class="token function">authenticationManager</span><span class="token punctuation">(</span><span class="token class-name">AuthenticationConfiguration</span> authConfig<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> authConfig<span class="token punctuation">.</span><span class="token function">getAuthenticationManager</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">//我们自定义的拦截器</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">JwtAuthenticationTokenFilter</span> <span class="token function">jwtAuthenticationTokenFilter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">JwtAuthenticationTokenFilter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">SecurityFilterChain</span> <span class="token function">filterChain</span><span class="token punctuation">(</span><span class="token class-name">HttpSecurity</span> httpSecurity<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
+        <span class="token comment">//基于token，所以不需要csrf防护</span>
+        httpSecurity<span class="token punctuation">.</span><span class="token function">csrf</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">disable</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token comment">//基于token，所以不需要session</span>
+                <span class="token punctuation">.</span><span class="token function">sessionManagement</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sessionCreationPolicy</span><span class="token punctuation">(</span><span class="token class-name">SessionCreationPolicy</span><span class="token punctuation">.</span><span class="token constant">STATELESS</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">and</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">authorizeRequests</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token comment">//登录注册不需要认证</span>
+                <span class="token punctuation">.</span><span class="token function">antMatchers</span><span class="token punctuation">(</span><span class="token string">"/user/login"</span><span class="token punctuation">,</span> <span class="token string">"/user/register"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">permitAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token comment">//除上面的所有请求全部需要鉴权认证</span>
+                <span class="token punctuation">.</span><span class="token function">anyRequest</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">authenticated</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">//禁用缓存</span>
+        httpSecurity<span class="token punctuation">.</span><span class="token function">headers</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">cacheControl</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">//将我们的JWT filter添加到UsernamePasswordAuthenticationFilter前面，因为这个Filter是authentication开始的filter，我们要早于它</span>
+        httpSecurity<span class="token punctuation">.</span><span class="token function">addFilterBefore</span><span class="token punctuation">(</span><span class="token function">jwtAuthenticationTokenFilter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token class-name">UsernamePasswordAuthenticationFilter</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">return</span> httpSecurity<span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+<h1 id="认证相关的概念和原理"><a href="#认证相关的概念和原理" class="headerlink" title="认证相关的概念和原理"></a>认证相关的概念和原理</h1><h3 id="Cookie被禁用了Session还能使用吗"><a href="#Cookie被禁用了Session还能使用吗" class="headerlink" title="Cookie被禁用了Session还能使用吗"></a>Cookie被禁用了Session还能使用吗</h3><p>可以使用，可以把SessionID放在请求路径中，同时可以对SessionID进行加密</p>
+<h2 id="为什么Cookie无法防止CSRF攻击，而Token可以"><a href="#为什么Cookie无法防止CSRF攻击，而Token可以" class="headerlink" title="为什么Cookie无法防止CSRF攻击，而Token可以"></a>为什么Cookie无法防止CSRF攻击，而Token可以</h2><p>CSRF(<strong>Cross Site Request Forgery</strong>) 跨站请求伪造，Token存在localStorage浏览器本地缓存，然后每次发送请求携带这个即可。而Cookie是可以被别的获取的<br>XSS 跨站脚本攻击（Cross Site Scripting）</p>
+<h2 id="JWT"><a href="#JWT" class="headerlink" title="JWT"></a>JWT</h2><h3 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h3><p>xxxxx.yyyyy.zzzz</p>
+<h4 id="HEADER"><a href="#HEADER" class="headerlink" title="HEADER"></a>HEADER</h4><p>描述JWT的元数据，定义了生成签名的算法以及Token的类型</p>
+<ul>
+<li>typ(Type) ：令牌类型，也就是JWT</li>
+<li>alg(Algorithm) ：签名算法</li>
+</ul>
+<h4 id="PAYLOAD"><a href="#PAYLOAD" class="headerlink" title="PAYLOAD"></a>PAYLOAD</h4><p>存放实际要传输的数据，包含Claims(声明，包含JWT的相关信息)</p>
+<ul>
+<li>注册声明：预定义的一些声明</li>
+<li>公有声明：JWT签发方可以自定义的声明</li>
+<li>私有声明：签发方因为项目中需要而自定义的声明</li>
+</ul>
+<h4 id="SIGNATURE-签名"><a href="#SIGNATURE-签名" class="headerlink" title="SIGNATURE (签名)"></a>SIGNATURE (签名)</h4><p>通过Payload和Header和Secret是哟个Header中指定的签名算法<br>用于防止JWT被篡改<br>这个签名的生成需要用到：</p>
+<ul>
+<li>Header + Payload。</li>
+<li>存放在服务端的密钥(一定不要泄露出去)。</li>
+<li>签名算法。</li>
+</ul>
+<h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><h2 id="SSO-单点登录"><a href="#SSO-单点登录" class="headerlink" title="SSO 单点登录"></a>SSO 单点登录</h2><h2 id="OAuth-2-0"><a href="#OAuth-2-0" class="headerlink" title="OAuth 2.0"></a>OAuth 2.0</h2><h2 id="权限设计"><a href="#权限设计" class="headerlink" title="权限设计"></a>权限设计</h2><h3 id="RBAC"><a href="#RBAC" class="headerlink" title="RBAC"></a>RBAC</h3><p>基于角色的权限控制</p>
+<h3 id="ABAC"><a href="#ABAC" class="headerlink" title="ABAC"></a>ABAC</h3><p>基于属性的控制访问</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/03/17/19/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3221,80 +3359,10 @@ redis<br>1.打开redis的配置文件“redis.conf”。</li>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2023/09/30/23/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="QingQiu">
-      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="QingQiu'Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/09/30/23/" class="post-title-link" itemprop="url">blog搭建</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2023-09-30 10:45:23 / 修改时间：10:49:16" itemprop="dateCreated datePublished" datetime="2023-09-30T10:45:23+08:00">2023-09-30</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>43</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h1><p>一次自己blog手动搭建记录<br>技术栈：</p>
-<ul>
-<li>前端：vue</li>
-<li>后端:   express redis</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -3360,7 +3428,7 @@ redis<br>1.打开redis的配置文件“redis.conf”。</li>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-count">51</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -3412,7 +3480,7 @@ redis<br>1.打开redis的配置文件“redis.conf”。</li>
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">401k</span>
+    <span title="站点总字数">408k</span>
 </div>
 
         
