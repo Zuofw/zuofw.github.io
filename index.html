@@ -2539,6 +2539,525 @@ explain select <span class="token operator">*</span> from user where age is not 
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/10/01/34/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="QingQiu">
+      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QingQiu'Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/10/01/34/" class="post-title-link" itemprop="url">Netty源码初探</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-10-01 17:44:34" itemprop="dateCreated datePublished" datetime="2024-10-01T17:44:34+08:00">2024-10-01</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>14k</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本人在尝试使用Netty来手写RPC时，学习到了很多Netty知识，在此进行一些记录</p>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>以下时服务端的简单启动示例</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"> <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">start</span><span class="token punctuation">(</span><span class="token keyword">int</span> port<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 1是指定一个线程用于处理连接，0表示不处理连接</span>
+        <span class="token class-name">EventLoopGroup</span> bossGroup <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">NioEventLoopGroup</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">EventLoopGroup</span> workerGroup <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">NioEventLoopGroup</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 里面的参数是线程数，这里是处理消息的线程数,false是指定线程工厂是否是守护线程</span>
+        <span class="token class-name">DefaultEventExecutorGroup</span> serviceHandlerGroup <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DefaultEventExecutorGroup</span><span class="token punctuation">(</span>
+                <span class="token class-name">RuntimeUtil</span><span class="token punctuation">.</span><span class="token function">getProcessorCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">,</span>
+                <span class="token class-name">ThreadUtil</span><span class="token punctuation">.</span><span class="token function">newNamedThreadFactory</span><span class="token punctuation">(</span><span class="token string">"service-handler-group"</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token comment">/**
+             * boss线程组用于处理连接工作，worker线程组用于数据处理
+             * 依次的结构是 group -&gt; channel -&gt; childHandler -&gt; handler
+             * group 用于处理连接，channel 用于处理数据，childHandler 用于处理连接的数据，handler 用于处理数据的
+             * 所属关系:一个 group 可以有多个 channel，一个 channel 可以有多个 childHandler，一个 childHandler 可以有多个 handler
+             * 一个 channel 只能有一个 childHandler，一个 childHandler 可以有多个 handler
+             */</span>
+            <span class="token class-name">ServerBootstrap</span> b <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ServerBootstrap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            b<span class="token punctuation">.</span><span class="token function">group</span><span class="token punctuation">(</span>bossGroup<span class="token punctuation">,</span> workerGroup<span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">channel</span><span class="token punctuation">(</span><span class="token class-name">NioServerSocketChannel</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">handler</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">LoggingHandler</span><span class="token punctuation">(</span><span class="token class-name">LogLevel</span><span class="token punctuation">.</span><span class="token constant">TRACE</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">childHandler</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ChannelInitializer</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">SocketChannel</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token annotation punctuation">@Override</span>
+                        <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">initChannel</span><span class="token punctuation">(</span><span class="token class-name">SocketChannel</span> socketChannel<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
+                            socketChannel<span class="token punctuation">.</span><span class="token function">pipeline</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token comment">//                                    .addLast(new HttpServerCodec())</span>
+<span class="token comment">//                                    .addLast(new HttpObjectAggregator(65536))</span>
+<span class="token comment">//                                    .addLast(new ChunkedWriteHandler())</span>
+                                    <span class="token comment">// 30之内没有收到客户端请求，就会触发IdleStateHandler的userEventTriggered方法</span>
+                                    <span class="token punctuation">.</span><span class="token function">addLast</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">IdleStateHandler</span><span class="token punctuation">(</span><span class="token number">30</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token class-name">TimeUnit</span><span class="token punctuation">.</span><span class="token constant">SECONDS</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                                    <span class="token punctuation">.</span><span class="token function">addLast</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ProtocolEncoder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                                    <span class="token punctuation">.</span><span class="token function">addLast</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ProtocolDecoder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                                    <span class="token punctuation">.</span><span class="token function">addLast</span><span class="token punctuation">(</span>serviceHandlerGroup<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">NettyServerHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//                                    .addLast(new TestNettyHandler());</span>
+                            <span class="token comment">// todo 接收消息，将消息先编码，然后解码成ZMessage格式，最后交由NettyHttpServerHandler处理</span>
+                        <span class="token punctuation">}</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">option</span><span class="token punctuation">(</span><span class="token class-name">ChannelOption</span><span class="token punctuation">.</span><span class="token constant">SO_BACKLOG</span><span class="token punctuation">,</span> <span class="token number">128</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">childOption</span><span class="token punctuation">(</span><span class="token class-name">ChannelOption</span><span class="token punctuation">.</span><span class="token constant">SO_KEEPALIVE</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token class-name">ChannelFuture</span> f <span class="token operator">=</span> b<span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span>port<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sync</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Server is now listening on port "</span> <span class="token operator">+</span> port<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            f<span class="token punctuation">.</span><span class="token function">channel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">closeFuture</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sync</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">RuntimeException</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
+            workerGroup<span class="token punctuation">.</span><span class="token function">shutdownGracefully</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            bossGroup<span class="token punctuation">.</span><span class="token function">shutdownGracefully</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>本文就基于这一段代码来进行深入探究Netty是如何实现的</p>
+<h2 id="EventLoopGroup"><a href="#EventLoopGroup" class="headerlink" title="EventLoopGroup"></a>EventLoopGroup</h2><p>我们进入NioEventLoopGroup的源码中</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token class-name">NioEventLoopGroup</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+       <span class="token keyword">this</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token punctuation">}</span>
+
+   <span class="token keyword">public</span> <span class="token class-name">NioEventLoopGroup</span><span class="token punctuation">(</span><span class="token keyword">int</span> nThreads<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+       <span class="token keyword">this</span><span class="token punctuation">(</span>nThreads<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token class-name">Executor</span><span class="token punctuation">)</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>我们沿着this不断往下查找，发现</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token class-name">NioEventLoopGroup</span><span class="token punctuation">(</span><span class="token keyword">int</span> nThreads<span class="token punctuation">,</span> <span class="token class-name">Executor</span> executor<span class="token punctuation">,</span> <span class="token class-name">SelectorProvider</span> selectorProvider<span class="token punctuation">,</span> <span class="token class-name">SelectStrategyFactory</span> selectStrategyFactory<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">(</span>nThreads<span class="token punctuation">,</span> executor<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span>selectorProvider<span class="token punctuation">,</span> selectStrategyFactory<span class="token punctuation">,</span> <span class="token class-name">RejectedExecutionHandlers</span><span class="token punctuation">.</span><span class="token function">reject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>然后进入super之后，发现nThreads这个参数影响的是这里</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> <span class="token constant">DEFAULT_EVENT_LOOP_THREADS</span> <span class="token operator">=</span> <span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token class-name">SystemPropertyUtil</span><span class="token punctuation">.</span><span class="token function">getInt</span><span class="token punctuation">(</span><span class="token string">"io.netty.eventLoopThreads"</span><span class="token punctuation">,</span> <span class="token class-name">NettyRuntime</span><span class="token punctuation">.</span><span class="token function">availableProcessors</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+  
+<span class="token keyword">protected</span> <span class="token class-name">MultithreadEventLoopGroup</span><span class="token punctuation">(</span><span class="token keyword">int</span> nThreads<span class="token punctuation">,</span> <span class="token class-name">Executor</span> executor<span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+    <span class="token keyword">super</span><span class="token punctuation">(</span>nThreads <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">?</span> <span class="token constant">DEFAULT_EVENT_LOOP_THREADS</span> <span class="token operator">:</span> nThreads<span class="token punctuation">,</span> executor<span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>  
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>最终发现：<br>一切的根源是<code>MultithreadEventExecutorGroup</code>这个类</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">protected</span> <span class="token class-name">MultithreadEventExecutorGroup</span><span class="token punctuation">(</span><span class="token keyword">int</span> nThreads<span class="token punctuation">,</span> <span class="token class-name">Executor</span> executor<span class="token punctuation">,</span> <span class="token class-name">EventExecutorChooserFactory</span> chooserFactory<span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 初始化 terminatedChildren 和 terminationFuture</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>terminatedChildren <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AtomicInteger</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>terminationFuture <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DefaultPromise</span><span class="token punctuation">(</span><span class="token class-name">GlobalEventExecutor</span><span class="token punctuation">.</span><span class="token constant">INSTANCE</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// 检查 nThreads 是否为正数</span>
+    <span class="token class-name">ObjectUtil</span><span class="token punctuation">.</span><span class="token function">checkPositive</span><span class="token punctuation">(</span>nThreads<span class="token punctuation">,</span> <span class="token string">"nThreads"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// 如果 executor 为空，则使用默认的线程工厂创建一个新的 ThreadPerTaskExecutor</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>executor <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        executor <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ThreadPerTaskExecutor</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">newDefaultThreadFactory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// 初始化 children 数组</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>children <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">EventExecutor</span><span class="token punctuation">[</span>nThreads<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// 创建并初始化每个 EventExecutor</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> nThreads<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">boolean</span> success <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token keyword">boolean</span> var18 <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            var18 <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+            <span class="token comment">// 创建新的子 EventExecutor</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>children<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">newChild</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token class-name">Executor</span><span class="token punctuation">)</span> executor<span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            success <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+            var18 <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> var19<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// 如果创建失败，抛出异常</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalStateException</span><span class="token punctuation">(</span><span class="token string">"failed to create a child event loop"</span><span class="token punctuation">,</span> var19<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>var18<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>success<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token comment">// 如果创建失败，关闭已创建的 EventExecutor</span>
+                    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> i<span class="token punctuation">;</span> <span class="token operator">++</span>j<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token keyword">this</span><span class="token punctuation">.</span>children<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">shutdownGracefully</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+
+                    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> i<span class="token punctuation">;</span> <span class="token operator">++</span>j<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token class-name">EventExecutor</span> e <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>children<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+                        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+                            <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span>e<span class="token punctuation">.</span><span class="token function">isTerminated</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                                e<span class="token punctuation">.</span><span class="token function">awaitTermination</span><span class="token punctuation">(</span><span class="token number">2147483647L</span><span class="token punctuation">,</span> <span class="token class-name">TimeUnit</span><span class="token punctuation">.</span><span class="token constant">SECONDS</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            <span class="token punctuation">}</span>
+                        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> var20<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                            <span class="token class-name">Thread</span><span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">interrupt</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            <span class="token keyword">break</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">}</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>success<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// 如果创建失败，关闭已创建的 EventExecutor</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> i<span class="token punctuation">;</span> <span class="token operator">++</span>j<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span>children<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">shutdownGracefully</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> i<span class="token punctuation">;</span> <span class="token operator">++</span>j<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token class-name">EventExecutor</span> e <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>children<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+                <span class="token keyword">try</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span>e<span class="token punctuation">.</span><span class="token function">isTerminated</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        e<span class="token punctuation">.</span><span class="token function">awaitTermination</span><span class="token punctuation">(</span><span class="token number">2147483647L</span><span class="token punctuation">,</span> <span class="token class-name">TimeUnit</span><span class="token punctuation">.</span><span class="token constant">SECONDS</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> var22<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token class-name">Thread</span><span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">interrupt</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token keyword">break</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// 创建 EventExecutorChooser</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>chooser <span class="token operator">=</span> chooserFactory<span class="token punctuation">.</span><span class="token function">newChooser</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>children<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// 创建并添加 terminationListener</span>
+    <span class="token class-name">FutureListener</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Object</span><span class="token punctuation">&gt;</span></span> terminationListener <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FutureListener</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Object</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">operationComplete</span><span class="token punctuation">(</span><span class="token class-name">Future</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Object</span><span class="token punctuation">&gt;</span></span> future<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token class-name">MultithreadEventExecutorGroup</span><span class="token punctuation">.</span><span class="token keyword">this</span><span class="token punctuation">.</span>terminatedChildren<span class="token punctuation">.</span><span class="token function">incrementAndGet</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token class-name">MultithreadEventExecutorGroup</span><span class="token punctuation">.</span><span class="token keyword">this</span><span class="token punctuation">.</span>children<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token class-name">MultithreadEventExecutorGroup</span><span class="token punctuation">.</span><span class="token keyword">this</span><span class="token punctuation">.</span>terminationFuture<span class="token punctuation">.</span><span class="token function">setSuccess</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token class-name">Object</span><span class="token punctuation">)</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// 为每个 EventExecutor 添加 terminationListener</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">EventExecutor</span> e <span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>children<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        e<span class="token punctuation">.</span><span class="token function">terminationFuture</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">addListener</span><span class="token punctuation">(</span>terminationListener<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// 创建只读的 children 集合</span>
+    <span class="token class-name">Set</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">EventExecutor</span><span class="token punctuation">&gt;</span></span> childrenSet <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LinkedHashSet</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>children<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">Collections</span><span class="token punctuation">.</span><span class="token function">addAll</span><span class="token punctuation">(</span>childrenSet<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>children<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>readonlyChildren <span class="token operator">=</span> <span class="token class-name">Collections</span><span class="token punctuation">.</span><span class="token function">unmodifiableSet</span><span class="token punctuation">(</span>childrenSet<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>我们debug走进去，到这个地方<br><img src="/2024/10/01/34/1.png"><br>发现在这里使用了默认的线程工厂创建了一个ThreadPerTaskExecutor，接着往下走<br>发现从<code>this.children = new EventExecutor[nThreads];</code>这一行开始，在创建并初始化每一个Executor<br>接着往下看</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">this</span><span class="token punctuation">.</span>chooser <span class="token operator">=</span> chooserFactory<span class="token punctuation">.</span><span class="token function">newChooser</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>children<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这里创建了一个 EventExecutorChooser对象用于在多个 EventExecutor 之间选择一个执行任务<br>之后往下看，可以发现，为每一个children数组中的对象添加了TerminationListener这个监听器<img src="/2024/10/01/34/addListener.png"><br>TerminationListener的作用是，监听每一个EventExecutor的终止事件，当所有的EventExecutor都终止之后，会将TerminationFuture设置为成功状态，表示整个MultithreadEventExecutorGroup 已经完全终止<br>TerminationListener是个匿名内部类</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">FutureListener</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Object</span><span class="token punctuation">&gt;</span></span> terminationListener <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FutureListener</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Object</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+    
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">operationComplete</span><span class="token punctuation">(</span><span class="token class-name">Future</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Object</span><span class="token punctuation">&gt;</span></span> future<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>  
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token class-name">MultithreadEventExecutorGroup</span><span class="token punctuation">.</span><span class="token keyword">this</span><span class="token punctuation">.</span>terminatedChildren<span class="token punctuation">.</span><span class="token function">incrementAndGet</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token class-name">MultithreadEventExecutorGroup</span><span class="token punctuation">.</span><span class="token keyword">this</span><span class="token punctuation">.</span>children<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+            <span class="token class-name">MultithreadEventExecutorGroup</span><span class="token punctuation">.</span><span class="token keyword">this</span><span class="token punctuation">.</span>terminationFuture<span class="token punctuation">.</span><span class="token function">setSuccess</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token class-name">Object</span><span class="token punctuation">)</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+        <span class="token punctuation">}</span>  
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>方法的最后，将所有的children中的EventExecutor转化为一个不可修改的集合，从而保证readonlyChildren集合中的元素不可修改，从而保证线程安全和数据的完整性<br>到这里第一部分的源码就分析完毕，接下来让我们关注到ServerBootstrap这个类</p>
+<h2 id="ServerBootstrap"><a href="#ServerBootstrap" class="headerlink" title="ServerBootstrap"></a>ServerBootstrap</h2><p>先回顾一波示例代码</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">b<span class="token punctuation">.</span><span class="token function">group</span><span class="token punctuation">(</span>bossGroup<span class="token punctuation">,</span> workerGroup<span class="token punctuation">)</span>  
+                    <span class="token punctuation">.</span><span class="token function">channel</span><span class="token punctuation">(</span><span class="token class-name">NioServerSocketChannel</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>  
+                    <span class="token punctuation">.</span><span class="token function">handler</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">LoggingHandler</span><span class="token punctuation">(</span><span class="token class-name">LogLevel</span><span class="token punctuation">.</span><span class="token constant">TRACE</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  
+                    <span class="token punctuation">.</span><span class="token function">childHandler</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ChannelInitializer</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">SocketChannel</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+                        <span class="token annotation punctuation">@Override</span>  
+                        <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">initChannel</span><span class="token punctuation">(</span><span class="token class-name">SocketChannel</span> socketChannel<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>  
+                            socketChannel<span class="token punctuation">.</span><span class="token function">pipeline</span><span class="token punctuation">(</span><span class="token punctuation">)</span>  
+<span class="token comment">//                                    .addLast(new HttpServerCodec())  </span>
+<span class="token comment">//                                    .addLast(new HttpObjectAggregator(65536))  </span>
+<span class="token comment">//                                    .addLast(new ChunkedWriteHandler())  </span>
+                                    <span class="token comment">// 30之内没有收到客户端请求，就会触发IdleStateHandler的userEventTriggered方法  </span>
+                                    <span class="token punctuation">.</span><span class="token function">addLast</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">IdleStateHandler</span><span class="token punctuation">(</span><span class="token number">30</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token class-name">TimeUnit</span><span class="token punctuation">.</span><span class="token constant">SECONDS</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  
+                                    <span class="token punctuation">.</span><span class="token function">addLast</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ProtocolEncoder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  
+                                    <span class="token punctuation">.</span><span class="token function">addLast</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ProtocolDecoder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  
+                                    <span class="token punctuation">.</span><span class="token function">addLast</span><span class="token punctuation">(</span>serviceHandlerGroup<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">NettyServerHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+<span class="token comment">//                                    .addLast(new TestNettyHandler());  </span>
+                            <span class="token comment">// todo 接收消息，将消息先编码，然后解码成ZMessage格式，最后交由NettyHttpServerHandler处理  </span>
+                        <span class="token punctuation">}</span>  
+                    <span class="token punctuation">}</span><span class="token punctuation">)</span>  
+                    <span class="token punctuation">.</span><span class="token function">option</span><span class="token punctuation">(</span><span class="token class-name">ChannelOption</span><span class="token punctuation">.</span><span class="token constant">SO_BACKLOG</span><span class="token punctuation">,</span> <span class="token number">128</span><span class="token punctuation">)</span>  
+                    <span class="token punctuation">.</span><span class="token function">childOption</span><span class="token punctuation">(</span><span class="token class-name">ChannelOption</span><span class="token punctuation">.</span><span class="token constant">SO_KEEPALIVE</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="group"><a href="#group" class="headerlink" title="group"></a>group</h3><p><img src="/2024/10/01/34/group.png"><br>让我们点进去查看：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token class-name">ServerBootstrap</span> <span class="token function">group</span><span class="token punctuation">(</span><span class="token class-name">EventLoopGroup</span> parentGroup<span class="token punctuation">,</span> <span class="token class-name">EventLoopGroup</span> childGroup<span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+	<span class="token comment">// 将parentGroup设置为父组</span>
+    <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">group</span><span class="token punctuation">(</span>parentGroup<span class="token punctuation">)</span><span class="token punctuation">;</span>  
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>childGroup <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalStateException</span><span class="token punctuation">(</span><span class="token string">"childGroup set already"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>  
+        <span class="token keyword">this</span><span class="token punctuation">.</span>childGroup <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">EventLoopGroup</span><span class="token punctuation">)</span><span class="token class-name">ObjectUtil</span><span class="token punctuation">.</span><span class="token function">checkNotNull</span><span class="token punctuation">(</span>childGroup<span class="token punctuation">,</span> <span class="token string">"childGroup"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>  
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在这里我们可以发现几个有趣的地方：</p>
+<ol>
+<li>链式调用实际上就是在方法结束的时候返回this本身，这个指针</li>
+<li>parentGroup需要去看父类<br>先让我们聚焦到ServerBootstrap这个类</li>
+</ol>
+<h3 id="基本属性"><a href="#基本属性" class="headerlink" title="基本属性"></a>基本属性</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ServerBootstrap</span> <span class="token keyword">extends</span> <span class="token class-name">AbstractBootstrap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">ServerBootstrap</span><span class="token punctuation">,</span> <span class="token class-name">ServerChannel</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">{</span>
+    <span class="token comment">// 用于记录日志的静态常量</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">InternalLogger</span> logger <span class="token operator">=</span> <span class="token class-name">InternalLoggerFactory</span><span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token class-name">ServerBootstrap</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// 存储子通道选项的 Map</span>
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">ChannelOption</span><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span><span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">&gt;</span></span> childOptions <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LinkedHashMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// 存储子通道属性的 Map</span>
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">AttributeKey</span><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span><span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">&gt;</span></span> childAttrs <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ConcurrentHashMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// ServerBootstrap 的配置对象</span>
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">ServerBootstrapConfig</span> config <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ServerBootstrapConfig</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// 子事件循环组，使用 volatile 修饰以保证线程安全</span>
+    <span class="token keyword">private</span> <span class="token keyword">volatile</span> <span class="token class-name">EventLoopGroup</span> childGroup<span class="token punctuation">;</span>
+
+    <span class="token comment">// 子通道处理器，使用 volatile 修饰以保证线程安全</span>
+    <span class="token keyword">private</span> <span class="token keyword">volatile</span> <span class="token class-name">ChannelHandler</span> childHandler<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在这里我们就会发现，构造函数中的那些属性全都是在这里的<br>让我们继续溯源到AbstractBootstrap</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">AbstractBootstrap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">B</span> <span class="token keyword">extends</span> <span class="token class-name">AbstractBootstrap</span><span class="token punctuation">&lt;</span><span class="token class-name">B</span><span class="token punctuation">,</span> <span class="token class-name">C</span><span class="token punctuation">&gt;</span><span class="token punctuation">,</span> <span class="token class-name">C</span> <span class="token keyword">extends</span> <span class="token class-name">Channel</span><span class="token punctuation">&gt;</span></span> <span class="token keyword">implements</span> <span class="token class-name">Cloneable</span> <span class="token punctuation">{</span>
+
+	<span class="token comment">// 空的 ChannelOption 数组常量</span>
+<span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">Map<span class="token punctuation">.</span>Entry</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">ChannelOption</span><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span><span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token constant">EMPTY_OPTION_ARRAY</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Map<span class="token punctuation">.</span>Entry</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 空的 AttributeKey 数组常量</span>
+<span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">Map<span class="token punctuation">.</span>Entry</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">AttributeKey</span><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span><span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token constant">EMPTY_ATTRIBUTE_ARRAY</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Map<span class="token punctuation">.</span>Entry</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 事件循环组，使用 volatile 修饰以保证线程安全</span>
+<span class="token keyword">volatile</span> <span class="token class-name">EventLoopGroup</span> group<span class="token punctuation">;</span>
+
+<span class="token comment">// 通道工厂，使用 volatile 修饰以保证线程安全</span>
+<span class="token keyword">private</span> <span class="token keyword">volatile</span> <span class="token class-name">ChannelFactory</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">C</span><span class="token punctuation">&gt;</span></span> channelFactory<span class="token punctuation">;</span>
+
+<span class="token comment">// 本地地址，使用 volatile 修饰以保证线程安全</span>
+<span class="token keyword">private</span> <span class="token keyword">volatile</span> <span class="token class-name">SocketAddress</span> localAddress<span class="token punctuation">;</span>
+
+<span class="token comment">// 存储通道选项的 Map</span>
+<span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">ChannelOption</span><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span><span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">&gt;</span></span> options <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LinkedHashMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 存储通道属性的 Map</span>
+<span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">AttributeKey</span><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span><span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">&gt;</span></span> attrs <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ConcurrentHashMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 通道处理器，使用 volatile 修饰以保证线程安全</span>
+<span class="token keyword">private</span> <span class="token keyword">volatile</span> <span class="token class-name">ChannelHandler</span> handler<span class="token punctuation">;</span>
+
+<span class="token comment">// 扩展类加载器，使用 volatile 修饰以保证线程安全</span>
+<span class="token keyword">private</span> <span class="token keyword">volatile</span> <span class="token class-name">ClassLoader</span> extensionsClassLoader<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这里有个很有意思的继承关系<br>这个定义是一个抽象类 <code>AbstractBootstrap</code>，它有两个泛型参数 <code>B</code> 和 <code>C</code>，并且实现了 <code>Cloneable</code> 接口。</p>
+<ul>
+<li><code>B extends AbstractBootstrap&lt;B, C&gt;</code>：表示泛型参数 <code>B</code> 必须是 <code>AbstractBootstrap</code> 类的子类，并且具有相同的泛型参数 <code>B</code> 和 <code>C</code>。这种定义方式通常用于实现流式 API，使方法可以返回当前对象的类型。</li>
+<li><code>C extends Channel</code>：表示泛型参数 <code>C</code> 必须是 <code>Channel</code> 类的子类。<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token class-name">B</span> <span class="token function">group</span><span class="token punctuation">(</span><span class="token class-name">EventLoopGroup</span> group<span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+    <span class="token class-name">ObjectUtil</span><span class="token punctuation">.</span><span class="token function">checkNotNull</span><span class="token punctuation">(</span>group<span class="token punctuation">,</span> <span class="token string">"group"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>group <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalStateException</span><span class="token punctuation">(</span><span class="token string">"group set already"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>  
+        <span class="token keyword">this</span><span class="token punctuation">.</span>group <span class="token operator">=</span> group<span class="token punctuation">;</span>  
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">self</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+从这里可以看到<br><img src="/2024/10/01/34/supergroup.png"><br>这里设置的group实际上就是在给从<code>AbstractBoostrap</code>中集成到的group进行赋值，而childGroup则是<code>ServerBoostarap</code>自己的新增的属性赋值<br>接着关注到.handler进入之后可以看到将handler赋值给属性了，这段源码比较简单，就不贴出来了<br>接着关注childHandler<br><img src="/2024/10/01/34/childHandler.png"><br>在这里我们可以给连接后产生的SocketChannel配置一些东西，比如通过.addLast来添加连接处理器，handler是给Boss初0始化的，而childHandler则是给Worker进行初始化<br>最后<br>.option 和 .childOption 是 Netty 中 ServerBootstrap 类的方法，用于配置服务器通道和子通道的选项。<br>其中.option是<code>AbstractBoostrap</code>中的属性。<br>以上都不是很难的部分，真正核心的在下面👇</li>
+</ul>
+<h3 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">ChannelFuture</span> f <span class="token operator">=</span> b<span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span>port<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sync</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这一段代码是将我们的ChannelFuture通过Boostrap启动类初始化之后，来绑定结果，ChannelFuture就是一个类似于Future的一个东西，提供了一些与Channel相关的方法，后文会展开，这里先跳过。<br>然我们跟着bind的调用链去揭开谜底！<br><img src="/2024/10/01/34/bind1.png"><br><img src="/2024/10/01/34/bind2.png"><br>到这里我们才意识到，一切的根源都在doBind这个方法中。<br>先贴源码</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">private</span> <span class="token class-name">ChannelFuture</span> <span class="token function">doBind</span><span class="token punctuation">(</span><span class="token keyword">final</span> <span class="token class-name">SocketAddress</span> localAddress<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 初始化并注册Channel</span>
+    <span class="token keyword">final</span> <span class="token class-name">ChannelFuture</span> regFuture <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">initAndRegister</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">final</span> <span class="token class-name">Channel</span> channel <span class="token operator">=</span> regFuture<span class="token punctuation">.</span><span class="token function">channel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    <span class="token comment">// 如果注册过程中出现异常，直接返回注册的Future</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>regFuture<span class="token punctuation">.</span><span class="token function">cause</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> regFuture<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> 
+    <span class="token comment">// 如果注册已经完成，创建一个新的ChannelPromise并执行绑定操作</span>
+    <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>regFuture<span class="token punctuation">.</span><span class="token function">isDone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">ChannelPromise</span> promise <span class="token operator">=</span> channel<span class="token punctuation">.</span><span class="token function">newPromise</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">doBind0</span><span class="token punctuation">(</span>regFuture<span class="token punctuation">,</span> channel<span class="token punctuation">,</span> localAddress<span class="token punctuation">,</span> promise<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> promise<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> 
+    <span class="token comment">// 如果注册未完成，创建一个PendingRegistrationPromise并添加监听器</span>
+    <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token keyword">final</span> <span class="token class-name">PendingRegistrationPromise</span> promise <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PendingRegistrationPromise</span><span class="token punctuation">(</span>channel<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        regFuture<span class="token punctuation">.</span><span class="token function">addListener</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ChannelFutureListener</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">operationComplete</span><span class="token punctuation">(</span><span class="token class-name">ChannelFuture</span> future<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
+                <span class="token class-name">Throwable</span> cause <span class="token operator">=</span> future<span class="token punctuation">.</span><span class="token function">cause</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token comment">// 如果注册过程中出现异常，设置Promise为失败状态</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>cause <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    promise<span class="token punctuation">.</span><span class="token function">setFailure</span><span class="token punctuation">(</span>cause<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span> 
+                <span class="token comment">// 如果注册成功，标记Promise为已注册并执行绑定操作</span>
+                <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                    promise<span class="token punctuation">.</span><span class="token function">registered</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token class-name">AbstractBootstrap</span><span class="token punctuation">.</span><span class="token function">doBind0</span><span class="token punctuation">(</span>regFuture<span class="token punctuation">,</span> channel<span class="token punctuation">,</span> localAddress<span class="token punctuation">,</span> promise<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> promise<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>开始分析<br><img src="/2024/10/01/34/initAndRegister.png"><br>让我们关注到<code>initAndRegister</code>这个方法</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">final</span> <span class="token class-name">ChannelFuture</span> <span class="token function">initAndRegister</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token class-name">Channel</span> channel <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">try</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 创建新的Channel实例</span>
+        channel <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>channelFactory<span class="token punctuation">.</span><span class="token function">newChannel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 初始化Channel</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span>channel<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Throwable</span> var3<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 如果初始化过程中出现异常，关闭Channel并返回失败的Promise</span>
+        <span class="token comment">// promise 是一种用于表示异步操作结果的对象。它允许你在异步操作完成后执行某些操作，而不需要阻塞当前线程</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>channel <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            channel<span class="token punctuation">.</span><span class="token function">unsafe</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">closeForcibly</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">DefaultChannelPromise</span><span class="token punctuation">(</span>channel<span class="token punctuation">,</span> <span class="token class-name">GlobalEventExecutor</span><span class="token punctuation">.</span><span class="token constant">INSTANCE</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setFailure</span><span class="token punctuation">(</span>var3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">// 如果Channel为null，返回一个失败的Promise</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">DefaultChannelPromise</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">FailedChannel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token class-name">GlobalEventExecutor</span><span class="token punctuation">.</span><span class="token constant">INSTANCE</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setFailure</span><span class="token punctuation">(</span>var3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// 注册Channel到EventLoopGroup</span>
+    <span class="token class-name">ChannelFuture</span> regFuture <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">config</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">group</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">register</span><span class="token punctuation">(</span>channel<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 如果注册过程中出现异常，关闭Channel</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>regFuture<span class="token punctuation">.</span><span class="token function">cause</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>channel<span class="token punctuation">.</span><span class="token function">isRegistered</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            channel<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            channel<span class="token punctuation">.</span><span class="token function">unsafe</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">closeForcibly</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// 返回注册的Future</span>
+    <span class="token keyword">return</span> regFuture<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>对于<code>channel = this.channelFactory.newChannel();</code>这一行，我们debug进去，<br>最终在<img src="/2024/10/01/34/ChannelFactory.png">找到了如何初始化的，<img src="/2024/10/01/34/constructor.png"></p>
+<blockquote>
+<p>Constructor 是 Java 反射机制中的一个类，用于表示类的构造方法。通过 Constructor 类，你可以动态地创建类的实例、获取构造方法的参数类型、访问修饰符等信息。</p>
+</blockquote>
+<p><img src="/2024/10/01/34/newInstance1.png"><br>这里通过反射获得了io.netty.channel.ReflectiveChannelFactory<br><img src="/2024/10/01/34/delegeting.png"><br>这里可以找到，实际上是通过DelegatingConstructorAccessorImpl来实现的，不断深入，最后在这里找到答案<img src="/2024/10/01/34/newInstance0.png"><br>奥，原来是调用了一个本地方法来实现的服务注册！</p>
+<h3 id="ChannelFuture"><a href="#ChannelFuture" class="headerlink" title="ChannelFuture"></a>ChannelFuture</h3><p>补充一下ChannelFuture的定义</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//</span>
+<span class="token comment">// Source code recreated from a .class file by IntelliJ IDEA</span>
+<span class="token comment">// (powered by FernFlower decompiler)</span>
+<span class="token comment">//</span>
+
+<span class="token keyword">package</span> <span class="token namespace">io<span class="token punctuation">.</span>netty<span class="token punctuation">.</span>channel</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">io<span class="token punctuation">.</span>netty<span class="token punctuation">.</span>util<span class="token punctuation">.</span>concurrent<span class="token punctuation">.</span></span><span class="token class-name">Future</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">io<span class="token punctuation">.</span>netty<span class="token punctuation">.</span>util<span class="token punctuation">.</span>concurrent<span class="token punctuation">.</span></span><span class="token class-name">GenericFutureListener</span></span><span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">ChannelFuture</span> <span class="token keyword">extends</span> <span class="token class-name">Future</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Void</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">{</span>
+    <span class="token comment">/**
+     * 返回与此Future相关联的Channel。
+     * @return 相关联的Channel
+     */</span>
+    <span class="token class-name">Channel</span> <span class="token function">channel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 添加一个监听器，当操作完成时会通知该监听器。
+     * @param listener 要添加的监听器
+     * @return 当前的ChannelFuture实例
+     */</span>
+    <span class="token class-name">ChannelFuture</span> <span class="token function">addListener</span><span class="token punctuation">(</span><span class="token class-name">GenericFutureListener</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">Future</span><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">super</span> <span class="token class-name">Void</span><span class="token punctuation">&gt;</span><span class="token punctuation">&gt;</span></span> listener<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 添加多个监听器，当操作完成时会通知这些监听器。
+     * @param listeners 要添加的监听器数组
+     * @return 当前的ChannelFuture实例
+     */</span>
+    <span class="token class-name">ChannelFuture</span> <span class="token function">addListeners</span><span class="token punctuation">(</span><span class="token class-name">GenericFutureListener</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">Future</span><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">super</span> <span class="token class-name">Void</span><span class="token punctuation">&gt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> listeners<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 移除一个监听器。
+     * @param listener 要移除的监听器
+     * @return 当前的ChannelFuture实例
+     */</span>
+    <span class="token class-name">ChannelFuture</span> <span class="token function">removeListener</span><span class="token punctuation">(</span><span class="token class-name">GenericFutureListener</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">Future</span><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">super</span> <span class="token class-name">Void</span><span class="token punctuation">&gt;</span><span class="token punctuation">&gt;</span></span> listener<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 移除多个监听器。
+     * @param listeners 要移除的监听器数组
+     * @return 当前的ChannelFuture实例
+     */</span>
+    <span class="token class-name">ChannelFuture</span> <span class="token function">removeListeners</span><span class="token punctuation">(</span><span class="token class-name">GenericFutureListener</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">Future</span><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">super</span> <span class="token class-name">Void</span><span class="token punctuation">&gt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> listeners<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 等待操作完成并同步返回结果，如果操作被中断则抛出InterruptedException。
+     * @return 当前的ChannelFuture实例
+     * @throws InterruptedException 如果操作被中断
+     */</span>
+    <span class="token class-name">ChannelFuture</span> <span class="token function">sync</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">InterruptedException</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 等待操作完成并同步返回结果，不会被中断。
+     * @return 当前的ChannelFuture实例
+     */</span>
+    <span class="token class-name">ChannelFuture</span> <span class="token function">syncUninterruptibly</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 等待操作完成。
+     * @return 当前的ChannelFuture实例
+     * @throws InterruptedException 如果操作被中断
+     */</span>
+    <span class="token class-name">ChannelFuture</span> <span class="token function">await</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">InterruptedException</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 等待操作完成，不会被中断。
+     * @return 当前的ChannelFuture实例
+     */</span>
+    <span class="token class-name">ChannelFuture</span> <span class="token function">awaitUninterruptibly</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 检查此Future是否是Void类型。
+     * @return 如果是Void类型则返回true，否则返回false
+     */</span>
+    <span class="token keyword">boolean</span> <span class="token function">isVoid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>ChannelFuture就是定义了一系列的监听Channel行为的监听器</p>
+<h3 id="doBind"><a href="#doBind" class="headerlink" title="doBind"></a>doBind</h3><p>接着顺着doBind往下看<br><img src="/2024/10/01/34/doBind.png"><br>在这里如果出现各种异常行为，会给promise设置异常之后退出，否则则调用doBind0</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">doBind0</span><span class="token punctuation">(</span><span class="token keyword">final</span> <span class="token class-name">ChannelFuture</span> regFuture<span class="token punctuation">,</span> <span class="token keyword">final</span> <span class="token class-name">Channel</span> channel<span class="token punctuation">,</span> <span class="token keyword">final</span> <span class="token class-name">SocketAddress</span> localAddress<span class="token punctuation">,</span> <span class="token keyword">final</span> <span class="token class-name">ChannelPromise</span> promise<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 在 channel 的事件循环中执行绑定操作</span>
+    channel<span class="token punctuation">.</span><span class="token function">eventLoop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Runnable</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// 检查注册操作是否成功</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>regFuture<span class="token punctuation">.</span><span class="token function">isSuccess</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment">// 如果注册成功，绑定到本地地址，并在失败时关闭 channel</span>
+                channel<span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span>localAddress<span class="token punctuation">,</span> promise<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">addListener</span><span class="token punctuation">(</span><span class="token class-name">ChannelFutureListener</span><span class="token punctuation">.</span><span class="token constant">CLOSE_ON_FAILURE</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                <span class="token comment">// 如果注册失败，设置 promise 的失败原因</span>
+                promise<span class="token punctuation">.</span><span class="token function">setFailure</span><span class="token punctuation">(</span>regFuture<span class="token punctuation">.</span><span class="token function">cause</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>通过EventLoop的类关系图可以知道，EventLoop实际上就是一个封装的Executor，所以实际上是使用的Executor来跑一个线程来进行绑定<br>至此，ServerBootstrap的初始化我们就已经完整的探究了一遍</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/09/30/01/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3006,7 +3525,7 @@ thread<span class="token punctuation">.</span><span class="token function">start
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>10</span>
+              <span>0</span>
             </span>
 
         </div>
@@ -3018,11 +3537,7 @@ thread<span class="token punctuation">.</span><span class="token function">start
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>#todo </p>
-<ul>
-<li><input disabled="" type="checkbox"> 线程池参数</li>
-</ul>
-
+          
       
     </div>
 
@@ -3873,329 +4388,6 @@ SELECT ... FOR UPDATE; # 加X锁<span aria-hidden="true" class="line-numbers-row
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/09/09/30/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="QingQiu">
-      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="QingQiu'Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/09/09/30/" class="post-title-link" itemprop="url">美团测开一面</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-09-09 21:33:30" itemprop="dateCreated datePublished" datetime="2024-09-09T21:33:30+08:00">2024-09-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-09-29 15:36:39" itemprop="dateModified" datetime="2024-09-29T15:36:39+08:00">2024-09-29</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>4.7k</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="美团一进宫"><a href="#美团一进宫" class="headerlink" title="美团一进宫"></a>美团一进宫</h1><p>🤡</p>
-<h2 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h2><ol>
-<li>自我介绍</li>
-<li>介绍实习项目</li>
-<li>[[美团测开一面#美团一进宫#多态有哪些|如何理解封装继承和多态(多态记得不牢)]]</li>
-<li>子类可以继承父类的方法吗？(看关键字，可以继承public和protected方法，默认访问权限的话如果在一个包内可以继承，private不可继承)</li>
-<li>常见的集合(List，Set，Map，Queue，Stack)</li>
-<li>[[美团测开一面#美团一进宫#ArrayList和LinkedList的区别 |ArrayList和LinkedList的区别]]</li>
-<li>什么场景下LinkedList比ArrayList好用</li>
-<li>HashMap常见八股：<ul>
-<li>线程是否安全</li>
-<li>HashTable</li>
-<li>ConcurrentHashMap</li>
-<li>jdk1.7和1.8的区别</li>
-</ul>
-</li>
-<li>[[美团测开一面#抽象类，接口，抽象类和接口的如何选|抽象类，接口，抽象类和接口的如何选择]]</li>
-<li>[[美团测开一面#@SpringBootApplication包含哪些|SpringBoot常见注解，@SpringBootApplication包含什么]]</li>
-<li>常见的异常<ul>
-<li>IO异常</li>
-<li>SQL异常</li>
-<li>堆内存溢出</li>
-<li>空指针</li>
-<li>索引越界</li>
-</ul>
-</li>
-<li>什么情况下会导致堆内存溢出：<ul>
-<li>内存泄漏：存在某些未释放的对象引用</li>
-<li>大对象分配</li>
-<li>数据结构过大</li>
-<li>无限递归</li>
-<li><strong>线程创建过多会导致堆外内存溢出</strong></li>
-</ul>
-</li>
-<li>常见的空指针异常的情况：<ul>
-<li>访问未初始化的对象</li>
-<li>访问数组中的空元素</li>
-<li>访问集合中的空元素：map.put(key, null)</li>
-<li>自动拆箱 Integer num = null; int value = num;</li>
-<li>多线程下一个线程可能会在另一个线程初始化对象之前就访问该对象。</li>
-</ul>
-</li>
-<li>如何解决空指针异常：<ul>
-<li>使用之前先检查是否为null</li>
-<li>使用Optional类</li>
-<li>try-catch</li>
-<li>多线程下使用同步机制来保证</li>
-</ul>
-</li>
-<li>debug的技巧，远程debug如何保证不会被其他请求干扰</li>
-<li>什么情况下可以使用工厂模式，有何优点<ul>
-<li>对象创建逻辑较为复杂，可以封装创建逻辑</li>
-<li>需要根据不同的条件创建不同的对象时</li>
-<li>解耦对象的创建和使用</li>
-<li>提高可维护性</li>
-<li>优点：封装对象创建的细节，减少重复代码，支持扩展性</li>
-</ul>
-</li>
-<li>[[美团测开一面#线程池参数如何设置|线程池的参数如何设置]]</li>
-<li>[[美团测开一面#旁路缓存有什么缺点，有没有遇到查询数据不一致的情况|旁路缓存有什么缺点，有没有遇到查询数据不一致的情况]]</li>
-<li>为什么使用Token + Redis保证幂等性，有什么优点</li>
-<li>[[美团测开一面#AOP相关| AOP相关]]，如何做的全局异常处理和日志处理</li>
-<li>实习项目中为何使用Kafka</li>
-<li>[[美团测开一面#数据库三大范式|数据库三大范式]]</li>
-<li>索引类型</li>
-<li>手写sql三个大题，不难<code>ALTER TABLE table_name ADD column_name data_type [constraint];</code></li>
-<li>前端的一些基础知识提问(不记录了)</li>
-<li>手撕 <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/wtcaE1/">无重复字符的最长子串</a>(思路对了，条件判断写的有点问题，给过了)</li>
-<li>反问环节：<ul>
-<li>测开比例-&gt;开发占60%</li>
-<li>面试表现：有点紧张，平常心对待就行，没有给出实际回答(多半是毁面评了)</li>
-<li>多久能有后续-&gt;一个星期之内</li>
-</ul>
-</li>
-</ol>
-<h2 id="答得不好以及后续答案"><a href="#答得不好以及后续答案" class="headerlink" title="答得不好以及后续答案"></a>答得不好以及后续答案</h2><h3 id="多态有哪些"><a href="#多态有哪些" class="headerlink" title="多态有哪些"></a>多态有哪些</h3><blockquote>
-<p>已经答出方法重载和方法重写，面试官问是否有其他</p>
-</blockquote>
-<p>还有接口实现和抽象类和抽象方法，运行时多态</p>
-<ol>
-<li>接口实现：一个类可以实现一个或多个接口，接口中的方法可以有不同的实现。</li>
-<li>抽象类不能被实例化，必须由子类去实现其抽象方法</li>
-<li>运行时多态：通过父类引用指向子类对象吗，在运行时决定调用哪个类的方法</li>
-</ol>
-<h3 id="ArrayList和LinkedList的区别"><a href="#ArrayList和LinkedList的区别" class="headerlink" title="ArrayList和LinkedList的区别"></a>ArrayList和LinkedList的区别</h3><ol>
-<li>数据结构不同<ul>
-<li>动态数组，随机访问，索引访问</li>
-<li>双向链表，每个元素都包含前一个元素的引用</li>
-</ul>
-</li>
-<li>性能上：<ul>
-<li>速度快复杂度O(1)</li>
-<li>速度慢：O(n)</li>
-</ul>
-</li>
-<li>插入和删除元素：<ul>
-<li>中间插入较慢</li>
-<li>复杂度O(1)</li>
-</ul>
-</li>
-<li>内存使用<ul>
-<li>紧凑，扩容时需要重新分配和复制数组</li>
-<li>每个元素都需要额外的存储空间来保存前后引用，内存开销较大</li>
-</ul>
-</li>
-</ol>
-<ul>
-<li><code>ArrayList</code>&nbsp;适用于频繁读取和随机访问的场景。</li>
-<li><code>LinkedList</code>&nbsp;适用于频繁插入和删除的场景，尤其是在列表中间进行操作时。</li>
-</ul>
-<h3 id="抽象类，接口，抽象类和接口的如何选择"><a href="#抽象类，接口，抽象类和接口的如何选择" class="headerlink" title="抽象类，接口，抽象类和接口的如何选择"></a>抽象类，接口，抽象类和接口的如何选择</h3><h4 id="什么场景下使用抽象类"><a href="#什么场景下使用抽象类" class="headerlink" title="什么场景下使用抽象类"></a>什么场景下使用抽象类</h4><ol>
-<li>定义通用接口，具体实现由子类提供</li>
-<li>代码复用：一些通用的代码需要在子类之间进行复用，可以放在抽象类中，由子类继承减少代码重复</li>
-<li>模板方法模式：抽象类顶一个一个模板方法，包含一些列的步骤，具体的实现由子类实现。<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">Game</span> <span class="token punctuation">{</span>
-    <span class="token keyword">abstract</span> <span class="token keyword">void</span> <span class="token function">initialize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">abstract</span> <span class="token keyword">void</span> <span class="token function">startPlay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">abstract</span> <span class="token keyword">void</span> <span class="token function">endPlay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token comment">// 模板方法</span>
-    <span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">void</span> <span class="token function">play</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token function">initialize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">startPlay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">endPlay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">class</span> <span class="token class-name">Football</span> <span class="token keyword">extends</span> <span class="token class-name">Game</span> <span class="token punctuation">{</span>
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">void</span> <span class="token function">initialize</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Football Game Initialized"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">void</span> <span class="token function">startPlay</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Football Game Started"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">void</span> <span class="token function">endPlay</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Football Game Ended"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">class</span> <span class="token class-name">Basketball</span> <span class="token keyword">extends</span> <span class="token class-name">Game</span> <span class="token punctuation">{</span>
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">void</span> <span class="token function">initialize</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Basketball Game Initialized"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">void</span> <span class="token function">startPlay</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Basketball Game Started"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">void</span> <span class="token function">endPlay</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Basketball Game Ended"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li>提供默认行为</li>
-<li>强制子类实现某些方法</li>
-</ol>
-<h4 id="二者区别"><a href="#二者区别" class="headerlink" title="二者区别"></a>二者区别</h4><ul>
-<li>抽象类用来描述共同行为和特性，可以有自己的成员变量和具体方法，有明显的继承关系</li>
-<li>接口用于定义行为规范，可以多实现，只能有常量和抽象方法(jdk1.8之后可以有默认方法和静态方法)</li>
-</ul>
-<h4 id="如何选择二者"><a href="#如何选择二者" class="headerlink" title="如何选择二者"></a>如何选择二者</h4><ol>
-<li>是否需要继承多个父类的行为-&gt;接口</li>
-<li>是否需要共享代码-&gt;抽象类</li>
-<li>是否需要构造方法-&gt;抽象类</li>
-<li>是否需要默认方法-&gt;接口</li>
-</ol>
-<h3 id="SpringBootApplication包含哪些"><a href="#SpringBootApplication包含哪些" class="headerlink" title="@SpringBootApplication包含哪些"></a>@SpringBootApplication包含哪些</h3><ol>
-<li><strong><code>@SpringBootConfiguration</code></strong> 配置类，允许在类中定义@Bean方法，以便在Spring容器中注册Bean</li>
-<li><strong><code>@EnableAutoConfiguration</code></strong> 根据项目中的依赖自动配置Spring应用程序，扫描类路径中的依赖，根据这些依赖自动配置Spring Bean</li>
-<li><strong><code>@ComponentScan</code></strong> 启用组件扫描</li>
-</ol>
-<h3 id="debug的技巧，远程debug如何保证不会被其他请求干扰"><a href="#debug的技巧，远程debug如何保证不会被其他请求干扰" class="headerlink" title="debug的技巧，远程debug如何保证不会被其他请求干扰"></a>debug的技巧，远程debug如何保证不会被其他请求干扰</h3><p>远程debug的原理是通过网络将本地调试器和远程JVM链接起来，从而允许开发者在本地测试远程服务器上的代码。<br>通过的是JDWP Java Debug Wire Protocol协议进行通信<br>第二个问题可以搞一个测试环境，将生产环境中的数据复制过来进行debug</p>
-<h3 id="线程池参数如何设置"><a href="#线程池参数如何设置" class="headerlink" title="线程池参数如何设置"></a>线程池参数如何设置</h3><p>#todo </p>
-<ul>
-<li><input disabled="" type="checkbox"> 线程池参数如何设置</li>
-</ul>
-<ol>
-<li>CPU密集型设置为CPU核心数+1，也就是计算为主，数据排序</li>
-<li>I/O密集型设置为<code>n*2</code>，也就是网络读取，文件读取。</li>
-</ol>
-<h3 id="旁路缓存有什么缺点，有没有遇到查询数据不一致的情况"><a href="#旁路缓存有什么缺点，有没有遇到查询数据不一致的情况" class="headerlink" title="旁路缓存有什么缺点，有没有遇到查询数据不一致的情况"></a>旁路缓存有什么缺点，有没有遇到查询数据不一致的情况</h3><h3 id="AOP相关"><a href="#AOP相关" class="headerlink" title="AOP相关"></a>AOP相关</h3><h4 id="AOP基础"><a href="#AOP基础" class="headerlink" title="AOP基础"></a>AOP基础</h4><h4 id="有哪些通知类型"><a href="#有哪些通知类型" class="headerlink" title="有哪些通知类型"></a>有哪些通知类型</h4><ol>
-<li>前置通知 获取方法签名和参数，不能获取返回值</li>
-<li>后置通知 方法执行后执行，无论是否出现异常，不能获得返回值，但可以获取异常信息</li>
-<li>返回通知：方法执行并返回结果后执行吗，可以获得返回值，但是获得不了异常信息</li>
-<li>异常通知：异常后执行，获取异常信息，不能获得返回值</li>
-<li>环绕通知：可以在方法之前和定义逻辑，可以获取方法签名、参数、返回值、异常信息。</li>
-</ol>
-<h4 id="面试记录-什么是动态代理-x2F-静态代理-动态代理的原理"><a href="#面试记录-什么是动态代理-x2F-静态代理-动态代理的原理" class="headerlink" title="[[面试记录#什么是动态代理/静态代理|动态代理的原理]"></a>[[面试记录#什么是动态代理/静态代理|动态代理的原理]</h4><h4 id="使用AOP进行操作日志处理"><a href="#使用AOP进行操作日志处理" class="headerlink" title="使用AOP进行操作日志处理"></a>使用AOP进行操作日志处理</h4><p>主要是使用环绕通知</p>
-<h4 id="全局异常处理"><a href="#全局异常处理" class="headerlink" title="全局异常处理"></a>全局异常处理</h4><p>@ControllerAdvice底层原理是AOP</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@ControllerAdvice</span>
-<span class="token annotation punctuation">@Slf4j</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">GlobalExceptionHandler</span> <span class="token punctuation">{</span>
-
-    <span class="token annotation punctuation">@ExceptionHandler</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token class-name">BusinessException</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
-    <span class="token annotation punctuation">@ResponseBody</span>
-    <span class="token keyword">public</span> <span class="token class-name">Result</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> <span class="token function">businessExceptionHandler</span><span class="token punctuation">(</span><span class="token class-name">BusinessException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token class-name">ResultUtils</span><span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token annotation punctuation">@ExceptionHandler</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token class-name">RuntimeException</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
-    <span class="token annotation punctuation">@ResponseBody</span>
-    <span class="token keyword">public</span> <span class="token class-name">Result</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> <span class="token function">runtimeExceptionHandler</span><span class="token punctuation">(</span><span class="token class-name">RuntimeException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token class-name">ResultUtils</span><span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>
-                <span class="token class-name">ErrorCodeEnum</span><span class="token punctuation">.</span><span class="token constant">INTERNAL_SERVER_ERROR</span><span class="token punctuation">.</span><span class="token function">getCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-                e<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-                <span class="token string">"服务器发生错误, 请及时告知开发人员"</span>
-        <span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token annotation punctuation">@ExceptionHandler</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token punctuation">{</span>
-            <span class="token class-name">MethodArgumentNotValidException</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span>
-            <span class="token class-name">HttpMessageNotReadableException</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span>
-            <span class="token class-name">ConstraintViolationException</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span>
-            <span class="token class-name">HandlerMethodValidationException</span><span class="token punctuation">.</span><span class="token keyword">class</span>
-    <span class="token punctuation">}</span><span class="token punctuation">)</span>
-    <span class="token annotation punctuation">@ResponseBody</span>
-    <span class="token keyword">public</span> <span class="token class-name">Result</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> <span class="token class-name">ArgumentValidExceptionHandler</span><span class="token punctuation">(</span><span class="token class-name">Exception</span> ignored<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token class-name">ResultUtils</span><span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>
-                <span class="token class-name">ErrorCodeEnum</span><span class="token punctuation">.</span><span class="token constant">BAD_REQUEST</span><span class="token punctuation">,</span>
-                <span class="token string">"请检查参数是否正确"</span>
-        <span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token annotation punctuation">@ExceptionHandler</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token class-name">MissingServletRequestParameterException</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
-    <span class="token annotation punctuation">@ResponseBody</span>
-    <span class="token keyword">public</span> <span class="token class-name">Result</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> <span class="token class-name">MissingServletParameterExceptionHandler</span><span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token class-name">ResultUtils</span><span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>
-                <span class="token class-name">ErrorCodeEnum</span><span class="token punctuation">.</span><span class="token constant">BAD_REQUEST</span><span class="token punctuation">,</span>
-                <span class="token string">"请核对参数，以免重新登录"</span>
-        <span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token annotation punctuation">@ExceptionHandler</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token class-name">NoResourceFoundException</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
-    <span class="token annotation punctuation">@ResponseBody</span>
-    <span class="token keyword">public</span> <span class="token class-name">Result</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> <span class="token function">illegalStateExceptionHandler</span><span class="token punctuation">(</span><span class="token class-name">NoResourceFoundException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token class-name">ResultUtils</span><span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>
-                <span class="token class-name">ErrorCodeEnum</span><span class="token punctuation">.</span><span class="token constant">BAD_REQUEST</span><span class="token punctuation">,</span>
-                <span class="token string">"请求路径或资源不正确！"</span>
-        <span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="数据库三大范式"><a href="#数据库三大范式" class="headerlink" title="数据库三大范式"></a>数据库三大范式</h3><ol>
-<li>第一范式：每一列都是原子，不可分割</li>
-<li>第二范式：要求每个非主键列都完全依赖于主键</li>
-<li>第三范式要求在第二范式的基础上，非主键列直接依赖于主键而不是传递依赖</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -4265,7 +4457,7 @@ SELECT ... FOR UPDATE; # 加X锁<span aria-hidden="true" class="line-numbers-row
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">51</span>
+          <span class="site-state-item-count">52</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -4317,7 +4509,7 @@ SELECT ... FOR UPDATE; # 加X锁<span aria-hidden="true" class="line-numbers-row
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">408k</span>
+    <span title="站点总字数">423k</span>
 </div>
 
         

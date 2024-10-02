@@ -157,6 +157,388 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2023/10/11/58/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="QingQiu">
+      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QingQiu'Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/10/11/58/" class="post-title-link" itemprop="url">人事</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-10-11 14:29:58" itemprop="dateCreated datePublished" datetime="2023-10-11T14:29:58+08:00">2023-10-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-11-16 09:01:22" itemprop="dateModified" datetime="2023-11-16T09:01:22+08:00">2023-11-16</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.6k</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="简单的增删改查练习"><a href="#简单的增删改查练习" class="headerlink" title="简单的增删改查练习"></a>简单的增删改查练习</h1><h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><pre class="line-numbers language-none"><code class="language-none">## 服务器
+给nginx设置负载均衡即可
+## 具体编码
+1. BeanUtils的使用
+2. DigestUtils md5加密
+
+
+
+- 一些借鉴
+jwt拦截器,md5加密，全局错误处理，ThreadLocal 进行线程内部传递变量
+
+PageHelper分页
+```java
+//设置分页和分页大小
+    PageHelper.startPage(employeePageQueryDTO.getPage(), employeePageQueryDTO.getPageSize());
+//进行查询
+    Page&lt;Employee&gt; page = employeeMapper.pageQuery(employeePageQueryDTO);//后续定义
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>xml中的mapper示例:</p>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>pageQuery<span class="token punctuation">"</span></span> <span class="token attr-name">resultType</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>com.sky.entity.Employee<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+        select * from employee
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>where</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>if</span> <span class="token attr-name">test</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>name != null and name != ''<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                and name like concat('%',#{name},'%')
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>if</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>where</span><span class="token punctuation">&gt;</span></span>
+        order by create_time desc
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>对于时间格式的全局管理，在mvcconfig中</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">extendMessageConverters</span><span class="token punctuation">(</span><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">HttpMessageConverter</span><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span><span class="token punctuation">&gt;</span></span> converters<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"扩展消息转换器..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//创建一个消息转换器对象</span>
+    <span class="token class-name">MappingJackson2HttpMessageConverter</span> converter <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MappingJackson2HttpMessageConverter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//需要为消息转换器设置一个对象转换器，对象转换器可以将Java对象序列化为json数据</span>
+    converter<span class="token punctuation">.</span><span class="token function">setObjectMapper</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">JacksonObjectMapper</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//将自己的消息转化器加入容器中</span>
+    converters<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span>converter<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><p>aop</p>
+</li>
+<li><p>Apache POI 来进行文件格式转换，导出为excel</p>
+</li>
+<li><p>Apache ECharts 可视化图表</p>
+</li>
+<li><p><strong>Spring Task</strong> 定时任务</p>
+</li>
+<li><p>HttpClient<br><strong>HttpClient的核心API：</strong></p>
+</li>
+<li><p>HttpClient：Http客户端对象类型，使用该类型对象可发起Http请求。</p>
+</li>
+<li><p>HttpClients：可认为是构建器，可创建HttpClient对象。</p>
+</li>
+<li><p>CloseableHttpClient：实现类，实现了HttpClient接口。</p>
+</li>
+<li><p>HttpGet：Get方式请求类型。</p>
+</li>
+<li><p>HttpPost：Post方式请求类型。</p>
+</li>
+</ul>
+<p><strong>HttpClient发送请求步骤：</strong></p>
+<ul>
+<li><p>创建HttpClient对象</p>
+</li>
+<li><p>创建Http请求对象</p>
+</li>
+<li><p>调用HttpClient的execute方法发送请求</p>
+</li>
+</ul>
+<h1 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h1><p>学生管理系统</p>
+<p>一．功能要求</p>
+<ul>
+<li><p>添加学生功能：姓名、学号、性别、出生年月日。（学号自动生成且唯一）</p>
+</li>
+<li><p>添加学生成绩功能：每个人都有数学、Java、英语、体育四门课，可分课程输入成绩。</p>
+</li>
+<li><p>根据学生学号查找学生成绩功能：在界面上显示姓名、学号和成绩，学号不存在的能给出提示信息。</p>
+</li>
+<li><p>根据学生姓名（支持模糊匹配）查找学生成绩功能：并在界面上显示姓名、学号和成绩，如果有多个相同姓名学生存在，一起显示出来，姓名不存在的给出提示信息。</p>
+</li>
+<li><p>支持对单个学生各科成绩画出柱状分布图。</p>
+</li>
+<li><p>学生信息的修改与删除功能：不能修改学号。</p>
+</li>
+<li><p>生成学生学习情况报表功能：报表包含学号、姓名、各科目成绩及对应的该科目班级平均值，总成绩以及班级总成绩平均值，并将该排序结果输出至excel文件。</p>
+</li>
+</ul>
+<h2 id="数据库设计"><a href="#数据库设计" class="headerlink" title="数据库设计"></a>数据库设计</h2><ol>
+<li>admin<pre class="line-numbers language-css" data-language="css"><code class="language-css">id
+username 
+password<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
+<li>student<pre class="line-numbers language-css" data-language="css"><code class="language-css">id <span class="token punctuation">(</span>学号自动生成且唯一<span class="token punctuation">)</span>
+name
+birthday<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
+<li>score<pre class="line-numbers language-css" data-language="css"><code class="language-css">id
+Math
+Java
+English
+PE<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+sql设计</li>
+</ol>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">DATABASE</span> management<span class="token punctuation">;</span>
+<span class="token keyword">USE</span> management<span class="token punctuation">;</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> admin<span class="token punctuation">(</span>
+    Id <span class="token keyword">INT</span> <span class="token keyword">AUTO_INCREMENT</span> <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span><span class="token punctuation">,</span>
+    Username <span class="token keyword">char</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    Password <span class="token keyword">char</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span>
+<span class="token punctuation">)</span> <span class="token keyword">ENGINE</span><span class="token operator">=</span><span class="token keyword">InnoDB</span> <span class="token keyword">DEFAULT</span> <span class="token keyword">CHARSET</span><span class="token operator">=</span>utf8<span class="token punctuation">;</span>
+
+<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> student<span class="token punctuation">(</span>
+    Id <span class="token keyword">INT</span> <span class="token keyword">AUTO_INCREMENT</span> <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span><span class="token punctuation">,</span>
+    StudentId <span class="token keyword">char</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span> <span class="token keyword">UNIQUE</span><span class="token punctuation">,</span>
+    StudentName <span class="token keyword">char</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    Birthday <span class="token keyword">date</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> score<span class="token punctuation">(</span>
+    Id <span class="token keyword">INT</span> <span class="token keyword">AUTO_INCREMENT</span> <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span><span class="token punctuation">,</span>
+    Math <span class="token keyword">DOUBLE</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    Java <span class="token keyword">DOUBLE</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    English <span class="token keyword">DOUBLE</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    PE <span class="token keyword">DOUBLE</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>ps: 使用方式 mysql -u username -p  &lt;  xxx.sql ，之后输入密码即可</p>
+<p>xml配置<br>druid<br>knife4j生成接口文档</p>
+<ul>
+<li>部署<br>服务器配置:<br>mysql<br>将服务器上的mysql配置文件修改<pre class="line-numbers language-css" data-language="css"><code class="language-css">vim /etc/mysql/mysql.conf.d/mysqld.cnf
+将bind-address 的127.0.0.1 改为  0.0.0.0 
+服务器开放端口 3306<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+redis<br>1.打开redis的配置文件“redis.conf”。</li>
+</ul>
+<p>2.将“bind 127.0.0.1”注释掉。</p>
+<p>3.将“protected-mode yes”改成“protected-mode no”。</p>
+<p>4.添加以下一行代码。</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">daemonize no<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>复制</p>
+<p>5.重启redis服务即可<br><code>sudo service redis restart</code></p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>knif4j注意设置好扫描的包</p>
+<h2 id="开发"><a href="#开发" class="headerlink" title="开发"></a>开发</h2><ol>
+<li>common module<ol>
+<li>返回类封装Result</li>
+<li>pageHelper所需的分页参数</li>
+</ol>
+</li>
+<li></li>
+</ol>
+<h1 id="苍穹外卖项目"><a href="#苍穹外卖项目" class="headerlink" title="苍穹外卖项目"></a>苍穹外卖项目</h1><p>仓库： 已完成 <a target="_blank" rel="noopener" href="https://github.com/qiuEly/sky-take-out">https://github.com/qiuEly/sky-take-out</a></p>
+<h2 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h2><ol>
+<li>当前端传输的数据与实体类差距比较大时使用DTO来封装</li>
+<li><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93/2987565?fromModule=lemma_inlink">数据传输</a>对象（DTO）(Data Transfer Object)，是一种<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/1212549?fromModule=lemma_inlink">设计模式</a>之间传输数据的软件<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%BA%94%E7%94%A8%E7%B3%BB%E7%BB%9F/56497111?fromModule=lemma_inlink">应用系统</a>。数据传输目标往往是<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE%E5%AF%B9%E8%B1%A1/3351868?fromModule=lemma_inlink">数据访问对象</a>从数据库中检索数据。数据传输对象与数据交互对象或数据访问对象之间的差异是一个以不具有任何行为除了存储和检索的数据（访问和存取器）。</li>
+<li>ThreadLocal 不是一个线程，但是可以用于保存Thread的一个变量，相当于设置线程内部的变量，可以用来存token和cookie</li>
+<li>mybatis-plus 分页插件的使用，并且配合queryWrapper来封装自定义查询</li>
+<li>使用配置jackson和java格式互相转化器</li>
+<li>‘ALTER TABLE table_name AUTO_INCREMENT = value;’  记得删除没有用的数据之后并且让value大于当前的行数</li>
+<li>mp 实现递增需要在配置文件中加上 ‘mybatis-plus:<br>global-config:<br>db-config:<br>id-type: auto’</li>
+<li>自定义注解： <ol>
+<li><p><strong><code>@Target</code> 注解</strong>：</p>
+<p> @Target注解：</p>
+<ul>
+<li>作用：<code>@Target</code> 注解用于指定可以将注解应用到的元素类型。它决定了注解可以用于标记哪些程序元素，例如类、方法、字段等。</li>
+<li>参数：<code>@Target</code> 的参数是一个 <code>ElementType</code> 枚举数组，你可以在其中指定一个或多个目标元素类型。对于 <code>@ComponentScan</code> 来说，<code>@Target(ElementType.TYPE)</code> 表示该注解可以用于标记类。</li>
+</ul>
+</li>
+<li><p><strong><code>@Retention</code> 注解</strong>：</p>
+<ul>
+<li>作用：<code>@Retention</code> 注解用于指定注解在编译后是否保留到运行时，并且是否可以通过反射访问注解。有三个可能的 <code>RetentionPolicy</code> 值：<code>SOURCE</code>、<code>CLASS</code> 和 <code>RUNTIME</code>。</li>
+<li>参数：<code>@Retention</code> 的参数是一个 <code>RetentionPolicy</code> 枚举值。<code>@Retention(RetentionPolicy.RUNTIME)</code> 表示注解会在运行时保留，并可以通过反射访问。</li>
+</ul>
+</li>
+<li><p><strong><code>@Documented</code> 注解</strong>：</p>
+<ul>
+<li>作用：<code>@Documented</code> 注解用于指示该注解应该包含在生成的文档中。如果你想要将注解的信息包含在 Java 文档中，可以使用 <code>@Documented</code> 注解。</li>
+<li>参数：<code>@Documented</code> 注解没有参数，它只是一个标记注解，用于指示文档工具要包括注解信息。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>阿里云oss使用，主要使用的是spring 中的MultipartFile </li>
+<li>Redis的使用</li>
+<li>通过给RestController设置标识名来防止依赖注入无法识别相同名称的Bean</li>
+<li>vivo50<blockquote>
+<p><strong>HttpClient的核心API：</strong></p>
+</blockquote>
+</li>
+</ol>
+<ul>
+<li><p>HttpClient：Http客户端对象类型，使用该类型对象可发起Http请求。</p>
+</li>
+<li><p>HttpClients：可认为是构建器，可创建HttpClient对象。</p>
+</li>
+<li><p>CloseableHttpClient：实现类，实现了HttpClient接口。</p>
+</li>
+<li><p>HttpGet：Get方式请求类型。</p>
+</li>
+<li><p>HttpPost：Post方式请求类型。</p>
+</li>
+</ul>
+<p><strong>HttpClient发送请求步骤：</strong></p>
+<ul>
+<li><p>创建HttpClient对象</p>
+</li>
+<li><p>创建Http请求对象</p>
+</li>
+<li><p>调用HttpClient的execute方法发送请求<br>用例：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>sky<span class="token punctuation">.</span>test</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>http<span class="token punctuation">.</span></span><span class="token class-name">HttpEntity</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>http<span class="token punctuation">.</span>client<span class="token punctuation">.</span>methods<span class="token punctuation">.</span></span><span class="token class-name">CloseableHttpResponse</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>http<span class="token punctuation">.</span>client<span class="token punctuation">.</span>methods<span class="token punctuation">.</span></span><span class="token class-name">HttpGet</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>http<span class="token punctuation">.</span>impl<span class="token punctuation">.</span>client<span class="token punctuation">.</span></span><span class="token class-name">CloseableHttpClient</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>http<span class="token punctuation">.</span>impl<span class="token punctuation">.</span>client<span class="token punctuation">.</span></span><span class="token class-name">HttpClients</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>http<span class="token punctuation">.</span>util<span class="token punctuation">.</span></span><span class="token class-name">EntityUtils</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>junit<span class="token punctuation">.</span>jupiter<span class="token punctuation">.</span>api<span class="token punctuation">.</span></span><span class="token class-name">Test</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>boot<span class="token punctuation">.</span>test<span class="token punctuation">.</span>context<span class="token punctuation">.</span></span><span class="token class-name">SpringBootTest</span></span><span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@SpringBootTest</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">HttpClientTest</span> <span class="token punctuation">{</span>
+
+    <span class="token comment">/**
+     * 测试通过httpclient发送GET方式的请求
+     */</span>
+    <span class="token annotation punctuation">@Test</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testGET</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span><span class="token punctuation">{</span>
+        <span class="token comment">//创建httpclient对象</span>
+        <span class="token class-name">CloseableHttpClient</span> httpClient <span class="token operator">=</span> <span class="token class-name">HttpClients</span><span class="token punctuation">.</span><span class="token function">createDefault</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">//创建请求对象</span>
+        <span class="token class-name">HttpGet</span> httpGet <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HttpGet</span><span class="token punctuation">(</span><span class="token string">"http://localhost:8080/user/shop/status"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">//发送请求，接受响应结果</span>
+        <span class="token class-name">CloseableHttpResponse</span> response <span class="token operator">=</span> httpClient<span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span>httpGet<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">//获取服务端返回的状态码</span>
+        <span class="token keyword">int</span> statusCode <span class="token operator">=</span> response<span class="token punctuation">.</span><span class="token function">getStatusLine</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getStatusCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"服务端返回的状态码为："</span> <span class="token operator">+</span> statusCode<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token class-name">HttpEntity</span> entity <span class="token operator">=</span> response<span class="token punctuation">.</span><span class="token function">getEntity</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">String</span> body <span class="token operator">=</span> <span class="token class-name">EntityUtils</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>entity<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"服务端返回的数据为："</span> <span class="token operator">+</span> body<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">//关闭资源</span>
+        response<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        httpClient<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<ol start="13">
+<li>spring cache<br>在SpringCache中提供了很多缓存操作的注解，常见的是以下的几个：</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th><strong>注解</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>@EnableCaching</td>
+<td>开启缓存注解功能，通常加在启动类上</td>
+</tr>
+<tr>
+<td>@Cacheable</td>
+<td>在方法执行前先查询缓存中是否有数据，如果有数据，则直接返回缓存数据；如果没有缓存数据，调用方法并将方法返回值放到缓存中</td>
+</tr>
+<tr>
+<td>@CachePut</td>
+<td>将方法的返回值放到缓存中</td>
+</tr>
+<tr>
+<td>@CacheEvict</td>
+<td>将一条或多条数据从缓存中删除</td>
+</tr>
+</tbody></table>
+<p>在spring boot项目中，使用缓存技术只需在项目中导入相关缓存技术的依赖包，并在启动类上使用@EnableCaching开启缓存支持即可。</p>
+<ol start="14">
+<li>spring task 定时任务</li>
+<li>websocket<br>WebSocket 是基于 TCP 的一种新的<strong>网络协议</strong>。它实现了浏览器与服务器全双工通信——浏览器和服务器只需要完成一次握手，两者之间就可以创建<strong>持久性</strong>的连接， 并进行<strong>双向</strong>数据传输。</li>
+</ol>
+<p><strong>HTTP协议和WebSocket协议对比：</strong></p>
+<ul>
+<li><p>HTTP是<strong>短连接</strong></p>
+</li>
+<li><p>WebSocket是<strong>长连接</strong></p>
+</li>
+<li><p>HTTP通信是<strong>单向</strong>的，基于请求响应模式</p>
+</li>
+<li><p>WebSocket支持<strong>双向</strong>通信</p>
+</li>
+<li><p>HTTP和WebSocket底层都是TCP连接</p>
+</li>
+</ul>
+<ol start="16">
+<li>Apache ECharts</li>
+<li>Apache POI</li>
+<li>部署！！！</li>
+</ol>
+<ul>
+<li>build过程中出现检测问题 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/SparkMore/p/15919302.html">https://www.cnblogs.com/SparkMore/p/15919302.html</a></li>
+</ul>
+<ol start="19">
+<li>当springboot项目不识别application配置文件时，右键resource -&gt; Mark Directory as &gt; Resources Root</li>
+</ol>
+<h2 id="修改建议Todo"><a href="#修改建议Todo" class="headerlink" title="修改建议Todo:"></a>修改建议Todo:</h2><ol>
+<li>密码加密 使用 security + jwt ，前端保存session</li>
+<li>微信小程序开发 + 前端 vue </li>
+<li>docker环境下使用</li>
+</ol>
+<h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><ol>
+<li>admin 界面来管理</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2023/09/30/23/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -8466,132 +8848,6 @@ fmt<span class="token punctuation">.</span><span class="token function">Println<
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2023/06/18/28/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="QingQiu">
-      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="QingQiu'Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/06/18/28/" class="post-title-link" itemprop="url">Github学生包/学生认证申请那些事</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-06-18 19:51:28" itemprop="dateCreated datePublished" datetime="2023-06-18T19:51:28+08:00">2023-06-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-26 21:08:36" itemprop="dateModified" datetime="2024-06-26T21:08:36+08:00">2024-06-26</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.2k</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><blockquote>
-<p>Github对学生有很多优惠，<del>至于哪些可太多了，所以有必要申请一个</del>，</p>
-<p>这个大佬写的很详细了，我在这里加一些我踩得坑，如果跟大佬的步骤走没通过的话，可以回来看看有没有我踩过的坑</p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/617001126">2023.3申请github copilot x 学生认证以及Jetbrain专业版学生教育免费教程 - 知乎 (zhihu.com)</a></p>
-</blockquote>
-<h2 id="前提条件："><a href="#前提条件：" class="headerlink" title="前提条件："></a>前提条件：</h2><blockquote>
-<ol>
-<li>一个好的浏览器(支持定位的浏览器)</li>
-<li>一份学信网学籍认证 和 一个教育邮箱(更容易通过 ，可以去企业微信里看看有没有开通)</li>
-<li>修改pdf文件中的信息</li>
-<li>github profile 中修改个人信息</li>
-<li>认证并且全程不要挂梯子</li>
-</ol>
-</blockquote>
-<h2 id="1-好的浏览器"><a href="#1-好的浏览器" class="headerlink" title="1.好的浏览器"></a>1.好的浏览器</h2><p><strong>这是重中之重，我在申请的时候不知道Chrome怎么了，一直定位不成功，换成 edge之后就成功了</strong></p>
-<h2 id="2-学信网认证"><a href="#2-学信网认证" class="headerlink" title="2.学信网认证"></a>2.学信网认证</h2><p>进入学信网，下载电子报告即可，网上都有教程，这里不做赘述了</p>
-<p><a target="_blank" rel="noopener" href="https://www.chsi.com.cn/">中国高等教育学生信息网（学信网） (chsi.com.cn)</a></p>
-<h2 id="3-修改pdf文件信息"><a href="#3-修改pdf文件信息" class="headerlink" title="3.修改pdf文件信息"></a>3.修改pdf文件信息</h2><p>因为github不是国内的，所以中文档案是不能通过的，而且pdf编辑好像很难搞，这里给一个下载链接，使用这个进行编辑会方便些</p>
-<p>密码：tko9</p>
-<p><a target="_blank" rel="noopener" href="https://cloud.189.cn/web/share?code=ZNbamiEziq6z">Adobe CC 2022 免费高速下载 | 天翼云盘 珍藏美好生活 家庭云|网盘|文件备份|资源分享 (189.cn)</a></p>
-<p><img src="/2023/06/18/28/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20230618200641.png" alt="下载安装即可"></p>
-<p>修改内容：</p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/617001126">2023.3申请github copilot x 学生认证以及Jetbrain专业版学生教育免费教程 - 知乎 (zhihu.com)</a></p>
-<p>可以看这篇文章</p>
-<h2 id="4-修改github-profile-中的信息"><a href="#4-修改github-profile-中的信息" class="headerlink" title="4.修改github profile 中的信息"></a>4.修改github profile 中的信息</h2><ul>
-<li>名字改为英文名</li>
-<li>Bio 修改为   student of 学校英文名 + @ 学校英文名</li>
-<li>company 修改为学校英文名</li>
-</ul>
-<h2 id="5-申请："><a href="#5-申请：" class="headerlink" title="5.申请："></a>5.申请：</h2><p>网站：<a target="_blank" rel="noopener" href="https://education.github.com/discount_requests/application">Request a discount - GitHub Education</a></p>
-<p><strong><u>全程不要挂梯子</u></strong></p>
-<ol>
-<li><p>添加教育邮箱 </p>
-<p><img src="/2023/06/18/28/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20230618201441.png" alt="添加邮箱"></p>
-</li>
-<li><p>填写申请理由，理由随便写，可以参考我的</p>
-<pre class="line-numbers language-none"><code class="language-none">I would like to use the Github Student Pack to further explore more features of Github, such as Github Copilot and Educative's learning courses.<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-</li>
-<li><p>点击continue </p>
-<blockquote>
-<p>点击之后会询问你是否允许访问位置，同意即可</p>
-<p><strong><u>如果点击之后，一直卡在这个页面，那么是浏览器的问题，可以换个浏览器试试或者过几天再试试</u></strong> </p>
-<p><del>我就是换了好几个不成功，最后莫名其妙就能访问了</del></p>
-<p>之后进入上传图片的页面，右下角有上传图片 <strong>(如果你没有的话，说明你上梯子了或者离学校太远了，直接重新认证一遍吧)</strong></p>
-<p>上传修改之后的学信网认证截图</p>
-<p><strong>注意：上传图片格式是jpg 不支持png！！！</strong></p>
-</blockquote>
-</li>
-<li><p>点击提交，如果按以上流程走的话应该是秒通过的，看看邮箱是否收到邮件，或者返回认证申请的第一页，看看右侧是否通过</p>
-<p><a target="_blank" rel="noopener" href="https://education.github.com/discount_requests/application">Request a discount - GitHub Education</a></p>
-</li>
-</ol>
-<h2 id="写在最后："><a href="#写在最后：" class="headerlink" title="写在最后："></a>写在最后：</h2><p>一定要有耐心，不挂梯子的话，github的访问基本上是时有时无的，所以要有耐心，多试试，过几天再试试，推荐在学校里申请，或者使用学校的vpn访问网站</p>
-<p>祝通过！！！</p>
-<p><img src="/2023/06/18/28/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20230618202519.png" alt="Elysia会祝福你的"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -8661,7 +8917,7 @@ fmt<span class="token punctuation">.</span><span class="token function">Println<
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">51</span>
+          <span class="site-state-item-count">52</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -8713,7 +8969,7 @@ fmt<span class="token punctuation">.</span><span class="token function">Println<
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">408k</span>
+    <span title="站点总字数">423k</span>
 </div>
 
         
