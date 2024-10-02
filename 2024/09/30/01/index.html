@@ -461,8 +461,8 @@ thread<span class="token punctuation">.</span><span class="token function">start
                                                    <span class="token class-name">Executor</span> executor<span class="token punctuation">)</span> <span class="token punctuation">{</span>  
     <span class="token keyword">return</span> <span class="token function">asyncSupplyStage</span><span class="token punctuation">(</span><span class="token function">screenExecutor</span><span class="token punctuation">(</span>executor<span class="token punctuation">)</span><span class="token punctuation">,</span> supplier<span class="token punctuation">)</span><span class="token punctuation">;</span>  
 <span class="token punctuation">}</span>
-<span class="token comment">// 没有自定义线程池会使用自带的线程池</span>
 
+<span class="token comment">// 没有自定义线程池会使用自带的线程池</span>
 <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">Executor</span> <span class="token constant">ASYNC_POOL</span> <span class="token operator">=</span> <span class="token constant">USE_COMMON_POOL</span> <span class="token operator">?</span>  
     <span class="token class-name">ForkJoinPool</span><span class="token punctuation">.</span><span class="token function">commonPool</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">ThreadPerTaskExecutor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
@@ -478,7 +478,7 @@ thread<span class="token punctuation">.</span><span class="token function">start
     e<span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">AsyncSupply</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">U</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span>d<span class="token punctuation">,</span> f<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
     <span class="token keyword">return</span> d<span class="token punctuation">;</span>  
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>通过阅读源码，我们可以发现，原来CompletableFuture执行任务是会使用线程池去执行的，相比FutureTask通过阻塞去等待结果，确实是提升了性能。</p>
+<p>通过阅读源码，我们可以发现，原来CompletableFuture执行任务是会使用我们提交给它的线程池或者它自己默认去生成一个线程池去执行的，相比FutureTask通过阻塞去等待结果，确实是提升了性能。<br><strong>关于线程池的源码和原理解析，以及一些八股知识，欢迎翻看鄙人的另一篇《深入浅出线程池》博客观看</strong></p>
 
     </div>
 
@@ -625,7 +625,7 @@ thread<span class="token punctuation">.</span><span class="token function">start
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">423k</span>
+    <span title="站点总字数">437k</span>
 </div>
 
         
