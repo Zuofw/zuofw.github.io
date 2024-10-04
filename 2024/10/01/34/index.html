@@ -27,7 +27,7 @@
 <meta property="og:site_name" content="QingQiu&#39;Blog">
 <meta property="og:description" content="前言本人在尝试使用Netty来手写RPC时，学习到了很多Netty知识，在此进行一些记录 示例以下时服务端的简单启动示例  public void start(int port) {         &#x2F;&#x2F; 1是指定一个线程用于处理连接，0表示不处理连接         EventLoopGroup bossGroup &#x3D; new NioEventLoopGroup(1);         Even">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zuofw.github.io/2024/10/01/34/1.png">
+<meta property="og:image" content="https://zuofw.github.io/2024/10/01/34/Netty%E6%BA%90%E7%A0%81%E5%88%9D%E6%8E%A2/1.png">
 <meta property="og:image" content="https://zuofw.github.io/2024/10/01/34/addListener.png">
 <meta property="og:image" content="https://zuofw.github.io/2024/10/01/34/group.png">
 <meta property="og:image" content="https://zuofw.github.io/2024/10/01/34/supergroup.png">
@@ -46,7 +46,7 @@
 <meta property="article:author" content="QingQiu">
 <meta property="article:tag" content="Netty">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zuofw.github.io/2024/10/01/34/1.png">
+<meta name="twitter:image" content="https://zuofw.github.io/2024/10/01/34/Netty%E6%BA%90%E7%A0%81%E5%88%9D%E6%8E%A2/1.png">
 
 <link rel="canonical" href="https://zuofw.github.io/2024/10/01/34/">
 
@@ -407,7 +407,7 @@
     <span class="token class-name">Collections</span><span class="token punctuation">.</span><span class="token function">addAll</span><span class="token punctuation">(</span>childrenSet<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>children<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">this</span><span class="token punctuation">.</span>readonlyChildren <span class="token operator">=</span> <span class="token class-name">Collections</span><span class="token punctuation">.</span><span class="token function">unmodifiableSet</span><span class="token punctuation">(</span>childrenSet<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>我们debug走进去，到这个地方<br><img src="/2024/10/01/34/1.png"><br>发现在这里使用了默认的线程工厂创建了一个ThreadPerTaskExecutor，接着往下走<br>发现从<code>this.children = new EventExecutor[nThreads];</code>这一行开始，在创建并初始化每一个Executor<br>接着往下看</p>
+<p>我们debug走进去，到这个地方<br><img src="/2024/10/01/34/Netty%E6%BA%90%E7%A0%81%E5%88%9D%E6%8E%A2/1.png"><br>发现在这里使用了默认的线程工厂创建了一个ThreadPerTaskExecutor，接着往下走<br>发现从<code>this.children = new EventExecutor[nThreads];</code>这一行开始，在创建并初始化每一个Executor<br>接着往下看</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">this</span><span class="token punctuation">.</span>chooser <span class="token operator">=</span> chooserFactory<span class="token punctuation">.</span><span class="token function">newChooser</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>children<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>这里创建了一个 EventExecutorChooser对象用于在多个 EventExecutor 之间选择一个执行任务<br>之后往下看，可以发现，为每一个children数组中的对象添加了TerminationListener这个监听器<img src="/2024/10/01/34/addListener.png"><br>TerminationListener的作用是，监听每一个EventExecutor的终止事件，当所有的EventExecutor都终止之后，会将TerminationFuture设置为成功状态，表示整个MultithreadEventExecutorGroup 已经完全终止<br>TerminationListener是个匿名内部类</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">FutureListener</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Object</span><span class="token punctuation">&gt;</span></span> terminationListener <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FutureListener</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Object</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>  
@@ -715,8 +715,8 @@
       <i class="fa fa-chevron-left"></i> 深入浅出future
     </a></div>
       <div class="post-nav-item">
-    <a href="/2024/10/03/27/" rel="next" title="定时任务选型与简单理解">
-      定时任务选型与简单理解 <i class="fa fa-chevron-right"></i>
+    <a href="/2024/10/03/28/" rel="next" title="深入浅出，从源码搞清Bean的加载过程">
+      深入浅出，从源码搞清Bean的加载过程 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -790,7 +790,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">53</span>
+          <span class="site-state-item-count">55</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -844,7 +844,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">437k</span>
+    <span title="站点总字数">449k</span>
 </div>
 
         

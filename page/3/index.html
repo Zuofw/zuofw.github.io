@@ -167,6 +167,284 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/06/16/16/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="QingQiu">
+      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QingQiu'Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/06/16/16/" class="post-title-link" itemprop="url">设计模式</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-06-16 10:10:16" itemprop="dateCreated datePublished" datetime="2024-06-16T10:10:16+08:00">2024-06-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-08-04 22:52:17" itemprop="dateModified" datetime="2024-08-04T22:52:17+08:00">2024-08-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.7k</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h1><p>设计模式是⼀套被反复使⽤的、多数⼈知晓的、经过分类编⽬的、代码设计经验的总结。</p>
+<h2 id="设计模式的原则"><a href="#设计模式的原则" class="headerlink" title="设计模式的原则"></a>设计模式的原则</h2><ol>
+<li>开闭原则：对扩展开放，对修改关闭</li>
+<li>单一职责原：一个类只负责一个功能领域中的相应职责</li>
+<li>里氏替换原则：所有引用基类的地方必须能透明地使用其子类对象</li>
+<li>依赖倒置原则：以来月抽象，不能依赖于具体实现</li>
+<li>接口隔离原则：类之间的依赖关系应该简历在最小接口上</li>
+<li>合成/聚合复用原则：尽量使用合成/聚合，而不是通过继承达到复用的目的。</li>
+<li>迪米特法则：一个软件实体应该尽量少的与其他实体发生相互作用</li>
+</ol>
+<h2 id="设计模式的分类"><a href="#设计模式的分类" class="headerlink" title="设计模式的分类"></a>设计模式的分类</h2><ul>
+<li>创建型：在创建对象的同时隐藏创建逻辑，不适用new 直接实例化对象。 主要有 工厂/抽象工厂/单例/创造者/原型模式</li>
+<li>结构型：通过类和接口间的继承和引用实现创建负责结构的对象。包括适配器/桥接模式/过滤器/组合/装饰器/外观/享元/代理模式</li>
+<li>行为型：通过类之间不同通信方式实现不同行为，包括责任链/命名/解释器/迭代器/终结者/备忘录/观察者/状态/策略/模板/访问者模式<br><img src="/2024/06/16/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%88%86%E7%B1%BB.png"></li>
+</ul>
+<h3 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h3><h4 id="简单工厂"><a href="#简单工厂" class="headerlink" title="简单工厂"></a>简单工厂</h4><p>由一个工厂对象来创建实例，客户但不需要关注创建逻辑，只需要传递工厂参数。</p>
+<h4 id="工厂方法模式"><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h4><p>工厂方法模式将具体产品的任务分发给具体的产品工厂，也就是一个抽象工厂，定义生产接口但是不负责具体的产品。</p>
+<h4 id="抽象工厂"><a href="#抽象工厂" class="headerlink" title="抽象工厂"></a>抽象工厂</h4><p>简单和方法只是针对一类产品。<br>抽象工厂通过在AbstactFactory中增减创建产品的接口，然后由子类工厂去实现新增产品的创建。</p>
+<h3 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h3><p>单例模式是创建型模式，任何情况下只存在一个实例，构造方法必须是私有，由自己创建一个静态变量存储实例，对外提供一个静态公有方法获取实例。<br>优点是只能有一个实例，减少了开销。</p>
+<h4 id="常见的写法"><a href="#常见的写法" class="headerlink" title="常见的写法"></a>常见的写法</h4><h5 id="饿汉式"><a href="#饿汉式" class="headerlink" title="饿汉式"></a>饿汉式</h5><p>类⼀加载就创建对象</p>
+<p>优点：线程安全，没有加锁，执⾏效率较⾼<br>缺点：不是懒加载，类加载时就初始化，浪费内存空间</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Singleton</span> <span class="token punctuation">{</span>
+ <span class="token comment">// 1、私有化构造⽅法</span>
+ <span class="token keyword">private</span> <span class="token class-name">Singleton</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+ <span class="token comment">// 2、定义⼀个静态变量指向⾃⼰类型</span>
+ <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token keyword">static</span> <span class="token class-name">Singleton</span> instance <span class="token operator">=</span> <span class="token keyword">new</span>
+<span class="token class-name">Singleton</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token comment">// 3、对外提供⼀个公共的⽅法获取实例</span>
+ <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">Singleton</span> <span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	 <span class="token keyword">return</span> instance<span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="懒汉式"><a href="#懒汉式" class="headerlink" title="懒汉式"></a>懒汉式</h5><p>单线程模式下没问题，多线程无法保证单例<br>优点是：懒加载<br>缺点是：线程安全</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Singleton</span> <span class="token punctuation">{</span>
+	 <span class="token comment">// 1、私有化构造⽅法</span>
+	 <span class="token keyword">private</span> <span class="token class-name">Singleton</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token punctuation">}</span>
+	 <span class="token comment">// 2、定义⼀个静态变量指向⾃⼰类型</span>
+	 <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token class-name">Singleton</span> instance<span class="token punctuation">;</span>
+	 <span class="token comment">// 3、对外提供⼀个公共的⽅法获取实例</span>
+	 <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">Singleton</span> <span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		 <span class="token comment">// 判断为 null 的时候再创建对象</span>
+		 <span class="token keyword">if</span> <span class="token punctuation">(</span>instance <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+			 instance <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Singleton</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		 <span class="token punctuation">}</span>
+		 <span class="token keyword">return</span> instance<span class="token punctuation">;</span>
+	 <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="线程安全的懒汉式"><a href="#线程安全的懒汉式" class="headerlink" title="线程安全的懒汉式"></a>线程安全的懒汉式</h4><p>使用synchronized关键字枷锁保证线程安全。可以加在方法上面，也可以添加在代码块上面。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Singleton</span> <span class="token punctuation">{</span>
+	 <span class="token comment">// 1、私有化构造⽅法</span>
+	 <span class="token keyword">private</span> <span class="token class-name">Singleton</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token punctuation">}</span>
+	 <span class="token comment">// 2、定义⼀个静态变量指向⾃⼰类型</span>
+	 <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token class-name">Singleton</span> instance<span class="token punctuation">;</span>
+	 <span class="token comment">// 3、对外提供⼀个公共的⽅法获取实例</span>
+	 <span class="token keyword">public</span> <span class="token keyword">synchronized</span> <span class="token keyword">static</span> <span class="token class-name">Singleton</span> <span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		 <span class="token keyword">if</span> <span class="token punctuation">(</span>instance <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		 instance <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Singleton</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		 <span class="token punctuation">}</span>
+		 <span class="token keyword">return</span> instance<span class="token punctuation">;</span>
+	 <span class="token punctuation">}</span>
+ <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="适配器模式"><a href="#适配器模式" class="headerlink" title="适配器模式"></a>适配器模式</h3><p>适配器模式将一个类的接口转化为用户期望的另一个接口，让原本两个不兼容的接口能够无缝完成对接。</p>
+<p>优点：</p>
+<ol>
+<li>提⾼了类的复⽤；</li>
+<li>组合若⼲关联对象形成对外提供统⼀服务的接⼝；</li>
+<li>扩展性、灵活性好。<br>缺点：</li>
+<li>过多使⽤适配模式容易造成代码功能和逻辑意义的混淆。</li>
+<li>部分语⾔对继承的限制，可能⾄多只能适配⼀个适配者类，⽽且⽬标类必须是抽象类</li>
+</ol>
+<h4 id="类适配器"><a href="#类适配器" class="headerlink" title="类适配器"></a>类适配器</h4><p>通过类继承，继承Target接口，继承Adaptee的实现</p>
+<h4 id="对象适配器"><a href="#对象适配器" class="headerlink" title="对象适配器"></a>对象适配器</h4><p>通过类对象组合实现适配</p>
+<h3 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h3><p>本质是一个中间件，主要目的是解耦服务的提供者和使用者，使用者通过代理间接的访问服务提供者。<br>是一种结构性模式</p>
+<h4 id="动态代理和静态代理的区别"><a href="#动态代理和静态代理的区别" class="headerlink" title="动态代理和静态代理的区别"></a>动态代理和静态代理的区别</h4><p>动态代理<br>动态代理是在运行时创建代理对象的机制。代理对象可以在不修改原始对象代码的情况下，拦截对目标对象的方法调用，并在调用前后添加额外的逻辑。Java 中的动态代理主要有两种实现方式：<br>静态代理<br>静态代理是在编译时创建代理类的机制。代理类在编译时就已经存在，并且实现了与目标对象相同的接口。静态代理通过在代理类中调用目标对象的方法来实现对目标对象的代理。</p>
+<ol>
+<li>动态代理不需要实现接口可以直接代理实现类，并且可以不许哟啊针对每个目标类都创建一个代理类。静态代理中接口一旦要新增方法，目标对象和代理对象都需要进行修改。</li>
+<li>JVM层面：静态代理在编译时就将、接口、实现类、代理类这些都变成一个个实际的class文件。 动态代理是在运行时动态生成类字节码，并且加载到JVM中。</li>
+</ol>
+<h3 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h3><p>观察者模式是一种对象行为模式，住哟啊处理对象之间的一对多关系。当一个对象状态发生变化时，所有该对象的关注着都能收到状态变化通知进行响应的处理</p>
+<p>优点：</p>
+<ol>
+<li>被观察者和观察者之间是抽象耦合的；</li>
+<li>耦合度较低，两者之间的关联仅仅在于消息的通知</li>
+<li>被观察者⽆需关⼼他的观察者；</li>
+<li>⽀持⼴播通信；</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>观察者只知道被观察对象发⽣了变化，但不知变化的过程和缘由；</li>
+<li>观察者同时也可能是被观察者，消息传递的链路可能会过⻓，完成所有通知花费时间较多；</li>
+<li>如果观察者和被观察者之间产⽣循环依赖，或者消息传递链路形成闭环，会导致⽆限循环；</li>
+</ol>
+<h4 id="你的项⽬是怎么⽤的观察者模式？"><a href="#你的项⽬是怎么⽤的观察者模式？" class="headerlink" title="你的项⽬是怎么⽤的观察者模式？"></a>你的项⽬是怎么⽤的观察者模式？</h4><blockquote>
+<p>在⽀付场景下，⽤户购买⼀件商品，当⽀付成功之后三⽅会回调⾃身，在这个时候系统可能会有很多需要执⾏的逻辑（如：更新订单状态，发送邮<br>件通知，赠送礼品…），这些逻辑之间并没有强耦合，因此天然适合使⽤观察者模式去实现这些功能，当有更多的操作时，只需要添加新的观察者就能实现，完美实现了对修改关闭，对扩展开放的开闭原则。</p>
+</blockquote>
+<h3 id="修饰器模式"><a href="#修饰器模式" class="headerlink" title="修饰器模式"></a>修饰器模式</h3><p>修饰器模式住主要是对现有的类对象进行包裹和封装，以期在不改变类对象及其类定义的情况下为对象添加额外功能。是一种对象接口模式。</p>
+<h4 id="讲讲装饰器模式的应⽤场景"><a href="#讲讲装饰器模式的应⽤场景" class="headerlink" title="讲讲装饰器模式的应⽤场景"></a>讲讲装饰器模式的应⽤场景</h4><p>如果你希望在⽆需修改代码的情况下即可使⽤对象， 且希望在运⾏时为对象新增额外的⾏为， 可以使⽤装饰模式。</p>
+<p>装饰能将业务逻辑组织为层次结构， 你可为各层创建⼀个装饰， 在运⾏时<br>将各种不同逻辑组合成对象。 由于这些对象都遵循通⽤接⼝， 客户端代码能以相同的⽅式使⽤这些对象。</p>
+<p>如果⽤继承来扩展对象⾏为的⽅案难以实现或者根本不可⾏， 你可以使⽤该模式。</p>
+<p>许多编程语⾔使⽤ final 最终关键字来限制对某个类的进⼀步扩展。 复⽤最终类已有⾏为的唯⼀⽅法是使⽤装饰模式： ⽤封装器对其进⾏封装。</p>
+<h3 id="责任链模式"><a href="#责任链模式" class="headerlink" title="责任链模式"></a>责任链模式</h3><p>一个请求沿着责任链进行传递，直到链上有某个处理者处理它位为止。</p>
+<h4 id="讲讲责任链模式的应⽤场景"><a href="#讲讲责任链模式的应⽤场景" class="headerlink" title="讲讲责任链模式的应⽤场景"></a>讲讲责任链模式的应⽤场景</h4><p>当程序需要使⽤不同⽅式处理不同种类请求， ⽽且请求类型和顺序预</p>
+<p>先未知时， 可以使⽤责任链模式。该模式能将多个处理者连接成⼀条</p>
+<p>链。 接收到请求后， 它会 “询问” 每个处理者是否能够对其进⾏处理。</p>
+<p>这样所有处理者都有机会来处理请求。</p>
+<p>当必须按顺序执⾏多个处理者时， 可以使⽤该模式。 ⽆论你以何种顺</p>
+<p>序将处理者连接成⼀条链， 所有请求都会严格按照顺序通过链上的处</p>
+<p>理者</p>
+<h4 id="策略模式"><a href="#策略模式" class="headerlink" title="策略模式"></a>策略模式</h4><p>对象行为模式，针对一组算法将每一个算法封装到具有共同解耦的独立的类中，从而是他们能够相互替换。</p>
+<h2 id="Spring-使⽤了哪些设计模式？"><a href="#Spring-使⽤了哪些设计模式？" class="headerlink" title="Spring 使⽤了哪些设计模式？"></a>Spring 使⽤了哪些设计模式？</h2><p>Spring 框架中⽤到了哪些设计模式？</p>
+<ul>
+<li>⼯⼚设计模式 : Spring 使⽤⼯⼚模式通过BeanFactory 、 ApplicationContext 创建 bean 对象。</li>
+<li>代理设计模式 : Spring AOP 功能的实现。</li>
+<li>单例设计模式 : Spring 中的 Bean 默认都是单例的。</li>
+<li>模板⽅法模式 : Spring 中 jdbcTemplate 、 hibernateTemplate 等以Template 结尾的对数据库操作的类，它们就使⽤到了模板模式。</li>
+<li>包装器设计模式 : 我们的项⽬需要连接多个数据库，⽽且不同的客户在每次访问中根据需要会去访问不同的数据库。这种模式让我们可以根据客户的需求能够动态切换不同的数据源。</li>
+<li>观察者模式: Spring 事件驱动模型就是观察者模式很经典的⼀个应⽤。</li>
+<li>适配器模式 :Spring AOP 的增强或通知(Advice)使⽤到了适配器模式、spring MVC 中也是⽤到了适配器模式适配 Controller 。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/06/13/21/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="QingQiu">
+      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QingQiu'Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/06/13/21/" class="post-title-link" itemprop="url">软件工程</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-06-13 21:56:21 / 修改时间：22:09:19" itemprop="dateCreated datePublished" datetime="2024-06-13T21:56:21+08:00">2024-06-13</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>662</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="软件工程相关"><a href="#软件工程相关" class="headerlink" title="软件工程相关"></a>软件工程相关</h2><h3 id="软件开发模型"><a href="#软件开发模型" class="headerlink" title="软件开发模型"></a>软件开发模型</h3><p>瀑布模型（Waterfall Model）、快速原型模型（Rapid Prototype Model）、V 模型（V-model）、W 模型（W-model）、敏捷开发模型等</p>
+<h4 id="敏捷开发"><a href="#敏捷开发" class="headerlink" title="敏捷开发"></a>敏捷开发</h4><p><strong>敏捷开发</strong> 是一种以人为核心、迭代、循序渐进的开发方法。在敏捷开发中，软件项目的构建被切分成多个子项目，各个子项目的成果都经过测试，具备集成和可运行的特征。换言之，就是把一个大项目分为多个相互联系，但也可独立运行的小项目，并分别完成，在此过程中软件一直处于可使用状态。</p>
+<h3 id="软件开发的基本策略"><a href="#软件开发的基本策略" class="headerlink" title="软件开发的基本策略"></a>软件开发的基本策略</h3><h4 id="软件复用"><a href="#软件复用" class="headerlink" title="软件复用"></a>软件复用</h4><p>构建新软件不需要从头开始，可以复用已有的轮子</p>
+<h4 id="分而治之"><a href="#分而治之" class="headerlink" title="分而治之"></a>分而治之</h4><h4 id="逐步演进"><a href="#逐步演进" class="headerlink" title="逐步演进"></a>逐步演进</h4><p>不断进行迭代式增量开发<br>MVP(<strong>Minimum Viable Product</strong> 最小可行产品)</p>
+<h4 id="优化折中"><a href="#优化折中" class="headerlink" title="优化折中"></a>优化折中</h4><p>不需要完全优化，用有效的投入内以最有效的方式提高现有软件的质量</p>
+<h2 id="代码规范"><a href="#代码规范" class="headerlink" title="代码规范"></a>代码规范</h2><h3 id="命名规范"><a href="#命名规范" class="headerlink" title="命名规范"></a>命名规范</h3><ul>
+<li><strong>类名需要使用大驼峰命名法</strong></li>
+<li><strong>方法名、参数名、成员变量、局部变量需要使用小驼峰命名法（lowerCamelCase</strong></li>
+<li><strong>测试方法名、常量、枚举名称需要使用蛇形命名法（snake_case）</strong> (各个单词之间通过下划线“_”连接，比如<code>should_get_200_status_code_when_request_is_valid</code>、<code>CLIENT_CONNECT_SERVER_FAILURE</code>)</li>
+<li>项目文件夹名称使用串式命名法，在串式命名法中，各个单词之间通过连接符“-”连接，比如<code>dubbo-registry</code>。</li>
+<li><strong>抽象类命名使用 Abstract</strong></li>
+<li><strong>异常类命名使用 Exception 结尾。</strong></li>
+<li><strong>测试类命名以它要测试的类的名称开始，以 Test 结尾。</strong></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/06/07/17/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -198,7 +476,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-10-01 20:23:54" itemprop="dateModified" datetime="2024-10-01T20:23:54+08:00">2024-10-01</time>
+                <time title="修改时间：2024-10-04 10:28:24" itemprop="dateModified" datetime="2024-10-04T10:28:24+08:00">2024-10-04</time>
               </span>
 
           <br>
@@ -675,14 +953,21 @@ lock<span class="token punctuation">.</span><span class="token function">lock</s
 <li>请求分摊</li>
 </ol>
 <h3 id="数据库相关"><a href="#数据库相关" class="headerlink" title="数据库相关"></a>数据库相关</h3><h4 id="在有多个索引时，数据库会如何选择使用哪个索引？"><a href="#在有多个索引时，数据库会如何选择使用哪个索引？" class="headerlink" title="在有多个索引时，数据库会如何选择使用哪个索引？"></a>在有多个索引时，数据库会如何选择使用哪个索引？</h4><p>会使用选择性高(索引列中的不通知的数量与总行数的比率)、索引覆盖(可以避免回表操作的)、索引类型()、查询条件(例如最左匹配，复合索引(A,B)不可单独作用于B)</p>
+<h4 id="MySQL的架构"><a href="#MySQL的架构" class="headerlink" title="MySQL的架构"></a>MySQL的架构</h4><ol>
+<li>连接层：处理客户端的连接和授权认证</li>
+<li>服务层：包括查询解析、分析、优化、缓存等功能</li>
+<li>存储殷勤层：负责数据的存储和提取</li>
+<li>物理层：负责数据文件的存储</li>
+</ol>
+<h4 id="有一些逻辑在服务层和存储引擎层中是属于同一个的，就好像是一个分布式系统，怎么保证他们之间的数据一致性呢？"><a href="#有一些逻辑在服务层和存储引擎层中是属于同一个的，就好像是一个分布式系统，怎么保证他们之间的数据一致性呢？" class="headerlink" title="有一些逻辑在服务层和存储引擎层中是属于同一个的，就好像是一个分布式系统，怎么保证他们之间的数据一致性呢？"></a>有一些逻辑在服务层和存储引擎层中是属于同一个的，就好像是一个分布式系统，怎么保证他们之间的数据一致性呢？</h4><h4 id="binlog和redolog的区别"><a href="#binlog和redolog的区别" class="headerlink" title="binlog和redolog的区别"></a>binlog和redolog的区别</h4><p>Binlog记录的是逻辑更改，事务提交后写入，用于主从复制，数据持久化，数据恢复<br>Redolog记录的是数据页的实际更改，是物理更改，事务执行过程中写入，崩溃回复和rollback</p>
 <h3 id="分布式相关"><a href="#分布式相关" class="headerlink" title="分布式相关"></a>分布式相关</h3><h4 id="分布式事务"><a href="#分布式事务" class="headerlink" title="分布式事务"></a>分布式事务</h4><p><a target="_blank" rel="noopener" href="https://xiaomi-info.github.io/2020/01/02/distributed-transaction/">https://xiaomi-info.github.io/2020/01/02/distributed-transaction/</a></p>
-<h3 id="业务相关"><a href="#业务相关" class="headerlink" title="业务相关"></a>业务相关</h3><h4 id="如何实现延迟队列"><a href="#如何实现延迟队列" class="headerlink" title="如何实现延迟队列"></a>如何实现延迟队列</h4><ol>
+<h4 id="令牌桶限流算法底层"><a href="#令牌桶限流算法底层" class="headerlink" title="令牌桶限流算法底层"></a>令牌桶限流算法底层</h4><h4 id="Minio怎么分片，分片原理"><a href="#Minio怎么分片，分片原理" class="headerlink" title="Minio怎么分片，分片原理"></a>Minio怎么分片，分片原理</h4><h4 id="XXL-JOB如何使用"><a href="#XXL-JOB如何使用" class="headerlink" title="XXL-JOB如何使用"></a>XXL-JOB如何使用</h4><h3 id="业务相关"><a href="#业务相关" class="headerlink" title="业务相关"></a>业务相关</h3><h4 id="如何实现延迟队列"><a href="#如何实现延迟队列" class="headerlink" title="如何实现延迟队列"></a>如何实现延迟队列</h4><ol>
 <li>使用DelayQueue,<code>DelayQueue</code>的<code>put</code>方法是线程安全的，因为<code>put</code>方法内部使用了<code>ReentrantLock</code>锁进行线程同步。<code>DelayQueue</code>还提供了两种出队的方法 <code>poll()</code> 和 <code>take()</code> ， <code>poll()</code> 为非阻塞获取，没有到期的元素直接返回null；<code>take()</code> 阻塞方式获取，没有到期的元素线程将会等待。</li>
 <li>基于定时任务</li>
 <li>基于Redis过期键的回调函数</li>
 </ol>
 <h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3><h4 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h4><p>反射的原理基于Java的元数据（metadata），这些元数据在编译时被嵌入到类文件中，并在运行时通过Java反射API进行访问。</p>
-<h3 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h3><h4 id="Spring-AOP"><a href="#Spring-AOP" class="headerlink" title="Spring AOP"></a>Spring AOP</h4><blockquote>
+<h4 id="WebSocket"><a href="#WebSocket" class="headerlink" title="WebSocket"></a>WebSocket</h4><h4 id="Java零拷贝，大文件断点续传，秒传实现"><a href="#Java零拷贝，大文件断点续传，秒传实现" class="headerlink" title="Java零拷贝，大文件断点续传，秒传实现"></a>Java零拷贝，大文件断点续传，秒传实现</h4><h3 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h3><h4 id="Spring-AOP"><a href="#Spring-AOP" class="headerlink" title="Spring AOP"></a>Spring AOP</h4><blockquote>
 <p>AOP基于动态代理，如果要代理的对象实现了某个接口，那额会使用JDKProxy，如果没实现接口，那么会使用基于asm框架字节流的Cglib动态代理来生成一个被代理对象的子类来作为代理。</p>
 </blockquote>
 <h3 id="创建对象的几种方式"><a href="#创建对象的几种方式" class="headerlink" title="创建对象的几种方式"></a>创建对象的几种方式</h3><ol>
@@ -729,6 +1014,12 @@ lock<span class="token punctuation">.</span><span class="token function">lock</s
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>可以看见，是包含@Configuration、@ComponentScan(组件扫描)、@EnableAutoConfiguration(启用自动装配)</p>
 <p>所以Spring Boot的自动配置实质就是 将这些需要自动配置的类的全类名先保存在这些文件中 然后读取到List集合里面 然后通过@Import注解读取导入，也就是SPI实现的</p>
+<h3 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h3><h4 id="Docker端口映射有几种方式"><a href="#Docker端口映射有几种方式" class="headerlink" title="Docker端口映射有几种方式"></a>Docker端口映射有几种方式</h4><ol>
+<li>指定端口映射：<code>docker run -p host_port:container_port image_name</code></li>
+<li>随机端口映射:   <code>docker run -P image_name</code> 将容器的所有暴露端口随机映射到主机的高端口号</li>
+<li>指定IP和端口映射：<code>docker run -p host_pi:host_port:container_port image_name</code></li>
+<li>指定协议的端口映射<code>docker run -p host_port:container_port /tcp image_name</code></li>
+</ol>
 <p>#todo </p>
 <ul>
 <li><input disabled="" type="checkbox"> leetcode手写LRU</li>
@@ -783,7 +1074,7 @@ lock<span class="token punctuation">.</span><span class="token function">lock</s
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-07-29 17:43:41" itemprop="dateModified" datetime="2024-07-29T17:43:41+08:00">2024-07-29</time>
+                <time title="修改时间：2024-10-04 15:55:10" itemprop="dateModified" datetime="2024-10-04T15:55:10+08:00">2024-10-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -880,7 +1171,7 @@ lock<span class="token punctuation">.</span><span class="token function">lock</s
 <li>Bean的生命周期<ol>
 <li>创建Bean的实例：Bean容器会先找到Bean的定义，然后通过Java反射API来创建Bean的实例</li>
 <li>Bean属性赋值/填充：为Bean设置相关属性和依赖，例如填入@Autowired等注解注入的对象，setter方法和构造函数</li>
-<li>Bean初始化:：<img src="/2024/06/07/04/Bean%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96.png" alt="Bean的初始化"></li>
+<li>Bean初始化:<img src="/2024/06/07/04/Bean%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96.png" alt="Bean的初始化"></li>
 <li>销毁Bean：把Bean的销毁方法记录下来，将爱需要销毁Bean或者销毁容器时，调用这些方法去释放Bean所持有的资源<ul>
 <li>如果 Bean 实现了 <code>DisposableBean</code> 接口，执行 <code>destroy()</code> 方法。</li>
 <li>如果 Bean 在配置文件中的定义包含 <code>destroy-method</code> 属性，执行指定的 Bean 销毁方法。或者，也可以直接通过<code>@PreDestroy</code> 注解标记 Bean 销毁之前执行的方法。</li>
@@ -2445,7 +2736,7 @@ vmstat -s 显示系统的累计统计信息
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-07-19 16:43:40" itemprop="dateModified" datetime="2024-07-19T16:43:40+08:00">2024-07-19</time>
+                <time title="修改时间：2024-10-03 17:14:27" itemprop="dateModified" datetime="2024-10-03T17:14:27+08:00">2024-10-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2463,7 +2754,7 @@ vmstat -s 显示系统的累计统计信息
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>4k</span>
+              <span>4.2k</span>
             </span>
 
         </div>
@@ -2475,13 +2766,10 @@ vmstat -s 显示系统的累计统计信息
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Elasticsearch学习笔记"><a href="#Elasticsearch学习笔记" class="headerlink" title="Elasticsearch学习笔记"></a>Elasticsearch学习笔记</h1><ul>
-<li>面试问题：<ol>
-<li>索引文档的过程：<ol>
-<li>协调节点默认使用文档ID参与计算，为路由提供合适的分片，转发请求</li>
-<li>分片所在节点接收到请求之后，将请求写入内存缓冲区，定时refresh到文件系统缓存，经过这一步既可以被搜索到了，当Filesystem cache中的数据写入到磁盘中时，才会清除掉translog，这个过程叫做flush；</li>
-</ol>
-</li>
+          <h1 id="Elasticsearch学习笔记"><a href="#Elasticsearch学习笔记" class="headerlink" title="Elasticsearch学习笔记"></a>Elasticsearch学习笔记</h1><h2 id="Analyzer"><a href="#Analyzer" class="headerlink" title="Analyzer"></a>Analyzer</h2><p>Analyzer是ES中的一个组件，用于将输入的文本转化为索引时锁使用的文本特征向量。将文本分解，然后转化为特定的文本特征。</p>
+<h2 id="分片"><a href="#分片" class="headerlink" title="分片"></a>分片</h2><p>分片就是将索引内部的数据分割成多个部分的机制，用于分布、存储和管理索引的数据 。允许索引被拆分为多个物理或逻辑部分从而实现分布式存储和处理数据的能力</p>
+<h1 id="面试常问："><a href="#面试常问：" class="headerlink" title="面试常问："></a>面试常问：</h1><ol>
+<li>索引文档的过程：<br> 1. 协调节点默认使用文档ID参与计算，为路由提供合适的分片，转发请求<br> 2. 分片所在节点接收到请求之后，将请求写入内存缓冲区，定时refresh到文件系统缓存，经过这一步既可以被搜索到了，当Filesystem cache中的数据写入到磁盘中时，才会清除掉translog，这个过程叫做flush；<ol start="2">
 <li>es的删除：es中的文件并没有删除，每个段都有一个.del文件，删除是在这里进行标志，该文档仍然能够匹配到，但是会在结果中被过滤掉，后续在执行merge(周期性的将较小的段合并为一个较大的段)操作时，会被彻底清除掉</li>
 <li>更新：每次更新都是先标记旧的文档为已删除，重新建立一个文档，并通过版本号来区分</li>
 <li>搜索过程：<ul>
@@ -2498,6 +2786,8 @@ vmstat -s 显示系统的累计统计信息
 <li>es相对于mongodb，mysql的优势：1.全文检索，相关性排名 2.近实时性3.分布式处理4.数据分析 缺点：不支持事务</li>
 </ol>
 </li>
+</ol>
+<ul>
 <li>DSL查询：由es提供的基于JSON的DSL语句<ul>
 <li>叶子查询：在特定字段中查询特定值</li>
 <li>符合查询：以逻辑方式组合多个叶子查询或者更改叶子查询的行为方式</li>
@@ -2674,297 +2964,6 @@ PUT mysougoulog/_mapping</span>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/04/11/19/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="QingQiu">
-      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="QingQiu'Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/04/11/19/" class="post-title-link" itemprop="url">k8s</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-04-11 10:12:19" itemprop="dateCreated datePublished" datetime="2024-04-11T10:12:19+08:00">2024-04-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-07-19 16:43:54" itemprop="dateModified" datetime="2024-07-19T16:43:54+08:00">2024-07-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%BF%90%E7%BB%B4/" itemprop="url" rel="index"><span itemprop="name">运维</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>13</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>执行kubeadm 时报错，</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/04/07/18/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="QingQiu">
-      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="QingQiu'Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/04/07/18/" class="post-title-link" itemprop="url">MQ</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-04-07 10:07:18" itemprop="dateCreated datePublished" datetime="2024-04-07T10:07:18+08:00">2024-04-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-09-03 14:58:41" itemprop="dateModified" datetime="2024-09-03T14:58:41+08:00">2024-09-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">分布式</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.3k</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="面试常问："><a href="#面试常问：" class="headerlink" title="面试常问："></a>面试常问：</h1><h2 id="生产者出现堆积如何解决"><a href="#生产者出现堆积如何解决" class="headerlink" title="生产者出现堆积如何解决"></a>生产者出现堆积如何解决</h2><ol>
-<li>增加消费者</li>
-<li>优化消费者的处理速度</li>
-<li>使用优先队列，优先处理优先级高的消息</li>
-<li>消息压缩：如果网络带宽是瓶颈</li>
-<li>升级设备</li>
-<li>消息过滤：生产者端发送真正需要处理的消息</li>
-<li>调整生产者的速度</li>
-</ol>
-<h2 id="生产消费过程中如果服务出现异常，如何恢复"><a href="#生产消费过程中如果服务出现异常，如何恢复" class="headerlink" title="生产消费过程中如果服务出现异常，如何恢复"></a>生产消费过程中如果服务出现异常，如何恢复</h2><ol>
-<li>重试机制：</li>
-<li>死信队列：将无法处理的消息放在一个特殊的队列中，由人工去处理或者特殊处理</li>
-<li>备份和恢复：对于重要数据应该定期进行备份，当服务出现异常时，从备份中恢复数据。</li>
-<li>服务降级</li>
-<li>容错和冗余设计</li>
-</ol>
-<h2 id="AMQP协议"><a href="#AMQP协议" class="headerlink" title="AMQP协议"></a>AMQP协议</h2><ul>
-<li>AMQ Model组件：<ol>
-<li>Producer </li>
-<li>Exchange 交换器，从Producer中收集消息并根据路由规则发送到对应的消息队列中</li>
-<li>Queue 消息队列，存储消息，直到消息被安全的投递到了消费者</li>
-<li>Binding 定义了 mq 和 exchange之间的关系，是路由表</li>
-<li>Consumer</li>
-</ol>
-</li>
-</ul>
-<h2 id="RocketMQ"><a href="#RocketMQ" class="headerlink" title="RocketMQ"></a>RocketMQ</h2><p><a target="_blank" rel="noopener" href="https://javaguide.cn/high-performance/message-queue/rocketmq-questions.html">常见问题</a></p>
-<p><img src="/2024/04/07/18/%E8%A7%92%E8%89%B2.png"></p>
-<ol>
-<li>生产者组-&gt;发送消息的一方<ul>
-<li>消息的类型：<ol>
-<li>普通消息：并发消息，并发消息没有顺序</li>
-<li>分区有序消息:把一个Topic消息分为多个分区，保护和消费，分区内的消息就是队列，FIFO</li>
-<li>全局有序：把一个Topic分区数设为1，所有的消息都支持FIFO</li>
-<li>延迟消息：消息发送后，消费者不能立刻消费，需要等待</li>
-<li>事务消息：涉及分布式事务，保证多个操作同时成功或者失败，消费者才能使用</li>
-<li><img src="/2024/04/07/18/%E4%B8%8D%E5%90%8C%E6%B6%88%E6%81%AF%E7%89%B9%E7%82%B9.png"></li>
-</ol>
-</li>
-<li>消息保证机制：<ol>
-<li>客户端保证：重试机制和客户端容错(选择延迟较低的Broker来发送消息)</li>
-<li>Broker保证</li>
-</ol>
-</li>
-<li>消息发送流程:<ol>
-<li>业务层调用Client 发送API业务代码</li>
-<li>消息处理层：Client获取消息对象后进行参数检查，准备和封装</li>
-<li>通信层：基于Netty封装的RPC通信</li>
-</ol>
-</li>
-</ul>
-</li>
-<li>Topic：</li>
-<li>消费者组： <ul>
-<li>订阅关系：一个消费者组订阅一个Topic中的某一个Tag</li>
-<li>消费模式：<ul>
-<li>集群消费模式：同一个组中的消费者实例负载均衡的消费Topic中的消息，消费进度保存在Broker端，即使应用崩溃，消费进度也不会出错</li>
-<li>广播消费：所有消息广播分发，全部的消费者实例可以消费整个Topic中的所有消息，消费进度保存子啊客户端文件中，适用于通知其他服务刷新缓存</li>
-</ul>
-</li>
-<li>可靠消费保证：<ol>
-<li>重试-死信机制：正常Topic遭遇消费失败后-&gt;消息被保存在重试Topic中-&gt;多次间隔时间进行重新消费后仍然失败-&gt;进入死信Topic，经由人工处理，不会再被消费者消费</li>
-<li>Rebalance机制：重平衡， 用于在发生Broker掉线、Topic扩容和缩容、消费者扩容和缩容等变化时，自动感知并调整自身消费，以尽量减少甚至避免消息没有被消费。</li>
-</ol>
-</li>
-<li>消费方式：<ol>
-<li>pull 用户主动pull消息，自主管理位点，由用户代码来进行管理</li>
-<li>push 自动pull消息，用户可直接使用，</li>
-</ol>
-</li>
-<li>消费过滤，Broker端可以根据tag进行消费过滤，只返回满足的tag,broker端使用Hash过滤，客户端再进行一次Tag字符串过滤， 因为Hash过来吧可以快速过滤大量数据，但是存在Hash碰撞</li>
-</ul>
-</li>
-</ol>
-<ul>
-<li>Namesrv集群：一个无状态的元数据管理，Namesrv之于RocketMQ等价于Zookeeper之于Kafka。Topic路由注册和管理、Broker注册和发现的管理者</li>
-</ul>
-<h1 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h1><p><a target="_blank" rel="noopener" href="https://javaguide.cn/high-performance/message-queue/rabbitmq-questions.html">常见问题</a></p>
-<h2 id="RabbitMQ主要架构"><a href="#RabbitMQ主要架构" class="headerlink" title="RabbitMQ主要架构"></a>RabbitMQ主要架构</h2><p><img src="/2024/04/07/18/RabbitMQ%E6%9E%B6%E6%9E%84.png" alt="RabbitMQ架构"></p>
-<ul>
-<li><p>**<code>publisher</code>**：生产者，也就是发送消息的一方</p>
-</li>
-<li><p>**<code>consumer</code>**：消费者，也就是消费消息的一方</p>
-</li>
-<li><p>**<code>queue</code>**：队列，存储消息。生产者投递的消息会暂存在消息队列中，等待消费者处理</p>
-</li>
-<li><p>**<code>exchange</code>**：交换机，负责消息路由。生产者发送的消息由交换机决定投递到哪个队列。不会持久化数据</p>
-</li>
-<li><p>**<code>virtual host</code>**：虚拟主机，起到数据隔离的作用。每个虚拟主机相互独立，有各自的exchange、queue，也就是将exchange和queue进行分组</p>
-</li>
-</ul>
-<h2 id="Spring中使用"><a href="#Spring中使用" class="headerlink" title="Spring中使用"></a>Spring中使用</h2><p>使用Spring AMQP来实现</p>
-<h3 id="publisher"><a href="#publisher" class="headerlink" title="publisher"></a>publisher</h3><p>使用RabbitTemplate来发送消息</p>
-<h3 id="consumer"><a href="#consumer" class="headerlink" title="consumer"></a>consumer</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Component</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SpringRabbitListener</span> <span class="token punctuation">{</span>
-        <span class="token comment">// 利用RabbitListener来声明要监听的队列信息</span>
-    <span class="token comment">// 将来一旦监听的队列中有了消息，就会推送给当前服务，调用当前方法，处理消息。</span>
-    <span class="token comment">// 可以看到方法体中接收的就是消息体的内容</span>
-    <span class="token annotation punctuation">@RabbitListener</span><span class="token punctuation">(</span>queues <span class="token operator">=</span> <span class="token string">"simple.queue"</span><span class="token punctuation">)</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">listenSimpleQueueMessage</span><span class="token punctuation">(</span><span class="token class-name">String</span> msg<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">InterruptedException</span> <span class="token punctuation">{</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"spring 消费者接收到消息：【"</span> <span class="token operator">+</span> msg <span class="token operator">+</span> <span class="token string">"】"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="交换机的类型："><a href="#交换机的类型：" class="headerlink" title="交换机的类型："></a>交换机的类型：</h2><h3 id="Fanout"><a href="#Fanout" class="headerlink" title="Fanout"></a><strong>Fanout</strong></h3><p>广播，将消息交给所有绑定到交换机的队列。我们最早在控制台使用的正是Fanout交换机<br>特点：</p>
-<ol>
-<li>可以有多个队列</li>
-<li>每个队列都要绑定到Exchange</li>
-<li>生产者发送的消息只能发送到交换机</li>
-<li>交换机把消息发送给绑定过的所有队列</li>
-<li>订阅队列的消费者都能拿到消息</li>
-</ol>
-<h3 id="Direct"><a href="#Direct" class="headerlink" title="Direct"></a><strong>Direct</strong></h3><p>订阅，基于RoutingKey（路由key）发送给订阅了消息的队列<br>特点：</p>
-<ol>
-<li>队列需要与交换机绑定，指定一个RountingKey</li>
-<li>消息发送方发送时也需要指定RountingKey</li>
-<li>Exchange把消息发送给RountingKey对应的队列</li>
-</ol>
-<h3 id="Topic"><a href="#Topic" class="headerlink" title="Topic"></a><strong>Topic</strong></h3><p>通配符订阅，与Direct类似，只不过RoutingKey可以使用通配符</p>
-<ul>
-<li><p><code>#</code>：匹配一个或多个词</p>
-</li>
-<li><p><code>*</code>：匹配不多不少恰好1个词<br>举例：</p>
-</li>
-<li><p><code>item.#</code>：能够匹配<code>item.spu.insert</code> 或者 <code>item.spu</code></p>
-</li>
-<li><p><code>item.*</code>：只能匹配<code>item.spu</code><br>与DIrect类似，但是可以使用通配符来进行队列绑定</p>
-</li>
-<li><p><strong>Headers</strong>：头匹配，基于MQ的消息头匹配，用的较少。</p>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -3034,7 +3033,7 @@ PUT mysougoulog/_mapping</span>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">53</span>
+          <span class="site-state-item-count">55</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -3088,7 +3087,7 @@ PUT mysougoulog/_mapping</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">437k</span>
+    <span title="站点总字数">449k</span>
 </div>
 
         
