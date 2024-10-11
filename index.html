@@ -1212,6 +1212,70 @@ explain select <span class="token operator">*</span> from user where age is not 
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/10/11/36/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="QingQiu">
+      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QingQiu'Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/10/11/36/" class="post-title-link" itemprop="url">美云智数一面</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-10-11 20:52:36" itemprop="dateCreated datePublished" datetime="2024-10-11T20:52:36+08:00">2024-10-11</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>0</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/10/04/15/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2289,7 +2353,7 @@ thread<span class="token punctuation">.</span><span class="token function">start
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>14k</span>
+              <span>16k</span>
             </span>
 
         </div>
@@ -2831,9 +2895,60 @@ executor<span class="token punctuation">.</span><span class="token function">shu
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>发现这里的逻辑：</p>
 <ol>
-<li>获取当前线程、获取Worker中的初始任务并清空，解锁Worker允许终端</li>
-<li>只要任务不为null或者从getTask中获取到新任务就一直循环执行，从而达到线程复用</li>
+<li>获取当前线程、获取Worker中的初始任务并清空，解锁Worker允许中断</li>
+<li>只要任务不为null或者从getTask，也就是不停的从wokerQueue中获取到新任务就一直循环执行，从而达到线程复用</li>
 <li>检测线程池状态，进行一些钩子方法<br>到这里我们才真正找到线程池的奥秘，原来是通过循环来不断从任务队列中获取任务执行，而不是执行完任务之后就终止线程！！！</li>
+</ol>
+<h3 id="线程池中线程销毁的原理"><a href="#线程池中线程销毁的原理" class="headerlink" title="线程池中线程销毁的原理"></a>线程池中线程销毁的原理</h3><p><del>本来没打算写这个的，可是在牛课上看见了问这个的，但是我好像答不出来</del><br>看到这一行代码：<br><img src="/2024/09/29/15/task.png"><br>当woker执行过一次之后，task = null ，也就是这个循环是否进行就全看getTask()函数了<br>让我们关注到getTask()的源码</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">private</span> <span class="token class-name">Runnable</span> <span class="token function">getTask</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">boolean</span> timedOut <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span> <span class="token comment">// 上一次进行poll()任务出列是否超时</span>
+
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> c <span class="token operator">=</span> ctl<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token comment">/**
+		* 这是ctl的定义，他是一个AtomicInteger类型的变量，是原子操作的，用来控制线程池的状态和工作线程的数量
+		* private final AtomicInteger ctl = new AtomicInteger(ctlOf(RUNNING, 0));
+		*/</span>
+        <span class="token comment">// 仅在必要时检查队列是否为空</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">runStateAtLeast</span><span class="token punctuation">(</span>c<span class="token punctuation">,</span> <span class="token constant">SHUTDOWN</span><span class="token punctuation">)</span>
+            <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span><span class="token function">runStateAtLeast</span><span class="token punctuation">(</span>c<span class="token punctuation">,</span> <span class="token constant">STOP</span><span class="token punctuation">)</span> <span class="token operator">||</span> workQueue<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token function">decrementWorkerCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+		<span class="token comment">// 当前线程池中工作线程的数量</span>
+        <span class="token keyword">int</span> wc <span class="token operator">=</span> <span class="token function">workerCountOf</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	        <span class="token comment">//worker工作线程会不会被回收 </span>
+	        <span class="token comment">// alloW是控制核心线程是否会被销毁的 </span>
+            <span class="token comment">//1. allowCoreThreadTimeOut == true,核心线程和非核心线程空闲keepAliveTime被销毁，workQueue.poll(keepAliveTime, TimeUnit.NANOSECONDS)  </span>
+            <span class="token comment">//2. allowCoreThreadTimeOut == false,非核心线程空闲keepAliveTIme销毁，workQueue.poll(keepAliveTime, TimeUnit.NANOSECONDS) </span>
+            <span class="token comment">//  ,核心线程会被阻塞，不会被销毁workQueue.take()</span>
+        <span class="token keyword">boolean</span> timed <span class="token operator">=</span> allowCoreThreadTimeOut <span class="token operator">||</span> wc <span class="token operator">&gt;</span> corePoolSize<span class="token punctuation">;</span>
+		<span class="token comment">// 如果允许核心线程被淘汰或者存活线程数大于核心线程数并且超时了，或者线程数大于最大线程数，开始淘汰线程</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>wc <span class="token operator">&gt;</span> maximumPoolSize <span class="token operator">||</span> <span class="token punctuation">(</span>timed <span class="token operator">&amp;&amp;</span> timedOut<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>wc <span class="token operator">&gt;</span> <span class="token number">1</span> <span class="token operator">||</span> workQueue<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">compareAndDecrementWorkerCount</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+            <span class="token keyword">continue</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token comment">// 根据是否允许超时，选择poll或take方法获取任务</span>
+            <span class="token class-name">Runnable</span> r <span class="token operator">=</span> timed <span class="token operator">?</span>
+                workQueue<span class="token punctuation">.</span><span class="token function">poll</span><span class="token punctuation">(</span>keepAliveTime<span class="token punctuation">,</span> <span class="token class-name">TimeUnit</span><span class="token punctuation">.</span><span class="token constant">NANOSECONDS</span><span class="token punctuation">)</span> <span class="token operator">:</span>
+                workQueue<span class="token punctuation">.</span><span class="token function">take</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>r <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span>
+                <span class="token keyword">return</span> r<span class="token punctuation">;</span>
+            timedOut <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> retry<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            timedOut <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>所以简单总结一下：<br>workQueue为空，线程就会被销毁，具体的实现是通过阻塞队列workQueue.poll(keepAliveTime, TimeUnit.NANOSECONDS)来控制线程是否销毁的，如果使用poll就会在指定时间内等待元素可用否则返回null，从而等待keepAlive来决定是否销毁<br>两种情景：</p>
+<ol>
+<li>allowCoreThreadTimeOut == true，也就是允许核心线程销毁，两种线程使用poll来进行调用，一段时间后销毁</li>
+<li>allowCoreThreadTimeOut == false，也就是非核心线程会被销毁，核心线程永远不会销毁，非核心线程会调用poll，而核心线程会调用take，从而一直阻塞这个线程来做到永不销毁<br>然后这个逻辑之后我们回到上面的调用的代码<img src="/2024/09/29/15/finally.png"><br>之后会走这个流程，不过销毁的过程我们就不看了。</li>
 </ol>
 <h1 id="ForkJoinPool-——-gt-递归拆分！让并行嗨起来！并行流的原理！"><a href="#ForkJoinPool-——-gt-递归拆分！让并行嗨起来！并行流的原理！" class="headerlink" title="ForkJoinPool ——> 递归拆分！让并行嗨起来！并行流的原理！"></a>ForkJoinPool ——&gt; 递归拆分！让并行嗨起来！并行流的原理！</h1><p>篇幅有限简单介绍一下</p>
 <h2 id="主要组件"><a href="#主要组件" class="headerlink" title="主要组件"></a>主要组件</h2><ol>
@@ -2859,70 +2974,6 @@ executor<span class="token punctuation">.</span><span class="token function">shu
 <li>可以强制子类去实现某个方法(abstract)</li>
 </ol>
 
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/09/29/08/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="QingQiu">
-      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="QingQiu'Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/09/29/08/" class="post-title-link" itemprop="url">掌上先机凉经</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-09-29 22:10:08" itemprop="dateCreated datePublished" datetime="2024-09-29T22:10:08+08:00">2024-09-29</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>0</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
       
     </div>
 
@@ -3006,7 +3057,7 @@ executor<span class="token punctuation">.</span><span class="token function">shu
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">53</span>
+          <span class="site-state-item-count">52</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -3060,7 +3111,7 @@ executor<span class="token punctuation">.</span><span class="token function">shu
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">435k</span>
+    <span title="站点总字数">432k</span>
 </div>
 
         

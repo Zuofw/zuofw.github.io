@@ -962,333 +962,6 @@ SELECT ... FOR UPDATE; # 加X锁<span aria-hidden="true" class="line-numbers-row
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/09/09/30/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="QingQiu">
-      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="QingQiu'Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/09/09/30/" class="post-title-link" itemprop="url">美团测开一面</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-09-09 21:33:30" itemprop="dateCreated datePublished" datetime="2024-09-09T21:33:30+08:00">2024-09-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-10-09 15:29:44" itemprop="dateModified" datetime="2024-10-09T15:29:44+08:00">2024-10-09</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>4.7k</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="美团一进宫"><a href="#美团一进宫" class="headerlink" title="美团一进宫"></a>美团一进宫</h1><p>🤡</p>
-<h2 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h2><ol>
-<li>自我介绍</li>
-<li>介绍实习项目</li>
-<li>[[美团测开一面#美团一进宫#多态有哪些|如何理解封装继承和多态(多态记得不牢)]]</li>
-<li>子类可以继承父类的方法吗？(看关键字，可以继承public和protected方法，默认访问权限的话如果在一个包内可以继承，private不可继承)</li>
-<li>常见的集合(List，Set，Map，Queue，Stack)</li>
-<li>[[美团测开一面#美团一进宫#ArrayList和LinkedList的区别 |ArrayList和LinkedList的区别]]</li>
-<li>什么场景下LinkedList比ArrayList好用</li>
-<li>HashMap常见八股：<ul>
-<li>线程是否安全</li>
-<li>HashTable</li>
-<li>ConcurrentHashMap</li>
-<li>jdk1.7和1.8的区别</li>
-</ul>
-</li>
-<li>[[美团测开一面#抽象类，接口，抽象类和接口的如何选|抽象类，接口，抽象类和接口的如何选择]]</li>
-<li>[[美团测开一面#@SpringBootApplication包含哪些|SpringBoot常见注解，@SpringBootApplication包含什么]]</li>
-<li>常见的异常<ul>
-<li>IO异常</li>
-<li>SQL异常</li>
-<li>堆内存溢出</li>
-<li>空指针</li>
-<li>索引越界</li>
-</ul>
-</li>
-<li>什么情况下会导致堆内存溢出：<ul>
-<li>内存泄漏：存在某些未释放的对象引用</li>
-<li>大对象分配</li>
-<li>数据结构过大</li>
-<li>无限递归</li>
-<li><strong>线程创建过多会导致堆外内存溢出</strong></li>
-</ul>
-</li>
-<li>常见的空指针异常的情况：<ul>
-<li>访问未初始化的对象</li>
-<li>访问数组中的空元素</li>
-<li>访问集合中的空元素：map.put(key, null)</li>
-<li>自动拆箱 Integer num = null; int value = num;</li>
-<li>多线程下一个线程可能会在另一个线程初始化对象之前就访问该对象。</li>
-</ul>
-</li>
-<li>如何解决空指针异常：<ul>
-<li>使用之前先检查是否为null</li>
-<li>使用Optional类</li>
-<li>try-catch</li>
-<li>多线程下使用同步机制来保证</li>
-</ul>
-</li>
-<li>debug的技巧，远程debug如何保证不会被其他请求干扰</li>
-<li>什么情况下可以使用工厂模式，有何优点<ul>
-<li>对象创建逻辑较为复杂，可以封装创建逻辑</li>
-<li>需要根据不同的条件创建不同的对象时</li>
-<li>解耦对象的创建和使用</li>
-<li>提高可维护性</li>
-<li>优点：封装对象创建的细节，减少重复代码，支持扩展性</li>
-</ul>
-</li>
-<li>[[美团测开一面#线程池参数如何设置|线程池的参数如何设置]]</li>
-<li>[[美团测开一面#旁路缓存有什么缺点，有没有遇到查询数据不一致的情况|旁路缓存有什么缺点，有没有遇到查询数据不一致的情况]]</li>
-<li>为什么使用Token + Redis保证幂等性，有什么优点</li>
-<li>[[美团测开一面#AOP相关| AOP相关]]，如何做的全局异常处理和日志处理</li>
-<li>实习项目中为何使用Kafka</li>
-<li>[[美团测开一面#数据库三大范式|数据库三大范式]]</li>
-<li>索引类型</li>
-<li>手写sql三个大题，不难<code>ALTER TABLE table_name ADD column_name data_type [constraint];</code></li>
-<li>前端的一些基础知识提问(不记录了)</li>
-<li>手撕 <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/wtcaE1/">无重复字符的最长子串</a>(思路对了，条件判断写的有点问题，给过了)</li>
-<li>反问环节：<ul>
-<li>测开比例-&gt;开发占60%</li>
-<li>面试表现：有点紧张，平常心对待就行，没有给出实际回答(多半是毁面评了)</li>
-<li>多久能有后续-&gt;一个星期之内</li>
-</ul>
-</li>
-</ol>
-<h2 id="答得不好以及后续答案"><a href="#答得不好以及后续答案" class="headerlink" title="答得不好以及后续答案"></a>答得不好以及后续答案</h2><h3 id="多态有哪些"><a href="#多态有哪些" class="headerlink" title="多态有哪些"></a>多态有哪些</h3><blockquote>
-<p>已经答出方法重载和方法重写，面试官问是否有其他</p>
-</blockquote>
-<p>还有接口实现和抽象类和抽象方法，运行时多态</p>
-<ol>
-<li>接口实现：一个类可以实现一个或多个接口，接口中的方法可以有不同的实现。</li>
-<li>抽象类不能被实例化，必须由子类去实现其抽象方法</li>
-<li>运行时多态：通过父类引用指向子类对象吗，在运行时决定调用哪个类的方法</li>
-</ol>
-<h3 id="ArrayList和LinkedList的区别"><a href="#ArrayList和LinkedList的区别" class="headerlink" title="ArrayList和LinkedList的区别"></a>ArrayList和LinkedList的区别</h3><ol>
-<li>数据结构不同<ul>
-<li>动态数组，随机访问，索引访问</li>
-<li>双向链表，每个元素都包含前一个元素的引用</li>
-</ul>
-</li>
-<li>性能上：<ul>
-<li>速度快复杂度O(1)</li>
-<li>速度慢：O(n)</li>
-</ul>
-</li>
-<li>插入和删除元素：<ul>
-<li>中间插入较慢</li>
-<li>复杂度O(1)</li>
-</ul>
-</li>
-<li>内存使用<ul>
-<li>紧凑，扩容时需要重新分配和复制数组</li>
-<li>每个元素都需要额外的存储空间来保存前后引用，内存开销较大</li>
-</ul>
-</li>
-</ol>
-<ul>
-<li><code>ArrayList</code>&nbsp;适用于频繁读取和随机访问的场景。</li>
-<li><code>LinkedList</code>&nbsp;适用于频繁插入和删除的场景，尤其是在列表中间进行操作时。</li>
-</ul>
-<p>#todo </p>
-<ul>
-<li><input disabled="" type="checkbox"> 抽象类，接口如何选择</li>
-</ul>
-<h3 id="抽象类，接口，抽象类和接口的如何选择"><a href="#抽象类，接口，抽象类和接口的如何选择" class="headerlink" title="抽象类，接口，抽象类和接口的如何选择"></a>抽象类，接口，抽象类和接口的如何选择</h3><h4 id="什么场景下使用抽象类"><a href="#什么场景下使用抽象类" class="headerlink" title="什么场景下使用抽象类"></a>什么场景下使用抽象类</h4><ol>
-<li>定义通用接口，具体实现由子类提供</li>
-<li>代码复用：一些通用的代码需要在子类之间进行复用，可以放在抽象类中，由子类继承减少代码重复</li>
-<li>模板方法模式：抽象类顶一个一个模板方法，包含一些列的步骤，具体的实现由子类实现。<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">Game</span> <span class="token punctuation">{</span>
-    <span class="token keyword">abstract</span> <span class="token keyword">void</span> <span class="token function">initialize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">abstract</span> <span class="token keyword">void</span> <span class="token function">startPlay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">abstract</span> <span class="token keyword">void</span> <span class="token function">endPlay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token comment">// 模板方法</span>
-    <span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">void</span> <span class="token function">play</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token function">initialize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">startPlay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">endPlay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">class</span> <span class="token class-name">Football</span> <span class="token keyword">extends</span> <span class="token class-name">Game</span> <span class="token punctuation">{</span>
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">void</span> <span class="token function">initialize</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Football Game Initialized"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">void</span> <span class="token function">startPlay</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Football Game Started"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">void</span> <span class="token function">endPlay</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Football Game Ended"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">class</span> <span class="token class-name">Basketball</span> <span class="token keyword">extends</span> <span class="token class-name">Game</span> <span class="token punctuation">{</span>
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">void</span> <span class="token function">initialize</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Basketball Game Initialized"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">void</span> <span class="token function">startPlay</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Basketball Game Started"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">void</span> <span class="token function">endPlay</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Basketball Game Ended"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li>提供默认行为</li>
-<li>强制子类实现某些方法</li>
-</ol>
-<h4 id="二者区别"><a href="#二者区别" class="headerlink" title="二者区别"></a>二者区别</h4><ul>
-<li>抽象类用来描述共同行为和特性，可以有自己的成员变量和具体方法，有明显的继承关系</li>
-<li>接口用于定义行为规范，可以多实现，只能有常量和抽象方法(jdk1.8之后可以有默认方法和静态方法)</li>
-</ul>
-<h4 id="如何选择二者"><a href="#如何选择二者" class="headerlink" title="如何选择二者"></a>如何选择二者</h4><ol>
-<li>是否需要继承多个父类的行为-&gt;接口</li>
-<li>是否需要共享代码-&gt;抽象类</li>
-<li>是否需要构造方法-&gt;抽象类</li>
-<li>是否需要默认方法-&gt;接口</li>
-</ol>
-<h3 id="SpringBootApplication包含哪些"><a href="#SpringBootApplication包含哪些" class="headerlink" title="@SpringBootApplication包含哪些"></a>@SpringBootApplication包含哪些</h3><ol>
-<li><strong><code>@SpringBootConfiguration</code></strong> 配置类，允许在类中定义@Bean方法，以便在Spring容器中注册Bean</li>
-<li><strong><code>@EnableAutoConfiguration</code></strong> 根据项目中的依赖自动配置Spring应用程序，扫描类路径中的依赖，根据这些依赖自动配置Spring Bean</li>
-<li><strong><code>@ComponentScan</code></strong> 启用组件扫描</li>
-</ol>
-<h3 id="debug的技巧，远程debug如何保证不会被其他请求干扰"><a href="#debug的技巧，远程debug如何保证不会被其他请求干扰" class="headerlink" title="debug的技巧，远程debug如何保证不会被其他请求干扰"></a>debug的技巧，远程debug如何保证不会被其他请求干扰</h3><p>远程debug的原理是通过网络将本地调试器和远程JVM链接起来，从而允许开发者在本地测试远程服务器上的代码。<br>通过的是JDWP Java Debug Wire Protocol协议进行通信<br>第二个问题可以搞一个测试环境，将生产环境中的数据复制过来进行debug</p>
-<h3 id="线程池参数如何设置"><a href="#线程池参数如何设置" class="headerlink" title="线程池参数如何设置"></a>线程池参数如何设置</h3><p>#todo </p>
-<ul>
-<li><input disabled="" type="checkbox"> 线程池参数如何设置</li>
-</ul>
-<ol>
-<li>CPU密集型设置为CPU核心数+1，也就是计算为主，数据排序</li>
-<li>I/O密集型设置为<code>n*2</code>，也就是网络读取，文件读取。</li>
-</ol>
-<h3 id="旁路缓存有什么缺点，有没有遇到查询数据不一致的情况"><a href="#旁路缓存有什么缺点，有没有遇到查询数据不一致的情况" class="headerlink" title="旁路缓存有什么缺点，有没有遇到查询数据不一致的情况"></a>旁路缓存有什么缺点，有没有遇到查询数据不一致的情况</h3><h3 id="AOP相关"><a href="#AOP相关" class="headerlink" title="AOP相关"></a>AOP相关</h3><h4 id="AOP基础"><a href="#AOP基础" class="headerlink" title="AOP基础"></a>AOP基础</h4><h4 id="有哪些通知类型"><a href="#有哪些通知类型" class="headerlink" title="有哪些通知类型"></a>有哪些通知类型</h4><ol>
-<li>前置通知 获取方法签名和参数，不能获取返回值</li>
-<li>后置通知 方法执行后执行，无论是否出现异常，不能获得返回值，但可以获取异常信息</li>
-<li>返回通知：方法执行并返回结果后执行吗，可以获得返回值，但是获得不了异常信息</li>
-<li>异常通知：异常后执行，获取异常信息，不能获得返回值</li>
-<li>环绕通知：可以在方法之前和定义逻辑，可以获取方法签名、参数、返回值、异常信息。</li>
-</ol>
-<h4 id="面试记录-什么是动态代理-x2F-静态代理-动态代理的原理"><a href="#面试记录-什么是动态代理-x2F-静态代理-动态代理的原理" class="headerlink" title="[[面试记录#什么是动态代理/静态代理|动态代理的原理]"></a>[[面试记录#什么是动态代理/静态代理|动态代理的原理]</h4><h4 id="使用AOP进行操作日志处理"><a href="#使用AOP进行操作日志处理" class="headerlink" title="使用AOP进行操作日志处理"></a>使用AOP进行操作日志处理</h4><p>主要是使用环绕通知</p>
-<h4 id="全局异常处理"><a href="#全局异常处理" class="headerlink" title="全局异常处理"></a>全局异常处理</h4><p>@ControllerAdvice底层原理是AOP</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@ControllerAdvice</span>
-<span class="token annotation punctuation">@Slf4j</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">GlobalExceptionHandler</span> <span class="token punctuation">{</span>
-
-    <span class="token annotation punctuation">@ExceptionHandler</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token class-name">BusinessException</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
-    <span class="token annotation punctuation">@ResponseBody</span>
-    <span class="token keyword">public</span> <span class="token class-name">Result</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> <span class="token function">businessExceptionHandler</span><span class="token punctuation">(</span><span class="token class-name">BusinessException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token class-name">ResultUtils</span><span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token annotation punctuation">@ExceptionHandler</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token class-name">RuntimeException</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
-    <span class="token annotation punctuation">@ResponseBody</span>
-    <span class="token keyword">public</span> <span class="token class-name">Result</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> <span class="token function">runtimeExceptionHandler</span><span class="token punctuation">(</span><span class="token class-name">RuntimeException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token class-name">ResultUtils</span><span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>
-                <span class="token class-name">ErrorCodeEnum</span><span class="token punctuation">.</span><span class="token constant">INTERNAL_SERVER_ERROR</span><span class="token punctuation">.</span><span class="token function">getCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-                e<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-                <span class="token string">"服务器发生错误, 请及时告知开发人员"</span>
-        <span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token annotation punctuation">@ExceptionHandler</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token punctuation">{</span>
-            <span class="token class-name">MethodArgumentNotValidException</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span>
-            <span class="token class-name">HttpMessageNotReadableException</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span>
-            <span class="token class-name">ConstraintViolationException</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span>
-            <span class="token class-name">HandlerMethodValidationException</span><span class="token punctuation">.</span><span class="token keyword">class</span>
-    <span class="token punctuation">}</span><span class="token punctuation">)</span>
-    <span class="token annotation punctuation">@ResponseBody</span>
-    <span class="token keyword">public</span> <span class="token class-name">Result</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> <span class="token class-name">ArgumentValidExceptionHandler</span><span class="token punctuation">(</span><span class="token class-name">Exception</span> ignored<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token class-name">ResultUtils</span><span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>
-                <span class="token class-name">ErrorCodeEnum</span><span class="token punctuation">.</span><span class="token constant">BAD_REQUEST</span><span class="token punctuation">,</span>
-                <span class="token string">"请检查参数是否正确"</span>
-        <span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token annotation punctuation">@ExceptionHandler</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token class-name">MissingServletRequestParameterException</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
-    <span class="token annotation punctuation">@ResponseBody</span>
-    <span class="token keyword">public</span> <span class="token class-name">Result</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> <span class="token class-name">MissingServletParameterExceptionHandler</span><span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token class-name">ResultUtils</span><span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>
-                <span class="token class-name">ErrorCodeEnum</span><span class="token punctuation">.</span><span class="token constant">BAD_REQUEST</span><span class="token punctuation">,</span>
-                <span class="token string">"请核对参数，以免重新登录"</span>
-        <span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token annotation punctuation">@ExceptionHandler</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token class-name">NoResourceFoundException</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
-    <span class="token annotation punctuation">@ResponseBody</span>
-    <span class="token keyword">public</span> <span class="token class-name">Result</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> <span class="token function">illegalStateExceptionHandler</span><span class="token punctuation">(</span><span class="token class-name">NoResourceFoundException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token class-name">ResultUtils</span><span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>
-                <span class="token class-name">ErrorCodeEnum</span><span class="token punctuation">.</span><span class="token constant">BAD_REQUEST</span><span class="token punctuation">,</span>
-                <span class="token string">"请求路径或资源不正确！"</span>
-        <span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="数据库三大范式"><a href="#数据库三大范式" class="headerlink" title="数据库三大范式"></a>数据库三大范式</h3><ol>
-<li>第一范式：每一列都是原子，不可分割</li>
-<li>第二范式：要求每个非主键列都完全依赖于主键</li>
-<li>第三范式要求在第二范式的基础上，非主键列直接依赖于主键而不是传递依赖</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/09/03/19/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2588,6 +2261,85 @@ public class TestLazy {
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/06/13/21/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="QingQiu">
+      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QingQiu'Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/06/13/21/" class="post-title-link" itemprop="url">软件工程</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-06-13 21:56:21 / 修改时间：22:09:19" itemprop="dateCreated datePublished" datetime="2024-06-13T21:56:21+08:00">2024-06-13</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>662</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="软件工程相关"><a href="#软件工程相关" class="headerlink" title="软件工程相关"></a>软件工程相关</h2><h3 id="软件开发模型"><a href="#软件开发模型" class="headerlink" title="软件开发模型"></a>软件开发模型</h3><p>瀑布模型（Waterfall Model）、快速原型模型（Rapid Prototype Model）、V 模型（V-model）、W 模型（W-model）、敏捷开发模型等</p>
+<h4 id="敏捷开发"><a href="#敏捷开发" class="headerlink" title="敏捷开发"></a>敏捷开发</h4><p><strong>敏捷开发</strong> 是一种以人为核心、迭代、循序渐进的开发方法。在敏捷开发中，软件项目的构建被切分成多个子项目，各个子项目的成果都经过测试，具备集成和可运行的特征。换言之，就是把一个大项目分为多个相互联系，但也可独立运行的小项目，并分别完成，在此过程中软件一直处于可使用状态。</p>
+<h3 id="软件开发的基本策略"><a href="#软件开发的基本策略" class="headerlink" title="软件开发的基本策略"></a>软件开发的基本策略</h3><h4 id="软件复用"><a href="#软件复用" class="headerlink" title="软件复用"></a>软件复用</h4><p>构建新软件不需要从头开始，可以复用已有的轮子</p>
+<h4 id="分而治之"><a href="#分而治之" class="headerlink" title="分而治之"></a>分而治之</h4><h4 id="逐步演进"><a href="#逐步演进" class="headerlink" title="逐步演进"></a>逐步演进</h4><p>不断进行迭代式增量开发<br>MVP(<strong>Minimum Viable Product</strong> 最小可行产品)</p>
+<h4 id="优化折中"><a href="#优化折中" class="headerlink" title="优化折中"></a>优化折中</h4><p>不需要完全优化，用有效的投入内以最有效的方式提高现有软件的质量</p>
+<h2 id="代码规范"><a href="#代码规范" class="headerlink" title="代码规范"></a>代码规范</h2><h3 id="命名规范"><a href="#命名规范" class="headerlink" title="命名规范"></a>命名规范</h3><ul>
+<li><strong>类名需要使用大驼峰命名法</strong></li>
+<li><strong>方法名、参数名、成员变量、局部变量需要使用小驼峰命名法（lowerCamelCase</strong></li>
+<li><strong>测试方法名、常量、枚举名称需要使用蛇形命名法（snake_case）</strong> (各个单词之间通过下划线“_”连接，比如<code>should_get_200_status_code_when_request_is_valid</code>、<code>CLIENT_CONNECT_SERVER_FAILURE</code>)</li>
+<li>项目文件夹名称使用串式命名法，在串式命名法中，各个单词之间通过连接符“-”连接，比如<code>dubbo-registry</code>。</li>
+<li><strong>抽象类命名使用 Abstract</strong></li>
+<li><strong>异常类命名使用 Exception 结尾。</strong></li>
+<li><strong>测试类命名以它要测试的类的名称开始，以 Test 结尾。</strong></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -2657,7 +2409,7 @@ public class TestLazy {
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">53</span>
+          <span class="site-state-item-count">52</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2711,7 +2463,7 @@ public class TestLazy {
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">435k</span>
+    <span title="站点总字数">432k</span>
 </div>
 
         
