@@ -255,6 +255,7 @@
 <span id="more"></span>
 <p><img src="/2024/10/03/28/%E5%85%B3%E7%B3%BB.png"><br>而DefaultResourceLoader又是实现的ResourceLoader接口<br><img src="/2024/10/03/28/%E5%AE%9E%E7%8E%B0.png"></p>
 <p>我们通过不断去溯源<code>new ClassPathXmlApplicationContext</code>这个构造方法<br><img src="/2024/10/03/28/%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%951.png"><br>我们先通过super一直溯源到最后<img src="/2024/10/03/28/%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%952.png"><br>我们再来看看setParent的源码：<br><img src="/2024/10/03/28/setParent.png"><br>发现这里仅仅是给ApplicationContex设设置上下文。<br>所以真正的重点还是上面的<code>refresh</code>那里。</p>
+<!--more-->
 <h2 id="refresh"><a href="#refresh" class="headerlink" title="refresh"></a>refresh</h2><p>先看源码，源码有点长，但是我加了注解，请慢慢看，我会在里面进行一些分析的</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">refresh</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">BeansException</span><span class="token punctuation">,</span> <span class="token class-name">IllegalStateException</span> <span class="token punctuation">{</span>
 		<span class="token keyword">synchronized</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>startupShutdownMonitor<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -581,8 +582,8 @@
       <i class="fa fa-chevron-left"></i> Netty源码初探
     </a></div>
       <div class="post-nav-item">
-    <a href="/2024/10/04/30/" rel="next" title="MySQL是如何解决幻读的？">
-      MySQL是如何解决幻读的？ <i class="fa fa-chevron-right"></i>
+    <a href="/2024/10/04/15/" rel="next" title="微服务加密探讨">
+      微服务加密探讨 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -656,7 +657,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-count">53</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -710,7 +711,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">449k</span>
+    <span title="站点总字数">435k</span>
 </div>
 
         
