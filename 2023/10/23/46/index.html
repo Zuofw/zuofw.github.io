@@ -32,6 +32,7 @@
 <meta property="og:image" content="https://zuofw.github.io/2023/10/23/46/%E5%8D%8F%E5%95%86%E7%BC%93%E5%AD%98.png">
 <meta property="og:image" content="https://zuofw.github.io/2023/10/23/46/CA%E7%AE%97%E6%B3%95.png">
 <meta property="og:image" content="https://zuofw.github.io/2023/10/23/46/%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E7%AE%97%E6%B3%95.png">
+<meta property="og:image" content="https://zuofw.github.io/2023/10/23/46/%E4%BB%A3%E7%90%86%E4%BA%BA.webp">
 <meta property="og:image" content="https://zuofw.github.io/2023/10/23/46/%E4%B8%89%E6%8F%A1%E5%9B%9B%E6%8C%A5.png">
 <meta property="og:image" content="https://zuofw.github.io/2023/10/23/46/%E5%A4%B4%E9%83%A8.png">
 <meta property="og:image" content="https://zuofw.github.io/2023/10/23/46/%E4%BD%BF%E7%94%A8cookie%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5.png">
@@ -40,9 +41,9 @@
 <meta property="og:image" content="https://zuofw.github.io/2023/10/23/46/DNS%E8%AE%B0%E5%BD%95%E6%A0%BC%E5%BC%8F.png">
 <meta property="og:image" content="https://zuofw.github.io/2023/10/23/46/tcp%E6%8A%A5%E6%96%87.png">
 <meta property="article:published_time" content="2023-10-23T12:01:46.000Z">
-<meta property="article:modified_time" content="2024-08-27T14:11:17.000Z">
+<meta property="article:modified_time" content="2024-10-15T14:28:33.348Z">
 <meta property="article:author" content="QingQiu">
-<meta property="article:tag" content="计算机网络">
+<meta property="article:tag" content="计网">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://zuofw.github.io/2023/10/23/46/TcpHeader.png">
 
@@ -213,7 +214,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-08-27 22:11:17" itemprop="dateModified" datetime="2024-08-27T22:11:17+08:00">2024-08-27</time>
+                <time title="修改时间：2024-10-15 22:28:33" itemprop="dateModified" datetime="2024-10-15T22:28:33+08:00">2024-10-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -231,7 +232,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>15k</span>
+              <span>16k</span>
             </span>
 
         </div>
@@ -398,22 +399,50 @@
 <li>协商缓存： 与服务器协商之后，通过协商结果来判断是否使用本地缓存。<img src="/2023/10/23/46/%E5%8D%8F%E5%95%86%E7%BC%93%E5%AD%98.png"></li>
 </ol>
 <h2 id="不同版本的HTTP特点"><a href="#不同版本的HTTP特点" class="headerlink" title="不同版本的HTTP特点"></a>不同版本的HTTP特点</h2><p>HTTP: 80<br>HTTPS: 443</p>
-<h3 id="HTTP的迭代和对比"><a href="#HTTP的迭代和对比" class="headerlink" title="HTTP的迭代和对比"></a>HTTP的迭代和对比</h3><h4 id="HTTP1-1的进步和缺点"><a href="#HTTP1-1的进步和缺点" class="headerlink" title="HTTP1.1的进步和缺点"></a>HTTP1.1的进步和缺点</h4><p>进步：</p>
-<ol>
+<h3 id="HTTP缓存-1"><a href="#HTTP缓存-1" class="headerlink" title="HTTP缓存"></a>HTTP缓存</h3><p>Cache-Control(相对时间)优先级高于Expires(绝对时间)<br>强制缓存是浏览器中的缓存没过期就强制使用缓存，协商缓存是每次与服务器协商是否过期。</p>
+<h3 id="HTTP的迭代和对比"><a href="#HTTP的迭代和对比" class="headerlink" title="HTTP的迭代和对比"></a>HTTP的迭代和对比</h3><h4 id="HTTP1-1"><a href="#HTTP1-1" class="headerlink" title="HTTP1.1"></a>HTTP1.1</h4><p><strong>已经实现了长连接和管道网络传输(不需要一问一答，可以连续发送请求)</strong><br>解决了 <strong>请求的队头阻塞</strong>，但是没解决响应的队头阻塞。<br>头部冗长，未压缩，请求只能由客户端开始</p>
+<h4 id="优点和缺点"><a href="#优点和缺点" class="headerlink" title="优点和缺点"></a>优点和缺点</h4><p>双刃剑：无状态、明文传输<br>缺点：不安全</p>
+<ul>
+<li>无状态可以使得浏览器不需要额外记忆HTTP的状态，缺点是处理有关联性的操作时会很麻烦<ul>
+<li>解决方式就是使用Cookie</li>
+</ul>
+</li>
+<li>明文传输：方便调试的同时不安全</li>
+<li>不安全：1. 明文传输2.不验证通信双方的身份3.不能证明报文的完整性 <ul>
+<li>解决方式使用HTTPS</li>
+</ul>
+</li>
+</ul>
+<h4 id="性能-长连接"><a href="#性能-长连接" class="headerlink" title="性能(长连接)"></a>性能(长连接)</h4><ol>
+<li>相比较于1.0，1.1使用了长连接，一次TCP连接发起多次请求</li>
+<li>可以使用管道通信，只要请求发送出去后，不需要等待响应结果即可发送下一个请求<br>解决了请求的队头阻塞，但是没有解决响应的队头阻塞，同时不是默认使用的<blockquote>
+<p>队头阻塞是指当一个请求因为某种原因被阻塞，会导致后面排队的所有请求都一同被阻塞<br>进步：</p>
+</blockquote>
+</li>
 <li>长连接</li>
 <li>支持管道网络传输<br>缺点：</li>
 <li>Header部分未经压缩就发送，延迟大，只能压缩Body部分</li>
-<li>会出现队头阻塞：服务端相应慢，导致后续的请求不能及时发送</li>
+<li>会出现队头阻塞：服务端响应慢，导致后续的请求不能及时发送</li>
 <li>请求只能从客户端开始</li>
 </ol>
 <h4 id="HTTP-x2F-2"><a href="#HTTP-x2F-2" class="headerlink" title="HTTP/2"></a>HTTP/2</h4><p>进步：</p>
 <ol>
 <li>HTTP/2是基于HTTPS，安全有保证</li>
-<li>队头压缩：如果同时发出多个请求，他们的请求头是一样的或者是相似的，就会消除重复的部分，原理是客户端和服务端同时维护一张头信息表，所有字段都会存在里面来进行索j引</li>
+<li>队头压缩：如果同时发出多个请求，他们的请求头是一样的或者是相似的，就会消除重复的部分，原理是客户端和服务端同时维护一张头信息表，所有字段都会存在里面来进行索引</li>
 <li>二进制格式：报文使用二进制格式，而不是使用纯文本的格式</li>
-<li>并发传输</li>
-<li>服务器可以主动推送资源</li>
+<li>并发传输，多路复用，一条TCP连接包含多个Stream，StreamID来区分，不同Stream的帧是可以乱序发送的</li>
+<li>服务器可以主动推送资源<br>虽然在HTTP层解决了队头阻塞，但是TCP是字节流协议，导致必须满足一个一个字节才能够读取数据，从而降低效率，一旦丢包，必须进行TCP的重传，就会导致效率降低。</li>
 </ol>
+<h4 id="HTTP-x2F-3"><a href="#HTTP-x2F-3" class="headerlink" title="HTTP/3"></a>HTTP/3</h4><p>使用UDP来进行传输</p>
+<h5 id="QUIC协议"><a href="#QUIC协议" class="headerlink" title="QUIC协议"></a>QUIC协议</h5><p>QUIC协议也实现了Stream的概念，从而某个流发生丢包时，只会则色这个流，而不会阻塞其他流，从而不会存在队头阻塞。<br>QUIC是google设计的一个基于UDP的网络传输协议，旨在替代TCP协议以提供更快的连接建立和数据传输速度。</p>
+<ol>
+<li>快速建立连接：使用基于TLS的安全连接，同时将连接的建立与TLS握手合并，从而减少了连接所需要的往返时间。</li>
+<li>多路复用：允许在单个连接上同时进行多个独立的数据流，从避免了TCP连接中的队头阻塞</li>
+<li>零RTT握手：QUIC支持零往返时间握手，允许客户端在第一次连接时发送数据，无需等待握手完成，进一步减少了连接建立时间。</li>
+<li>动态调整拥塞控制：使用更先进的拥塞控制算法，能够动态的根据网络条件调增数据传输速率。</li>
+<li>错误恢复：QUIC内置了一些错误恢复机制，包括快速重传和前向错误纠正，能够在发生丢包或网络拥塞时更快的恢复数据传输。</li>
+</ol>
+<p>HTTP/2 是⼀个应⽤层协议，是 HTTP/1.1 的后继版本，旨在提⾼ Web ⻚⾯加载速度和性能。 HTTP/2<br>在传输层使⽤了⼆进制分帧，头部压缩，多路复⽤等技术，以减少延迟和提⾼效率。 HTTP/2 不是⼀个<br>替代传输层协议，⽽是在传输层上实现的 HTTP 协议的增强版本。</p>
 <h3 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h3><blockquote>
 <p>HTTPS是在TCP和HTTP之间加入了SSL/TLS安全协议</p>
 </blockquote>
@@ -434,25 +463,8 @@
 <li>双方使用这三个随机数和加密算法生成会话密钥</li>
 <li>服务器最后1.加密算法改变 2.握手结束，生成摘要供客户端校验</li>
 </ol>
-<h3 id="HTTP-x2F-1-1"><a href="#HTTP-x2F-1-1" class="headerlink" title="HTTP/1.1"></a>HTTP/1.1</h3><h4 id="优点和缺点"><a href="#优点和缺点" class="headerlink" title="优点和缺点"></a>优点和缺点</h4><p>双刃剑：无状态、明文传输<br>缺点：不安全</p>
-<ul>
-<li>无状态可以使得浏览器不需要额外记忆HTTP的状态，缺点是处理有关联性的操作时会很麻烦<ul>
-<li>解决方式就是使用Cookie</li>
-</ul>
-</li>
-<li>明文传输：方便调试的同时不安全</li>
-<li>不安全：1. 明文传输2.不验证通信双方的身份3.不能证明报文的完整性 <ul>
-<li>解决方式使用HTTPS</li>
-</ul>
-</li>
-</ul>
-<h4 id="性能-长连接"><a href="#性能-长连接" class="headerlink" title="性能(长连接)"></a>性能(长连接)</h4><ol>
-<li>相比较于1.0，1.1使用了长连接，一次TCP连接发起多次请求</li>
-<li>可以使用管道通信，只要请求发送出去后，不需要等待响应结果即可发送下一个请求<br>解决了请求的队头阻塞，但是没有解决响应的队头阻塞，同时不是默认使用的<blockquote>
-<p>队头阻塞是指当一个请求因为某种原因被阻塞，会导致后面排队的所有请求都一同被阻塞</p>
-</blockquote>
-</li>
-</ol>
+<h4 id="HTTPS抓包-x2F-代理人"><a href="#HTTPS抓包-x2F-代理人" class="headerlink" title="HTTPS抓包/代理人"></a>HTTPS抓包/代理人</h4><p><img src="/2023/10/23/46/%E4%BB%A3%E7%90%86%E4%BA%BA.webp"></p>
+<p>抓包工具的原理就是往系统受信任的根证书列表导入抓包工具生成的证书，这个证书会被浏览器新人，也就是转包工具给自己建立了一个CA。<br>如何解决中间人攻击：使用HTTPS双向认证，服务器也对客户端的认证信息进行验证。</p>
 <h2 id="计网常问"><a href="#计网常问" class="headerlink" title="计网常问"></a>计网常问</h2><h3 id="一个请求整个网络的处理"><a href="#一个请求整个网络的处理" class="headerlink" title="一个请求整个网络的处理"></a>一个请求整个网络的处理</h3><ol>
 <li>浏览器解析URL生成HTTP消息</li>
 <li>通过DNS解析获得IP地址</li>
@@ -525,15 +537,6 @@
 <blockquote>
 <p>DNSSEC（Domain Name System Security Extensions，域名系统安全扩展）是一组用于保护 DNS（域名系统）信息安全的协议和技术。它通过数字签名验证 DNS 数据的真实性和完整性，防止 DNS 缓存投毒和其他类型的攻击。</p>
 </blockquote>
-<h4 id="QUIC、Http2特点"><a href="#QUIC、Http2特点" class="headerlink" title="QUIC、Http2特点"></a>QUIC、Http2特点</h4><p>QUIC是google设计的一个基于UDP的网络传输协议，旨在替代TCP协议以提供更快的连接建立和数据传输速度。</p>
-<ol>
-<li>快速建立连接：使用基于TLS的安全连接，同时将连接的建立与TLS握手合并，从而减少了连接所需要的往返时间。</li>
-<li>多路复用：允许在单个连接上同时进行多个独立的数据流，从避免了TCP连接中的队头阻塞</li>
-<li>零RTT握手：QUIC支持零往返时间握手，允许客户端在第一次连接时发送数据，无需等待握手完成，进一步减少了连接建立时间。</li>
-<li>动态调整拥塞控制：使用更先进的拥塞控制算法，能够动态的根据网络条件调增数据传输速率。</li>
-<li>错误恢复：QUIC内置了一些错误恢复机制，包括快速重传和前向错误纠正，能够在发生丢包或网络拥塞时更快的恢复数据传输。</li>
-</ol>
-<p>HTTP/2 是⼀个应⽤层协议，是 HTTP/1.1 的后继版本，旨在提⾼ Web ⻚⾯加载速度和性能。 HTTP/2<br>在传输层使⽤了⼆进制分帧，头部压缩，多路复⽤等技术，以减少延迟和提⾼效率。 HTTP/2 不是⼀个<br>替代传输层协议，⽽是在传输层上实现的 HTTP 协议的增强版本。</p>
 <h2 id="网络核心"><a href="#网络核心" class="headerlink" title="网络核心"></a>网络核心</h2><p>概念：路由器的网状网络<br>提问： 数据怎么通过网络进行传输？</p>
 <ul>
 <li>电路电路交换：  不可共享资源，会造成资源浪费，不适合计算机之间的通讯，计算机通信的特点： 突发性，耗时短</li>
@@ -941,7 +944,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag"># 计算机网络</a>
+              <a href="/tags/%E8%AE%A1%E7%BD%91/" rel="tag"># 计网</a>
           </div>
 
         
@@ -1015,7 +1018,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%BD%91"><span class="nav-number">1.</span> <span class="nav-text">计网</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">概念</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E5%B8%B8%E9%97%AE"><span class="nav-number">2.</span> <span class="nav-text">面试常问</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#IP"><span class="nav-number">2.1.</span> <span class="nav-text">IP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP"><span class="nav-number">2.2.</span> <span class="nav-text">TCP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98"><span class="nav-number">2.3.</span> <span class="nav-text">如何解决粘包问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E4%BC%A0%E6%9C%BA%E5%88%B6"><span class="nav-number">2.3.1.</span> <span class="nav-text">重传机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3-4-2-TCP-%E9%87%8D%E4%BC%A0%E3%80%81%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E3%80%81%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6%E3%80%81%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6-%E5%B0%8F%E6%9E%97coding-xiaolincoding-com"><span class="nav-number">2.3.2.</span> <span class="nav-text">[滑动窗口](4.2 TCP 重传、滑动窗口、流量控制、拥塞控制 | 小林coding (xiaolincoding.com))</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%91%E9%80%81%E6%96%B9%E7%AA%97%E5%8F%A3"><span class="nav-number">2.3.2.1.</span> <span class="nav-text">发送方窗口</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP"><span class="nav-number">2.4.</span> <span class="nav-text">HTTP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">2.4.1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E7%8A%B6%E6%80%81%E7%A0%81"><span class="nav-number">2.4.2.</span> <span class="nav-text">常见的状态码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP%E7%BC%93%E5%AD%98"><span class="nav-number">2.4.3.</span> <span class="nav-text">HTTP缓存</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E5%90%8C%E7%89%88%E6%9C%AC%E7%9A%84HTTP%E7%89%B9%E7%82%B9"><span class="nav-number">2.5.</span> <span class="nav-text">不同版本的HTTP特点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%92%8C%E5%AF%B9%E6%AF%94"><span class="nav-number">2.5.1.</span> <span class="nav-text">HTTP的迭代和对比</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP1-1%E7%9A%84%E8%BF%9B%E6%AD%A5%E5%92%8C%E7%BC%BA%E7%82%B9"><span class="nav-number">2.5.1.1.</span> <span class="nav-text">HTTP1.1的进步和缺点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP-x2F-2"><span class="nav-number">2.5.1.2.</span> <span class="nav-text">HTTP&#x2F;2</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTPS"><span class="nav-number">2.5.2.</span> <span class="nav-text">HTTPS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83"><span class="nav-number">2.5.2.1.</span> <span class="nav-text">核心</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86"><span class="nav-number">2.5.2.2.</span> <span class="nav-text">非对称加密</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B-RSA%E7%AE%97%E6%B3%95%E4%B8%BA%E4%BE%8B"><span class="nav-number">2.5.2.3.</span> <span class="nav-text">流程(RSA算法为例)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP-x2F-1-1"><span class="nav-number">2.5.3.</span> <span class="nav-text">HTTP&#x2F;1.1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E7%82%B9%E5%92%8C%E7%BC%BA%E7%82%B9"><span class="nav-number">2.5.3.1.</span> <span class="nav-text">优点和缺点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%A7%E8%83%BD-%E9%95%BF%E8%BF%9E%E6%8E%A5"><span class="nav-number">2.5.3.2.</span> <span class="nav-text">性能(长连接)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%BD%91%E5%B8%B8%E9%97%AE"><span class="nav-number">2.6.</span> <span class="nav-text">计网常问</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E8%AF%B7%E6%B1%82%E6%95%B4%E4%B8%AA%E7%BD%91%E7%BB%9C%E7%9A%84%E5%A4%84%E7%90%86"><span class="nav-number">2.6.1.</span> <span class="nav-text">一个请求整个网络的处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IPv6%E4%BC%98%E7%82%B9"><span class="nav-number">2.6.2.</span> <span class="nav-text">IPv6优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BGP%E3%80%81OSPF%E5%8D%8F%E8%AE%AE%E5%8E%9F%E7%90%86"><span class="nav-number">2.6.3.</span> <span class="nav-text">BGP、OSPF协议原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E6%8F%A1%E5%9B%9B%E6%8C%A5"><span class="nav-number">2.6.4.</span> <span class="nav-text">三握四挥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP%E5%92%8CUDP"><span class="nav-number">2.6.5.</span> <span class="nav-text">TCP和UDP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SYN%E6%94%BB%E5%87%BB"><span class="nav-number">2.6.5.1.</span> <span class="nav-text">SYN攻击</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3"><span class="nav-number">2.6.5.2.</span> <span class="nav-text">滑动窗口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%85%A2%E5%90%AF%E5%8A%A8"><span class="nav-number">2.6.5.3.</span> <span class="nav-text">慢启动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%98%BB%E5%A1%9E%E6%8E%A7%E5%88%B6"><span class="nav-number">2.6.5.4.</span> <span class="nav-text">阻塞控制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DNS"><span class="nav-number">2.6.5.5.</span> <span class="nav-text">DNS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DNS%E5%8A%AB%E6%8C%81"><span class="nav-number">2.6.5.6.</span> <span class="nav-text">DNS劫持</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#QUIC%E3%80%81Http2%E7%89%B9%E7%82%B9"><span class="nav-number">2.6.5.7.</span> <span class="nav-text">QUIC、Http2特点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E6%A0%B8%E5%BF%83"><span class="nav-number">2.7.</span> <span class="nav-text">网络核心</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%B1%82"><span class="nav-number">2.8.</span> <span class="nav-text">应用层</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E5%BA%94%E7%94%A8%E5%B1%82%E5%8D%8F%E8%AE%AE"><span class="nav-number">2.8.1.</span> <span class="nav-text">常见的应用层协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP%E9%9D%A2%E8%AF%95%E9%A2%98"><span class="nav-number">2.8.1.1.</span> <span class="nav-text">HTTP面试题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%A0%E8%BE%93%E5%B1%82"><span class="nav-number">2.9.</span> <span class="nav-text">传输层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%B1%82"><span class="nav-number">2.10.</span> <span class="nav-text">网络层</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E6%8E%A5%E5%8F%A3%E5%B1%82%EF%BC%9A%E7%AD%89%E4%BB%B7%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82%EF%BC%8C%E4%BD%BF%E7%94%A8mac%E5%9C%B0%E5%9D%80"><span class="nav-number">2.10.1.</span> <span class="nav-text">网络接口层：等价数据链路层，使用mac地址</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E5%B1%82"><span class="nav-number">2.11.</span> <span class="nav-text">物理层</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#OSI%E5%8F%82%E8%80%83%E6%A8%A1%E5%9E%8B-%E6%9C%89%E4%B8%83%E4%B8%AA%E5%88%86%E5%B1%82"><span class="nav-number">2.11.0.1.</span> <span class="nav-text">OSI参考模型 有七个分层</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8"><span class="nav-number">2.12.</span> <span class="nav-text">网络安全</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%BD%91"><span class="nav-number">1.</span> <span class="nav-text">计网</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">概念</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E5%B8%B8%E9%97%AE"><span class="nav-number">2.</span> <span class="nav-text">面试常问</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#IP"><span class="nav-number">2.1.</span> <span class="nav-text">IP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP"><span class="nav-number">2.2.</span> <span class="nav-text">TCP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98"><span class="nav-number">2.3.</span> <span class="nav-text">如何解决粘包问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E4%BC%A0%E6%9C%BA%E5%88%B6"><span class="nav-number">2.3.1.</span> <span class="nav-text">重传机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3-4-2-TCP-%E9%87%8D%E4%BC%A0%E3%80%81%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E3%80%81%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6%E3%80%81%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6-%E5%B0%8F%E6%9E%97coding-xiaolincoding-com"><span class="nav-number">2.3.2.</span> <span class="nav-text">[滑动窗口](4.2 TCP 重传、滑动窗口、流量控制、拥塞控制 | 小林coding (xiaolincoding.com))</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%91%E9%80%81%E6%96%B9%E7%AA%97%E5%8F%A3"><span class="nav-number">2.3.2.1.</span> <span class="nav-text">发送方窗口</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP"><span class="nav-number">2.4.</span> <span class="nav-text">HTTP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">2.4.1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E7%8A%B6%E6%80%81%E7%A0%81"><span class="nav-number">2.4.2.</span> <span class="nav-text">常见的状态码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP%E7%BC%93%E5%AD%98"><span class="nav-number">2.4.3.</span> <span class="nav-text">HTTP缓存</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E5%90%8C%E7%89%88%E6%9C%AC%E7%9A%84HTTP%E7%89%B9%E7%82%B9"><span class="nav-number">2.5.</span> <span class="nav-text">不同版本的HTTP特点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP%E7%BC%93%E5%AD%98-1"><span class="nav-number">2.5.1.</span> <span class="nav-text">HTTP缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%92%8C%E5%AF%B9%E6%AF%94"><span class="nav-number">2.5.2.</span> <span class="nav-text">HTTP的迭代和对比</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP1-1"><span class="nav-number">2.5.2.1.</span> <span class="nav-text">HTTP1.1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E7%82%B9%E5%92%8C%E7%BC%BA%E7%82%B9"><span class="nav-number">2.5.2.2.</span> <span class="nav-text">优点和缺点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%A7%E8%83%BD-%E9%95%BF%E8%BF%9E%E6%8E%A5"><span class="nav-number">2.5.2.3.</span> <span class="nav-text">性能(长连接)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP-x2F-2"><span class="nav-number">2.5.2.4.</span> <span class="nav-text">HTTP&#x2F;2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP-x2F-3"><span class="nav-number">2.5.2.5.</span> <span class="nav-text">HTTP&#x2F;3</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#QUIC%E5%8D%8F%E8%AE%AE"><span class="nav-number">2.5.2.5.1.</span> <span class="nav-text">QUIC协议</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTPS"><span class="nav-number">2.5.3.</span> <span class="nav-text">HTTPS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83"><span class="nav-number">2.5.3.1.</span> <span class="nav-text">核心</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86"><span class="nav-number">2.5.3.2.</span> <span class="nav-text">非对称加密</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B-RSA%E7%AE%97%E6%B3%95%E4%B8%BA%E4%BE%8B"><span class="nav-number">2.5.3.3.</span> <span class="nav-text">流程(RSA算法为例)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTPS%E6%8A%93%E5%8C%85-x2F-%E4%BB%A3%E7%90%86%E4%BA%BA"><span class="nav-number">2.5.3.4.</span> <span class="nav-text">HTTPS抓包&#x2F;代理人</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%BD%91%E5%B8%B8%E9%97%AE"><span class="nav-number">2.6.</span> <span class="nav-text">计网常问</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E8%AF%B7%E6%B1%82%E6%95%B4%E4%B8%AA%E7%BD%91%E7%BB%9C%E7%9A%84%E5%A4%84%E7%90%86"><span class="nav-number">2.6.1.</span> <span class="nav-text">一个请求整个网络的处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IPv6%E4%BC%98%E7%82%B9"><span class="nav-number">2.6.2.</span> <span class="nav-text">IPv6优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BGP%E3%80%81OSPF%E5%8D%8F%E8%AE%AE%E5%8E%9F%E7%90%86"><span class="nav-number">2.6.3.</span> <span class="nav-text">BGP、OSPF协议原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E6%8F%A1%E5%9B%9B%E6%8C%A5"><span class="nav-number">2.6.4.</span> <span class="nav-text">三握四挥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP%E5%92%8CUDP"><span class="nav-number">2.6.5.</span> <span class="nav-text">TCP和UDP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SYN%E6%94%BB%E5%87%BB"><span class="nav-number">2.6.5.1.</span> <span class="nav-text">SYN攻击</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3"><span class="nav-number">2.6.5.2.</span> <span class="nav-text">滑动窗口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%85%A2%E5%90%AF%E5%8A%A8"><span class="nav-number">2.6.5.3.</span> <span class="nav-text">慢启动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%98%BB%E5%A1%9E%E6%8E%A7%E5%88%B6"><span class="nav-number">2.6.5.4.</span> <span class="nav-text">阻塞控制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DNS"><span class="nav-number">2.6.5.5.</span> <span class="nav-text">DNS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DNS%E5%8A%AB%E6%8C%81"><span class="nav-number">2.6.5.6.</span> <span class="nav-text">DNS劫持</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E6%A0%B8%E5%BF%83"><span class="nav-number">2.7.</span> <span class="nav-text">网络核心</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%B1%82"><span class="nav-number">2.8.</span> <span class="nav-text">应用层</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E5%BA%94%E7%94%A8%E5%B1%82%E5%8D%8F%E8%AE%AE"><span class="nav-number">2.8.1.</span> <span class="nav-text">常见的应用层协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP%E9%9D%A2%E8%AF%95%E9%A2%98"><span class="nav-number">2.8.1.1.</span> <span class="nav-text">HTTP面试题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%A0%E8%BE%93%E5%B1%82"><span class="nav-number">2.9.</span> <span class="nav-text">传输层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%B1%82"><span class="nav-number">2.10.</span> <span class="nav-text">网络层</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E6%8E%A5%E5%8F%A3%E5%B1%82%EF%BC%9A%E7%AD%89%E4%BB%B7%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82%EF%BC%8C%E4%BD%BF%E7%94%A8mac%E5%9C%B0%E5%9D%80"><span class="nav-number">2.10.1.</span> <span class="nav-text">网络接口层：等价数据链路层，使用mac地址</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E5%B1%82"><span class="nav-number">2.11.</span> <span class="nav-text">物理层</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#OSI%E5%8F%82%E8%80%83%E6%A8%A1%E5%9E%8B-%E6%9C%89%E4%B8%83%E4%B8%AA%E5%88%86%E5%B1%82"><span class="nav-number">2.11.0.1.</span> <span class="nav-text">OSI参考模型 有七个分层</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8"><span class="nav-number">2.12.</span> <span class="nav-text">网络安全</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -1042,7 +1045,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1083,7 +1086,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">432k</span>
+    <span title="站点总字数">438k</span>
 </div>
 
         

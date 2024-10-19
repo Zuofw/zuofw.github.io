@@ -562,7 +562,7 @@ BiFunction 是 Java 8 引入的一个函数式接口，位于 java.util.function
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-10-08 21:02:39" itemprop="dateModified" datetime="2024-10-08T21:02:39+08:00">2024-10-08</time>
+                <time title="修改时间：2024-10-15 22:36:29" itemprop="dateModified" datetime="2024-10-15T22:36:29+08:00">2024-10-15</time>
               </span>
 
           <br>
@@ -571,7 +571,7 @@ BiFunction 是 Java 8 引入的一个函数式接口，位于 java.util.function
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>9.5k</span>
+              <span>9.6k</span>
             </span>
 
         </div>
@@ -742,9 +742,10 @@ xxxx;
 <li>为了方便我们使用二分查找从目录链表中快速定位，我们可以再次将其使用目录记录<img src="/2024/09/14/10/%E7%B4%A2%E5%BC%95%E7%BB%93%E6%9E%843.png"></li>
 <li>反复之后就形成了B+树</li>
 </ol>
-<blockquote>
-<p>B+树和B树的区别：<br>B+树只在最底层的节点上存储真实数据，其余都是用来存储目录项的，B树的任何一个节点都能保存数据</p>
-</blockquote>
+<h4 id="B-树和B树的区别："><a href="#B-树和B树的区别：" class="headerlink" title="B+树和B树的区别："></a>B+树和B树的区别：</h4><ol>
+<li>B+树只在最底层的节点上存储真实数据，其余都是用来存储目录项的，B树的任何一个节点都能保存数据</li>
+<li>B+所有叶子节点之间有链表连接，方便范围查询</li>
+</ol>
 <h3 id="聚簇索引-重点"><a href="#聚簇索引-重点" class="headerlink" title="聚簇索引(重点)"></a>聚簇索引(重点)</h3><p>定义：</p>
 <ol>
 <li>使用主键值的大小进行记录和页的排序：<ul>
@@ -942,6 +943,10 @@ SELECT ... FOR UPDATE; # 加X锁<span aria-hidden="true" class="line-numbers-row
 <li>分析器</li>
 <li>优化器</li>
 <li>执行器</li>
+</ol>
+<h2 id="慢索引如何优化"><a href="#慢索引如何优化" class="headerlink" title="慢索引如何优化"></a>慢索引如何优化</h2><ol>
+<li>使用EXPLAIN语句来查看执行计划，看看是使用了全表扫描，或者索引未命中</li>
+<li>优化SQL：1. 加索引 2. 重写查询，使用子查询或者，联合查询 3. 添加过滤条件等</li>
 </ol>
 
       
@@ -2422,7 +2427,7 @@ public class TestLazy {
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -2463,7 +2468,7 @@ public class TestLazy {
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">432k</span>
+    <span title="站点总字数">438k</span>
 </div>
 
         

@@ -198,7 +198,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-10-09 15:29:49" itemprop="dateModified" datetime="2024-10-09T15:29:49+08:00">2024-10-09</time>
+                <time title="修改时间：2024-10-14 20:40:12" itemprop="dateModified" datetime="2024-10-14T20:40:12+08:00">2024-10-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -216,7 +216,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>17k</span>
+              <span>18k</span>
             </span>
 
         </div>
@@ -686,7 +686,36 @@
 <li>资源变得容易管理：</li>
 <li>降低对象之间的耦合和依赖</li>
 </ol>
-<h1 id="SpringBoot"><a href="#SpringBoot" class="headerlink" title="SpringBoot"></a>SpringBoot</h1><h3 id="自动装配"><a href="#自动装配" class="headerlink" title="自动装配"></a>自动装配</h3><h5 id="EnableAutoConfiguration：实现自动装配的核心"><a href="#EnableAutoConfiguration：实现自动装配的核心" class="headerlink" title="@EnableAutoConfiguration：实现自动装配的核心"></a>@EnableAutoConfiguration：实现自动装配的核心</h5><h1 id="Spring源码阅读"><a href="#Spring源码阅读" class="headerlink" title="Spring源码阅读"></a>Spring源码阅读</h1><p>推荐文章：<a target="_blank" rel="noopener" href="https://github.com/xuchengsheng/spring-reading/tree/master">xuchengsheng/spring-reading(github.com)</a></p>
+<h1 id="SpringBoot"><a href="#SpringBoot" class="headerlink" title="SpringBoot"></a>SpringBoot</h1><h3 id="SpringBootConfiguration注解"><a href="#SpringBootConfiguration注解" class="headerlink" title="@SpringBootConfiguration注解"></a>@SpringBootConfiguration注解</h3><p>里面包含三个注解</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@SpringBootConfiguration</span> <span class="token comment">// 标识这是一个配置类</span>
+<span class="token annotation punctuation">@EnableAutoConfiguration</span> <span class="token comment">// 开启自动装配</span>
+<span class="token annotation punctuation">@ComponentScan</span><span class="token punctuation">(</span> <span class="token comment">// 配置扫描路径，用来加载使用注解格式自定的Bean</span>
+    excludeFilters <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token annotation punctuation">@Filter</span><span class="token punctuation">(</span>
+    type <span class="token operator">=</span> <span class="token class-name">FilterType</span><span class="token punctuation">.</span><span class="token constant">CUSTOM</span><span class="token punctuation">,</span>
+    classes <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token class-name">TypeExcludeFilter</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">}</span>
+<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token annotation punctuation">@Filter</span><span class="token punctuation">(</span>
+    type <span class="token operator">=</span> <span class="token class-name">FilterType</span><span class="token punctuation">.</span><span class="token constant">CUSTOM</span><span class="token punctuation">,</span>
+    classes <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token class-name">AutoConfigurationExcludeFilter</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">}</span>
+<span class="token punctuation">)</span><span class="token punctuation">}</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>其中@EnableAutoConfiguration注解又包括以下两种注解：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@AutoConfigurationPackage</span> <span class="token comment">// 指定默认的包规则，也就是主程序类所在的包及其所有子包下的组件扫描到Spring容器中</span>
+<span class="token annotation punctuation">@Import</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token class-name">AutoConfigurationImportSelector</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token comment">// 引入AutoConfigurationImportSelector类，通过该类的selectImports方法去读取META-INF/spring.factories文件中配置的组件的全类名，并且按照一定的规则过滤掉不符合要求的组件的全类名，将剩余读取到的哥哥组件中的全类名集合返回给IOC容器，并将这些组件注册为bean</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>这是@AutoConfigurationPackage注解的内容</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Target</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token class-name">ElementType</span><span class="token punctuation">.</span><span class="token constant">TYPE</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Retention</span><span class="token punctuation">(</span><span class="token class-name">RetentionPolicy</span><span class="token punctuation">.</span><span class="token constant">RUNTIME</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Documented</span>
+<span class="token annotation punctuation">@Inherited</span>
+<span class="token annotation punctuation">@Import</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token class-name">AutoConfigurationPackages<span class="token punctuation">.</span>Registrar</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token annotation punctuation">@interface</span> <span class="token class-name">AutoConfigurationPackage</span> <span class="token punctuation">{</span>
+    <span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">basePackages</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+    <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">basePackageClasses</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>1、利用getAutoConfigurationEntry(annotationMetadata);给容器中批量导入一些组件<br>2、调用List configurations = getCandidateConfigurations(annotationMetadata, attributes)获取到所有需要导入到容器中的配置类<br>3、利用工厂加载 Map&lt;String, List&gt; loadSpringFactories(@Nullable ClassLoader classLoader)；得到所有的组件<br>4、从META-INF/spring.factories位置来加载一个文件。默认扫描我们当前系统里面所有META-INF/spring.factories位置的文件，按照条件装配（ @ C o n d i t i o n a l ) 最终会按需配置 {按照条件装配（@Conditional)最终会按需配置}按照条件装配（@Conditional)最终会按需配置</p>
+<h3 id="SpringBoot自动装配原理"><a href="#SpringBoot自动装配原理" class="headerlink" title="SpringBoot自动装配原理"></a>SpringBoot自动装配原理</h3><h5 id="EnableAutoConfiguration：实现自动装配的核心"><a href="#EnableAutoConfiguration：实现自动装配的核心" class="headerlink" title="@EnableAutoConfiguration：实现自动装配的核心"></a>@EnableAutoConfiguration：实现自动装配的核心</h5><p>先说结论：实际上就是从META-INF/spring.factories文件中获取需要进行自动装配的类，生成响应的Bean对象，然后交给Spring容器管理。这个和手写starter包很类似</p>
+<h1 id="Spring源码阅读"><a href="#Spring源码阅读" class="headerlink" title="Spring源码阅读"></a>Spring源码阅读</h1><p>推荐文章：<a target="_blank" rel="noopener" href="https://github.com/xuchengsheng/spring-reading/tree/master">xuchengsheng/spring-reading(github.com)</a></p>
 <h2 id="Resource"><a href="#Resource" class="headerlink" title="Resource"></a>Resource</h2><p><code>Resource</code> 是Spring框架中用于简化和统一对底层资源（如文件、classpath 资源、URL 等）的访问的一个核心接口。</p>
 <h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>classpath 是 Java 虚拟机（JVM）和 Java 编译器用来查找类文件和资源文件的路径。它指定了 Java 应用程序在运行时或编译时需要的类和资源的位置。classpath 可以包含目录、JAR 文件或 ZIP 文件。</p>
 <h3 id="主要功能"><a href="#主要功能" class="headerlink" title="主要功能"></a>主要功能</h3><ol>
@@ -2763,7 +2792,7 @@ PUT mysougoulog/_mapping</span>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -2804,7 +2833,7 @@ PUT mysougoulog/_mapping</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">432k</span>
+    <span title="站点总字数">438k</span>
 </div>
 
         
