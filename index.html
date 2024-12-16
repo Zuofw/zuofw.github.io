@@ -511,7 +511,7 @@ explain select <span class="token operator">*</span> from user where age is not 
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>16k</span>
+              <span>17k</span>
             </span>
 
         </div>
@@ -615,8 +615,14 @@ explain select <span class="token operator">*</span> from user where age is not 
     <span class="token class-name">TreeNode</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span> prev<span class="token punctuation">;</span>    <span class="token comment">// needed to unlink next upon deletion  </span>
     <span class="token keyword">boolean</span> red<span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="hash方法"><a href="#hash方法" class="headerlink" title="hash方法"></a>hash方法</h3><h3 id="put"><a href="#put" class="headerlink" title="put"></a>put</h3><p>put方法实际就是调用putVal，并且putVal用户不可直接使用</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token class-name">V</span> <span class="token function">put</span><span class="token punctuation">(</span><span class="token class-name">K</span> key<span class="token punctuation">,</span> <span class="token class-name">V</span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+<h3 id="hash方法"><a href="#hash方法" class="headerlink" title="hash方法"></a>hash方法</h3><h3 id="put"><a href="#put" class="headerlink" title="put"></a>put</h3><ol>
+<li>判断数组,若发现数组为空,则进行首次扩容。</li>
+<li>判断头节点,若发现头节点为空,则新建链表节点,存入数组。</li>
+<li>判断头节点,若发现头节点非空,则将元素插入槽内。</li>
+<li>若元素的key与头节点一致,则直接覆盖头节点。</li>
+<li>若元素为树型节点,则将元素追加到树中。</li>
+<li>若元素为链表节点,则将元素追加到链表中。（追加后,需要判断链表长度以决定是否转为红黑树。若链表长度达到8、数组容量未达到64,则扩容。若链表长度达到8、数组容量达到64,则转为红黑树。）</li>
+<li>插入元素后,判断元素的个数,若发现超过阈值则再次扩容。<br>put方法实际就是调用putVal，并且putVal用户不可直接使用<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token class-name">V</span> <span class="token function">put</span><span class="token punctuation">(</span><span class="token class-name">K</span> key<span class="token punctuation">,</span> <span class="token class-name">V</span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span>  
     <span class="token keyword">return</span> <span class="token function">putVal</span><span class="token punctuation">(</span><span class="token function">hash</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">,</span> key<span class="token punctuation">,</span> value<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
 <span class="token punctuation">}</span>
 
@@ -675,8 +681,7 @@ explain select <span class="token operator">*</span> from user where age is not 
     <span class="token function">afterNodeInsertion</span><span class="token punctuation">(</span>evict<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>基本逻辑：</p>
-<ol>
+基本逻辑：</li>
 <li>如果定位到的数组位置没有元素，则直接插入</li>
 <li>如果有元素，就要与插入的key进行比较，如果相同，就覆盖。如果不同就判断p是否是树节点，如果不是就直接遍历链表插入，使用尾插法，否则调用putTreeVal函数</li>
 </ol>
@@ -1254,7 +1259,7 @@ explain select <span class="token operator">*</span> from user where age is not 
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.8k</span>
+              <span>4k</span>
             </span>
 
         </div>
@@ -1380,6 +1385,7 @@ explain select <span class="token operator">*</span> from user where age is not 
 <li>withInitial 和 withInitialAndCopier提供用于创建具有初始值和复制器的TTL变量</li>
 <li>核心 Transmitter 内部类提供了 capture(将当前线程中的holder里的TTL捕获出来设置到HashMap中）、replay(将捕获的HashMap设置到新线程的TTL实例中)、clear 和 restore(将之前捕获的HashMap恢复到当前线程的TTL中) 方法，用于捕获和恢复线程本地变量的值。</li>
 </ol>
+<p>TTL做的实际上就是将原本与Thread绑定的线程变量，缓存一份到TtlRunnable对象中，在执行子线程任务前，将对象中缓存的变量值设置到子线程的ThreadLocal中以供run()方法的代码使用，然后执行完后，又恢复现场，保证不会对复用线程产生影响。</p>
 
       
     </div>
