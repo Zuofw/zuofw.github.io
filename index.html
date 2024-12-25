@@ -1250,7 +1250,7 @@ explain select <span class="token operator">*</span> from user where age is not 
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.8k</span>
+              <span>2.3k</span>
             </span>
 
         </div>
@@ -1319,7 +1319,25 @@ explain select <span class="token operator">*</span> from user where age is not 
 <li>可重复读：解决了脏读和不可重复度，一个事务内多次读取同一数据时，保证读取到的数据是一致的，避免了脏读和不可重复读问题。MySQL InnoDB是通过MVCC+锁来解决的幻读</li>
 <li>串行化：对所有读取的行加锁，强制事务串行执行，避免了脏读、不可重复读和幻读问题，性能较低。</li>
 </ol>
-<h2 id="二面"><a href="#二面" class="headerlink" title="二面"></a>二面</h2>
+<h1 id="二面-第二天晚上"><a href="#二面-第二天晚上" class="headerlink" title="二面(第二天晚上)"></a>二面(第二天晚上)</h1><p>手撕没撕出来，答得一坨，没机会了，挂了</p>
+<h2 id="流程-1"><a href="#流程-1" class="headerlink" title="流程"></a>流程</h2><ol>
+<li>自我介绍</li>
+<li>golang和Java相比有什么优势</li>
+<li>介绍项目：<ol>
+<li>数据同步，数据源有哪些(从上游数据库同步到其他数据库，作为一个中间件，原目标和目的都是在服务器上吗，分批查询，防止OOM)</li>
+<li>增量同步：以日期为更新时间</li>
+<li>MySQL主从建连连接</li>
+</ol>
+</li>
+<li>手撕：子集(写不出来，没办法去重，烂完了)</li>
+<li>介绍MySQL索引</li>
+<li>Linux常用命令，文件描述符有什么用？</li>
+<li>虚拟内存，逻辑地址，物理地址</li>
+<li>B+树叶子节点使用链表连接有什么好处？</li>
+<li>反问：</li>
+</ol>
+<h3 id="MySQL主从同步建立连接，他们之间的过程是怎么样的，需要发送哪些消息"><a href="#MySQL主从同步建立连接，他们之间的过程是怎么样的，需要发送哪些消息" class="headerlink" title="MySQL主从同步建立连接，他们之间的过程是怎么样的，需要发送哪些消息"></a>MySQL主从同步建立连接，他们之间的过程是怎么样的，需要发送哪些消息</h3><h3 id="Redis分布式锁你怎么实现的，怎么应对死锁，"><a href="#Redis分布式锁你怎么实现的，怎么应对死锁，" class="headerlink" title="Redis分布式锁你怎么实现的，怎么应对死锁，"></a>Redis分布式锁你怎么实现的，怎么应对死锁，</h3><h3 id="B-树叶子节点使用链表连接有什么好处？"><a href="#B-树叶子节点使用链表连接有什么好处？" class="headerlink" title="B+树叶子节点使用链表连接有什么好处？"></a>B+树叶子节点使用链表连接有什么好处？</h3><h3 id="介绍MySQL索引"><a href="#介绍MySQL索引" class="headerlink" title="介绍MySQL索引"></a>介绍MySQL索引</h3><h3 id="为什么相同IO次数，B-树可以读取更多数据呢？"><a href="#为什么相同IO次数，B-树可以读取更多数据呢？" class="headerlink" title="为什么相同IO次数，B+树可以读取更多数据呢？"></a>为什么相同IO次数，B+树可以读取更多数据呢？</h3><h3 id="MySQL索引换成Hash索引，会有什么优势呢？"><a href="#MySQL索引换成Hash索引，会有什么优势呢？" class="headerlink" title="MySQL索引换成Hash索引，会有什么优势呢？"></a>MySQL索引换成Hash索引，会有什么优势呢？</h3><h3 id="5亿条数据，如何优化"><a href="#5亿条数据，如何优化" class="headerlink" title="5亿条数据，如何优化"></a>5亿条数据，如何优化</h3><p>我回答的是分库分表</p>
+<h4 id="分库分表如何分？根据什么分？"><a href="#分库分表如何分？根据什么分？" class="headerlink" title="分库分表如何分？根据什么分？"></a>分库分表如何分？根据什么分？</h4><h3 id="快照读和当前读有什么区别"><a href="#快照读和当前读有什么区别" class="headerlink" title="快照读和当前读有什么区别"></a>快照读和当前读有什么区别</h3><h3 id="Linux常见的命令和他们的作用"><a href="#Linux常见的命令和他们的作用" class="headerlink" title="Linux常见的命令和他们的作用"></a>Linux常见的命令和他们的作用</h3><h3 id="逻辑地址和物理地址有什么作用，虚拟内存是如何实现的，CPU寻址是如何做的"><a href="#逻辑地址和物理地址有什么作用，虚拟内存是如何实现的，CPU寻址是如何做的" class="headerlink" title="逻辑地址和物理地址有什么作用，虚拟内存是如何实现的，CPU寻址是如何做的"></a>逻辑地址和物理地址有什么作用，虚拟内存是如何实现的，CPU寻址是如何做的</h3><h3 id="文件描述符有什么用"><a href="#文件描述符有什么用" class="headerlink" title="文件描述符有什么用"></a>文件描述符有什么用</h3>
       
     </div>
 
