@@ -1288,6 +1288,7 @@ explain select <span class="token operator">*</span> from user where age is not 
 <li>binlog和redolog的区别和应用场景</li>
 <li>隔离等级和如何解决相关问题的</li>
 <li>反问：负责业务，建议(换个麦，麦有点难蚌) 建议多结合具体例子去回答问题，日常 or 有转正？ 答：日常</li>
+<li>手撕：重排链表</li>
 </ol>
 <h3 id="比较重要的难点或者亮点"><a href="#比较重要的难点或者亮点" class="headerlink" title="比较重要的难点或者亮点"></a>比较重要的难点或者亮点</h3><p>数据同步使用线程池，使用默认的线程池出现OOM了，如何解决的。 优化点：讲讲线程池源码，任务队列，参数，为什么要用线程池</p>
 <h3 id="为什么选型使用了RocketMQ而不是其他-答得不好"><a href="#为什么选型使用了RocketMQ而不是其他-答得不好" class="headerlink" title="为什么选型使用了RocketMQ而不是其他(答得不好)"></a>为什么选型使用了RocketMQ而不是其他(答得不好)</h3><ol>
@@ -1297,7 +1298,6 @@ explain select <span class="token operator">*</span> from user where age is not 
 <li>RocketMQ消费失败支持重试。</li>
 <li>RocketMQ支持严格的消息顺序，支持全局顺序，一台Broker宕机后，发送消息会失败，但是不会乱序(MySQL二进制日志分发需要严格的消息顺序)</li>
 <li>RocketMQ支持分布式事务和定时任务</li>
-<li>手撕：重排链表</li>
 </ol>
 <h3 id="如何基于策略模式和模板模式进行excel的导入和导出的-答得不好"><a href="#如何基于策略模式和模板模式进行excel的导入和导出的-答得不好" class="headerlink" title="如何基于策略模式和模板模式进行excel的导入和导出的(答得不好)"></a>如何基于策略模式和模板模式进行excel的导入和导出的(答得不好)</h3><ol>
 <li>这俩的概念</li>
