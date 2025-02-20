@@ -167,6 +167,103 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/09/30/51/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="QingQiu">
+      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QingQiu'Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/09/30/51/" class="post-title-link" itemprop="url">ThreadLoocal原理解析</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-09-30 10:22:51" itemprop="dateCreated datePublished" datetime="2024-09-30T10:22:51+08:00">2024-09-30</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1k</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>ThreadLocal实际起作用的是ThreadLocal内部的ThreadLocalMap类，对于每一个Tread，都有一个ThreadLocalMap属性，从而实现线程隔离，然后set的时候就通过获取当前线程然后给他的ThreadLcoalMap属性添加值</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span>  
+<span class="token keyword">class</span> <span class="token class-name">Thread</span> <span class="token keyword">implements</span> <span class="token class-name">Runnable</span> <span class="token punctuation">{</span>
+	<span class="token class-name">ThreadLocal<span class="token punctuation">.</span>ThreadLocalMap</span> threadLocals <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="ThreadLocalMap"><a href="#ThreadLocalMap" class="headerlink" title="ThreadLocalMap"></a>ThreadLocalMap</h2><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">ThreadLocalMap</span> <span class="token punctuation">{</span>  
+  
+    <span class="token comment">/**  
+     * The entries in this hash map extend WeakReference, using     * its main ref field as the key (which is always a     * ThreadLocal object).  Note that null keys (i.e. entry.get()     * == null) mean that the key is no longer referenced, so the     * entry can be expunged from table.  Such entries are referred to     * as "stale entries" in the code that follows. */</span>
+     <span class="token comment">// Entry是节点，继承了WeakReferentce，定义了一个value</span>
+     <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">Entry</span> <span class="token keyword">extends</span> <span class="token class-name">WeakReference</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">ThreadLocal</span><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">{</span> 
+		  <span class="token class-name">Object</span> value<span class="token punctuation">;</span>
+
+            <span class="token class-name">Entry</span><span class="token punctuation">(</span><span class="token class-name">ThreadLocal</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> k<span class="token punctuation">,</span> <span class="token class-name">Object</span> v<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">super</span><span class="token punctuation">(</span>k<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                value <span class="token operator">=</span> v<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+		<span class="token punctuation">}</span>
+	    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">set</span><span class="token punctuation">(</span><span class="token class-name">T</span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+			    <span class="token comment">// 获取当前线程</span>
+		        <span class="token class-name">Thread</span> t <span class="token operator">=</span> <span class="token class-name">Thread</span><span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+				<span class="token comment">// 通过当前线程获取线程中维护的ThreadLocalMap对象</span>
+		        <span class="token class-name">ThreadLocalMap</span> map <span class="token operator">=</span> <span class="token function">getMap</span><span class="token punctuation">(</span>t<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		        <span class="token keyword">if</span> <span class="token punctuation">(</span>map <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		            map<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+		            <span class="token function">createMap</span><span class="token punctuation">(</span>t<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		        <span class="token punctuation">}</span>
+		    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+<h3 id="为何使用弱引用"><a href="#为何使用弱引用" class="headerlink" title="为何使用弱引用"></a>为何使用弱引用</h3><p>因为ThreadLocalMap的key是Thread，如果像普通的key-value的定义，只要线程未销毁<br>就会一直存在，所以使用弱引用就可以在不存在强引用的时候就将这个销毁。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/09/29/15/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2947,151 +3044,6 @@ public class TestLazy {
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/06/17/08/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="QingQiu">
-      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="QingQiu'Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/06/17/08/" class="post-title-link" itemprop="url">深入浅出Zookeeper</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-06-17 15:12:08" itemprop="dateCreated datePublished" datetime="2024-06-17T15:12:08+08:00">2024-06-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-09-12 20:29:55" itemprop="dateModified" datetime="2024-09-12T20:29:55+08:00">2024-09-12</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">分布式</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.2k</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a target="_blank" rel="noopener" href="https://javaguide.cn/distributed-system/distributed-process-coordination/zookeeper/zookeeper-plus.html">https://javaguide.cn/distributed-system/distributed-process-coordination/zookeeper/zookeeper-plus.html</a></p>
-<h2 id="ZooKeeper是什么"><a href="#ZooKeeper是什么" class="headerlink" title="ZooKeeper是什么"></a>ZooKeeper是什么</h2><p>ZooKeeper是一个开源的<strong>分布式协调服务</strong>，设计目标是将哪些复杂且容易出错的分布式一致性服务封装起来，构成一个高效的原语(原语的执行必须连续且不可分割)集，并以一系列简单易用的接口提供给用户时使用</p>
-<h2 id="常用场景"><a href="#常用场景" class="headerlink" title="常用场景"></a>常用场景</h2><ol>
-<li>命名服务：通过ZooKeepe的顺序节点生成全局唯一ID</li>
-<li>数据发布/订阅：通过Watcher机制可以很方便的实现数据发布/订阅。其他机器可以通过监听ZooKeeper上的节点变化来实现配置的动态更新</li>
-<li>分布式锁：通过创建唯一节点获得分布式锁，当获得锁的乙方执行完相关的代码或者挂掉后就释放，也需要使用Watcher机制</li>
-</ol>
-<h2 id="一些可以使用的场景"><a href="#一些可以使用的场景" class="headerlink" title="一些可以使用的场景"></a>一些可以使用的场景</h2><h3 id="手写rpc-注册中心-使用ZooKeeper作为注册中心手写RPC"><a href="#手写rpc-注册中心-使用ZooKeeper作为注册中心手写RPC" class="headerlink" title="[[手写rpc#注册中心|使用ZooKeeper作为注册中心手写RPC]]"></a>[[手写rpc#注册中心|使用ZooKeeper作为注册中心手写RPC]]</h3><h3 id="使用ZooKeeper作为分布式锁"><a href="#使用ZooKeeper作为分布式锁" class="headerlink" title="使用ZooKeeper作为分布式锁"></a>使用ZooKeeper作为分布式锁</h3><h2 id="重要概念"><a href="#重要概念" class="headerlink" title="重要概念"></a>重要概念</h2><h3 id="Data-model"><a href="#Data-model" class="headerlink" title="Data model"></a>Data model</h3><p>ZooKeeper数据模型使用层次化的多叉树形结构，每个节点上都可以存储数据，而且数据可以是数字、字符串、二进制序列。每个节点可以有N个子节点。每个数据节点叫做znode，是数据的最小单元，每个znode都有唯一的路径标识<br><strong>znode存储的数据大小上线为1M</strong>，避免将大数据保存在ZooKeeper中</p>
-<h3 id="znode"><a href="#znode" class="headerlink" title="znode"></a>znode</h3><h3 id="分类："><a href="#分类：" class="headerlink" title="分类："></a>分类：</h3><ul>
-<li>持久(PERSISTENT)节点：一旦创建就存在即使ZooKeeper集群宕机，知道将其删除</li>
-<li>临时(<strong>EPHEMERAL</strong>)节点：临时节点的声明周期与客户端会话绑定。会话节点小时则节点消失，临时节点只能作为叶子节点，不可创建属于自己的子节点。</li>
-<li>持久顺序节点：除了具有持久节点外，子节点的名称还有顺序性。</li>
-</ul>
-<h3 id="znode的组成："><a href="#znode的组成：" class="headerlink" title="znode的组成："></a>znode的组成：</h3><ul>
-<li>stat：状态信息<img src="/2024/06/17/08/znode%E7%8A%B6%E6%80%81%E4%BF%A1%E6%81%AF.png"></li>
-<li>data：节点存放数据的具体内容</li>
-</ul>
-<h3 id="版本："><a href="#版本：" class="headerlink" title="版本："></a>版本：</h3><p>ZooKeeper会为每一个znode维护一个叫做Stat的数据结构<br>Stat中记录了三个znode相关的版本：</p>
-<ul>
-<li>dataVersion：当前znode节点的版本号</li>
-<li>cversion：当前znode子节点的版本</li>
-<li>aclVersion：当前znode的ACL的版本</li>
-</ul>
-<h3 id="ACL：权限控制"><a href="#ACL：权限控制" class="headerlink" title="ACL：权限控制"></a>ACL：权限控制</h3><ul>
-<li>CREATE：创建子节点</li>
-<li>READ：获取节点数据和列出其子节点</li>
-<li>WRITE：设置/更新节点数据</li>
-<li>DELETE：删除子节点</li>
-<li>ADMIN：设置节点ACL的权限<br>身份认证有四种方式：</li>
-<li>world：默认，任何用户都可以无条件访问</li>
-<li>auth ： 不适用任何id，代表任何已经认证的用户</li>
-<li>digest：用户名:密码的方式</li>
-<li>ip：对指定ip进行限制</li>
-</ul>
-<h2 id="Watcher-事件监听器"><a href="#Watcher-事件监听器" class="headerlink" title="Watcher(事件监听器)"></a>Watcher(事件监听器)</h2><p>ZooKeeper允许用户在指定节点上注册一些Watcher，并且在一些特定事件触发时，ZooKeeper服务器会将事件通知到感兴趣的客户端上。<img src="/2024/06/17/08/watcher%E7%9A%84%E4%BD%9C%E7%94%A8.png"></p>
-<h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><p>ZooKeeper服务端与客户端之间的一个TCP长连接。客户端可以通过它进行心跳检测与服务器保持有效的会话，也能够向ZooKeeper服务器发送请求并接受响应。同时也能接收来在服务器的Watcher事件通知</p>
-<h2 id="集群"><a href="#集群" class="headerlink" title="集群"></a>集群</h2><h3 id="ZooKeeper将集群中节点的角色分为三类："><a href="#ZooKeeper将集群中节点的角色分为三类：" class="headerlink" title="ZooKeeper将集群中节点的角色分为三类："></a>ZooKeeper将集群中节点的角色分为三类：</h3><ul>
-<li>Leader 为客户端提供读写服务，负责投票的发起和决议，更新系统状态</li>
-<li>Follower：<strong>只读</strong>，将写服务转发给Leader，参与选举过程的头票</li>
-<li>Observer：<strong>只读</strong>，写服务转发给Leader，不参与选举中的投票，也不参与”过半写成功”策略。 在不影响写性能的情况下提升集群的读性能。</li>
-</ul>
-<h3 id="Leader的选举过程"><a href="#Leader的选举过程" class="headerlink" title="Leader的选举过程"></a>Leader的选举过程</h3><p>条件：<br>当Leader服务器出现网络中断、崩溃退出与重启等异常情况是，会进去Leader选举过程。<br>流程：</p>
-<ol>
-<li>Leader election 选举阶段：开始投票，只要有一个节点获得过半节点的票数即可作为准Leader</li>
-<li>Discovery发现阶段：followers跟准节点leader进行通信，同步followers最近接收的事务提议</li>
-<li>Synchronization 同步阶段：利用leader前一阶段获得的最新提议历史，同步集群中所有的副本，同步之后，准leader成为正式节点</li>
-<li>Broadcast 广播阶段：Zookeeper集群正式对外提供事务服务，leader及逆行消息广播，如果有新的节点加入，还需要进行同步<br>节点的状态：</li>
-</ol>
-<ul>
-<li>LOOKING：寻找Leader</li>
-<li>LEADING：Leader状态，对应的节点成为Leader</li>
-<li>FOLLOWING：对应的节点成为Follower</li>
-<li>OBSERVING：对应的节点成为OBSERVING<br>脑裂问题通过过半机制解决</li>
-</ul>
-<h2 id="ZAB协议"><a href="#ZAB协议" class="headerlink" title="ZAB协议"></a>ZAB协议</h2><p>ZooKeeper Atomic Broadcast，原子广播<br>###3 模式</p>
-<ul>
-<li>崩溃恢复：启动或者出现异常状况时，进行崩溃恢复状态，当选举出新的Leader节点，并且已经进行状态同步之后，退出恢复状态。</li>
-<li>消息广播：当集群中已经完成状态通过，整个服务架构进入消息广播模式。新加入的节点会自觉进入数据恢复状态。</li>
-</ul>
-<h2 id="常见的Java-API"><a href="#常见的Java-API" class="headerlink" title="常见的Java API"></a>常见的Java API</h2><blockquote>
-<p>curator-x-discovery是 Apache Curator 库中的一个模块，用于简化与 Apache ZooKeeper 交互时的服务发现和注册功能</p>
-</blockquote>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">ServiceDiscovery</span> 用于管理服务的注册和发现
-<span class="token class-name">ServiceInstance</span> 描述一个服务的信息
-<span class="token class-name">CuratorFramework</span> zk连接客户端<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -3161,7 +3113,7 @@ public class TestLazy {
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-count">57</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

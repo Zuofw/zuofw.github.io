@@ -167,6 +167,151 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/06/17/08/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="QingQiu">
+      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QingQiu'Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/06/17/08/" class="post-title-link" itemprop="url">深入浅出Zookeeper</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-06-17 15:12:08" itemprop="dateCreated datePublished" datetime="2024-06-17T15:12:08+08:00">2024-06-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-09-12 20:29:55" itemprop="dateModified" datetime="2024-09-12T20:29:55+08:00">2024-09-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">分布式</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.2k</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a target="_blank" rel="noopener" href="https://javaguide.cn/distributed-system/distributed-process-coordination/zookeeper/zookeeper-plus.html">https://javaguide.cn/distributed-system/distributed-process-coordination/zookeeper/zookeeper-plus.html</a></p>
+<h2 id="ZooKeeper是什么"><a href="#ZooKeeper是什么" class="headerlink" title="ZooKeeper是什么"></a>ZooKeeper是什么</h2><p>ZooKeeper是一个开源的<strong>分布式协调服务</strong>，设计目标是将哪些复杂且容易出错的分布式一致性服务封装起来，构成一个高效的原语(原语的执行必须连续且不可分割)集，并以一系列简单易用的接口提供给用户时使用</p>
+<h2 id="常用场景"><a href="#常用场景" class="headerlink" title="常用场景"></a>常用场景</h2><ol>
+<li>命名服务：通过ZooKeepe的顺序节点生成全局唯一ID</li>
+<li>数据发布/订阅：通过Watcher机制可以很方便的实现数据发布/订阅。其他机器可以通过监听ZooKeeper上的节点变化来实现配置的动态更新</li>
+<li>分布式锁：通过创建唯一节点获得分布式锁，当获得锁的乙方执行完相关的代码或者挂掉后就释放，也需要使用Watcher机制</li>
+</ol>
+<h2 id="一些可以使用的场景"><a href="#一些可以使用的场景" class="headerlink" title="一些可以使用的场景"></a>一些可以使用的场景</h2><h3 id="手写rpc-注册中心-使用ZooKeeper作为注册中心手写RPC"><a href="#手写rpc-注册中心-使用ZooKeeper作为注册中心手写RPC" class="headerlink" title="[[手写rpc#注册中心|使用ZooKeeper作为注册中心手写RPC]]"></a>[[手写rpc#注册中心|使用ZooKeeper作为注册中心手写RPC]]</h3><h3 id="使用ZooKeeper作为分布式锁"><a href="#使用ZooKeeper作为分布式锁" class="headerlink" title="使用ZooKeeper作为分布式锁"></a>使用ZooKeeper作为分布式锁</h3><h2 id="重要概念"><a href="#重要概念" class="headerlink" title="重要概念"></a>重要概念</h2><h3 id="Data-model"><a href="#Data-model" class="headerlink" title="Data model"></a>Data model</h3><p>ZooKeeper数据模型使用层次化的多叉树形结构，每个节点上都可以存储数据，而且数据可以是数字、字符串、二进制序列。每个节点可以有N个子节点。每个数据节点叫做znode，是数据的最小单元，每个znode都有唯一的路径标识<br><strong>znode存储的数据大小上线为1M</strong>，避免将大数据保存在ZooKeeper中</p>
+<h3 id="znode"><a href="#znode" class="headerlink" title="znode"></a>znode</h3><h3 id="分类："><a href="#分类：" class="headerlink" title="分类："></a>分类：</h3><ul>
+<li>持久(PERSISTENT)节点：一旦创建就存在即使ZooKeeper集群宕机，知道将其删除</li>
+<li>临时(<strong>EPHEMERAL</strong>)节点：临时节点的声明周期与客户端会话绑定。会话节点小时则节点消失，临时节点只能作为叶子节点，不可创建属于自己的子节点。</li>
+<li>持久顺序节点：除了具有持久节点外，子节点的名称还有顺序性。</li>
+</ul>
+<h3 id="znode的组成："><a href="#znode的组成：" class="headerlink" title="znode的组成："></a>znode的组成：</h3><ul>
+<li>stat：状态信息<img src="/2024/06/17/08/znode%E7%8A%B6%E6%80%81%E4%BF%A1%E6%81%AF.png"></li>
+<li>data：节点存放数据的具体内容</li>
+</ul>
+<h3 id="版本："><a href="#版本：" class="headerlink" title="版本："></a>版本：</h3><p>ZooKeeper会为每一个znode维护一个叫做Stat的数据结构<br>Stat中记录了三个znode相关的版本：</p>
+<ul>
+<li>dataVersion：当前znode节点的版本号</li>
+<li>cversion：当前znode子节点的版本</li>
+<li>aclVersion：当前znode的ACL的版本</li>
+</ul>
+<h3 id="ACL：权限控制"><a href="#ACL：权限控制" class="headerlink" title="ACL：权限控制"></a>ACL：权限控制</h3><ul>
+<li>CREATE：创建子节点</li>
+<li>READ：获取节点数据和列出其子节点</li>
+<li>WRITE：设置/更新节点数据</li>
+<li>DELETE：删除子节点</li>
+<li>ADMIN：设置节点ACL的权限<br>身份认证有四种方式：</li>
+<li>world：默认，任何用户都可以无条件访问</li>
+<li>auth ： 不适用任何id，代表任何已经认证的用户</li>
+<li>digest：用户名:密码的方式</li>
+<li>ip：对指定ip进行限制</li>
+</ul>
+<h2 id="Watcher-事件监听器"><a href="#Watcher-事件监听器" class="headerlink" title="Watcher(事件监听器)"></a>Watcher(事件监听器)</h2><p>ZooKeeper允许用户在指定节点上注册一些Watcher，并且在一些特定事件触发时，ZooKeeper服务器会将事件通知到感兴趣的客户端上。<img src="/2024/06/17/08/watcher%E7%9A%84%E4%BD%9C%E7%94%A8.png"></p>
+<h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><p>ZooKeeper服务端与客户端之间的一个TCP长连接。客户端可以通过它进行心跳检测与服务器保持有效的会话，也能够向ZooKeeper服务器发送请求并接受响应。同时也能接收来在服务器的Watcher事件通知</p>
+<h2 id="集群"><a href="#集群" class="headerlink" title="集群"></a>集群</h2><h3 id="ZooKeeper将集群中节点的角色分为三类："><a href="#ZooKeeper将集群中节点的角色分为三类：" class="headerlink" title="ZooKeeper将集群中节点的角色分为三类："></a>ZooKeeper将集群中节点的角色分为三类：</h3><ul>
+<li>Leader 为客户端提供读写服务，负责投票的发起和决议，更新系统状态</li>
+<li>Follower：<strong>只读</strong>，将写服务转发给Leader，参与选举过程的头票</li>
+<li>Observer：<strong>只读</strong>，写服务转发给Leader，不参与选举中的投票，也不参与”过半写成功”策略。 在不影响写性能的情况下提升集群的读性能。</li>
+</ul>
+<h3 id="Leader的选举过程"><a href="#Leader的选举过程" class="headerlink" title="Leader的选举过程"></a>Leader的选举过程</h3><p>条件：<br>当Leader服务器出现网络中断、崩溃退出与重启等异常情况是，会进去Leader选举过程。<br>流程：</p>
+<ol>
+<li>Leader election 选举阶段：开始投票，只要有一个节点获得过半节点的票数即可作为准Leader</li>
+<li>Discovery发现阶段：followers跟准节点leader进行通信，同步followers最近接收的事务提议</li>
+<li>Synchronization 同步阶段：利用leader前一阶段获得的最新提议历史，同步集群中所有的副本，同步之后，准leader成为正式节点</li>
+<li>Broadcast 广播阶段：Zookeeper集群正式对外提供事务服务，leader及逆行消息广播，如果有新的节点加入，还需要进行同步<br>节点的状态：</li>
+</ol>
+<ul>
+<li>LOOKING：寻找Leader</li>
+<li>LEADING：Leader状态，对应的节点成为Leader</li>
+<li>FOLLOWING：对应的节点成为Follower</li>
+<li>OBSERVING：对应的节点成为OBSERVING<br>脑裂问题通过过半机制解决</li>
+</ul>
+<h2 id="ZAB协议"><a href="#ZAB协议" class="headerlink" title="ZAB协议"></a>ZAB协议</h2><p>ZooKeeper Atomic Broadcast，原子广播<br>###3 模式</p>
+<ul>
+<li>崩溃恢复：启动或者出现异常状况时，进行崩溃恢复状态，当选举出新的Leader节点，并且已经进行状态同步之后，退出恢复状态。</li>
+<li>消息广播：当集群中已经完成状态通过，整个服务架构进入消息广播模式。新加入的节点会自觉进入数据恢复状态。</li>
+</ul>
+<h2 id="常见的Java-API"><a href="#常见的Java-API" class="headerlink" title="常见的Java API"></a>常见的Java API</h2><blockquote>
+<p>curator-x-discovery是 Apache Curator 库中的一个模块，用于简化与 Apache ZooKeeper 交互时的服务发现和注册功能</p>
+</blockquote>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">ServiceDiscovery</span> 用于管理服务的注册和发现
+<span class="token class-name">ServiceInstance</span> 描述一个服务的信息
+<span class="token class-name">CuratorFramework</span> zk连接客户端<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/06/17/36/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2892,188 +3037,6 @@ vmstat -s 显示系统的累计统计信息
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/04/23/25/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="QingQiu">
-      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="QingQiu'Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/04/23/25/" class="post-title-link" itemprop="url">train</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-04-23 13:39:25" itemprop="dateCreated datePublished" datetime="2024-04-23T13:39:25+08:00">2024-04-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-01 20:56:27" itemprop="dateModified" datetime="2024-05-01T20:56:27+08:00">2024-05-01</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.5k</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Tigs:</p>
-<ol>
-<li>相同的application文件优先使用公共的配置</li>
-</ol>
-<h2 id="一些没什么用的小概念"><a href="#一些没什么用的小概念" class="headerlink" title="一些没什么用的小概念"></a>一些没什么用的小概念</h2><ul>
-<li>并发量：同一时间内，系统中同时处理的用户请求数</li>
-<li>响应时间：系统处理一个请求所需的时间</li>
-<li>吞吐量：系统在给定时间内处理处理的业务请求数量</li>
-<li>QPS(Queries Per Second) 表示系统每秒钟处理的请求数量</li>
-<li>TPS(Transactions Per Second ) 表示系统每秒钟完成的事务数量</li>
-</ul>
-<h2 id="Gateway-网关负责分发前端请求"><a href="#Gateway-网关负责分发前端请求" class="headerlink" title="Gateway 网关负责分发前端请求"></a>Gateway 网关负责分发前端请求</h2><p>使用分布式锁来解决缓存击穿</p>
-<ul>
-<li><strong>以下是要自己完成的：</strong><ol>
-<li>使用Spring Security和GateWay完成路由转发和认证</li>
-<li>使用kafka或rocketmq<br>Redis作为缓存</li>
-</ol>
-</li>
-<li>缓存问题：<ol>
-<li>每天的用户很多但是用户每天使用的次数很少，同时会员的信息涉及的表很多<ul>
-<li>解决：使用本地缓存，因为每个会员使用次数很少，一分钟有效，</li>
-<li>问题:fullgc频繁，导致短时间内大量请求失败，因为缓存时间很短，所以大量的新生代出现，引起频繁的gc，然后大量放入老年代引起fullgc ， 解决：不用本地缓存，而是用线程本地变量，放在内存中。</li>
-</ul>
-</li>
-</ol>
-</li>
-</ul>
-<h2 id="Senta"><a href="#Senta" class="headerlink" title="Senta"></a>Senta</h2><ul>
-<li>原理：生成反向sql</li>
-<li>模式：<ol>
-<li>AT模式：默认，添加undo_log,反向生成sql，回滚之后原来没数据的依然没有数据<ul>
-<li>使用方法：<ol>
-<li>建立undo_log表</li>
-</ol>
-</li>
-</ul>
-</li>
-<li>TCC模式： try confirm/cancel 三个阶段的代码自己实现，Seata负责调度</li>
-<li>SAGA模式：长事务解决方案，需要编写两个阶段的代码，需要一个JSON文件，可以异步执行</li>
-<li>XA模式：适用于银行和金融，需要数据库支持XA协议<br>  try 之前的代码出现异常会直接结束，不会走finally</li>
-</ol>
-</li>
-</ul>
-<h2 id="如何处理多并发的买票"><a href="#如何处理多并发的买票" class="headerlink" title="如何处理多并发的买票"></a>如何处理多并发的买票</h2><ol>
-<li>使用synchronized ，缺点：会导致卡住，只适合单机</li>
-<li>使用Redis分布式锁，使用日期+车次来作为锁key，然后放入Redis中，如果拿到锁则继续执行，使用的使setIfAbsent(key,value,timeout),如果这个锁不存在则设置并且返回true，买到票之后删除key 缺点：如果线程执行时间超过了超时时间，也会导致超卖    <strong>对应Redis的命令是setnx</strong></li>
-<li>使用Redisson看门狗，使用一个守护线程来关注超时间是，如果事务未完成但是锁即将过期则重置时间，如果事务结束则守护线程结束，lock.isHeldByCurrentThread来判断是否是当前线程的锁，缺点：Redis集群中Redis宕机，会导致获得得不到锁，然后新的线程向新的Redis主节点中获得锁，仍然可以获得锁 ， <strong>最常用</strong> ，Redisson中的锁在释放了之后Redis就查不到了！！！</li>
-<li>使用红锁：只有拿到半数以上的同等地位的Redis的锁才算拿到锁，Redisson中也有自带的红锁，不常用， 缺点：性能问题，并且如果都得不到锁就都会等待了，尽量去尝试获得更多的锁来解决单机宕机问题</li>
-</ol>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@RestController</span>
-<span class="token annotation punctuation">@Slf4j</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RedisController</span> <span class="token punctuation">{</span>
-    <span class="token annotation punctuation">@Resource</span>
-    <span class="token keyword">private</span> <span class="token class-name">RedissonClient</span> redissonClient<span class="token punctuation">;</span>
-
-    <span class="token annotation punctuation">@PostMapping</span><span class="token punctuation">(</span><span class="token string">"/buy"</span><span class="token punctuation">)</span>
-    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">set</span><span class="token punctuation">(</span><span class="token class-name">String</span> ticket<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">InterruptedException</span> <span class="token punctuation">{</span>
-        <span class="token comment">//当前日期</span>
-        <span class="token class-name">String</span> key <span class="token operator">=</span> ticket <span class="token punctuation">;</span>
-        log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"key:{}"</span><span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token class-name">RLock</span> lock <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
-
-            <span class="token comment">//获取锁</span>
-            lock <span class="token operator">=</span> redissonClient<span class="token punctuation">.</span><span class="token function">getLock</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token comment">//尝试加锁，最多等待100秒，上锁以后10秒自动解锁</span>
-            <span class="token keyword">boolean</span> tryLock <span class="token operator">=</span> lock<span class="token punctuation">.</span><span class="token function">tryLock</span><span class="token punctuation">(</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token class-name">TimeUnit</span><span class="token punctuation">.</span><span class="token constant">SECONDS</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//等待100秒，上锁以后10秒自动解锁</span>
-            log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"tryLock:{}"</span><span class="token punctuation">,</span> tryLock<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token comment">//模拟业务处理</span>
-            <span class="token keyword">if</span><span class="token punctuation">(</span>tryLock<span class="token punctuation">)</span><span class="token punctuation">{</span>
-                <span class="token class-name">Thread</span><span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">10000</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//单位是毫秒</span>
-                log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"购买成功"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token keyword">null</span> <span class="token operator">!=</span> lock <span class="token operator">&amp;&amp;</span> lock<span class="token punctuation">.</span><span class="token function">isHeldByCurrentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-                    lock<span class="token punctuation">.</span><span class="token function">unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token punctuation">}</span>
-                <span class="token keyword">return</span> <span class="token string">"购买成功"</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-                log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"没拿到锁"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token keyword">return</span> <span class="token string">"购买失败"</span><span class="token punctuation">;</span>
-<span class="token comment">//                throw new RuntimeException("没拿到锁");</span>
-            <span class="token punctuation">}</span>
-
-
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="使用Sentinal进行限流和降级"><a href="#使用Sentinal进行限流和降级" class="headerlink" title="使用Sentinal进行限流和降级"></a>使用Sentinal进行限流和降级</h3><ul>
-<li>常见的限流算法：<ol>
-<li>静态窗口限流：每秒限制多少个请求，例如：第2.5会统计第2秒到现在的流量</li>
-<li>动态窗口限流：滑动窗口，往前取1秒,例如：第2.5秒会统计第1.5秒到现在的请求数</li>
-<li>漏桶限流：队列，请求全在队列中，出队是匀速的</li>
-<li>令牌桶限流：放的是令牌，令牌就是计数，会有一个计数器匀速产生令牌,出队不是匀速的可以适应短时间内大量请求</li>
-<li>令牌大闸：当令牌到达一定数量就不再产生新的令牌</li>
-</ol>
-</li>
-</ul>
-<h2 id="如何应对刷票"><a href="#如何应对刷票" class="headerlink" title="如何应对刷票"></a>如何应对刷票</h2><p>使用令牌大闸：令牌按照匀速生成，即使有再多的机器人刷票也会被领票的数量限制，判断令牌肯定比更新库存更快</p>
-<ol>
-<li>使用令牌锁，持有令牌锁的人才能对令牌进行操作</li>
-<li>检测令牌数量，如果有就执行，没有就不能执行</li>
-<li>不要立刻释放令牌锁，使用固定的时间来释放令牌锁，这样即使有机器人也得等待令牌锁的释放</li>
-</ol>
-<ul>
-<li>同时也可以加入验证码来防止机器人刷票<br>优化：使用缓存加速令牌锁<br>将数据库查出来的令牌存在Redis中，每次对Redis中的令牌数量-1，只有当数量等于我们设定的阈值时再去更改数据库的令牌数量，所以需要在Redis中长期保持这个key</li>
-</ul>
-<h2 id="使用RocketMQ"><a href="#使用RocketMQ" class="headerlink" title="使用RocketMQ"></a>使用RocketMQ</h2><p>使用RocketMQ来完成<br>购票之后，将请求发送给RocketMQ，然后另一边去消费这个消息，并且进行数据库的增删改查，可以将请求直接转为String 发送，之后另一端pull然后转为需要的类，之后执行具体具体的逻辑</p>
-<h2 id="纯手写"><a href="#纯手写" class="headerlink" title="纯手写"></a>纯手写</h2><ol>
-<li>登录：<ul>
-<li>使用gateway + SpringSecurity + JWT + Redis实现微服务登录</li>
-<li>Mybatis+Mybatis-plus</li>
-</ul>
-</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -3143,7 +3106,7 @@ vmstat -s 显示系统的累计统计信息
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-count">57</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
