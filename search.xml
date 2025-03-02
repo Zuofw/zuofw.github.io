@@ -20542,4 +20542,18 @@ redis<br>1.打开redis的配置文件“redis.conf”。</li>
 <p>当你准备好了，就将该笔记文件删除，使这个仓库为你所用。</p>
 ]]></content>
   </entry>
+  <entry>
+    <title>货拉拉-java实习生</title>
+    <url>/2025/02/27/50/</url>
+    <content><![CDATA[<h1 id="2025-02-27-一面"><a href="#2025-02-27-一面" class="headerlink" title="2025.02.27 一面"></a>2025.02.27 一面</h1><h2 id="场景题"><a href="#场景题" class="headerlink" title="场景题"></a>场景题</h2><h3 id="10张表，字段相同，每一张1000w条数据，有索引，如何快速查出前100的记录"><a href="#10张表，字段相同，每一张1000w条数据，有索引，如何快速查出前100的记录" class="headerlink" title="10张表，字段相同，每一张1000w条数据，有索引，如何快速查出前100的记录"></a>10张表，字段相同，每一张1000w条数据，有索引，如何快速查出前100的记录</h3><p>基于索引快速分批查询：</p>
+<ol>
+<li>对于每张表，利用索引快速获取该表的前100个最大值。如果索引存在，那么只需要扫描前100行。</li>
+<li>合并结果，将结果放在一张临时表中</li>
+<li>全局筛选出前100个最大值<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> index_key <span class="token keyword">FROM</span> tableX <span class="token keyword">ORDER</span> <span class="token keyword">BY</span> index_key <span class="token keyword">DESC</span> <span class="token keyword">LIMIT</span> <span class="token number">100</span><span class="token punctuation">;</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">TEMPORARY</span> <span class="token keyword">TABLE</span> temp_results <span class="token keyword">AS</span> <span class="token punctuation">(</span><span class="token keyword">SELECT</span> index_key <span class="token keyword">FROM</span> table1 <span class="token keyword">ORDER</span> <span class="token keyword">BY</span> index_key <span class="token keyword">DESC</span> <span class="token keyword">LIMIT</span> <span class="token number">100</span><span class="token punctuation">)</span> <span class="token keyword">UNION</span> <span class="token keyword">ALL</span> <span class="token punctuation">(</span><span class="token keyword">SELECT</span> index_key <span class="token keyword">FROM</span> table2 <span class="token keyword">ORDER</span> <span class="token keyword">BY</span> index_key <span class="token keyword">DESC</span> <span class="token keyword">LIMIT</span> <span class="token number">100</span><span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">;</span> <span class="token comment">-- 重复至table10</span>
+
+<span class="token keyword">SELECT</span> index_key <span class="token keyword">FROM</span> temp_results <span class="token keyword">ORDER</span> <span class="token keyword">BY</span> index_key <span class="token keyword">DESC</span> <span class="token keyword">LIMIT</span> <span class="token number">100</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+]]></content>
+  </entry>
 </search>
