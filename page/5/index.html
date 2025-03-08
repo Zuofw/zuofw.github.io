@@ -167,416 +167,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/03/06/38/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="QingQiu">
-      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="QingQiu'Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/03/06/38/" class="post-title-link" itemprop="url">os</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-03-06 14:14:38" itemprop="dateCreated datePublished" datetime="2024-03-06T14:14:38+08:00">2024-03-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-08-07 16:04:28" itemprop="dateModified" datetime="2024-08-07T16:04:28+08:00">2024-08-07</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">计算机基础</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>9.6k</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="OS面试常问"><a href="#OS面试常问" class="headerlink" title="OS面试常问"></a>OS面试常问</h2><h3 id="编码问题"><a href="#编码问题" class="headerlink" title="编码问题"></a>编码问题</h3><p>ASCII码规定了128个字符的编码<br>Unicode 是⼀个很⼤的集合，将世界上所有的符号都纳⼊其中，每⼀个符号都给予⼀个独⼀⽆⼆的编<br>码。可以容纳100多万个符号；但是存储⽅式不确定，还可能浪费字节空间</p>
-<p>Unicode 是⼀个很⼤的集合，将世界上所有的符号都纳⼊其中，每⼀个符号都给予⼀个独⼀⽆⼆的编</p>
-<p>码。可以容纳100多万个符号；但是存储⽅式不确定，还可能浪费字节空间</p>
-<h4 id="utf-8中中文占几个字节"><a href="#utf-8中中文占几个字节" class="headerlink" title="utf-8中中文占几个字节"></a>utf-8中中文占几个字节</h4><ol>
-<li>对于单字节，字节的第一位设为0，后面7位位Unicode码，英语字母，UTF-8与ASCII是一样的</li>
-<li>对于n字节的符号，第一个字节前n位全是1，第n+1位为0，后面字节的前两位为10，剩下的为Unicode码。中文占用三个字节的存储空间。</li>
-</ol>
-<h3 id="进程与线程"><a href="#进程与线程" class="headerlink" title="进程与线程"></a>进程与线程</h3><p>不同进程的线程间要进行通信需要使用消息通信的方法来实现同步。</p>
-<h4 id="线程同步机制"><a href="#线程同步机制" class="headerlink" title="线程同步机制"></a>线程同步机制</h4><ol>
-<li>互斥锁Mutex：保证同意时间只能有一个线程可以访问共享资源。</li>
-<li>信号量Semaphore：一种计数器，控制同时访问某个共享资源的线程数量。</li>
-<li>条件变量Confition Variable：一个线程可以等待某个条件的发生，另一个进程可以在满足条件时，通知等待的线程继续执行。</li>
-<li>读写Read-Write Lock：允许多个线程同时读取共享资源，但只允许一个线程写入共享资源。</li>
-<li>原子操作：</li>
-<li>屏障Barrier：让一组下称在某个点上等待，直到所有进程都到达这个点之后再继续执行。</li>
-</ol>
-<h4 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h4><p>四个条件：互斥、请求和保持、不剥夺、环路等待<br>死锁预防：破坏任一条件<br>死锁避免：银行家算法、一次封锁法、顺序封锁法</p>
-<p>一次封锁法是一种简单的锁定策略，事务在开始时一次性获取所有需要的锁，并在事务结束时一次性释放所有锁。这种方法可以避免死锁，但可能会导致锁的持有时间过长，从而降低系统的并发性能。</p>
-<p>顺序封锁法是一种更复杂但更有效的锁定策略，分为两个阶段：扩展阶段和收缩阶段。</p>
-<ol>
-<li><strong>扩展阶段（Growing Phase）</strong>：事务可以获取锁，但不能释放锁。</li>
-<li><strong>收缩阶段（Shrinking Phase）</strong>：事务可以释放锁，但不能获取新的锁。</li>
-</ol>
-<p>这种方法可以确保事务的可串行化，从而保证数据的一致性。</p>
-<h4 id="原子操作"><a href="#原子操作" class="headerlink" title="原子操作"></a>原子操作</h4><h5 id="如何实现"><a href="#如何实现" class="headerlink" title="如何实现"></a>如何实现</h5><p>基于缓存加锁和总线加锁。<br>总线锁是使用处理器提供的一个lock#信号，当一个处理器在总线上输出这个信号，其他处理器的请求被阻塞。总线吧cpu贺内存之间的通信锁住了，其他处理器不能操作其他内存地址的数据，所以开销很大<br>缓存锁：频繁使用的内存会在L1、L2、L3高速缓存中，所以原子操作只需要对内部缓存中进行，允许使用MESI缓存一致性机制来保证原子性。<br>但是以下情况不能使用缓存锁：</p>
-<ol>
-<li>操作的数据不能被缓存在处理器内部或者操作的数据跨多个缓存行</li>
-<li>有些处理器不支持缓存锁定</li>
-</ol>
-<h4 id="锁的区别和使用场景"><a href="#锁的区别和使用场景" class="headerlink" title="锁的区别和使用场景"></a>锁的区别和使用场景</h4><h5 id="互斥锁mutex"><a href="#互斥锁mutex" class="headerlink" title="互斥锁mutex"></a>互斥锁mutex</h5><p>特点是任何时刻都只有一个线程可以访问某个资源或者临界区<br>使用场景：共享资源不能被多个线程同时修改，更新全局变量、修改数据库记录</p>
-<h5 id="信号量-Semaphore"><a href="#信号量-Semaphore" class="headerlink" title="信号量 Semaphore"></a>信号量 Semaphore</h5><p>控制特定资源的访问线程数<br>场景：限制链接池大小，控制同时访问文件的线程数</p>
-<h5 id="临界区-Critical-Section"><a href="#临界区-Critical-Section" class="headerlink" title="临界区 Critical Section"></a>临界区 Critical Section</h5><p>代码中访问共享资源的部分，保证同时只有一个线程可以执行这段代码<br>场景：执行多步骤的事务</p>
-<h5 id="循环锁-Spinlock"><a href="#循环锁-Spinlock" class="headerlink" title="循环锁 Spinlock"></a>循环锁 Spinlock</h5><p>一种忙等待锁，反复检查锁的状态，不会让出CPU资源<br>场景：时间很短，持有锁时间很短。</p>
-<h5 id="读写锁"><a href="#读写锁" class="headerlink" title="读写锁"></a>读写锁</h5><ol>
-<li>读者优先：读线程可以一直，所有的读线程都释放锁后，写线程才能获得写锁。</li>
-<li>写着优先：第一个读线程获得锁之后，当写线程到达会被阻塞，但是阻塞过程中新的读线程要排在写线程之后。</li>
-<li>公平策略：使用队列，读写按照先进先出原则加锁。</li>
-</ol>
-<h4 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h4><ol>
-<li>栈：由操作系统自动分配释放，存放函数的参数值，局部变量等 </li>
-<li>堆：一般由程序员分配释放，程序员不释放，程序结束时可能由OS回收，分配方式类似链表</li>
-</ol>
-<h5 id="虚拟内存-Virt"><a href="#虚拟内存-Virt" class="headerlink" title="虚拟内存 Virt"></a>虚拟内存 Virt</h5><p>抽象层，允许操作系统将硬件内存抽象化，使得每个程序都认为自己有一个连续的、私有的内存区域。内存满了也可以通过swap文件或者分页将部分数据暂存到硬盘上，从而使得程序可以运行在超过物理内存大小的内存空间中。大小 = 程序正在使用的物理内存 + 交换空间 + 未使用但已预留的内存。</p>
-<h5 id="常驻内存RES"><a href="#常驻内存RES" class="headerlink" title="常驻内存RES"></a>常驻内存RES</h5><p>实际被加载到物理内存中的部分</p>
-<h5 id="共享内存-SHR"><a href="#共享内存-SHR" class="headerlink" title="共享内存 SHR"></a>共享内存 SHR</h5><p>多个进程共同使用的内存部分，允许不同进程访问同一块物理地址，从而节省内存小号并提高数据交换效率。共享内存常用于进程间通信IPC</p>
-<h6 id="Free-内存"><a href="#Free-内存" class="headerlink" title="Free 内存"></a>Free 内存</h6><p>系统中完全未使用的内存数量，是系统中真正可用的，没有被其他进程使用的内存。</p>
-<h6 id="Available内存"><a href="#Available内存" class="headerlink" title="Available内存"></a>Available内存</h6><p>系统中立刻可以分配给进程的内存数量，包括free内存和一部分被缓存的内存。available = free + buff/chche</p>
-<h5 id="Buffer"><a href="#Buffer" class="headerlink" title="Buffer"></a>Buffer</h5><p>缓冲区适用于存储文件系统元数据的内存。读取/写入文件时，数据首先暂存在Buffers中，来提高读取和写入的效率。</p>
-<h5 id="Cached"><a href="#Cached" class="headerlink" title="Cached"></a>Cached</h5><p>缓存：用于存储已经从磁盘读取的文件的副本，这些文件可能是系统频繁使用的文件。由Linux内核自动管理，用于提高系统性能。系统有足够的空闲内存时，会将一些文件的副本保留在Cached中。</p>
-<h5 id="内存回收"><a href="#内存回收" class="headerlink" title="内存回收"></a>内存回收</h5><p><img src="/2024/03/06/38/%E5%86%85%E5%AD%98%E5%9B%9E%E6%94%B6.png"><br>当内存大于pages_high是，系统内存充足不会进行内存回收<br>当内存小于pages_low时，标识内存存在压力，会触发kswapd0，进行后台内存回收。直到pages_high位置<br>当内存⼩于 pages_min 时，表⽰此时⽤⼾内存耗尽，会触发直接内存回收，进程被阻塞</p>
-<p>OOM⸺Out of Memory 如果直接内存回收之后，系统的剩余空闲内存还不⾜以进⾏内存分配，则会<br>进⼀步触发OOM机制。 OOM Killer 机制会根据算法选择并kill掉⼀个占⽤物理内存较⾼的进程，以便<br>释放内存资源，如果物理内存依然不⾜，OOM Killer 会继续杀死占⽤物理内存较⾼的进程，直到释放<br>⾜够的内存位置。</p>
-<h5 id="MMU和TLB"><a href="#MMU和TLB" class="headerlink" title="MMU和TLB"></a>MMU和TLB</h5><p>MMU （Memory Management Unit，内存管理单元）<br>用于在CPU和内存之间实现虚拟内存管理。将虚拟地址转换为物理地址，同时提供访问权限的控制和缓存管理等功能。<br>TLB 是高所缓存，哟关于缓存页表转换的结果。存在TLB时，虚拟地址到物理地址的转换过程发生了变化，虚拟地址首先发往TLB确认是否命中Cache</p>
-<h5 id="Drop-Cache"><a href="#Drop-Cache" class="headerlink" title="Drop Cache"></a>Drop Cache</h5><p>“Drop Cache” 是一种清理系统缓存的方法。系统缓存包括页面缓存、目录项缓存（dentry cache）和inode缓存。<br>• dirty pages不能回收；</p>
-<p>• 共享内存和tmpfs（临时⽂件系统，指位于内存和/或交换分区中的⽂件系统）不能回收(注意观察<br>free命令显⽰的shared值)；</p>
-<h5 id="Buddy分配器-amp-Slab分配器"><a href="#Buddy分配器-amp-Slab分配器" class="headerlink" title="Buddy分配器 &amp; Slab分配器"></a>Buddy分配器 &amp; Slab分配器</h5><p>Buddy系统是⼀种⾼效的内存分配技术，因为它避免了内存空间的碎⽚。伙伴系统确保所有分配的块</p>
-<p>具有相同的⼤⼩，以便它们可以轻松地与其伙伴块合并在⼀起。伙伴系统的另⼀个主要优点是它允许</p>
-<p>快速分配和释放内存块，这是实时系统中提供增强性能的重要要求。Linux内核中使⽤伙伴系统</p>
-<p>（buddy system）算法以⻚为单位管理内存，进⾏内存分配。旨在减少外部碎⽚</p>
-<p>Slab 系统 是另⼀种⽤于分配内核内存的技术。 slab内存分配系统的主要优点是它消除了由于内存分配</p>
-<p>和释放⽽产⽣的碎⽚。换句话说，slab分配系统是操作系统中⽤来管理内核内存的⼀种内存分配策</p>
-<p>略。基本原理是从伙伴系统中申请⼀整⻚内存，然后划分成多个⼤⼩相等的⼩块内存被 slab 所管理。</p>
-<p>旨在减少内部碎⽚</p>
-<h5 id="内存碎⽚-amp-内存整理"><a href="#内存碎⽚-amp-内存整理" class="headerlink" title="内存碎⽚ &amp; 内存整理"></a>内存碎⽚ &amp; 内存整理</h5><p>内存碎⽚（Memory Fragmentation）是指内存的使⽤效率降低的现象，它分为两种形式：内部碎⽚</p>
-<p>（Internal Fragmentation）和外部碎⽚（External Fragmentation）。内部碎⽚发⽣在内存块被分配</p>
-<p>出去后，剩余的未使⽤空间⽆法被其他请求利⽤。外部碎⽚则是指多次内存分配和释放后，内存中留</p>
-<p>下许多⼩的、不连续的空闲区域，这些区域太⼩，⽆法满⾜新的内存请求，尽管总的空闲内存量可能</p>
-<p>⾜够。</p>
-<p>Linux内存对碎⽚化的整理算法主要应⽤了内核的⻚⾯迁移机制，是⼀种将可移动⻚⾯进⾏迁移后腾出</p>
-<p>连续物理内存的⽅法。在内存碎⽚整理开始前，会在内存区的头和尾各设置⼀个指针，头指针从头向</p>
-<p>尾扫描可移动的⻚，⽽尾指针从尾向头扫描空闲的⻚，当他们相遇时终⽌整理。</p>
-<h2 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h2><blockquote>
-<p>&nbsp;<strong>OOM</strong> OOM Killer 机制会根据算法选择一个占用物理内存较高的进程，然后将其杀死，以便释放内存资源，如果物理内存依然不足，OOM Killer 会继续杀死占用物理内存较高的进程，直到释放足够的内存位置。<br>带宽：又叫频宽，是指在固定的的时间可传输的资料数量，亦即在传输管道中可以传递数据的能力。<br>内存管理单元（MMU）<br>位宽 ：位宽就是内存或显存一次能传输的数据量。简单地讲就是一次能传递的数据宽度，就像公路的车道宽度，双向四车道、双向六车道，当然车道越多一次能通过的汽车就越大，所以位宽越大，一次性能舆的数据就越多,对显卡来说对性能的提高很明显。<br>PSW：**<em>包含中断是否开放，处理机执行态等状态的寄存器，叫做处理机状态字 PSW</em>**<br>PCB: 进程控制块<br>TCB: 线程控制模块<br>寄存器分类：CS 代码段寄存器， IP 指令指针寄存器,<br>PC 程序计数器寄存器， PS描述CPU执行状态，主要包含理机当前运行态，处理及优先级，屏蔽外中断等状态<br>shell不是操作系统的一部分，而是终端与操作系统的接口<br>硬件驱动：是一个软件，用于驱动硬件<br>磁道:每个磁头可以读取一段唤醒区域，就是磁道<br>柱面： 所有的磁道合并就是一个柱面<br>上下文切换：由一个程序切换到另一个程序<br>I/O设备：包括设备控制器和设备本身，<br>文件：抽象磁盘空间<br>文件描述符：如果访问文件权限许可，则返回一个小整数，若禁止访问，系统将返回一个错误码<br>管道：一种需文件，可以链接两个进程，进程A要给进程B 发送数据时，要先把它写在管道上，相当于一个输出文件，之后进程B从上面读入并处理<br>PID 进程识别符<br>线程切换要切换栈，否则会弹栈错误<br><strong>切换栈实质就是切换寄存器</strong><br>基本输入输出系统 <strong>BIOS</strong>(Basic Input Output System)</p>
-<ol>
-<li><p>每台计算机上有一块双亲板，上面有一个叫做 基本输入输出系统 <strong>BIOS</strong>(Basic Input Output System),在BIOS里面有底层I/O软件</p>
-</li>
-<li><p>设备启动，BIOS启动，检测RAM 的数量和基本硬件的是否已经安装并且响应，</p>
-</li>
-<li><p>之后通过储存在CMOS存储器中的设备清单决定启动设备</p>
-</li>
-<li><p>之后操作系统来询问BIOS ，以获得配置信息<br><strong>多路复用：实现时间和空间的复用</strong></p>
-</li>
-</ol>
-</blockquote>
-<h1 id="面试"><a href="#面试" class="headerlink" title="面试"></a>面试</h1><h2 id="什么是操作系统"><a href="#什么是操作系统" class="headerlink" title="什么是操作系统"></a>什么是操作系统</h2><ul>
-<li><p>操作系统是一种系统软件，是软、硬件资源的控制中心，</p>
-</li>
-<li><p>操作系统提供一个资源集的抽象，并管理这些硬件资源</p>
-</li>
-<li><p><strong>主要任务是隐藏硬件，呈现给程序的抽象</strong></p>
-</li>
-<li><p>记录哪个程序在使用什么资源，对资源请求进行评估代价，并且为不同的程序和用户调解互相冲突的资源冲突</p>
-</li>
-</ul>
-<h4 id="功能-："><a href="#功能-：" class="headerlink" title="功能 ："></a>功能 ：</h4><ol>
-<li>进程和线程的创建以及管理:创建，撤销，阻塞，唤醒，通信</li>
-<li>存储管理：内存和外存的分配管理</li>
-<li>文件管理：读写，创建删除</li>
-<li>设备管理：完成设备请求和释放，还有启动</li>
-<li>网络管理：</li>
-<li>安全管理：用户认证，控制访问，文件加密等</li>
-</ol>
-<h3 id="。。"><a href="#。。" class="headerlink" title="。。"></a>。。</h3><p>线程：<br>jvm中线程崩溃不会导致进程崩溃，原因是什么<br><em><strong>因为JVM自定义了自己的信号处理函数，拦截了SIGSEGV信号</strong></em></p>
-<ul>
-<li>用户态和内核态的转换：<ol>
-<li>系统调用</li>
-<li>中断</li>
-<li>异常</li>
-</ol>
-</li>
-<li>死锁的解除：<ol>
-<li>立刻结束所有进程</li>
-<li>结束涉及死锁的所有进程</li>
-<li>逐个撤销涉及死锁的进程</li>
-<li>抢占资源</li>
-</ol>
-</li>
-<li>内存管理：<ol>
-<li>分配回收</li>
-<li>地址转换</li>
-<li>扩充</li>
-<li>映射</li>
-<li>优化</li>
-<li>安全</li>
-</ol>
-</li>
-<li>inode：索引节点，用于存储文件的元信息，包括文件被分为几块，权限，所有者等，每个文件拥有唯一的inode。inode的数量是固定的</li>
-<li>PCB通过列表的方式组织，相同状态的进程链接在一起</li>
-<li>进程和线程的对比：<ol>
-<li>进程时资源分配的单位和CPU调度的单位</li>
-<li>线程只享有部分资源，如寄存器和栈</li>
-<li>线程可以享受进程的公共资源</li>
-<li>线程切换开销少：<ul>
-<li>线程不涉及资源管理信息</li>
-<li>线程释放的资源比进程少</li>
-<li>同一个进程中的线程切换比进程快，因为线程共享想用的地址空间，在一个进程中的所以后线程都构想一个页表。切换时不需要切换表。</li>
-</ul>
-</li>
-</ol>
-</li>
-<li>TCP线程控制块</li>
-<li>线程分类： <ol>
-<li>用户线程：在用户空间实现的线程,由用户态的线程库来管理</li>
-<li>内核线程：在内核中实现的线程，由内核管理</li>
-<li>轻量级线程：在内核中来支持用户线程</li>
-</ol>
-</li>
-<li>进程调度：<ul>
-<li>调度时机: 就绪态-&gt;运行态，运行态-&gt;阻塞态,运行态-&gt;结束态</li>
-<li>调度算法：<ul>
-<li>非抢占式调度算法 : 进程阻塞或者结束时才会调用另一个进程</li>
-<li>抢占式调度算法：对于一个进程，给予一段时间去运行，时间结束后仍然在运行时，将其挂起，会发生时钟中断</li>
-</ul>
-<ol>
-<li>FCFS 先来先服务</li>
-<li>SJF 最短作业优先</li>
-<li>高响应比优先调度算法</li>
-<li>时间片轮转</li>
-</ol>
-</li>
-</ul>
-</li>
-<li>进程之间的通信方式：<ol>
-<li>pipe    linux中 | 会创建两个子进程共同使用一个pipe</li>
-<li>消息队列：进程发送消息后就可以继续做工作，另一个进程读取到消息进行处理，消息队列是保存在内核中的消息链表，缺点是：通信不及时，附件大小有限制</li>
-<li>共享内存:拿出一块虚拟地址空间，将其映射到相同的物理内存中，即可做到消除拷贝过程、<ul>
-<li>缺点：多个进程共同修改共享地址会出现冲突</li>
-<li><img src="/2024/03/06/38/%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98.png"></li>
-</ul>
-</li>
-<li>信号量：P V 操作 初始量为1时，是互斥操作， 为0时是同步操作</li>
-<li>信号： 信号 ≠ 信号量，用于处理异常状态下的工作状态</li>
-<li>锁：<ul>
-<li>忙等待锁(自旋锁)：当获取不到锁时，线程会一直等待，不做别的事情，直至得到锁。</li>
-<li>互斥锁：加锁失败后会释放cpud</li>
-</ul>
-</li>
-</ol>
-</li>
-</ul>
-<h3 id="DMA"><a href="#DMA" class="headerlink" title="DMA"></a>DMA</h3><ul>
-<li>用户进程调用 read 方法，向操作系统发出 I/O 请求，请求读取数据到自己的内存缓冲区中，进程进入阻塞状态；</li>
-<li>操作系统收到请求后，进一步将 I/O 请求发送 DMA，然后让 CPU 执行其他任务；</li>
-<li>DMA 进一步将 I/O 请求发送给磁盘；</li>
-<li>磁盘收到 DMA 的 I/O 请求，把数据从磁盘读取到磁盘控制器的缓冲区中，当磁盘控制器的缓冲区被读满后，向 DMA 发起中断信号，告知自己缓冲区已满；</li>
-<li><strong>DMA 收到磁盘的信号，将磁盘控制器缓冲区中的数据拷贝到内核缓冲区中，此时不占用 CPU，CPU 可以执行其他任务</strong>；</li>
-<li>当 DMA 读取了足够多的数据，就会发送中断信号给 CPU；</li>
-<li>CPU 收到 DMA 的信号，知道数据已经准备好，于是将数据从内核拷贝到用户空间，系统调用返回；</li>
-<li>一致哈希算法也用了取模运算，但与哈希算法不同的是，哈希算法是对节点的数量进行取模运算，而<strong>一致哈希算法是对 2^32 进行取模运算，是一个固定的值</strong>。</li>
-</ul>
-<p>我们可以把一致哈希算法是对 2^32 进行取模运算的结果值组织成一个圆环，就像钟表一样，钟表的圆可以理解成由 60 个点组成的圆，而此处我们把这个圆想象成由 2^32 个点组成的圆，这个圆环被称为<strong>哈希环</strong>，如下图：</p>
-<p><img src="https://cdn.xiaolincoding.com//mysql/other/0ea3960fef48d4cbaeb4bec4345301e7.png"></p>
-<h3 id="内核"><a href="#内核" class="headerlink" title="内核"></a>内核</h3><p>现代操作系统，内核一般会提供 4 个基本能力：</p>
-<ul>
-<li>管理进程、线程，决定哪个进程、线程使用 CPU，也就是进程调度的能力；</li>
-<li>管理内存，决定内存的分配和回收，也就是内存管理的能力；</li>
-<li>管理硬件设备，为进程与硬件设备之间提供通信能力，也就是硬件通信能力；</li>
-<li>提供系统调用，如果应用程序要运行更高权限运行的服务，那么就需要有系统调用，它是用户程序与操作系统之间的接口。<br><em>宏内核</em> ： 内核的所有模块都在内核态<br>微内核：内核只保留基本能力，进程调度，中断等，剩下的放在用户空间<br>混合内核，是宏内核和微内核的结合体，内核中抽象出了微内核的概念，也就是内核中会有一个小型的内核，其他模块就在这个基础上搭建，整个内核是个完整的程序；</li>
-</ul>
-<h2 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h2><h3 id="寄存器："><a href="#寄存器：" class="headerlink" title="寄存器："></a>寄存器：</h3><ul>
-<li>通用寄存器：存放要运算的数据</li>
-<li>程序寄存器： 来存储下一条要执行的指令所在的内存第</li>
-<li>指令寄存器：存放指令本身</li>
-</ul>
-<h3 id="总线："><a href="#总线：" class="headerlink" title="总线："></a>总线：</h3><ul>
-<li>地址总线： 指定CPU要操作的内存地址</li>
-<li>数据总线：读写内存的数据</li>
-<li>控制总线 ： 发送和接受信号，中断，设备复位等，CPU响应也需要控制总线</li>
-</ul>
-<h3 id="调度"><a href="#调度" class="headerlink" title="调度"></a><a target="_blank" rel="noopener" href="https://xiaolincoding.com/os/1_hardware/how_cpu_deal_task.html#%E5%AE%8C%E5%85%A8%E5%85%AC%E5%B9%B3%E8%B0%83%E5%BA%A6">调度</a></h3><h2 id="存储"><a href="#存储" class="headerlink" title="存储"></a>存储</h2><ul>
-<li>寄存器；</li>
-<li>CPU Cache：使用SRAM 静态存储器，断电丢失数据</li>
-<li><img src="/2024/03/06/38/Cache%E5%88%86%E7%B1%BB.png"><ol>
-<li>L1-Cache；&nbsp;L1 高速缓存通常分成<strong>指令缓存</strong>和<strong>数据缓存</strong>。速度几乎和寄存器一样快。每个核心都拥有一个</li>
-<li>L2-Cache；比L2离CPU远，大小更大，每一个核心都有</li>
-<li>L3-Cahce；多核心公用</li>
-<li>写入策略：<ul>
-<li>写直达（_Write Through_）</li>
-<li>写回（_Write Back_）只有当Cache 中的数据被替换时，写入内存</li>
-</ul>
-</li>
-<li><h2 id="Cache一致性-第一点，某个-CPU-核心里的-Cache-数据更新时，必须要传播到其他核心的-Cache，这个称为写传播（-Write-Propagation-）；使用锁-第二点，某个-CPU-核心里对数据的操作顺序，必须在其他核心看起来顺序是一样的，这个称为事务的串行化（-Transaction-Serialization-）。-使用基于总线嗅探的MESI模型-伪共享：-多个线程同时读写同一个-Cache-Line-的不同变量时，而导致-CPU-Cache-失效的现象称为伪共享（-False-Sharing-）-解决：尽量避免这些数据刚好在同一个Cache-Line-将他们变成对齐的情况。-应用层面解决："><a href="#Cache一致性-第一点，某个-CPU-核心里的-Cache-数据更新时，必须要传播到其他核心的-Cache，这个称为写传播（-Write-Propagation-）；使用锁-第二点，某个-CPU-核心里对数据的操作顺序，必须在其他核心看起来顺序是一样的，这个称为事务的串行化（-Transaction-Serialization-）。-使用基于总线嗅探的MESI模型-伪共享：-多个线程同时读写同一个-Cache-Line-的不同变量时，而导致-CPU-Cache-失效的现象称为伪共享（-False-Sharing-）-解决：尽量避免这些数据刚好在同一个Cache-Line-将他们变成对齐的情况。-应用层面解决：" class="headerlink" title="Cache一致性- - 第一点，某个 CPU 核心里的 Cache 数据更新时，必须要传播到其他核心的 Cache，这个称为写传播（_Write Propagation_）；使用锁 - 第二点，某个 CPU 核心里对数据的操作顺序，必须在其他核心看起来顺序是一样的，这个称为事务的串行化（_Transaction Serialization_）。 - 使用基于总线嗅探的MESI模型 -  -  - 伪共享： 多个线程同时读写同一个 Cache Line 的不同变量时，而导致 CPU Cache 失效的现象称为伪共享（_False Sharing_） - 解决：尽量避免这些数据刚好在同一个Cache Line,将他们变成对齐的情况。 - 应用层面解决："></a>Cache一致性-<br> - 第一点，某个 CPU 核心里的 Cache 数据更新时，必须要传播到其他核心的 Cache，这个称为<strong>写传播（_Write Propagation_）</strong>；使用锁<br> - 第二点，某个 CPU 核心里对数据的操作顺序，必须在其他核心看起来顺序是一样的，这个称为<strong>事务的串行化（_Transaction Serialization_）</strong>。<br> - 使用基于总线嗅探的MESI模型<br> - <img src="/2024/03/06/38/%E7%8A%B6%E6%80%81%E5%9B%BE.png"><br> - <img src="/2024/03/06/38/MESI.png"><br> - 伪共享： 多个线程同时读写同一个 Cache Line 的不同变量时，而导致 CPU Cache 失效的现象称为<strong>伪共享（_False Sharing_）</strong><br> - 解决：尽量避免这些数据刚好在同一个Cache Line,将他们变成对齐的情况。<br> - 应用层面解决：<img src="/2024/03/06/38/%E5%BA%94%E7%94%A8%E5%B1%82%E9%9D%A2%E8%A7%A3%E5%86%B3.png"></h2></li>
-</ol>
-</li>
-<li>内存；DRAM 不断刷新，数据才能被存储起来。</li>
-<li>SSD/HDD 硬盘： SSD:固态硬盘，HDD机械硬盘</li>
-</ul>
-<h3 id="伙伴系统："><a href="#伙伴系统：" class="headerlink" title="伙伴系统："></a>伙伴系统：</h3><p>当可分配内存比所需要内存的二倍还大，那么就将其划分为两个大小为一半一半的空闲分区，重复划分，<strong>直到比二倍小就分配给他</strong></p>
-<h3 id="分页，分段"><a href="#分页，分段" class="headerlink" title="分页，分段"></a>分页，分段</h3><ol>
-<li><p><strong>分段（Segmentation）</strong>： 不连续，不等长，相当于是一小段逻辑的程序</p>
-<ul>
-<li>分段将内存划分为若干段（segments），每个段具有不同的大小和含义。</li>
-<li>每个段都有自己的基地址和长度。段可以包含代码、数据、堆栈等不同类型的信息。</li>
-<li>分段允许程序员以逻辑上独立的方式编写程序，并且使得程序的结构更清晰。</li>
-<li>分段的缺点是会导致内存碎片化，难以管理。</li>
-</ul>
-</li>
-<li><p><strong>分页（Paging）</strong>： 连续等长</p>
-<ul>
-<li>分页将内存划分为固定大小的页面（pages），通常为4KB或者更大。</li>
-<li>操作系统将进程的虚拟地址空间划分为与页面大小相同的块，称为虚拟页面（virtual pages）。</li>
-<li>虚拟页面和物理页面（physical pages）之间建立映射关系，操作系统负责管理这些映射。</li>
-<li>分页的优点是可以更有效地利用内存空间，减少内存碎片化，并且实现了更好的内存保护和共享。</li>
-<li>解决了外部碎片，但是仍然存在内部碎片</li>
-</ul>
-</li>
-</ol>
-<ul>
-<li>页帧：把**物理地址间_**划分为大小相同的基本分配单元</li>
-<li>页面：把<strong>逻辑地址空间</strong>也划分为相同大小，基本分配单元</li>
-<li>页面置换算法：</li>
-<li><strong>最佳页面置换算法（OPT，Optimal）</strong>：优先选择淘汰的页面是以后永不使用的，或者是在最长时间内不再被访问的页面，这样可以保证获得最低的缺页率。但由于人们目前无法预知进程在内存下的若干页面中哪个是未来最长时间内不再被访问的，因而该算法无法实现，只是理论最优的页面置换算法，可以作为衡量其他置换算法优劣的标准。</li>
-<li><strong>先进先出页面置换算法（FIFO，First In First Out）</strong> : 最简单的一种页面置换算法，总是淘汰最先进入内存的页面，即选择在内存中驻留时间最久的页面进行淘汰。该算法易于实现和理解，一般只需要通过一个 FIFO 队列即可需求。不过，它的性能并不是很好。</li>
-<li><strong>最近最久未使用页面置换算法（LRU ，Least Recently Used）</strong>：LRU 算法赋予每个页面一个访问字段，用来记录一个页面自上次被访问以来所经历的时间 T，当须淘汰一个页面时，选择现有页面中其 T 值最大的，即最近最久未使用的页面予以淘汰。LRU 算法是根据各页之前的访问情况来实现，因此是易于实现的。OPT 算法是根据各页未来的访问情况来实现，因此是不可实现的。</li>
-</ul>
-<h5 id="LRU算法的弊端："><a href="#LRU算法的弊端：" class="headerlink" title="LRU算法的弊端："></a><em>LRU算法的弊端：</em></h5><p>使用链表：最近使用的数据如果存在，就将其放在头部，如果不存在，就读取数据并放入头部，并删除尾部数据。<br>预读机制：读入数据时，会把相邻的数据一起读入(空间局限性)</p>
-<ol>
-<li>缓存失效：被预读的数据没有访问，而且把尾部的数据删除，降低了命中率。 解决：实现两个链表，分别存储热数据和冷数据，分别进行LRU算法。预读部分放入冷数据链表，当真正访问时，放入热数据链表</li>
-<li>缓存污染：当批量读取数据时，大量数据被放入热数据LRU链表，会导致之前的热点数据失效。解决：提高进入活跃LRU链表的门槛</li>
-</ol>
-<ul>
-<li><p><strong>最少使用页面置换算法（LFU，Least Frequently Used）</strong> : 和 LRU 算法比较像，不过该置换算法选择的是之前一段时间内使用最少的页面作为淘汰页。</p>
-</li>
-<li><p><strong>时钟页面置换算法（Clock）</strong>：可以认为是一种最近未使用算法，即逐出的页面都是最近没有使用的那个。</p>
-<p><strong>局部性原理</strong>是指在程序执行过程中，数据和指令的访问存在一定的空间和时间上的局部性特点。其中，时间局部性是指一个数据项或指令在一段时间内被反复使用的特点，空间局部性是指一个数据项或指令在一段时间内与其相邻的数据项或指令被反复使用的特点。</p>
-</li>
-</ul>
-<h3 id="虚拟内存的作用"><a href="#虚拟内存的作用" class="headerlink" title="虚拟内存的作用"></a>虚拟内存的作用</h3><ol>
-<li>使得进程对云翔内存超过物理内存大小，可以把不经常使用的内存换到物理内存之外</li>
-<li>每一个进程有自己的页表，所以每个进程的虚拟内存空间时相互独立 的，解决了多进程之间的地址冲突</li>
-<li>页表中还存在着一些标记属性的bit，如控制一个页的读写权限，为操作系统提供更好的安全性<br><em>如果没有空闲的物理内存，那么内核就会开始进行<strong>回收内存</strong>的工作，回收的方式主要是两种：直接内存回收和后台内存回收。</em></li>
-</ol>
-<ul>
-<li><strong>后台内存回收</strong>（kswapd）：在物理内存紧张的时候，会唤醒 kswapd 内核线程来回收内存，这个回收内存的过程<strong>异步</strong>的，不会阻塞进程的执行。</li>
-<li><strong>直接内存回收</strong>（direct reclaim）：如果后台异步回收跟不上进程内存申请的速度，就会开始直接回收，这个回收内存的过程是<strong>同步</strong>的，会阻塞进程的执行。</li>
-<li>OOM 选择一个占用物理内存高的进程，将其杀死，如果不够，重复杀死<ol>
-<li>文件页：脏页将其写回磁盘中，再释放， 干净页直接回收内存</li>
-<li>匿名页：没有实际载体的文件，将其不常访问写回磁盘</li>
-</ol>
-</li>
-</ul>
-<h2 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h2><p>进程控制块 PCB Process Control Block</p>
-<p>描述了进程的标识，空间运行状态，资源使用等信息</p>
-<p>PCB是进程存在的唯一标志</p>
-<p>每个进程都在操作系统中有一个对应的PCB</p>
-<p>操作系统建立一个表格用于描述该进程的存在和状态，这个表格就叫做进程控制块</p>
-<ul>
-<li>PCB 使用链表和索引表</li>
-<li>同一个状态的进程进入一个链表</li>
-<li>索引表指向PCB</li>
-</ul>
-<h4 id="PCB的使用"><a href="#PCB的使用" class="headerlink" title="PCB的使用"></a>PCB的使用</h4><p>进程创建：生成该进程的PCB<br>进程终止：回收它的PCB</p>
-<h3 id="进程的状态："><a href="#进程的状态：" class="headerlink" title="进程的状态："></a>进程的状态：</h3><p>创建状态、运行态、就绪态、阻塞态、结束状态<br><img src="/2024/03/06/38/%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2.png" alt="进程状态转换"><br>需要一个新的状态，来<strong>描述进程没有占用实际的物理内存空间的情况，这个状态就是挂起状态</strong>。</p>
-<ul>
-<li>阻塞挂起状态：进程在外存（硬盘）并等待某个事件的出现；</li>
-<li>就绪挂起状态：进程在外存（硬盘），但只要进入内存，即刻立刻运行；<br><img src="/2024/03/06/38/%E6%8C%82%E8%B5%B7.png"></li>
-</ul>
-<h4 id="进程创建"><a href="#进程创建" class="headerlink" title="进程创建"></a>进程创建</h4><h3 id="主要的事件：系统初始化，正在运行的程序执行了创建进程的系统调用，用户请求创建一个进程，一个批处理作业的初始化"><a href="#主要的事件：系统初始化，正在运行的程序执行了创建进程的系统调用，用户请求创建一个进程，一个批处理作业的初始化" class="headerlink" title="主要的事件：系统初始化，正在运行的程序执行了创建进程的系统调用，用户请求创建一个进程，一个批处理作业的初始化"></a>主要的事件：系统初始化，正在运行的程序执行了创建进程的系统调用，用户请求创建一个进程，一个批处理作业的初始化</h3><p>进程执行</p>
-<p>进程等待</p>
-<p>进程抢占</p>
-<p>进程唤醒</p>
-<p>进程结束</p>
-<p>核心状态：运行状态，就绪状态，等待状态，创建状态，结束状态<br>进程挂起：</p>
-<ol>
-<li><p>处于挂起状态的进程映射在磁盘上，目的是减少进程占用内存</p>
-</li>
-<li><p>等待挂起状态等待挂起状态</p>
-</li>
-<li><p>就绪挂起状态 进程在外存，但只要进入内存即可运行</p>
-</li>
-</ol>
-<h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><p>概念：线程是进程的一部分，描述指令流执行状态。是进程中指令执行流的最小单元，是CPU 调度的基本单位<br>线程 = 进程 - 共享资源<br>进程 = 资源+多组线程</p>
-<ul>
-<li>优点： 1. 一个进程可以有多个线程2.各个线程之间 2.线程之间可以并发。3. 线程之间可以共享地址和文件资源</li>
-<li>缺点：一个线程崩溃 会导致所属的进程的所有线程崩溃</li>
-</ul>
-<h4 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h4><p>为了避免由于中断处理程序执行时间过长，而影响正常进程的调度，Linux 将中断处理程序分为上半部和下半部：</p>
-<ul>
-<li>上半部，对应硬中断，由硬件触发中断，用来快速处理中断；</li>
-<li>下半部，对应软中断，由内核触发中断，用来异步处理上半部未完成的工作；<br>优点：</li>
-</ul>
-<ol>
-<li>提高CPU效率</li>
-<li>实时处理</li>
-<li>故障处理</li>
-<li>实现分时擦欧总<br>中断的来源是外设，异常是应用程序请求的，属于系统调用</li>
-</ol>
-<h3 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h3><p>每一个系统调用都需要切换堆栈，系统调用是操作系统提供给用户态程序的接口，用于调用内核。<br>自陷指令： 能够产生异常的指令</p>
-<h4 id="并发与并行"><a href="#并发与并行" class="headerlink" title="并发与并行:"></a>并发与并行:</h4><p>并行：两个进程一起进行，单核处理器中不能够并行，多核才可以</p>
-<p>并发：单核处理器合理的处理任务的操作，也就是多线程，并不能同时进行多个任务</p>
-<p>进程之间的关系：相互独立和相互制约<br>制约： 同步和互斥</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/03/05/33/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3415,6 +3005,375 @@ server<span class="token punctuation">.</span><span class="token function">liste
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2023/09/17/02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="QingQiu">
+      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QingQiu'Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/09/17/02/" class="post-title-link" itemprop="url">ssm-practice</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-09-17 09:00:02" itemprop="dateCreated datePublished" datetime="2023-09-17T09:00:02+08:00">2023-09-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-08-09 22:10:01" itemprop="dateModified" datetime="2024-08-09T22:10:01+08:00">2024-08-09</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.5k</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Springboot练习"><a href="#Springboot练习" class="headerlink" title="Springboot练习"></a>Springboot练习</h1><p>通过atguigu的今日头条项目进行项目驱动式学习<br>前端已准备</p>
+<h2 id="后端开发"><a href="#后端开发" class="headerlink" title="后端开发"></a>后端开发</h2><p>要求：后端使用springboot整合mybatis和springmvc来进行简单的增删改查</p>
+<ol>
+<li>导入依赖:<ul>
+<li>springboot启动包，springboot-web项目启动包，mybatis插件，数据库配置启动器springboot-starter-jdbc，druid启动器，mysql驱动类，lombok，aop,test,打包插件</li>
+</ul>
+</li>
+<li>编写配置类:<br>mybatis的配置类可以使用yaml格式或者是properties格式的文件，推荐使用yaml格式的文件，有分层的效果<br>[[Tools#yaml|查看Tools中的yaml]]<br><a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/yaml-intro.html">菜鸟教程</a><br><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#appendix.application-properties">具体配置</a><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># server配置</span>
+<span class="token key atrule">server</span><span class="token punctuation">:</span>
+  <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">8080</span>
+  <span class="token key atrule">servlet</span><span class="token punctuation">:</span>
+    <span class="token key atrule">context-path</span><span class="token punctuation">:</span> / <span class="token comment">#默认的根路径</span>
+
+<span class="token comment"># 连接池配置</span>
+<span class="token key atrule">spring</span><span class="token punctuation">:</span>
+  <span class="token key atrule">datasource</span><span class="token punctuation">:</span>
+    <span class="token key atrule">type</span><span class="token punctuation">:</span> com.alibaba.druid.pool.DruidDataSource
+    <span class="token key atrule">druid</span><span class="token punctuation">:</span>
+      <span class="token key atrule">url</span><span class="token punctuation">:</span> jdbc<span class="token punctuation">:</span>mysql<span class="token punctuation">:</span>///sm_db1
+      <span class="token key atrule">username</span><span class="token punctuation">:</span> root
+      <span class="token key atrule">password</span><span class="token punctuation">:</span> root
+      <span class="token key atrule">driver-class-name</span><span class="token punctuation">:</span> com.mysql.cj.jdbc.Driver
+
+<span class="token comment"># mybatis-plus的配置</span>
+<span class="token key atrule">mybatis-plus</span><span class="token punctuation">:</span>
+  <span class="token key atrule">type-aliases-package</span><span class="token punctuation">:</span> com.atguigu.pojo
+  <span class="token key atrule">global-config</span><span class="token punctuation">:</span>
+    <span class="token key atrule">db-config</span><span class="token punctuation">:</span>
+      <span class="token key atrule">logic-delete-field</span><span class="token punctuation">:</span> isDeleted  <span class="token comment">#全局逻辑删除</span>
+      <span class="token key atrule">id-type</span><span class="token punctuation">:</span> auto <span class="token comment">#直接使用springboot来进行配置，就不需要再加上这个注解了</span>
+      <span class="token key atrule">table-prefix</span><span class="token punctuation">:</span> news_ <span class="token comment"># 设置表的前缀</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li>druid兼容文件<pre class="line-numbers language-none"><code class="language-none">文件名:
+org.springframework.boot.autoconfigure.AutoConfiguration.imports
+内容:
+com.alibaba.druid.spring.boot3.autoconfigure.DruidDataSourceAutoConfigure<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li>编写启动类main<br><strong>疑问： 什么是乐观锁和悲观锁</strong><br>配置使用的插件 [[Java#^f13de1]]<br><a target="_blank" rel="noopener" href="https://baomidou.com/pages/2976a3/#%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98-sql-%E8%A7%A3%E6%9E%90">教程</a><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@SpringBootApplication</span>
+<span class="token annotation punctuation">@MapperScan</span><span class="token punctuation">(</span><span class="token string">"com.atguigu.mapper"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Main</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">SpringApplication</span><span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token class-name">Main</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span>args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">//配置mybatis-plus插件</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">MybatisPlusInterceptor</span> <span class="token function">mybatisPlusInterceptor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">MybatisPlusInterceptor</span> interceptor <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MybatisPlusInterceptor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        interceptor<span class="token punctuation">.</span><span class="token function">addInnerInterceptor</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">PaginationInnerInterceptor</span><span class="token punctuation">(</span><span class="token class-name">DbType</span><span class="token punctuation">.</span><span class="token constant">MYSQL</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//分页</span>
+        interceptor<span class="token punctuation">.</span><span class="token function">addInnerInterceptor</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">OptimisticLockerInnerInterceptor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">//乐观锁</span>
+        interceptor<span class="token punctuation">.</span><span class="token function">addInnerInterceptor</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">BlockAttackInnerInterceptor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">//防全局修改和删除</span>
+        <span class="token keyword">return</span> interceptor<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li>工具类封装:主要是统一返回结果的类<br> 结果封装类</li>
+</ol>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
+ * 全局统一返回结果类
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Result</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">{</span> <span class="token comment">//T是要使用的泛型，要在这里声明</span>
+    <span class="token comment">// 返回码</span>
+    <span class="token keyword">private</span> <span class="token class-name">Integer</span> code<span class="token punctuation">;</span>
+    <span class="token comment">// 返回消息</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> message<span class="token punctuation">;</span>
+    <span class="token comment">// 返回数据</span>
+    <span class="token keyword">private</span> <span class="token class-name">T</span> data<span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token class-name">Result</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token comment">// 返回数据</span>
+    <span class="token comment">//泛型方法，要将 要使用的泛型在返回类型之前进行声明</span>
+    <span class="token keyword">protected</span> <span class="token keyword">static</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">&gt;</span></span> <span class="token class-name">Result</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">&gt;</span></span> <span class="token function">build</span><span class="token punctuation">(</span><span class="token class-name">T</span> data<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">Result</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">&gt;</span></span> result <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Result</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>data <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span>
+            result<span class="token punctuation">.</span><span class="token function">setData</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">&gt;</span></span> <span class="token class-name">Result</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">&gt;</span></span> <span class="token function">build</span><span class="token punctuation">(</span><span class="token class-name">T</span> body<span class="token punctuation">,</span> <span class="token class-name">Integer</span> code<span class="token punctuation">,</span> <span class="token class-name">String</span> message<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">Result</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">&gt;</span></span> result <span class="token operator">=</span> <span class="token function">build</span><span class="token punctuation">(</span>body<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        result<span class="token punctuation">.</span><span class="token function">setCode</span><span class="token punctuation">(</span>code<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        result<span class="token punctuation">.</span><span class="token function">setMessage</span><span class="token punctuation">(</span>message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">&gt;</span></span> <span class="token class-name">Result</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">&gt;</span></span> <span class="token function">build</span><span class="token punctuation">(</span><span class="token class-name">T</span> body<span class="token punctuation">,</span> <span class="token class-name">ResultCodeEnum</span> resultCodeEnum<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">Result</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">&gt;</span></span> result <span class="token operator">=</span> <span class="token function">build</span><span class="token punctuation">(</span>body<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        result<span class="token punctuation">.</span><span class="token function">setCode</span><span class="token punctuation">(</span>resultCodeEnum<span class="token punctuation">.</span><span class="token function">getCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        result<span class="token punctuation">.</span><span class="token function">setMessage</span><span class="token punctuation">(</span>resultCodeEnum<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">/**
+     * 操作成功
+     * @param data  baseCategory1List
+     * @param &lt;T&gt;
+     * @return
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">&gt;</span></span> <span class="token class-name">Result</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">&gt;</span></span> <span class="token function">ok</span><span class="token punctuation">(</span><span class="token class-name">T</span> data<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token class-name">Result</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">&gt;</span></span> result <span class="token operator">=</span> <span class="token function">build</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token function">build</span><span class="token punctuation">(</span>data<span class="token punctuation">,</span> <span class="token class-name">ResultCodeEnum</span><span class="token punctuation">.</span><span class="token constant">SUCCESS</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token class-name">Result</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">&gt;</span></span> <span class="token function">message</span><span class="token punctuation">(</span><span class="token class-name">String</span> msg<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setMessage</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token class-name">Result</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">&gt;</span></span> <span class="token function">code</span><span class="token punctuation">(</span><span class="token class-name">Integer</span> code<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setCode</span><span class="token punctuation">(</span>code<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token class-name">Integer</span> <span class="token function">getCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> code<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setCode</span><span class="token punctuation">(</span><span class="token class-name">Integer</span> code<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>code <span class="token operator">=</span> code<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> message<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setMessage</span><span class="token punctuation">(</span><span class="token class-name">String</span> message<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>message <span class="token operator">=</span> message<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token class-name">T</span> <span class="token function">getData</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> data<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setData</span><span class="token punctuation">(</span><span class="token class-name">T</span> data<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>data <span class="token operator">=</span> data<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>解决枚举类<br>枚举类可以使用 常量(具体的常量内容来进行枚举)</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
+ * 统一返回结果状态信息类
+ *
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">enum</span> <span class="token class-name">ResultCodeEnum</span> <span class="token punctuation">{</span>
+
+    <span class="token function">SUCCESS</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">,</span><span class="token string">"success"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token function">USERNAME_ERROR</span><span class="token punctuation">(</span><span class="token number">501</span><span class="token punctuation">,</span><span class="token string">"usernameError"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token function">PASSWORD_ERROR</span><span class="token punctuation">(</span><span class="token number">503</span><span class="token punctuation">,</span><span class="token string">"passwordError"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token function">NOTLOGIN</span><span class="token punctuation">(</span><span class="token number">504</span><span class="token punctuation">,</span><span class="token string">"notLogin"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token function">USERNAME_USED</span><span class="token punctuation">(</span><span class="token number">505</span><span class="token punctuation">,</span><span class="token string">"userNameUsed"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">private</span> <span class="token class-name">Integer</span> code<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> message<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">ResultCodeEnum</span><span class="token punctuation">(</span><span class="token class-name">Integer</span> code<span class="token punctuation">,</span> <span class="token class-name">String</span> message<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>code <span class="token operator">=</span> code<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>message <span class="token operator">=</span> message<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token class-name">Integer</span> <span class="token function">getCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> code<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> message<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>MD5加密工具类</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>security<span class="token punctuation">.</span></span><span class="token class-name">MessageDigest</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>security<span class="token punctuation">.</span></span><span class="token class-name">NoSuchAlgorithmException</span></span><span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@Component</span>
+<span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">class</span> <span class="token class-name">MD5Util</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">String</span> <span class="token function">encrypt</span><span class="token punctuation">(</span><span class="token class-name">String</span> strSrc<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token keyword">char</span> hexChars<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token char">'0'</span><span class="token punctuation">,</span> <span class="token char">'1'</span><span class="token punctuation">,</span> <span class="token char">'2'</span><span class="token punctuation">,</span> <span class="token char">'3'</span><span class="token punctuation">,</span> <span class="token char">'4'</span><span class="token punctuation">,</span> <span class="token char">'5'</span><span class="token punctuation">,</span> <span class="token char">'6'</span><span class="token punctuation">,</span> <span class="token char">'7'</span><span class="token punctuation">,</span> <span class="token char">'8'</span><span class="token punctuation">,</span>
+                    <span class="token char">'9'</span><span class="token punctuation">,</span> <span class="token char">'a'</span><span class="token punctuation">,</span> <span class="token char">'b'</span><span class="token punctuation">,</span> <span class="token char">'c'</span><span class="token punctuation">,</span> <span class="token char">'d'</span><span class="token punctuation">,</span> <span class="token char">'e'</span><span class="token punctuation">,</span> <span class="token char">'f'</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+            <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> bytes <span class="token operator">=</span> strSrc<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//获得m5的实例</span>
+            <span class="token class-name">MessageDigest</span> md <span class="token operator">=</span> <span class="token class-name">MessageDigest</span><span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token string">"MD5"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            md<span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span>bytes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            bytes <span class="token operator">=</span> md<span class="token punctuation">.</span><span class="token function">digest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">int</span> j <span class="token operator">=</span> bytes<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+            <span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span> chars <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">char</span><span class="token punctuation">[</span>j <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token keyword">int</span> k <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> bytes<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">byte</span> b <span class="token operator">=</span> bytes<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                chars<span class="token punctuation">[</span>k<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> hexChars<span class="token punctuation">[</span>b <span class="token operator">&gt;&gt;&gt;</span> <span class="token number">4</span> <span class="token operator">&amp;</span> <span class="token number">0xf</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+                chars<span class="token punctuation">[</span>k<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> hexChars<span class="token punctuation">[</span>b <span class="token operator">&amp;</span> <span class="token number">0xf</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span>chars<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">NoSuchAlgorithmException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">RuntimeException</span><span class="token punctuation">(</span><span class="token string">"MD5加密出错！！+"</span> <span class="token operator">+</span> e<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="6">
+<li>使用mybatisX插件，选中表之后逆向工程生成实体类和接口(注意自己补充和删减一些注释)<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Data</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token keyword">implements</span> <span class="token class-name">Serializable</span> <span class="token punctuation">{</span>
+    
+    <span class="token annotation punctuation">@TableId</span> <span class="token comment">//主键</span>
+    <span class="token keyword">private</span> <span class="token class-name">Integer</span> uid<span class="token punctuation">;</span>
+
+    <span class="token keyword">private</span> <span class="token class-name">String</span> username<span class="token punctuation">;</span>
+
+    <span class="token keyword">private</span> <span class="token class-name">String</span> userPwd<span class="token punctuation">;</span>
+
+    <span class="token keyword">private</span> <span class="token class-name">String</span> nickName<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Version</span> <span class="token comment">//版本</span>
+    <span class="token keyword">private</span> <span class="token class-name">Integer</span> version<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@TableLogic</span> <span class="token comment">//逻辑删除</span>
+    <span class="token keyword">private</span> <span class="token class-name">Integer</span> isDeleted<span class="token punctuation">;</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">long</span> serialVersionUID <span class="token operator">=</span> <span class="token number">1L</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+补充:<br>[[Java#^86b436||逻辑删除]]</li>
+<li>使用jwt来生成[[Web学习#Token是一种令牌，用来识别访问人员的|Token]]</li>
+<li>JSON Web Token JWT由三部分组成: header(头部).payload(载荷).signature(签名)<br>1. 导入依赖</li>
+</ol>
+<pre><code><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>io.jsonwebtoken<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>jjwt<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">&gt;</span></span>0.9.1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>javax.xml.bind<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>jaxb-api<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">&gt;</span></span>2.3.0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</code></pre>
+<ol start="2">
+<li><p>编写配置</p>
+<p> application.yaml</p>
+ <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment">#jwt配置</span>
+<span class="token key atrule">jwt</span><span class="token punctuation">:</span>
+  <span class="token key atrule">token</span><span class="token punctuation">:</span>
+    <span class="token key atrule">tokenExpiration</span><span class="token punctuation">:</span> <span class="token number">120</span> <span class="token comment">#有效时间,单位分钟</span>
+    <span class="token key atrule">tokenSignKey</span><span class="token punctuation">:</span> headline123456  <span class="token comment">#当前程序签名秘钥 自定义</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>导入工具类</p>
+<p> 封装jwt技术工具类</p>
+ <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>atguigu<span class="token punctuation">.</span>utils</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">com<span class="token punctuation">.</span>alibaba<span class="token punctuation">.</span>druid<span class="token punctuation">.</span>util<span class="token punctuation">.</span></span><span class="token class-name">StringUtils</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">io<span class="token punctuation">.</span>jsonwebtoken<span class="token punctuation">.</span></span><span class="token operator">*</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">lombok<span class="token punctuation">.</span></span><span class="token class-name">Data</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>boot<span class="token punctuation">.</span>context<span class="token punctuation">.</span>properties<span class="token punctuation">.</span></span><span class="token class-name">ConfigurationProperties</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">Configuration</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>stereotype<span class="token punctuation">.</span></span><span class="token class-name">Component</span></span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>util<span class="token punctuation">.</span></span><span class="token class-name">Date</span></span><span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@Data</span>
+<span class="token annotation punctuation">@Component</span>
+<span class="token annotation punctuation">@ConfigurationProperties</span><span class="token punctuation">(</span>prefix <span class="token operator">=</span> <span class="token string">"jwt.token"</span><span class="token punctuation">)</span> <span class="token comment">//使用这个就可以省略前缀，如果后面的变量名和配置中相同的话就可以自动装配而不用手动装配了</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">JwtHelper</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">private</span>  <span class="token keyword">long</span> tokenExpiration<span class="token punctuation">;</span> <span class="token comment">//有效时间,单位毫秒 1000毫秒 == 1秒</span>
+    <span class="token keyword">private</span>  <span class="token class-name">String</span> tokenSignKey<span class="token punctuation">;</span>  <span class="token comment">//当前程序签名秘钥</span>
+
+    <span class="token comment">//生成token字符串</span>
+    <span class="token keyword">public</span>  <span class="token class-name">String</span> <span class="token function">createToken</span><span class="token punctuation">(</span><span class="token class-name">Long</span> userId<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"tokenExpiration = "</span> <span class="token operator">+</span> tokenExpiration<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"tokenSignKey = "</span> <span class="token operator">+</span> tokenSignKey<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">String</span> token <span class="token operator">=</span> <span class="token class-name">Jwts</span><span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+                <span class="token punctuation">.</span><span class="token function">setSubject</span><span class="token punctuation">(</span><span class="token string">"YYGH-USER"</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">setExpiration</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> tokenExpiration<span class="token operator">*</span><span class="token number">1000</span><span class="token operator">*</span><span class="token number">60</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">//单位分钟</span>
+                <span class="token punctuation">.</span><span class="token function">claim</span><span class="token punctuation">(</span><span class="token string">"userId"</span><span class="token punctuation">,</span> userId<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">signWith</span><span class="token punctuation">(</span><span class="token class-name">SignatureAlgorithm</span><span class="token punctuation">.</span><span class="token constant">HS512</span><span class="token punctuation">,</span> tokenSignKey<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">compressWith</span><span class="token punctuation">(</span><span class="token class-name">CompressionCodecs</span><span class="token punctuation">.</span><span class="token constant">GZIP</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">compact</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> token<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">//从token字符串获取userid</span>
+    <span class="token keyword">public</span>  <span class="token class-name">Long</span> <span class="token function">getUserId</span><span class="token punctuation">(</span><span class="token class-name">String</span> token<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token class-name">StringUtils</span><span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span>token<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+        <span class="token class-name">Jws</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Claims</span><span class="token punctuation">&gt;</span></span> claimsJws <span class="token operator">=</span> <span class="token class-name">Jwts</span><span class="token punctuation">.</span><span class="token function">parser</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setSigningKey</span><span class="token punctuation">(</span>tokenSignKey<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">parseClaimsJws</span><span class="token punctuation">(</span>token<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Claims</span> claims <span class="token operator">=</span> claimsJws<span class="token punctuation">.</span><span class="token function">getBody</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Integer</span> userId <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">Integer</span><span class="token punctuation">)</span>claims<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"userId"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> userId<span class="token punctuation">.</span><span class="token function">longValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+
+
+    <span class="token comment">//判断token是否有效</span>
+    <span class="token keyword">public</span>  <span class="token keyword">boolean</span> <span class="token function">isExpiration</span><span class="token punctuation">(</span><span class="token class-name">String</span> token<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token keyword">boolean</span> isExpire <span class="token operator">=</span> <span class="token class-name">Jwts</span><span class="token punctuation">.</span><span class="token function">parser</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">setSigningKey</span><span class="token punctuation">(</span>tokenSignKey<span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">parseClaimsJws</span><span class="token punctuation">(</span>token<span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">getBody</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">getExpiration</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">before</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment">//没有过期，有效，返回false</span>
+            <span class="token keyword">return</span> isExpire<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token keyword">catch</span><span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">//过期出现异常，返回true</span>
+            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>编写controller<br>知识点：跨域: 例如从不同的服务器或域名获取信息。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+</ol>
+<h2 id="时间格式解决"><a href="#时间格式解决" class="headerlink" title="时间格式解决"></a>时间格式解决</h2><p><img src="/2023/09/17/02/timeFormat.png" alt="timeformat"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -3484,7 +3443,7 @@ server<span class="token punctuation">.</span><span class="token function">liste
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-count">57</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
