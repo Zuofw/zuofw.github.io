@@ -6386,7 +6386,7 @@ lock<span class="token punctuation">.</span><span class="token function">lock</s
 <h5 id="为什么要使用临时顺序节点"><a href="#为什么要使用临时顺序节点" class="headerlink" title="为什么要使用临时顺序节点"></a>为什么要使用临时顺序节点</h5><p>znode是ZooKeeper中数据的最小单元<br>znode有4大分类</p>
 <ol>
 <li>持久节点：一旦创建就一直存在，即使ZooKeeper集群宕机</li>
-<li>临时节点：与客户端会话绑定，会话小时则节点消失，临时节点只能作为叶子节点，不能再创建子节点</li>
+<li>临时节点：与客户端会话绑定，会话消失则节点消失，临时节点只能作为叶子节点，不能再创建子节点</li>
 <li>持久顺序节点：持久+顺序性</li>
 <li>临时顺寻节点：临时+顺序性</li>
 </ol>
