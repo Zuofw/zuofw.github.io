@@ -1217,122 +1217,6 @@ explain select <span class="token operator">*</span> from user where age is not 
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2025/03/11/28/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="QingQiu">
-      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="QingQiu'Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/03/11/28/" class="post-title-link" itemprop="url">快手数据部门-日常实习</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2025-03-11 10:50:28" itemprop="dateCreated datePublished" datetime="2025-03-11T10:50:28+08:00">2025-03-11</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.2k</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="2025-3-10-一面-秒过，晚上约第二天下午二面"><a href="#2025-3-10-一面-秒过，晚上约第二天下午二面" class="headerlink" title="2025.3.10 一面(秒过，晚上约第二天下午二面)"></a>2025.3.10 一面(秒过，晚上约第二天下午二面)</h1><p>比较抽象，面试官一直说感觉你们这一届有点卷，疯狂打断</p>
-<ol>
-<li>自我介绍</li>
-<li>介绍代表性的项目：</li>
-<li>下游数据上报时，在多个上报中，如何处理数据一致性</li>
-<li>直接查表的话，对这张表的库造成大量压力，为什么可以查但是要同步到本地呢？</li>
-<li>实习的时候可以多思考，全链路，思考很多的数据一致性处理之类的，不要只停留在理论，该问就问</li>
-<li>Redis做分布式锁有什么不好的地方</li>
-<li>如果数据同步到一半，出现了问题，如何处理一致性和判断上一次同步的断点呢/断点重新同步如何设计的？</li>
-<li>如果同步过程中，同步没有失败，Redis过期了还没有执行完，那么如何处理</li>
-<li>手撕：二叉树的直径、k个一组反转链表</li>
-<li>工作室情况</li>
-<li>反问：部门业务</li>
-</ol>
-<h1 id="2025-3-11-二面-下午五点面，第二天早上9点通知三面"><a href="#2025-3-11-二面-下午五点面，第二天早上9点通知三面" class="headerlink" title="2025.3.11 二面(下午五点面，第二天早上9点通知三面)"></a>2025.3.11 二面(下午五点面，第二天早上9点通知三面)</h1><p>手撕了三道算法</p>
-<ol>
-<li>自我介绍</li>
-<li>介绍一下线程池，有哪些线程池(被八股，巴拉巴拉，背到一半给我打断了)</li>
-<li>CompletableFuture和Future的区别</li>
-<li>forkjoin线程池原理，为什么CF要使用forkjoin线程池</li>
-<li>为什么使用RocketMQ</li>
-<li>如何手动通过Kafka实现事务消息和死信队列</li>
-<li>除了Redis还有哪些可以实现ZooKeeper，实现原理</li>
-<li>手撕：大数相加(字符串模拟)、寻找重复子树、岛屿数量</li>
-<li>反问：做过多少算法题、是日常吗-&gt;问hr，还有三面吗-&gt;应该有，面试结果多久可以出-&gt; 问hr</li>
-<li>对未来的指点：多学点技术、大数据方面的可以看一看。</li>
-</ol>
-<h1 id="2025-3-12-三面-下午五点，面的好累，许愿吧，没有运气也白搭"><a href="#2025-3-12-三面-下午五点，面的好累，许愿吧，没有运气也白搭" class="headerlink" title="2025.3.12 三面 (下午五点，面的好累，许愿吧，没有运气也白搭)"></a>2025.3.12 三面 (下午五点，面的好累，许愿吧，没有运气也白搭)</h1><ol>
-<li>自我介绍</li>
-<li>实习地点和市场</li>
-<li>讲讲最有挑战的项目：我真的好想把美的这个垃圾项目换掉啊，屎山</li>
-<li>RPC相关(自己去看文档)</li>
-<li>介绍一下一致性哈希算法</li>
-<li>如果节点挂掉，是如何从哈希环中找到替代节点(还有节点重新哈希的位置如何确定)</li>
-<li>很多的节点宕机了，下一个节点需要拆分(虚拟节点)如何确定新的节点应该哈希到哪个位置。</li>
-<li>看源码的时候有觉得哪些比较有意思的源码(我讲的CF和FutureTask) <code>public class CompletableFuture&lt;T&gt; implements Future&lt;T&gt;, CompletionStage&lt;T&gt; </code></li>
-<li>围绕着Java的特性，你觉得Java是一种什么样的语言</li>
-<li>GC(疯狂打断)</li>
-<li>如何确定需要被清除的垃圾</li>
-<li>哪些节点可以作为GC Roots</li>
-<li>简单介绍一下本地方法栈</li>
-<li>本地方法在栈中是怎么存呢</li>
-<li>方法内联？</li>
-<li>G1(Garbage First)，介绍一下他的实现还有使用的算法</li>
-<li>如何判断哪些Region需要进行回收、如何判断哪些Region需要进行回收、Region回收的评估标准(不会)</li>
-<li>Synchronized和ReentrantLock底层</li>
-<li>手写生产者消费者模式(多线程)</li>
-<li>连续子数组的最大和</li>
-<li>反问：还有新的一轮技术面的：没有了</li>
-<li>多久出结果：很快，等通知吧</li>
-<li>有哪些指点吗：挺不错的，没啥指点的，看下来比同龄人优秀不少</li>
-</ol>
-<h2 id="手撕生产者消费者模式-多线程并发版，synchronized的使用方式"><a href="#手撕生产者消费者模式-多线程并发版，synchronized的使用方式" class="headerlink" title="手撕生产者消费者模式(多线程并发版，synchronized的使用方式)"></a>手撕生产者消费者模式(多线程并发版，synchronized的使用方式)</h2>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2025/02/19/24/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2300,6 +2184,352 @@ explain select <span class="token operator">*</span> from user where age is not 
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/09/30/01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="QingQiu">
+      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QingQiu'Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/09/30/01/" class="post-title-link" itemprop="url">深入浅出future</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-09-30 23:16:01" itemprop="dateCreated datePublished" datetime="2024-09-30T23:16:01+08:00">2024-09-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E7%B3%BB%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">深入理解系列</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.5k</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h1><h2 id="Callable-amp-FutureTask"><a href="#Callable-amp-FutureTask" class="headerlink" title="Callable &amp; FutureTask"></a>Callable &amp; FutureTask</h2><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Callable</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">&gt;</span></span> callableTask <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-&gt;</span> <span class="token punctuation">{</span>  
+    <span class="token class-name">TimeUnit</span><span class="token punctuation">.</span><span class="token constant">SECONDS</span><span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+    <span class="token keyword">return</span> <span class="token string">"Callable Task Result"</span><span class="token punctuation">;</span>  
+<span class="token punctuation">}</span><span class="token punctuation">;</span>  
+  
+<span class="token class-name">FutureTask</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">&gt;</span></span> futureTask <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FutureTask</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span>callableTask<span class="token punctuation">)</span><span class="token punctuation">;</span>  
+<span class="token class-name">Thread</span> thread <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span>futureTask<span class="token punctuation">)</span><span class="token punctuation">;</span>  
+thread<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="CompletableFuture"><a href="#CompletableFuture" class="headerlink" title="CompletableFuture"></a>CompletableFuture</h2><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">CompletableFuture</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">&gt;</span></span> completableFuture <span class="token operator">=</span> <span class="token class-name">CompletableFuture</span><span class="token punctuation">.</span><span class="token function">supplyAsync</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-&gt;</span> <span class="token punctuation">{</span>  
+    <span class="token keyword">try</span> <span class="token punctuation">{</span>  
+        <span class="token class-name">TimeUnit</span><span class="token punctuation">.</span><span class="token constant">SECONDS</span><span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+    <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalStateException</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">;</span>  
+    <span class="token punctuation">}</span>  
+    <span class="token keyword">return</span> <span class="token string">"CompletableFuture Result"</span><span class="token punctuation">;</span>  
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="深入使用"><a href="#深入使用" class="headerlink" title="深入使用"></a>深入使用</h3><p>以下示例来自：<a target="_blank" rel="noopener" href="https://tech.meituan.com/2022/05/12/principles-and-practices-of-completablefuture.html#:~:text=%E6%9C%AC%E7%AB%A0%E8%8A%82%E4%B8%BAComple">CompletableFuture原理与实践-外卖商家端API的异步化 - 美团技术团队 (meituan.com)</a><br>CF的使用是基于构造依赖树的，一个CompletableFuture的使用会触发另外一系列依赖它的CF执行<br><img src="/2024/09/30/01/CF%E4%BE%9D%E8%B5%96.png"><br>服务依赖</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// 无依赖</span>
+<span class="token class-name">ExecutorService</span> executor <span class="token operator">=</span> <span class="token class-name">Executors</span><span class="token punctuation">.</span><span class="token function">newFixedThreadPool</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+<span class="token comment">// 直接发起异步调用  </span>
+<span class="token class-name">CompletableFuture</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">&gt;</span></span> cf1 <span class="token operator">=</span> <span class="token class-name">CompletableFuture</span><span class="token punctuation">.</span><span class="token function">supplyAsync</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-&gt;</span> <span class="token string">"result1"</span><span class="token punctuation">,</span>executor<span class="token punctuation">)</span><span class="token punctuation">;</span>  
+<span class="token comment">// 直接返回一个已经完成的CompletableFuture  </span>
+<span class="token class-name">CompletableFuture</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">&gt;</span></span> cf2 <span class="token operator">=</span> <span class="token class-name">CompletableFuture</span><span class="token punctuation">.</span><span class="token function">completedFuture</span><span class="token punctuation">(</span><span class="token string">"result2"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 单个依赖</span>
+<span class="token class-name">CompletableFuture</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">&gt;</span></span> cf3 <span class="token operator">=</span> cf1<span class="token punctuation">.</span><span class="token function">thenApply</span><span class="token punctuation">(</span>result <span class="token operator">-&gt;</span> <span class="token punctuation">{</span>  
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"result1: "</span> <span class="token operator">+</span> result<span class="token punctuation">)</span><span class="token punctuation">;</span>  
+    <span class="token keyword">return</span> <span class="token string">"result3"</span><span class="token punctuation">;</span>  
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+<span class="token class-name">CompletableFuture</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">&gt;</span></span> cf4 <span class="token operator">=</span> cf1<span class="token punctuation">.</span><span class="token function">thenCombine</span><span class="token punctuation">(</span>cf2<span class="token punctuation">,</span> <span class="token punctuation">(</span>result1<span class="token punctuation">,</span> result2<span class="token punctuation">)</span> <span class="token operator">-&gt;</span> <span class="token punctuation">{</span>  
+    <span class="token comment">//result1和result2分别为cf1和cf2的结果  </span>
+    <span class="token keyword">return</span> <span class="token string">"result4"</span><span class="token punctuation">;</span>  
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 多依赖</span>
+<span class="token class-name">CompletableFuture</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Void</span><span class="token punctuation">&gt;</span></span> cf6 <span class="token operator">=</span> <span class="token class-name">CompletableFuture</span><span class="token punctuation">.</span><span class="token function">allOf</span><span class="token punctuation">(</span>cf3<span class="token punctuation">,</span> cf4<span class="token punctuation">,</span> cf5<span class="token punctuation">)</span><span class="token punctuation">;</span>  
+<span class="token class-name">CompletableFuture</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">&gt;</span></span> result <span class="token operator">=</span> cf6<span class="token punctuation">.</span><span class="token function">thenApply</span><span class="token punctuation">(</span>v <span class="token operator">-&gt;</span> <span class="token punctuation">{</span>  
+    <span class="token comment">//这里的join并不会阻塞，因为传给thenApply的函数是在CF3、CF4、CF5全部完成时，才会执行 。  </span>
+    result3 <span class="token operator">=</span> cf3<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+    result4 <span class="token operator">=</span> cf4<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+    result5 <span class="token operator">=</span> cf5<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+    <span class="token comment">//根据result3、result4、result5组装最终result;  </span>
+    <span class="token keyword">return</span> <span class="token string">"result"</span><span class="token punctuation">;</span>  
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 或者使用anyOf，只要有一个依赖完成即可完成</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="源码解读-基于JDK1-8"><a href="#源码解读-基于JDK1-8" class="headerlink" title="源码解读(基于JDK1.8)"></a>源码解读(基于JDK1.8)</h1><h2 id="Callable"><a href="#Callable" class="headerlink" title="Callable"></a>Callable</h2><p>Callable是用于定义和返回结果，并且可能抛出异常的任务，类似于Runnable</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@FunctionalInterface</span>  
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Callable</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">{</span>  
+    <span class="token comment">/**  
+     * call 方法是 Callable 接口中的唯一方法，用于执行任务并返回结果。它与 Runnable 接口的 run 方法类似，但 call 方法可以返回一个结果并且可以抛出受检异常
+     */</span>    
+     <span class="token class-name">V</span> <span class="token function">call</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span><span class="token punctuation">;</span>  
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="FutureTask"><a href="#FutureTask" class="headerlink" title="FutureTask"></a>FutureTask</h2><p>先梳理一下继承关系，Future是一个接口，定义了一些属性，然后</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">RunnableFuture</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span> <span class="token keyword">extends</span> <span class="token class-name">Runnable</span><span class="token punctuation">,</span> <span class="token class-name">Future</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">{</span>
+    <span class="token comment">/**
+     * Sets this Future to the result of its computation
+     * unless it has been cancelled.
+     */</span>
+    <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>所以FutureTask就是一个Future的实际实现，是基于Runnable实现的</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">FutureTask</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span> <span class="token keyword">implements</span> <span class="token class-name">RunnableFuture</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">{</span>
+	<span class="token comment">// 任务的运行状态，初始为 NEW。状态只在 set、setException 和 cancel 方法中转换为终止状态。</span>
+	<span class="token keyword">private</span> <span class="token keyword">volatile</span> <span class="token keyword">int</span> state<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> <span class="token constant">NEW</span>          <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> <span class="token constant">COMPLETING</span>   <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> <span class="token constant">NORMAL</span>       <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> <span class="token constant">EXCEPTIONAL</span>  <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> <span class="token constant">CANCELLED</span>    <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> <span class="token constant">INTERRUPTING</span> <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> <span class="token constant">INTERRUPTED</span>  <span class="token operator">=</span> <span class="token number">6</span><span class="token punctuation">;</span>
+
+	<span class="token comment">// 重要的属性</span>
+	<span class="token comment">// 底层的callable，运行后置为null</span>
+	<span class="token keyword">private</span> <span class="token class-name">Callable</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span> callable<span class="token punctuation">;</span>
+	<span class="token comment">// get()方法返回的结果或者抛出的异常</span>
+    <span class="token keyword">private</span> <span class="token class-name">Object</span> outcome<span class="token punctuation">;</span> <span class="token comment">// non-volatile, protected by state reads/writes</span>
+	<span class="token comment">// 运行callable的线程,在run()期间CAS设置</span>
+    <span class="token keyword">private</span> <span class="token keyword">volatile</span> <span class="token class-name">Thread</span> runner<span class="token punctuation">;</span>
+	<span class="token comment">// 等待线程的Triber栈</span>
+    <span class="token keyword">private</span> <span class="token keyword">volatile</span> <span class="token class-name">WaitNode</span> waiters<span class="token punctuation">;</span>
+	<span class="token comment">// 返回结果或者返回异常 </span>
+	<span class="token keyword">private</span> <span class="token class-name">V</span> <span class="token function">report</span><span class="token punctuation">(</span><span class="token keyword">int</span> s<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">ExecutionException</span> <span class="token punctuation">{</span>
+        <span class="token class-name">Object</span> x <span class="token operator">=</span> outcome<span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>s <span class="token operator">==</span> <span class="token constant">NORMAL</span><span class="token punctuation">)</span>
+            <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token class-name">V</span><span class="token punctuation">)</span>x<span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>s <span class="token operator">&gt;=</span> <span class="token constant">CANCELLED</span><span class="token punctuation">)</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">CancellationException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">ExecutionException</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token class-name">Throwable</span><span class="token punctuation">)</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// 构造函数，接收callable作为参数来执行任务</span>
+    <span class="token keyword">public</span> <span class="token class-name">FutureTask</span><span class="token punctuation">(</span><span class="token class-name">Callable</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span> callable<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>callable <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">NullPointerException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>callable <span class="token operator">=</span> callable<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>state <span class="token operator">=</span> <span class="token constant">NEW</span><span class="token punctuation">;</span>       <span class="token comment">// ensure visibility of callable</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// 获取执行结果</span>
+    <span class="token keyword">public</span> <span class="token class-name">V</span> <span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">InterruptedException</span><span class="token punctuation">,</span> <span class="token class-name">ExecutionException</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> s <span class="token operator">=</span> state<span class="token punctuation">;</span>
+		<span class="token comment">// 如果还处于未完成的状态则调用awaitDone</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>s <span class="token operator">&lt;=</span> <span class="token constant">COMPLETING</span><span class="token punctuation">)</span>
+            s <span class="token operator">=</span> <span class="token function">awaitDone</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token number">0L</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token comment">// 返回执行结果或者异常</span>
+        <span class="token keyword">return</span> <span class="token function">report</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// 核心执行</span>
+    <span class="token comment">// 因为封装了Runnable接口，所以可以直接执行使用主线程</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	    <span class="token comment">// 如果任务状态不是NEW或者使用CAS无法将runner设置为当前线程，直接返回</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>state <span class="token operator">!=</span> <span class="token constant">NEW</span> <span class="token operator">||</span>
+            <span class="token operator">!</span><span class="token constant">UNSAFE</span><span class="token punctuation">.</span><span class="token function">compareAndSwapObject</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> runnerOffset<span class="token punctuation">,</span>
+                                         <span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token class-name">Thread</span><span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token keyword">return</span><span class="token punctuation">;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token class-name">Callable</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span> c <span class="token operator">=</span> callable<span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>c <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span> state <span class="token operator">==</span> <span class="token constant">NEW</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token class-name">V</span> result<span class="token punctuation">;</span>
+                <span class="token keyword">boolean</span> ran<span class="token punctuation">;</span>
+                <span class="token keyword">try</span> <span class="token punctuation">{</span>
+					<span class="token comment">// 调用callable的call方法去执行callable封装的任务</span>
+                    result <span class="token operator">=</span> c<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    ran <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Throwable</span> ex<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    result <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+                    ran <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+                    <span class="token function">setException</span><span class="token punctuation">(</span>ex<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>ran<span class="token punctuation">)</span>
+					<span class="token comment">// 设置返回结果</span>
+                    <span class="token function">set</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
+            <span class="token comment">// runner must be non-null until state is settled to</span>
+            <span class="token comment">// prevent concurrent calls to run()</span>
+			<span class="token comment">// 线程置为null,防止并发调用线程</span>
+            runner <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+            <span class="token comment">// state must be re-read after nulling runner to prevent</span>
+            <span class="token comment">// leaked interrupts</span>
+            <span class="token keyword">int</span> s <span class="token operator">=</span> state<span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>s <span class="token operator">&gt;=</span> <span class="token constant">INTERRUPTING</span><span class="token punctuation">)</span>
+                <span class="token function">handlePossibleCancellationInterrupt</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// 停止执行任务实际上就是将执行任务的写线程从runner属性中取出然后调用interupt信号，这里省略</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token comment">// </span>
+    
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>通过分析源码，我们发现Future获取结果的方式是通过阻塞实现的，会阻塞当前线程，如何避免阻塞呢？</p>
+<h2 id="CompletableFuture-以下简称CF"><a href="#CompletableFuture-以下简称CF" class="headerlink" title="CompletableFuture(以下简称CF)"></a>CompletableFuture(以下简称CF)</h2><h3 id="为何会选择CF呢？"><a href="#为何会选择CF呢？" class="headerlink" title="为何会选择CF呢？"></a>为何会选择CF呢？</h3><ul>
+<li>可组合：可以将多个依赖操作通过不同的方式进行编排</li>
+<li>操作融合：将数据流中使用的多个操作符以某中方式组合起来从而降低开销</li>
+<li>延迟执行</li>
+<li>学习成本低</li>
+<li>相比于只能通过阻塞或者轮询获得结果而且不支持回调方法的Future，CF支持回调的方式进行处理结果，同时支持组合操作支持进一步的编排</li>
+</ul>
+<h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>让我们首先关注它的定义</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CompletableFuture</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">&gt;</span></span> <span class="token keyword">implements</span> <span class="token class-name">Future</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">,</span> <span class="token class-name">CompletionStage</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">{</span>
+	<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>可以发现奥秘就在<code>CompletionStage</code>这个接口中，<code>CompletionStage</code>用于标识执行过程中的一个步骤(Stage)，从而实现了服务编排</p>
+<h4 id="CompletionStage"><a href="#CompletionStage" class="headerlink" title="CompletionStage"></a>CompletionStage</h4><p>定义了一系列任务的步骤，具体实现看CompletableFuture是如何实现的</p>
+<h4 id="基本属性"><a href="#基本属性" class="headerlink" title="基本属性"></a>基本属性</h4><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CompletableFuture</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">&gt;</span></span> <span class="token keyword">implements</span> <span class="token class-name">Future</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">,</span> <span class="token class-name">CompletionStage</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">{</span>
+	<span class="token comment">// 用于存储当前CF的结果	</span>
+	<span class="token keyword">volatile</span> <span class="token class-name">Object</span> result<span class="token punctuation">;</span>      
+	<span class="token comment">// stack用于表示当前CF完成后需要触发的依赖动作</span>
+    <span class="token keyword">volatile</span> <span class="token class-name">Completion</span> stack<span class="token punctuation">;</span>    
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>从这里我们看出，使用了类似于”观察者”模式设计思想，被观察者是CompletableFuture，而观察者是这些需要回调的依赖动作</p>
+<h4 id="Completion的定义"><a href="#Completion的定义" class="headerlink" title="Completion的定义"></a>Completion的定义</h4><p>Completion是定义在CompletableFuture里的</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">abstract</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">Completion</span> <span class="token keyword">extends</span> <span class="token class-name">ForkJoinTask</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Void</span><span class="token punctuation">&gt;</span></span>
+       <span class="token keyword">implements</span> <span class="token class-name">Runnable</span><span class="token punctuation">,</span> <span class="token class-name">AsynchronousCompletionTask</span> <span class="token punctuation">{</span>
+       <span class="token keyword">volatile</span> <span class="token class-name">Completion</span> next<span class="token punctuation">;</span>      <span class="token comment">// Treiber stack link</span>
+
+       <span class="token comment">/**
+        * Performs completion action if triggered, returning a
+        * dependent that may need propagation, if one exists.
+        *
+        * @param mode SYNC, ASYNC, or NESTED
+        */</span>
+       <span class="token keyword">abstract</span> <span class="token class-name">CompletableFuture</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> <span class="token function">tryFire</span><span class="token punctuation">(</span><span class="token keyword">int</span> mode<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+       <span class="token comment">/** Returns true if possibly still triggerable. Used by cleanStack. */</span>
+       <span class="token keyword">abstract</span> <span class="token keyword">boolean</span> <span class="token function">isLive</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+       <span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span>                <span class="token punctuation">{</span> <span class="token function">tryFire</span><span class="token punctuation">(</span><span class="token constant">ASYNC</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+       <span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">boolean</span> <span class="token function">exec</span><span class="token punctuation">(</span><span class="token punctuation">)</span>            <span class="token punctuation">{</span> <span class="token function">tryFire</span><span class="token punctuation">(</span><span class="token constant">ASYNC</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+       <span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token class-name">Void</span> <span class="token function">getRawResult</span><span class="token punctuation">(</span><span class="token punctuation">)</span>       <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+       <span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">void</span> <span class="token function">setRawResult</span><span class="token punctuation">(</span><span class="token class-name">Void</span> v<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+   <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="依赖的流程"><a href="#依赖的流程" class="headerlink" title="依赖的流程"></a>依赖的流程</h4><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">U</span><span class="token punctuation">&gt;</span></span> <span class="token class-name">CompletableFuture</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">U</span><span class="token punctuation">&gt;</span></span> <span class="token function">thenApply</span><span class="token punctuation">(</span>  
+    <span class="token class-name">Function</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">super</span> <span class="token class-name">T</span><span class="token punctuation">,</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">U</span><span class="token punctuation">&gt;</span></span> fn<span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+    <span class="token keyword">return</span> <span class="token function">uniApplyStage</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">,</span> fn<span class="token punctuation">)</span><span class="token punctuation">;</span>  
+<span class="token punctuation">}</span>
+<span class="token keyword">private</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span> <span class="token class-name">CompletableFuture</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span> <span class="token function">uniApplyStage</span><span class="token punctuation">(</span>  
+    <span class="token class-name">Executor</span> e<span class="token punctuation">,</span> <span class="token class-name">Function</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">super</span> <span class="token class-name">T</span><span class="token punctuation">,</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">V</span><span class="token punctuation">&gt;</span></span> f<span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>f <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">NullPointerException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+    <span class="token class-name">Object</span> r<span class="token punctuation">;</span>  
+    <span class="token comment">// 如果已经任务已经完成了，直接调用uniApplyNow</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>r <span class="token operator">=</span> result<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span>  
+        <span class="token keyword">return</span> <span class="token function">uniApplyNow</span><span class="token punctuation">(</span>r<span class="token punctuation">,</span> e<span class="token punctuation">,</span> f<span class="token punctuation">)</span><span class="token punctuation">;</span>  
+    <span class="token comment">// 创建一个新的未完成CompletableFuture</span>
+    <span class="token class-name">CompletableFuture</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span> d <span class="token operator">=</span> <span class="token function">newIncompleteFuture</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+	<span class="token comment">// 将这个新的UniApply压栈 </span>
+    <span class="token function">unipush</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">UniApply</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span>e<span class="token punctuation">,</span> d<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">,</span> f<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+    <span class="token keyword">return</span> d<span class="token punctuation">;</span>  
+<span class="token punctuation">}</span>
+
+<span class="token keyword">private</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span> <span class="token class-name">CompletableFuture</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span> <span class="token function">uniApplyNow</span><span class="token punctuation">(</span>  
+    <span class="token class-name">Object</span> r<span class="token punctuation">,</span> <span class="token class-name">Executor</span> e<span class="token punctuation">,</span> <span class="token class-name">Function</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">super</span> <span class="token class-name">T</span><span class="token punctuation">,</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">V</span><span class="token punctuation">&gt;</span></span> f<span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+    <span class="token class-name">Throwable</span> x<span class="token punctuation">;</span>  
+	<span class="token comment">// 创建一个新的CompletableFuture</span>
+    <span class="token class-name">CompletableFuture</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span> d <span class="token operator">=</span> <span class="token function">newIncompleteFuture</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>r <span class="token keyword">instanceof</span> <span class="token class-name">AltResult</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>x <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token class-name">AltResult</span><span class="token punctuation">)</span>r<span class="token punctuation">)</span><span class="token punctuation">.</span>ex<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+            d<span class="token punctuation">.</span>result <span class="token operator">=</span> <span class="token function">encodeThrowable</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> r<span class="token punctuation">)</span><span class="token punctuation">;</span>  
+            <span class="token keyword">return</span> d<span class="token punctuation">;</span>  
+        <span class="token punctuation">}</span>        r <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>  
+    <span class="token punctuation">}</span>    <span class="token keyword">try</span> <span class="token punctuation">{</span>  
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>e <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+			<span class="token comment">// 不是异常就执行新的UniApply任务</span>
+            e<span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">UniApply</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">,</span> d<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">,</span> f<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>  
+            <span class="token annotation punctuation">@SuppressWarnings</span><span class="token punctuation">(</span><span class="token string">"unchecked"</span><span class="token punctuation">)</span> <span class="token class-name">T</span> t <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">T</span><span class="token punctuation">)</span> r<span class="token punctuation">;</span>  
+            d<span class="token punctuation">.</span>result <span class="token operator">=</span> d<span class="token punctuation">.</span><span class="token function">encodeValue</span><span class="token punctuation">(</span>f<span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span>t<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+        <span class="token punctuation">}</span>    <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Throwable</span> ex<span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+        d<span class="token punctuation">.</span>result <span class="token operator">=</span> <span class="token function">encodeThrowable</span><span class="token punctuation">(</span>ex<span class="token punctuation">)</span><span class="token punctuation">;</span>  
+    <span class="token punctuation">}</span>    <span class="token keyword">return</span> d<span class="token punctuation">;</span>  
+<span class="token punctuation">}</span>
+
+ <span class="token keyword">final</span> <span class="token keyword">void</span> <span class="token function">unipush</span><span class="token punctuation">(</span><span class="token class-name">Completion</span> c<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>c <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+			<span class="token comment">// 尝试将c压栈，知道成功或者任务完成为止</span>
+            <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">tryPushStack</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>result <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token constant">NEXT</span><span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>c<span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token keyword">break</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>result <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span>
+                c<span class="token punctuation">.</span><span class="token function">tryFire</span><span class="token punctuation">(</span><span class="token constant">SYNC</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>简单理解一下就是，在CF完成任务时，会去观察者链中出栈一个，然后执行，并且返回一个新的CompletableFuture，然后后续继续去完成后续依赖任务</li>
+<li>如果原始任务还没完成，那么就会将新的任务推入栈中，等待原始任务完成</li>
+</ul>
+<h4 id="执行过程"><a href="#执行过程" class="headerlink" title="执行过程"></a>执行过程</h4><p>以 supplyAsync为例</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// 有自定义线程池的调用函数</span>
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">U</span><span class="token punctuation">&gt;</span></span> <span class="token class-name">CompletableFuture</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">U</span><span class="token punctuation">&gt;</span></span> <span class="token function">supplyAsync</span><span class="token punctuation">(</span><span class="token class-name">Supplier</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">U</span><span class="token punctuation">&gt;</span></span> supplier<span class="token punctuation">,</span>  
+                                                   <span class="token class-name">Executor</span> executor<span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+    <span class="token keyword">return</span> <span class="token function">asyncSupplyStage</span><span class="token punctuation">(</span><span class="token function">screenExecutor</span><span class="token punctuation">(</span>executor<span class="token punctuation">)</span><span class="token punctuation">,</span> supplier<span class="token punctuation">)</span><span class="token punctuation">;</span>  
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 没有自定义线程池会使用自带的线程池</span>
+<span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">Executor</span> <span class="token constant">ASYNC_POOL</span> <span class="token operator">=</span> <span class="token constant">USE_COMMON_POOL</span> <span class="token operator">?</span>  
+    <span class="token class-name">ForkJoinPool</span><span class="token punctuation">.</span><span class="token function">commonPool</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">ThreadPerTaskExecutor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">U</span><span class="token punctuation">&gt;</span></span> <span class="token class-name">CompletableFuture</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">U</span><span class="token punctuation">&gt;</span></span> <span class="token function">supplyAsync</span><span class="token punctuation">(</span><span class="token class-name">Supplier</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">U</span><span class="token punctuation">&gt;</span></span> supplier<span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+    <span class="token keyword">return</span> <span class="token function">asyncSupplyStage</span><span class="token punctuation">(</span><span class="token constant">ASYNC_POOL</span><span class="token punctuation">,</span> supplier<span class="token punctuation">)</span><span class="token punctuation">;</span>  
+<span class="token punctuation">}</span>
+<span class="token comment">// 实际执行者</span>
+<span class="token keyword">static</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">U</span><span class="token punctuation">&gt;</span></span> <span class="token class-name">CompletableFuture</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">U</span><span class="token punctuation">&gt;</span></span> <span class="token function">asyncSupplyStage</span><span class="token punctuation">(</span><span class="token class-name">Executor</span> e<span class="token punctuation">,</span>  
+                                                 <span class="token class-name">Supplier</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">U</span><span class="token punctuation">&gt;</span></span> f<span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>f <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">NullPointerException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+    <span class="token class-name">CompletableFuture</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">U</span><span class="token punctuation">&gt;</span></span> d <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">CompletableFuture</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">U</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+    <span class="token comment">// 调用线程池去执行</span>
+    e<span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">AsyncSupply</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">U</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span>d<span class="token punctuation">,</span> f<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+    <span class="token keyword">return</span> d<span class="token punctuation">;</span>  
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>通过阅读源码，我们可以发现，原来CompletableFuture执行任务是会使用我们提交给它的线程池或者它自己默认去生成一个线程池去执行的，相比FutureTask通过阻塞去等待结果，确实是提升了性能。<br><strong>关于线程池的源码和原理解析，以及一些八股知识，欢迎翻看鄙人的另一篇《深入浅出线程池》博客观看</strong></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -2369,7 +2599,7 @@ explain select <span class="token operator">*</span> from user where age is not 
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-count">57</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2423,7 +2653,7 @@ explain select <span class="token operator">*</span> from user where age is not 
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">467k</span>
+    <span title="站点总字数">466k</span>
 </div>
 
         
