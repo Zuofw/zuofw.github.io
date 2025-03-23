@@ -167,6 +167,230 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2025/02/17/38/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="QingQiu">
+      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QingQiu'Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/02/17/38/" class="post-title-link" itemprop="url">📺b后端实习面经(项目拷打，重点看)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-02-17 17:36:38" itemprop="dateCreated datePublished" datetime="2025-02-17T17:36:38+08:00">2025-02-17</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.8k</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>前言：我的算法就是屎，赶点想想办法吧</p>
+<h1 id="2025-02-17-b站一面-项目和实习拷打，第二天晚上oc"><a href="#2025-02-17-b站一面-项目和实习拷打，第二天晚上oc" class="headerlink" title="2025.02.17 b站一面(项目和实习拷打，第二天晚上oc)"></a>2025.02.17 b站一面(项目和实习拷打，第二天晚上oc)</h1><p>拷打项目</p>
+<ol>
+<li>数据同步的耗时有没有要求？</li>
+<li>什么场景需要需要百万数据？ 从上流数据库批处理工具</li>
+<li>数据的一致性、数据的稳定性、系统的稳定性、效率都是如何考虑的？会不会有丢的情况，丢的话如何处理的？(好难)</li>
+<li>Redis锁如果超时了，有没有自动释放机制(注意，不能剥夺，不要说强行剥夺，因为不合常理)</li>
+<li>SQL查询是如何做到的？单表还是多表？数据量？大概有多少列？</li>
+<li>B+树的结构、节点是怎么组织的，存的是什么，为什么效率比较高？和B树的区别？</li>
+<li>B+树一个数据页如果满了，之后会发生什么？</li>
+<li>有没有用过NoSQL型数据库？tidb有了解过吗？</li>
+<li>有没有分表分库？使用了什么中间件？</li>
+<li>项目的灵感来源？为什么要做这个项目？为什么websocket的通信会比较慢？</li>
+<li>rpc：负载均衡、轮询、一致性哈希如何实现的</li>
+<li>一致性哈希数据迁移的过程是如何的？</li>
+<li>自定义通信协议是怎么做的？和传统的通信协议有什么区别？</li>
+<li>TCP为什么三次握手而不是四次握手？</li>
+<li>TCP每次连接时序列号都一样吗？为什么不一样，有什么作用？</li>
+<li>time_wait为什么是2MSL？MSL是什么？(报文最大生存时间)</li>
+<li>TCP滑动窗口的算法？(不会，我换成拥塞控制算法了，拥塞控制算法也要看一看)</li>
+<li>简单介绍一下限流算法？</li>
+<li>为什么要做ZClub？参考了小红书哪些模块？(跟上设计思路)</li>
+<li>分片上传是怎么想到的？怎么设计的？</li>
+<li>断点重传是如何设计的？</li>
+<li>秒传是如何设计的？（有点扯淡的设计)</li>
+<li>Netty相关？零拷贝技术介绍一下？</li>
+<li>多路复用？select、poll、epoll介绍一些</li>
+<li>手撕重排链表</li>
+<li>反问：表现如何(前面还可以，基础扎实，但是算法有点可惜，要加强一下，项目也还可以，结果会在一周内给出)</li>
+</ol>
+<h2 id="数据的一致性、数据的稳定性、系统的稳定性、效率都是如何考虑的？会不会有丢的情况，丢的话如何处理的？"><a href="#数据的一致性、数据的稳定性、系统的稳定性、效率都是如何考虑的？会不会有丢的情况，丢的话如何处理的？" class="headerlink" title="数据的一致性、数据的稳定性、系统的稳定性、效率都是如何考虑的？会不会有丢的情况，丢的话如何处理的？"></a>数据的一致性、数据的稳定性、系统的稳定性、效率都是如何考虑的？会不会有丢的情况，丢的话如何处理的？</h2><ol>
+<li>使用事务，保证数据的组装、校验、导入等操作的原子性，如果中间环节失败，自动回滚。</li>
+<li>增量更新使用日期，以日为单位进行更新，防止重复更新</li>
+<li>同时对于同一业务实体的数据，通过RocketMQ顺序消息发送，确保消费者按照顺序处理，避免并发导致的脏数据。</li>
+<li>对于异常情况，记录日志，进行补偿。RocketMQ开启手动ACK模式，仅在数据成功落库之后提交Offset，多次重试之后转存到死信队列人工介入。</li>
+</ol>
+<h2 id="系统稳定性如何保证的"><a href="#系统稳定性如何保证的" class="headerlink" title="系统稳定性如何保证的"></a>系统稳定性如何保证的</h2><p>使用Redis记录最后处理的批次ID，故障后从断点处理</p>
+<h2 id="效率上如何优化的"><a href="#效率上如何优化的" class="headerlink" title="效率上如何优化的"></a>效率上如何优化的</h2><p>使用CF对多数据源进行拉取，异步并行处理</p>
+<h2 id="Redis分布式-锁如何实现的，有没有兜底策略啥的？"><a href="#Redis分布式-锁如何实现的，有没有兜底策略啥的？" class="headerlink" title="Redis分布式 锁如何实现的，有没有兜底策略啥的？"></a>Redis分布式 锁如何实现的，有没有兜底策略啥的？</h2><p>加锁的时候设置过期时间，解锁的时候使用lua脚本，确保判断锁存在，然后删除锁是一个原子操作。<br>兜底策略：合理的过期时间，使用看门狗，后台线程定期检测业务是否能够完成，延长锁的时间，私信队列/日志记录锁的异常行为，人工排查后强制释放<br>看门狗机制，每隔一段时间自动续期一次，保证锁不会过期。如果看门狗没有在指定时间内收到心跳恢复，会认为锁的写线程已经发生了故障，会尽量的处理死锁(强制解锁或者触发一个回调方法来处理死锁)</p>
+<h2 id="B-树的结构、节点是怎么组织的，存的是什么，为什么效率比较高？和B树的区别？"><a href="#B-树的结构、节点是怎么组织的，存的是什么，为什么效率比较高？和B树的区别？" class="headerlink" title="B+树的结构、节点是怎么组织的，存的是什么，为什么效率比较高？和B树的区别？"></a>B+树的结构、节点是怎么组织的，存的是什么，为什么效率比较高？和B树的区别？</h2><ol>
+<li>非叶子节点存储索引(键值)，不存储数据，支持更多分支，降低树的高度，叶子节点存储数据，并且通过双向链表连接，支持范围查询</li>
+<li>树低可以减少磁盘I/O次数</li>
+<li>B树非叶子节点也存数据，并且每一层的分支更少，树更高，且数据之间没有形成链表，范围查询时需要进行回溯。</li>
+</ol>
+<h2 id="B-树一个数据页如果满了，之后会发生什么？"><a href="#B-树一个数据页如果满了，之后会发生什么？" class="headerlink" title="B+树一个数据页如果满了，之后会发生什么？"></a>B+树一个数据页如果满了，之后会发生什么？</h2><p>会分裂为两个页，中间键提升到父节点<br>流程：</p>
+<ol>
+<li>创建新页：右半部分移到新页，提取中间键(如原表最后一条数据)插入父节点。</li>
+<li>更新父节点索引：父节点未满，直接插入中间键</li>
+<li>若父节点满，则递归分裂：父节点已满，递归触发父节点分裂</li>
+<li>分裂之后维护双向链表以保证顺序访问能够正常</li>
+</ol>
+<h2 id="分库分表"><a href="#分库分表" class="headerlink" title="分库分表"></a>分库分表</h2><p>使用ShardingSphere或者MyCat，比如可以将帖子按照时间分片</p>
+<h2 id="为什么使用WebSocket通信，效率会比较慢"><a href="#为什么使用WebSocket通信，效率会比较慢" class="headerlink" title="为什么使用WebSocket通信，效率会比较慢"></a>为什么使用WebSocket通信，效率会比较慢</h2><p>握手阶段需要HTTP升级，头部较大，并且会长期占用资源，高并发时会影响性能</p>
+<h2 id="RPC负载均衡的设计"><a href="#RPC负载均衡的设计" class="headerlink" title="RPC负载均衡的设计"></a>RPC负载均衡的设计</h2><p>轮询、一致性哈希(相同请求命中固定节点，减少数据迁移)</p>
+<h2 id="一致性哈希数据迁移"><a href="#一致性哈希数据迁移" class="headerlink" title="一致性哈希数据迁移"></a>一致性哈希数据迁移</h2><p>一致性哈希通过虚拟节点和局部迁移减少数据移动。例如，新增节点时，仅影响相邻区间的数据，</p>
+<ol>
+<li>新增节点：<ul>
+<li>哈希环上插入新节点的多个虚拟节点</li>
+<li>仅迁移新节点与顺时针相邻节点之间的数据</li>
+</ul>
+</li>
+<li>删除节点：<ol>
+<li>移除目标节点的所有虚拟节点</li>
+<li>将数据迁移到顺时针下一个节点</li>
+</ol>
+</li>
+<li>客户端进行切换，逐步将请求路由到新节点，避免瞬时负载过高。</li>
+</ol>
+<h2 id="自定义通信协议设计，对比传统协议如何？"><a href="#自定义通信协议设计，对比传统协议如何？" class="headerlink" title="自定义通信协议设计，对比传统协议如何？"></a>自定义通信协议设计，对比传统协议如何？</h2><p>协议的组成：</p>
+<ol>
+<li>Header<ul>
+<li>魔数：1字节</li>
+<li>版本号：1字节</li>
+<li>序列化器：1字节</li>
+<li>消息类型：1字节</li>
+<li>消息状态：1字节</li>
+<li>请求id：8个字节</li>
+<li>压缩方式：1字节</li>
+<li>消息体长度：4字节</li>
+</ul>
+</li>
+<li>Body(任意内容，字节)<br>优势：支持多种序列化与压缩(如Gzip)，使用更灵活，无HTTP头部冗余</li>
+</ol>
+<h2 id="为什么TCP每次建立连接时序列号不同？"><a href="#为什么TCP每次建立连接时序列号不同？" class="headerlink" title="为什么TCP每次建立连接时序列号不同？"></a>为什么TCP每次建立连接时序列号不同？</h2><p>为了防止重放攻击</p>
+<h2 id="time-wait为什么是2MSL？MSL是什么？-报文最大生存时间"><a href="#time-wait为什么是2MSL？MSL是什么？-报文最大生存时间" class="headerlink" title="time_wait为什么是2MSL？MSL是什么？(报文最大生存时间)"></a>time_wait为什么是2MSL？MSL是什么？(报文最大生存时间)</h2><p>MSL要大于等于TTL消耗为0的时间<br>MSL是报文的最大生存时间，网络中可能存在来自发送方的数据被接收方处理之后，又会发送响应，一来一回所以需要等待二倍的时间。</p>
+<h2 id="拥塞算法"><a href="#拥塞算法" class="headerlink" title="拥塞算法"></a>拥塞算法</h2><ul>
+<li><strong>慢启动</strong>：初始拥塞窗口指数增长。</li>
+<li><strong>拥塞避免</strong>：窗口线性增长。</li>
+<li><strong>快重传</strong>：收到3个重复ACK立即重传。</li>
+<li><strong>快恢复</strong>：窗口减半后进入拥塞避免。</li>
+</ul>
+<h2 id="限流算法有哪些？"><a href="#限流算法有哪些？" class="headerlink" title="限流算法有哪些？"></a>限流算法有哪些？</h2><ul>
+<li><strong>固定窗口</strong>：单位时间限请求数，简单但临界突发。</li>
+<li><strong>滑动窗口</strong>：细分时间块，平滑限流。</li>
+<li><strong>令牌桶</strong>：匀速生成令牌，允许突发。</li>
+<li><strong>漏桶</strong>：恒定速率处理，平滑流量。</li>
+</ul>
+<h2 id="分片上传、断点重传、秒传设计的细节"><a href="#分片上传、断点重传、秒传设计的细节" class="headerlink" title="分片上传、断点重传、秒传设计的细节"></a>分片上传、断点重传、秒传设计的细节</h2><ul>
+<li><strong>分片上传</strong>：<ol>
+<li>前端将文件切分为固定大小（如5MB）。</li>
+<li>服务端为每个分片生成唯一ID，并行上传。</li>
+<li>所有分片上传完成后合并。</li>
+</ol>
+</li>
+<li><strong>断点续传</strong>：<ul>
+<li>记录已上传分片ID至Redis。</li>
+<li>续传时跳过已传分片。</li>
+</ul>
+</li>
+<li><strong>秒传</strong><ul>
+<li>计算文件MD5作为唯一标识</li>
+<li>上传前查询服务器是否存在相同哈希</li>
+<li>如果存在直接返回地址，无需重复上传</li>
+</ul>
+</li>
+</ul>
+<h2 id="TCP滑动窗口算法"><a href="#TCP滑动窗口算法" class="headerlink" title="TCP滑动窗口算法"></a>TCP滑动窗口算法</h2><ol>
+<li>接收方维护一个可接受的数据量大小，也就是滑动窗口大小，并且通过ACK报文来通告对方大小，发送方据此来调整发送速率</li>
+<li>动态滑动：每收到一个ACK窗口向前滑动允许发送新的数据</li>
+<li>流量控制：接收方通过减小窗口，抑制发送方速率，防止缓冲区溢出</li>
+</ol>
+<h2 id="四次挥手是否可以合并为三次"><a href="#四次挥手是否可以合并为三次" class="headerlink" title="四次挥手是否可以合并为三次"></a>四次挥手是否可以合并为三次</h2><p>如果被动关闭方无数据发送，可将FIN和ACK合并，依赖延迟确认机制。<br>可能会导致主动关闭方每收到最终的ACK，被动方已经关闭</p>
+<h2 id="简单介绍一下PageCache"><a href="#简单介绍一下PageCache" class="headerlink" title="简单介绍一下PageCache"></a>简单介绍一下PageCache</h2><p><strong>PageCache通过内存缓存磁盘数据，加速文件访问。例如，读取文件时，优先从PageCache获取，未命中再访问磁盘，结合预读和写回优化整体性能。</strong></p>
+<p>将频繁访问的文件数据缓存在内存中，从而减少磁盘IO，同时可以根据访问模式预加载后续数据，提升读取效率，写回时可以延迟磁盘写入，合并多次写操作，降低磁盘IO</p>
+<h1 id="2025-02-19-二面-20多分钟-，问了一点实习，还有一点计网，然后写了个LRU-秒了，怀疑是kpi"><a href="#2025-02-19-二面-20多分钟-，问了一点实习，还有一点计网，然后写了个LRU-秒了，怀疑是kpi" class="headerlink" title="2025.02.19 二面 (20多分钟 ，问了一点实习，还有一点计网，然后写了个LRU 秒了，怀疑是kpi)"></a>2025.02.19 二面 (20多分钟 ，问了一点实习，还有一点计网，然后写了个LRU 秒了，怀疑是kpi)</h1><ol>
+<li>自我介绍</li>
+<li>实习时间，何时到岗(画饼说如果有hc的可以转正，感觉纯画饼)</li>
+<li>学校安排，如何处理考试啥的</li>
+<li>到岗时间</li>
+<li>实习介绍</li>
+<li>手撕LRU</li>
+<li>反问岗位：直播结算？整体基础不错，但是实习经历比较平淡</li>
+</ol>
+<p>后续：挂了</p>
+<h2 id="mysql一次性查询200w数据，msyql会出现问题，我该如何处理，如何优化，业务是数据批处理和同步到其他数据库中，如何保证这200w条数据的一致性、准确性、稳定性、容错呢，怎么样保证这个查询不会影响其他查询的性能呢？"><a href="#mysql一次性查询200w数据，msyql会出现问题，我该如何处理，如何优化，业务是数据批处理和同步到其他数据库中，如何保证这200w条数据的一致性、准确性、稳定性、容错呢，怎么样保证这个查询不会影响其他查询的性能呢？" class="headerlink" title="mysql一次性查询200w数据，msyql会出现问题，我该如何处理，如何优化，业务是数据批处理和同步到其他数据库中，如何保证这200w条数据的一致性、准确性、稳定性、容错呢，怎么样保证这个查询不会影响其他查询的性能呢？"></a>mysql一次性查询200w数据，msyql会出现问题，我该如何处理，如何优化，业务是数据批处理和同步到其他数据库中，如何保证这200w条数据的一致性、准确性、稳定性、容错呢，怎么样保证这个查询不会影响其他查询的性能呢？</h2><ol>
+<li>使用基于有序主键的范围查询WHERE id &gt; last_max_id LIMIT batich_size</li>
+<li>流式查询：使用JDBC/连接器的游标，或者服务端游标，减少内存压力</li>
+<li>索引覆盖：确保查询仅能通过所以即可完成避免回表</li>
+<li>资源隔离：通过MySQL资源组和中间件限制查询的CPU/IO资源<br>数据一致性如何保证：</li>
+<li>事务与批次提交：使用事务保证单批次操作的原子性，分批提交(每1000条提交一次)</li>
+<li>幂等设计：通过唯一键、版本号避免重复处理</li>
+<li>分布式锁：同步时标记正在处理的记录，防止并发冲突</li>
+<li>补偿机制：记录同步日志，通过定时任务修复不一致数据<br>稳定性设计：</li>
+<li>熔断降级：服务中引入熔断机制，异常时暂停任务并且告警</li>
+<li>重试策略：网络抖动使用指数避退重试</li>
+<li>异步化处理：将数据同步任务提交到线程池或者消息队列，解耦试试性要求</li>
+</ol>
+<h2 id="为什么使用RocketMQ和Kafka对比，适合场景，RocketMQ底层是如何做的顺序保障的"><a href="#为什么使用RocketMQ和Kafka对比，适合场景，RocketMQ底层是如何做的顺序保障的" class="headerlink" title="为什么使用RocketMQ和Kafka对比，适合场景，RocketMQ底层是如何做的顺序保障的"></a>为什么使用RocketMQ和Kafka对比，适合场景，RocketMQ底层是如何做的顺序保障的</h2><p>Kafka：</p>
+<ol>
+<li>高吞吐日志流处理，适合大数据场景</li>
+<li>顺序消息只能保证分区内顺序，需要业务自行管理分区键<br>RocketMQ：</li>
+<li>金融级事务消息、顺序消息、延迟消息支持更好</li>
+<li>通过MessageQueue锁机制严格保证同一队列的顺序性</li>
+<li>提供两阶段提交(版消息机制)，Kafka需要自行实现。</li>
+</ol>
+<h3 id="RocketMQ顺序性的实现原理"><a href="#RocketMQ顺序性的实现原理" class="headerlink" title="RocketMQ顺序性的实现原理"></a>RocketMQ顺序性的实现原理</h3><ol>
+<li>队列分配：生产者通过MessageQueueSelector将同一业务ID的消息发送到固定的队列中</li>
+<li>消费端：消费者对队列加锁，单线程顺序消费</li>
+<li>失败重试：若某条消息消费失败，会阻塞后续消息直到处理成功</li>
+</ol>
+<h2 id="MongoDB了解和MySQL的区别"><a href="#MongoDB了解和MySQL的区别" class="headerlink" title="MongoDB了解和MySQL的区别"></a>MongoDB了解和MySQL的区别</h2><h2 id="看门狗的底层"><a href="#看门狗的底层" class="headerlink" title="看门狗的底层"></a>看门狗的底层</h2><h2 id="浏览器键入URL会发生什么，路由转发过程，每一层如何寻址，如何解数据包和包装"><a href="#浏览器键入URL会发生什么，路由转发过程，每一层如何寻址，如何解数据包和包装" class="headerlink" title="浏览器键入URL会发生什么，路由转发过程，每一层如何寻址，如何解数据包和包装"></a>浏览器键入URL会发生什么，路由转发过程，每一层如何寻址，如何解数据包和包装</h2>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/12/24/44/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2516,370 +2740,6 @@ executor<span class="token punctuation">.</span><span class="token function">shu
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://zuofw.github.io/2024/09/22/32/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="QingQiu">
-      <meta itemprop="description" content="个人网站，学习记录，面试记录和经验总结、互联网中一块属于自己的小窝">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="QingQiu'Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/09/22/32/" class="post-title-link" itemprop="url">深入浅出动态代理</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-09-22 17:32:32" itemprop="dateCreated datePublished" datetime="2024-09-22T17:32:32+08:00">2024-09-22</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E7%B3%BB%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">深入理解系列</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>7.6k</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>面试中经常被问到动态代理相关内容，每次都答得不够完美，又因近期在尝试手写RPC框架，了解到不少的动态代理相关的内容，顺道总结一下，于是就有了这篇文章</p>
-<h1 id="静态代理-动态代理！"><a href="#静态代理-动态代理！" class="headerlink" title="静态代理? 动态代理！"></a>静态代理? 动态代理！</h1><h2 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h2><p>静态代理是在编译期间就生成了实际的字节码和对应的class文件，而动态代理可以在运行中动态生成代理类。</p>
-<ul>
-<li>静态代理示例<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Service</span> <span class="token punctuation">{</span>
-    <span class="token keyword">void</span> <span class="token function">perform</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token comment">// 实际类</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RealService</span> <span class="token keyword">implements</span> <span class="token class-name">Service</span> <span class="token punctuation">{</span>
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">perform</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Performing service..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span class="token comment">// 代理类也要实现和被代理的类实现的同一个接口才能进行代理</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">StaticProxy</span> <span class="token keyword">implements</span> <span class="token class-name">Service</span> <span class="token punctuation">{</span>
-	<span class="token comment">// 将需要代理的类封装到自己的内部</span>
-    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">Service</span> realService<span class="token punctuation">;</span>
-	
-    <span class="token keyword">public</span> <span class="token class-name">StaticProxy</span><span class="token punctuation">(</span><span class="token class-name">Service</span> realService<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>realService <span class="token operator">=</span> realService<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-	<span class="token comment">// 实际就是在实现的方法中进行代理操作，然后执行被代理的类的方法</span>
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">perform</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Static Proxy: Before performing service"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        realService<span class="token punctuation">.</span><span class="token function">perform</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Static Proxy: After performing service"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-实际上就是通过将被代理类封装到内部，然后调用。缺点很明显：没新增一个代理都需要重新新建一个类然后重新写一个包装。</li>
-<li>动态代理实例(JDK代理)<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>reflect<span class="token punctuation">.</span></span><span class="token class-name">InvocationHandler</span></span><span class="token punctuation">;</span>
-<span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>reflect<span class="token punctuation">.</span></span><span class="token class-name">Method</span></span><span class="token punctuation">;</span>
-<span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>reflect<span class="token punctuation">.</span></span><span class="token class-name">Proxy</span></span><span class="token punctuation">;</span>
-
-<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Service</span> <span class="token punctuation">{</span>
-    <span class="token keyword">void</span> <span class="token function">perform</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RealService</span> <span class="token keyword">implements</span> <span class="token class-name">Service</span> <span class="token punctuation">{</span>
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">perform</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Performing service..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DynamicProxyHandler</span> <span class="token keyword">implements</span> <span class="token class-name">InvocationHandler</span> <span class="token punctuation">{</span>
-    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">Object</span> target<span class="token punctuation">;</span>
-
-    <span class="token keyword">public</span> <span class="token class-name">DynamicProxyHandler</span><span class="token punctuation">(</span><span class="token class-name">Object</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>target <span class="token operator">=</span> target<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-	<span class="token comment">// </span>
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token class-name">Object</span> <span class="token function">invoke</span><span class="token punctuation">(</span><span class="token class-name">Object</span> proxy<span class="token punctuation">,</span> <span class="token class-name">Method</span> method<span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Throwable</span> <span class="token punctuation">{</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Dynamic Proxy: Before performing service"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token class-name">Object</span> result <span class="token operator">=</span> method<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span>target<span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Dynamic Proxy: After performing service"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> result<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DynamicProxyDemo</span> <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token class-name">Service</span> realService <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">RealService</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token class-name">Service</span> proxyInstance <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">Service</span><span class="token punctuation">)</span> <span class="token class-name">Proxy</span><span class="token punctuation">.</span><span class="token function">newProxyInstance</span><span class="token punctuation">(</span>
-                realService<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-                realService<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getInterfaces</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-                <span class="token keyword">new</span> <span class="token class-name">DynamicProxyHandler</span><span class="token punctuation">(</span>realService<span class="token punctuation">)</span>
-        <span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-        proxyInstance<span class="token punctuation">.</span><span class="token function">perform</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-<h2 id="源码解读"><a href="#源码解读" class="headerlink" title="源码解读"></a>源码解读</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/mingshan/p/17793555.html">参考</a></p>
-<h3 id="解密Proxy"><a href="#解密Proxy" class="headerlink" title="解密Proxy"></a>解密Proxy</h3><p>(以下是基于Java8的源码)<br>我们在使用JDK动态代理的时候使用的最多的就是<code>Proxy.newProxyInstance()</code>方法，接下来我们就来解密这个方法是如何实现我们的动态代理。</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@CallerSensitive</span>
-   <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">Object</span> <span class="token function">newProxyInstance</span><span class="token punctuation">(</span><span class="token class-name">ClassLoader</span> loader<span class="token punctuation">,</span>
-                                         <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">[</span><span class="token punctuation">]</span> interfaces<span class="token punctuation">,</span>
-                                         <span class="token class-name">InvocationHandler</span> h<span class="token punctuation">)</span>
-       <span class="token keyword">throws</span> <span class="token class-name">IllegalArgumentException</span>
-   <span class="token punctuation">{</span>
-    <span class="token comment">// 检查空指针异常</span>
-       <span class="token class-name">Objects</span><span class="token punctuation">.</span><span class="token function">requireNonNull</span><span class="token punctuation">(</span>h<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-       <span class="token keyword">final</span> <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">[</span><span class="token punctuation">]</span> intfs <span class="token operator">=</span> interfaces<span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-       <span class="token comment">// 安全检查</span>
-       <span class="token keyword">final</span> <span class="token class-name">SecurityManager</span> sm <span class="token operator">=</span> <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">getSecurityManager</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-       <span class="token keyword">if</span> <span class="token punctuation">(</span>sm <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-           <span class="token function">checkProxyAccess</span><span class="token punctuation">(</span><span class="token class-name">Reflection</span><span class="token punctuation">.</span><span class="token function">getCallerClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> loader<span class="token punctuation">,</span> intfs<span class="token punctuation">)</span><span class="token punctuation">;</span>
-       <span class="token punctuation">}</span>
-
-       <span class="token comment">// 生成代理类</span>
-       <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> cl <span class="token operator">=</span> <span class="token function">getProxyClass0</span><span class="token punctuation">(</span>loader<span class="token punctuation">,</span> intfs<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-       <span class="token comment">/*
-        * Invoke its constructor with the designated invocation handler.
-        */</span>
-       <span class="token keyword">try</span> <span class="token punctuation">{</span>
-           <span class="token keyword">if</span> <span class="token punctuation">(</span>sm <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-               <span class="token function">checkNewProxyPermission</span><span class="token punctuation">(</span><span class="token class-name">Reflection</span><span class="token punctuation">.</span><span class="token function">getCallerClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> cl<span class="token punctuation">)</span><span class="token punctuation">;</span>
-           <span class="token punctuation">}</span>
-
-           <span class="token keyword">final</span> <span class="token class-name">Constructor</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> cons <span class="token operator">=</span> cl<span class="token punctuation">.</span><span class="token function">getConstructor</span><span class="token punctuation">(</span>constructorParams<span class="token punctuation">)</span><span class="token punctuation">;</span>
-           <span class="token keyword">final</span> <span class="token class-name">InvocationHandler</span> ih <span class="token operator">=</span> h<span class="token punctuation">;</span>
-           <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token class-name">Modifier</span><span class="token punctuation">.</span><span class="token function">isPublic</span><span class="token punctuation">(</span>cl<span class="token punctuation">.</span><span class="token function">getModifiers</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-               <span class="token class-name">AccessController</span><span class="token punctuation">.</span><span class="token function">doPrivileged</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">PrivilegedAction</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Void</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                   <span class="token keyword">public</span> <span class="token class-name">Void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                       cons<span class="token punctuation">.</span><span class="token function">setAccessible</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                       <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
-                   <span class="token punctuation">}</span>
-               <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-           <span class="token punctuation">}</span>
-           <span class="token keyword">return</span> cons<span class="token punctuation">.</span><span class="token function">newInstance</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span>h<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-       <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">IllegalAccessException</span><span class="token operator">|</span><span class="token class-name">InstantiationException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-           <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">InternalError</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span><span class="token punctuation">;</span>
-       <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InvocationTargetException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-           <span class="token class-name">Throwable</span> t <span class="token operator">=</span> e<span class="token punctuation">.</span><span class="token function">getCause</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-           <span class="token keyword">if</span> <span class="token punctuation">(</span>t <span class="token keyword">instanceof</span> <span class="token class-name">RuntimeException</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-               <span class="token keyword">throw</span> <span class="token punctuation">(</span><span class="token class-name">RuntimeException</span><span class="token punctuation">)</span> t<span class="token punctuation">;</span>
-           <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-               <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">InternalError</span><span class="token punctuation">(</span>t<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> t<span class="token punctuation">)</span><span class="token punctuation">;</span>
-           <span class="token punctuation">}</span>
-       <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">NoSuchMethodException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-           <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">InternalError</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span><span class="token punctuation">;</span>
-       <span class="token punctuation">}</span>
-   <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>参数解析:</p>
-<ul>
-<li>loader：类加载器，用于自定义加载类</li>
-<li>interface 接口数组，代理类将实现这些接口</li>
-<li>h 调用处理器，处理代理实例上的方法调用<br>这段代码的主要意思是获取调用者类和代理类构造函数。<br>接着关注getProxyClass0方法<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> <span class="token function">getProxyClass0</span><span class="token punctuation">(</span><span class="token class-name">ClassLoader</span> loader<span class="token punctuation">,</span>
-                                          <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> interfaces<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-       <span class="token comment">// 规定对实现的接口数量不得超过这个数量</span>
-       <span class="token keyword">if</span> <span class="token punctuation">(</span>interfaces<span class="token punctuation">.</span>length <span class="token operator">&gt;</span> <span class="token number">65535</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-           <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span><span class="token string">"interface limit exceeded"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-       <span class="token punctuation">}</span>
-
-       <span class="token comment">// If the proxy class defined by the given loader implementing</span>
-       <span class="token comment">// the given interfaces exists, this will simply return the cached copy;</span>
-       <span class="token comment">// otherwise, it will create the proxy class via the ProxyClassFactory</span>
-       <span class="token keyword">return</span> proxyClassCache<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>loader<span class="token punctuation">,</span> interfaces<span class="token punctuation">)</span><span class="token punctuation">;</span>
-   <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-接着看proxyClassCache<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// 使用WeakCache降低出现内存泄漏的概率</span>
-<span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">WeakCache</span><span class="token operator">&lt;</span><span class="token class-name">ClassLoader</span><span class="token punctuation">,</span> <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span><span class="token operator">&gt;</span>  
-    proxyClassCache <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">WeakCache</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">KeyFactory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ProxyClassFactory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-核心是ProxyClassFactroy，让我们关注它<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// 核心是实现BiFunction</span>
-<span class="token comment">/**
- * ProxyClassFactory 是一个工厂类，用于生成和定义代理类。
- * 它实现了 BiFunction 接口，接受 ClassLoader 和接口数组作为输入，
- * 返回生成的代理类。
- */</span>
-<span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">class</span> <span class="token class-name">ProxyClassFactory</span>
-    <span class="token keyword">implements</span> <span class="token class-name">BiFunction</span><span class="token operator">&lt;</span><span class="token class-name">ClassLoader</span><span class="token punctuation">,</span> <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
-
-    <span class="token comment">// 所有代理类名称的前缀</span>
-    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">String</span> proxyClassNamePrefix <span class="token operator">=</span> <span class="token string">"$Proxy"</span><span class="token punctuation">;</span>
-
-    <span class="token comment">// 用于生成唯一代理类名称的下一个数字</span>
-    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">AtomicLong</span> nextUniqueNumber <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AtomicLong</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token comment">/**
-     * 生成并定义代理类。
-     *
-     * @param loader 用于定义代理类的��加载器
-     * @param interfaces 代理类要实现的接口数组
-     * @return 生成的代理类
-     * @throws IllegalArgumentException 如果接口数组中的任何接口不可见或不是接口，或接口重复
-     */</span>
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> <span class="token function">apply</span><span class="token punctuation">(</span><span class="token class-name">ClassLoader</span> loader<span class="token punctuation">,</span> <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">[</span><span class="token punctuation">]</span> interfaces<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-
-        <span class="token comment">// 使用 IdentityHashMap 检查接口是否重复</span>
-        <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Class</span><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span><span class="token punctuation">,</span> <span class="token class-name">Boolean</span><span class="token punctuation">&gt;</span></span> interfaceSet <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">IdentityHashMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span>interfaces<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> intf <span class="token operator">:</span> interfaces<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token comment">/*
-             * 验证类加载器是否将此接口的名称解析为相同的 Class 对象。
-             */</span>
-            <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> interfaceClass <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
-            <span class="token keyword">try</span> <span class="token punctuation">{</span>
-	            <span class="token comment">// 对于每一个使用指定的加载器去加载他的对象</span>
-                interfaceClass <span class="token operator">=</span> <span class="token class-name">Class</span><span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span>intf<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> loader<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">ClassNotFoundException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token punctuation">}</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>interfaceClass <span class="token operator">!=</span> intf<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span>
-                    intf <span class="token operator">+</span> <span class="token string">" is not visible from class loader: "</span> <span class="token operator">+</span> loader<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-            <span class="token comment">/*
-             * 验证 Class 对象是否实际代表一个接口。
-             */</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>interfaceClass<span class="token punctuation">.</span><span class="token function">isInterface</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span>
-                    interfaceClass<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">" is not an interface"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-            <span class="token comment">/*
-             * 验证此接口是否重复。
-             */</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>interfaceSet<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>interfaceClass<span class="token punctuation">,</span> <span class="token class-name">Boolean</span><span class="token punctuation">.</span><span class="token constant">TRUE</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span>
-                    <span class="token string">"repeated interface: "</span> <span class="token operator">+</span> interfaceClass<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-
-        <span class="token class-name">String</span> proxyPkg <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>     <span class="token comment">// 定义代理类的包</span>
-        <span class="token keyword">int</span> accessFlags <span class="token operator">=</span> <span class="token class-name">Modifier</span><span class="token punctuation">.</span><span class="token constant">PUBLIC</span> <span class="token operator">|</span> <span class="token class-name">Modifier</span><span class="token punctuation">.</span><span class="token constant">FINAL</span><span class="token punctuation">;</span>
-
-        <span class="token comment">/*
-         * 记录非公共代理接口的包，以便代理类将在同一包中定义。
-         * 验证所有非公共代理接口是否在同一包中。
-         */</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> intf <span class="token operator">:</span> interfaces<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">int</span> flags <span class="token operator">=</span> intf<span class="token punctuation">.</span><span class="token function">getModifiers</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token class-name">Modifier</span><span class="token punctuation">.</span><span class="token function">isPublic</span><span class="token punctuation">(</span>flags<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                accessFlags <span class="token operator">=</span> <span class="token class-name">Modifier</span><span class="token punctuation">.</span><span class="token constant">FINAL</span><span class="token punctuation">;</span>
-                <span class="token class-name">String</span> name <span class="token operator">=</span> intf<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token keyword">int</span> n <span class="token operator">=</span> name<span class="token punctuation">.</span><span class="token function">lastIndexOf</span><span class="token punctuation">(</span><span class="token char">'.'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token class-name">String</span> pkg <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>n <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token string">""</span> <span class="token operator">:</span> name<span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> n <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token keyword">if</span> <span class="token punctuation">(</span>proxyPkg <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                    proxyPkg <span class="token operator">=</span> pkg<span class="token punctuation">;</span>
-                <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>pkg<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>proxyPkg<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                    <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span>
-                        <span class="token string">"non-public interfaces from different packages"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token punctuation">}</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>proxyPkg <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token comment">// 如果没有非公共代理接口，使用 com.sun.proxy 包</span>
-            proxyPkg <span class="token operator">=</span> <span class="token class-name">ReflectUtil</span><span class="token punctuation">.</span><span class="token constant">PROXY_PACKAGE</span> <span class="token operator">+</span> <span class="token string">"."</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-
-        <span class="token comment">/*
-         * 选择要生成的代理类的名称。
-         */</span>
-        <span class="token keyword">long</span> num <span class="token operator">=</span> nextUniqueNumber<span class="token punctuation">.</span><span class="token function">getAndIncrement</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token class-name">String</span> proxyName <span class="token operator">=</span> proxyPkg <span class="token operator">+</span> proxyClassNamePrefix <span class="token operator">+</span> num<span class="token punctuation">;</span>
-
-        <span class="token comment">/*
-         * 生成指定的代理类。
-         */</span>
-        <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> proxyClassFile <span class="token operator">=</span> <span class="token class-name">ProxyGenerator</span><span class="token punctuation">.</span><span class="token function">generateProxyClass</span><span class="token punctuation">(</span>
-            proxyName<span class="token punctuation">,</span> interfaces<span class="token punctuation">,</span> accessFlags<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">try</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token function">defineClass0</span><span class="token punctuation">(</span>loader<span class="token punctuation">,</span> proxyName<span class="token punctuation">,</span>
-                                proxyClassFile<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> proxyClassFile<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">ClassFormatError</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token comment">/*
-             * 这里的 ClassFormatError 意味着（除非代理类生成代码中有错误），
-             * 否则是代理类创建时提供的参数存在其他无效方面（例如虚拟机限制超出）。
-             */</span>
-            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-BiFunction 是 Java 8 引入的一个函数式接口，位于 java.util.function 包中。它代表一个接受两个输入参数并返回一个结果的函数。BiFunction 接口定义如下：<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@FunctionalInterface</span>
-<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">BiFunction</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">,</span> <span class="token class-name">U</span><span class="token punctuation">,</span> <span class="token class-name">R</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">{</span>
-    <span class="token class-name">R</span> <span class="token function">apply</span><span class="token punctuation">(</span><span class="token class-name">T</span> t<span class="token punctuation">,</span> <span class="token class-name">U</span> u<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token comment">// 其他默认方法</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-然后我们顺着往下找，通过generateProxyClass -&gt;generateClassFile -&gt;generateMethod<br>代码过长这里只给出比较重要的部分<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token punctuation">{</span>
-	<span class="token comment">// 获取InvocationHandler字段</span>
-	 out<span class="token punctuation">.</span><span class="token function">writeByte</span><span class="token punctuation">(</span>opc_getfield<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            out<span class="token punctuation">.</span><span class="token function">writeShort</span><span class="token punctuation">(</span>cp<span class="token punctuation">.</span><span class="token function">getFieldRef</span><span class="token punctuation">(</span>
-                superclassName<span class="token punctuation">,</span>
-                handlerFieldName<span class="token punctuation">,</span> <span class="token string">"Ljava/lang/reflect/InvocationHandler;"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-	<span class="token comment">// 加载Method对象</span>
-            <span class="token function">code_aload</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> out<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-            out<span class="token punctuation">.</span><span class="token function">writeByte</span><span class="token punctuation">(</span>opc_getstatic<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            out<span class="token punctuation">.</span><span class="token function">writeShort</span><span class="token punctuation">(</span>cp<span class="token punctuation">.</span><span class="token function">getFieldRef</span><span class="token punctuation">(</span>
-                <span class="token function">dotToSlash</span><span class="token punctuation">(</span>className<span class="token punctuation">)</span><span class="token punctuation">,</span>
-                methodFieldName<span class="token punctuation">,</span> <span class="token string">"Ljava/lang/reflect/Method;"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-	<span class="token comment">// 后面紧跟处理方法参数的部分，这部分省略</span>
-
-	<span class="token comment">// 重点！</span>
-	<span class="token comment">// 调用InvocationHandler.invoke方法</span>
-	 out<span class="token punctuation">.</span><span class="token function">writeByte</span><span class="token punctuation">(</span>opc_invokeinterface<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            out<span class="token punctuation">.</span><span class="token function">writeShort</span><span class="token punctuation">(</span>cp<span class="token punctuation">.</span><span class="token function">getInterfaceMethodRef</span><span class="token punctuation">(</span>
-                <span class="token string">"java/lang/reflect/InvocationHandler"</span><span class="token punctuation">,</span>
-                <span class="token string">"invoke"</span><span class="token punctuation">,</span>
-                <span class="token string">"(Ljava/lang/Object;Ljava/lang/reflect/Method;"</span> <span class="token operator">+</span>
-                    <span class="token string">"[Ljava/lang/Object;)Ljava/lang/Object;"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            out<span class="token punctuation">.</span><span class="token function">writeByte</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            out<span class="token punctuation">.</span><span class="token function">writeByte</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// 后面设置返回值和异常处理等信息，最后返回方法的信息</span>
-	<span class="token keyword">return</span> minfo<span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-到这里我们才终于发现JDK动态代理的原理：<br>原来就是在代理方法中通过Proxy引用了自定义的InvocationHandler！！<br>通过Proxy.newProxyInstance()方法将invocationHandler传入，然后生成代理类来继承Proxy类，从而拿到InvocationHandler，最后在代理类中调用invoke()方法</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2949,7 +2809,7 @@ BiFunction 是 Java 8 引入的一个函数式接口，位于 java.util.function
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">62</span>
+          <span class="site-state-item-count">63</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
